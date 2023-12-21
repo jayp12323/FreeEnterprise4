@@ -18,7 +18,7 @@ O8:char_cecil/O8:char_kain/O8:char_rydia/O8:char_tellah/O8:char_edward/O8:char_r
 Orandom:1/Orandom:2/Orandom:3/Orandom:4/Orandom:5/Orandom:6/Orandom:7/Orandom:8 Orandom:quest/Orandom:tough_quest Orandom:boss Orandom:char
 Oreq:all/Oreq:1/Oreq:2/Oreq:3/Oreq:4/Oreq:5/Oreq:6/Oreq:7/Oreq:8/Oreq:9/Oreq:10
 Owin:game/Owin:crystal
-Kvanilla Kmain Ksummon Kmoon Kmiab Knofree Kunsafe Kforce:magma/Kforce:hook
+Kvanilla Kmain Ksummon Kmoon Kmiab Knofree Kunsafe Kforce:magma/Kforce:hook KStart:darkness
 Pnone Pshop Pkey Pchests
 Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe 
 Cdistinct:1/Cdistinct:2/Cdistinct:3/Cdistinct:4/Cdistinct:5/Cdistinct:6/Cdistinct:7/Cdistinct:8/Cdistinct:9/Cdistinct:10/Cdistinct:11
@@ -95,6 +95,7 @@ Knofree              no_free_key_item
 Kunsafe              key_items_unsafe
 Kforce:magma         key_items_force_magma
 Kforce:hook          key_items_force_hook
+Kstart:darkness      key_items_start_darkness
 
 Pnone                pass_none
 Pshop                pass_in_shop

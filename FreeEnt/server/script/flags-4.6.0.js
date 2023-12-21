@@ -730,6 +730,7 @@ const _FE_FLAGSPEC = {
         "Kmiab",
         "Knofree",
         "Kunsafe",
+        "Kstart:darkness",
         "Kforce:magma",
         "Kforce:hook",
         "Pnone",
@@ -8151,7 +8152,13 @@ const _FE_FLAGSPEC = {
             "offset": 261,
             "size": 4,
             "value": 9
-        }
+        },
+        {
+            "flag": "Kstart:darkness",
+            "offset": 265,
+            "size": 6,
+            "value": 1
+        },
     ],
     "implicit": {
         "Onone": [
