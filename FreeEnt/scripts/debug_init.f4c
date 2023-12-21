@@ -27,7 +27,7 @@ give item #fe_CustomWeapon
 
 //set #CarryingAroundChildRydia
 
-/*
+
 give item #CrossBow
 give item #WhiteArrow
 give item #Spoon
@@ -50,7 +50,7 @@ give item #BigBomb
 give item #BigBomb
 give item #BigBomb
 give spell #RydiaBlack #Stop
-*/
+
 
 //set #fe_GotDarkCrystal
 set #fe_GotPackage
