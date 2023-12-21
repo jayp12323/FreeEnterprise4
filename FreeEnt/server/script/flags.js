@@ -732,7 +732,6 @@ const _FE_FLAGSPEC = {
         "Kunsafe",
         "Kforce:magma",
         "Kforce:hook",
-        "Kstart:darkness",
         "Pnone",
         "Pshop",
         "Pkey",
