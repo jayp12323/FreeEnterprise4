@@ -120,7 +120,7 @@ Party members that are swoon or stone at the end of any battle are permanently r
 - The hero is your agility anchor.
 - The hero is exempt from permadeath.
 
-[Chero]
+[Csuperhero]
 - This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).
 
 [Tshuffle]
