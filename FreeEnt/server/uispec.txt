@@ -67,8 +67,6 @@
 ...(Kforce:magma) Guarantee underworld access via Magma Key
 ...(Kforce:hook)! Force underworld access via Hook route
 ..[Kunsafe]! No safety checks
-..<> Starting Key Items
-...(Kstart:darkness) Start with the darkness crystal
 
 == PASS
 [Pshop] Include Pass in a shop
