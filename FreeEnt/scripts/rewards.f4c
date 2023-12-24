@@ -317,14 +317,26 @@ msfpatch {
         ldx #$_Tracker__KeyItemFoundFlags
         jsl $=Tracker__SetBit
         lda $_Rewards__CurrentValueLo
-        cmp #$3e // check if spoon
-        bne $+ItemNotYetUsed
+        // Earth crystal depowers superhero
+        cmp #$f1
+        beq $+RemoveSuperhero
+        cmp #$3e // check if spoon        
+        bne $+ItemNotYetUsed        
         // for items like spoon, mark as already "used"
         lda $1680
         ldx #$_Tracker__KeyItemUsedFlags
         jsl $=Tracker__SetBit
-    %ItemNotYetUsed:
-    
+        bra $+ItemNotYetUsed
+    %RemoveSuperhero:
+        ldx #$0000
+    %RemoveSuperheroLoop:        
+        lda $100f,x
+        sbc #$48
+        sta $100f,x
+        inx
+        cpx #$000a
+        bcc $+RemoveSuperheroLoop
+    %ItemNotYetUsed:    
         lda $1680
         asl a
         tax
@@ -334,7 +346,8 @@ msfpatch {
         lda #$00
         sta $=Tracker__KeyItemLocations,x
 
-        rtl
+        rtl   
+        
 }
 
 msfpatch {

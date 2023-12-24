@@ -380,6 +380,10 @@ def apply(env):
     keyitem_assigner.item_tier(3).set_max_slot_bucket(2)
 
     keyitem_assigner.slot_tier(0).extend(ITEM_SLOTS)
+
+    # debug
+    #keyitem_assigner.slot_tier(0).remove(RewardSlot.starting_item)
+    
     if env.options.flags.has('no_free_key_item'):
         keyitem_assigner.slot_tier(0).remove(RewardSlot.toroia_hospital_item)
     else:
@@ -387,6 +391,9 @@ def apply(env):
 
     keyitem_assigner.item_tier(1).extend(ESSENTIAL_KEY_ITEMS)
     keyitem_assigner.item_tier(2).extend(NONESSENTIAL_KEY_ITEMS)
+    
+    # debug
+    #keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.EarthCrystal'))
 
     if env.meta.get('has_objectives', False) and env.meta.get('zeromus_required', True):
         keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.Crystal'))
@@ -517,6 +524,8 @@ def apply(env):
                     if slot not in rewards_assignment:
                         remaining_slots.append(slot)
         else:
+            # debug
+            #rewards_assignment[RewardSlot.starting_item] = KeyItemReward('#item.EarthCrystal')
             keyitem_assignment, remaining_slots, remaining_items = keyitem_assigner.assign(env.rnd)
             rewards_assignment.update(keyitem_assignment)
 

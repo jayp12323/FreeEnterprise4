@@ -142,13 +142,22 @@ class ScriptPreprocessor:
                         else:
                             all_matched = (all_matched and self._env.options.flags.has(flag))
                     condition_satisfied = all_matched
+                elif condition_string.startswith('anyflags:'):
+                    flags = condition_string.split(':', maxsplit=1)[1].strip().split()
+                    all_matched = False
+                    for flag in flags:
+                        if flag.startswith('~'):
+                            all_matched = (all_matched or not self._env.options.flags.has(flag[1:]))
+                        else:
+                            all_matched = (all_matched or self._env.options.flags.has(flag))
+                    condition_satisfied = all_matched
                 elif condition_string.startswith('test:'):
                     setting = condition_string.split(':', maxsplit=1)[1].strip()
                     condition_satisfied = self._env.options.test_settings.get(setting, False)
                 else:
                     toggle = condition_string
                     if toggle.startswith('~'):
-                        condition_satisfied = (not self._env.toggles.get(toggle[1:], False))
+                        condition_satisfied = (not self._env.toggles.get(toggle[1:], False))                    
                     else:
                         condition_satisfied = self._env.toggles.get(toggle, False)
 

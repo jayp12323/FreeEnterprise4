@@ -820,6 +820,19 @@ msfpatch {
 }
 
 msfpatch {
+    EvEX__MakeSuperhero:
+        ldx #$0000
+    %MakeSuperheroLoop:        
+        lda $100f,x
+        adc #$48
+        sta $100f,x
+        inx
+        cpx #$000a
+        bcc $+MakeSuperheroLoop
+        jmp $_EvEx__End
+}
+
+msfpatch {
     .def StarterKit__Data        $21dd00
     .def StarterKit__MaxLength   $005c
 

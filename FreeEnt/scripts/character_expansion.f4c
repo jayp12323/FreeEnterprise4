@@ -1609,11 +1609,18 @@ msfpatch {
 
     .new
     CharEx__AgilityAnchorMod:
-        // %flags: ~vanilla_agility ~hero_challenge%
+        // %flags: ~vanilla_agility ~hero_challenge ~superhero_challenge%
         bra $+Accept
         // %end%
 
         // %flags: ~vanilla_agility hero_challenge%
+        lda $2000,x
+        and #$1f
+        cmp #$01
+        beq $+Accept
+        // %end%
+
+        // %flags: ~vanilla_agility superhero_challenge%
         lda $2000,x
         and #$1f
         cmp #$01

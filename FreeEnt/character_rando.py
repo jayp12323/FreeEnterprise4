@@ -196,7 +196,7 @@ def apply(env):
                 allowed_characters.append(char)
 
         # remove hero from further allowance, if able
-        if env.options.flags.has('hero_challenge') and start_character in allowed_characters and len(allowed_characters) > 1 and start_character not in env.meta['objective_required_characters']:
+        if (env.options.flags.has('hero_challenge') or env.options.flags.has('superhero_challenge')) and start_character in allowed_characters and len(allowed_characters) > 1 and start_character not in env.meta['objective_required_characters']:
             allowed_characters.remove(start_character)
 
         pregame_name_characters = set(allowed_characters)
@@ -555,7 +555,7 @@ def apply(env):
     env.meta['starting_character'] = assignment['dkcecil_slot']
 
     # apply extra scripts for hero challenge
-    if env.options.flags.has('hero_challenge'):
+    if env.options.flags.has('hero_challenge') or env.options.flags.has('superhero_challenge'):
         env.add_file('scripts/hero_exp.f4c')
 
 

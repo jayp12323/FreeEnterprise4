@@ -82,7 +82,7 @@ def apply(env):
     custom_weapon = None
     if 'custom_weapon' in env.options.test_settings:
         custom_weapon = databases.get_custom_weapons_dbview().find_one(lambda cw: env.options.test_settings['custom_weapon'].lower() in f"{cw.name}|{cw.spoilername}".lower())
-    elif env.options.flags.has('hero_challenge'):
+    elif env.options.flags.has('hero_challenge') or env.options.flags.has('superhero_challenge'):
         available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _is_user(cw, env.meta['starting_character']))
         custom_weapon = env.rnd.choice(available_weapons)
     elif env.options.flags.has('supersmith'):

@@ -18,7 +18,7 @@ msfpatch {
         and #$c0
         beq $+Next
 
-        // %flag hero_challenge on%
+        // %anyflags hero_challenge superhero_challenge %
         //   the Hero is exempt from permadeath
         lda $2000,x
         and #$1f

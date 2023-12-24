@@ -36,9 +36,6 @@ event($10)  //Opening events
     [#B #DebugFillShadowParty]
     // %end%
 
-    // %debug init%
-    // %end%
-
     // %quickstart%
     [#B #Rando_DeliverRewardFromSlot #reward_slot.starting_partner_character]
     [#B #Rando_DeliverRewardFromSlot #reward_slot.starting_item]
@@ -131,6 +128,12 @@ event($10)  //Opening events
     //TODO: restore? [#B #Objectives_TickRewardSlot #reward_slot.starting_partner_character]
     [#B #Rando_DeliverRewardFromSlot #reward_slot.starting_partner_character]
     pause 2
+    
+    // %flags: superhero_challenge%
+    [#B #MakeSuperhero]
+    // %end%
+    // %debug init%
+    // %end%
 
     [#B #If #not_PartySize 1]
     {

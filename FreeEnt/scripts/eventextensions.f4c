@@ -74,6 +74,7 @@ consts(eventext) {
     $54    Objectives_TickRewardSlot
     $55    Objectives_ListInDialog
 
+    $56    MakeSuperhero
 }
 
 // replace old 0xE6 event handler with jump to new code
@@ -179,6 +180,8 @@ msfpatch {
             $_EvEx__Objectives_TickBossSlot
             $_EvEx__Objectives_TickRewardSlot
             $_EvEx__Objectives_ListInDialog
+
+            $_EvEX__MakeSuperhero
         ]]
     
     EvEx__Main:

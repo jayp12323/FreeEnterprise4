@@ -217,7 +217,9 @@
 <> Permadeath options
 .[Cpermadeath]! Permadeath
 .[Cpermadeader]! Permadeader
-[Chero]! Hero challenge
+<> Hero Options
+.[Chero]! Hero challenge
+.[Csuperhero]! Superhero challenge
 
 == TREASURES
 <>* Treasure chests (other than MIABs)
