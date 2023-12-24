@@ -331,7 +331,7 @@ msfpatch {
         ldx #$0000
     %RemoveSuperheroLoop:        
         lda $100f,x
-        sbc #$48
+        sbc #$4B
         sta $100f,x
         inx
         cpx #$000a
