@@ -243,9 +243,9 @@
 ...(Tmaxtier:4)! Chests contain tier 4 items at best
 ...(Tmaxtier:3)! Chests contain tier 3 items at best
 ..<> Unrestrict item quality
-...Tunrestrict:treasury 
-...Tunrestrict:moon 
-...Tunrestrict:underworld 
+...Tunrestrict:treasury
+...Tunrestrict:moon
+...Tunrestrict:underworld
 ...Tunrestrict:overworld
 .(Tpro) Pro chest randomization
 ..[ECHO:Tstandard]

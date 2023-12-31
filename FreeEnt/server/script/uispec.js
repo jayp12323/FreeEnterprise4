@@ -4210,11 +4210,6 @@ var FLAG_UISPEC = [
                   }
                 ]
               },
-              "Tunrestrict:treasury",
-              "Tunrestrict:moon",
-              "Tunrestrict:underworld",
-              "Tunrestrict:overworld",
-
               {
                 "flag": "@anon32",
                 "title": "Unrestrict item quality",
