@@ -243,10 +243,10 @@
 ...(Tmaxtier:4)! Chests contain tier 4 items at best
 ...(Tmaxtier:3)! Chests contain tier 3 items at best
 ..<> Unrestrict item quality
-...Tunrestrict:treasury
-...Tunrestrict:moon
-...Tunrestrict:underworld
-...Tunrestrict:overworld
+...(Tunrestrict:treasury) Chests in the toroia treasury will be unaffected by any Tmaxtier flags
+...(Tunrestrict:moon) Chests on the moon will be unaffected by any Tmaxtier flags
+...(Tunrestrict:underworld) Chests in the underworld will be unaffected by any Tmaxtier flags
+...(Tunrestrict:overworld) Chests on the overworld will be unaffected by any Tmaxtier flags
 .(Tpro) Pro chest randomization
 ..[ECHO:Tstandard]
 .(Twild) Wild chest randomization
