@@ -242,6 +242,11 @@
 ...(Tmaxtier:5) Chests contain tier 5 items at best
 ...(Tmaxtier:4)! Chests contain tier 4 items at best
 ...(Tmaxtier:3)! Chests contain tier 3 items at best
+..<> Unrestrict item quality
+...Tunrestrict:treasury 
+...Tunrestrict:moon 
+...Tunrestrict:underworld 
+...Tunrestrict:overworld
 .(Tpro) Pro chest randomization
 ..[ECHO:Tstandard]
 .(Twild) Wild chest randomization
@@ -445,6 +450,7 @@
 ..(-wacky:nightmode)!        "Night Mode"
 ..(-wacky:omnidextrous)      "Omnidextrous"
 ..(-wacky:payablegolbez)     "Payable Golbez"
+..(-wacky:rndproblems)       "R & D Problems"
 ..(-wacky:saveusbigchocobo)! "Save Us, Big Chocobo!"
 ..(-wacky:sixleggedrace)     "Six-Legged Race"
 ..(-wacky:skywarriors)       "The Sky Warriors"

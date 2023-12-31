@@ -92,28 +92,33 @@ class TreasureAssignment:
             lines.append(line)
         return '\n'.join(lines)
 
+def refineItemsView(dbview, env):    
+    dbview.refine(lambda it: it.tier > 0)
+    if env.options.flags.has('treasure_no_j_items'):
+        dbview.refine(lambda it: not it.j)
+    if env.options.flags.has('no_adamants'):
+        dbview.refine(lambda it: it.const != '#item.AdamantArmor')
+    if env.options.flags.has('no_cursed_rings'):
+        dbview.refine(lambda it: it.const != '#item.Cursed')
+
+    if env.meta.get('wacky_challenge') == 'kleptomania':
+        dbview.refine(lambda it: (it.category not in ['weapon', 'armor']))   
+
 def apply(env):
     treasure_dbview = databases.get_treasure_dbview()
+
     treasure_dbview.refine(lambda t: not t.exclude)
     plain_chests_dbview = treasure_dbview.get_refined_view(lambda t: t.fight is None)
 
-    items_dbview = databases.get_items_dbview()
-    items_dbview.refine(lambda it: it.tier > 0)
-    if env.options.flags.has('treasure_no_j_items'):
-        items_dbview.refine(lambda it: not it.j)
-    if env.options.flags.has('no_adamants'):
-        items_dbview.refine(lambda it: it.const != '#item.AdamantArmor')
-    if env.options.flags.has('no_cursed_rings'):
-        items_dbview.refine(lambda it: it.const != '#item.Cursed')
-
+    items_dbview = databases.get_items_dbview()    
+    items_dbview_unrestricted = databases.get_items_dbview()
+    refineItemsView(items_dbview, env)        
+    refineItemsView(items_dbview_unrestricted, env)    
     maxtier = env.options.flags.get_suffix('Tmaxtier:')
     if maxtier:
         maxtier = int(maxtier)
         items_dbview.refine(lambda it: it.tier <= maxtier)
-
-    if env.meta.get('wacky_challenge') == 'kleptomania':
-        items_dbview.refine(lambda it: (it.category not in ['weapon', 'armor']))
-
+    
     autosells = {}
     if env.options.flags.has('treasure_money'):
         autosell_items = items_dbview.find_all()
@@ -202,25 +207,34 @@ def apply(env):
     else:
         # revised rivers rando
         items_by_tier = {}
+        items_by_tier_unrestricted = {}
         for item in items_dbview:
             items_by_tier.setdefault(item.tier, []).append(item.const)
-
+        for item in items_dbview_unrestricted:
+            items_by_tier_unrestricted.setdefault(item.tier, []).append(item.const)
         distributions = {}
+        distributions_unrestricted = {}
         for row in databases.get_curves_dbview():
-            weights = {i : getattr(row, f"tier{i}") for i in range(1,9)}
+            weights = {i : getattr(row, f"tier{i}") for i in range(1,9)}            
             if env.options.flags.has('treasure_wild_weighted'):
                 weights = util.get_boosted_weights(weights)
 
+            distributions_unrestricted[row.area] = util.Distribution(weights)
             # null out distributions for empty item tiers
             for i in range(1,9):
                 if not items_by_tier.get(i, None):
                     weights[i] = 0
-
-            distributions[row.area] = util.Distribution(weights)
-
+            distributions[row.area] = util.Distribution(weights)                      
         for t in plain_chests_dbview.find_all():
-            tier = min(8, distributions[t.area].choose(env.rnd))
-            treasure_assignment.assign(t, env.rnd.choice(items_by_tier[tier]))
+            if ((t.area == 'ToroiaTreasury' and env.options.flags.has('Tunrestrict:treasury')) or
+                (t.world == 'Overworld' and env.options.flags.has('Tunrestrict:overworld')) or
+                (t.world == 'Underworld' and env.options.flags.has('Tunrestrict:underworld')) or
+                (t.world == 'Moon' and env.options.flags.has('Tunrestrict:moon')) ):
+                tier = min(8, distributions_unrestricted[t.area].choose(env.rnd))
+                treasure_assignment.assign(t, env.rnd.choice(items_by_tier_unrestricted[tier]))
+            else:
+                tier = min(8, distributions[t.area].choose(env.rnd))
+                treasure_assignment.assign(t, env.rnd.choice(items_by_tier[tier]))
 
     # apply sparsity
     sparse_level = env.options.flags.get_suffix('Tsparse:')

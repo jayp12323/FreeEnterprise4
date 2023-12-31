@@ -4209,6 +4209,34 @@ var FLAG_UISPEC = [
                     "hard": true
                   }
                 ]
+              },
+              "Tunrestrict:treasury",
+              "Tunrestrict:moon",
+              "Tunrestrict:underworld",
+              "Tunrestrict:overworld",
+
+              {
+                "flag": "@anon32",
+                "title": "Unrestrict item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tunrestrict:treasury",
+                    "title": "Chests in the toroia treasury will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:moon",
+                    "title": "Chests on the moon will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:underworld",
+                    "title": "Chests in the underworld will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:overworld",
+                    "title": "Chests in the overworld will be unaffected by any Tmaxtier flags"                   
+                  }    
+                ]
               }
             ]
           },

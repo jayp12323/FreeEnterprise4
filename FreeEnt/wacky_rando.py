@@ -37,6 +37,7 @@ WACKY_CHALLENGES = {
     'saveusbigchocobo'  : 'Save Us,\nBig Chocobo!',
     'isthisrandomized'  : 'Is This Even\nRandomized?',
     'forwardisback'     : 'Forward is\nthe New Back',
+    'rndproblems'       : "R & D problems"
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
