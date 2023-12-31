@@ -4435,43 +4435,44 @@ var FLAG_UISPEC = [
         "type": "select",
         "subcontrols": [
           {
-            "flag": "Sprice:25",
-            "title": "Shop prices are adjusted to 25% of their normal value"
+            "flag": "Sprice:20",
+            "title": "Shop prices are adjusted to 20% of their normal value"
           },
           {
-            "flag": "Sprice:50",
-            "title": "Shop prices are adjusted to 50% of their normal value"
+            "flag": "Sprice:40",
+            "title": "Shop prices are adjusted to 40% of their normal value"
           },
           {
-            "flag": "Sprice:75",
-            "title": "Shop prices are adjusted to 75% of their normal value"
+            "flag": "Sprice:60",
+            "title": "Shop prices are adjusted to 60% of their normal value"
           },
           {
-            "flag": "Sprice:125",
-            "title": "Shop prices are adjusted to 125% of their normal value"
+            "flag": "Sprice:80",
+            "title": "Shop prices are adjusted to 80% of their normal value"
           },
           {
-            "flag": "Sprice:150",
-            "title": "Shop prices are adjusted to 150% of their normal value"
+            "flag": "Sprice:120",
+            "title": "Shop prices are adjusted to 120% of their normal value"
           },
           {
-            "flag": "Sprice:175",
-            "title": "Shop prices are adjusted to 175% of their normal value"
+            "flag": "Sprice:140",
+            "title": "Shop prices are adjusted to 140% of their normal value"
+          },
+          {
+            "flag": "Sprice:160",
+            "title": "Shop prices are adjusted to 160% of their normal value"
+          },
+          {
+            "flag": "Sprice:180",
+            "title": "Shop prices are adjusted to 180% of their normal value"
           },
           {
             "flag": "Sprice:200",
-            "title": "Shop prices are adjusted to 200% of their normal value",
-            "hard": true
+            "title": "Shop prices are adjusted to 200% of their normal value"
           },
           {
-            "flag": "Sprice:300",
-            "title": "Shop prices are adjusted to 300% of their normal value",
-            "hard": true
-          },
-          {
-            "flag": "Sprice:500",
-            "title": "Shop prices are adjusted to 500% of their normal value",
-            "hard": true
+            "flag": "Sprice:400",
+            "title": "Shop prices are adjusted to 400% of their normal value"
           }
         ]
       }
