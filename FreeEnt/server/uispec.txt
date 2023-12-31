@@ -279,7 +279,27 @@
 [Sno:apples] No Apples/Soma Drops in shops
 [Sno:sirens] No Sirens in shops
 [Sno:life] No Life potions in shops
-
+<> Shop prices
+.(Sprice:10) Shop prices are adjusted to 10% of their normal value
+.(Sprice:20) Shop prices are adjusted to 20% of their normal value
+.(Sprice:30) Shop prices are adjusted to 30% of their normal value
+.(Sprice:40) Shop prices are adjusted to 40% of their normal value
+.(Sprice:50) Shop prices are adjusted to 50% of their normal value
+.(Sprice:60) Shop prices are adjusted to 60% of their normal value
+.(Sprice:70) Shop prices are adjusted to 70% of their normal value
+.(Sprice:80) Shop prices are adjusted to 80% of their normal value
+.(Sprice:90) Shop prices are adjusted to 90% of their normal value
+.(Sprice:100) Shop prices are adjusted to 100% of their normal value
+.(Sprice:110) Shop prices are adjusted to 110% of their normal value
+.(Sprice:120) Shop prices are adjusted to 120% of their normal value
+.(Sprice:130) Shop prices are adjusted to 130% of their normal value
+.(Sprice:140) Shop prices are adjusted to 140% of their normal value
+.(Sprice:150) Shop prices are adjusted to 150% of their normal value
+.(Sprice:160) Shop prices are adjusted to 160% of their normal value
+.(Sprice:170) Shop prices are adjusted to 170% of their normal value
+.(Sprice:180) Shop prices are adjusted to 180% of their normal value
+.(Sprice:190) Shop prices are adjusted to 190% of their normal value
+.(Sprice:200) Shop prices are adjusted to 200% of their normal value
 == BOSSES
 <>* Bosses
 .(Bvanilla)- No boss randomization

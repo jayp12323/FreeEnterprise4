@@ -3071,17 +3071,6 @@ var FLAG_UISPEC = [
                 "title": "No safety checks",
                 "description": "<ul>\n    <li>Normally, you are guaranteed a path to the underworld that does not require first going to the moon. This flag removes that check.</li>\n    <li>If Kmiab is enabled, key items may appear in the Lunar Subterrane monster-in-a-box chests.</li>\n</ul>",
                 "hard": true
-              },
-              {
-                "flag": "@anon16",
-                "title": "Starting Key Items",
-                "type": "select",
-                "subcontrols": [
-                  {
-                    "flag": "Kstart:darkness",
-                    "title": "Start with the darkness crystal"
-                  }
-                ]
               }
             ]
           }
@@ -3111,7 +3100,7 @@ var FLAG_UISPEC = [
     "title": "CHARACTERS",
     "controls": [
       {
-        "flag": "@anon17",
+        "flag": "@anon16",
         "title": "Characters",
         "important": true,
         "type": "select",
@@ -3132,7 +3121,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon18",
+                "flag": "@anon17",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -3193,12 +3182,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon19",
+                "flag": "@anon18",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon20",
+                    "flag": "@anon19",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3253,7 +3242,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon21",
+                    "flag": "@anon20",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3378,7 +3367,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon22",
+                "flag": "@anon21",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -3439,12 +3428,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon23",
+                "flag": "@anon22",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon24",
+                    "flag": "@anon23",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3499,7 +3488,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon25",
+                    "flag": "@anon24",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3572,7 +3561,7 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
-        "flag": "@anon26",
+        "flag": "@anon25",
         "title": "Specify possible starting characters",
         "null": true,
         "type": "select",
@@ -3721,7 +3710,7 @@ var FLAG_UISPEC = [
         "description": "Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)"
       },
       {
-        "flag": "@anon27",
+        "flag": "@anon26",
         "title": "Limit maximum party size",
         "type": "select",
         "subcontrols": [
@@ -3749,7 +3738,7 @@ var FLAG_UISPEC = [
         "description": "You have the choice of whether to accept each new party member, but once your party is full, you cannot recruit anyone else."
       },
       {
-        "flag": "@anon28",
+        "flag": "@anon27",
         "title": "Permadeath options",
         "type": "select",
         "subcontrols": [
@@ -3768,19 +3757,20 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon29",
+        "flag": "@anon28",
         "title": "Hero Options",
         "type": "select",
         "subcontrols": [
           {
             "flag": "Chero",
             "title": "Hero challenge",
-            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).</li></ul>",
+            "description": "<ul><li>The starting character is your hero.</li><li>The hero is the only instance of that character available (unless other flags force it).</li><li>The hero cannot be dismissed.</li><li>The hero fights the Mt. Ordeals mirror room boss alone.</li><li>Kokkol will craft an FF4 Advance weapon usable by the hero.</li><li>The hero gains EXP even if incapacitated.</li><li>The hero is your agility anchor.</li><li>The hero is exempt from permadeath.</li></ul>",
             "hard": true
           },
           {
             "flag": "Csuperhero",
             "title": "Superhero challenge",
+            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).</li></ul>",
             "hard": true
           }
         ]
@@ -3791,7 +3781,7 @@ var FLAG_UISPEC = [
     "title": "TREASURES",
     "controls": [
       {
-        "flag": "@anon30",
+        "flag": "@anon29",
         "title": "Treasure chests (other than MIABs)",
         "important": true,
         "type": "select",
@@ -3802,7 +3792,7 @@ var FLAG_UISPEC = [
             "null": true,
             "subcontrols": [
               {
-                "flag": "@anon31",
+                "flag": "@anon30",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -3852,7 +3842,7 @@ var FLAG_UISPEC = [
             "description": "Treasure contents are the same as in original FF4, but their positions are shuffled. This randomization is weighted so that overworld treasures tend to remain in the overworld, and similarly for underworld/moon treasures.",
             "subcontrols": [
               {
-                "flag": "@anon31",
+                "flag": "@anon30",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -3902,7 +3892,7 @@ var FLAG_UISPEC = [
             "description": "A basic randomization, allowing items of reasonable strength to appear. Items are equally likely to appear in any chest regardless of location.",
             "subcontrols": [
               {
-                "flag": "@anon31",
+                "flag": "@anon30",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -3945,244 +3935,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon32",
-                "title": "Restrict item quality",
-                "type": "select",
-                "subcontrols": [
-                  {
-                    "flag": "Tmaxtier:7",
-                    "title": "Chests contain tier 7 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:6",
-                    "title": "Chests contain tier 6 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:5",
-                    "title": "Chests contain tier 5 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:4",
-                    "title": "Chests contain tier 4 items at best",
-                    "hard": true
-                  },
-                  {
-                    "flag": "Tmaxtier:3",
-                    "title": "Chests contain tier 3 items at best",
-                    "hard": true
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "flag": "Tpro",
-            "title": "Pro chest randomization",
-            "description": "A skill-testing randomization, limiting the strength of available items, and weighted to favor stronger items in later-game and infrequently-visited areas.",
-            "subcontrols": [
-              {
                 "flag": "@anon31",
-                "title": "Sparse options",
-                "type": "select",
-                "subcontrols": [
-                  {
-                    "flag": "Tsparse:10",
-                    "title": "Only 10% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:20",
-                    "title": "Only 20% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:30",
-                    "title": "Only 30% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:40",
-                    "title": "Only 40% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:50",
-                    "title": "Only 50% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:60",
-                    "title": "Only 60% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:70",
-                    "title": "Only 70% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:80",
-                    "title": "Only 80% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:90",
-                    "title": "Only 90% of chests are filled"
-                  }
-                ]
-              },
-              {
-                "flag": "@anon32",
-                "title": "Restrict item quality",
-                "type": "select",
-                "subcontrols": [
-                  {
-                    "flag": "Tmaxtier:7",
-                    "title": "Chests contain tier 7 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:6",
-                    "title": "Chests contain tier 6 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:5",
-                    "title": "Chests contain tier 5 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:4",
-                    "title": "Chests contain tier 4 items at best",
-                    "hard": true
-                  },
-                  {
-                    "flag": "Tmaxtier:3",
-                    "title": "Chests contain tier 3 items at best",
-                    "hard": true
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "flag": "Twild",
-            "title": "Wild chest randomization",
-            "description": "An unrestricted randomization, allowing equal chance for items to appear in any chest, including the most powerful items.",
-            "subcontrols": [
-              {
-                "flag": "@anon31",
-                "title": "Sparse options",
-                "type": "select",
-                "subcontrols": [
-                  {
-                    "flag": "Tsparse:10",
-                    "title": "Only 10% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:20",
-                    "title": "Only 20% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:30",
-                    "title": "Only 30% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:40",
-                    "title": "Only 40% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:50",
-                    "title": "Only 50% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:60",
-                    "title": "Only 60% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:70",
-                    "title": "Only 70% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:80",
-                    "title": "Only 80% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:90",
-                    "title": "Only 90% of chests are filled"
-                  }
-                ]
-              },
-              {
-                "flag": "@anon32",
-                "title": "Restrict item quality",
-                "type": "select",
-                "subcontrols": [
-                  {
-                    "flag": "Tmaxtier:7",
-                    "title": "Chests contain tier 7 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:6",
-                    "title": "Chests contain tier 6 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:5",
-                    "title": "Chests contain tier 5 items at best"
-                  },
-                  {
-                    "flag": "Tmaxtier:4",
-                    "title": "Chests contain tier 4 items at best",
-                    "hard": true
-                  },
-                  {
-                    "flag": "Tmaxtier:3",
-                    "title": "Chests contain tier 3 items at best",
-                    "hard": true
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "flag": "Twildish",
-            "title": "Wild-ish chest randomization",
-            "description": "Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.",
-            "subcontrols": [
-              {
-                "flag": "@anon31",
-                "title": "Sparse options",
-                "type": "select",
-                "subcontrols": [
-                  {
-                    "flag": "Tsparse:10",
-                    "title": "Only 10% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:20",
-                    "title": "Only 20% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:30",
-                    "title": "Only 30% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:40",
-                    "title": "Only 40% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:50",
-                    "title": "Only 50% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:60",
-                    "title": "Only 60% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:70",
-                    "title": "Only 70% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:80",
-                    "title": "Only 80% of chests are filled"
-                  },
-                  {
-                    "flag": "Tsparse:90",
-                    "title": "Only 90% of chests are filled"
-                  }
-                ]
-              },
-              {
-                "flag": "@anon32",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4213,7 +3966,7 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon32",
                 "title": "Unrestrict item quality",
-                "type": "select",
+                "compact": true,
                 "subcontrols": [
                   {
                     "flag": "Tunrestrict:treasury",
@@ -4229,8 +3982,314 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "Tunrestrict:overworld",
-                    "title": "Chests in the overworld will be unaffected by any Tmaxtier flags"                   
-                  }    
+                    "title": "Chests on the overworld will be unaffected by any Tmaxtier flags"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "Tpro",
+            "title": "Pro chest randomization",
+            "description": "A skill-testing randomization, limiting the strength of available items, and weighted to favor stronger items in later-game and infrequently-visited areas.",
+            "subcontrols": [
+              {
+                "flag": "@anon30",
+                "title": "Sparse options",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon31",
+                "title": "Restrict item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmaxtier:7",
+                    "title": "Chests contain tier 7 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:6",
+                    "title": "Chests contain tier 6 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:5",
+                    "title": "Chests contain tier 5 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:4",
+                    "title": "Chests contain tier 4 items at best",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Tmaxtier:3",
+                    "title": "Chests contain tier 3 items at best",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon32",
+                "title": "Unrestrict item quality",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Tunrestrict:treasury",
+                    "title": "Chests in the toroia treasury will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:moon",
+                    "title": "Chests on the moon will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:underworld",
+                    "title": "Chests in the underworld will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:overworld",
+                    "title": "Chests on the overworld will be unaffected by any Tmaxtier flags"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "Twild",
+            "title": "Wild chest randomization",
+            "description": "An unrestricted randomization, allowing equal chance for items to appear in any chest, including the most powerful items.",
+            "subcontrols": [
+              {
+                "flag": "@anon30",
+                "title": "Sparse options",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon31",
+                "title": "Restrict item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmaxtier:7",
+                    "title": "Chests contain tier 7 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:6",
+                    "title": "Chests contain tier 6 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:5",
+                    "title": "Chests contain tier 5 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:4",
+                    "title": "Chests contain tier 4 items at best",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Tmaxtier:3",
+                    "title": "Chests contain tier 3 items at best",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon32",
+                "title": "Unrestrict item quality",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Tunrestrict:treasury",
+                    "title": "Chests in the toroia treasury will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:moon",
+                    "title": "Chests on the moon will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:underworld",
+                    "title": "Chests in the underworld will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:overworld",
+                    "title": "Chests on the overworld will be unaffected by any Tmaxtier flags"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "Twildish",
+            "title": "Wild-ish chest randomization",
+            "description": "Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.",
+            "subcontrols": [
+              {
+                "flag": "@anon30",
+                "title": "Sparse options",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon31",
+                "title": "Restrict item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmaxtier:7",
+                    "title": "Chests contain tier 7 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:6",
+                    "title": "Chests contain tier 6 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:5",
+                    "title": "Chests contain tier 5 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:4",
+                    "title": "Chests contain tier 4 items at best",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Tmaxtier:3",
+                    "title": "Chests contain tier 3 items at best",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon32",
+                "title": "Unrestrict item quality",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Tunrestrict:treasury",
+                    "title": "Chests in the toroia treasury will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:moon",
+                    "title": "Chests on the moon will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:underworld",
+                    "title": "Chests in the underworld will be unaffected by any Tmaxtier flags"
+                  },
+                  {
+                    "flag": "Tunrestrict:overworld",
+                    "title": "Chests on the overworld will be unaffected by any Tmaxtier flags"
+                  }
                 ]
               }
             ]
@@ -4369,6 +4428,93 @@ var FLAG_UISPEC = [
       {
         "flag": "Sno:life",
         "title": "No Life potions in shops"
+      },
+      {
+        "flag": "@anon36",
+        "title": "Shop prices",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "Sprice:10",
+            "title": "Shop prices are adjusted to 10% of their normal value"
+          },
+          {
+            "flag": "Sprice:20",
+            "title": "Shop prices are adjusted to 20% of their normal value"
+          },
+          {
+            "flag": "Sprice:30",
+            "title": "Shop prices are adjusted to 30% of their normal value"
+          },
+          {
+            "flag": "Sprice:40",
+            "title": "Shop prices are adjusted to 40% of their normal value"
+          },
+          {
+            "flag": "Sprice:50",
+            "title": "Shop prices are adjusted to 50% of their normal value"
+          },
+          {
+            "flag": "Sprice:60",
+            "title": "Shop prices are adjusted to 60% of their normal value"
+          },
+          {
+            "flag": "Sprice:70",
+            "title": "Shop prices are adjusted to 70% of their normal value"
+          },
+          {
+            "flag": "Sprice:80",
+            "title": "Shop prices are adjusted to 80% of their normal value"
+          },
+          {
+            "flag": "Sprice:90",
+            "title": "Shop prices are adjusted to 90% of their normal value"
+          },
+          {
+            "flag": "Sprice:100",
+            "title": "Shop prices are adjusted to 100% of their normal value"
+          },
+          {
+            "flag": "Sprice:110",
+            "title": "Shop prices are adjusted to 110% of their normal value"
+          },
+          {
+            "flag": "Sprice:120",
+            "title": "Shop prices are adjusted to 120% of their normal value"
+          },
+          {
+            "flag": "Sprice:130",
+            "title": "Shop prices are adjusted to 130% of their normal value"
+          },
+          {
+            "flag": "Sprice:140",
+            "title": "Shop prices are adjusted to 140% of their normal value"
+          },
+          {
+            "flag": "Sprice:150",
+            "title": "Shop prices are adjusted to 150% of their normal value"
+          },
+          {
+            "flag": "Sprice:160",
+            "title": "Shop prices are adjusted to 160% of their normal value"
+          },
+          {
+            "flag": "Sprice:170",
+            "title": "Shop prices are adjusted to 170% of their normal value"
+          },
+          {
+            "flag": "Sprice:180",
+            "title": "Shop prices are adjusted to 180% of their normal value"
+          },
+          {
+            "flag": "Sprice:190",
+            "title": "Shop prices are adjusted to 190% of their normal value"
+          },
+          {
+            "flag": "Sprice:200",
+            "title": "Shop prices are adjusted to 200% of their normal value"
+          }
+        ]
       }
     ]
   },
@@ -4376,7 +4522,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon36",
+        "flag": "@anon37",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -4413,7 +4559,7 @@ var FLAG_UISPEC = [
         "description": "Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area."
       },
       {
-        "flag": "@anon37",
+        "flag": "@anon38",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -4434,7 +4580,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon38",
+        "flag": "@anon39",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -4507,7 +4653,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon39",
+        "flag": "@anon40",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -4584,7 +4730,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon40",
+            "flag": "@anon41",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -4721,7 +4867,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon41",
+            "flag": "@anon42",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -4858,7 +5004,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon42",
+            "flag": "@anon43",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -5010,7 +5156,7 @@ var FLAG_UISPEC = [
         "title": "Edward can equip the Spoon"
       },
       {
-        "flag": "@anon43",
+        "flag": "@anon44",
         "title": "Smithy reward",
         "type": "select",
         "subcontrols": [
@@ -5048,7 +5194,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon44",
+        "flag": "@anon45",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
           {
@@ -5109,7 +5255,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
         "subcontrols": [
           {
-            "flag": "@anon45",
+            "flag": "@anon46",
             "title": "Select challenge",
             "type": "select",
             "subcontrols": [
@@ -5220,6 +5366,10 @@ var FLAG_UISPEC = [
                 "title": "\"Payable Golbez\""
               },
               {
+                "flag": "-wacky:rndproblems",
+                "title": "\"R & D Problems\""
+              },
+              {
                 "flag": "-wacky:saveusbigchocobo",
                 "title": "\"Save Us, Big Chocobo!\"",
                 "hard": true
@@ -5272,7 +5422,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon46",
+        "flag": "@anon47",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -5326,7 +5476,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon47",
+            "flag": "@anon48",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -5342,7 +5492,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon48",
+                "flag": "@anon49",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [
