@@ -286,14 +286,23 @@
 ...[Spricey:weapons] Only affect weapons
 ...[Spricey:armor] Only affect armor
 .(Sprice:40) Shop prices are adjusted to 40% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:60) Shop prices are adjusted to 60% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:80) Shop prices are adjusted to 80% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:120) Shop prices are adjusted to 120% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:140) Shop prices are adjusted to 140% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:160) Shop prices are adjusted to 160% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:180) Shop prices are adjusted to 180% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:200) Shop prices are adjusted to 200% of their normal value
+..[ECHO:Sprice:20]
 .(Sprice:400)! Shop prices are adjusted to 400% of their normal value
+..[ECHO:Sprice:20]
 == BOSSES
 <>* Bosses
 .(Bvanilla)- No boss randomization
