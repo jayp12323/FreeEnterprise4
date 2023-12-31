@@ -16,6 +16,11 @@ def apply(env):
             item = items_dbview.find_one(lambda it: it.code == item_code)
             price = (item.price if item else 0)
 
+        price_adjustment = env.options.flags.get_suffix('Sprice:')
+        if price_adjustment:
+            price *= price_adjustment/100
+            print("adjust pricing by "+price_adjustment+" to "+price)
+
         if price > 126000:
             prices.append(0xFF)
             megaprices[item_code] = price
