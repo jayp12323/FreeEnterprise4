@@ -1,0 +1,12 @@
+.lastseed
+.venv/
+FreeEnt/.build/
+FreeEnt/__pycache__/
+FreeEnt/server/__pycache__/
+f4c/__pycache__/
+f4c/ff4bin/__pycache__/
+f4c/ff4struct/__pycache__/
+f4c/lark/__pycache__/
+f4c/lark/parsers/__pycache__/
+ff4.smc
+output/
