@@ -4436,39 +4436,228 @@ var FLAG_UISPEC = [
         "subcontrols": [
           {
             "flag": "Sprice:20",
-            "title": "Shop prices are adjusted to 20% of their normal value"
+            "title": "Shop prices are adjusted to 20% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:40",
-            "title": "Shop prices are adjusted to 40% of their normal value"
+            "title": "Shop prices are adjusted to 40% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:60",
-            "title": "Shop prices are adjusted to 60% of their normal value"
+            "title": "Shop prices are adjusted to 60% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:80",
-            "title": "Shop prices are adjusted to 80% of their normal value"
+            "title": "Shop prices are adjusted to 80% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:120",
-            "title": "Shop prices are adjusted to 120% of their normal value"
+            "title": "Shop prices are adjusted to 120% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:140",
-            "title": "Shop prices are adjusted to 140% of their normal value"
+            "title": "Shop prices are adjusted to 140% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:160",
-            "title": "Shop prices are adjusted to 160% of their normal value"
+            "title": "Shop prices are adjusted to 160% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:180",
-            "title": "Shop prices are adjusted to 180% of their normal value"
+            "title": "Shop prices are adjusted to 180% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:200",
-            "title": "Shop prices are adjusted to 200% of their normal value"
+            "title": "Shop prices are adjusted to 200% of their normal value",
+            "subcontrols": [
+              {
+                "flag": "@anon37",
+                "title": "Only affect specific item types",
+                "compact": true,
+                "subcontrols": [
+                  {
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
+                  },
+                  {
+                    "flag": "Spricey:weapons",
+                    "title": "Only affect weapons"
+                  },
+                  {
+                    "flag": "Spricey:armor",
+                    "title": "Only affect armor"
+                  }
+                ]
+              }
+            ]
           },
           {
             "flag": "Sprice:400",
@@ -4481,8 +4670,8 @@ var FLAG_UISPEC = [
                 "compact": true,
                 "subcontrols": [
                   {
-                    "flag": "Spricey:consumables",
-                    "title": "Only affect consumables"
+                    "flag": "Spricey:items",
+                    "title": "Only affect consumable items"
                   },
                   {
                     "flag": "Spricey:weapons",

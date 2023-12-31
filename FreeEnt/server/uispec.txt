@@ -282,7 +282,7 @@
 <> Shop price adjustments
 .(Sprice:20) Shop prices are adjusted to 20% of their normal value
 ..()# Only affect specific item types
-...[Spricey:consumables] Only affect consumables
+...[Spricey:items] Only affect consumable items
 ...[Spricey:weapons] Only affect weapons
 ...[Spricey:armor] Only affect armor
 .(Sprice:40) Shop prices are adjusted to 40% of their normal value
