@@ -289,7 +289,7 @@
 .(Sprice:160) Shop prices are adjusted to 160% of their normal value
 .(Sprice:180) Shop prices are adjusted to 180% of their normal value
 .(Sprice:200) Shop prices are adjusted to 200% of their normal value
-.(Sprice:400) Shop prices are adjusted to 400% of their normal value
+.(Sprice:400)! Shop prices are adjusted to 400% of their normal value
 == BOSSES
 <>* Bosses
 .(Bvanilla)- No boss randomization
