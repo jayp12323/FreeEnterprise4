@@ -290,10 +290,10 @@
 .(Sprice:180) Shop prices are adjusted to 180% of their normal value
 .(Sprice:200) Shop prices are adjusted to 200% of their normal value
 .(Sprice:400)! Shop prices are adjusted to 400% of their normal value
-..() Only affect specific item types
-...[Spricey:consumables] Only affect consumables
-...[Spricey:weapons] Only affect weapons
-...[Spricey:armor] Only affect armor
+.() Only affect specific item types
+..[Spricey:consumables] Only affect consumables
+..[Spricey:weapons] Only affect weapons
+..[Spricey:armor] Only affect armor
 == BOSSES
 <>* Bosses
 .(Bvanilla)- No boss randomization
