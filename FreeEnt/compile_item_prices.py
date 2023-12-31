@@ -18,8 +18,12 @@ def apply(env):
 
         price_adjustment = env.options.flags.get_suffix('Sprice:')
         if price_adjustment:
+            prevPrice = price;
             price = price * float(price_adjustment)//100.0
             price = int(price)
+            if (price > 0 and price < 10):
+                price = 10
+            #print(f"{item.const} adjust pricing from "+price_adjustment+" from "+str(prevPrice)+" to "+str(price))
 
         if price > 126000:
             prices.append(0xFF)
