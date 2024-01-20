@@ -108,7 +108,8 @@ F4C_FILES = '''
     scripts/feymarch.f4c
     scripts/baron_castle_odin.f4c
     scripts/mysidia_bigwhale.f4c
-
+    scripts/map.f4c
+    scripts/archipelego.f4c
     scripts/bigwhale.f4c
     scripts/lunar_palace.f4c
     scripts/bahamut.f4c

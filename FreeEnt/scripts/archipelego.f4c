@@ -1,0 +1,30 @@
+msfpatch {
+
+    Archipelego__CheckItem:
+
+        lda $1400
+        stz $1400
+        cmp #01
+        beq $+Archipelego__GiveItem
+        rtl
+
+    Archipelego__GiveItem:
+        lda $1401
+        stz $1401
+        lda #$1c
+        rep #$20
+        .mx 0x00
+        asl a
+        tax
+        lda $128000,x
+        tay
+        lda #$0000
+        sep #$20
+        .mx 0x20
+        sty $09d3
+        jmp $_EvEx__End
+   //     lda #$80
+    //    sta $0609
+     //   jml $=TreasureContentExtensions
+        rtl
+}

@@ -4,6 +4,7 @@ msfpatch {
         .mx 0x20
 
     Indoor__FrameStart:
+        jsr $=Archipelego__CheckItem
         jsr $=Indoor__SprintShoes
         
         // Original code and return

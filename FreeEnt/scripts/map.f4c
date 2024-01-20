@@ -1,0 +1,5 @@
+trigger(#BaronTown 7)
+{
+    position 20 26
+    teleport #RydiaHouse at 4 13 facing up
+}
