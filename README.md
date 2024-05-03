@@ -1,3 +1,7 @@
+# Wishlist/Todo Items:
+- Flag to enable gaining fixed levels after boss encounters or objectives (similar to fusoya), would disable exp completely
+- Ability to specify certain objectives as required when only some of them are marked as required to obtain the crystal/win the game
+- 
 # FreeEnterprise4
 
 This is the open-source version of Free Enterprise 4.x. It contains the full functionality of Free Enterprise 4.x, with some omissions:
