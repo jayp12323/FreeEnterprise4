@@ -207,16 +207,19 @@ def apply(env):
         reduced_objective_ids = env.rnd.sample(objective_ids, MAX_OBJECTIVE_COUNT)
         objective_ids = sorted(reduced_objective_ids, key = objective_ids.index)
 
+    total_objective_count = len(objective_ids)
+
     hard_required_objective_ids = []
+    hard_required_objective_count = 0
     for i in objective_ids:
         hard_required_objective_ids.append(0)
-    hard_required_objective_ids[1] = objective_ids[1]
-    hard_required_objective_ids[2] = objective_ids[2]
-    hard_required_objective_ids[3] = objective_ids[3]
-    hard_required_objective_ids[4] = objective_ids[4]
-    env.options.flags.get_suffix('Hreq:')
-    hard_required_objective_count = 4
-
+    for f in env.options.flags.get_list(r'^Hreq:\d'):
+        hard_required_objective_index = int(f[len('Hreq:'):])
+        if hard_required_objective_index >total_objective_count:
+            raise BuildError(f"Flags stipulate that objective # {hard_required_objective_index} is required, but there are only {total_objective_count} objectives specified.")
+        hard_required_objective_ids[hard_required_objective_index-1] = objective_ids[hard_required_objective_index-1]
+        hard_required_objective_count += 1
+    
     # write list of objective IDs and thresholds
     total_objective_count = len(objective_ids)
     env.add_substitution('objective count', f'{total_objective_count:02X}')
@@ -228,7 +231,7 @@ def apply(env):
     # handle changes for partial objectives
     required_objective_count = env.options.flags.get_suffix('Oreq:')
     # handle hard required objectives    
-    hard_required_objective_count_text = "hard required objective"
+    hard_required_objective_count_text = f'({hard_required_objective_count} hard required)'
     if required_objective_count == 'all' or required_objective_count is None:
         required_objective_count = total_objective_count
     else:
@@ -242,12 +245,13 @@ def apply(env):
         env.add_substitution('completion objective count text', required_objective_count_text)
     else:
         required_objective_count_text = 'all objectives'
-        env.add_substitution('completion objective count text', 'All objectives')
-
+        env.add_substitution('completion objective count text', '')
     if env.options.hide_flags:
         required_objective_count_text = 'objectives'
 
     env.add_substitution('required objective count text', required_objective_count_text)
+    foobar = f'({hard_required_objective_count})!'
+    env.add_substitution('hard required objective count text', f'{hard_required_objective_count}')
 
     # write objective descriptions and compile spoilers
     spoilers = []
@@ -284,7 +288,7 @@ def apply(env):
     completion_reward_text = 'the Crystal' if env.options.flags.has('objective_zeromus') else 'the game'
     pregame_text_lines.append(" Complete " + required_objective_count_text)
     if hard_required_objective_count > 0:
-        pregame_text_lines.append(" and " + hard_required_objective_count_text)
+        pregame_text_lines.append(hard_required_objective_count_text)
     pregame_text_lines.append(" to win " + completion_reward_text)
 
     env.spoilers.add_table("OBJECTIVES", spoilers, public=env.options.flags.has_any('-spoil:all', '-spoil:misc'))
