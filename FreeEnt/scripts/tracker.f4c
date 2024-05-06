@@ -1038,22 +1038,21 @@ msfpatch {
 
         // check if objective is completed
         lda #$04   // grey palette
-        sta $1686
+        sta $1686            
         ldx $1680
+        lda $=Objectives__Thresholds,x
+        cmp $_Objectives__Progress,x
+        beq $+ObjectiveCompleted
+        bcc $+ObjectiveCompleted
         lda $=ObjectivesHardRequired__IDs,x
         beq $+NotHardRequired
         lda #$08   // hard required palette
         sta $1686
         bra $+ObjectiveCompleted
     %NotHardRequired:
-        lda $=Objectives__Thresholds,x
-        cmp $_Objectives__Progress,x
-        beq $+ObjectiveCompleted
-        bcc $+ObjectiveCompleted
         lda #$00   // white palette
         sta $1686        
     %ObjectiveCompleted:
-
         // blank line 0
         jsr $_BlankLine
         jsr $_NextLine
