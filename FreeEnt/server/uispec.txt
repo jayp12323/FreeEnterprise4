@@ -50,7 +50,7 @@
 ..(Oreq:8) Complete 8 objectives for reward
 ..(Oreq:9) Complete 9 objectives for reward
 ..(Oreq:10) Complete 10 objectives for reward
-.<> Hard Required Objectives
+.()# Hard Required Objectives
 ..[Hreq:1] Objective #1 is hard required
 ..[Hreq:2] Objective #2 is hard required
 ..[Hreq:3] Objective #3 is hard required
