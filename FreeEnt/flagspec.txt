@@ -17,7 +17,7 @@ O8:char_cecil/O8:char_kain/O8:char_rydia/O8:char_tellah/O8:char_edward/O8:char_r
 # END_AUTO_OBJECTIVES
 Orandom:1/Orandom:2/Orandom:3/Orandom:4/Orandom:5/Orandom:6/Orandom:7/Orandom:8 Orandom:quest/Orandom:tough_quest Orandom:boss Orandom:char
 Oreq:all/Oreq:1/Oreq:2/Oreq:3/Oreq:4/Oreq:5/Oreq:6/Oreq:7/Oreq:8/Oreq:9/Oreq:10
-Hreq:all Hreq:1 Hreq:2 Hreq:3 Hreq:4 Hreq:5 Hreq:6 Hreq:7 Hreq:8 Hreq:9 Hreq:10
+Hreq:1 Hreq:2 Hreq:3 Hreq:4 Hreq:5 Hreq:6 Hreq:7 Hreq:8 Hreq:9 Hreq:10 Hreq:11 Hreq:12 Hreq:13 Hreq:14 Hreq:15 Hreq:16 Hreq:17 Hreq:18
 Owin:game/Owin:crystal
 Kvanilla Kmain Ksummon Kmoon Kmiab Knofree Kunsafe Kforce:magma/Kforce:hook
 Pnone Pshop Pkey Pchests
