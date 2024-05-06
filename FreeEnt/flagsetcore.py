@@ -447,6 +447,11 @@ class FlagLogicCore:
                 flagset.set('Oreq:all')
                 self._lib.push(log, ['correction', 'Required number of objectives not specified; setting Oreq:all'])
 
+            if flagset.has('Oreq:all'):
+                hard_required_objectives = flagset.get_list(r'^Hreq:')
+                if len(hard_required_objectives) != 0:
+                    self._lib.push(log, ['correction', 'Hard required objectives found, but all objectives are already required.  Ignoring.'])                    
+
             win_flags = flagset.get_list(r'^Owin:')
             # Force Owin:crystal if classicforge, otherwise force Owin:game if no win result specified
             if flagset.has('Omode:classicforge') and not flagset.has('Owin:crystal'):

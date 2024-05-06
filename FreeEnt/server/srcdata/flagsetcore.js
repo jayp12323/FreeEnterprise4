@@ -436,7 +436,7 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var all_spoiler_flags, ch, char_objective_flags, distinct_count, distinct_flags, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
+        var all_spoiler_flags, ch, char_objective_flags, distinct_count, distinct_flags, hard_required_objectives, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
         log = [];
         if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
@@ -494,6 +494,15 @@ class FlagLogicCore {
             if ((! flagset.get_list("^Oreq:"))) {
                 flagset.set("Oreq:all");
                 this._lib.push(log, ["correction", "Required number of objectives not specified; setting Oreq:all"]);
+            }
+            console.log(...flagset.get_list("^Oreq:"));
+            if (flagset.has("Oreq:all")) {
+                console.log("hello");
+                hard_required_objectives = flagset.get_list("^Hreq:");
+                console.log(...hard_required_objectives);
+                if ((hard_required_objectives.length !== 0)) {
+                    this._lib.push(log, ["correction", "Hard required objectives found, but all objectives are already required.  Ignoring."]);
+                }
             }
             win_flags = flagset.get_list("^Owin:");
             if ((flagset.has("Omode:classicforge") && (! flagset.has("Owin:crystal")))) {

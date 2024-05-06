@@ -207,7 +207,6 @@ def apply(env):
         reduced_objective_ids = env.rnd.sample(objective_ids, MAX_OBJECTIVE_COUNT)
         objective_ids = sorted(reduced_objective_ids, key = objective_ids.index)
 
-    print(*objective_ids)
     hard_required_objective_ids = []
     for i in objective_ids:
         hard_required_objective_ids.append(0)
@@ -215,7 +214,9 @@ def apply(env):
     hard_required_objective_ids[2] = objective_ids[2]
     hard_required_objective_ids[3] = objective_ids[3]
     hard_required_objective_ids[4] = objective_ids[4]
+    env.options.flags.get_suffix('Hreq:')
     hard_required_objective_count = 4
+
     # write list of objective IDs and thresholds
     total_objective_count = len(objective_ids)
     env.add_substitution('objective count', f'{total_objective_count:02X}')
