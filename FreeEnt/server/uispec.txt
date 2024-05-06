@@ -61,14 +61,14 @@
 ..[Hreq:8] Objective #8 is hard required
 ..[Hreq:9] Objective #9 is hard required
 ..[Hreq:10] Objective #10 is hard required
-..[Hreq:11] Objective #1 is hard required
-..[Hreq:12] Objective #2 is hard required
-..[Hreq:13] Objective #3 is hard required
-..[Hreq:14] Objective #4 is hard required
-..[Hreq:15] Objective #5 is hard required
-..[Hreq:16] Objective #6 is hard required
-..[Hreq:17] Objective #7 is hard required
-..[Hreq:18] Objective #8 is hard required
+..[Hreq:11] Objective #11 is hard required
+..[Hreq:12] Objective #12 is hard required
+..[Hreq:13] Objective #13 is hard required
+..[Hreq:14] Objective #14 is hard required
+..[Hreq:15] Objective #15 is hard required
+..[Hreq:16] Objective #16 is hard required
+..[Hreq:17] Objective #17 is hard required
+..[Hreq:18] Objective #18 is hard required
 .<>* Reward
 ..(Owin:game) Completing objectives wins the game
 ..(Owin:crystal) Completing objectives awards the Crystal
