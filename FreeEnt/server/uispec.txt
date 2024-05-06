@@ -51,17 +51,16 @@
 ..(Oreq:9) Complete 9 objectives for reward
 ..(Oreq:10) Complete 10 objectives for reward
 .<> Hard Required Objectives
-..()# Objective Number
-...[Hreq:1] Objective #1 is hard required
-...[Hreq:2] Objective #2 is hard required
-...[Hreq:3] Objective #3 is hard required
-...[Hreq:4] Objective #4 is hard required
-...[Hreq:5] Objective #5 is hard required
-...[Hreq:6] Objective #6 is hard required
-...[Hreq:7] Objective #7 is hard required
-...[Hreq:8] Objective #8 is hard required
-...[Hreq:9] Objective #9 is hard required
-...[Hreq:10] Objective #10 is hard required
+..[Hreq:1] Objective #1 is hard required
+..[Hreq:2] Objective #2 is hard required
+..[Hreq:3] Objective #3 is hard required
+..[Hreq:4] Objective #4 is hard required
+..[Hreq:5] Objective #5 is hard required
+..[Hreq:6] Objective #6 is hard required
+..[Hreq:7] Objective #7 is hard required
+..[Hreq:8] Objective #8 is hard required
+..[Hreq:9] Objective #9 is hard required
+..[Hreq:10] Objective #10 is hard required
 .<>* Reward
 ..(Owin:game) Completing objectives wins the game
 ..(Owin:crystal) Completing objectives awards the Crystal
