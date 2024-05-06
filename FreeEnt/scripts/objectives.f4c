@@ -6,6 +6,12 @@ patch($21f800 bus) {
 // %end%
 }
 patch($21f820 bus) {
+// %hard required objective ids%
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+// %end%
+}
+patch($21f840 bus) {
 // %objective thresholds%
     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
@@ -18,6 +24,11 @@ patch($21f0f9 bus) {
 }
 patch($21f0fc bus) {
 // %objective count%
+    00
+// %end%
+}
+patch($21fa00 bus) {
+// %hard objective required count%
     00
 // %end%
 }
@@ -105,10 +116,12 @@ msfpatch
     .def  Objectives__RequiredCount  $21f0f9
     .def  Objectives__Count          $21f0fc
     .def  Objectives__IDs            $21f800
-    .def  Objectives__Thresholds     $21f820
+    .def  ObjectivesHardRequired__IDs $21f820
+    .def  Objectives__Thresholds     $21f840
     .def  Objectives__Progress       $7e1520
     .def  Objectives__Staging        $7072e0
-    .def  Objectives__BossSlotMap    $21f840
+    .def  Objectives__HardRequiredCount  $21fa00
+    .def  Objectives__BossSlotMap    $21f860
     .def  Objectives__MaxCount       0x20
 
     .def  Objectives__ProcessEventID  $08
@@ -154,7 +167,10 @@ msfpatch
 
 msfpatch 
 {
-    EvEx__If_AllObjectivesComplete:
+    EvEx__If_AllObjectivesComplete:        
+        jsr $_CountCompletedHardRequired
+        cmp $=Objectives__HardRequiredCount
+        bcc $-Failed
         jsr $_CountCompleted
         cmp $=Objectives__Count
         bcc $+Failed
@@ -163,10 +179,33 @@ msfpatch
         jmp $_EvEx__If_Fail
 
     EvEx__If_EnoughObjectivesComplete:
+        jsr $_CountCompletedHardRequired
+        cmp $=Objectives__HardRequiredCount
+        bcc $-Failed
         jsr $_CountCompleted
         cmp $=Objectives__RequiredCount
         bcc $-Failed
         jmp $_EvEx__If_Success
+    
+    %CountCompletedHardRequired:
+        stz $1670
+        ldx #$0000
+    %CheckLoopHardRequired:
+        lda $=ObjectivesHardRequired__IDs,x
+        beq $+NextHardRequired
+        lda $=Objectives__Thresholds,x
+        cmp $_Objectives__Progress,x
+        bcc $+IsCompleteHardRequired
+        beq $+IsCompleteHardRequired
+        bra $+NextHardRequired
+    %IsCompleteHardRequired:
+        inc $1670
+    %NextHardRequired:
+        inx
+        cpx #$_Objectives__MaxCount
+        bcc $-CheckLoopHardRequired        
+        lda $1670
+        rts
 
     %CountCompleted:
         stz $1670

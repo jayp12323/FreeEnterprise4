@@ -294,6 +294,16 @@ msfpatch {
         sta $2f
         jsr $_MK_DrawWindow
         rtl
+
+    TrackerMenu__DrawHardRequiredCountWindow:
+        ldx #$0062
+        stx $2b
+        ldx #$0105
+        stx $2d
+        lda #$20
+        sta $2f
+        jsr $_MK_DrawWindow
+        rtl
 }
 
 msfpatch {
@@ -301,8 +311,7 @@ msfpatch {
         jsr $_MK_SetBG2
 
         jsl $=TrackerMenu__DrawTitleWindow
-        jsl $=TrackerMenu__DrawCountWindow
-
+        jsl $=TrackerMenu__DrawCountWindow        
         ldy #$_Text__KeyItemsCaption
         phk
         pla
@@ -844,12 +853,13 @@ msfpatch {
         bcc $-BlackBarLoop
 
         jsl $=TrackerMenu__DrawTitleWindow
+        jsl $=TrackerMenu__DrawHardRequiredCountWindow
         jsl $=TrackerMenu__DrawCountWindow
-
+        
         ldy #$_Text__ObjectivesCaption
         phk
         pla
-        ldx #$0084
+        ldx #$0084        
         jsr $_MK_DrawText
 
         lda $=Objectives__Count
@@ -919,6 +929,20 @@ msfpatch {
         // slash
         lda #$c7
         sta $a6b6
+
+        // lda #$c5
+        // sta $a6bf
+
+        //lda #$28 // Change palette
+        //sta $1681
+        //ldx #$0000
+        //lda #$08
+
+        //lda #$ca // ampersand
+        //sta $a6ac        
+        
+        // lda #$c5
+        // sta $a6bf
 
     %SkipObjectiveCounts:
 
@@ -1027,12 +1051,18 @@ msfpatch {
         lda #$04   // grey palette
         sta $1686
         ldx $1680
+        lda $=ObjectivesHardRequired__IDs,x
+        beq $+NotHardRequired
+        lda #$08   // hard required palette
+        sta $1686
+        bra $+ObjectiveCompleted
+    %NotHardRequired:
         lda $=Objectives__Thresholds,x
         cmp $_Objectives__Progress,x
         beq $+ObjectiveCompleted
         bcc $+ObjectiveCompleted
         lda #$00   // white palette
-        sta $1686  
+        sta $1686        
     %ObjectiveCompleted:
 
         // blank line 0
@@ -1062,10 +1092,18 @@ msfpatch {
         lda $1688
         ora #$80
         sta $b604,y
-        // period
+        ldx $1680
+        lda $=ObjectivesHardRequired__IDs,x
+        beq $+DoPeriod
+        // exclamation    
+        lda #$c4
+        sta $b608,y
+        bra $+WriteText
+    %DoPeriod:
+        // period    
         lda #$c1
         sta $b608,y
-
+    %WriteText:
         // copy text line 1
         ldx $1684
         ldy $1682

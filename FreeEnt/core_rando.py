@@ -948,7 +948,7 @@ def apply(env):
     for slot in BOSS_SLOTS:
         boss_objective_consts.append(f'#objective.boss_{boss_assignment[slot]}')
         env.meta['available_bosses'].add(boss_assignment[slot])
-    env.add_script('patch($21f840 bus) {\n' + '\n'.join(boss_objective_consts) + '\n}')
+    env.add_script('patch($21f860 bus) {\n' + '\n'.join(boss_objective_consts) + '\n}')
 
     # remove golbez item delivery if not needed
     if (RewardSlot.fallen_golbez_item not in rewards_assignment):
