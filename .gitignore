@@ -25,3 +25,5 @@ fetools/harp/__pycache__/
 fetools/processors/__pycache__/
 output/
 notes.txt
+getLatest.sh
+
