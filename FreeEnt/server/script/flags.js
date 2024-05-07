@@ -10159,9 +10159,8 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var all_spoiler_flags, ch, char_objective_flags, distinct_count, distinct_flags, hard_required_objectives, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, required_chars, required_count, required_objective_count, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
+        var actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_spoiler_flags, ch, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, hard_required_objectives, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
         log = [];
-        console.log("Fixing flagset");
         if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
@@ -10229,9 +10228,7 @@ class FlagLogicCore {
                 required_count = flagset.get_list("^Oreq:");
                 if ((required_count.length > 0)) {
                     required_objective_count = Number.parseInt(this._lib.re_sub("^Oreq:", "", required_count[0]));
-                    console.log(`Required objectives ${required_objective_count}`);
                     if ((hard_required_objectives.length > required_objective_count)) {
-                        console.log(`Changing required objective count to ${hard_required_objectives.length}`);
                         this._simple_disable_regex(flagset, log, "Changing required count", "^Oreq:");
                         flagset.set(`Oreq:${hard_required_objectives.length}`);
                         this._lib.push(log, ["correction", "More hard required objectives set than number of objectives required, increasing required objective count."]);
@@ -10317,12 +10314,90 @@ class FlagLogicCore {
                     this._lib.push(log, ["error", "Character objectives are set while no character slots will be filled"]);
                 }
             }
-            if (((flagset.has("Orandom:char") && flagset.has("Cnoearned")) && flagset.has("Cnofree"))) {
-                flagset.unset("Orandom:char");
-                this._lib.push(log, ["correction", "Random character objectives in the pool while no character slots will be filled. Removed Orandom:char."]);
+            for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:char", "Orandom2:char", "Orandom3:char"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                random_prefix = _pj_a[_pj_c];
+                if (((flagset.has(random_prefix) && flagset.has("Cnoearned")) && flagset.has("Cnofree"))) {
+                    flagset.unset(random_prefix);
+                    this._lib.push(log, ["correction", `Random character objectives in the pool while no character slots will be filled. Removed ${random_prefix}.`]);
+                }
             }
-            if ((! flagset.get_list("^Orandom:\\d"))) {
-                this._simple_disable_regex(flagset, log, "No random objectives specified", "^Orandom:[^\\d]");
+            for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:", "Orandom2:", "Orandom3:"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                random_prefix = _pj_a[_pj_c];
+                if ((! flagset.get_list(`^${random_prefix}\d`))) {
+                    console.log(`No random objectives set for ${random_prefix}`);
+                    this._simple_disable_regex(flagset, log, `No random objectives specified for pool ${random_prefix}`, `^${random_prefix}[^\d]`);
+                }
+            }
+            duplicate_check_count = 0;
+            character_pool = [];
+            for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:", "Orandom2:", "Orandom3:"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                random_prefix = _pj_a[_pj_c];
+                if ((! flagset.get_list(`^${random_prefix}`))) {
+                    continue;
+                }
+                random_only_char_flags = flagset.get_list(`${random_prefix}only`);
+                if (((! flagset.has(`${random_prefix}char`)) && (random_only_char_flags.length > 0))) {
+                    flagset.set(`${random_prefix}char`);
+                    this._lib.push(log, ["correction", `Random objectives requiring specifying specific characters set without Orandom:char; setting ${random_prefix}char`]);
+                }
+                all_customized_random_flags = flagset.get_list(`^${random_prefix}[^\d]`);
+                if (((all_customized_random_flags.length !== 0) && (! _pj.in_es6(`${random_prefix}char`, all_customized_random_flags)))) {
+                    continue;
+                }
+                all_random_flags = flagset.get_list(`^${random_prefix}`);
+                skip_pools = false;
+                for (var random_flag, _pj_f = 0, _pj_d = all_random_flags, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+                    random_flag = _pj_d[_pj_f];
+                    flag_suffix = this._lib.re_sub(`^${random_prefix}`, "", random_flag);
+                    if (flag_suffix.isdigit()) {
+                        required_objective_count = Number.parseInt(flag_suffix);
+                    } else {
+                        if (((! flag_suffix.startswith("only")) && (! flag_suffix.startswith("char")))) {
+                            skip_pools = true;
+                            break;
+                        }
+                    }
+                }
+                duplicate_char_count = 0;
+                desired_char_count = 0;
+                if (((random_only_char_flags.length > 0) && (random_only_char_flags.length < required_objective_count))) {
+                    this._lib.push(log, ["error", `Random objectives requiring less specific characters (${random_only_char_flags.length}) than number of objectives (${required_objective_count})`]);
+                    break;
+                } else {
+                    if ((random_only_char_flags.length > 0)) {
+                        for (var random_flag, _pj_f = 0, _pj_d = random_only_char_flags, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+                            random_flag = _pj_d[_pj_f];
+                            desired_char_count += 1;
+                            current_char = random_flag.slice(`${random_prefix}only`.length);
+                            if ((! _pj.in_es6(current_char, character_pool))) {
+                                this._lib.push(character_pool, current_char);
+                            } else {
+                                duplicate_char_count += 1;
+                            }
+                        }
+                    } else {
+                        all_character_pool = ["cecil", "kain", "rydia", "edward", "tellah", "rosa", "yang", "palom", "porom", "cid", "edge", "fusoya"];
+                        desired_char_count = all_character_pool.length;
+                        for (var current_char, _pj_f = 0, _pj_d = all_character_pool, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+                            current_char = _pj_d[_pj_f];
+                            if ((! _pj.in_es6(current_char, character_pool))) {
+                                this._lib.push(character_pool, current_char);
+                            } else {
+                                duplicate_char_count += 1;
+                            }
+                        }
+                    }
+                }
+                chars_to_remove = duplicate_check_count;
+                if ((duplicate_char_count < duplicate_check_count)) {
+                    chars_to_remove = duplicate_char_count;
+                }
+                actual_available_characters = (desired_char_count - chars_to_remove);
+                if (((actual_available_characters < required_objective_count) && (skip_pools === false))) {
+                    this._lib.push(log, ["error", `Not enough unique characters for pool ${random_prefix}.  Another pool could potentially consume some or all of these characters ${random_only_char_flags}`]);
+                    break;
+                }
+                duplicate_check_count += required_objective_count;
             }
         }
         return log;

@@ -570,17 +570,17 @@ class FlagLogicCore:
                 elif len(random_only_char_flags) > 0 :
                     for random_flag in random_only_char_flags:
                         desired_char_count += 1
-                        char = random_flag[len(f'{random_prefix}only'):]
-                        if char not in character_pool:
-                            self._lib.push(character_pool, char)
+                        current_char = random_flag[len(f'{random_prefix}only'):]
+                        if current_char not in character_pool:
+                            self._lib.push(character_pool, current_char)
                         else:
                             duplicate_char_count+=1
                 else:
                     all_character_pool = ['cecil', 'kain', 'rydia', 'edward', 'tellah', 'rosa', 'yang', 'palom', 'porom', 'cid', 'edge', 'fusoya']
                     desired_char_count = len(all_character_pool)
-                    for char in all_character_pool:
-                        if char not in character_pool:
-                            self._lib.push(character_pool, char)
+                    for current_char in all_character_pool:
+                        if current_char not in character_pool:
+                            self._lib.push(character_pool, current_char)
                         else:
                             duplicate_char_count+=1
                 chars_to_remove = duplicate_check_count                
