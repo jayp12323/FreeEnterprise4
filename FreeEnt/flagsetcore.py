@@ -556,7 +556,7 @@ class FlagLogicCore:
                 
                 for random_flag in all_random_flags:
                     flag_suffix = self._lib.re_sub(rf'^{random_prefix}', '', random_flag)
-                    if flag_suffix.isdigit():
+                    if self._lib.re_test(r'\d', flag_suffix):
                         required_objective_count = int(flag_suffix)
                     elif not flag_suffix.startswith('only') and not flag_suffix.startswith('char'):
                         skip_pools = True
