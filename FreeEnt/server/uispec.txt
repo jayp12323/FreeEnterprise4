@@ -38,7 +38,7 @@
 ....(Orandom:tough_quest) Tough quests allowed
 ...[Orandom:boss] Boss hunts allowed
 ...[Orandom:char] Character hunts allowed
-.[] Random Objectives Pool #2
+.[] Random objectives Pool #2
 ..<> Set number of random objectives
 ...(Orandom2:1) Add 1 random objective
 ...(Orandom2:2) Add 2 random objectives
@@ -54,7 +54,7 @@
 ....(Orandom:tough_quest) Tough quests allowed
 ...[Orandom:boss] Boss hunts allowed
 ...[Orandom:char] Character hunts allowed
-.[] Random Objectives Pool #3
+.[] Random objectives Pool #3
 ..<> Set number of random objectives
 ...(Orandom3:1) Add 1 random objective
 ...(Orandom3:2) Add 2 random objectives
