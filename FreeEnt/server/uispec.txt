@@ -38,6 +38,19 @@
 ....(Orandom:tough_quest) Tough quests allowed
 ...[Orandom:boss] Boss hunts allowed
 ...[Orandom:char] Character hunts allowed
+....()# Only include specific characters
+.....[Orandom:onlycecil]  Only include Cecil
+.....[Orandom:onlykain]   Only include Kain
+.....[Orandom:onlyrydia]  Only include Rydia
+.....[Orandom:onlytellah] Only include Tellah
+.....[Orandom:onlyedward] Only include Edward
+.....[Orandom:onlyrosa]   Only include Rosa
+.....[Orandom:onlyyang]   Only include Yang
+.....[Orandom:onlypalom]  Only include Palom
+.....[Orandom:onlyporom]  Only include Porom
+.....[Orandom:onlycid]    Only include Cid
+.....[Orandom:onlyedge]   Only include Edge
+.....[Orandom:onlyfusoya] Only include Fusoya
 .[] Random objectives pool #2
 ..<> Set number of random objectives
 ...(Orandom2:1) Add 1 random objective
@@ -54,6 +67,18 @@
 ....(Orandom2:tough_quest) Tough quests allowed
 ...[Orandom2:boss] Boss hunts allowed
 ...[Orandom2:char] Character hunts allowed
+.....[Orandom2:onlycecil]  Only include Cecil
+.....[Orandom2:onlykain]   Only include Kain
+.....[Orandom2:onlyrydia]  Only include Rydia
+.....[Orandom2:onlytellah] Only include Tellah
+.....[Orandom2:onlyedward] Only include Edward
+.....[Orandom2:onlyrosa]   Only include Rosa
+.....[Orandom2:onlyyang]   Only include Yang
+.....[Orandom2:onlypalom]  Only include Palom
+.....[Orandom2:onlyporom]  Only include Porom
+.....[Orandom2:onlycid]    Only include Cid
+.....[Orandom2:onlyedge]   Only include Edge
+.....[Orandom2:onlyfusoya] Only include Fusoya
 .[] Random objectives pool #3
 ..<> Set number of random objectives
 ...(Orandom3:1) Add 1 random objective
@@ -70,6 +95,18 @@
 ....(Orandom3:tough_quest) Tough quests allowed
 ...[Orandom3:boss] Boss hunts allowed
 ...[Orandom3:char] Character hunts allowed
+.....[Orandom3:onlycecil]  Only include Cecil
+.....[Orandom3:onlykain]   Only include Kain
+.....[Orandom3:onlyrydia]  Only include Rydia
+.....[Orandom3:onlytellah] Only include Tellah
+.....[Orandom3:onlyedward] Only include Edward
+.....[Orandom3:onlyrosa]   Only include Rosa
+.....[Orandom3:onlyyang]   Only include Yang
+.....[Orandom3:onlypalom]  Only include Palom
+.....[Orandom3:onlyporom]  Only include Porom
+.....[Orandom3:onlycid]    Only include Cid
+.....[Orandom3:onlyedge]   Only include Edge
+.....[Orandom3:onlyfusoya] Only include Fusoya
 .<> Set number of objectives required to earn reward
 ..(Oreq:all) Complete all objectives for reward
 ..(Oreq:1) Complete 1 objectives for reward
