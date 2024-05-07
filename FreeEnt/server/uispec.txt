@@ -61,7 +61,7 @@
 ...(Orandom2:6) Add 6 random objectives
 ...(Orandom2:7) Add 7 random objectives
 ...(Orandom2:8) Add 8 random objectives
-..[@Orandomtypes] Restrict allowed random objective types
+..[@Orandomtypes2] Restrict allowed random objective types
 ...<> Quests allowed
 ....(Orandom2:quest) Any quests allowed
 ....(Orandom2:tough_quest) Tough quests allowed
@@ -90,7 +90,7 @@
 ...(Orandom3:6) Add 6 random objectives
 ...(Orandom3:7) Add 7 random objectives
 ...(Orandom3:8) Add 8 random objectives
-..[@Orandomtypes] Restrict allowed random objective types
+..[@Orandomtypes3] Restrict allowed random objective types
 ...<> Quests allowed
 ....(Orandom3:quest) Any quests allowed
 ....(Orandom3:tough_quest) Tough quests allowed
