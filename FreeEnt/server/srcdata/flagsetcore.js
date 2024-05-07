@@ -495,11 +495,8 @@ class FlagLogicCore {
                 flagset.set("Oreq:all");
                 this._lib.push(log, ["correction", "Required number of objectives not specified; setting Oreq:all"]);
             }
-            console.log(...flagset.get_list("^Oreq:"));
             if (flagset.has("Oreq:all")) {
-                console.log("hello");
                 hard_required_objectives = flagset.get_list("^Hreq:");
-                console.log(...hard_required_objectives);
                 if ((hard_required_objectives.length !== 0)) {
                     this._lib.push(log, ["correction", "Hard required objectives found, but all objectives are already required.  Ignoring."]);
                 }

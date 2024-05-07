@@ -22,7 +22,7 @@
 ...(O7:*)
 ..<> Custom objective #8
 ...(O8:*)
-.[] (RandomPool) Random objectives Pool
+.[] (RandomPool) Random objectives Pool #1
 ..<> Set number of random objectives
 ...(Orandom:1) Add 1 random objective
 ...(Orandom:2) Add 2 random objectives
@@ -38,8 +38,38 @@
 ....(Orandom:tough_quest) Tough quests allowed
 ...[Orandom:boss] Boss hunts allowed
 ...[Orandom:char] Character hunts allowed
-.[ECHO:RandomPool]
-.[ECHO:RandomPool]
+.[] Random Objectives Pool #2
+..<> Set number of random objectives
+...(Orandom:1) Add 1 random objective
+...(Orandom:2) Add 2 random objectives
+...(Orandom:3) Add 3 random objectives
+...(Orandom:4) Add 4 random objectives
+...(Orandom:5) Add 5 random objectives
+...(Orandom:6) Add 6 random objectives
+...(Orandom:7) Add 7 random objectives
+...(Orandom:8) Add 8 random objectives
+..[@Orandomtypes] Restrict allowed random objective types
+...<> Quests allowed
+....(Orandom:quest) Any quests allowed
+....(Orandom:tough_quest) Tough quests allowed
+...[Orandom:boss] Boss hunts allowed
+...[Orandom:char] Character hunts allowed
+.[] Random Objectives Pool #3
+..<> Set number of random objectives
+...(Orandom:1) Add 1 random objective
+...(Orandom:2) Add 2 random objectives
+...(Orandom:3) Add 3 random objectives
+...(Orandom:4) Add 4 random objectives
+...(Orandom:5) Add 5 random objectives
+...(Orandom:6) Add 6 random objectives
+...(Orandom:7) Add 7 random objectives
+...(Orandom:8) Add 8 random objectives
+..[@Orandomtypes] Restrict allowed random objective types
+...<> Quests allowed
+....(Orandom:quest) Any quests allowed
+....(Orandom:tough_quest) Tough quests allowed
+...[Orandom:boss] Boss hunts allowed
+...[Orandom:char] Character hunts allowed
 .<> Set number of objectives required to earn reward
 ..(Oreq:all) Complete all objectives for reward
 ..(Oreq:1) Complete 1 objectives for reward
