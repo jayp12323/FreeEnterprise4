@@ -67,6 +67,7 @@
 ....(Orandom2:tough_quest) Tough quests allowed
 ...[Orandom2:boss] Boss hunts allowed
 ...[Orandom2:char] Character hunts allowed
+....()# Only include specific characters
 .....[Orandom2:onlycecil]  Only include Cecil
 .....[Orandom2:onlykain]   Only include Kain
 .....[Orandom2:onlyrydia]  Only include Rydia
@@ -95,6 +96,7 @@
 ....(Orandom3:tough_quest) Tough quests allowed
 ...[Orandom3:boss] Boss hunts allowed
 ...[Orandom3:char] Character hunts allowed
+....()# Only include specific characters
 .....[Orandom3:onlycecil]  Only include Cecil
 .....[Orandom3:onlykain]   Only include Kain
 .....[Orandom3:onlyrydia]  Only include Rydia
