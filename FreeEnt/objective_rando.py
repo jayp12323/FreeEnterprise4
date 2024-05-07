@@ -140,65 +140,76 @@ def apply(env):
     # remove duplicates
     objective_ids = sorted(list(set(objective_ids)), key = lambda oid: objective_ids.index(oid))
 
-    # generate random objectives
-    random_objective_count = 0
-    for f in env.options.flags.get_list(r'^Orandom:\d'):
-        random_objective_count = int(f[len('Orandom:'):])
+    # generate random objectives    
+    for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
+        random_objective_count = 0
+        for f in env.options.flags.get_list(rf'^{random_prefix}\d'):            
+            random_objective_count = int(f[len(random_prefix):])
 
-    random_objective_allowed_types = set()
-    tough_quests_only = False
-    for f in env.options.flags.get_list(r'^Orandom:[^\d]'):
-        allowed_type = f[len('Orandom:'):]
-        if (allowed_type == 'tough_quest'):
-            allowed_type = 'quest'
-            tough_quests_only = True
-        random_objective_allowed_types.add(allowed_type)
+        #print(f"Random objective count is {random_objective_count} for {random_prefix}")
+        random_objective_allowed_types = set()
+        random_objective_allowed_characters = set()
+        tough_quests_only = False
+        for f in env.options.flags.get_list(rf'^{random_prefix}[^\d]'):
+            allowed_type = f[len(random_prefix):]            
+            if (allowed_type == 'tough_quest'):
+                allowed_type = 'quest'
+                tough_quests_only = True
+            if allowed_type.startswith('only'):                
+                random_objective_allowed_characters.add(allowed_type[len('only'):])
+            else:
+                random_objective_allowed_types.add(allowed_type)
+        #print(f'random objective allowed types is {random_objective_allowed_types}')
+        if len(random_objective_allowed_types) == 1 and 'char' in random_objective_allowed_types and random_objective_count > len(random_objective_allowed_characters):
+            raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {random_objective_allowed_characters} were specified.")
+        random_objective_pool = {}
+        for objective_id in OBJECTIVES:
+            obj = OBJECTIVES[objective_id]
+            category = obj['slug'].split('_')[0]
 
-    random_objective_pool = {}
-    for objective_id in OBJECTIVES:
-        obj = OBJECTIVES[objective_id]
-        category = obj['slug'].split('_')[0]
+            if (not random_objective_allowed_types) or (category in random_objective_allowed_types):
+                if (category != 'quest') or (not tough_quests_only) or (obj['slug'] not in TOUGH_QUEST_OBJECTIVES_EXCLUDED):
+                    if obj['slug'] in TOUGH_QUEST_OBJECTIVES_WEIGHTED and env.rnd.random() < 0.40:
+                        continue
+                    random_objective_pool.setdefault(category, []).append(objective_id)
 
-        if (not random_objective_allowed_types) or (category in random_objective_allowed_types):
-            if (category != 'quest') or (not tough_quests_only) or (obj['slug'] not in TOUGH_QUEST_OBJECTIVES_EXCLUDED):
-                if obj['slug'] in TOUGH_QUEST_OBJECTIVES_WEIGHTED and env.rnd.random() < 0.40:
+        random_category_weights = RANDOM_CATEGORY_WEIGHTS
+        if random_objective_allowed_types:
+            random_category_weights = { k : RANDOM_CATEGORY_WEIGHTS[k] for k in RANDOM_CATEGORY_WEIGHTS if k in random_objective_allowed_types }
+        random_category_distribution = util.Distribution(**random_category_weights)
+
+        for i in range(random_objective_count):
+            while True:
+                category = random_category_distribution.choose(env.rnd)
+                q = env.rnd.choice(random_objective_pool[category])
+                if q in objective_ids:
                     continue
-                random_objective_pool.setdefault(category, []).append(objective_id)
-
-    random_category_weights = RANDOM_CATEGORY_WEIGHTS
-    if random_objective_allowed_types:
-        random_category_weights = { k : RANDOM_CATEGORY_WEIGHTS[k] for k in RANDOM_CATEGORY_WEIGHTS if k in random_objective_allowed_types }
-    random_category_distribution = util.Distribution(**random_category_weights)
-
-    for i in range(random_objective_count):
-        while True:
-            category = random_category_distribution.choose(env.rnd)
-            q = env.rnd.choice(random_objective_pool[category])
-            if q in objective_ids:
-                continue
-            
-            slug = OBJECTIVES[q]['slug']
-            if slug.startswith(CHAR_OBJECTIVE_PREFIX):
-                char = slug[len(CHAR_OBJECTIVE_PREFIX):]
-                if char not in env.meta['available_nonstarting_characters']:
+                
+                slug = OBJECTIVES[q]['slug']
+                if slug.startswith(CHAR_OBJECTIVE_PREFIX):
+                    char = slug[len(CHAR_OBJECTIVE_PREFIX):]
+                    if char not in env.meta['available_nonstarting_characters']:
+                        continue
+                    if len(random_objective_allowed_characters) != 0 and (char not in random_objective_allowed_characters):
+                        #print(f'{char} not allowed in types {random_objective_allowed_characters}')
+                        continue
+                elif slug.startswith(BOSS_OBJECTIVE_PREFIX):
+                    boss = slug[len(BOSS_OBJECTIVE_PREFIX):]
+                    if boss not in env.meta['available_bosses']:
+                        continue
+                elif slug == 'quest_tradepink':
+                    if '#item.Pink' not in env.meta['available_key_items']:
+                        continue
+                elif slug == 'quest_pass':
+                    if env.options.flags.has('pass_none'):
+                        continue
+                elif slug.startswith(INTERNAL_OBJECTIVE_PREFIX):
+                    # don't allow internal objectives to be selected as random ones
                     continue
-            elif slug.startswith(BOSS_OBJECTIVE_PREFIX):
-                boss = slug[len(BOSS_OBJECTIVE_PREFIX):]
-                if boss not in env.meta['available_bosses']:
-                    continue
-            elif slug == 'quest_tradepink':
-                if '#item.Pink' not in env.meta['available_key_items']:
-                    continue
-            elif slug == 'quest_pass':
-                if env.options.flags.has('pass_none'):
-                    continue
-            elif slug.startswith(INTERNAL_OBJECTIVE_PREFIX):
-                # don't allow internal objectives to be selected as random ones
-                continue
 
-            break
+                break
 
-        objective_ids.append(q)
+            objective_ids.append(q)
 
     if env.options.test_settings.get('objectives'):
         objective_ids = [OBJECTIVE_SLUGS_TO_IDS[s.strip()] for s in env.options.test_settings.get('objectives').split(',')]
@@ -238,7 +249,6 @@ def apply(env):
             hard_required_objective_count += 1
     env.add_substitution('hard required objective ids', ' '.join([f'{b:02X}' for b in hard_required_objective_ids]))
     env.add_substitution('hard objective required count', f'{hard_required_objective_count:02X}')
-
     env.add_substitution('objective required count', f'{required_objective_count:02X}')
     if required_objective_count > total_objective_count:
         raise BuildError(f"Flags stipulate that {required_objective_count} objectives must be completed, but there are only {total_objective_count} objectives specified.")
