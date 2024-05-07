@@ -41,7 +41,7 @@ Spricey:items Spricey:weapons Spricey:armor
 Tunrestrict:treasury Tunrestrict:moon Tunrestrict:underworld Tunrestrict:overworld
 Tno:j Tmaxtier:3/Tmaxtier:4/Tmaxtier:5/Tmaxtier:6/Tmaxtier:7 Tmoney/Tjunk
 Svanilla Sshuffle/Sstandard/Spro/Swild/Scabins/Sempty Sfree Ssell:quarter/Ssell:0 Sno:j Sno:apples Sno:sirens Sno:life Sunsafe
-Bvanilla Bstandard Bnofree Bunsafe Balt:gauntlet Bwhyburn/Bwhichburn
+Bvanilla Bstandard Bnofree Bunsafe Balt:gauntlet Bwhyburn/Bwhichburn/Bitburns
 Evanilla Etoggle/Ereduce/Enoencounters Ekeep:doors Ekeep:behemoths Edanger Ecantrun Enoexp Eno:jdrops/Eno:sirens
 Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -kit:basic/-kit:better/-kit:loaded/-kit:cata/-kit:freedom/-kit:cid/-kit:yang/-kit:money/-kit:grabbag/-kit:miab/-kit:archer/-kit:fabul/-kit:castlevania/-kit:summon/-kit:notdeme/-kit:meme/-kit:defense/-kit:mist/-kit:mysidia/-kit:baron/-kit:dwarf/-kit:eblan/-kit:libra/-kit:99/-kit:green/-kit:random
@@ -161,6 +161,7 @@ Bunsafe              bosses_unsafe
 Balt:gauntlet        bosses_alt_gauntlet
 Bwhyburn             wyvern_no_meganuke
 Bwhichburn           wyvern_random_meganuke
+Bitburns             wyvern_all_bad_things
 
 Evanilla             encounter_vanilla
 Etoggle              encounter_toggle

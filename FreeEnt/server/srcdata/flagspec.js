@@ -969,6 +969,7 @@ const _FE_FLAGSPEC = {
         "Balt:gauntlet",
         "Bwhyburn",
         "Bwhichburn",
+        "Bitburns",
         "Evanilla",
         "Etoggle",
         "Ereduce",
@@ -1988,7 +1989,8 @@ const _FE_FLAGSPEC = {
         ],
         [
             "Bwhyburn",
-            "Bwhichburn"
+            "Bwhichburn",
+            "Bitburns"
         ],
         [
             "Etoggle",
@@ -7881,6 +7883,12 @@ const _FE_FLAGSPEC = {
             "offset": 277,
             "size": 2,
             "value": 2
+        },
+        {
+            "flag": "Bitburns",
+            "offset": 277,
+            "size": 2,
+            "value": 3
         },
         {
             "flag": "Etoggle",

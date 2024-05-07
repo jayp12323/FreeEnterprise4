@@ -403,6 +403,7 @@
 <> Change Wyvern's opening MegaNuke
 .(Bwhyburn) Disable Wyvern's opening MegaNuke
 .(Bwhichburn) Replace Wyvern's opening MegaNuke with random attack
+.(Bitburns) Replace Wyvern's opening MegaNuke with random, incredibly dangerous attack
 
 == ENCOUNTERS
 <>* Random encounter rate

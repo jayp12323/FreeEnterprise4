@@ -5140,6 +5140,11 @@ var FLAG_UISPEC = [
             "flag": "Bwhichburn",
             "title": "Replace Wyvern's opening MegaNuke with random attack",
             "description": "The replacement attack will be weaker than MegaNuke (unless <em>Bunsafe</em> is enabled, in which case it may not be)."
+          },
+          {
+            "flag": "Bitburns",
+            "title": "Replace Wyvern's opening MegaNuke with random, incredibly dangerous attack",
+            "description": "The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo"
           }
         ]
       }

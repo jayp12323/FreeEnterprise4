@@ -94,14 +94,25 @@ UNSAFE_COMMANDS = {
     '#spell.Enemy_BigBang' : 'all characters',
     }
 
+WORST_COMMANDS = {
+    '#spell.Quake' : 'all characters',
+    '#spell.Meteo' : 'all characters',
+    '#spell.Enemy_Odin' : 'all characters',
+    '#spell.Enemy_BigBang' : 'all characters',
+    '#spell.Enemy_Charm' : 'all characters',
+    '#spell.Enemy_MegaNuke' : 'all characters',
+    }
+
 def apply(env):
     if env.options.flags.has('wyvern_no_meganuke'):
         env.add_file('scripts/wyvern_nomeganuke.f4c')
-
-    elif env.options.flags.has('wyvern_random_meganuke'):
-        commands = dict(POSSIBLE_COMMANDS)
-        if env.options.flags.has('bosses_unsafe'):
-            commands.update(UNSAFE_COMMANDS)
+    elif env.options.flags.has('wyvern_random_meganuke') or env.options.flags.has('wyvern_all_bad_things'):
+        if env.options.flags.has('wyvern_all_bad_things'):
+            commands = dict(WORST_COMMANDS)
+        else:
+            commands = dict(POSSIBLE_COMMANDS)
+            if env.options.flags.has('bosses_unsafe'):
+                commands.update(UNSAFE_COMMANDS)
 
         cmd = env.rnd.choice(list(commands))
         target = env.rnd.choice(commands[cmd].split(' / '))
