@@ -10231,7 +10231,7 @@ class FlagLogicCore {
                     if ((hard_required_objectives.length > required_objective_count)) {
                         this._simple_disable_regex(flagset, log, "Changing required count", "^Oreq:");
                         flagset.set(`Oreq:${hard_required_objectives.length}`);
-                        this._lib.push(log, ["correction", "More hard required objectives set than number of objectives required, increasing required objective count."]);
+                        this._lib.push(log, ["correction", "More hard required objectives set than number of objectives required, increasing required objective count to {len(hard_required_objectives)}."]);
                     }
                 }
             }
@@ -10338,7 +10338,7 @@ class FlagLogicCore {
                 random_only_char_flags = flagset.get_list(`${random_prefix}only`);
                 if (((! flagset.has(`${random_prefix}char`)) && (random_only_char_flags.length > 0))) {
                     flagset.set(`${random_prefix}char`);
-                    this._lib.push(log, ["correction", `Random objectives requiring specifying specific characters set without Orandom:char; setting ${random_prefix}char`]);
+                    this._lib.push(log, ["correction", `Random objectives requiring specific characters set without Orandom:char; setting ${random_prefix}char`]);
                 }
                 all_customized_random_flags = flagset.get_list(`^${random_prefix}[^\d]`);
                 if (((all_customized_random_flags.length !== 0) && (! _pj.in_es6(`${random_prefix}char`, all_customized_random_flags)))) {
@@ -10352,7 +10352,7 @@ class FlagLogicCore {
                     if (this._lib.re_test("\\d", flag_suffix)) {
                         required_objective_count = Number.parseInt(flag_suffix);
                     } else {
-                        if (((! flag_suffix.startswith("only")) && (! flag_suffix.startswith("char")))) {
+                        if (((! this._lib.re_test("only", flag_suffix)) && (! this._lib.re_test("char", flag_suffix)))) {
                             skip_pools = true;
                             break;
                         }
