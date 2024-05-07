@@ -406,7 +406,7 @@ class FlagLogicCore:
 
         if flagset.has('Chero'):
             self._simple_disable_regex(flagset, log, 'Hero challenge includes smith weapon', r'^-smith:')
-
+        
         start_include_flags = flagset.get_list(r'^Cstart:(?!not_)')
         start_exclude_flags = flagset.get_list(r'^Cstart:not_')
         if len(start_exclude_flags) > 0 and len(start_include_flags) > 0:

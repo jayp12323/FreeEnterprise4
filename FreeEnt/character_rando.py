@@ -120,7 +120,9 @@ def apply(env):
     
     if not restricted_characters:
         restricted_characters.extend(['fusoya', 'edge'])
-        
+     
+    if env.options.flags.has('Csuperhero'):
+        env.add_substitution('has superhero', f'{1:02X}')   
 
     if requested_start_characters and disrequested_start_characters:
         raise Exception("Cannot specify both inclusions and exclusions for starting character pool")
