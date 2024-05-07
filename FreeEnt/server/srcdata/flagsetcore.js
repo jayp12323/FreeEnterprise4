@@ -436,8 +436,9 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var all_spoiler_flags, ch, char_objective_flags, distinct_count, distinct_flags, hard_required_objectives, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
+        var all_spoiler_flags, ch, char_objective_flags, distinct_count, distinct_flags, hard_required_objectives, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, required_chars, required_count, required_objective_count, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
         log = [];
+        console.log("Fixing flagset");
         if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
@@ -495,10 +496,23 @@ class FlagLogicCore {
                 flagset.set("Oreq:all");
                 this._lib.push(log, ["correction", "Required number of objectives not specified; setting Oreq:all"]);
             }
+            hard_required_objectives = flagset.get_list("^Hreq:");
             if (flagset.has("Oreq:all")) {
-                hard_required_objectives = flagset.get_list("^Hreq:");
                 if ((hard_required_objectives.length !== 0)) {
-                    this._lib.push(log, ["correction", "Hard required objectives found, but all objectives are already required.  Ignoring."]);
+                    this._simple_disable_regex(flagset, log, "Removing hard required flags", "^Hreq:");
+                    this._lib.push(log, ["correction", "Hard required objectives found, but all objectives are already required.  Ignoring hard required flags."]);
+                }
+            } else {
+                required_count = flagset.get_list("^Oreq:");
+                if ((required_count.length > 0)) {
+                    required_objective_count = Number.parseInt(this._lib.re_sub("^Oreq:", "", required_count[0]));
+                    console.log(`Required objectives ${required_objective_count}`);
+                    if ((hard_required_objectives.length > required_objective_count)) {
+                        console.log(`Changing required objective count to ${hard_required_objectives.length}`);
+                        this._simple_disable_regex(flagset, log, "Changing required count", "^Oreq:");
+                        flagset.set(`Oreq:${hard_required_objectives.length}`);
+                        this._lib.push(log, ["correction", "More hard required objectives set than number of objectives required, increasing required objective count."]);
+                    }
                 }
             }
             win_flags = flagset.get_list("^Owin:");

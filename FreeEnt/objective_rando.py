@@ -179,13 +179,12 @@ def apply(env):
         random_category_distribution = util.Distribution(**random_category_weights)
 
         for i in range(random_objective_count):
-            while True:
+            while True:                
                 category = random_category_distribution.choose(env.rnd)
                 q = env.rnd.choice(random_objective_pool[category])
+                slug = OBJECTIVES[q]['slug']                
                 if q in objective_ids:
                     continue
-                
-                slug = OBJECTIVES[q]['slug']
                 if slug.startswith(CHAR_OBJECTIVE_PREFIX):
                     char = slug[len(CHAR_OBJECTIVE_PREFIX):]
                     if char not in env.meta['available_nonstarting_characters']:
@@ -206,7 +205,6 @@ def apply(env):
                 elif slug.startswith(INTERNAL_OBJECTIVE_PREFIX):
                     # don't allow internal objectives to be selected as random ones
                     continue
-
                 break
 
             objective_ids.append(q)

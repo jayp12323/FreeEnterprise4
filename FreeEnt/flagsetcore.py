@@ -387,8 +387,7 @@ class FlagLogicCore:
     def fix(self, flagset):
         log = []
 
-        # NOTE: mutex flags ARE handled internally by FlagSet, don't worry about them here
-
+        # NOTE: mutex flags ARE handled internally by FlagSet, don't worry about them here        
         # key item flags
         if flagset.has_any('Ksummon', 'Kmoon', 'Kmiab') and not flagset.has('Kmain'):
             flagset.set('Kmain')
@@ -447,10 +446,19 @@ class FlagLogicCore:
                 flagset.set('Oreq:all')
                 self._lib.push(log, ['correction', 'Required number of objectives not specified; setting Oreq:all'])
 
-            if flagset.has('Oreq:all'):
-                hard_required_objectives = flagset.get_list(r'^Hreq:')
+            hard_required_objectives = flagset.get_list(r'^Hreq:')            
+            if flagset.has('Oreq:all'):                
                 if len(hard_required_objectives) != 0:
-                    self._lib.push(log, ['correction', 'Hard required objectives found, but all objectives are already required.  Ignoring.'])                    
+                    self._simple_disable_regex(flagset, log, 'Removing hard required flags', r'^Hreq:')
+                    self._lib.push(log, ['correction', 'Hard required objectives found, but all objectives are already required.  Ignoring hard required flags.'])                    
+            else:
+                required_count = flagset.get_list(r'^Oreq:')
+                if len(required_count ) > 0 :
+                    required_objective_count = int(self._lib.re_sub(r'^Oreq:', '', required_count[0]))
+                    if len(hard_required_objectives) > required_objective_count:
+                        self._simple_disable_regex(flagset, log, 'Changing required count', r'^Oreq:')
+                        flagset.set(f'Oreq:{len(hard_required_objectives)}')
+                        self._lib.push(log, ['correction', 'More hard required objectives set than number of objectives required, increasing required objective count.'])
 
             win_flags = flagset.get_list(r'^Owin:')
             # Force Owin:crystal if classicforge, otherwise force Owin:game if no win result specified
@@ -513,16 +521,77 @@ class FlagLogicCore:
                             self._lib.push(log, ['error', "More character objectives are set than distinct characters allowed in the randomization."])
 
                 if flagset.has('Cnofree') and flagset.has('Cnoearned'):
-                    self._lib.push(log, ['error', "Character objectives are set while no character slots will be filled"])
-
-            if flagset.has('Orandom:char') and flagset.has('Cnoearned') and flagset.has('Cnofree'):
-                flagset.unset('Orandom:char')
-                self._lib.push(log, ['correction', 'Random character objectives in the pool while no character slots will be filled. Removed Orandom:char.'])
+                    self._lib.push(log, ['error', "Character objectives are set while no character slots will be filled"])                           
+            
+            for random_prefix in ['Orandom:char', 'Orandom2:char', 'Orandom3:char']:    
+                if flagset.has(random_prefix) and flagset.has('Cnoearned') and flagset.has('Cnofree'):
+                    flagset.unset(random_prefix)
+                    self._lib.push(log, ['correction', f'Random character objectives in the pool while no character slots will be filled. Removed {random_prefix}.'])
                     
             # remove random quest type specifiers if no random objectives specified
-            if not flagset.get_list(r'^Orandom:\d'):
-                self._simple_disable_regex(flagset, log, 'No random objectives specified', r'^Orandom:[^\d]')
+            for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
+                if not flagset.get_list(rf'^{random_prefix}\d'):
+                    print(f'No random objectives set for {random_prefix}')
+                    self._simple_disable_regex(flagset, log, f'No random objectives specified for pool {random_prefix}', rf'^{random_prefix}[^\d]')
 
+            # test if # of random req quests exceeds the random only characters count
+            # test if the total amount of avail chararcters exceeds the required_character_count
+            duplicate_check_count = 0
+            character_pool = []
+            for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:         
+                if not flagset.get_list(rf'^{random_prefix}'):
+                    continue
+
+                random_only_char_flags = flagset.get_list(rf'{random_prefix}only')
+                if not flagset.has(f'{random_prefix}char') and len(random_only_char_flags) > 0:
+                    flagset.set(f'{random_prefix}char')
+                    self._lib.push(log, ['correction', f'Random objectives requiring specifying specific characters set without Orandom:char; setting {random_prefix}char'])
+
+                all_customized_random_flags = flagset.get_list(rf'^{random_prefix}[^\d]')
+                if len(all_customized_random_flags) != 0 and f'{random_prefix}char'not in all_customized_random_flags:
+                    continue
+
+                all_random_flags = flagset.get_list(rf'^{random_prefix}')                
+                skip_pools = False
+                
+                for random_flag in all_random_flags:
+                    flag_suffix = self._lib.re_sub(rf'^{random_prefix}', '', random_flag)
+                    if flag_suffix.isdigit():
+                        required_objective_count = int(flag_suffix)
+                    elif not flag_suffix.startswith('only') and not flag_suffix.startswith('char'):
+                        skip_pools = True
+                        break
+                                
+                duplicate_char_count = 0
+                desired_char_count = 0
+                if len(random_only_char_flags) > 0 and len(random_only_char_flags) < required_objective_count:
+                    self._lib.push(log, ['error', f'Random objectives requiring less specific characters ({len(random_only_char_flags)}) than number of objectives ({required_objective_count})'])
+                    break
+                elif len(random_only_char_flags) > 0 :
+                    for random_flag in random_only_char_flags:
+                        desired_char_count += 1
+                        char = random_flag[len(f'{random_prefix}only'):]
+                        if char not in character_pool:
+                            self._lib.push(character_pool, char)
+                        else:
+                            duplicate_char_count+=1
+                else:
+                    all_character_pool = ['cecil', 'kain', 'rydia', 'edward', 'tellah', 'rosa', 'yang', 'palom', 'porom', 'cid', 'edge', 'fusoya']
+                    desired_char_count = len(all_character_pool)
+                    for char in all_character_pool:
+                        if char not in character_pool:
+                            self._lib.push(character_pool, char)
+                        else:
+                            duplicate_char_count+=1
+                chars_to_remove = duplicate_check_count                
+                if duplicate_char_count < duplicate_check_count:
+                    chars_to_remove = duplicate_char_count
+                actual_available_characters = desired_char_count - chars_to_remove
+                #print (f'actual_available_characters {actual_available_characters} desired_char_count {desired_char_count} chars_to_remove {chars_to_remove} duplicate_char_count {duplicate_char_count} duplicate_check_count {duplicate_check_count}')
+                if actual_available_characters < required_objective_count and skip_pools == False:
+                    self._lib.push(log, ['error', f'Not enough unique characters for pool {random_prefix}.  Another pool could potentially consume some or all of these characters {random_only_char_flags}'])
+                    break
+                duplicate_check_count += required_objective_count            
         return log
 
 
