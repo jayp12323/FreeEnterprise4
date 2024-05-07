@@ -1045,6 +1045,7 @@ msfpatch {
         beq $+ObjectiveCompleted
         bcc $+ObjectiveCompleted
         lda $=ObjectivesHardRequired__IDs,x
+        cmp #$00
         beq $+NotHardRequired
         lda #$08   // hard required palette
         sta $1686

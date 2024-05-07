@@ -531,7 +531,6 @@ class FlagLogicCore:
             # remove random quest type specifiers if no random objectives specified
             for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
                 if not flagset.get_list(rf'^{random_prefix}\d'):
-                    print(f'No random objectives set for {random_prefix}')
                     self._simple_disable_regex(flagset, log, f'No random objectives specified for pool {random_prefix}', rf'^{random_prefix}[^\d]')
 
             # test if # of random req quests exceeds the random only characters count

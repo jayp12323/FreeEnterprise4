@@ -235,16 +235,19 @@ def apply(env):
 
     # handle hard required objective ids
     hard_required_objective_ids = []
-    hard_required_objective_count = 0
-    if required_objective_count != total_objective_count:
-        for i in objective_ids:
-            hard_required_objective_ids.append(0)
+    hard_required_objective_count = 0    
+    for i in objective_ids:
+        hard_required_objective_ids.append(0x00)
+
+    if required_objective_count != total_objective_count:        
         for f in env.options.flags.get_list(r'^Hreq:\d'):
             hard_required_objective_index = int(f[len('Hreq:'):])
             if hard_required_objective_index >total_objective_count:
                 raise BuildError(f"Flags stipulate that objective # {hard_required_objective_index} is required, but there are only {total_objective_count} objectives specified.")
             hard_required_objective_ids[hard_required_objective_index-1] = objective_ids[hard_required_objective_index-1]
             hard_required_objective_count += 1
+            
+    #print(f'hard_required_objective_count {hard_required_objective_count} hard_required_objective_ids {hard_required_objective_ids} {f'{b:02X}}')
     env.add_substitution('hard required objective ids', ' '.join([f'{b:02X}' for b in hard_required_objective_ids]))
     env.add_substitution('hard objective required count', f'{hard_required_objective_count:02X}')
     env.add_substitution('objective required count', f'{required_objective_count:02X}')
