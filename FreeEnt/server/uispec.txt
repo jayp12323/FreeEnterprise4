@@ -22,7 +22,7 @@
 ...(O7:*)
 ..<> Custom objective #8
 ...(O8:*)
-.[] Random objectives pool #1
+.[@Orandompool1] Random objectives pool #1
 ..<> Set number of random objectives
 ...(Orandom:1) Add 1 random objective
 ...(Orandom:2) Add 2 random objectives
@@ -51,7 +51,7 @@
 .....[Orandom:onlycid]    Only include Cid
 .....[Orandom:onlyedge]   Only include Edge
 .....[Orandom:onlyfusoya] Only include Fusoya
-.[] Random objectives pool #2
+.[@Orandompool2] Random objectives pool #2
 ..<> Set number of random objectives
 ...(Orandom2:1) Add 1 random objective
 ...(Orandom2:2) Add 2 random objectives
@@ -80,7 +80,7 @@
 .....[Orandom2:onlycid]    Only include Cid
 .....[Orandom2:onlyedge]   Only include Edge
 .....[Orandom2:onlyfusoya] Only include Fusoya
-.[] Random objectives pool #3
+.[@Orandompool3] Random objectives pool #3
 ..<> Set number of random objectives
 ...(Orandom3:1) Add 1 random objective
 ...(Orandom3:2) Add 2 random objectives
