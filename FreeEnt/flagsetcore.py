@@ -458,7 +458,7 @@ class FlagLogicCore:
                     if len(hard_required_objectives) > required_objective_count:
                         self._simple_disable_regex(flagset, log, 'Changing required count', r'^Oreq:')
                         flagset.set(f'Oreq:{len(hard_required_objectives)}')
-                        self._lib.push(log, ['correction', 'More hard required objectives set than number of objectives required, increasing required objective count.'])
+                        self._lib.push(log, ['correction', 'More hard required objectives set than number of objectives required, increasing required objective count to {len(hard_required_objectives)}.'])
 
             win_flags = flagset.get_list(r'^Owin:')
             # Force Owin:crystal if classicforge, otherwise force Owin:game if no win result specified
@@ -545,7 +545,7 @@ class FlagLogicCore:
                 random_only_char_flags = flagset.get_list(rf'{random_prefix}only')
                 if not flagset.has(f'{random_prefix}char') and len(random_only_char_flags) > 0:
                     flagset.set(f'{random_prefix}char')
-                    self._lib.push(log, ['correction', f'Random objectives requiring specifying specific characters set without Orandom:char; setting {random_prefix}char'])
+                    self._lib.push(log, ['correction', f'Random objectives requiring specific characters set without Orandom:char; setting {random_prefix}char'])
 
                 all_customized_random_flags = flagset.get_list(rf'^{random_prefix}[^\d]')
                 if len(all_customized_random_flags) != 0 and f'{random_prefix}char'not in all_customized_random_flags:
