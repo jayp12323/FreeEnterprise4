@@ -10349,7 +10349,7 @@ class FlagLogicCore {
                 for (var random_flag, _pj_f = 0, _pj_d = all_random_flags, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
                     random_flag = _pj_d[_pj_f];
                     flag_suffix = this._lib.re_sub(`^${random_prefix}`, "", random_flag);
-                    if (flag_suffix.isdigit()) {
+                    if (this._lib.re_test("\\d", flag_suffix)) {
                         required_objective_count = Number.parseInt(flag_suffix);
                     } else {
                         if (((! flag_suffix.startswith("only")) && (! flag_suffix.startswith("char")))) {

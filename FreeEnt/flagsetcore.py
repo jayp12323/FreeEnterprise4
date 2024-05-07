@@ -558,7 +558,7 @@ class FlagLogicCore:
                     flag_suffix = self._lib.re_sub(rf'^{random_prefix}', '', random_flag)
                     if self._lib.re_test(r'\d', flag_suffix):
                         required_objective_count = int(flag_suffix)
-                    elif not flag_suffix.startswith('only') and not flag_suffix.startswith('char'):
+                    elif not self._lib.re_test(r'only', flag_suffix) and not self._lib.re_test(r'char', flag_suffix):
                         skip_pools = True
                         break
                                 
