@@ -194,12 +194,12 @@ event($62)  //Cecil's transformation, Tellah remembering
 {
     // autodetected map #MountOrdealsSummit
     
-    // %anyflags hero_challenge superhero_challenge%
+    // %anyflags: hero_challenge superhero_challenge%
     party leader $01  // happily, vanilla party leader function looks for actor, so we can look for axtor 1
     // %end%
     player face up
     music #None
-    // %anyflags hero_challenge superhero_challenge%
+    // %anyflags: hero_challenge superhero_challenge%
     [#B #ReloadPlacementSprite 2]
     [#B #ReloadPlacementSprite 3]
     [#B #ReloadPlacementSprite 4]
@@ -209,7 +209,7 @@ event($62)  //Cecil's transformation, Tellah remembering
     music #LunarPath
     toggle tint $99
 
-    // %anyflags hero_challenge superhero_challenge%
+    // %anyflags: hero_challenge superhero_challenge%
     consts(placement) {
         2  PartyMember1
         3  PartyMember2
@@ -261,10 +261,10 @@ event($62)  //Cecil's transformation, Tellah remembering
 
     clear #Temp
 
-    // %flags ~hero_challenge ~superhero_challenge %
+    // %flags: ~hero_challenge ~superhero_challenge%    
     [#B #If #Character #character.Cecil] {
         [#B #PartyLeaderCharacter #character.Cecil]
-    }
+    }    
     // %end%
 
     [#B #If #PartyLeaderHasJob #job.DKCecil] {
@@ -378,7 +378,7 @@ event($62)  //Cecil's transformation, Tellah remembering
     }
     player toggle turning
     music #LunarSubterrane
-    // %anyflags hero_challenge superhero_challenge %
+    // %anyflags: hero_challenge superhero_challenge %
     set #fe_HeroSoloBattle
     // %end%
     [#B #Rando_BossBattle #rando.mirrorcecil_slot]

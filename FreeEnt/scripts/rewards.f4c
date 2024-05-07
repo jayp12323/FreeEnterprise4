@@ -1,9 +1,3 @@
-patch($21fac0 bus) {
-// %has superhero%
-    00
-// %end%
-}
-
 consts(reward_slot)
 {
     $00     none
@@ -101,8 +95,7 @@ consts(reward_slot)
 }
 
 msfpatch {
-    .def  Rewards__MaxSlotCount  $60
-    .def  Rewards__HasSuperhero  $21fac0
+    .def  Rewards__MaxSlotCount  $60    
 }
 
 msfpatch {
@@ -324,15 +317,12 @@ msfpatch {
         ldx #$_Tracker__KeyItemFoundFlags
         jsl $=Tracker__SetBit
         lda $_Rewards__CurrentValueLo
+        // %flag superhero_challenge on%
         // Earth crystal depowers superhero
-        lda $=Rewards__HasSuperhero
-        cmp #$01
-        bne $+SkipSuperHeroCheck        
-        lda $_Rewards__CurrentValueLo    
         cmp #$f1        
         beq $+RemoveSuperhero
+        // %end%
     %SkipSuperHeroCheck:
-        lda $_Rewards__CurrentValueLo    
         cmp #$3e // check if spoon        
         bne $+ItemNotYetUsed        
         // for items like spoon, mark as already "used"

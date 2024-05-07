@@ -100,7 +100,7 @@ msfpatch {
         %MainLoop_Full:
             jsr $_JoinFullPartyMenu__CharacterSelect
 
-            // %anyflags hero_challenge superhero_challenge%
+            // %anyflags: hero_challenge superhero_challenge%
             jsr $_JoinFullPartyMenu__GetSelectedAxtor
             cmp #$01
             bne $+HeroNotSelected

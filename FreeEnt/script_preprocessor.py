@@ -5,10 +5,11 @@ from .errors import BuildError
 _SUBSTITUTION_DELIMITER_REGEX = re.compile(r'\s*//\s*%(?P<identifier>[^%]*)%\s*$')
 _LEGACY_FLAG_REGEX = re.compile(r'^\s*flag\s+(?P<flag>[A-Za-z0-9_]+)\s+(?P<state>on|off)\s*$')
 _LEGACY_MULTIFLAG_REGEX = re.compile(r'^\s*flags:(?P<flags>.*)$')
+_LEGACY_ANYFLAG_REGEX = re.compile(r'^\s*anyflags:(?P<flags>.*)$')
 _LEGACY_TEST_REGEX = re.compile(r'^\s*test_setting\s*(?P<setting>.+?)\s*$')
 _INLINE_SUBSTITUTION_REGEX = re.compile(r'\{%(?P<identifier>.+?)(?P<default>:.*?)?%\}')
 
-_KEYWORDS = ['if', 'elif', 'else', 'flag', 'flags:', 'test_setting', 'end']
+_KEYWORDS = ['if', 'elif', 'else', 'flag', 'flags:', 'anyflags:', 'test_setting', 'end']
 
 
 class _PreprocessState:
@@ -77,7 +78,7 @@ class ScriptPreprocessor:
     def handle_keyword_identifier(self, identifier, state):
         identifier_parts = identifier.split(maxsplit=1)
         keyword = identifier_parts[0]
-
+        
         if keyword == 'end':
             if not state.is_substitution_open:
                 raise BuildError(f"Encountered %end% while not inside substitution")
@@ -94,7 +95,6 @@ class ScriptPreprocessor:
             state.is_blanking = state.is_conditional_already_satisfied
             state.is_conditional_ending = True
             return
-
         # Convert legacy conditional formats to "if" format
         if keyword == 'flag':
             m = _LEGACY_FLAG_REGEX.search(identifier)
@@ -106,6 +106,12 @@ class ScriptPreprocessor:
             identifier_parts = [keyword, 'flags: ' + ('' if compare else '~') + flag]
         elif keyword == 'flags:':
             m = _LEGACY_MULTIFLAG_REGEX.search(identifier)
+            if not m:
+                raise BuildError(f"Encountered malformed keyword identifier %{identifier}%")
+            keyword = 'if'
+            identifier_parts = [keyword, identifier]
+        elif keyword == 'anyflags:':
+            m = _LEGACY_ANYFLAG_REGEX.search(identifier)
             if not m:
                 raise BuildError(f"Encountered malformed keyword identifier %{identifier}%")
             keyword = 'if'
