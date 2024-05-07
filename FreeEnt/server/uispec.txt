@@ -22,7 +22,7 @@
 ...(O7:*)
 ..<> Custom objective #8
 ...(O8:*)
-.[] Random objectives
+.[] (RandomPool) Random objectives Pool
 ..<> Set number of random objectives
 ...(Orandom:1) Add 1 random objective
 ...(Orandom:2) Add 2 random objectives
@@ -38,6 +38,8 @@
 ....(Orandom:tough_quest) Tough quests allowed
 ...[Orandom:boss] Boss hunts allowed
 ...[Orandom:char] Character hunts allowed
+.[ECHO:RandomPool]
+.[ECHO:RandomPool]
 .<> Set number of objectives required to earn reward
 ..(Oreq:all) Complete all objectives for reward
 ..(Oreq:1) Complete 1 objectives for reward
