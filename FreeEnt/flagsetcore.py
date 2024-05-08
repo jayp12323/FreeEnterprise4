@@ -461,6 +461,12 @@ class FlagLogicCore:
                         self._lib.push(log, ['correction', 'More hard required objectives set than number of objectives required, increasing required objective count to {len(hard_required_objectives)}.'])
 
             win_flags = flagset.get_list(r'^Owin:')
+            # make sure at least some bosses are specified in boss hunt
+            print(flagset.get_list())
+            if flagset.has('Omode:bosshunt') and len(flagset.get_list(r'^Obosshunt:'))==0:
+                flagset.set('Obosshunt:5')
+                self._lib.push(log, ['correction', 'Bosshunt enabled without specifying number of bosses, adding Obosshunt:5'])
+
             # Force Owin:crystal if classicforge, otherwise force Owin:game if no win result specified
             if flagset.has('Omode:classicforge') and not flagset.has('Owin:crystal'):
                 flagset.set('Owin:crystal')

@@ -227,8 +227,8 @@ def apply(env):
     objective_ids.extend([0x00] * (MAX_OBJECTIVE_COUNT - len(objective_ids)))
     env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))        
     threshold_list = []
-    has_bosshunt = False
-    boss_hunt_count = 2
+    has_bosshunt = False    
+    boss_hunt_count = int(env.options.flags.get_suffix(f"Obosshunt:"))
     for b in objective_ids:
         if b == 0xFF:
             threshold_list.append('00')
@@ -294,7 +294,6 @@ def apply(env):
         if OBJECTIVES[objective_id]['slug'] == 'internal_bosshunt':
             text = text.replace('%d', str(boss_hunt_count) )
             text = text.replace('%t', 'bosses' if boss_hunt_count > 1 else 'else' )
-        print(f'Text is {text}')
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
         lines = _split_lines(text)
