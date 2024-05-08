@@ -6,13 +6,14 @@
 ..[Omode:fiends] Fiends%
 ..[Omode:dkmatter] Dark Matter Hunt
 ..[Omode:bosshunt] Boss Hunt
-...(Obosshunt:5) Hunt 5 bosses
-...(Obosshunt:10) Hunt 10 bosses
-...(Obosshunt:15) Hunt 15 bosses
-...(Obosshunt:20) Hunt 20 bosses
-...(Obosshunt:25) Hunt 25 bosses
-...(Obosshunt:30) Hunt 30 bosses
-...(Obosshunt:35) Hunt 35 bosses
+...<> Set number of required bosses
+....(Obosshunt:5) Hunt 5 bosses
+....(Obosshunt:10) Hunt 10 bosses
+....(Obosshunt:15) Hunt 15 bosses
+....(Obosshunt:20) Hunt 20 bosses
+....(Obosshunt:25) Hunt 25 bosses
+....(Obosshunt:30) Hunt 30 bosses
+....(Obosshunt:35) Hunt 35 bosses
 .[@Ocustom] Custom objectives
 ..<> Custom objective #1
 ...(O1:*)
