@@ -13,7 +13,7 @@ Defeat Milon, Milon Z., Kainazzo, Valvalis, Rubicant, and Elements to complete t
 [Omode:dkmatter]
 45 Dark Matters are randomly placed in chests (MIABs excluded); bring 30 of them to Kory in Agart to complete this objective.
 
-[Omode:bosshunt]
+[Omode:bosscollector]
 Find and defeat the specified number of bosses to complete this objective
 
 [Orandom:tough_quest]

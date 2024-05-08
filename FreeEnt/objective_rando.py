@@ -9,7 +9,7 @@ MODES = {
     'Omode:classicgiant'  : ['quest_giant'],
     'Omode:fiends'        : ['boss_milon', 'boss_milonz', 'boss_kainazzo', 'boss_valvalis', 'boss_rubicant', 'boss_elements'],
     'Omode:dkmatter'      : ['internal_dkmatter'],
-    'Omode:bosshunt'      : ['internal_bosshunt']
+    'Omode:bosscollector' : ['internal_bosscollector']
 }
 
 OBJECTIVE_SLUGS_TO_IDS = {}
@@ -227,22 +227,22 @@ def apply(env):
     objective_ids.extend([0x00] * (MAX_OBJECTIVE_COUNT - len(objective_ids)))
     env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))        
     threshold_list = []
-    has_bosshunt = False    
-    boss_hunt_count = int(env.options.flags.get_suffix(f"Obosshunt:"))
+    has_bosscollector = False    
+    boss_hunt_count = int(env.options.flags.get_suffix(f"Obosscollector:"))
     for b in objective_ids:
         if b == 0xFF:
             threshold_list.append('00')
-        elif b != 0 and OBJECTIVES[b]['slug'] == 'internal_bosshunt':
+        elif b != 0 and OBJECTIVES[b]['slug'] == 'internal_bosscollector':
             threshold_list.append(f'{boss_hunt_count:02X}')
-            has_bosshunt = True
+            has_bosscollector = True
         else:
             threshold_list.append('01')
     env.add_substitution('objective thresholds', ' '.join(threshold_list))
 
     # inject the location of the boss slot index
-    if has_bosshunt:
-        bosshunt_id = OBJECTIVE_SLUGS_TO_IDS['internal_bosshunt']
-        env.add_substitution('boss hunt slot', f'{bosshunt_id:02X}')
+    if has_bosscollector:
+        bosscollector_id = OBJECTIVE_SLUGS_TO_IDS['internal_bosscollector']
+        env.add_substitution('boss hunt slot', f'{bosscollector_id:02X}')
     
     # handle changes for partial objectives
     if required_objective_count == 'all' or required_objective_count is None:
@@ -291,7 +291,7 @@ def apply(env):
         if objective_id == 0x00:
             continue 
         text = OBJECTIVES[objective_id]['desc']
-        if OBJECTIVES[objective_id]['slug'] == 'internal_bosshunt':
+        if OBJECTIVES[objective_id]['slug'] == 'internal_bosscollector':
             text = text.replace('%d', str(boss_hunt_count) )
             text = text.replace('%t', 'bosses' if boss_hunt_count > 1 else 'else' )
         env.meta.setdefault('objective_descriptions', []).append(text)

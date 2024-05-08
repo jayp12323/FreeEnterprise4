@@ -10,7 +10,7 @@ const _FE_FLAGSPEC = {
         "Omode:classicgiant",
         "Omode:fiends",
         "Omode:dkmatter",
-        "Omode:bosshunt",
+        "Omode:bosscollector",
         "O1:char_cecil",
         "O1:char_kain",
         "O1:char_rydia",
@@ -699,21 +699,21 @@ const _FE_FLAGSPEC = {
         "O8:quest_tradepan",
         "O8:quest_tradepink",
         "O8:quest_pass",
-        "Obosshunt:1",
-        "Obosshunt:2",
-        "Obosshunt:3",
-        "Obosshunt:4",
-        "Obosshunt:5",
-        "Obosshunt:6",
-        "Obosshunt:7",
-        "Obosshunt:8",
-        "Obosshunt:9",
-        "Obosshunt:10",
-        "Obosshunt:15",
-        "Obosshunt:20",
-        "Obosshunt:25",
-        "Obosshunt:30",
-        "Obosshunt:34",
+        "Obosscollector:1",
+        "Obosscollector:2",
+        "Obosscollector:3",
+        "Obosscollector:4",
+        "Obosscollector:5",
+        "Obosscollector:6",
+        "Obosscollector:7",
+        "Obosscollector:8",
+        "Obosscollector:9",
+        "Obosscollector:10",
+        "Obosscollector:15",
+        "Obosscollector:20",
+        "Obosscollector:25",
+        "Obosscollector:30",
+        "Obosscollector:34",
         "Orandom:1",
         "Orandom:2",
         "Orandom:3",
@@ -1860,21 +1860,21 @@ const _FE_FLAGSPEC = {
             "O8:quest_pass"
         ],
         [
-            "Obosshunt:1",
-            "Obosshunt:2",
-            "Obosshunt:3",
-            "Obosshunt:4",
-            "Obosshunt:5",
-            "Obosshunt:6",
-            "Obosshunt:7",
-            "Obosshunt:8",
-            "Obosshunt:9",
-            "Obosshunt:10",
-            "Obosshunt:15",
-            "Obosshunt:20",
-            "Obosshunt:25",
-            "Obosshunt:30",
-            "Obosshunt:34"
+            "Obosscollector:1",
+            "Obosscollector:2",
+            "Obosscollector:3",
+            "Obosscollector:4",
+            "Obosscollector:5",
+            "Obosscollector:6",
+            "Obosscollector:7",
+            "Obosscollector:8",
+            "Obosscollector:9",
+            "Obosscollector:10",
+            "Obosscollector:15",
+            "Obosscollector:20",
+            "Obosscollector:25",
+            "Obosscollector:30",
+            "Obosscollector:34"
         ],
         [
             "Orandom:1",
@@ -2200,7 +2200,7 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "Omode:bosshunt",
+            "flag": "Omode:bosscollector",
             "offset": 4,
             "size": 1,
             "value": 1
@@ -6334,91 +6334,91 @@ const _FE_FLAGSPEC = {
             "value": 86
         },
         {
-            "flag": "Obosshunt:1",
+            "flag": "Obosscollector:1",
             "offset": 61,
             "size": 4,
             "value": 1
         },
         {
-            "flag": "Obosshunt:2",
+            "flag": "Obosscollector:2",
             "offset": 61,
             "size": 4,
             "value": 2
         },
         {
-            "flag": "Obosshunt:3",
+            "flag": "Obosscollector:3",
             "offset": 61,
             "size": 4,
             "value": 3
         },
         {
-            "flag": "Obosshunt:4",
+            "flag": "Obosscollector:4",
             "offset": 61,
             "size": 4,
             "value": 4
         },
         {
-            "flag": "Obosshunt:5",
+            "flag": "Obosscollector:5",
             "offset": 61,
             "size": 4,
             "value": 5
         },
         {
-            "flag": "Obosshunt:6",
+            "flag": "Obosscollector:6",
             "offset": 61,
             "size": 4,
             "value": 6
         },
         {
-            "flag": "Obosshunt:7",
+            "flag": "Obosscollector:7",
             "offset": 61,
             "size": 4,
             "value": 7
         },
         {
-            "flag": "Obosshunt:8",
+            "flag": "Obosscollector:8",
             "offset": 61,
             "size": 4,
             "value": 8
         },
         {
-            "flag": "Obosshunt:9",
+            "flag": "Obosscollector:9",
             "offset": 61,
             "size": 4,
             "value": 9
         },
         {
-            "flag": "Obosshunt:10",
+            "flag": "Obosscollector:10",
             "offset": 61,
             "size": 4,
             "value": 10
         },
         {
-            "flag": "Obosshunt:15",
+            "flag": "Obosscollector:15",
             "offset": 61,
             "size": 4,
             "value": 11
         },
         {
-            "flag": "Obosshunt:20",
+            "flag": "Obosscollector:20",
             "offset": 61,
             "size": 4,
             "value": 12
         },
         {
-            "flag": "Obosshunt:25",
+            "flag": "Obosscollector:25",
             "offset": 61,
             "size": 4,
             "value": 13
         },
         {
-            "flag": "Obosshunt:30",
+            "flag": "Obosscollector:30",
             "offset": 61,
             "size": 4,
             "value": 14
         },
         {
-            "flag": "Obosshunt:34",
+            "flag": "Obosscollector:34",
             "offset": 61,
             "size": 4,
             "value": 15
@@ -9019,7 +9019,7 @@ const _FE_FLAGSPEC = {
                 "Omode:classicgiant",
                 "Omode:fiends",
                 "Omode:dkmatter",
-                "Omode:bosshunt",
+                "Omode:bosscollector",
                 "O1:char_cecil",
                 "O1:char_kain",
                 "O1:char_rydia",

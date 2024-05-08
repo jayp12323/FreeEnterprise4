@@ -514,9 +514,9 @@ class FlagLogicCore {
             }
             win_flags = flagset.get_list("^Owin:");
             console.log(flagset.get_list());
-            if ((flagset.has("Omode:bosshunt") && (flagset.get_list("^Obosshunt:").length === 0))) {
-                flagset.set("Obosshunt:5");
-                this._lib.push(log, ["correction", "Bosshunt enabled without specifying number of bosses, adding Obosshunt:5"]);
+            if ((flagset.has("Omode:bosscollector") && (flagset.get_list("^Obosscollector:").length === 0))) {
+                flagset.set("Obosscollector:5");
+                this._lib.push(log, ["correction", "bosscollector enabled without specifying number of bosses, adding Obosscollector:5"]);
             }
             if ((flagset.has("Omode:classicforge") && (! flagset.has("Owin:crystal")))) {
                 flagset.set("Owin:crystal");

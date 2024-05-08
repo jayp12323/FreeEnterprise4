@@ -33,7 +33,7 @@ var FLAG_UISPEC = [
                 "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 30 of them to Kory in Agart to complete this objective."
               },
               {
-                "flag": "Omode:bosshunt",
+                "flag": "Omode:bosscollector",
                 "title": "Boss Hunt",
                 "description": "Find and defeat the specified number of bosses to complete this objective",
                 "subcontrols": [
@@ -43,63 +43,63 @@ var FLAG_UISPEC = [
                     "type": "select",
                     "subcontrols": [
                       {
-                        "flag": "Obosshunt:1",
+                        "flag": "Obosscollector:1",
                         "title": "Hunt 1 boss"
                       },
                       {
-                        "flag": "Obosshunt:2",
+                        "flag": "Obosscollector:2",
                         "title": "Hunt 2 bosses"
                       },
                       {
-                        "flag": "Obosshunt:3",
+                        "flag": "Obosscollector:3",
                         "title": "Hunt 3 bosses"
                       },
                       {
-                        "flag": "Obosshunt:4",
+                        "flag": "Obosscollector:4",
                         "title": "Hunt 4 bosses"
                       },
                       {
-                        "flag": "Obosshunt:5",
+                        "flag": "Obosscollector:5",
                         "title": "Hunt 5 bosses"
                       },
                       {
-                        "flag": "Obosshunt:6",
+                        "flag": "Obosscollector:6",
                         "title": "Hunt 6 bosses"
                       },
                       {
-                        "flag": "Obosshunt:7",
+                        "flag": "Obosscollector:7",
                         "title": "Hunt 7 bosses"
                       },
                       {
-                        "flag": "Obosshunt:8",
+                        "flag": "Obosscollector:8",
                         "title": "Hunt 8 bosses"
                       },
                       {
-                        "flag": "Obosshunt:9",
+                        "flag": "Obosscollector:9",
                         "title": "Hunt 9 bosses"
                       },
                       {
-                        "flag": "Obosshunt:10",
+                        "flag": "Obosscollector:10",
                         "title": "Hunt 10 bosses"
                       },
                       {
-                        "flag": "Obosshunt:15",
+                        "flag": "Obosscollector:15",
                         "title": "Hunt 15 bosses"
                       },
                       {
-                        "flag": "Obosshunt:20",
+                        "flag": "Obosscollector:20",
                         "title": "Hunt 20 bosses"
                       },
                       {
-                        "flag": "Obosshunt:25",
+                        "flag": "Obosscollector:25",
                         "title": "Hunt 25 bosses"
                       },
                       {
-                        "flag": "Obosshunt:30",
+                        "flag": "Obosscollector:30",
                         "title": "Hunt 30 bosses"
                       },
                       {
-                        "flag": "Obosshunt:34",
+                        "flag": "Obosscollector:34",
                         "title": "Hunt 34 bosses"
                       }
                     ]
