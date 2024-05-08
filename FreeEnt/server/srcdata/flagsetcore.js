@@ -436,7 +436,7 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_spoiler_flags, ch, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, hard_required_objectives, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
+        var actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_specific_objectives, all_spoiler_flags, ch, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, hard_required_objectives, has_unavailable_characters, log, num_random_objectives, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, specific_boss_objectives, start_exclude_flags, start_include_flags, total_objective_count, total_potential_bosses, win_flags;
         log = [];
         if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
@@ -608,6 +608,44 @@ class FlagLogicCore {
                 if ((! flagset.get_list(`^${random_prefix}\d`))) {
                     this._simple_disable_regex(flagset, log, `No random objectives specified for pool ${random_prefix}`, `^${random_prefix}[^\d]`);
                 }
+            }
+            total_potential_bosses = 0;
+            total_objective_count = 0;
+            for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:", "Orandom2:", "Orandom3:"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                random_prefix = _pj_a[_pj_c];
+                if ((! flagset.get_list(`^${random_prefix}`))) {
+                    continue;
+                }
+                all_customized_random_flags = flagset.get_list(`^${random_prefix}[^\d]`);
+                num_random_objectives = flagset.get_list(`^${random_prefix}\d`);
+                flag_suffix = this._lib.re_sub(`^${random_prefix}`, "", num_random_objectives[0]);
+                if (((all_customized_random_flags.length === 0) || _pj.in_es6(`${random_prefix}boss`, all_customized_random_flags))) {
+                    total_potential_bosses += Number.parseInt(flag_suffix);
+                }
+                total_objective_count += Number.parseInt(flag_suffix);
+            }
+            specific_boss_objectives = flagset.get_list(`^O[\d]:boss_`);
+            all_specific_objectives = flagset.get_list(`^O[\d]:`);
+            total_potential_bosses += specific_boss_objectives.length;
+            total_objective_count += all_specific_objectives.length;
+            if (flagset.has("Omode:fiends")) {
+                total_potential_bosses += 6;
+                total_objective_count += 6;
+            }
+            if (flagset.has("Omode:classicforge")) {
+                total_objective_count += 1;
+            }
+            if (flagset.has("Omode:classicgiant")) {
+                total_objective_count += 1;
+            }
+            if (flagset.has("Omode:dkmatter")) {
+                total_objective_count += 1;
+            }
+            if ((total_potential_bosses > 34)) {
+                this._lib.push(log, ["error", "More than 34 potential bosses specified"]);
+            }
+            if ((total_objective_count > 32)) {
+                this._lib.push(log, ["error", "More than 32 objectives specified"]);
             }
             duplicate_check_count = 0;
             character_pool = [];

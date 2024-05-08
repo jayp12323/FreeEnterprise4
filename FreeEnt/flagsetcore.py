@@ -546,6 +546,8 @@ class FlagLogicCore:
                     continue
                 all_customized_random_flags = flagset.get_list(rf'^{random_prefix}[^\d]')
                 num_random_objectives = flagset.get_list(rf'^{random_prefix}\d')
+                if num_random_objectives == 0:
+                    continue
                 flag_suffix = self._lib.re_sub(rf'^{random_prefix}', '', num_random_objectives[0])
                 if len(all_customized_random_flags) == 0 or f'{random_prefix}boss' in all_customized_random_flags:                                        
                     total_potential_bosses += int(flag_suffix)

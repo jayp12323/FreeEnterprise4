@@ -34,7 +34,7 @@ var FLAG_UISPEC = [
               },
               {
                 "flag": "Omode:bosscollector",
-                "title": "Boss Hunt",
+                "title": "Boss Collector",
                 "description": "Find and defeat the specified number of bosses to complete this objective",
                 "subcontrols": [
                   {
@@ -44,63 +44,63 @@ var FLAG_UISPEC = [
                     "subcontrols": [
                       {
                         "flag": "Obosscollector:1",
-                        "title": "Hunt 1 boss"
+                        "title": "Collect 1 boss"
                       },
                       {
                         "flag": "Obosscollector:2",
-                        "title": "Hunt 2 bosses"
+                        "title": "Collect 2 bosses"
                       },
                       {
                         "flag": "Obosscollector:3",
-                        "title": "Hunt 3 bosses"
+                        "title": "Collect 3 bosses"
                       },
                       {
                         "flag": "Obosscollector:4",
-                        "title": "Hunt 4 bosses"
+                        "title": "Collect 4 bosses"
                       },
                       {
                         "flag": "Obosscollector:5",
-                        "title": "Hunt 5 bosses"
+                        "title": "Collect 5 bosses"
                       },
                       {
                         "flag": "Obosscollector:6",
-                        "title": "Hunt 6 bosses"
+                        "title": "Collect 6 bosses"
                       },
                       {
                         "flag": "Obosscollector:7",
-                        "title": "Hunt 7 bosses"
+                        "title": "Collect 7 bosses"
                       },
                       {
                         "flag": "Obosscollector:8",
-                        "title": "Hunt 8 bosses"
+                        "title": "Collect 8 bosses"
                       },
                       {
                         "flag": "Obosscollector:9",
-                        "title": "Hunt 9 bosses"
+                        "title": "Collect 9 bosses"
                       },
                       {
                         "flag": "Obosscollector:10",
-                        "title": "Hunt 10 bosses"
+                        "title": "Collect 10 bosses"
                       },
                       {
                         "flag": "Obosscollector:15",
-                        "title": "Hunt 15 bosses"
+                        "title": "Collect 15 bosses"
                       },
                       {
                         "flag": "Obosscollector:20",
-                        "title": "Hunt 20 bosses"
+                        "title": "Collect 20 bosses"
                       },
                       {
                         "flag": "Obosscollector:25",
-                        "title": "Hunt 25 bosses"
+                        "title": "Collect 25 bosses"
                       },
                       {
                         "flag": "Obosscollector:30",
-                        "title": "Hunt 30 bosses"
+                        "title": "Collect 30 bosses"
                       },
                       {
                         "flag": "Obosscollector:34",
-                        "title": "Hunt 34 bosses"
+                        "title": "Collect 34 bosses"
                       }
                     ]
                   }
