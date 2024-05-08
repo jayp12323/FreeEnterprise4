@@ -31,6 +31,17 @@ var FLAG_UISPEC = [
                 "flag": "Omode:dkmatter",
                 "title": "Dark Matter Hunt",
                 "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 30 of them to Kory in Agart to complete this objective."
+              },
+              {
+                "flag": "Omode:bosshunt",
+                "title": "Boss Hunt",
+                "description": "Find and defeat the specified number of bosses to complete this objective",
+                "subcontrols": [
+                  {
+                    "flag": "Obosshunt:10",
+                    "title": "Boss Hunt 10 enemies"
+                  }
+                ]
               }
             ]
           },
