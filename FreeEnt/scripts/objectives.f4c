@@ -32,6 +32,12 @@ patch($21fa00 bus) {
     00
 // %end%
 }
+patch($21fa04 bus) {
+// %boss hunt slot%
+    00
+// %end%
+}
+
 
 event($08)
 {
@@ -121,6 +127,7 @@ msfpatch
     .def  Objectives__Progress       $7e1520
     .def  Objectives__Staging        $7072e0
     .def  Objectives__HardRequiredCount  $21fa00
+    .def  Objectives__BossHuntSlot   $21fa04
     .def  Objectives__BossSlotMap    $21f860
     .def  Objectives__MaxCount       0x20
 
@@ -295,6 +302,8 @@ msfpatch {
         xba
         lda $_EvEx__Param1
         tax
+        lda $=Objectives__BossHuntSlot
+        jsl $=Objectives__StageProgress
         lda $=Objectives__BossSlotMap,x
         jsl $=Objectives__StageProgress
         jmp $_EvEx__ObjectivesImpl_DoEvent

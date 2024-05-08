@@ -9,6 +9,7 @@ MODES = {
     'Omode:classicgiant'  : ['quest_giant'],
     'Omode:fiends'        : ['boss_milon', 'boss_milonz', 'boss_kainazzo', 'boss_valvalis', 'boss_rubicant', 'boss_elements'],
     'Omode:dkmatter'      : ['internal_dkmatter'],
+    'Omode:bosshunt'      : ['internal_bosshunt']
 }
 
 OBJECTIVE_SLUGS_TO_IDS = {}
@@ -224,9 +225,25 @@ def apply(env):
     total_objective_count = len(objective_ids)
     env.add_substitution('objective count', f'{total_objective_count:02X}')
     objective_ids.extend([0x00] * (MAX_OBJECTIVE_COUNT - len(objective_ids)))
-    env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))    
-    env.add_substitution('objective thresholds', ' '.join([('00' if b == 0xFF else '01') for b in objective_ids]))
+    env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))        
+    threshold_list = []
+    has_bosshunt = False
+    boss_hunt_count = 2
+    for b in objective_ids:
+        if b == 0xFF:
+            threshold_list.append('00')
+        elif b != 0 and OBJECTIVES[b]['slug'] == 'internal_bosshunt':
+            threshold_list.append(f'{boss_hunt_count:02X}')
+            has_bosshunt = True
+        else:
+            threshold_list.append('01')
+    env.add_substitution('objective thresholds', ' '.join(threshold_list))
 
+    # inject the location of the boss slot index
+    if has_bosshunt:
+        bosshunt_id = OBJECTIVE_SLUGS_TO_IDS['internal_bosshunt']
+        env.add_substitution('boss hunt slot', f'{bosshunt_id:02X}')
+    
     # handle changes for partial objectives
     if required_objective_count == 'all' or required_objective_count is None:
         required_objective_count = total_objective_count
@@ -250,6 +267,8 @@ def apply(env):
     #print(f'hard_required_objective_count {hard_required_objective_count} hard_required_objective_ids {hard_required_objective_ids} {f'{b:02X}}')
     env.add_substitution('hard required objective ids', ' '.join([f'{b:02X}' for b in hard_required_objective_ids]))
     env.add_substitution('hard objective required count', f'{hard_required_objective_count:02X}')
+    boss_required_objective_count = 1
+    env.add_substitution('boss objective required count', f'{boss_required_objective_count:02X}')    
     env.add_substitution('objective required count', f'{required_objective_count:02X}')
     if required_objective_count > total_objective_count:
         raise BuildError(f"Flags stipulate that {required_objective_count} objectives must be completed, but there are only {total_objective_count} objectives specified.")
@@ -272,6 +291,10 @@ def apply(env):
         if objective_id == 0x00:
             continue 
         text = OBJECTIVES[objective_id]['desc']
+        if OBJECTIVES[objective_id]['slug'] == 'internal_bosshunt':
+            text = text.replace('%d', str(boss_hunt_count) )
+            text = text.replace('%t', 'bosses' if boss_hunt_count > 1 else 'else' )
+        print(f'Text is {text}')
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
         lines = _split_lines(text)

@@ -119,7 +119,7 @@ msfpatch {
 
 msfpatch {
     .def AltGauntlet__Indicator   $7e1628
-    .def BossBypassFlag__Addr         $7e128e
+    .def BossBypassFlag__Addr     $7e128e    
     .def BossBypassFlag__Bit          $04
     .def BossBypassFlag__AntiBit      $FB
     //--------------------------------------------------------------

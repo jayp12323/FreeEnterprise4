@@ -601,7 +601,6 @@ class FlagLogicCore {
             for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:", "Orandom2:", "Orandom3:"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 random_prefix = _pj_a[_pj_c];
                 if ((! flagset.get_list(`^${random_prefix}\d`))) {
-                    console.log(`No random objectives set for ${random_prefix}`);
                     this._simple_disable_regex(flagset, log, `No random objectives specified for pool ${random_prefix}`, `^${random_prefix}[^\d]`);
                 }
             }

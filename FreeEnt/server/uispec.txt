@@ -5,6 +5,8 @@
 ..[Omode:classicgiant] Classic Giant%
 ..[Omode:fiends] Fiends%
 ..[Omode:dkmatter] Dark Matter Hunt
+..[Omode:bosshunt] Boss Hunt
+...(Obosshunt:10) Boss Hunt 10 enemies
 .[@Ocustom] Custom objectives
 ..<> Custom objective #1
 ...(O1:*)
