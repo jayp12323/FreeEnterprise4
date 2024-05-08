@@ -5,23 +5,23 @@
 ..[Omode:classicgiant] Classic Giant%
 ..[Omode:fiends] Fiends%
 ..[Omode:dkmatter] Dark Matter Hunt
-..[Omode:bosscollector] Boss Hunt
+..[Omode:bosscollector] Boss Collector
 ...<> Set number of required bosses
-....(Obosscollector:1) Hunt 1 boss
-....(Obosscollector:2) Hunt 2 bosses
-....(Obosscollector:3) Hunt 3 bosses
-....(Obosscollector:4) Hunt 4 bosses
-....(Obosscollector:5) Hunt 5 bosses
-....(Obosscollector:6) Hunt 6 bosses
-....(Obosscollector:7) Hunt 7 bosses
-....(Obosscollector:8) Hunt 8 bosses
-....(Obosscollector:9) Hunt 9 bosses
-....(Obosscollector:10) Hunt 10 bosses
-....(Obosscollector:15) Hunt 15 bosses
-....(Obosscollector:20) Hunt 20 bosses
-....(Obosscollector:25) Hunt 25 bosses
-....(Obosscollector:30) Hunt 30 bosses
-....(Obosscollector:34) Hunt 34 bosses
+....(Obosscollector:1) Collect 1 boss
+....(Obosscollector:2) Collect 2 bosses
+....(Obosscollector:3) Collect 3 bosses
+....(Obosscollector:4) Collect 4 bosses
+....(Obosscollector:5) Collect 5 bosses
+....(Obosscollector:6) Collect 6 bosses
+....(Obosscollector:7) Collect 7 bosses
+....(Obosscollector:8) Collect 8 bosses
+....(Obosscollector:9) Collect 9 bosses
+....(Obosscollector:10) Collect 10 bosses
+....(Obosscollector:15) Collect 15 bosses
+....(Obosscollector:20) Collect 20 bosses
+....(Obosscollector:25) Collect 25 bosses
+....(Obosscollector:30) Collect 30 bosses
+....(Obosscollector:34) Collect 34 bosses
 .[@Ocustom] Custom objectives
 ..<> Custom objective #1
 ...(O1:*)
