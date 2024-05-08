@@ -539,6 +539,37 @@ class FlagLogicCore:
                 if not flagset.get_list(rf'^{random_prefix}\d'):
                     self._simple_disable_regex(flagset, log, f'No random objectives specified for pool {random_prefix}', rf'^{random_prefix}[^\d]')
 
+            total_potential_bosses = 0
+            total_objective_count = 0
+            for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
+                if not flagset.get_list(rf'^{random_prefix}'):
+                    continue
+                all_customized_random_flags = flagset.get_list(rf'^{random_prefix}[^\d]')
+                num_random_objectives = flagset.get_list(rf'^{random_prefix}\d')
+                flag_suffix = self._lib.re_sub(rf'^{random_prefix}', '', num_random_objectives[0])
+                if len(all_customized_random_flags) == 0 or f'{random_prefix}boss' in all_customized_random_flags:                                        
+                    total_potential_bosses += int(flag_suffix)
+                total_objective_count += int(flag_suffix)
+            specific_boss_objectives = flagset.get_list(rf'^O[\d]:boss_')
+            all_specific_objectives = flagset.get_list(rf'^O[\d]:')
+            total_potential_bosses += len(specific_boss_objectives)
+            total_objective_count += len(all_specific_objectives)
+            if flagset.has('Omode:fiends'):
+                total_potential_bosses += 6
+                total_objective_count += 6
+            if flagset.has('Omode:classicforge'):
+                total_objective_count += 1
+            if flagset.has('Omode:classicgiant'):
+                total_objective_count += 1
+            if flagset.has('Omode:dkmatter'):
+                total_objective_count += 1
+
+            if total_potential_bosses > 34:
+                self._lib.push(log, ['error', "More than 34 potential bosses specified"])                           
+            if total_objective_count > 32:
+                self._lib.push(log, ['error', "More than 32 objectives specified"])                           
+            #print(f'Total potential bosses is {total_potential_bosses} Objectives is {total_objective_count}')            
+
             # test if # of random req quests exceeds the random only characters count
             # test if the total amount of avail chararcters exceeds the required_character_count
             duplicate_check_count = 0
