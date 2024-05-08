@@ -301,6 +301,52 @@ msfpatch {
     EvEx__Rando_PostBossBattle:
         jsr $_EvEx__ReadParameters_1
 
+        // Show boss completion
+        lda $=Objectives__BossCollectorSlot
+        cmp #$00
+        beq $+SkipBossCollectorDialog
+        
+        lda $=Objectives__Count
+        beq $+SkipBossCollectorDialog        
+        ldx #$0000
+    %CheckLoop:
+        lda $=Objectives__IDs,x
+        cmp $=Objectives__BossCollectorSlot
+        beq $+Found
+        inx
+        cpx #$_Objectives__MaxCount
+        bcc $-CheckLoop
+        bra $+SkipBossCollectorDialog
+    %Found:        
+        lda $=Objectives__Progress,x
+        cmp $=Objectives__Thresholds,x
+        bcs $+SkipBossCollectorDialog
+        lda $=Objectives__Progress,x
+        sta $08f8
+        lda #$00
+        sta $08f9
+        lda #$00
+        sta $08fa
+
+        lda $=Objectives__Progress,x
+        cmp #$01
+        beq $+FirstBoss
+        lda #$1f
+        bra $+ShowBossCounterDialog
+
+    %FirstBoss:
+        lda #$1e
+
+    %ShowBossCounterDialog:
+        sta $b2
+        lda #$24
+        jsr $_Util__PlaySFX
+        // pull rtl address and defer to bank 1 high message handler
+        pla
+        pla
+        pla
+        jml $00ef64
+    %SkipBossCollectorDialog:
         // check for Fusoya challenge
         lda $=RandoFlag_vanilla_fusoya
         beq $03
@@ -665,4 +711,12 @@ msfpatch {
         jsr $_CharEx__SimplifyAxtorCode
         jsr $_CharEx__InitializeAxtorName
         jmp $_EvEx__End
+}
+
+text(bank 1 message $11E) {
+    [amount] boss collected!
+}
+
+text(bank 1 message $11f) {
+    [amount] bosses collected!
 }

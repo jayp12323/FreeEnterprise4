@@ -133,8 +133,6 @@ text(bank 1 message $10E) {X}
 
 // message $11C is the harp song text
 
-text(bank 1 message $11E) {X}
-text(bank 1 message $11F) {X}
 text(bank 1 message $120) {X}
 text(bank 1 message $121) {X}
 text(bank 1 message $122) {X}
