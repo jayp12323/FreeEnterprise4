@@ -1,0 +1,73 @@
+/*
+msfpatch {
+    EvEx__Doors_LoadMap:
+        sta $=Rewards__CurrentSlot
+        sta $1680
+        clc
+        asl $1680
+        rol $1681
+        clc
+        asl $1680
+        rol $1681
+        ldx $1680
+
+        // stuff map parameters into a forged "load map" event command
+        lda $=Ending_VignetteMapData_MapLo,x
+        lda $=0B05
+        sta $09d6
+
+        lda $=Ending_VignetteMapData_X,x
+        sta $09d7
+
+        lda $=Ending_VignetteMapData_Y,x
+        clc
+        adc #$0b        // offset for "scrolling" into position
+        sta $09d8
+
+        lda #$20        // "no transition" flag
+        sta $09d9
+        lda $=Ending_VignetteMapData_MapHi,x
+        beq $+NotUnderworld
+        lda #$A0        // underworld & "no transition" flags
+        sta $09d9
+    %NotUnderworld:
+        // pull event extension return address
+        pla
+        pla
+        pla
+
+        // init vars expected by load map command
+        ldx #$0000
+        stz $b3
+
+        // jump to load map handler
+        jml $00edb1
+}
+*/
+
+
+/*
+trigger(#Overworld 4)
+{
+    position 100 157
+    teleport #Underworld at 62 122 
+}
+
+trigger(#Overworld 5)
+{
+    position 100 158
+    teleport #Underworld at 62 122 
+}
+
+trigger(#Overworld 6)
+{
+    position 103 157
+    teleport #Underworld at 62 122 
+}
+
+trigger(#Overworld 7)
+{
+    position 103 158
+    teleport #Underworld at 62 122 
+}
+*/

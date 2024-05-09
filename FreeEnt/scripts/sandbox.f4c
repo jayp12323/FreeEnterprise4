@@ -13,8 +13,10 @@ npc(#TrainingRoomSoldierOutside)
 }
 
 event($F8) {
+    /*
     load map #Zot6F at 7 10 facing up
-    
+    */
+    load map #LunarSubterran1F at 13 14 facing up
     /*
     [#B #Rando_DeliverRewardFromSlot #reward_slot.mist_character]
     set #CecilBecamePaladin

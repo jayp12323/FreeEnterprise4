@@ -180,13 +180,6 @@
 [Pkey] Include Pass in potential key item locations
 [Pchests] Include Pass in treasure chests
 
-== Doors
-<>* Doors
-.[Dvanilla] - No door randomization
-.[Dtowns] - All town entrances are randomized
-.[Ddungeon] - All dungeon entrances are randomized
-.[Dshuffle] - Town and Dungeon entrances are randomized
-
 == CHARACTERS
 <>* Characters
 .[Cvanilla]- No character randomization

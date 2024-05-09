@@ -38,7 +38,6 @@ patch($21fa04 bus) {
 // %end%
 }
 
-
 event($08)
 {
     // if objectives not enabled/already completed, do nothing

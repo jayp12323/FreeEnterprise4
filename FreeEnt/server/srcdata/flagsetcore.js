@@ -618,6 +618,9 @@ class FlagLogicCore {
                 }
                 all_customized_random_flags = flagset.get_list(`^${random_prefix}[^\d]`);
                 num_random_objectives = flagset.get_list(`^${random_prefix}\d`);
+                if ((num_random_objectives.length === 0)) {
+                    continue;
+                }
                 flag_suffix = this._lib.re_sub(`^${random_prefix}`, "", num_random_objectives[0]);
                 if (((all_customized_random_flags.length === 0) || _pj.in_es6(`${random_prefix}boss`, all_customized_random_flags))) {
                     total_potential_bosses += Number.parseInt(flag_suffix);

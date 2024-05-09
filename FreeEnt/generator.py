@@ -57,6 +57,7 @@ F4C_FILES = '''
     scripts/consts.f4c
     scripts/npcs.f4c
     scripts/characters.f4c
+    scripts/doors.f4c
     scripts/items.f4c
     scripts/menu_data.f4c
     scripts/randomizer.f4c
