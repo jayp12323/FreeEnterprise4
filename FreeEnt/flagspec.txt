@@ -28,6 +28,7 @@ Hreq:1 Hreq:2 Hreq:3 Hreq:4 Hreq:5 Hreq:6 Hreq:7 Hreq:8 Hreq:9 Hreq:10 Hreq:11 H
 Owin:game/Owin:crystal
 Kvanilla Kmain Ksummon Kmoon Kmiab Knofree Kunsafe Kforce:magma/Kforce:hook
 Pnone Pshop Pkey Pchests
+Dvanilla Dtowns/Ddungeon/Dshuffle
 Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe 
 Cdistinct:1/Cdistinct:2/Cdistinct:3/Cdistinct:4/Cdistinct:5/Cdistinct:6/Cdistinct:7/Cdistinct:8/Cdistinct:9/Cdistinct:10/Cdistinct:11
 Cstart:cecil Cstart:kain Cstart:rydia Cstart:tellah Cstart:edward Cstart:rosa Cstart:yang Cstart:palom Cstart:porom Cstart:cid Cstart:edge Cstart:fusoya Cstart:any
