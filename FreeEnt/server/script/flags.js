@@ -11,6 +11,7 @@ const _FE_FLAGSPEC = {
         "Omode:fiends",
         "Omode:dkmatter",
         "Omode:bosscollector",
+        "Omode:goldhunter",
         "O1:char_cecil",
         "O1:char_kain",
         "O1:char_rydia",
@@ -97,6 +98,8 @@ const _FE_FLAGSPEC = {
         "O1:quest_tradepan",
         "O1:quest_tradepink",
         "O1:quest_pass",
+        "O1:quest_collect_gold",
+        "O1:quest_have_gold",
         "O2:char_cecil",
         "O2:char_kain",
         "O2:char_rydia",
@@ -183,6 +186,8 @@ const _FE_FLAGSPEC = {
         "O2:quest_tradepan",
         "O2:quest_tradepink",
         "O2:quest_pass",
+        "O2:quest_collect_gold",
+        "O2:quest_have_gold",
         "O3:char_cecil",
         "O3:char_kain",
         "O3:char_rydia",
@@ -269,6 +274,8 @@ const _FE_FLAGSPEC = {
         "O3:quest_tradepan",
         "O3:quest_tradepink",
         "O3:quest_pass",
+        "O3:quest_collect_gold",
+        "O3:quest_have_gold",
         "O4:char_cecil",
         "O4:char_kain",
         "O4:char_rydia",
@@ -355,6 +362,8 @@ const _FE_FLAGSPEC = {
         "O4:quest_tradepan",
         "O4:quest_tradepink",
         "O4:quest_pass",
+        "O4:quest_collect_gold",
+        "O4:quest_have_gold",
         "O5:char_cecil",
         "O5:char_kain",
         "O5:char_rydia",
@@ -441,6 +450,8 @@ const _FE_FLAGSPEC = {
         "O5:quest_tradepan",
         "O5:quest_tradepink",
         "O5:quest_pass",
+        "O5:quest_collect_gold",
+        "O5:quest_have_gold",
         "O6:char_cecil",
         "O6:char_kain",
         "O6:char_rydia",
@@ -527,6 +538,8 @@ const _FE_FLAGSPEC = {
         "O6:quest_tradepan",
         "O6:quest_tradepink",
         "O6:quest_pass",
+        "O6:quest_collect_gold",
+        "O6:quest_have_gold",
         "O7:char_cecil",
         "O7:char_kain",
         "O7:char_rydia",
@@ -613,6 +626,8 @@ const _FE_FLAGSPEC = {
         "O7:quest_tradepan",
         "O7:quest_tradepink",
         "O7:quest_pass",
+        "O7:quest_collect_gold",
+        "O7:quest_have_gold",
         "O8:char_cecil",
         "O8:char_kain",
         "O8:char_rydia",
@@ -699,6 +714,8 @@ const _FE_FLAGSPEC = {
         "O8:quest_tradepan",
         "O8:quest_tradepink",
         "O8:quest_pass",
+        "O8:quest_collect_gold",
+        "O8:quest_have_gold",
         "Obosscollector:1",
         "Obosscollector:2",
         "Obosscollector:3",
@@ -714,6 +731,16 @@ const _FE_FLAGSPEC = {
         "Obosscollector:25",
         "Obosscollector:30",
         "Obosscollector:34",
+        "Ogoldhunter:collect100",
+        "Ogoldhunter:collect250",
+        "Ogoldhunter:collect500",
+        "Ogoldhunter:collect750",
+        "Ogoldhunter:collect1000",
+        "Ogoldhunter:have100",
+        "Ogoldhunter:have250",
+        "Ogoldhunter:have500",
+        "Ogoldhunter:have750",
+        "Ogoldhunter:have1000",
         "Orandom:1",
         "Orandom:2",
         "Orandom:3",
@@ -1245,7 +1272,9 @@ const _FE_FLAGSPEC = {
             "O1:quest_wakeyang",
             "O1:quest_tradepan",
             "O1:quest_tradepink",
-            "O1:quest_pass"
+            "O1:quest_pass",
+            "O1:quest_collect_gold",
+            "O1:quest_have_gold"
         ],
         [
             "O2:char_cecil",
@@ -1333,7 +1362,9 @@ const _FE_FLAGSPEC = {
             "O2:quest_wakeyang",
             "O2:quest_tradepan",
             "O2:quest_tradepink",
-            "O2:quest_pass"
+            "O2:quest_pass",
+            "O2:quest_collect_gold",
+            "O2:quest_have_gold"
         ],
         [
             "O3:char_cecil",
@@ -1421,7 +1452,9 @@ const _FE_FLAGSPEC = {
             "O3:quest_wakeyang",
             "O3:quest_tradepan",
             "O3:quest_tradepink",
-            "O3:quest_pass"
+            "O3:quest_pass",
+            "O3:quest_collect_gold",
+            "O3:quest_have_gold"
         ],
         [
             "O4:char_cecil",
@@ -1509,7 +1542,9 @@ const _FE_FLAGSPEC = {
             "O4:quest_wakeyang",
             "O4:quest_tradepan",
             "O4:quest_tradepink",
-            "O4:quest_pass"
+            "O4:quest_pass",
+            "O4:quest_collect_gold",
+            "O4:quest_have_gold"
         ],
         [
             "O5:char_cecil",
@@ -1597,7 +1632,9 @@ const _FE_FLAGSPEC = {
             "O5:quest_wakeyang",
             "O5:quest_tradepan",
             "O5:quest_tradepink",
-            "O5:quest_pass"
+            "O5:quest_pass",
+            "O5:quest_collect_gold",
+            "O5:quest_have_gold"
         ],
         [
             "O6:char_cecil",
@@ -1685,7 +1722,9 @@ const _FE_FLAGSPEC = {
             "O6:quest_wakeyang",
             "O6:quest_tradepan",
             "O6:quest_tradepink",
-            "O6:quest_pass"
+            "O6:quest_pass",
+            "O6:quest_collect_gold",
+            "O6:quest_have_gold"
         ],
         [
             "O7:char_cecil",
@@ -1773,7 +1812,9 @@ const _FE_FLAGSPEC = {
             "O7:quest_wakeyang",
             "O7:quest_tradepan",
             "O7:quest_tradepink",
-            "O7:quest_pass"
+            "O7:quest_pass",
+            "O7:quest_collect_gold",
+            "O7:quest_have_gold"
         ],
         [
             "O8:char_cecil",
@@ -1861,7 +1902,9 @@ const _FE_FLAGSPEC = {
             "O8:quest_wakeyang",
             "O8:quest_tradepan",
             "O8:quest_tradepink",
-            "O8:quest_pass"
+            "O8:quest_pass",
+            "O8:quest_collect_gold",
+            "O8:quest_have_gold"
         ],
         [
             "Obosscollector:1",
@@ -1879,6 +1922,18 @@ const _FE_FLAGSPEC = {
             "Obosscollector:25",
             "Obosscollector:30",
             "Obosscollector:34"
+        ],
+        [
+            "Ogoldhunter:collect100",
+            "Ogoldhunter:collect250",
+            "Ogoldhunter:collect500",
+            "Ogoldhunter:collect750",
+            "Ogoldhunter:collect1000",
+            "Ogoldhunter:have100",
+            "Ogoldhunter:have250",
+            "Ogoldhunter:have500",
+            "Ogoldhunter:have750",
+            "Ogoldhunter:have1000"
         ],
         [
             "Orandom:1",
@@ -2215,6830 +2270,6992 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "O1:char_cecil",
+            "flag": "Omode:goldhunter",
             "offset": 5,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "O1:char_cecil",
+            "offset": 6,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O1:char_kain",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O1:char_rydia",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O1:char_tellah",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O1:char_edward",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O1:char_rosa",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O1:char_yang",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O1:char_palom",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O1:char_porom",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O1:char_cid",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O1:char_edge",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O1:char_fusoya",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O1:boss_dmist",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O1:boss_officer",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O1:boss_octomamm",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O1:boss_antlion",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O1:boss_waterhag",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O1:boss_mombomb",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O1:boss_fabulgauntlet",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O1:boss_milon",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O1:boss_milonz",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O1:boss_mirrorcecil",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O1:boss_guard",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O1:boss_karate",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O1:boss_baigan",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O1:boss_kainazzo",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O1:boss_darkelf",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O1:boss_magus",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O1:boss_valvalis",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O1:boss_calbrena",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O1:boss_golbez",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O1:boss_lugae",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O1:boss_darkimp",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O1:boss_kingqueen",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O1:boss_rubicant",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O1:boss_evilwall",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O1:boss_asura",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O1:boss_leviatan",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O1:boss_odin",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O1:boss_bahamut",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O1:boss_elements",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O1:boss_cpu",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O1:boss_paledim",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O1:boss_wyvern",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O1:boss_plague",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O1:boss_dlunar",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O1:boss_ogopogo",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O1:quest_mistcave",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O1:quest_waterfall",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O1:quest_antlionnest",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O1:quest_hobs",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O1:quest_fabul",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O1:quest_ordeals",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O1:quest_baroninn",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O1:quest_baroncastle",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O1:quest_magnes",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O1:quest_zot",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O1:quest_dwarfcastle",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O1:quest_lowerbabil",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O1:quest_falcon",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O1:quest_sealedcave",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O1:quest_monsterqueen",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O1:quest_monsterking",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O1:quest_baronbasement",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O1:quest_giant",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O1:quest_cavebahamut",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O1:quest_murasamealtar",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O1:quest_crystalaltar",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O1:quest_whitealtar",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O1:quest_ribbonaltar",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O1:quest_masamunealtar",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O1:quest_burnmist",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O1:quest_curefever",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O1:quest_unlocksewer",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O1:quest_music",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O1:quest_toroiatreasury",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O1:quest_magma",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O1:quest_supercannon",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O1:quest_unlocksealedcave",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O1:quest_bigwhale",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O1:quest_traderat",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O1:quest_forge",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O1:quest_wakeyang",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O1:quest_tradepan",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O1:quest_tradepink",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O1:quest_pass",
-            "offset": 5,
+            "offset": 6,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O1:quest_collect_gold",
+            "offset": 6,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O1:quest_have_gold",
+            "offset": 6,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "O2:char_cecil",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O2:char_kain",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O2:char_rydia",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O2:char_tellah",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O2:char_edward",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O2:char_rosa",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O2:char_yang",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O2:char_palom",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O2:char_porom",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O2:char_cid",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O2:char_edge",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O2:char_fusoya",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O2:boss_dmist",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O2:boss_officer",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O2:boss_octomamm",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O2:boss_antlion",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O2:boss_waterhag",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O2:boss_mombomb",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O2:boss_fabulgauntlet",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O2:boss_milon",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O2:boss_milonz",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O2:boss_mirrorcecil",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O2:boss_guard",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O2:boss_karate",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O2:boss_baigan",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O2:boss_kainazzo",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O2:boss_darkelf",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O2:boss_magus",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O2:boss_valvalis",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O2:boss_calbrena",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O2:boss_golbez",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O2:boss_lugae",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O2:boss_darkimp",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O2:boss_kingqueen",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O2:boss_rubicant",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O2:boss_evilwall",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O2:boss_asura",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O2:boss_leviatan",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O2:boss_odin",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O2:boss_bahamut",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O2:boss_elements",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O2:boss_cpu",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O2:boss_paledim",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O2:boss_wyvern",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O2:boss_plague",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O2:boss_dlunar",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O2:boss_ogopogo",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O2:quest_mistcave",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O2:quest_waterfall",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O2:quest_antlionnest",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O2:quest_hobs",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O2:quest_fabul",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O2:quest_ordeals",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O2:quest_baroninn",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O2:quest_baroncastle",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O2:quest_magnes",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O2:quest_zot",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O2:quest_dwarfcastle",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O2:quest_lowerbabil",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O2:quest_falcon",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O2:quest_sealedcave",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O2:quest_monsterqueen",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O2:quest_monsterking",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O2:quest_baronbasement",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O2:quest_giant",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O2:quest_cavebahamut",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O2:quest_murasamealtar",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O2:quest_crystalaltar",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O2:quest_whitealtar",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O2:quest_ribbonaltar",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O2:quest_masamunealtar",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O2:quest_burnmist",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O2:quest_curefever",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O2:quest_unlocksewer",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O2:quest_music",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O2:quest_toroiatreasury",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O2:quest_magma",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O2:quest_supercannon",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O2:quest_unlocksealedcave",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O2:quest_bigwhale",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O2:quest_traderat",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O2:quest_forge",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O2:quest_wakeyang",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O2:quest_tradepan",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O2:quest_tradepink",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O2:quest_pass",
-            "offset": 12,
+            "offset": 13,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O2:quest_collect_gold",
+            "offset": 13,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O2:quest_have_gold",
+            "offset": 13,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "O3:char_cecil",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O3:char_kain",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O3:char_rydia",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O3:char_tellah",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O3:char_edward",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O3:char_rosa",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O3:char_yang",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O3:char_palom",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O3:char_porom",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O3:char_cid",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O3:char_edge",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O3:char_fusoya",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O3:boss_dmist",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O3:boss_officer",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O3:boss_octomamm",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O3:boss_antlion",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O3:boss_waterhag",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O3:boss_mombomb",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O3:boss_fabulgauntlet",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O3:boss_milon",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O3:boss_milonz",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O3:boss_mirrorcecil",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O3:boss_guard",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O3:boss_karate",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O3:boss_baigan",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O3:boss_kainazzo",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O3:boss_darkelf",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O3:boss_magus",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O3:boss_valvalis",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O3:boss_calbrena",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O3:boss_golbez",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O3:boss_lugae",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O3:boss_darkimp",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O3:boss_kingqueen",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O3:boss_rubicant",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O3:boss_evilwall",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O3:boss_asura",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O3:boss_leviatan",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O3:boss_odin",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O3:boss_bahamut",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O3:boss_elements",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O3:boss_cpu",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O3:boss_paledim",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O3:boss_wyvern",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O3:boss_plague",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O3:boss_dlunar",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O3:boss_ogopogo",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O3:quest_mistcave",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O3:quest_waterfall",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O3:quest_antlionnest",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O3:quest_hobs",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O3:quest_fabul",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O3:quest_ordeals",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O3:quest_baroninn",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O3:quest_baroncastle",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O3:quest_magnes",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O3:quest_zot",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O3:quest_dwarfcastle",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O3:quest_lowerbabil",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O3:quest_falcon",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O3:quest_sealedcave",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O3:quest_monsterqueen",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O3:quest_monsterking",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O3:quest_baronbasement",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O3:quest_giant",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O3:quest_cavebahamut",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O3:quest_murasamealtar",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O3:quest_crystalaltar",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O3:quest_whitealtar",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O3:quest_ribbonaltar",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O3:quest_masamunealtar",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O3:quest_burnmist",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O3:quest_curefever",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O3:quest_unlocksewer",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O3:quest_music",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O3:quest_toroiatreasury",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O3:quest_magma",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O3:quest_supercannon",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O3:quest_unlocksealedcave",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O3:quest_bigwhale",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O3:quest_traderat",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O3:quest_forge",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O3:quest_wakeyang",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O3:quest_tradepan",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O3:quest_tradepink",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O3:quest_pass",
-            "offset": 19,
+            "offset": 20,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O3:quest_collect_gold",
+            "offset": 20,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O3:quest_have_gold",
+            "offset": 20,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "O4:char_cecil",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O4:char_kain",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O4:char_rydia",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O4:char_tellah",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O4:char_edward",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O4:char_rosa",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O4:char_yang",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O4:char_palom",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O4:char_porom",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O4:char_cid",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O4:char_edge",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O4:char_fusoya",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O4:boss_dmist",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O4:boss_officer",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O4:boss_octomamm",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O4:boss_antlion",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O4:boss_waterhag",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O4:boss_mombomb",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O4:boss_fabulgauntlet",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O4:boss_milon",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O4:boss_milonz",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O4:boss_mirrorcecil",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O4:boss_guard",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O4:boss_karate",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O4:boss_baigan",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O4:boss_kainazzo",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O4:boss_darkelf",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O4:boss_magus",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O4:boss_valvalis",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O4:boss_calbrena",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O4:boss_golbez",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O4:boss_lugae",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O4:boss_darkimp",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O4:boss_kingqueen",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O4:boss_rubicant",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O4:boss_evilwall",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O4:boss_asura",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O4:boss_leviatan",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O4:boss_odin",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O4:boss_bahamut",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O4:boss_elements",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O4:boss_cpu",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O4:boss_paledim",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O4:boss_wyvern",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O4:boss_plague",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O4:boss_dlunar",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O4:boss_ogopogo",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O4:quest_mistcave",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O4:quest_waterfall",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O4:quest_antlionnest",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O4:quest_hobs",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O4:quest_fabul",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O4:quest_ordeals",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O4:quest_baroninn",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O4:quest_baroncastle",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O4:quest_magnes",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O4:quest_zot",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O4:quest_dwarfcastle",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O4:quest_lowerbabil",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O4:quest_falcon",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O4:quest_sealedcave",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O4:quest_monsterqueen",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O4:quest_monsterking",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O4:quest_baronbasement",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O4:quest_giant",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O4:quest_cavebahamut",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O4:quest_murasamealtar",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O4:quest_crystalaltar",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O4:quest_whitealtar",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O4:quest_ribbonaltar",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O4:quest_masamunealtar",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O4:quest_burnmist",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O4:quest_curefever",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O4:quest_unlocksewer",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O4:quest_music",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O4:quest_toroiatreasury",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O4:quest_magma",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O4:quest_supercannon",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O4:quest_unlocksealedcave",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O4:quest_bigwhale",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O4:quest_traderat",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O4:quest_forge",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O4:quest_wakeyang",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O4:quest_tradepan",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O4:quest_tradepink",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O4:quest_pass",
-            "offset": 26,
+            "offset": 27,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O4:quest_collect_gold",
+            "offset": 27,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O4:quest_have_gold",
+            "offset": 27,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "O5:char_cecil",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O5:char_kain",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O5:char_rydia",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O5:char_tellah",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O5:char_edward",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O5:char_rosa",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O5:char_yang",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O5:char_palom",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O5:char_porom",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O5:char_cid",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O5:char_edge",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O5:char_fusoya",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O5:boss_dmist",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O5:boss_officer",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O5:boss_octomamm",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O5:boss_antlion",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O5:boss_waterhag",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O5:boss_mombomb",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O5:boss_fabulgauntlet",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O5:boss_milon",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O5:boss_milonz",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O5:boss_mirrorcecil",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O5:boss_guard",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O5:boss_karate",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O5:boss_baigan",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O5:boss_kainazzo",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O5:boss_darkelf",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O5:boss_magus",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O5:boss_valvalis",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O5:boss_calbrena",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O5:boss_golbez",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O5:boss_lugae",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O5:boss_darkimp",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O5:boss_kingqueen",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O5:boss_rubicant",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O5:boss_evilwall",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O5:boss_asura",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O5:boss_leviatan",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O5:boss_odin",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O5:boss_bahamut",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O5:boss_elements",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O5:boss_cpu",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O5:boss_paledim",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O5:boss_wyvern",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O5:boss_plague",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O5:boss_dlunar",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O5:boss_ogopogo",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O5:quest_mistcave",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O5:quest_waterfall",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O5:quest_antlionnest",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O5:quest_hobs",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O5:quest_fabul",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O5:quest_ordeals",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O5:quest_baroninn",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O5:quest_baroncastle",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O5:quest_magnes",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O5:quest_zot",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O5:quest_dwarfcastle",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O5:quest_lowerbabil",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O5:quest_falcon",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O5:quest_sealedcave",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O5:quest_monsterqueen",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O5:quest_monsterking",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O5:quest_baronbasement",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O5:quest_giant",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O5:quest_cavebahamut",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O5:quest_murasamealtar",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O5:quest_crystalaltar",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O5:quest_whitealtar",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O5:quest_ribbonaltar",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O5:quest_masamunealtar",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O5:quest_burnmist",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O5:quest_curefever",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O5:quest_unlocksewer",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O5:quest_music",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O5:quest_toroiatreasury",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O5:quest_magma",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O5:quest_supercannon",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O5:quest_unlocksealedcave",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O5:quest_bigwhale",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O5:quest_traderat",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O5:quest_forge",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O5:quest_wakeyang",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O5:quest_tradepan",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O5:quest_tradepink",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O5:quest_pass",
-            "offset": 33,
+            "offset": 34,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O5:quest_collect_gold",
+            "offset": 34,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O5:quest_have_gold",
+            "offset": 34,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "O6:char_cecil",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O6:char_kain",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O6:char_rydia",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O6:char_tellah",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O6:char_edward",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O6:char_rosa",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O6:char_yang",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O6:char_palom",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O6:char_porom",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O6:char_cid",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O6:char_edge",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O6:char_fusoya",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O6:boss_dmist",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O6:boss_officer",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O6:boss_octomamm",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O6:boss_antlion",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O6:boss_waterhag",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O6:boss_mombomb",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O6:boss_fabulgauntlet",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O6:boss_milon",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O6:boss_milonz",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O6:boss_mirrorcecil",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O6:boss_guard",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O6:boss_karate",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O6:boss_baigan",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O6:boss_kainazzo",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O6:boss_darkelf",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O6:boss_magus",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O6:boss_valvalis",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O6:boss_calbrena",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O6:boss_golbez",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O6:boss_lugae",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O6:boss_darkimp",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O6:boss_kingqueen",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O6:boss_rubicant",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O6:boss_evilwall",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O6:boss_asura",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O6:boss_leviatan",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O6:boss_odin",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O6:boss_bahamut",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O6:boss_elements",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O6:boss_cpu",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O6:boss_paledim",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O6:boss_wyvern",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O6:boss_plague",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O6:boss_dlunar",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O6:boss_ogopogo",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O6:quest_mistcave",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O6:quest_waterfall",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O6:quest_antlionnest",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O6:quest_hobs",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O6:quest_fabul",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O6:quest_ordeals",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O6:quest_baroninn",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O6:quest_baroncastle",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O6:quest_magnes",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O6:quest_zot",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O6:quest_dwarfcastle",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O6:quest_lowerbabil",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O6:quest_falcon",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O6:quest_sealedcave",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O6:quest_monsterqueen",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O6:quest_monsterking",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O6:quest_baronbasement",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O6:quest_giant",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O6:quest_cavebahamut",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O6:quest_murasamealtar",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O6:quest_crystalaltar",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O6:quest_whitealtar",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O6:quest_ribbonaltar",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O6:quest_masamunealtar",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O6:quest_burnmist",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O6:quest_curefever",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O6:quest_unlocksewer",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O6:quest_music",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O6:quest_toroiatreasury",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O6:quest_magma",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O6:quest_supercannon",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O6:quest_unlocksealedcave",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O6:quest_bigwhale",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O6:quest_traderat",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O6:quest_forge",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O6:quest_wakeyang",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O6:quest_tradepan",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O6:quest_tradepink",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O6:quest_pass",
-            "offset": 40,
+            "offset": 41,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O6:quest_collect_gold",
+            "offset": 41,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O6:quest_have_gold",
+            "offset": 41,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "O7:char_cecil",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O7:char_kain",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O7:char_rydia",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O7:char_tellah",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O7:char_edward",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O7:char_rosa",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O7:char_yang",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O7:char_palom",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O7:char_porom",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O7:char_cid",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O7:char_edge",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O7:char_fusoya",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O7:boss_dmist",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O7:boss_officer",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O7:boss_octomamm",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O7:boss_antlion",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O7:boss_waterhag",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O7:boss_mombomb",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O7:boss_fabulgauntlet",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O7:boss_milon",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O7:boss_milonz",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O7:boss_mirrorcecil",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O7:boss_guard",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O7:boss_karate",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O7:boss_baigan",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O7:boss_kainazzo",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O7:boss_darkelf",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O7:boss_magus",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O7:boss_valvalis",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O7:boss_calbrena",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O7:boss_golbez",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O7:boss_lugae",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O7:boss_darkimp",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O7:boss_kingqueen",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O7:boss_rubicant",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O7:boss_evilwall",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O7:boss_asura",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O7:boss_leviatan",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O7:boss_odin",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O7:boss_bahamut",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O7:boss_elements",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O7:boss_cpu",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O7:boss_paledim",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O7:boss_wyvern",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O7:boss_plague",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O7:boss_dlunar",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O7:boss_ogopogo",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O7:quest_mistcave",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O7:quest_waterfall",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O7:quest_antlionnest",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O7:quest_hobs",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O7:quest_fabul",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O7:quest_ordeals",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O7:quest_baroninn",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O7:quest_baroncastle",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O7:quest_magnes",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O7:quest_zot",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O7:quest_dwarfcastle",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O7:quest_lowerbabil",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O7:quest_falcon",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O7:quest_sealedcave",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O7:quest_monsterqueen",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O7:quest_monsterking",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O7:quest_baronbasement",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O7:quest_giant",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O7:quest_cavebahamut",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O7:quest_murasamealtar",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O7:quest_crystalaltar",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O7:quest_whitealtar",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O7:quest_ribbonaltar",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O7:quest_masamunealtar",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O7:quest_burnmist",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O7:quest_curefever",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O7:quest_unlocksewer",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O7:quest_music",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O7:quest_toroiatreasury",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O7:quest_magma",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O7:quest_supercannon",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O7:quest_unlocksealedcave",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O7:quest_bigwhale",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O7:quest_traderat",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O7:quest_forge",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O7:quest_wakeyang",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O7:quest_tradepan",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O7:quest_tradepink",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O7:quest_pass",
-            "offset": 47,
+            "offset": 48,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O7:quest_collect_gold",
+            "offset": 48,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O7:quest_have_gold",
+            "offset": 48,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "O8:char_cecil",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 1
         },
         {
             "flag": "O8:char_kain",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 2
         },
         {
             "flag": "O8:char_rydia",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 3
         },
         {
             "flag": "O8:char_tellah",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 4
         },
         {
             "flag": "O8:char_edward",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 5
         },
         {
             "flag": "O8:char_rosa",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 6
         },
         {
             "flag": "O8:char_yang",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 7
         },
         {
             "flag": "O8:char_palom",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 8
         },
         {
             "flag": "O8:char_porom",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 9
         },
         {
             "flag": "O8:char_cid",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 10
         },
         {
             "flag": "O8:char_edge",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 11
         },
         {
             "flag": "O8:char_fusoya",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 12
         },
         {
             "flag": "O8:boss_dmist",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 13
         },
         {
             "flag": "O8:boss_officer",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 14
         },
         {
             "flag": "O8:boss_octomamm",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 15
         },
         {
             "flag": "O8:boss_antlion",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 16
         },
         {
             "flag": "O8:boss_waterhag",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 17
         },
         {
             "flag": "O8:boss_mombomb",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 18
         },
         {
             "flag": "O8:boss_fabulgauntlet",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 19
         },
         {
             "flag": "O8:boss_milon",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 20
         },
         {
             "flag": "O8:boss_milonz",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 21
         },
         {
             "flag": "O8:boss_mirrorcecil",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 22
         },
         {
             "flag": "O8:boss_guard",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 23
         },
         {
             "flag": "O8:boss_karate",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 24
         },
         {
             "flag": "O8:boss_baigan",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 25
         },
         {
             "flag": "O8:boss_kainazzo",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 26
         },
         {
             "flag": "O8:boss_darkelf",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 27
         },
         {
             "flag": "O8:boss_magus",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 28
         },
         {
             "flag": "O8:boss_valvalis",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 29
         },
         {
             "flag": "O8:boss_calbrena",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 30
         },
         {
             "flag": "O8:boss_golbez",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 31
         },
         {
             "flag": "O8:boss_lugae",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 32
         },
         {
             "flag": "O8:boss_darkimp",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 33
         },
         {
             "flag": "O8:boss_kingqueen",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 34
         },
         {
             "flag": "O8:boss_rubicant",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 35
         },
         {
             "flag": "O8:boss_evilwall",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 36
         },
         {
             "flag": "O8:boss_asura",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 37
         },
         {
             "flag": "O8:boss_leviatan",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 38
         },
         {
             "flag": "O8:boss_odin",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 39
         },
         {
             "flag": "O8:boss_bahamut",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 40
         },
         {
             "flag": "O8:boss_elements",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 41
         },
         {
             "flag": "O8:boss_cpu",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 42
         },
         {
             "flag": "O8:boss_paledim",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 43
         },
         {
             "flag": "O8:boss_wyvern",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 44
         },
         {
             "flag": "O8:boss_plague",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 45
         },
         {
             "flag": "O8:boss_dlunar",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 46
         },
         {
             "flag": "O8:boss_ogopogo",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 47
         },
         {
             "flag": "O8:quest_mistcave",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 48
         },
         {
             "flag": "O8:quest_waterfall",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 49
         },
         {
             "flag": "O8:quest_antlionnest",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 50
         },
         {
             "flag": "O8:quest_hobs",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 51
         },
         {
             "flag": "O8:quest_fabul",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 52
         },
         {
             "flag": "O8:quest_ordeals",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 53
         },
         {
             "flag": "O8:quest_baroninn",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 54
         },
         {
             "flag": "O8:quest_baroncastle",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 55
         },
         {
             "flag": "O8:quest_magnes",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 56
         },
         {
             "flag": "O8:quest_zot",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 57
         },
         {
             "flag": "O8:quest_dwarfcastle",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 58
         },
         {
             "flag": "O8:quest_lowerbabil",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 59
         },
         {
             "flag": "O8:quest_falcon",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 60
         },
         {
             "flag": "O8:quest_sealedcave",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 61
         },
         {
             "flag": "O8:quest_monsterqueen",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 62
         },
         {
             "flag": "O8:quest_monsterking",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 63
         },
         {
             "flag": "O8:quest_baronbasement",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 64
         },
         {
             "flag": "O8:quest_giant",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 65
         },
         {
             "flag": "O8:quest_cavebahamut",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 66
         },
         {
             "flag": "O8:quest_murasamealtar",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 67
         },
         {
             "flag": "O8:quest_crystalaltar",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 68
         },
         {
             "flag": "O8:quest_whitealtar",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 69
         },
         {
             "flag": "O8:quest_ribbonaltar",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 70
         },
         {
             "flag": "O8:quest_masamunealtar",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 71
         },
         {
             "flag": "O8:quest_burnmist",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 72
         },
         {
             "flag": "O8:quest_curefever",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 73
         },
         {
             "flag": "O8:quest_unlocksewer",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 74
         },
         {
             "flag": "O8:quest_music",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 75
         },
         {
             "flag": "O8:quest_toroiatreasury",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 76
         },
         {
             "flag": "O8:quest_magma",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 77
         },
         {
             "flag": "O8:quest_supercannon",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 78
         },
         {
             "flag": "O8:quest_unlocksealedcave",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 79
         },
         {
             "flag": "O8:quest_bigwhale",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 80
         },
         {
             "flag": "O8:quest_traderat",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 81
         },
         {
             "flag": "O8:quest_forge",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 82
         },
         {
             "flag": "O8:quest_wakeyang",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 83
         },
         {
             "flag": "O8:quest_tradepan",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 84
         },
         {
             "flag": "O8:quest_tradepink",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 85
         },
         {
             "flag": "O8:quest_pass",
-            "offset": 54,
+            "offset": 55,
             "size": 7,
             "value": 86
         },
         {
+            "flag": "O8:quest_collect_gold",
+            "offset": 55,
+            "size": 7,
+            "value": 87
+        },
+        {
+            "flag": "O8:quest_have_gold",
+            "offset": 55,
+            "size": 7,
+            "value": 88
+        },
+        {
             "flag": "Obosscollector:1",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Obosscollector:2",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Obosscollector:3",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Obosscollector:4",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Obosscollector:5",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Obosscollector:6",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Obosscollector:7",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Obosscollector:8",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Obosscollector:9",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 9
         },
         {
             "flag": "Obosscollector:10",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 10
         },
         {
             "flag": "Obosscollector:15",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 11
         },
         {
             "flag": "Obosscollector:20",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 12
         },
         {
             "flag": "Obosscollector:25",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 13
         },
         {
             "flag": "Obosscollector:30",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 14
         },
         {
             "flag": "Obosscollector:34",
-            "offset": 61,
+            "offset": 62,
             "size": 4,
             "value": 15
         },
         {
+            "flag": "Ogoldhunter:collect100",
+            "offset": 66,
+            "size": 4,
+            "value": 1
+        },
+        {
+            "flag": "Ogoldhunter:collect250",
+            "offset": 66,
+            "size": 4,
+            "value": 2
+        },
+        {
+            "flag": "Ogoldhunter:collect500",
+            "offset": 66,
+            "size": 4,
+            "value": 3
+        },
+        {
+            "flag": "Ogoldhunter:collect750",
+            "offset": 66,
+            "size": 4,
+            "value": 4
+        },
+        {
+            "flag": "Ogoldhunter:collect1000",
+            "offset": 66,
+            "size": 4,
+            "value": 5
+        },
+        {
+            "flag": "Ogoldhunter:have100",
+            "offset": 66,
+            "size": 4,
+            "value": 6
+        },
+        {
+            "flag": "Ogoldhunter:have250",
+            "offset": 66,
+            "size": 4,
+            "value": 7
+        },
+        {
+            "flag": "Ogoldhunter:have500",
+            "offset": 66,
+            "size": 4,
+            "value": 8
+        },
+        {
+            "flag": "Ogoldhunter:have750",
+            "offset": 66,
+            "size": 4,
+            "value": 9
+        },
+        {
+            "flag": "Ogoldhunter:have1000",
+            "offset": 66,
+            "size": 4,
+            "value": 10
+        },
+        {
             "flag": "Orandom:1",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Orandom:2",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Orandom:3",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Orandom:4",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Orandom:5",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Orandom:6",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Orandom:7",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Orandom:8",
-            "offset": 65,
+            "offset": 70,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Orandom:quest",
-            "offset": 69,
+            "offset": 74,
             "size": 2,
             "value": 1
         },
         {
             "flag": "Orandom:tough_quest",
-            "offset": 69,
+            "offset": 74,
             "size": 2,
             "value": 2
         },
         {
             "flag": "Orandom:boss",
-            "offset": 71,
+            "offset": 76,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Orandom:char",
-            "offset": 72,
+            "offset": 77,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Orandom2:1",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Orandom2:2",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Orandom2:3",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Orandom2:4",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Orandom2:5",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Orandom2:6",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Orandom2:7",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Orandom2:8",
-            "offset": 73,
+            "offset": 78,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Orandom2:quest",
-            "offset": 77,
+            "offset": 82,
             "size": 2,
             "value": 1
         },
         {
             "flag": "Orandom2:tough_quest",
-            "offset": 77,
+            "offset": 82,
             "size": 2,
             "value": 2
         },
         {
             "flag": "Orandom2:boss",
-            "offset": 79,
+            "offset": 84,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Orandom2:char",
-            "offset": 80,
+            "offset": 85,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Orandom3:1",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Orandom3:2",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Orandom3:3",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Orandom3:4",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Orandom3:5",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Orandom3:6",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Orandom3:7",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Orandom3:8",
-            "offset": 81,
+            "offset": 86,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Orandom3:quest",
-            "offset": 85,
+            "offset": 90,
             "size": 2,
             "value": 1
         },
         {
             "flag": "Orandom3:tough_quest",
-            "offset": 85,
+            "offset": 90,
             "size": 2,
             "value": 2
         },
         {
             "flag": "Orandom3:boss",
-            "offset": 87,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Orandom3:char",
-            "offset": 88,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Orandom:onlycecil",
-            "offset": 89,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Orandom:onlykain",
-            "offset": 90,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Orandom:onlyrydia",
-            "offset": 91,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Orandom:onlytellah",
             "offset": 92,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlyedward",
+            "flag": "Orandom3:char",
             "offset": 93,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlyrosa",
+            "flag": "Orandom:onlycecil",
             "offset": 94,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlyyang",
+            "flag": "Orandom:onlykain",
             "offset": 95,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlypalom",
+            "flag": "Orandom:onlyrydia",
             "offset": 96,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlyporom",
+            "flag": "Orandom:onlytellah",
             "offset": 97,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlycid",
+            "flag": "Orandom:onlyedward",
             "offset": 98,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlyedge",
+            "flag": "Orandom:onlyrosa",
             "offset": 99,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom:onlyfusoya",
+            "flag": "Orandom:onlyyang",
             "offset": 100,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlycecil",
+            "flag": "Orandom:onlypalom",
             "offset": 101,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlykain",
+            "flag": "Orandom:onlyporom",
             "offset": 102,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlyrydia",
+            "flag": "Orandom:onlycid",
             "offset": 103,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlytellah",
+            "flag": "Orandom:onlyedge",
             "offset": 104,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlyedward",
+            "flag": "Orandom:onlyfusoya",
             "offset": 105,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlyrosa",
+            "flag": "Orandom2:onlycecil",
             "offset": 106,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlyyang",
+            "flag": "Orandom2:onlykain",
             "offset": 107,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlypalom",
+            "flag": "Orandom2:onlyrydia",
             "offset": 108,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlyporom",
+            "flag": "Orandom2:onlytellah",
             "offset": 109,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlycid",
+            "flag": "Orandom2:onlyedward",
             "offset": 110,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlyedge",
+            "flag": "Orandom2:onlyrosa",
             "offset": 111,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom2:onlyfusoya",
+            "flag": "Orandom2:onlyyang",
             "offset": 112,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlycecil",
+            "flag": "Orandom2:onlypalom",
             "offset": 113,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlykain",
+            "flag": "Orandom2:onlyporom",
             "offset": 114,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlyrydia",
+            "flag": "Orandom2:onlycid",
             "offset": 115,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlytellah",
+            "flag": "Orandom2:onlyedge",
             "offset": 116,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlyedward",
+            "flag": "Orandom2:onlyfusoya",
             "offset": 117,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlyrosa",
+            "flag": "Orandom3:onlycecil",
             "offset": 118,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlyyang",
+            "flag": "Orandom3:onlykain",
             "offset": 119,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlypalom",
+            "flag": "Orandom3:onlyrydia",
             "offset": 120,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlyporom",
+            "flag": "Orandom3:onlytellah",
             "offset": 121,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlycid",
+            "flag": "Orandom3:onlyedward",
             "offset": 122,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlyedge",
+            "flag": "Orandom3:onlyrosa",
             "offset": 123,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Orandom3:onlyfusoya",
+            "flag": "Orandom3:onlyyang",
             "offset": 124,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Oreq:all",
+            "flag": "Orandom3:onlypalom",
             "offset": 125,
-            "size": 4,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Oreq:1",
-            "offset": 125,
-            "size": 4,
-            "value": 2
+            "flag": "Orandom3:onlyporom",
+            "offset": 126,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Oreq:2",
-            "offset": 125,
-            "size": 4,
-            "value": 3
+            "flag": "Orandom3:onlycid",
+            "offset": 127,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Oreq:3",
-            "offset": 125,
-            "size": 4,
-            "value": 4
+            "flag": "Orandom3:onlyedge",
+            "offset": 128,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Oreq:4",
-            "offset": 125,
-            "size": 4,
-            "value": 5
-        },
-        {
-            "flag": "Oreq:5",
-            "offset": 125,
-            "size": 4,
-            "value": 6
-        },
-        {
-            "flag": "Oreq:6",
-            "offset": 125,
-            "size": 4,
-            "value": 7
-        },
-        {
-            "flag": "Oreq:7",
-            "offset": 125,
-            "size": 4,
-            "value": 8
-        },
-        {
-            "flag": "Oreq:8",
-            "offset": 125,
-            "size": 4,
-            "value": 9
-        },
-        {
-            "flag": "Oreq:9",
-            "offset": 125,
-            "size": 4,
-            "value": 10
-        },
-        {
-            "flag": "Oreq:10",
-            "offset": 125,
-            "size": 4,
-            "value": 11
-        },
-        {
-            "flag": "Hreq:1",
+            "flag": "Orandom3:onlyfusoya",
             "offset": 129,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:2",
+            "flag": "Oreq:all",
             "offset": 130,
-            "size": 1,
+            "size": 4,
             "value": 1
         },
         {
-            "flag": "Hreq:3",
-            "offset": 131,
-            "size": 1,
-            "value": 1
+            "flag": "Oreq:1",
+            "offset": 130,
+            "size": 4,
+            "value": 2
         },
         {
-            "flag": "Hreq:4",
-            "offset": 132,
-            "size": 1,
-            "value": 1
+            "flag": "Oreq:2",
+            "offset": 130,
+            "size": 4,
+            "value": 3
         },
         {
-            "flag": "Hreq:5",
-            "offset": 133,
-            "size": 1,
-            "value": 1
+            "flag": "Oreq:3",
+            "offset": 130,
+            "size": 4,
+            "value": 4
         },
         {
-            "flag": "Hreq:6",
+            "flag": "Oreq:4",
+            "offset": 130,
+            "size": 4,
+            "value": 5
+        },
+        {
+            "flag": "Oreq:5",
+            "offset": 130,
+            "size": 4,
+            "value": 6
+        },
+        {
+            "flag": "Oreq:6",
+            "offset": 130,
+            "size": 4,
+            "value": 7
+        },
+        {
+            "flag": "Oreq:7",
+            "offset": 130,
+            "size": 4,
+            "value": 8
+        },
+        {
+            "flag": "Oreq:8",
+            "offset": 130,
+            "size": 4,
+            "value": 9
+        },
+        {
+            "flag": "Oreq:9",
+            "offset": 130,
+            "size": 4,
+            "value": 10
+        },
+        {
+            "flag": "Oreq:10",
+            "offset": 130,
+            "size": 4,
+            "value": 11
+        },
+        {
+            "flag": "Hreq:1",
             "offset": 134,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:7",
+            "flag": "Hreq:2",
             "offset": 135,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:8",
+            "flag": "Hreq:3",
             "offset": 136,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:9",
+            "flag": "Hreq:4",
             "offset": 137,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:10",
+            "flag": "Hreq:5",
             "offset": 138,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:11",
+            "flag": "Hreq:6",
             "offset": 139,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:12",
+            "flag": "Hreq:7",
             "offset": 140,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:13",
+            "flag": "Hreq:8",
             "offset": 141,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:14",
+            "flag": "Hreq:9",
             "offset": 142,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:15",
+            "flag": "Hreq:10",
             "offset": 143,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:16",
+            "flag": "Hreq:11",
             "offset": 144,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:17",
+            "flag": "Hreq:12",
             "offset": 145,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:18",
+            "flag": "Hreq:13",
             "offset": 146,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Owin:game",
+            "flag": "Hreq:14",
             "offset": 147,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Owin:crystal",
-            "offset": 147,
-            "size": 2,
-            "value": 2
+            "flag": "Hreq:15",
+            "offset": 148,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Kmain",
+            "flag": "Hreq:16",
             "offset": 149,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Ksummon",
+            "flag": "Hreq:17",
             "offset": 150,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Kmoon",
+            "flag": "Hreq:18",
             "offset": 151,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Kmiab",
+            "flag": "Owin:game",
             "offset": 152,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "Knofree",
-            "offset": 153,
-            "size": 1,
-            "value": 1
+            "flag": "Owin:crystal",
+            "offset": 152,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "Kunsafe",
+            "flag": "Kmain",
             "offset": 154,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Kforce:magma",
+            "flag": "Ksummon",
             "offset": 155,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Kforce:hook",
-            "offset": 155,
-            "size": 2,
-            "value": 2
+            "flag": "Kmoon",
+            "offset": 156,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Pshop",
+            "flag": "Kmiab",
             "offset": 157,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Pkey",
+            "flag": "Knofree",
             "offset": 158,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Pchests",
+            "flag": "Kunsafe",
             "offset": 159,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Dvanilla",
+            "flag": "Kforce:magma",
             "offset": 160,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "Kforce:hook",
+            "offset": 160,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "Pshop",
+            "offset": 162,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Dtowns",
-            "offset": 161,
-            "size": 2,
+            "flag": "Pkey",
+            "offset": 163,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Ddungeon",
-            "offset": 161,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "Dshuffle",
-            "offset": 161,
-            "size": 2,
-            "value": 3
-        },
-        {
-            "flag": "Cstandard",
-            "offset": 163,
-            "size": 2,
+            "flag": "Pchests",
+            "offset": 164,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Crelaxed",
-            "offset": 163,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "Cnofree",
+            "flag": "Dvanilla",
             "offset": 165,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cnoearned",
+            "flag": "Dtowns",
             "offset": 166,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "Ddungeon",
+            "offset": 166,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "Dshuffle",
+            "offset": 166,
+            "size": 2,
+            "value": 3
+        },
+        {
+            "flag": "Cstandard",
+            "offset": 168,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "Crelaxed",
+            "offset": 168,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "Cnofree",
+            "offset": 170,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Cnoearned",
+            "offset": 171,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Cmaybe",
-            "offset": 167,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Cdistinct:1",
-            "offset": 168,
-            "size": 4,
-            "value": 1
-        },
-        {
-            "flag": "Cdistinct:2",
-            "offset": 168,
-            "size": 4,
-            "value": 2
-        },
-        {
-            "flag": "Cdistinct:3",
-            "offset": 168,
-            "size": 4,
-            "value": 3
-        },
-        {
-            "flag": "Cdistinct:4",
-            "offset": 168,
-            "size": 4,
-            "value": 4
-        },
-        {
-            "flag": "Cdistinct:5",
-            "offset": 168,
-            "size": 4,
-            "value": 5
-        },
-        {
-            "flag": "Cdistinct:6",
-            "offset": 168,
-            "size": 4,
-            "value": 6
-        },
-        {
-            "flag": "Cdistinct:7",
-            "offset": 168,
-            "size": 4,
-            "value": 7
-        },
-        {
-            "flag": "Cdistinct:8",
-            "offset": 168,
-            "size": 4,
-            "value": 8
-        },
-        {
-            "flag": "Cdistinct:9",
-            "offset": 168,
-            "size": 4,
-            "value": 9
-        },
-        {
-            "flag": "Cdistinct:10",
-            "offset": 168,
-            "size": 4,
-            "value": 10
-        },
-        {
-            "flag": "Cdistinct:11",
-            "offset": 168,
-            "size": 4,
-            "value": 11
-        },
-        {
-            "flag": "Cstart:cecil",
             "offset": 172,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:kain",
+            "flag": "Cdistinct:1",
             "offset": 173,
-            "size": 1,
+            "size": 4,
             "value": 1
         },
         {
-            "flag": "Cstart:rydia",
-            "offset": 174,
-            "size": 1,
-            "value": 1
+            "flag": "Cdistinct:2",
+            "offset": 173,
+            "size": 4,
+            "value": 2
         },
         {
-            "flag": "Cstart:tellah",
-            "offset": 175,
-            "size": 1,
-            "value": 1
+            "flag": "Cdistinct:3",
+            "offset": 173,
+            "size": 4,
+            "value": 3
         },
         {
-            "flag": "Cstart:edward",
-            "offset": 176,
-            "size": 1,
-            "value": 1
+            "flag": "Cdistinct:4",
+            "offset": 173,
+            "size": 4,
+            "value": 4
         },
         {
-            "flag": "Cstart:rosa",
+            "flag": "Cdistinct:5",
+            "offset": 173,
+            "size": 4,
+            "value": 5
+        },
+        {
+            "flag": "Cdistinct:6",
+            "offset": 173,
+            "size": 4,
+            "value": 6
+        },
+        {
+            "flag": "Cdistinct:7",
+            "offset": 173,
+            "size": 4,
+            "value": 7
+        },
+        {
+            "flag": "Cdistinct:8",
+            "offset": 173,
+            "size": 4,
+            "value": 8
+        },
+        {
+            "flag": "Cdistinct:9",
+            "offset": 173,
+            "size": 4,
+            "value": 9
+        },
+        {
+            "flag": "Cdistinct:10",
+            "offset": 173,
+            "size": 4,
+            "value": 10
+        },
+        {
+            "flag": "Cdistinct:11",
+            "offset": 173,
+            "size": 4,
+            "value": 11
+        },
+        {
+            "flag": "Cstart:cecil",
             "offset": 177,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:yang",
+            "flag": "Cstart:kain",
             "offset": 178,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:palom",
+            "flag": "Cstart:rydia",
             "offset": 179,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:porom",
+            "flag": "Cstart:tellah",
             "offset": 180,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:cid",
+            "flag": "Cstart:edward",
             "offset": 181,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:edge",
+            "flag": "Cstart:rosa",
             "offset": 182,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:fusoya",
+            "flag": "Cstart:yang",
             "offset": 183,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:any",
+            "flag": "Cstart:palom",
             "offset": 184,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_cecil",
+            "flag": "Cstart:porom",
             "offset": 185,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_kain",
+            "flag": "Cstart:cid",
             "offset": 186,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_rydia",
+            "flag": "Cstart:edge",
             "offset": 187,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_tellah",
+            "flag": "Cstart:fusoya",
             "offset": 188,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_edward",
+            "flag": "Cstart:any",
             "offset": 189,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_rosa",
+            "flag": "Cstart:not_cecil",
             "offset": 190,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_yang",
+            "flag": "Cstart:not_kain",
             "offset": 191,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_palom",
+            "flag": "Cstart:not_rydia",
             "offset": 192,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_porom",
+            "flag": "Cstart:not_tellah",
             "offset": 193,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_cid",
+            "flag": "Cstart:not_edward",
             "offset": 194,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_edge",
+            "flag": "Cstart:not_rosa",
             "offset": 195,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cstart:not_fusoya",
+            "flag": "Cstart:not_yang",
             "offset": 196,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:cecil",
+            "flag": "Cstart:not_palom",
             "offset": 197,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:kain",
+            "flag": "Cstart:not_porom",
             "offset": 198,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:rydia",
+            "flag": "Cstart:not_cid",
             "offset": 199,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:tellah",
+            "flag": "Cstart:not_edge",
             "offset": 200,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:edward",
+            "flag": "Cstart:not_fusoya",
             "offset": 201,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:rosa",
+            "flag": "Conly:cecil",
             "offset": 202,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:yang",
+            "flag": "Conly:kain",
             "offset": 203,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:palom",
+            "flag": "Conly:rydia",
             "offset": 204,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:porom",
+            "flag": "Conly:tellah",
             "offset": 205,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:cid",
+            "flag": "Conly:edward",
             "offset": 206,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:edge",
+            "flag": "Conly:rosa",
             "offset": 207,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Conly:fusoya",
+            "flag": "Conly:yang",
             "offset": 208,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:cecil",
+            "flag": "Conly:palom",
             "offset": 209,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:kain",
+            "flag": "Conly:porom",
             "offset": 210,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:rydia",
+            "flag": "Conly:cid",
             "offset": 211,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:tellah",
+            "flag": "Conly:edge",
             "offset": 212,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:edward",
+            "flag": "Conly:fusoya",
             "offset": 213,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:rosa",
+            "flag": "Cno:cecil",
             "offset": 214,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:yang",
+            "flag": "Cno:kain",
             "offset": 215,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:palom",
+            "flag": "Cno:rydia",
             "offset": 216,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:porom",
+            "flag": "Cno:tellah",
             "offset": 217,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:cid",
+            "flag": "Cno:edward",
             "offset": 218,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:edge",
+            "flag": "Cno:rosa",
             "offset": 219,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cno:fusoya",
+            "flag": "Cno:yang",
             "offset": 220,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:cecil",
+            "flag": "Cno:palom",
             "offset": 221,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:kain",
+            "flag": "Cno:porom",
             "offset": 222,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:rydia",
+            "flag": "Cno:cid",
             "offset": 223,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:tellah",
+            "flag": "Cno:edge",
             "offset": 224,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:edward",
+            "flag": "Cno:fusoya",
             "offset": 225,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:rosa",
+            "flag": "Crestrict:cecil",
             "offset": 226,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:yang",
+            "flag": "Crestrict:kain",
             "offset": 227,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:palom",
+            "flag": "Crestrict:rydia",
             "offset": 228,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:porom",
+            "flag": "Crestrict:tellah",
             "offset": 229,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:cid",
+            "flag": "Crestrict:edward",
             "offset": 230,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:edge",
+            "flag": "Crestrict:rosa",
             "offset": 231,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Crestrict:fusoya",
+            "flag": "Crestrict:yang",
             "offset": 232,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cj:spells",
+            "flag": "Crestrict:palom",
             "offset": 233,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cj:abilities",
+            "flag": "Crestrict:porom",
             "offset": 234,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cnekkie",
+            "flag": "Crestrict:cid",
             "offset": 235,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cnodupes",
+            "flag": "Crestrict:edge",
             "offset": 236,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cparty:1",
+            "flag": "Crestrict:fusoya",
             "offset": 237,
-            "size": 3,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Cparty:2",
-            "offset": 237,
-            "size": 3,
-            "value": 2
+            "flag": "Cj:spells",
+            "offset": 238,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Cparty:3",
-            "offset": 237,
-            "size": 3,
-            "value": 3
+            "flag": "Cj:abilities",
+            "offset": 239,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Cparty:4",
-            "offset": 237,
-            "size": 3,
-            "value": 4
-        },
-        {
-            "flag": "Cbye",
+            "flag": "Cnekkie",
             "offset": 240,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cpermajoin",
+            "flag": "Cnodupes",
             "offset": 241,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cpermadeath",
+            "flag": "Cparty:1",
             "offset": 242,
-            "size": 2,
+            "size": 3,
             "value": 1
         },
         {
-            "flag": "Cpermadeader",
+            "flag": "Cparty:2",
             "offset": 242,
-            "size": 2,
+            "size": 3,
             "value": 2
         },
         {
-            "flag": "Chero",
-            "offset": 244,
-            "size": 1,
-            "value": 1
+            "flag": "Cparty:3",
+            "offset": 242,
+            "size": 3,
+            "value": 3
         },
         {
-            "flag": "Csuperhero",
+            "flag": "Cparty:4",
+            "offset": 242,
+            "size": 3,
+            "value": 4
+        },
+        {
+            "flag": "Cbye",
             "offset": 245,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tshuffle",
+            "flag": "Cpermajoin",
             "offset": 246,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Cpermadeath",
+            "offset": 247,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "Cpermadeader",
+            "offset": 247,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "Chero",
+            "offset": 249,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Csuperhero",
+            "offset": 250,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tshuffle",
+            "offset": 251,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Tstandard",
-            "offset": 246,
+            "offset": 251,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Tpro",
-            "offset": 246,
+            "offset": 251,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Twild",
-            "offset": 246,
+            "offset": 251,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Twildish",
-            "offset": 246,
+            "offset": 251,
             "size": 3,
             "value": 5
         },
         {
             "flag": "Tempty",
-            "offset": 246,
+            "offset": 251,
             "size": 3,
             "value": 6
         },
         {
             "flag": "Tsparse:10",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Tsparse:20",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Tsparse:30",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Tsparse:40",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Tsparse:50",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Tsparse:60",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Tsparse:70",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Tsparse:80",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Tsparse:90",
-            "offset": 249,
+            "offset": 254,
             "size": 4,
             "value": 9
         },
         {
             "flag": "Sprice:20",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Sprice:40",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Sprice:60",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Sprice:80",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Sprice:120",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Sprice:140",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Sprice:160",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Sprice:180",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Sprice:200",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 9
         },
         {
             "flag": "Sprice:400",
-            "offset": 253,
+            "offset": 258,
             "size": 4,
             "value": 10
         },
         {
             "flag": "Spricey:items",
-            "offset": 257,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Spricey:weapons",
-            "offset": 258,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Spricey:armor",
-            "offset": 259,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Tunrestrict:treasury",
-            "offset": 260,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Tunrestrict:moon",
-            "offset": 261,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Tunrestrict:underworld",
             "offset": 262,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tunrestrict:overworld",
+            "flag": "Spricey:weapons",
             "offset": 263,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tno:j",
+            "flag": "Spricey:armor",
             "offset": 264,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tmaxtier:3",
+            "flag": "Tunrestrict:treasury",
             "offset": 265,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tunrestrict:moon",
+            "offset": 266,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tunrestrict:underworld",
+            "offset": 267,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tunrestrict:overworld",
+            "offset": 268,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tno:j",
+            "offset": 269,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tmaxtier:3",
+            "offset": 270,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Tmaxtier:4",
-            "offset": 265,
+            "offset": 270,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Tmaxtier:5",
-            "offset": 265,
+            "offset": 270,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Tmaxtier:6",
-            "offset": 265,
+            "offset": 270,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Tmaxtier:7",
-            "offset": 265,
+            "offset": 270,
             "size": 3,
             "value": 5
         },
         {
             "flag": "Tmoney",
-            "offset": 268,
+            "offset": 273,
             "size": 2,
             "value": 1
         },
         {
             "flag": "Tjunk",
-            "offset": 268,
+            "offset": 273,
             "size": 2,
             "value": 2
         },
         {
             "flag": "Sshuffle",
-            "offset": 270,
+            "offset": 275,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Sstandard",
-            "offset": 270,
+            "offset": 275,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Spro",
-            "offset": 270,
+            "offset": 275,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Swild",
-            "offset": 270,
+            "offset": 275,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Scabins",
-            "offset": 270,
+            "offset": 275,
             "size": 3,
             "value": 5
         },
         {
             "flag": "Sempty",
-            "offset": 270,
+            "offset": 275,
             "size": 3,
             "value": 6
         },
         {
             "flag": "Sfree",
-            "offset": 273,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Ssell:quarter",
-            "offset": 274,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "Ssell:0",
-            "offset": 274,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "Sno:j",
-            "offset": 276,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Sno:apples",
-            "offset": 277,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Sno:sirens",
             "offset": 278,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Sno:life",
+            "flag": "Ssell:quarter",
             "offset": 279,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "Sunsafe",
-            "offset": 280,
-            "size": 1,
-            "value": 1
+            "flag": "Ssell:0",
+            "offset": 279,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "Bstandard",
+            "flag": "Sno:j",
             "offset": 281,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bnofree",
+            "flag": "Sno:apples",
             "offset": 282,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bunsafe",
+            "flag": "Sno:sirens",
             "offset": 283,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Balt:gauntlet",
+            "flag": "Sno:life",
             "offset": 284,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bwhyburn",
+            "flag": "Sunsafe",
             "offset": 285,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Bwhichburn",
-            "offset": 285,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "Bitburns",
-            "offset": 285,
-            "size": 2,
-            "value": 3
-        },
-        {
-            "flag": "Etoggle",
-            "offset": 287,
-            "size": 2,
+            "flag": "Bstandard",
+            "offset": 286,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Ereduce",
+            "flag": "Bnofree",
             "offset": 287,
-            "size": 2,
-            "value": 2
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Enoencounters",
-            "offset": 287,
-            "size": 2,
-            "value": 3
+            "flag": "Bunsafe",
+            "offset": 288,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Ekeep:doors",
+            "flag": "Balt:gauntlet",
             "offset": 289,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Ekeep:behemoths",
+            "flag": "Bwhyburn",
             "offset": 290,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "Bwhichburn",
+            "offset": 290,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "Bitburns",
+            "offset": 290,
+            "size": 2,
+            "value": 3
+        },
+        {
+            "flag": "Etoggle",
+            "offset": 292,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "Ereduce",
+            "offset": 292,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "Enoencounters",
+            "offset": 292,
+            "size": 2,
+            "value": 3
+        },
+        {
+            "flag": "Ekeep:doors",
+            "offset": 294,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Ekeep:behemoths",
+            "offset": 295,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Edanger",
-            "offset": 291,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Ecantrun",
-            "offset": 292,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Enoexp",
-            "offset": 293,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Eno:jdrops",
-            "offset": 294,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "Eno:sirens",
-            "offset": 294,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "Gdupe",
             "offset": 296,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Gmp",
+            "flag": "Ecantrun",
             "offset": 297,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Gwarp",
+            "flag": "Enoexp",
             "offset": 298,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Glife",
+            "flag": "Eno:jdrops",
             "offset": 299,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "Gsylph",
-            "offset": 300,
-            "size": 1,
-            "value": 1
+            "flag": "Eno:sirens",
+            "offset": 299,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "Gbackrow",
+            "flag": "Gdupe",
             "offset": 301,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "G64",
+            "flag": "Gmp",
             "offset": 302,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-kit:basic",
+            "flag": "Gwarp",
             "offset": 303,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Glife",
+            "offset": 304,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Gsylph",
+            "offset": 305,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Gbackrow",
+            "offset": 306,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "G64",
+            "offset": 307,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-kit:basic",
+            "offset": 308,
             "size": 5,
             "value": 1
         },
         {
             "flag": "-kit:better",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 2
         },
         {
             "flag": "-kit:loaded",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 3
         },
         {
             "flag": "-kit:cata",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 4
         },
         {
             "flag": "-kit:freedom",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 5
         },
         {
             "flag": "-kit:cid",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 6
         },
         {
             "flag": "-kit:yang",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 7
         },
         {
             "flag": "-kit:money",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 8
         },
         {
             "flag": "-kit:grabbag",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 9
         },
         {
             "flag": "-kit:miab",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 10
         },
         {
             "flag": "-kit:archer",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 11
         },
         {
             "flag": "-kit:fabul",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 12
         },
         {
             "flag": "-kit:castlevania",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 13
         },
         {
             "flag": "-kit:summon",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 14
         },
         {
             "flag": "-kit:notdeme",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 15
         },
         {
             "flag": "-kit:meme",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 16
         },
         {
             "flag": "-kit:defense",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 17
         },
         {
             "flag": "-kit:mist",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 18
         },
         {
             "flag": "-kit:mysidia",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 19
         },
         {
             "flag": "-kit:baron",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 20
         },
         {
             "flag": "-kit:dwarf",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 21
         },
         {
             "flag": "-kit:eblan",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 22
         },
         {
             "flag": "-kit:libra",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 23
         },
         {
             "flag": "-kit:99",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 24
         },
         {
             "flag": "-kit:green",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 25
         },
         {
             "flag": "-kit:random",
-            "offset": 303,
+            "offset": 308,
             "size": 5,
             "value": 26
         },
         {
             "flag": "-kit2:basic",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 1
         },
         {
             "flag": "-kit2:better",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 2
         },
         {
             "flag": "-kit2:loaded",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 3
         },
         {
             "flag": "-kit2:cata",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 4
         },
         {
             "flag": "-kit2:freedom",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 5
         },
         {
             "flag": "-kit2:cid",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 6
         },
         {
             "flag": "-kit2:yang",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 7
         },
         {
             "flag": "-kit2:money",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 8
         },
         {
             "flag": "-kit2:grabbag",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 9
         },
         {
             "flag": "-kit2:miab",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 10
         },
         {
             "flag": "-kit2:archer",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 11
         },
         {
             "flag": "-kit2:fabul",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 12
         },
         {
             "flag": "-kit2:castlevania",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 13
         },
         {
             "flag": "-kit2:summon",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 14
         },
         {
             "flag": "-kit2:notdeme",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 15
         },
         {
             "flag": "-kit2:meme",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 16
         },
         {
             "flag": "-kit2:defense",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 17
         },
         {
             "flag": "-kit2:mist",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 18
         },
         {
             "flag": "-kit2:mysidia",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 19
         },
         {
             "flag": "-kit2:baron",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 20
         },
         {
             "flag": "-kit2:dwarf",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 21
         },
         {
             "flag": "-kit2:eblan",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 22
         },
         {
             "flag": "-kit2:libra",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 23
         },
         {
             "flag": "-kit2:99",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 24
         },
         {
             "flag": "-kit2:green",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 25
         },
         {
             "flag": "-kit2:random",
-            "offset": 308,
+            "offset": 313,
             "size": 5,
             "value": 26
         },
         {
             "flag": "-kit3:basic",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 1
         },
         {
             "flag": "-kit3:better",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 2
         },
         {
             "flag": "-kit3:loaded",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 3
         },
         {
             "flag": "-kit3:cata",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 4
         },
         {
             "flag": "-kit3:freedom",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 5
         },
         {
             "flag": "-kit3:cid",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 6
         },
         {
             "flag": "-kit3:yang",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 7
         },
         {
             "flag": "-kit3:money",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 8
         },
         {
             "flag": "-kit3:grabbag",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 9
         },
         {
             "flag": "-kit3:miab",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 10
         },
         {
             "flag": "-kit3:archer",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 11
         },
         {
             "flag": "-kit3:fabul",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 12
         },
         {
             "flag": "-kit3:castlevania",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 13
         },
         {
             "flag": "-kit3:summon",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 14
         },
         {
             "flag": "-kit3:notdeme",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 15
         },
         {
             "flag": "-kit3:meme",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 16
         },
         {
             "flag": "-kit3:defense",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 17
         },
         {
             "flag": "-kit3:mist",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 18
         },
         {
             "flag": "-kit3:mysidia",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 19
         },
         {
             "flag": "-kit3:baron",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 20
         },
         {
             "flag": "-kit3:dwarf",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 21
         },
         {
             "flag": "-kit3:eblan",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 22
         },
         {
             "flag": "-kit3:libra",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 23
         },
         {
             "flag": "-kit3:99",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 24
         },
         {
             "flag": "-kit3:green",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 25
         },
         {
             "flag": "-kit3:random",
-            "offset": 313,
+            "offset": 318,
             "size": 5,
             "value": 26
         },
         {
             "flag": "-noadamants",
-            "offset": 318,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-nocursed",
-            "offset": 319,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoon",
-            "offset": 320,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-smith:super",
-            "offset": 321,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "-smith:alt",
-            "offset": 321,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "-exp:split",
             "offset": 323,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-exp:noboost",
+            "flag": "-nocursed",
             "offset": 324,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-exp:nokeybonus",
+            "flag": "-spoon",
             "offset": 325,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:fusoya",
+            "flag": "-smith:super",
             "offset": 326,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "-vanilla:agility",
-            "offset": 327,
-            "size": 1,
-            "value": 1
+            "flag": "-smith:alt",
+            "offset": 326,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "-vanilla:hobs",
+            "flag": "-exp:split",
             "offset": 328,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:growup",
+            "flag": "-exp:noboost",
             "offset": 329,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:fashion",
+            "flag": "-exp:nokeybonus",
             "offset": 330,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:miabs",
+            "flag": "-vanilla:fusoya",
             "offset": 331,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:giant",
+            "flag": "-vanilla:agility",
             "offset": 332,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:z",
+            "flag": "-vanilla:hobs",
             "offset": 333,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vintage",
+            "flag": "-vanilla:growup",
             "offset": 334,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-pushbtojump",
+            "flag": "-vanilla:fashion",
             "offset": 335,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:random",
+            "flag": "-vanilla:miabs",
             "offset": 336,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-vanilla:giant",
+            "offset": 337,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-vanilla:z",
+            "offset": 338,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-vintage",
+            "offset": 339,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-pushbtojump",
+            "offset": 340,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:random",
+            "offset": 341,
             "size": 6,
             "value": 1
         },
         {
             "flag": "-wacky:musical",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 2
         },
         {
             "flag": "-wacky:bodyguard",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 3
         },
         {
             "flag": "-wacky:fistfight",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 4
         },
         {
             "flag": "-wacky:omnidextrous",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 5
         },
         {
             "flag": "-wacky:biggermagnet",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 6
         },
         {
             "flag": "-wacky:sixleggedrace",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 7
         },
         {
             "flag": "-wacky:floorislava",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 8
         },
         {
             "flag": "-wacky:neatfreak",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 9
         },
         {
             "flag": "-wacky:timeismoney",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 10
         },
         {
             "flag": "-wacky:nightmode",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 11
         },
         {
             "flag": "-wacky:mysteryjuice",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 12
         },
         {
             "flag": "-wacky:misspelled",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 13
         },
         {
             "flag": "-wacky:enemyunknown",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 14
         },
         {
             "flag": "-wacky:kleptomania",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 15
         },
         {
             "flag": "-wacky:darts",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 16
         },
         {
             "flag": "-wacky:unstackable",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 17
         },
         {
             "flag": "-wacky:menarepigs",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 18
         },
         {
             "flag": "-wacky:skywarriors",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 19
         },
         {
             "flag": "-wacky:zombies",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 20
         },
         {
             "flag": "-wacky:afflicted",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 21
         },
         {
             "flag": "-wacky:batman",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 22
         },
         {
             "flag": "-wacky:battlescars",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 23
         },
         {
             "flag": "-wacky:imaginarynumbers",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 24
         },
         {
             "flag": "-wacky:tellahmaneuver",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 25
         },
         {
             "flag": "-wacky:3point",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 26
         },
         {
             "flag": "-wacky:friendlyfire",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 27
         },
         {
             "flag": "-wacky:payablegolbez",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 28
         },
         {
             "flag": "-wacky:gottagofast",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 29
         },
         {
             "flag": "-wacky:worthfighting",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 30
         },
         {
             "flag": "-wacky:saveusbigchocobo",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 31
         },
         {
             "flag": "-wacky:isthisrandomized",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 32
         },
         {
             "flag": "-wacky:forwardisback",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 33
         },
         {
             "flag": "-wacky:rndproblems",
-            "offset": 336,
+            "offset": 341,
             "size": 6,
             "value": 34
         },
         {
             "flag": "-spoil:all",
-            "offset": 342,
+            "offset": 347,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:keyitems",
-            "offset": 343,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:rewards",
-            "offset": 344,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:chars",
-            "offset": 345,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:treasure",
-            "offset": 346,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:miabs",
-            "offset": 346,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "-spoil:shops",
             "offset": 348,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:bosses",
+            "flag": "-spoil:rewards",
             "offset": 349,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:misc",
+            "flag": "-spoil:chars",
             "offset": 350,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:sparse10",
+            "flag": "-spoil:treasure",
             "offset": 351,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:miabs",
+            "offset": 351,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "-spoil:shops",
+            "offset": 353,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:bosses",
+            "offset": 354,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:misc",
+            "offset": 355,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:sparse10",
+            "offset": 356,
             "size": 4,
             "value": 1
         },
         {
             "flag": "-spoil:sparse20",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 2
         },
         {
             "flag": "-spoil:sparse30",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 3
         },
         {
             "flag": "-spoil:sparse40",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 4
         },
         {
             "flag": "-spoil:sparse50",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 5
         },
         {
             "flag": "-spoil:sparse60",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 6
         },
         {
             "flag": "-spoil:sparse70",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 7
         },
         {
             "flag": "-spoil:sparse80",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 8
         },
         {
             "flag": "-spoil:sparse90",
-            "offset": 351,
+            "offset": 356,
             "size": 4,
             "value": 9
         }
@@ -9053,6 +9270,7 @@ const _FE_FLAGSPEC = {
                 "Omode:fiends",
                 "Omode:dkmatter",
                 "Omode:bosscollector",
+                "Omode:goldhunter",
                 "O1:char_cecil",
                 "O1:char_kain",
                 "O1:char_rydia",
@@ -9139,6 +9357,8 @@ const _FE_FLAGSPEC = {
                 "O1:quest_tradepan",
                 "O1:quest_tradepink",
                 "O1:quest_pass",
+                "O1:quest_collect_gold",
+                "O1:quest_have_gold",
                 "O2:char_cecil",
                 "O2:char_kain",
                 "O2:char_rydia",
@@ -9225,6 +9445,8 @@ const _FE_FLAGSPEC = {
                 "O2:quest_tradepan",
                 "O2:quest_tradepink",
                 "O2:quest_pass",
+                "O2:quest_collect_gold",
+                "O2:quest_have_gold",
                 "O3:char_cecil",
                 "O3:char_kain",
                 "O3:char_rydia",
@@ -9311,6 +9533,8 @@ const _FE_FLAGSPEC = {
                 "O3:quest_tradepan",
                 "O3:quest_tradepink",
                 "O3:quest_pass",
+                "O3:quest_collect_gold",
+                "O3:quest_have_gold",
                 "O4:char_cecil",
                 "O4:char_kain",
                 "O4:char_rydia",
@@ -9397,6 +9621,8 @@ const _FE_FLAGSPEC = {
                 "O4:quest_tradepan",
                 "O4:quest_tradepink",
                 "O4:quest_pass",
+                "O4:quest_collect_gold",
+                "O4:quest_have_gold",
                 "O5:char_cecil",
                 "O5:char_kain",
                 "O5:char_rydia",
@@ -9483,6 +9709,8 @@ const _FE_FLAGSPEC = {
                 "O5:quest_tradepan",
                 "O5:quest_tradepink",
                 "O5:quest_pass",
+                "O5:quest_collect_gold",
+                "O5:quest_have_gold",
                 "O6:char_cecil",
                 "O6:char_kain",
                 "O6:char_rydia",
@@ -9569,6 +9797,8 @@ const _FE_FLAGSPEC = {
                 "O6:quest_tradepan",
                 "O6:quest_tradepink",
                 "O6:quest_pass",
+                "O6:quest_collect_gold",
+                "O6:quest_have_gold",
                 "O7:char_cecil",
                 "O7:char_kain",
                 "O7:char_rydia",
@@ -9655,6 +9885,8 @@ const _FE_FLAGSPEC = {
                 "O7:quest_tradepan",
                 "O7:quest_tradepink",
                 "O7:quest_pass",
+                "O7:quest_collect_gold",
+                "O7:quest_have_gold",
                 "O8:char_cecil",
                 "O8:char_kain",
                 "O8:char_rydia",
@@ -9741,6 +9973,8 @@ const _FE_FLAGSPEC = {
                 "O8:quest_tradepan",
                 "O8:quest_tradepink",
                 "O8:quest_pass",
+                "O8:quest_collect_gold",
+                "O8:quest_have_gold",
                 "Orandom:1",
                 "Orandom:2",
                 "Orandom:3",
