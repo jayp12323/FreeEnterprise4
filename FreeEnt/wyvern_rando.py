@@ -95,12 +95,20 @@ UNSAFE_COMMANDS = {
     }
 
 WORST_COMMANDS = {
+    '#spell.Enemy_Globe199' : 'front row / back row',
     '#spell.Quake' : 'all characters',
+    '#spell.Enemy_MegaNuke' : 'all characters',
     '#spell.Meteo' : 'all characters',
     '#spell.Enemy_Odin' : 'all characters',
     '#spell.Enemy_BigBang' : 'all characters',
     '#spell.Enemy_Charm' : 'all characters',
-    '#spell.Enemy_MegaNuke' : 'all characters',
+    '#spell.Enemy_Glance' : 'all characters',
+    '#spell.Enemy_Magnet' : 'front row / back row',
+    '#spell.Stone' : 'front row / back row',
+    '#spell.Fatal' : 'front row / back row',
+    '#spell.Stop' : 'front row / back row',
+    '#spell.Enemy_Gaze' : 'front row / back row',
+    '#spell.Enemy_Bluster' : 'front row / back row',
     }
 
 def apply(env):
