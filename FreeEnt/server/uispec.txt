@@ -24,13 +24,13 @@
 ....(Obosscollector:34) Collect 34 bosses
 ..[Omode:goldhunter] Gold Hunter
 ...<>* Set type of gold hunt
-....[]* Collect a certain amount of gold
+....<> Collect a certain amount of gold
 .....(Ogoldhunter:collect100) Collect 100000 gold
 .....(Ogoldhunter:collect250) Collect 250000 gold
 .....(Ogoldhunter:collect500) Collect 500000 gold
 .....(Ogoldhunter:collect750) Collect 750000 gold
 .....(Ogoldhunter:collect1000) Collect 1000000 gold
-....[]* Have a certain amount of gold
+....<> Have a certain amount of gold
 .....(Ogoldhunter:have100) Have 100000 gold
 .....(Ogoldhunter:have250) Have 250000 gold
 .....(Ogoldhunter:have500) Have 500000 gold
