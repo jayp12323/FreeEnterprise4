@@ -279,7 +279,7 @@ def apply(env):
         env.add_substitution('completion objective count text', required_objective_count_text)
     else:
         required_objective_count_text = 'all objectives'
-        env.add_substitution('completion objective count text', '')
+        env.add_substitution('completion objective count text', 'All objectives')
     if env.options.hide_flags:
         required_objective_count_text = 'objectives'
 
