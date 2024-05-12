@@ -38,6 +38,7 @@ patch($21fa04 bus) {
 // %end%
 }
 
+
 event($08)
 {
     // if objectives not enabled/already completed, do nothing
@@ -118,17 +119,19 @@ text(bank 1 message $113) {
 
 msfpatch
 {
-    .def  Objectives__RequiredCount  $21f0f9
-    .def  Objectives__Count          $21f0fc
-    .def  Objectives__IDs            $21f800
-    .def  ObjectivesHardRequired__IDs $21f820
-    .def  Objectives__Thresholds     $21f840
-    .def  Objectives__Progress       $7e1520
-    .def  Objectives__Staging        $7072e0
-    .def  Objectives__HardRequiredCount  $21fa00
-    .def  Objectives__BossCollectorSlot   $21fa04
-    .def  Objectives__BossSlotMap    $21f860
-    .def  Objectives__MaxCount       0x20
+    .def  Objectives__RequiredCount         $21f0f9
+    .def  Objectives__Count                 $21f0fc
+    .def  Objectives__IDs                   $21f800
+    .def  ObjectivesHardRequired__IDs       $21f820
+    .def  Objectives__Thresholds            $21f840
+    .def  Objectives__BossSlotMap           $21f860
+
+    .def  Objectives__Progress              $7e1520
+    .def  Objectives__Staging               $7072e0
+
+    .def  Objectives__HardRequiredCount     $21fa00
+    .def  Objectives__BossCollectorSlot     $21fa04
+    .def  Objectives__MaxCount              0x20
 
     .def  Objectives__ProcessEventID  $08
 }
@@ -282,6 +285,27 @@ msfpatch {
         rtl
 }
 
+msfpatch {
+    Objectives__ApplyStagedProgress:
+        ldx #$0000
+    %ApplyLoop:
+        lda $=Objectives__IDs,x
+        beq $+ApplyLoopNext
+
+        lda $=Objectives__Staging,x
+        clc
+        adc $_Objectives__Progress,x
+        sta $_Objectives__Progress,x
+
+    %ApplyLoopNext:
+        lda #$00
+        sta $=Objectives__Staging,x
+        inx
+        cpx #$_Objectives__MaxCount
+        bcc $-ApplyLoop
+        rtl
+}
+
 msfpatch
 {
     EvEx__Objectives_Tick:
@@ -306,6 +330,13 @@ msfpatch {
         lda $=Objectives__BossSlotMap,x
         jsl $=Objectives__StageProgress
         jmp $_EvEx__ObjectivesImpl_DoEvent
+}
+
+
+msfpatch {
+    EvEx__Objectives_TickGoldSlot:
+        jsl $=EvEx__ObjectivesImpl_ApplyStaged
+        rtl
 }
 
 msfpatch {
@@ -351,6 +382,19 @@ msfpatch
         jmp $_EvEx__End
 }
 
+msfpatch {
+    // A hold objective index
+    EvEx__ObjectivesImpl_ShowTextMessage:
+        jsl $=TextBuffer__LoadObjectiveNameForIndex
+
+        // play sound and display text box
+        lda #$24
+        jsr $_Util__PlaySFX
+        
+        lda #$11  // [hardcoded] : refers to message $111
+        jsr $_DisplayBank1HiMessage
+        rts
+}
 msfpatch {
     EvEx__ObjectivesImpl_ShowStagedCompletionMessages:
         stz $1680

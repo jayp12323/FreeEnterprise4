@@ -1237,7 +1237,7 @@ msfpatch {
     .addr $01ca1c
         jsl $=ExtraItemDescriptions__SellMenu_ConfirmDismissHookCLC
     .addr $01ca5c
-        jsl $=ExtraItemDescriptions__SellMenu_ConfirmDismissHookSEC
+        jsl $=ExtraItemDescriptions__SellMenu_ConfirmDismissHookSEC        
 
     .addr $01c865
         jsl $=ExtraItemDescriptions__SellMenu_PostSellHook

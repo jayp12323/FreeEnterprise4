@@ -9,7 +9,8 @@ MODES = {
     'Omode:classicgiant'  : ['quest_giant'],
     'Omode:fiends'        : ['boss_milon', 'boss_milonz', 'boss_kainazzo', 'boss_valvalis', 'boss_rubicant', 'boss_elements'],
     'Omode:dkmatter'      : ['internal_dkmatter'],
-    'Omode:bosscollector' : ['internal_bosscollector']
+    'Omode:bosscollector' : ['internal_bosscollector'],
+    'Omode:goldhunter'    : ['internal_goldhunter'],
 }
 
 OBJECTIVE_SLUGS_TO_IDS = {}
@@ -117,6 +118,17 @@ def setup(env):
             env.meta['required_treasures'].setdefault('#item.DkMatter', 0)
             env.meta['required_treasures']['#item.DkMatter'] += 45
 
+        random_objective_only_characters = set()
+        for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
+            for f in env.options.flags.get_list(rf'^{random_prefix}[^\d]'):               
+                allowed_type = f[len(random_prefix):]
+                if allowed_type.startswith('only'):                
+                    random_objective_only_characters.add(allowed_type[len('only'):])
+        for random_char in random_objective_only_characters:
+            print(f'random_objective_only {random_char}')
+            env.meta['objective_required_characters'].add(random_char)
+        foo = env.meta['objective_required_characters']
+        print(f'objective_required_characters is {foo}')
 
 def apply(env):
     if not env.meta['has_objectives']:
@@ -132,7 +144,7 @@ def apply(env):
     for objective_flag in MODES:
         if env.options.flags.has(objective_flag):
             objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS[q] for q in MODES[objective_flag]])
-
+    print(f'Objective ids {objective_ids}')
     # custom objectives from flags
     for objective_id in OBJECTIVES:
         if OBJECTIVES[objective_id]['slug'] in env.meta['objectives_from_flags']:
@@ -183,15 +195,17 @@ def apply(env):
             while True:                
                 category = random_category_distribution.choose(env.rnd)
                 q = env.rnd.choice(random_objective_pool[category])
-                slug = OBJECTIVES[q]['slug']                
+                slug = OBJECTIVES[q]['slug']    
+                #print(f'Considering {slug}')            
                 if q in objective_ids:
                     continue
                 if slug.startswith(CHAR_OBJECTIVE_PREFIX):
                     char = slug[len(CHAR_OBJECTIVE_PREFIX):]
                     if char not in env.meta['available_nonstarting_characters']:
+                        print('Nonstarting')
                         continue
                     if len(random_objective_allowed_characters) != 0 and (char not in random_objective_allowed_characters):
-                        #print(f'{char} not allowed in types {random_objective_allowed_characters}')
+                        print(f'{char} not allowed in types {random_objective_allowed_characters}')
                         continue
                 elif slug.startswith(BOSS_OBJECTIVE_PREFIX):
                     boss = slug[len(BOSS_OBJECTIVE_PREFIX):]
@@ -207,7 +221,7 @@ def apply(env):
                     # don't allow internal objectives to be selected as random ones
                     continue
                 break
-
+            print(f'Adding { slug }')            
             objective_ids.append(q)
 
     if env.options.test_settings.get('objectives'):
@@ -225,26 +239,42 @@ def apply(env):
     total_objective_count = len(objective_ids)
     env.add_substitution('objective count', f'{total_objective_count:02X}')
     objective_ids.extend([0x00] * (MAX_OBJECTIVE_COUNT - len(objective_ids)))
-    env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))        
+    env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))   
+    print(f'{len(objective_ids)}for {objective_ids}')     
     threshold_list = []
-    has_bosscollector = False
+
+    gold_hunt_count = 0
     boss_hunt_count = 0
+    
     if env.options.flags.get_suffix(f"Obosscollector:") != None:
         boss_hunt_count = int(env.options.flags.get_suffix(f"Obosscollector:"))
+
+    if env.options.flags.get_suffix(f"Ogoldcollector:") != None:
+        gold_hunt_count = int(env.options.flags.get_suffix(f"Ogoldcollector:"))
+        env.add_substitution('gold hunt type', '00' )
+    elif env.options.flags.get_suffix(f"Ogoldsaver:") != None:
+        gold_hunt_count = int(env.options.flags.get_suffix(f"Ogoldsaver:"))
+        env.add_substitution('gold hunt type', '01')
+    
     for b in objective_ids:
         if b == 0xFF:
             threshold_list.append('00')
         elif b != 0 and OBJECTIVES[b]['slug'] == 'internal_bosscollector':
             threshold_list.append(f'{boss_hunt_count:02X}')
-            has_bosscollector = True
+            
+            # inject the location of the boss slot index
+            env.add_substitution('boss hunt slot', f'{b:02X}')   
+        elif b != 0 and OBJECTIVES[b]['slug'] == 'internal_goldhunter':
+            # The threshold is stored in a gold specific location
+            threshold_list.append('01') 
+
+            # inject the location of the gold hunter slot index
+            env.add_substitution('gold hunt slot', f'{b:02X}')
+            print(f'Goldhunter id {b}')
         else:
             threshold_list.append('01')
+    print(f'{len(threshold_list)} thresholds for {threshold_list}')                 
     env.add_substitution('objective thresholds', ' '.join(threshold_list))
-
-    # inject the location of the boss slot index
-    if has_bosscollector:
-        bosscollector_id = OBJECTIVE_SLUGS_TO_IDS['internal_bosscollector']
-        env.add_substitution('boss hunt slot', f'{bosscollector_id:02X}')
     
     # handle changes for partial objectives
     if required_objective_count == 'all' or required_objective_count is None:
@@ -293,9 +323,18 @@ def apply(env):
         if objective_id == 0x00:
             continue 
         text = OBJECTIVES[objective_id]['desc']
+
+        # string formatting for objective text
         if OBJECTIVES[objective_id]['slug'] == 'internal_bosscollector':
-            text = text.replace('%d', str(boss_hunt_count) )
+            text = text.replace('%d', f'{boss_hunt_count}' )
             text = text.replace('%t', 'bosses' if boss_hunt_count > 1 else 'boss' )
+        elif OBJECTIVES[objective_id]['slug'] == 'internal_goldhunter':
+            objective_str = 'Collect'
+            if env.options.flags.get_suffix(f"Ogoldsaver:") != None:
+                objective_str = 'Have'
+            text = text.replace('%d', f'{gold_hunt_count}000' )
+            text = text.replace('%s', objective_str )
+
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
         lines = _split_lines(text)
@@ -336,8 +375,15 @@ def apply(env):
     if OBJECTIVE_SLUGS_TO_IDS['internal_dkmatter'] in objective_ids:
         env.add_file('scripts/dark_matter_hunt.f4c')
         
+    if OBJECTIVE_SLUGS_TO_IDS['internal_goldhunter'] in objective_ids:
+        print(f'Gold Hunt {gold_hunt_count}')
+        target = 30
+        target_bin = [((target >> (i * 8)) & 0xFF) for i in range(4)]
+        
+        env.add_binary(BusAddress(0x21fa07), target_bin,  as_script=True)
+        env.add_file('scripts/gold_hunt.f4c')
 
-
+#gold_hunt_count * 1000
 if __name__ == '__main__':
     print("Checking line lengths")
     for q in OBJECTIVES:

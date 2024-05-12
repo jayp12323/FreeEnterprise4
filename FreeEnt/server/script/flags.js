@@ -98,8 +98,6 @@ const _FE_FLAGSPEC = {
         "O1:quest_tradepan",
         "O1:quest_tradepink",
         "O1:quest_pass",
-        "O1:quest_collect_gold",
-        "O1:quest_have_gold",
         "O2:char_cecil",
         "O2:char_kain",
         "O2:char_rydia",
@@ -186,8 +184,6 @@ const _FE_FLAGSPEC = {
         "O2:quest_tradepan",
         "O2:quest_tradepink",
         "O2:quest_pass",
-        "O2:quest_collect_gold",
-        "O2:quest_have_gold",
         "O3:char_cecil",
         "O3:char_kain",
         "O3:char_rydia",
@@ -274,8 +270,6 @@ const _FE_FLAGSPEC = {
         "O3:quest_tradepan",
         "O3:quest_tradepink",
         "O3:quest_pass",
-        "O3:quest_collect_gold",
-        "O3:quest_have_gold",
         "O4:char_cecil",
         "O4:char_kain",
         "O4:char_rydia",
@@ -362,8 +356,6 @@ const _FE_FLAGSPEC = {
         "O4:quest_tradepan",
         "O4:quest_tradepink",
         "O4:quest_pass",
-        "O4:quest_collect_gold",
-        "O4:quest_have_gold",
         "O5:char_cecil",
         "O5:char_kain",
         "O5:char_rydia",
@@ -450,8 +442,6 @@ const _FE_FLAGSPEC = {
         "O5:quest_tradepan",
         "O5:quest_tradepink",
         "O5:quest_pass",
-        "O5:quest_collect_gold",
-        "O5:quest_have_gold",
         "O6:char_cecil",
         "O6:char_kain",
         "O6:char_rydia",
@@ -538,8 +528,6 @@ const _FE_FLAGSPEC = {
         "O6:quest_tradepan",
         "O6:quest_tradepink",
         "O6:quest_pass",
-        "O6:quest_collect_gold",
-        "O6:quest_have_gold",
         "O7:char_cecil",
         "O7:char_kain",
         "O7:char_rydia",
@@ -626,8 +614,6 @@ const _FE_FLAGSPEC = {
         "O7:quest_tradepan",
         "O7:quest_tradepink",
         "O7:quest_pass",
-        "O7:quest_collect_gold",
-        "O7:quest_have_gold",
         "O8:char_cecil",
         "O8:char_kain",
         "O8:char_rydia",
@@ -714,8 +700,6 @@ const _FE_FLAGSPEC = {
         "O8:quest_tradepan",
         "O8:quest_tradepink",
         "O8:quest_pass",
-        "O8:quest_collect_gold",
-        "O8:quest_have_gold",
         "Obosscollector:1",
         "Obosscollector:2",
         "Obosscollector:3",
@@ -731,16 +715,16 @@ const _FE_FLAGSPEC = {
         "Obosscollector:25",
         "Obosscollector:30",
         "Obosscollector:34",
-        "Ogoldhunter:collect100",
-        "Ogoldhunter:collect250",
-        "Ogoldhunter:collect500",
-        "Ogoldhunter:collect750",
-        "Ogoldhunter:collect1000",
-        "Ogoldhunter:have100",
-        "Ogoldhunter:have250",
-        "Ogoldhunter:have500",
-        "Ogoldhunter:have750",
-        "Ogoldhunter:have1000",
+        "Ogoldcollector:100",
+        "Ogoldcollector:250",
+        "Ogoldcollector:500",
+        "Ogoldcollector:750",
+        "Ogoldcollector:1000",
+        "Ogoldsaver:100",
+        "Ogoldsaver:250",
+        "Ogoldsaver:500",
+        "Ogoldsaver:750",
+        "Ogoldsaver:1000",
         "Orandom:1",
         "Orandom:2",
         "Orandom:3",
@@ -1272,9 +1256,7 @@ const _FE_FLAGSPEC = {
             "O1:quest_wakeyang",
             "O1:quest_tradepan",
             "O1:quest_tradepink",
-            "O1:quest_pass",
-            "O1:quest_collect_gold",
-            "O1:quest_have_gold"
+            "O1:quest_pass"
         ],
         [
             "O2:char_cecil",
@@ -1362,9 +1344,7 @@ const _FE_FLAGSPEC = {
             "O2:quest_wakeyang",
             "O2:quest_tradepan",
             "O2:quest_tradepink",
-            "O2:quest_pass",
-            "O2:quest_collect_gold",
-            "O2:quest_have_gold"
+            "O2:quest_pass"
         ],
         [
             "O3:char_cecil",
@@ -1452,9 +1432,7 @@ const _FE_FLAGSPEC = {
             "O3:quest_wakeyang",
             "O3:quest_tradepan",
             "O3:quest_tradepink",
-            "O3:quest_pass",
-            "O3:quest_collect_gold",
-            "O3:quest_have_gold"
+            "O3:quest_pass"
         ],
         [
             "O4:char_cecil",
@@ -1542,9 +1520,7 @@ const _FE_FLAGSPEC = {
             "O4:quest_wakeyang",
             "O4:quest_tradepan",
             "O4:quest_tradepink",
-            "O4:quest_pass",
-            "O4:quest_collect_gold",
-            "O4:quest_have_gold"
+            "O4:quest_pass"
         ],
         [
             "O5:char_cecil",
@@ -1632,9 +1608,7 @@ const _FE_FLAGSPEC = {
             "O5:quest_wakeyang",
             "O5:quest_tradepan",
             "O5:quest_tradepink",
-            "O5:quest_pass",
-            "O5:quest_collect_gold",
-            "O5:quest_have_gold"
+            "O5:quest_pass"
         ],
         [
             "O6:char_cecil",
@@ -1722,9 +1696,7 @@ const _FE_FLAGSPEC = {
             "O6:quest_wakeyang",
             "O6:quest_tradepan",
             "O6:quest_tradepink",
-            "O6:quest_pass",
-            "O6:quest_collect_gold",
-            "O6:quest_have_gold"
+            "O6:quest_pass"
         ],
         [
             "O7:char_cecil",
@@ -1812,9 +1784,7 @@ const _FE_FLAGSPEC = {
             "O7:quest_wakeyang",
             "O7:quest_tradepan",
             "O7:quest_tradepink",
-            "O7:quest_pass",
-            "O7:quest_collect_gold",
-            "O7:quest_have_gold"
+            "O7:quest_pass"
         ],
         [
             "O8:char_cecil",
@@ -1902,9 +1872,7 @@ const _FE_FLAGSPEC = {
             "O8:quest_wakeyang",
             "O8:quest_tradepan",
             "O8:quest_tradepink",
-            "O8:quest_pass",
-            "O8:quest_collect_gold",
-            "O8:quest_have_gold"
+            "O8:quest_pass"
         ],
         [
             "Obosscollector:1",
@@ -1924,16 +1892,16 @@ const _FE_FLAGSPEC = {
             "Obosscollector:34"
         ],
         [
-            "Ogoldhunter:collect100",
-            "Ogoldhunter:collect250",
-            "Ogoldhunter:collect500",
-            "Ogoldhunter:collect750",
-            "Ogoldhunter:collect1000",
-            "Ogoldhunter:have100",
-            "Ogoldhunter:have250",
-            "Ogoldhunter:have500",
-            "Ogoldhunter:have750",
-            "Ogoldhunter:have1000"
+            "Ogoldcollector:100",
+            "Ogoldcollector:250",
+            "Ogoldcollector:500",
+            "Ogoldcollector:750",
+            "Ogoldcollector:1000",
+            "Ogoldsaver:100",
+            "Ogoldsaver:250",
+            "Ogoldsaver:500",
+            "Ogoldsaver:750",
+            "Ogoldsaver:1000"
         ],
         [
             "Orandom:1",
@@ -2792,18 +2760,6 @@ const _FE_FLAGSPEC = {
             "value": 86
         },
         {
-            "flag": "O1:quest_collect_gold",
-            "offset": 6,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O1:quest_have_gold",
-            "offset": 6,
-            "size": 7,
-            "value": 88
-        },
-        {
             "flag": "O2:char_cecil",
             "offset": 13,
             "size": 7,
@@ -3318,18 +3274,6 @@ const _FE_FLAGSPEC = {
             "offset": 13,
             "size": 7,
             "value": 86
-        },
-        {
-            "flag": "O2:quest_collect_gold",
-            "offset": 13,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O2:quest_have_gold",
-            "offset": 13,
-            "size": 7,
-            "value": 88
         },
         {
             "flag": "O3:char_cecil",
@@ -3848,18 +3792,6 @@ const _FE_FLAGSPEC = {
             "value": 86
         },
         {
-            "flag": "O3:quest_collect_gold",
-            "offset": 20,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O3:quest_have_gold",
-            "offset": 20,
-            "size": 7,
-            "value": 88
-        },
-        {
             "flag": "O4:char_cecil",
             "offset": 27,
             "size": 7,
@@ -4374,18 +4306,6 @@ const _FE_FLAGSPEC = {
             "offset": 27,
             "size": 7,
             "value": 86
-        },
-        {
-            "flag": "O4:quest_collect_gold",
-            "offset": 27,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O4:quest_have_gold",
-            "offset": 27,
-            "size": 7,
-            "value": 88
         },
         {
             "flag": "O5:char_cecil",
@@ -4904,18 +4824,6 @@ const _FE_FLAGSPEC = {
             "value": 86
         },
         {
-            "flag": "O5:quest_collect_gold",
-            "offset": 34,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O5:quest_have_gold",
-            "offset": 34,
-            "size": 7,
-            "value": 88
-        },
-        {
             "flag": "O6:char_cecil",
             "offset": 41,
             "size": 7,
@@ -5430,18 +5338,6 @@ const _FE_FLAGSPEC = {
             "offset": 41,
             "size": 7,
             "value": 86
-        },
-        {
-            "flag": "O6:quest_collect_gold",
-            "offset": 41,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O6:quest_have_gold",
-            "offset": 41,
-            "size": 7,
-            "value": 88
         },
         {
             "flag": "O7:char_cecil",
@@ -5960,18 +5856,6 @@ const _FE_FLAGSPEC = {
             "value": 86
         },
         {
-            "flag": "O7:quest_collect_gold",
-            "offset": 48,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O7:quest_have_gold",
-            "offset": 48,
-            "size": 7,
-            "value": 88
-        },
-        {
             "flag": "O8:char_cecil",
             "offset": 55,
             "size": 7,
@@ -6488,18 +6372,6 @@ const _FE_FLAGSPEC = {
             "value": 86
         },
         {
-            "flag": "O8:quest_collect_gold",
-            "offset": 55,
-            "size": 7,
-            "value": 87
-        },
-        {
-            "flag": "O8:quest_have_gold",
-            "offset": 55,
-            "size": 7,
-            "value": 88
-        },
-        {
             "flag": "Obosscollector:1",
             "offset": 62,
             "size": 4,
@@ -6590,61 +6462,61 @@ const _FE_FLAGSPEC = {
             "value": 15
         },
         {
-            "flag": "Ogoldhunter:collect100",
+            "flag": "Ogoldcollector:100",
             "offset": 66,
             "size": 4,
             "value": 1
         },
         {
-            "flag": "Ogoldhunter:collect250",
+            "flag": "Ogoldcollector:250",
             "offset": 66,
             "size": 4,
             "value": 2
         },
         {
-            "flag": "Ogoldhunter:collect500",
+            "flag": "Ogoldcollector:500",
             "offset": 66,
             "size": 4,
             "value": 3
         },
         {
-            "flag": "Ogoldhunter:collect750",
+            "flag": "Ogoldcollector:750",
             "offset": 66,
             "size": 4,
             "value": 4
         },
         {
-            "flag": "Ogoldhunter:collect1000",
+            "flag": "Ogoldcollector:1000",
             "offset": 66,
             "size": 4,
             "value": 5
         },
         {
-            "flag": "Ogoldhunter:have100",
+            "flag": "Ogoldsaver:100",
             "offset": 66,
             "size": 4,
             "value": 6
         },
         {
-            "flag": "Ogoldhunter:have250",
+            "flag": "Ogoldsaver:250",
             "offset": 66,
             "size": 4,
             "value": 7
         },
         {
-            "flag": "Ogoldhunter:have500",
+            "flag": "Ogoldsaver:500",
             "offset": 66,
             "size": 4,
             "value": 8
         },
         {
-            "flag": "Ogoldhunter:have750",
+            "flag": "Ogoldsaver:750",
             "offset": 66,
             "size": 4,
             "value": 9
         },
         {
-            "flag": "Ogoldhunter:have1000",
+            "flag": "Ogoldsaver:1000",
             "offset": 66,
             "size": 4,
             "value": 10
@@ -9357,8 +9229,6 @@ const _FE_FLAGSPEC = {
                 "O1:quest_tradepan",
                 "O1:quest_tradepink",
                 "O1:quest_pass",
-                "O1:quest_collect_gold",
-                "O1:quest_have_gold",
                 "O2:char_cecil",
                 "O2:char_kain",
                 "O2:char_rydia",
@@ -9445,8 +9315,6 @@ const _FE_FLAGSPEC = {
                 "O2:quest_tradepan",
                 "O2:quest_tradepink",
                 "O2:quest_pass",
-                "O2:quest_collect_gold",
-                "O2:quest_have_gold",
                 "O3:char_cecil",
                 "O3:char_kain",
                 "O3:char_rydia",
@@ -9533,8 +9401,6 @@ const _FE_FLAGSPEC = {
                 "O3:quest_tradepan",
                 "O3:quest_tradepink",
                 "O3:quest_pass",
-                "O3:quest_collect_gold",
-                "O3:quest_have_gold",
                 "O4:char_cecil",
                 "O4:char_kain",
                 "O4:char_rydia",
@@ -9621,8 +9487,6 @@ const _FE_FLAGSPEC = {
                 "O4:quest_tradepan",
                 "O4:quest_tradepink",
                 "O4:quest_pass",
-                "O4:quest_collect_gold",
-                "O4:quest_have_gold",
                 "O5:char_cecil",
                 "O5:char_kain",
                 "O5:char_rydia",
@@ -9709,8 +9573,6 @@ const _FE_FLAGSPEC = {
                 "O5:quest_tradepan",
                 "O5:quest_tradepink",
                 "O5:quest_pass",
-                "O5:quest_collect_gold",
-                "O5:quest_have_gold",
                 "O6:char_cecil",
                 "O6:char_kain",
                 "O6:char_rydia",
@@ -9797,8 +9659,6 @@ const _FE_FLAGSPEC = {
                 "O6:quest_tradepan",
                 "O6:quest_tradepink",
                 "O6:quest_pass",
-                "O6:quest_collect_gold",
-                "O6:quest_have_gold",
                 "O7:char_cecil",
                 "O7:char_kain",
                 "O7:char_rydia",
@@ -9885,8 +9745,6 @@ const _FE_FLAGSPEC = {
                 "O7:quest_tradepan",
                 "O7:quest_tradepink",
                 "O7:quest_pass",
-                "O7:quest_collect_gold",
-                "O7:quest_have_gold",
                 "O8:char_cecil",
                 "O8:char_kain",
                 "O8:char_rydia",
@@ -9973,8 +9831,6 @@ const _FE_FLAGSPEC = {
                 "O8:quest_tradepan",
                 "O8:quest_tradepink",
                 "O8:quest_pass",
-                "O8:quest_collect_gold",
-                "O8:quest_have_gold",
                 "Orandom:1",
                 "Orandom:2",
                 "Orandom:3",

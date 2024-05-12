@@ -1,0 +1,182 @@
+patch($21fa05 bus) {
+// %gold hunt slot%
+    00
+// %end%
+}
+patch($21fa06 bus) {
+// %gold hunt type%
+    00
+// %end%
+}
+
+/*
+patch($21fa07 bus) {
+// %gold hunt goal%
+    00 00 00
+// %end%
+}
+*/
+
+msfpatch
+{
+    .def  GoldHunt__Slot          $21fa05
+    .def  GoldHunt__Type          $21fa06
+    .def  GoldHunt__Goal          $21fa07    
+
+    .def GoldHunt_Scratch         $7e1621
+}
+
+msfpatch{
+    
+    // Selling items    
+    
+    .addr $00883b
+        jsl $=GoldHuntEx__FromShop
+      
+    // Gold from looting        
+    .addr $0097b0        
+        jsl $=GoldHuntEx__FromLoot
+        rts
+
+    // Hook in the RTS from ending a battle            
+    .addr $0387d1 
+        jsl $=GoldHuntEx__FireEventAfterBattle
+   
+    .new
+
+    GoldHuntEx__FromShop:
+        ldx #$008b92 
+        jsl $=Bank00LongCallX
+        cli
+        jsr $_CheckGoldObjective
+        rtl
+
+    GoldHuntEx__FromLoot:
+        jsl $15c395 // math_multiply_16bit 
+        ldx #$0ea95 // _transfer_format_number_arg_to_current_number                           
+        jsl $=Bank00LongCallX
+        ldx #$0097dd  // add_party_gp
+        jsl $=Bank00LongCallX
+        ldx #$00b1c8  // _load_message_bank_1_lo_offset                                          
+        jsl $=Bank00LongCallX
+        ldx #$00b0d1  // _show_upper_dialog                                                      
+        jsl $=Bank00LongCallX
+        ldx #$00b164  // _close_upper_dialog                                                     
+        jsl $=Bank00LongCallX
+        jsr $_CheckGoldObjective
+        rtl
+
+    GoldHuntEx__FireEventAfterBattle:
+        lda #$00
+        sta $2106   //Hardcoded mosaic address        
+        jsr $_CheckGoldObjective
+        rtl
+
+    %CheckGoldObjective:    
+        lda $=(GoldHunt__Goal)
+        sta $_(GoldHunt_Scratch) 
+        lda $=(GoldHunt__Goal+1)
+        sta $_(GoldHunt_Scratch+1) 
+        lda $=(GoldHunt__Goal+2)
+        sta $_(GoldHunt_Scratch+2) 
+
+        sec
+        lda $16a0
+        sbc $_(GoldHunt_Scratch)
+        lda $16a1
+        sbc $_(GoldHunt_Scratch+1)
+        lda $16a2
+        sbc $_(GoldHunt_Scratch+2)
+        bcc $+NotEnoughGP
+        lda $=GoldHunt__Slot
+        jsl $=Objectives__StageProgress        
+/*
+    %ObjectivesEnabled:
+        ldx #$0000
+    %CheckLoop:
+        lda $=Objectives__IDs,x
+        cmp $=GoldHunt__Slot
+        beq $+Found
+        inx
+        cpx #$_Objectives__MaxCount
+        bcc $-CheckLoop
+    %Found:
+        lda $=Objectives__Thresholds,x
+        cmp $_Objectives__Progress,x
+        bcc $+Passed
+        beq $+Passed
+        bra $+NotEnoughGP
+    */
+    %Passed:    
+        jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
+        lda #$08  // Load the $08 event handler (which tackles objectives)
+        ldx #$df63 
+        jsl $=Bank00LongCallX        
+        ldx $1615   // [hardcoded]
+        stx $09d3   // Restore the other events
+    %NotEnoughGP:
+        rts
+        
+}
+
+npc(#AstroObservatoryScholar)
+{
+    sprite #Scholar
+    default active
+    eventcall {
+        $4C
+    }
+}
+
+event($4C)
+{
+    [#B #If #ObjectiveComplete #objective.internal_dkmatter] {
+
+        [#B #If #HasDkMatter 1] {
+            map message 3
+            [#B #TakeAll #item.DkMatter]
+            [#B #EndEvent]
+        }
+
+        map message 4
+        [#B #EndEvent]        
+    }
+
+    [#B #If #not_HasDkMatter 30] {
+        map message 1
+        [#B #EndEvent]
+    }
+
+    map message 2
+    [#B #TakeAll #item.DkMatter]
+    [#B #Objectives_Tick #objective.internal_dkmatter]
+}
+
+text(map #AstroTowerObservatory message 1) {
+Hi, I'm Kory! Could you
+do me a favor and bring
+me 30 DkMatters?
+
+There are 45 of them
+scattered in chests
+all across the world
+and the moon!
+But I only need 30.
+Thanks!
+}
+
+text(map #AstroTowerObservatory message 2) {
+Outstanding! I'll take
+those. Thank you!
+}
+
+text(map #AstroTowerObservatory message 3) {
+More DkMatter? I'll take
+that. Thanks!
+}
+
+text(map #AstroTowerObservatory message 4) {
+No, I can't tell you what
+they're for. It's super
+secret science stuff.
+}
