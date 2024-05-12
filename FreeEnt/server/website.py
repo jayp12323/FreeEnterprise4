@@ -382,7 +382,7 @@ def run(config, task_queue):
     }
 
     if config.local:
-        conf['FreeEnt']['site_root'] = 'https://ff4fe.galeswift.com/make'
+        conf['FreeEnt']['site_root'] = 'https://ff4fe.galeswift.com'
         #conf['FreeEnt']['recaptcha_site_key'] = 'recaptcha_site_key_dev'
         #conf['FreeEnt']['recaptcha_secret_key'] = 'recaptcha_secret_key_dev'
         conf['FreeEnt']['skip_captcha'] = True
