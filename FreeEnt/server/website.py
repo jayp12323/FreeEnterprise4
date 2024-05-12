@@ -319,7 +319,7 @@ class Site:
                 pass
 
 
-        site_root = 'https://ff4fe.galeswift.com' #cherrypy.request.app.config['FreeEnt']['site_root']
+        site_root = cherrypy.request.app.config['FreeEnt']['site_root']
         return self._env.get_template("seed_get.html").render(
             seed_url = f"{site_root}/get?id={id}",
             seed = cached_seed,
