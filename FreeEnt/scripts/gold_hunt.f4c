@@ -38,10 +38,6 @@ msfpatch{
         jsl $=GoldHuntEx__FromLoot
         rts
 
-    // Hook in the RTS from ending a battle            
-    .addr $0387d1 
-        jsl $=GoldHuntEx__FireEventAfterBattle
-   
     .new
 
     GoldHuntEx__FromShop:
@@ -67,8 +63,9 @@ msfpatch{
         rtl
 
     GoldHuntEx__FireEventAfterBattle:
-        lda #$00
-        sta $2106   //Hardcoded mosaic address        
+        stz $06ae   // r_draw_field_sprite_npc_index                                          
+        ldx $09d1   // r_npc_placement_base_offset
+        stx $09cf   // r_npc_placement_offset
         jsr $_CheckGoldObjective
         rtl
 
