@@ -389,9 +389,9 @@ def run(config, task_queue):
         conf['FreeEnt']['debug'] = True
     else:
         if config.beta:
-            conf['FreeEnt']['site_root'] = os.getenv("FE_BETA_SITE_URL")
+            conf['FreeEnt']['site_root'] = 'foobar' #os.getenv("FE_BETA_SITE_URL")
         else:
-            conf['FreeEnt']['site_root'] = os.getenv("FE_SITE_URL")
+            conf['FreeEnt']['site_root'] = 'foobars' #os.getenv("FE_SITE_URL")
         #conf['FreeEnt']['recaptcha_site_key'] = 'recaptcha_site_key'
         #conf['FreeEnt']['recaptcha_secret_key'] = 'recaptcha_secret_key'
         conf['FreeEnt']['debug'] = False
