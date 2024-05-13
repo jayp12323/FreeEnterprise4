@@ -305,7 +305,7 @@ def apply(env):
     env.add_substitution('required objective count text', required_objective_count_text)
     env.add_substitution('hard required objective count text', f'{hard_required_objective_count}')
 
-    gold_hunt_text = str(gold_hunt_count)
+    gold_hunt_text = str(gold_hunt_count) + ',000'
     if gold_hunt_count >= 1000:
         gold_hunt_text = gold_hunt_text[:1]+',' + gold_hunt_text[1:] + ',000'
 
