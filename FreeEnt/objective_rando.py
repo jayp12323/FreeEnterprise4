@@ -305,6 +305,10 @@ def apply(env):
     env.add_substitution('required objective count text', required_objective_count_text)
     env.add_substitution('hard required objective count text', f'{hard_required_objective_count}')
 
+    gold_hunt_text = str(gold_hunt_count)
+    if gold_hunt_count >= 1000:
+        gold_hunt_text = gold_hunt_text[:1]+',' + gold_hunt_text[1:] + ',000'
+
     # write objective descriptions and compile spoilers
     spoilers = []
     pregame_text_lines = []
@@ -318,7 +322,7 @@ def apply(env):
             text = text.replace('%d', f'{boss_hunt_count}' )
             text = text.replace('%t', 'bosses' if boss_hunt_count > 1 else 'boss' )
         elif OBJECTIVES[objective_id]['slug'] == 'internal_goldhunter':
-            text = text.replace('%d', f'{gold_hunt_count}000' )
+            text = text.replace('%d', f'{gold_hunt_text}' )
 
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
@@ -366,10 +370,7 @@ def apply(env):
         
         env.add_binary(BusAddress(0x21fa06), target_bin,  as_script=True)
         env.add_file('scripts/gold_hunt.f4c')
-        gold_hunt_text = str(gold_hunt_count)
-        if gold_hunt_count >= 1000:
-            gold_hunt_text = gold_hunt_text[:1]+',' + gold_hunt_text[1:]
-        env.add_script('text(map #AstroTower message 7) {\nHi, I\'m Tory! Could you \ndo me a favor and get me\n'+gold_hunt_text+',000 gold? \n\nI\'m trying to buy one of \nthose fancy airships..}')
+        env.add_script('text(map #AstroTower message 7) {\nHi, I\'m Tory! Could you \ndo me a favor and get me\n'+gold_hunt_text+' GP? \n\nI\'m trying to buy one of \nthose fancy airships..}')
 
 #gold_hunt_count * 1000
 if __name__ == '__main__':
