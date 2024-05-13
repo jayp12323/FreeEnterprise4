@@ -125,10 +125,8 @@ def setup(env):
                 if allowed_type.startswith('only'):                
                     random_objective_only_characters.add(allowed_type[len('only'):])
         for random_char in random_objective_only_characters:
-            print(f'random_objective_only {random_char}')
             env.meta['objective_required_characters'].add(random_char)
         foo = env.meta['objective_required_characters']
-        print(f'objective_required_characters is {foo}')
 
 def apply(env):
     if not env.meta['has_objectives']:
@@ -144,7 +142,6 @@ def apply(env):
     for objective_flag in MODES:
         if env.options.flags.has(objective_flag):
             objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS[q] for q in MODES[objective_flag]])
-    print(f'Objective ids {objective_ids}')
     # custom objectives from flags
     for objective_id in OBJECTIVES:
         if OBJECTIVES[objective_id]['slug'] in env.meta['objectives_from_flags']:
@@ -221,7 +218,6 @@ def apply(env):
                     # don't allow internal objectives to be selected as random ones
                     continue
                 break
-            print(f'Adding { slug }')            
             objective_ids.append(q)
 
     if env.options.test_settings.get('objectives'):
@@ -240,7 +236,6 @@ def apply(env):
     env.add_substitution('objective count', f'{total_objective_count:02X}')
     objective_ids.extend([0x00] * (MAX_OBJECTIVE_COUNT - len(objective_ids)))
     env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))   
-    print(f'{len(objective_ids)}for {objective_ids}')     
     threshold_list = []
 
     gold_hunt_count = 0
@@ -249,12 +244,8 @@ def apply(env):
     if env.options.flags.get_suffix(f"Obosscollector:") != None:
         boss_hunt_count = int(env.options.flags.get_suffix(f"Obosscollector:"))
 
-    if env.options.flags.get_suffix(f"Ogoldcollector:") != None:
-        gold_hunt_count = int(env.options.flags.get_suffix(f"Ogoldcollector:"))
-        env.add_substitution('gold hunt type', '00' )
-    elif env.options.flags.get_suffix(f"Ogoldsaver:") != None:
-        gold_hunt_count = int(env.options.flags.get_suffix(f"Ogoldsaver:"))
-        env.add_substitution('gold hunt type', '01')
+    if env.options.flags.get_suffix(f"Ogoldhunter:") != None:
+        gold_hunt_count = int(env.options.flags.get_suffix(f"Ogoldhunter:"))
     
     for b in objective_ids:
         if b == 0xFF:
@@ -270,10 +261,8 @@ def apply(env):
 
             # inject the location of the gold hunter slot index
             env.add_substitution('gold hunt slot', f'{b:02X}')
-            print(f'Goldhunter id {b}')
         else:
             threshold_list.append('01')
-    print(f'{len(threshold_list)} thresholds for {threshold_list}')                 
     env.add_substitution('objective thresholds', ' '.join(threshold_list))
     
     # handle changes for partial objectives
@@ -329,11 +318,7 @@ def apply(env):
             text = text.replace('%d', f'{boss_hunt_count}' )
             text = text.replace('%t', 'bosses' if boss_hunt_count > 1 else 'boss' )
         elif OBJECTIVES[objective_id]['slug'] == 'internal_goldhunter':
-            objective_str = 'Collect'
-            if env.options.flags.get_suffix(f"Ogoldsaver:") != None:
-                objective_str = 'Have'
             text = text.replace('%d', f'{gold_hunt_count}000' )
-            text = text.replace('%s', objective_str )
 
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
@@ -376,12 +361,15 @@ def apply(env):
         env.add_file('scripts/dark_matter_hunt.f4c')
         
     if OBJECTIVE_SLUGS_TO_IDS['internal_goldhunter'] in objective_ids:
-        print(f'Gold Hunt {gold_hunt_count}')
-        target = 30
-        target_bin = [((target >> (i * 8)) & 0xFF) for i in range(4)]
+        target_gold = gold_hunt_count * 1000
+        target_bin = [((target_gold >> (i * 8)) & 0xFF) for i in range(4)]
         
-        env.add_binary(BusAddress(0x21fa07), target_bin,  as_script=True)
+        env.add_binary(BusAddress(0x21fa06), target_bin,  as_script=True)
         env.add_file('scripts/gold_hunt.f4c')
+        gold_hunt_text = str(gold_hunt_count)
+        if gold_hunt_count >= 1000:
+            gold_hunt_text = gold_hunt_text[:1]+',' + gold_hunt_text[1:]
+        env.add_script('text(map #AstroTower message 7) {\nHi, I\'m Tory! Could you \ndo me a favor and get me\n'+gold_hunt_text+',000 gold? \n\nI\'m trying to buy one of \nthose fancy airships..}')
 
 #gold_hunt_count * 1000
 if __name__ == '__main__':

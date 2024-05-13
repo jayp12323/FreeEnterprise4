@@ -38,7 +38,6 @@ patch($21fa04 bus) {
 // %end%
 }
 
-
 event($08)
 {
     // if objectives not enabled/already completed, do nothing
@@ -134,6 +133,11 @@ msfpatch
     .def  Objectives__MaxCount              0x20
 
     .def  Objectives__ProcessEventID  $08
+    
+    .def  GoldHunt__Slot          $21fa05
+    .def  GoldHunt__Goal          $21fa06
+
+    .def  GoldHunt_Scratch         $7e1621
 }
 
 msfpatch
@@ -173,6 +177,32 @@ msfpatch
     %Passed:
         jmp $_EvEx__If_Success
 }
+
+
+msfpatch
+{
+    EvEx__If_EnoughGoldGathered:
+        lda $=(GoldHunt__Goal)
+        sta $_(GoldHunt_Scratch) 
+        lda $=(GoldHunt__Goal+1)
+        sta $_(GoldHunt_Scratch+1) 
+        lda $=(GoldHunt__Goal+2)
+        sta $_(GoldHunt_Scratch+2) 
+
+        sec
+        lda $16a0
+        sbc $_(GoldHunt_Scratch)
+        lda $16a1
+        sbc $_(GoldHunt_Scratch+1)
+        lda $16a2
+        sbc $_(GoldHunt_Scratch+2)
+        bcc $+NotEnoughGP
+    %Passed:    
+        jmp $_EvEx__If_Success
+    %NotEnoughGP:
+        jmp $_EvEx__If_Fail
+}
+
 
 msfpatch 
 {
@@ -330,13 +360,6 @@ msfpatch {
         lda $=Objectives__BossSlotMap,x
         jsl $=Objectives__StageProgress
         jmp $_EvEx__ObjectivesImpl_DoEvent
-}
-
-
-msfpatch {
-    EvEx__Objectives_TickGoldSlot:
-        jsl $=EvEx__ObjectivesImpl_ApplyStaged
-        rtl
 }
 
 msfpatch {

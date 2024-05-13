@@ -88,5 +88,5 @@ OBJECTIVES = {
     0x69: {'slug' : 'quest_pass', 'desc': 'Unlock the Pass door in Toroia'},
     0x6A: {'slug' : 'internal_dkmatter', 'desc': 'Bring 30 DkMatters to Kory in Agart'},
     0x6B: {'slug' : 'internal_bosscollector', 'desc': 'Defeat %d %t'},
-    0x6C: {'slug' : 'internal_goldhunter', 'desc': '%s %d gold.'},
+    0x6C: {'slug' : 'internal_goldhunter', 'desc': 'Bring %d gold to Tory in Agart'},
 }

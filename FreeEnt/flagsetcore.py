@@ -462,10 +462,13 @@ class FlagLogicCore:
 
             win_flags = flagset.get_list(r'^Owin:')
             # make sure at least some bosses are specified in boss hunt
-            print(flagset.get_list())
             if flagset.has('Omode:bosscollector') and len(flagset.get_list(r'^Obosscollector:'))==0:
                 flagset.set('Obosscollector:5')
                 self._lib.push(log, ['correction', 'bosscollector enabled without specifying number of bosses, adding Obosscollector:5'])
+
+            if flagset.has('Omode:goldhunter') and len(flagset.get_list(r'^Ogoldhunter:'))==0:
+                flagset.set('Ogoldhunter:100')
+                self._lib.push(log, ['correction', 'goldhunter enabled without specifying amount of gold, adding Ogoldhunter:100'])
 
             # Force Owin:crystal if classicforge, otherwise force Owin:game if no win result specified
             if flagset.has('Omode:classicforge') and not flagset.has('Owin:crystal'):
@@ -548,7 +551,7 @@ class FlagLogicCore:
                 num_random_objectives = flagset.get_list(rf'^{random_prefix}\d')
                 if len(num_random_objectives) == 0:
                     continue
-                    
+
                 flag_suffix = self._lib.re_sub(rf'^{random_prefix}', '', num_random_objectives[0])
                 if len(all_customized_random_flags) == 0 or f'{random_prefix}boss' in all_customized_random_flags:                                        
                     total_potential_bosses += int(flag_suffix)

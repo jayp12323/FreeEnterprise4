@@ -117,43 +117,23 @@ var FLAG_UISPEC = [
                     "type": "select",
                     "subcontrols": [
                       {
-                        "flag": "Ogoldcollector:100",
-                        "title": "Collect 100000 gold"
-                      },
-                      {
-                        "flag": "Ogoldcollector:250",
-                        "title": "Collect 250000 gold"
-                      },
-                      {
-                        "flag": "Ogoldcollector:500",
-                        "title": "Collect 500000 gold"
-                      },
-                      {
-                        "flag": "Ogoldcollector:750",
-                        "title": "Collect 750000 gold"
-                      },
-                      {
-                        "flag": "Ogoldcollector:1000",
-                        "title": "Collect 1000000 gold"
-                      },
-                      {
-                        "flag": "Ogoldsaver:100",
+                        "flag": "Ogoldhunter:100",
                         "title": "Have 100000 gold"
                       },
                       {
-                        "flag": "Ogoldsaver:250",
+                        "flag": "Ogoldhunter:250",
                         "title": "Have 250000 gold"
                       },
                       {
-                        "flag": "Ogoldsaver:500",
+                        "flag": "Ogoldhunter:500",
                         "title": "Have 500000 gold"
                       },
                       {
-                        "flag": "Ogoldsaver:750",
+                        "flag": "Ogoldhunter:750",
                         "title": "Have 750000 gold"
                       },
                       {
-                        "flag": "Ogoldsaver:1000",
+                        "flag": "Ogoldhunter:1000",
                         "title": "Have 1000000 gold"
                       }
                     ]

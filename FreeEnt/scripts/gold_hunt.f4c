@@ -1,35 +1,22 @@
+npc(#KaipoInn2FScholar)
+{
+    sprite #Scholar
+    default active
+    eventcall {
+        $4D
+    }
+}
+
 patch($21fa05 bus) {
 // %gold hunt slot%
     00
 // %end%
 }
-patch($21fa06 bus) {
-// %gold hunt type%
-    00
-// %end%
-}
-
-/*
-patch($21fa07 bus) {
-// %gold hunt goal%
-    00 00 00
-// %end%
-}
-*/
-
-msfpatch
-{
-    .def  GoldHunt__Slot          $21fa05
-    .def  GoldHunt__Type          $21fa06
-    .def  GoldHunt__Goal          $21fa07    
-
-    .def GoldHunt_Scratch         $7e1621
-}
 
 msfpatch{
     
+    /*
     // Selling items    
-    
     .addr $00883b
         jsl $=GoldHuntEx__FromShop
       
@@ -37,6 +24,7 @@ msfpatch{
     .addr $0097b0        
         jsl $=GoldHuntEx__FromLoot
         rts
+    */
 
     .new
 
@@ -116,64 +104,39 @@ msfpatch{
         
 }
 
-npc(#AstroObservatoryScholar)
+event($4D)
 {
-    sprite #Scholar
-    default active
-    eventcall {
-        $4C
-    }
-}
-
-event($4C)
-{
-    [#B #If #ObjectiveComplete #objective.internal_dkmatter] {
-
-        [#B #If #HasDkMatter 1] {
-            map message 3
-            [#B #TakeAll #item.DkMatter]
-            [#B #EndEvent]
-        }
-
-        map message 4
-        [#B #EndEvent]        
+    consts(placement)
+    {
+        0 Tory
+        8 ToryRed
     }
 
-    [#B #If #not_HasDkMatter 30] {
-        map message 1
+    [#B #If #ObjectiveComplete #objective.internal_goldhunter] {
+        map message 6
         [#B #EndEvent]
     }
 
-    map message 2
-    [#B #TakeAll #item.DkMatter]
-    [#B #Objectives_Tick #objective.internal_dkmatter]
+    [#B #If #EnoughGoldGathered 0] {
+        [#B #TakeGoldHunterGold]        
+        map message 5
+        p #Tory spin jump
+        [#B #Objectives_Tick #objective.internal_goldhunter]
+        [#B #EndEvent]
+    }
+
+    map message 7
 }
 
-text(map #AstroTowerObservatory message 1) {
-Hi, I'm Kory! Could you
-do me a favor and bring
-me 30 DkMatters?
-
-There are 45 of them
-scattered in chests
-all across the world
-and the moon!
-But I only need 30.
-Thanks!
+text(map #AstroTower message 5) {
+Thanks for the gold!
+Time to go shopping for
+one of those fancy airships.
 }
 
-text(map #AstroTowerObservatory message 2) {
-Outstanding! I'll take
-those. Thank you!
+text(map #AstroTower message 6) {
+I'm rich now!
+
+Still no airship though.
 }
 
-text(map #AstroTowerObservatory message 3) {
-More DkMatter? I'll take
-that. Thanks!
-}
-
-text(map #AstroTowerObservatory message 4) {
-No, I can't tell you what
-they're for. It's super
-secret science stuff.
-}
