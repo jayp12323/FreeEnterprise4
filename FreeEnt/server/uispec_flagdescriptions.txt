@@ -16,6 +16,9 @@ Defeat Milon, Milon Z., Kainazzo, Valvalis, Rubicant, and Elements to complete t
 [Omode:bosscollector]
 Find and defeat the specified number of bosses to complete this objective
 
+[Omode:goldhunter]
+Collect the specified amount of GP and bring them to Tory (he's below Kory) in Agart to complete this objective.
+
 [Orandom:tough_quest]
 Refers only to the more difficult, later-game quest objectives.
 

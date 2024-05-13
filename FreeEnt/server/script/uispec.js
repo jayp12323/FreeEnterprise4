@@ -109,6 +109,7 @@ var FLAG_UISPEC = [
               {
                 "flag": "Omode:goldhunter",
                 "title": "Gold Hunter",
+                "description": "Collect the specified amount of GP and bring them to Tory (he's below Kory) in Agart to complete this objective.",
                 "subcontrols": [
                   {
                     "flag": "@anon2",
