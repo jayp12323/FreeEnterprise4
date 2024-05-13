@@ -131,12 +131,14 @@ event($4D)
 text(map #AstroTower message 5) {
 Thanks for the gold!
 Time to go shopping for
-one of those fancy airships.
+one of those fancy 
+airships.
 }
 
 text(map #AstroTower message 6) {
 I'm rich now!
 
 Still no airship though.
+Do you still want yours?
 }
 

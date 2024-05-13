@@ -370,7 +370,7 @@ def apply(env):
         
         env.add_binary(BusAddress(0x21fa06), target_bin,  as_script=True)
         env.add_file('scripts/gold_hunt.f4c')
-        env.add_script('text(map #AstroTower message 7) {\nHi, I\'m Tory! Could you \ndo me a favor and get me\n'+gold_hunt_text+' GP? \n\nI\'m trying to buy one of \nthose fancy airships..}')
+        env.add_script('text(map #AstroTower message 7) {\nHi, I\'m Tory! Could you \ndo me a favor and get me\n'+gold_hunt_text+' GP? \n\nI\'m trying to buy one of \nthose fancy airships...}')
 
 #gold_hunt_count * 1000
 if __name__ == '__main__':
