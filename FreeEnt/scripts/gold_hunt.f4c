@@ -13,6 +13,7 @@ patch($21fa05 bus) {
 // %end%
 }
 
+// All this is unused, and was necessary prior to adding an NPC
 msfpatch{
     
     /*
@@ -75,23 +76,7 @@ msfpatch{
         bcc $+NotEnoughGP
         lda $=GoldHunt__Slot
         jsl $=Objectives__StageProgress        
-/*
-    %ObjectivesEnabled:
-        ldx #$0000
-    %CheckLoop:
-        lda $=Objectives__IDs,x
-        cmp $=GoldHunt__Slot
-        beq $+Found
-        inx
-        cpx #$_Objectives__MaxCount
-        bcc $-CheckLoop
-    %Found:
-        lda $=Objectives__Thresholds,x
-        cmp $_Objectives__Progress,x
-        bcc $+Passed
-        beq $+Passed
-        bra $+NotEnoughGP
-    */
+
     %Passed:    
         jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
         lda #$08  // Load the $08 event handler (which tackles objectives)
@@ -109,7 +94,6 @@ event($4D)
     consts(placement)
     {
         0 Tory
-        8 ToryRed
     }
 
     [#B #If #ObjectiveComplete #objective.internal_goldhunter] {
