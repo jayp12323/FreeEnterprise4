@@ -145,7 +145,7 @@
 ..(Oreq:8) Complete 8 objectives for reward
 ..(Oreq:9) Complete 9 objectives for reward
 ..(Oreq:10) Complete 10 objectives for reward
-.()# Gated Objective
+.<> Gated Objective
 ..(Greq:1) Objective #1 is gated behind other objectives
 ..(Greq:2) Objective #2 is gated behind other objectives
 ..(Greq:3) Objective #3 is gated behind other objectives
