@@ -24,6 +24,8 @@ consts(eventext) {
     $15    PartyFull
     $16    PartyLeaderHasJob
     $17    EnoughGoldGathered 
+    $18    GatedRequirementsComplete
+    $19    GatedObjectiveComplete
 
     $80    False
     $81    not_Flag
@@ -49,6 +51,8 @@ consts(eventext) {
     $95    not_PartyFull
     $96    not_PartyLeaderHasJob
     $97    not_EnoughGoldGathered
+    $98    not_GatedRequirementsComplete
+    $99    not_GatedObjectiveComplete
 }
 
 msfpatch {
@@ -78,6 +82,8 @@ msfpatch {
             $_EvEx__If_PartyFull
             $_EvEx__If_PartyLeaderHasJob
             $_EvEx__If_EnoughGoldGathered
+            $_EvEx__If_GatedRequirementsComplete
+            $_EvEx__If_GatedObjectiveComplete
         ]]
 
     .def EvEx__If_Param 0x09d8

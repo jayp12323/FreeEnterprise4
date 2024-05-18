@@ -33,7 +33,17 @@ patch($21fa00 bus) {
 // %end%
 }
 patch($21fa04 bus) {
-// %boss hunt slot%
+// %boss hunt id%
+    00
+// %end%
+}
+patch($21fa07 bus) {
+// %gated objective id%
+    00
+// %end%
+}
+patch($21fa08 bus) {
+// %gated objective required count%
     00
 // %end%
 }
@@ -56,13 +66,51 @@ event($08)
     [#B #If #Flag #flag.fe_CompletedEnoughObjectives]
     {
         [#B #Return]
+    }   
+
+    // %has gated objective%    
+    [#B #If #GatedObjectiveComplete 0] {
+         set #fe_CompletedEnoughObjectives
     }
 
+    [#B #If #GatedRequirementsComplete 0] 
+    {
+        [#B #If #not_Flag #flag.fe_CompletedGatedRequirements]
+        {            
+            set #fe_CompletedGatedRequirements
+            [#B #SaveMusic]
+            sound #Crystal
+            //message #msg.fe_EnoughObjectivesCompleteCrystal
+            message #msg.fe_GatedRequirementsCompleteReward
+
+            sound #HealingPot
+            vfx #HealingPot
+            sound $7e
+            batch 8 {
+                screen flash
+            }
+            pause 4
+            [#B #Text_LoadRewardNameFromSlot #reward_slot.gated_objective 0]
+            music #None
+            message #msg.fe_ReceivedFanfare
+            [#B #Rando_DeliverRewardFromSlot #reward_slot.gated_objective]
+            [#B #RestoreMusic]
+            [#B #Return]
+        }         
+    }
+
+    // %end%
+
+    // %no gated objective% 
     // if enough objectives are now complete, win game/award crystal
     [#B #If #EnoughObjectivesComplete 0] {
         set #fe_CompletedEnoughObjectives
+    }
+    // %end%
 
-        // %flag objective_zeromus on%
+    [#B #If #Flag #flag.fe_CompletedEnoughObjectives]
+    {
+         // %flag objective_zeromus on%
         [#B #SaveMusic]
         sound #Crystal
         message #msg.fe_EnoughObjectivesCompleteCrystal
@@ -91,7 +139,6 @@ event($08)
         [#B #GotoEvent $1C]
         // %end%
     }
-
     [#B #Return]
 }
 
@@ -114,6 +161,11 @@ text(bank 1 message $113) {
 [pause 80][next]
 }
 
+text(bank 1 message $80) {
+Gated objective now 
+unlocked!
+}
+
 //----------------------------------------------------------------
 
 msfpatch
@@ -129,7 +181,7 @@ msfpatch
     .def  Objectives__Staging               $7072e0
 
     .def  Objectives__HardRequiredCount     $21fa00
-    .def  Objectives__BossCollectorSlot     $21fa04
+    .def  Objectives__BossCollectorID       $21fa04
     .def  Objectives__MaxCount              0x20
 
     .def  Objectives__ProcessEventID  $08
@@ -138,6 +190,8 @@ msfpatch
     .def  GoldHunt__Goal          $21fa06
 
     .def  GoldHunt_Scratch         $7e1621
+    .def  Objectives__GatedObjectiveID     $21fa07
+    .def  Objectives__GatedObjectiveRequiredCount         $21fa08
 }
 
 msfpatch
@@ -217,6 +271,20 @@ msfpatch
     %Failed:
         jmp $_EvEx__If_Fail
 
+    EvEx__If_GatedObjectiveComplete:
+        jsl $=CountCompletedGated
+        cmp #$01
+        bcc $-Failed
+        jmp $_EvEx__If_Success
+    %Failed:
+        jmp $_EvEx__If_Fail
+        
+    EvEx__If_GatedRequirementsComplete:
+        jsl $=CountCompletedNonGated
+        cmp $=Objectives__GatedObjectiveRequiredCount
+        bcc $-Failed
+        jmp $_EvEx__If_Success    
+
     EvEx__If_EnoughObjectivesComplete:
         jsr $_CountCompletedHardRequired
         cmp $=Objectives__HardRequiredCount
@@ -268,6 +336,54 @@ msfpatch
         rts
 }
 
+msfpatch
+{
+    CountCompletedGated:
+        stz $1670
+        ldx #$0000
+    %CheckLoopGated:
+        lda $=Objectives__IDs,x
+        beq $+NextGated
+        cmp $=Objectives__GatedObjectiveID
+        bne $+NextGated
+        lda $=Objectives__Thresholds,x
+        cmp $_Objectives__Progress,x
+        bcc $+IsCompleteGated
+        beq $+IsCompleteGated
+        bra $+NextGated
+    %IsCompleteGated:
+        inc $1670
+    %NextGated:
+        inx
+        cpx #$_Objectives__MaxCount
+        bcc $-CheckLoopGated        
+        lda $1670
+        rtl
+
+    CountCompletedNonGated:
+        phx
+        stz $1670
+        ldx #$0000
+    %CheckLoopNonGated:
+        lda $=Objectives__IDs,x
+        beq $+NextNonGated
+        cmp $=Objectives__GatedObjectiveID
+        beq $+NextNonGated
+        lda $=Objectives__Thresholds,x
+        cmp $_Objectives__Progress,x
+        bcc $+IsCompleteNonGated
+        beq $+IsCompleteNonGated
+        bra $+NextNonGated
+    %IsCompleteNonGated:
+        inc $1670
+    %NextNonGated:
+        inx
+        cpx #$_Objectives__MaxCount
+        bcc $-CheckLoopNonGated        
+        lda $1670
+        plx
+        rtl
+}
 msfpatch
 {
     Objectives__InitStagedProgress:
@@ -355,7 +471,7 @@ msfpatch {
         xba
         lda $_EvEx__Param1
         tax
-        lda $=Objectives__BossCollectorSlot
+        lda $=Objectives__BossCollectorID
         jsl $=Objectives__StageProgress
         lda $=Objectives__BossSlotMap,x
         jsl $=Objectives__StageProgress

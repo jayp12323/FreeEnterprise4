@@ -10536,7 +10536,7 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_specific_objectives, all_spoiler_flags, ch, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, hard_required_objectives, has_unavailable_characters, log, num_random_objectives, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, specific_boss_objectives, start_exclude_flags, start_include_flags, total_objective_count, total_potential_bosses, win_flags;
+        var actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_specific_objectives, all_spoiler_flags, ch, char_objective_flags, character_pool, chars_to_remove, current_char, custom_objectives, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, gated_objective_index, gated_objectives, hard_required_objectives, has_unavailable_characters, log, num_random_objectives, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, specific_boss_objectives, start_exclude_flags, start_include_flags, total_objective_count, total_potential_bosses, win_flags;
         log = [];
         if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
@@ -10629,6 +10629,16 @@ class FlagLogicCore {
                     flagset.set("Owin:game");
                     this._lib.push(log, ["correction", "Objectives set without outcome specified; added Owin:game"]);
                 }
+            }
+            gated_objectives = flagset.get_list(`^Greq:\d`);
+            gated_objective_index = (- 1);
+            for (var gated_objective, _pj_c = 0, _pj_a = gated_objectives, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                gated_objective = _pj_a[_pj_c];
+                gated_objective_index = Number.parseInt(this._lib.re_sub(`^Greq:`, "", gated_objective));
+            }
+            custom_objectives = flagset.get_list("^O\\d+:");
+            if ((gated_objective_index > custom_objectives.length)) {
+                this._lib.push(log, ["error", `Gated objective #${gated_objective_index} specified, but only ${custom_objectives.length} custom objective(s) specified.`]);
             }
             pass_quest_flags = flagset.get_list("^O\\d+:quest_pass$");
             if (((pass_quest_flags.length > 0) && flagset.has("Pnone"))) {

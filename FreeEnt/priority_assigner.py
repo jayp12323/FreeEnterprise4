@@ -18,6 +18,10 @@ class ItemTier:
 
     def set_max_slot_bucket(self, idx):
         self.max_slot_bucket = idx
+    
+    def print(self):
+        for item_reward in self.items:
+            print(f'Item: {item_reward}')
 
 class PriorityAssigner:
     def __init__(self):

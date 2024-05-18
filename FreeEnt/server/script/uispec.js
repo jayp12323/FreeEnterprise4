@@ -3406,7 +3406,7 @@ var FLAG_UISPEC = [
           {
             "flag": "@anon21",
             "title": "Gated Objective",
-            "compact": true,
+            "type": "select",
             "subcontrols": [
               {
                 "flag": "Greq:1",

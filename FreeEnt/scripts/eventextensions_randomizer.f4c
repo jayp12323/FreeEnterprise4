@@ -302,7 +302,7 @@ msfpatch {
         jsr $_EvEx__ReadParameters_1
 
         // Show boss completion
-        lda $=Objectives__BossCollectorSlot
+        lda $=Objectives__BossCollectorID
         cmp #$00
         beq $+SkipBossCollectorDialog
         
@@ -311,7 +311,7 @@ msfpatch {
         ldx #$0000
     %CheckLoop:
         lda $=Objectives__IDs,x
-        cmp $=Objectives__BossCollectorSlot
+        cmp $=Objectives__BossCollectorID
         beq $+Found
         inx
         cpx #$_Objectives__MaxCount

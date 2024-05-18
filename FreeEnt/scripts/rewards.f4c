@@ -90,6 +90,7 @@ consts(reward_slot)
     $5B     forge_item
     $5C     pink_trade_item
     $5D     fixed_crystal
+    $5E     gated_objective
 
     // current maximum: 0x60 reward slots
 }

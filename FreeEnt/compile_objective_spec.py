@@ -11,7 +11,7 @@ with open('objectivespec.txt', 'r') as infile:
         if not line or line.startswith('#'):
             continue
 
-        m = re.search(r'^((?P<code>[0-9a-fA-F]{2})\s*:\s*)?(?P<slug>[^\s]+)\s*(?P<text>.*)$', line)
+        m = re.search(r'^((?P<code>[0-9a-fA-F]{2})\s*:\s*)?(?P<slug>[^\s]+)\s*(?P<reward>[^\s]+)\s*(?P<text>.*)$', line)
         if not m:
             print(f"Warning: could not interpret line: {line}")
             continue
@@ -26,6 +26,7 @@ with open('objectivespec.txt', 'r') as infile:
             'code' : code,
             'slug' : m['slug'],
             'text' : m['text'],
+            'reward' : m['reward'],
             'internal' : (m['slug'].startswith('internal_'))
             })
 
@@ -35,7 +36,7 @@ with open('objective_data.py', 'w') as outfile:
     outfile.write("OBJECTIVES = {\n")
     for obj in objectives:
         text = obj['text'].replace("'", "\\'")
-        outfile.write(f"    0x{obj['code']:02X}: {{'slug' : '{obj['slug']}', 'desc': '{text}'}},\n")
+        outfile.write(f"    0x{obj['code']:02X}: {{'slug' : '{obj['slug']}', 'reward': '{obj['reward']}', 'desc': '{text}'}},\n")
     outfile.write("}\n")
 
 print('Writing scripts/objective_data.f4c')

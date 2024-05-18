@@ -85,8 +85,8 @@ def setup(env):
     env.meta.setdefault('objectives_from_flags', [])
     env.meta.setdefault('objective_required_characters', set())
     env.meta.setdefault('objective_required_bosses', set())
-    env.meta.setdefault('objective_required_key_items', set())
     env.meta.setdefault('required_treasures', {})
+    env.meta.setdefault('objective_required_key_items', set())
 
     if not env.options.flags.has('objective_none'):
         env.meta['has_objectives'] = True
@@ -96,7 +96,7 @@ def setup(env):
         for i in range(CUSTOM_OBJECTIVE_COUNT):
             slug = env.options.flags.get_suffix(f"O{i+1}:")
             env.meta['objectives_from_flags'].append(slug)
-            specified_objectives[slug] = True            
+            specified_objectives[slug] = True 
 
         for mode in MODES:
             if env.options.flags.has(mode):
@@ -105,14 +105,14 @@ def setup(env):
 
         for objective_id in OBJECTIVES:
             objective = OBJECTIVES[objective_id]
-            slug = objective['slug']
+            slug = objective['slug']            
             if specified_objectives.get(slug, False):
                 if slug.startswith(CHAR_OBJECTIVE_PREFIX):
                     env.meta['objective_required_characters'].add(slug[len(CHAR_OBJECTIVE_PREFIX):])
                 elif slug.startswith(BOSS_OBJECTIVE_PREFIX):
                     env.meta['objective_required_bosses'].add(slug[len(BOSS_OBJECTIVE_PREFIX):])
                 elif slug == 'quest_tradepink':
-                    env.meta['objective_required_key_items'].add('#item.Pink')
+                    env.meta['objective_required_key_items'].add('#item.Pink')                
 
         if env.options.flags.has('objective_mode_dkmatter'):
             env.meta['required_treasures'].setdefault('#item.DkMatter', 0)
@@ -126,7 +126,60 @@ def setup(env):
                     random_objective_only_characters.add(allowed_type[len('only'):])
         for random_char in random_objective_only_characters:
             env.meta['objective_required_characters'].add(random_char)
-        foo = env.meta['objective_required_characters']
+        
+
+        # Handle gated objectives
+        random_objective_count = 0
+        for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
+            for f in env.options.flags.get_list(rf'^{random_prefix}\d'):            
+                random_objective_count += int(f[len(random_prefix):])
+
+        objective_ids = get_unique_objective_ids(env)
+        env.meta.setdefault('gated_objective_reward', set())
+        env.meta['has_gated_objective'] = False
+        gated_objective_specifier = env.options.flags.get_suffix(f"Greq:")
+        if gated_objective_specifier != None:
+            gated_objective_specifier = int(gated_objective_specifier)-1
+            target_objective_id = objective_ids[gated_objective_specifier]
+            target_objective = OBJECTIVES[target_objective_id]
+            
+            if target_objective['reward'][0] != '#':
+                raise BuildError(f"Flags stipulate generating gated objective #{gated_objective_specifier+1}, objective {target_objective['slug']} has no reward")
+            elif (len(objective_ids) + random_objective_count )<= 1:
+                raise BuildError(f"Flags stipulate generating gated objective #{gated_objective_specifier+1}, but there is only one objective. (You need at least two)")
+            elif len(objective_ids) < gated_objective_specifier:
+                raise BuildError(f"Flags stipulate generating gated objective #{gated_objective_specifier+1}, but there are only {len(objective_ids)} custom objectives")
+            else:
+                env.meta['gated_objective_reward'].add(target_objective['reward'])
+                env.meta['has_gated_objective'] = True
+                env.meta['gated_objective_id'] = target_objective_id                
+            env.add_substitution('gated objective id', f'{target_objective_id:02X}')
+
+def get_objective_ids(env):
+    objective_ids = []
+
+    # apply objectives from modes
+    for objective_flag in MODES:
+        if env.options.flags.has(objective_flag):
+            objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS[q] for q in MODES[objective_flag]])
+
+    # custom objectives from flags
+    for slug in env.meta['objectives_from_flags']:
+        for objective_id in OBJECTIVES:
+            if OBJECTIVES[objective_id]['slug'] == slug:            
+                objective_ids.append(objective_id)
+                break
+
+    return objective_ids
+
+def get_unique_objective_ids(env):
+    objective_ids = get_objective_ids(env)
+    # remove duplicates, but maintain order
+    result_ids = []
+    for id in objective_ids:
+        if id not in result_ids:
+            result_ids.append(id)
+    return result_ids
 
 def apply(env):
     if not env.meta['has_objectives']:
@@ -136,20 +189,7 @@ def apply(env):
     if not env.meta['zeromus_required']:
         env.add_file('scripts/zeromus_trigger_reassign.f4c')
 
-    objective_ids = []
-
-    # apply objectives from modes
-    for objective_flag in MODES:
-        if env.options.flags.has(objective_flag):
-            objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS[q] for q in MODES[objective_flag]])
-    # custom objectives from flags
-    for objective_id in OBJECTIVES:
-        if OBJECTIVES[objective_id]['slug'] in env.meta['objectives_from_flags']:
-            objective_ids.append(objective_id)
-
-    # remove duplicates
-    objective_ids = sorted(list(set(objective_ids)), key = lambda oid: objective_ids.index(oid))
-
+    objective_ids = get_unique_objective_ids(env)
     # generate random objectives    
     for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
         random_objective_count = 0
@@ -199,7 +239,6 @@ def apply(env):
                 if slug.startswith(CHAR_OBJECTIVE_PREFIX):
                     char = slug[len(CHAR_OBJECTIVE_PREFIX):]
                     if char not in env.meta['available_nonstarting_characters']:
-                        print('Nonstarting')
                         continue
                     if len(random_objective_allowed_characters) != 0 and (char not in random_objective_allowed_characters):
                         print(f'{char} not allowed in types {random_objective_allowed_characters}')
@@ -227,12 +266,11 @@ def apply(env):
         reduced_objective_ids = env.rnd.sample(objective_ids, MAX_OBJECTIVE_COUNT)
         objective_ids = sorted(reduced_objective_ids, key = objective_ids.index)
 
-    total_objective_count = len(objective_ids)        
-
     required_objective_count = env.options.flags.get_suffix('Oreq:')
 
     # write list of objective IDs and thresholds
     total_objective_count = len(objective_ids)
+
     env.add_substitution('objective count', f'{total_objective_count:02X}')
     objective_ids.extend([0x00] * (MAX_OBJECTIVE_COUNT - len(objective_ids)))
     env.add_substitution('objective ids', ' '.join([f'{b:02X}' for b in objective_ids]))   
@@ -253,23 +291,30 @@ def apply(env):
         elif b != 0 and OBJECTIVES[b]['slug'] == 'internal_bosscollector':
             threshold_list.append(f'{boss_hunt_count:02X}')
             
-            # inject the location of the boss slot index
-            env.add_substitution('boss hunt slot', f'{b:02X}')   
+            # inject the location of the boss slot id
+            env.add_substitution('boss hunt id', f'{b:02X}')
         elif b != 0 and OBJECTIVES[b]['slug'] == 'internal_goldhunter':
             # The threshold is stored in a gold specific location
             threshold_list.append('01') 
 
-            # inject the location of the gold hunter slot index
-            env.add_substitution('gold hunt slot', f'{b:02X}')
+            # inject the location of the gold hunter slot id
+            env.add_substitution('gold hunt id', f'{b:02X}')
         else:
             threshold_list.append('01')
     env.add_substitution('objective thresholds', ' '.join(threshold_list))
     
     # handle changes for partial objectives
     if required_objective_count == 'all' or required_objective_count is None:
-        required_objective_count = total_objective_count
+        if env.meta['has_gated_objective']:
+            required_objective_count = total_objective_count-1
+        else:
+            required_objective_count = total_objective_count
     else:
         required_objective_count = int(required_objective_count)
+    
+    # Gated objectives reduce the # of total objectives required by 1
+    if env.meta['has_gated_objective']:
+        env.add_substitution('gated objective required count', f'{(required_objective_count):02X}' )
 
     # handle hard required objective ids
     hard_required_objective_ids = []
@@ -305,6 +350,30 @@ def apply(env):
     env.add_substitution('required objective count text', required_objective_count_text)
     env.add_substitution('hard required objective count text', f'{hard_required_objective_count}')
 
+    gated_objective_reward_text = ''
+    if env.meta['has_gated_objective']:
+        for reward in env.meta['gated_objective_reward']:
+            if reward == '#item.DarkCrystal':
+                gated_objective_reward_text = f'Darkness Crystal'
+            elif reward == '#item.EarthCrystal':
+                gated_objective_reward_text = f'Earth Crystal'
+            elif reward == '#item.Baron':
+                gated_objective_reward_text = f'Baron Key'
+            elif reward == '#item.Tower':
+                gated_objective_reward_text = f'Tower Key'
+            elif reward == '#item.Luca':
+                gated_objective_reward_text = f'Luca Key'
+            elif reward == '#item.Magma':
+                gated_objective_reward_text = f'Magma Key'
+            elif reward == '#item.Pink':
+                gated_objective_reward_text = f'Pink Tail'
+            elif reward == '#item.Rat':
+                gated_objective_reward_text = f'Rat Tail'
+            else:
+                gated_objective_reward_text = f'{reward[len(reward)-5:]}'        
+            break
+        env.add_substitution('gated objective reward text', gated_objective_reward_text)
+            
     gold_hunt_text = str(gold_hunt_count) + ',000'
     if gold_hunt_count >= 1000:
         gold_hunt_text = gold_hunt_text[:1]+',' + gold_hunt_text[1:] + ',000'
@@ -339,8 +408,11 @@ def apply(env):
             env.add_script(f'text(${addr + 1:06X} bus) {{{encoded_line}}}')
 
             objective_number_suffix = "."
-            if objective_id in hard_required_objective_ids and j ==0:
+            if objective_id in hard_required_objective_ids and j==0:
                 objective_number_suffix = "!"
+            elif env.meta['has_gated_objective'] and objective_id == env.meta['gated_objective_id'] and j==0:
+                objective_number_suffix = "?"
+
             if line.strip():                
                 prefix = f"{i+1}" + objective_number_suffix + (" " if i < 9 else "")
                 if j > 0:
@@ -349,13 +421,21 @@ def apply(env):
                 pregame_text_lines.append(prefix + line)
         pregame_text_lines.append("")
 
-    completion_reward_text = 'the Crystal' if env.options.flags.has('objective_zeromus') else 'the game'
-    pregame_text_lines.append(" Complete " + required_objective_count_text)
 
-    # handle hard required objectives        
-    if hard_required_objective_count > 0:
-        pregame_text_lines.append(f'({hard_required_objective_count} hard required)')
-    pregame_text_lines.append(" to win " + completion_reward_text)
+    pregame_text_lines.append(" Complete " + required_objective_count_text)
+    completion_reward_text = 'the Crystal' if env.options.flags.has('objective_zeromus') else 'the game'
+
+    if env.meta['has_gated_objective']:
+        pregame_text_lines.append(f" to win {gated_objective_reward_text}.\n")
+        gated_desc = ' Then ' + OBJECTIVES[env.meta['gated_objective_id']]['desc'] + " to win " + completion_reward_text
+        split_desc_lines = _split_lines(gated_desc)
+        for j,gated_desc_line in enumerate(split_desc_lines):
+            pregame_text_lines.append(f' {gated_desc_line}')
+    else:
+        # handle hard required objectives        
+        if hard_required_objective_count > 0:
+            pregame_text_lines.append(f'({hard_required_objective_count} hard required)')        
+        pregame_text_lines.append(" to win " + completion_reward_text)
 
     env.spoilers.add_table("OBJECTIVES", spoilers, public=env.options.flags.has_any('-spoil:all', '-spoil:misc'))
     env.add_pregame_text("OBJECTIVES", "\n".join(pregame_text_lines), center=False)

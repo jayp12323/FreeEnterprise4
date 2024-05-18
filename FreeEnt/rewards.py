@@ -85,6 +85,7 @@ class RewardSlot(enum.IntEnum):
     forge_item                  = 0x5B
     pink_trade_item             = 0x5C
     fixed_crystal               = 0x5D
+    gated_objective             = 0x5E
 
     MAX_COUNT = 0x60
 
@@ -191,6 +192,7 @@ REWARD_SLOT_SPOILER_NAMES = {
     RewardSlot.forge_item                  : "Kokkol forged item",
     RewardSlot.pink_trade_item             : "Pink Tail trade item",
     RewardSlot.fixed_crystal               : "Objective completion", 
+    RewardSlot.gated_objective             : "Gated Objective completion", 
 }
 
 class Reward:

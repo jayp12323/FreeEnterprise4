@@ -391,7 +391,18 @@ def apply(env):
 
     keyitem_assigner.item_tier(1).extend(ESSENTIAL_KEY_ITEMS)
     keyitem_assigner.item_tier(2).extend(NONESSENTIAL_KEY_ITEMS)
-    
+
+    # assign gated objective item and metadata
+    gated_objective_item = ''        
+    for gated_condition in env.meta.get('gated_objective_reward', []):
+        if '#' in gated_condition:
+            gated_objective_item = gated_condition
+            keyitem_assigner.item_tier(1).remove(gated_objective_item)
+            env.add_substitution('no gated objective', '')
+    if gated_objective_item == '':
+        env.add_substitution('has gated objective', '')
+        
+
     # debug
     #keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.EarthCrystal'))
 
@@ -492,6 +503,9 @@ def apply(env):
         boss_assignment = {}
         rewards_assignment = RewardsAssignment()
 
+        # Assume no gated objective by default
+        rewards_assignment[RewardSlot.gated_objective] = EmptyReward()
+
         # assign key items
         if env.options.flags.has('key_items_vanilla'):
             # vanilla assignment
@@ -563,7 +577,7 @@ def apply(env):
                 print('  {} <- {}'.format(str(k), rewards_assignment[k]))
             for k in boss_assignment:
                 print('  {} <- {}'.format(k, boss_assignment[k]))
-            print(f'remaining slots: {",".join([str(s) for s in remaining_slots])}')
+            print('remaining slots: {' + '\n'.join([str(s) for s in remaining_slots]) + '}')
 
         # build dependency checker
         checker = dep_checker.DepChecker()
@@ -588,7 +602,6 @@ def apply(env):
         for slot in rewards_assignment:
             if rewards_assignment[slot] == EmptyReward():
                 continue
-
             if slot in ITEM_SLOTS:
                 src_branch = ITEM_SLOTS[slot]
             elif slot in SUMMON_QUEST_SLOTS:
@@ -602,6 +615,9 @@ def apply(env):
 
         for slot in boss_assignment:        
             add_branch_with_substitutions(*assignable_boss_slots[slot], boss_assignment[slot])
+        
+        if gated_objective_item != '':
+            rewards_assignment[RewardSlot.gated_objective] = ItemReward(gated_objective_item,True)
 
         checker.resolve()
 
@@ -643,7 +659,8 @@ def apply(env):
 
         if env.options.flags.has('key_items_force_hook'):
             tests.append(['#item.Magma', [], 'underground'])
-
+       
+       
         # must be able to encounter all bosses required of forced objective flags
         tests.extend(env.meta.get('objective_required_bosses', []))
 

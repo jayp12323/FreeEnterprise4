@@ -8,7 +8,7 @@ npc(#KaipoInn2FScholar)
 }
 
 patch($21fa05 bus) {
-// %gold hunt slot%
+// %gold hunt id%
     00
 // %end%
 }

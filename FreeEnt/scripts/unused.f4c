@@ -11,8 +11,6 @@ text(bank 1 message $12) {X}
 
 // bank 1 messages in the range $20-7F are reserved for Kory Hints
 
-text(bank 1 message $80) {X}
-text(bank 1 message $81) {X}
 text(bank 1 message $82) {X}
 text(bank 1 message $83) {X}
 text(bank 1 message $84) {X}
@@ -133,6 +131,8 @@ text(bank 1 message $10E) {X}
 
 // message $11C is the harp song text
 
+text(bank 1 message $11E) {X}
+text(bank 1 message $11F) {X}
 text(bank 1 message $120) {X}
 text(bank 1 message $121) {X}
 text(bank 1 message $122) {X}
@@ -347,8 +347,6 @@ text(bank 1 message $1F5) {X}
 text(bank 1 message $1F6) {X}
 text(bank 1 message $1F7) {X}
 text(bank 1 message $1F8) {X}
-text(bank 1 message $1F9) {X}
-
 text(bank 1 message $1FD) {X}
 
 text(bank 1 message $1FF) {X}

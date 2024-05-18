@@ -1,94 +1,94 @@
-01: char_cecil                               Get Cecil
-02: char_kain                                Get Kain
-03: char_rydia                               Get Rydia
-04: char_tellah                              Get Tellah
-05: char_edward                              Get Edward
-06: char_rosa                                Get Rosa
-07: char_yang                                Get Yang
-08: char_palom                               Get Palom
-09: char_porom                               Get Porom
-0E: char_cid                                 Get Cid
-12: char_edge                                Get Edge
-13: char_fusoya                              Get FuSoYa
-    boss_dmist                               Defeat D.Mist
-    boss_officer                             Defeat Officer
-    boss_octomamm                            Defeat Octomamm
-    boss_antlion                             Defeat Antlion
-    boss_waterhag                            Defeat Waterhag (boss version)
-    boss_mombomb                             Defeat MomBomb
-    boss_fabulgauntlet                       Defeat the Fabul Gauntlet
-    boss_milon                               Defeat Milon
-    boss_milonz                              Defeat Milon Z.
-    boss_mirrorcecil                         Defeat D.Knight
-    boss_guard                               Defeat the Guards (boss)
-    boss_karate                              Defeat Karate
-    boss_baigan                              Defeat Baigan
-    boss_kainazzo                            Defeat Kainazzo
-    boss_darkelf                             Defeat the Dark Elf (dragon form)
-    boss_magus                               Defeat the Magus Sisters
-    boss_valvalis                            Defeat Valvalis
-    boss_calbrena                            Defeat Calbrena
-    boss_golbez                              Defeat Golbez
-    boss_lugae                               Defeat Dr. Lugae
-    boss_darkimp                             Defeat the Dark Imps (boss)
-    boss_kingqueen                           Defeat K.Eblan and Q.Eblan
-    boss_rubicant                            Defeat Rubicant
-    boss_evilwall                            Defeat EvilWall
-    boss_asura                               Defeat Asura
-    boss_leviatan                            Defeat Leviatan
-    boss_odin                                Defeat Odin
-    boss_bahamut                             Defeat Bahamut
-    boss_elements                            Defeat Elements
-    boss_cpu                                 Defeat CPU
-    boss_paledim                             Defeat Pale Dim
-    boss_wyvern                              Defeat Wyvern
-    boss_plague                              Defeat Plague
-    boss_dlunar                              Defeat the D.Lunars
-    boss_ogopogo                             Defeat Ogopogo
-    quest_mistcave                           Defeat the boss of the Mist Cave
-    quest_waterfall                          Defeat the boss of the Waterfall
-    quest_antlionnest                        Complete the Antlion Nest
-    quest_hobs                               Rescue the hostage on Mt. Hobs
-    quest_fabul                              Defend Fabul
-    quest_ordeals                            Complete Mt. Ordeals
-    quest_baroninn                           Defeat the bosses of Baron Inn
-    quest_baroncastle                        Liberate Baron Castle
-    quest_magnes                             Complete Cave Magnes
-    quest_zot                                Complete the Tower of Zot
-    quest_dwarfcastle                        Defeat the bosses of Dwarf Castle
-    quest_lowerbabil                         Defeat the boss of Lower Bab-il
-    quest_falcon                             Launch the Falcon
-    quest_sealedcave                         Complete the Sealed Cave
-    quest_monsterqueen                       Defeat the queen at the Town of Monsters
-    quest_monsterking                        Defeat the king at the Town of Monsters
-    quest_baronbasement                      Defeat the Baron Castle basement throne
-    quest_giant                              Complete the Giant of Bab-il
-    quest_cavebahamut                        Complete Cave Bahamut
-    quest_murasamealtar                      Conquer the vanilla Murasame altar
-    quest_crystalaltar                       Conquer the vanilla Crystal Sword altar
-    quest_whitealtar                         Conquer the vanilla White Spear altar
-    quest_ribbonaltar                        Conquer the vanilla Ribbon room
-    quest_masamunealtar                      Conquer the vanilla Masamune altar
-    quest_burnmist                           Burn village Mist with the Package
-    quest_curefever                          Cure the fever with the SandRuby
-   #find_legend_sword                        Find the Legend Sword
-    quest_unlocksewer                        Unlock the sewer with the Baron Key
-    quest_music                              Break the Dark Elf's spell with the TwinHarp
-    quest_toroiatreasury                     Open the Toroia treasury with the Earth Crystal
-    quest_magma                              Drop the Magma Key into the Agart well
-    quest_supercannon                        Destroy the Super Cannon
-   #find_hook                                Find the Hook
-    quest_unlocksealedcave                   Unlock the Sealed Cave
-    quest_bigwhale                           Raise the Big Whale
-    quest_traderat                           Trade away the Rat Tail
-   #find_adamant                             Find the Adamant
-    quest_forge                              Have Kokkol forge Legend Sword with Adamant
-    quest_wakeyang                           Wake Yang with the Pan
-    quest_tradepan                           Return the Pan to Yang's wife
-   #find_spoon                               Find the Spoon
-    quest_tradepink                          Trade away the Pink Tail
-    quest_pass                               Unlock the Pass door in Toroia    
-    internal_dkmatter                        Bring 30 DkMatters to Kory in Agart
-    internal_bosscollector                   Defeat %d %t
-    internal_goldhunter                      Bring %d GP to Tory in Agart
+01: char_cecil                               none                  Get Cecil
+02: char_kain                                none                  Get Kain
+03: char_rydia                               none                  Get Rydia
+04: char_tellah                              none                  Get Tellah
+05: char_edward                              none                  Get Edward
+06: char_rosa                                none                  Get Rosa
+07: char_yang                                none                  Get Yang
+08: char_palom                               none                  Get Palom
+09: char_porom                               none                  Get Porom
+0E: char_cid                                 none                  Get Cid
+12: char_edge                                none                  Get Edge
+13: char_fusoya                              none                  Get FuSoYa
+    boss_dmist                               none                  Defeat D.Mist
+    boss_officer                             none                  Defeat Officer
+    boss_octomamm                            none                  Defeat Octomamm
+    boss_antlion                             none                  Defeat Antlion
+    boss_waterhag                            none                  Defeat Waterhag (boss version)
+    boss_mombomb                             none                  Defeat MomBomb
+    boss_fabulgauntlet                       none                  Defeat the Fabul Gauntlet
+    boss_milon                               none                  Defeat Milon
+    boss_milonz                              none                  Defeat Milon Z.
+    boss_mirrorcecil                         none                  Defeat D.Knight
+    boss_guard                               none                  Defeat the Guards (boss)
+    boss_karate                              none                  Defeat Karate
+    boss_baigan                              none                  Defeat Baigan
+    boss_kainazzo                            none                  Defeat Kainazzo
+    boss_darkelf                             none                  Defeat the Dark Elf (dragon form)
+    boss_magus                               none                  Defeat the Magus Sisters
+    boss_valvalis                            none                  Defeat Valvalis
+    boss_calbrena                            none                  Defeat Calbrena
+    boss_golbez                              none                  Defeat Golbez
+    boss_lugae                               none                  Defeat Dr. Lugae
+    boss_darkimp                             none                  Defeat the Dark Imps (boss)
+    boss_kingqueen                           none                  Defeat K.Eblan and Q.Eblan
+    boss_rubicant                            none                  Defeat Rubicant
+    boss_evilwall                            none                  Defeat EvilWall
+    boss_asura                               none                  Defeat Asura
+    boss_leviatan                            none                  Defeat Leviatan
+    boss_odin                                none                  Defeat Odin
+    boss_bahamut                             none                  Defeat Bahamut
+    boss_elements                            none                  Defeat Elements
+    boss_cpu                                 none                  Defeat CPU
+    boss_paledim                             none                  Defeat Pale Dim
+    boss_wyvern                              none                  Defeat Wyvern
+    boss_plague                              none                  Defeat Plague
+    boss_dlunar                              none                  Defeat the D.Lunars
+    boss_ogopogo                             none                  Defeat Ogopogo
+    quest_mistcave                           none      Defeat the boss of the Mist Cave
+    quest_waterfall                          none      Defeat the boss of the Waterfall
+    quest_antlionnest                        none      Complete the Antlion Nest
+    quest_hobs                               none      Rescue the hostage on Mt. Hobs
+    quest_fabul                              none      Defend Fabul
+    quest_ordeals                            none      Complete Mt. Ordeals
+    quest_baroninn                           none      Defeat the bosses of Baron Inn
+    quest_baroncastle                        #item.Baron      Liberate Baron Castle
+    quest_magnes                             #item.TwinHarp      Complete Cave Magnes
+    quest_zot                                #item.EarthCrystal      Complete the Tower of Zot
+    quest_dwarfcastle                        #item.Magma       Defeat the bosses of Dwarf Castle
+    quest_lowerbabil                         #item.Magma       Defeat the boss of Lower Bab-il
+    quest_falcon                             #item.Hook      Launch the Falcon
+    quest_sealedcave                         #item.Luca     Complete the Sealed Cave
+    quest_monsterqueen                       #item.Magma       Defeat the queen at the Town of Monsters
+    quest_monsterking                        #item.Magma       Defeat the king at the Town of Monsters
+    quest_baronbasement                      #item.Baron      Defeat the Baron Castle basement throne
+    quest_giant                              #item.DarkCrystal      Complete the Giant of Bab-il
+    quest_cavebahamut                        #item.DarkCrystal      Complete Cave Bahamut
+    quest_murasamealtar                      #item.DarkCrystal      Conquer the vanilla Murasame altar
+    quest_crystalaltar                       #item.DarkCrystal      Conquer the vanilla Crystal Sword altar
+    quest_whitealtar                         #item.DarkCrystal      Conquer the vanilla White Spear altar
+    quest_ribbonaltar                        #item.DarkCrystal      Conquer the vanilla Ribbon room
+    quest_masamunealtar                      #item.DarkCrystal      Conquer the vanilla Masamune altar
+    quest_burnmist                           #item.Package      Burn village Mist with the Package
+    quest_curefever                          #item.SandRuby      Cure the fever with the SandRuby
+   #find_legend_sword                        #item.Legend      Find the Legend Sword
+    quest_unlocksewer                        #item.Baron      Unlock the sewer with the Baron Key
+    quest_music                              #item.TwinHarp      Break the Dark Elf's spell with the TwinHarp
+    quest_toroiatreasury                     #item.EarthCrystal      Open the Toroia treasury with the Earth Crystal
+    quest_magma                              #item.Magma      Drop the Magma Key into the Agart well
+    quest_supercannon                        #item.Tower      Destroy the Super Cannon
+   #find_hook                                #item.Hook      Find the Hook
+    quest_unlocksealedcave                   #item.Luca      Unlock the Sealed Cave
+    quest_bigwhale                           #item.DarkCrystal      Raise the Big Whale
+    quest_traderat                           #item.Rat      Trade away the Rat Tail
+   #find_adamant                             #item.Adamant      Find the Adamant
+    quest_forge                              #item.Adamant      Have Kokkol forge Legend Sword with Adamant
+    quest_wakeyang                           #item.Pan      Wake Yang with the Pan
+    quest_tradepan                           #item.Pan      Return the Pan to Yang's wife
+   #find_spoon                               #item.Spoon      Find the Spoon
+    quest_tradepink                          #item.Pink      Trade away the Pink Tail
+    quest_pass                               #item.Pass      Unlock the Pass door in Toroia    
+    internal_dkmatter                        none      Bring 30 DkMatters to Kory in Agart
+    internal_bosscollector                   none      Defeat %d %t
+    internal_goldhunter                      none      Bring %d GP to Tory in Agart
 
