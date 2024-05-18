@@ -370,7 +370,7 @@ def apply(env):
             elif reward == '#item.Rat':
                 gated_objective_reward_text = f'Rat Tail'
             else:
-                gated_objective_reward_text = f'{reward[len(reward)-5:]}'        
+                gated_objective_reward_text = f'{reward[6:]}'        
             break
         env.add_substitution('gated objective reward text', gated_objective_reward_text)
             
