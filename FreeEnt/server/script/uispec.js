@@ -3409,75 +3409,75 @@ var FLAG_UISPEC = [
             "type": "select",
             "subcontrols": [
               {
-                "flag": "Greq:1",
+                "flag": "Ogated:1",
                 "title": "Objective #1 is gated behind other objectives"
               },
               {
-                "flag": "Greq:2",
+                "flag": "Ogated:2",
                 "title": "Objective #2 is gated behind other objectives"
               },
               {
-                "flag": "Greq:3",
+                "flag": "Ogated:3",
                 "title": "Objective #3 is gated behind other objectives"
               },
               {
-                "flag": "Greq:4",
+                "flag": "Ogated:4",
                 "title": "Objective #4 is gated behind other objectives"
               },
               {
-                "flag": "Greq:5",
+                "flag": "Ogated:5",
                 "title": "Objective #5 is gated behind other objectives"
               },
               {
-                "flag": "Greq:6",
+                "flag": "Ogated:6",
                 "title": "Objective #6 is gated behind other objectives"
               },
               {
-                "flag": "Greq:7",
+                "flag": "Ogated:7",
                 "title": "Objective #7 is gated behind other objectives"
               },
               {
-                "flag": "Greq:8",
+                "flag": "Ogated:8",
                 "title": "Objective #8 is gated behind other objectives"
               },
               {
-                "flag": "Greq:9",
+                "flag": "Ogated:9",
                 "title": "Objective #9 is gated behind other objectives"
               },
               {
-                "flag": "Greq:10",
+                "flag": "Ogated:10",
                 "title": "Objective #10 is gated behind other objectives"
               },
               {
-                "flag": "Greq:11",
+                "flag": "Ogated:11",
                 "title": "Objective #11 is gated behind other objectives"
               },
               {
-                "flag": "Greq:12",
+                "flag": "Ogated:12",
                 "title": "Objective #12 is gated behind other objectives"
               },
               {
-                "flag": "Greq:13",
+                "flag": "Ogated:13",
                 "title": "Objective #13 is gated behind other objectives"
               },
               {
-                "flag": "Greq:14",
+                "flag": "Ogated:14",
                 "title": "Objective #14 is gated behind other objectives"
               },
               {
-                "flag": "Greq:15",
+                "flag": "Ogated:15",
                 "title": "Objective #15 is gated behind other objectives"
               },
               {
-                "flag": "Greq:16",
+                "flag": "Ogated:16",
                 "title": "Objective #16 is gated behind other objectives"
               },
               {
-                "flag": "Greq:17",
+                "flag": "Ogated:17",
                 "title": "Objective #17 is gated behind other objectives"
               },
               {
-                "flag": "Greq:18",
+                "flag": "Ogated:18",
                 "title": "Objective #18 is gated behind other objectives"
               }
             ]
@@ -3488,75 +3488,75 @@ var FLAG_UISPEC = [
             "compact": true,
             "subcontrols": [
               {
-                "flag": "Hreq:1",
+                "flag": "Ohardreq:1",
                 "title": "Objective #1 is hard required"
               },
               {
-                "flag": "Hreq:2",
+                "flag": "Ohardreq:2",
                 "title": "Objective #2 is hard required"
               },
               {
-                "flag": "Hreq:3",
+                "flag": "Ohardreq:3",
                 "title": "Objective #3 is hard required"
               },
               {
-                "flag": "Hreq:4",
+                "flag": "Ohardreq:4",
                 "title": "Objective #4 is hard required"
               },
               {
-                "flag": "Hreq:5",
+                "flag": "Ohardreq:5",
                 "title": "Objective #5 is hard required"
               },
               {
-                "flag": "Hreq:6",
+                "flag": "Ohardreq:6",
                 "title": "Objective #6 is hard required"
               },
               {
-                "flag": "Hreq:7",
+                "flag": "Ohardreq:7",
                 "title": "Objective #7 is hard required"
               },
               {
-                "flag": "Hreq:8",
+                "flag": "Ohardreq:8",
                 "title": "Objective #8 is hard required"
               },
               {
-                "flag": "Hreq:9",
+                "flag": "Ohardreq:9",
                 "title": "Objective #9 is hard required"
               },
               {
-                "flag": "Hreq:10",
+                "flag": "Ohardreq:10",
                 "title": "Objective #10 is hard required"
               },
               {
-                "flag": "Hreq:11",
+                "flag": "Ohardreq:11",
                 "title": "Objective #11 is hard required"
               },
               {
-                "flag": "Hreq:12",
+                "flag": "Ohardreq:12",
                 "title": "Objective #12 is hard required"
               },
               {
-                "flag": "Hreq:13",
+                "flag": "Ohardreq:13",
                 "title": "Objective #13 is hard required"
               },
               {
-                "flag": "Hreq:14",
+                "flag": "Ohardreq:14",
                 "title": "Objective #14 is hard required"
               },
               {
-                "flag": "Hreq:15",
+                "flag": "Ohardreq:15",
                 "title": "Objective #15 is hard required"
               },
               {
-                "flag": "Hreq:16",
+                "flag": "Ohardreq:16",
                 "title": "Objective #16 is hard required"
               },
               {
-                "flag": "Hreq:17",
+                "flag": "Ohardreq:17",
                 "title": "Objective #17 is hard required"
               },
               {
-                "flag": "Hreq:18",
+                "flag": "Ohardreq:18",
                 "title": "Objective #18 is hard required"
               }
             ]

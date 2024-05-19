@@ -146,43 +146,43 @@
 ..(Oreq:9) Complete 9 objectives for reward
 ..(Oreq:10) Complete 10 objectives for reward
 .<> Gated Objective
-..(Greq:1) Objective #1 is gated behind other objectives
-..(Greq:2) Objective #2 is gated behind other objectives
-..(Greq:3) Objective #3 is gated behind other objectives
-..(Greq:4) Objective #4 is gated behind other objectives
-..(Greq:5) Objective #5 is gated behind other objectives
-..(Greq:6) Objective #6 is gated behind other objectives
-..(Greq:7) Objective #7 is gated behind other objectives
-..(Greq:8) Objective #8 is gated behind other objectives
-..(Greq:9) Objective #9 is gated behind other objectives
-..(Greq:10) Objective #10 is gated behind other objectives
-..(Greq:11) Objective #11 is gated behind other objectives
-..(Greq:12) Objective #12 is gated behind other objectives
-..(Greq:13) Objective #13 is gated behind other objectives
-..(Greq:14) Objective #14 is gated behind other objectives
-..(Greq:15) Objective #15 is gated behind other objectives
-..(Greq:16) Objective #16 is gated behind other objectives
-..(Greq:17) Objective #17 is gated behind other objectives
-..(Greq:18) Objective #18 is gated behind other objectives
+..(Ogated:1) Objective #1 is gated behind other objectives
+..(Ogated:2) Objective #2 is gated behind other objectives
+..(Ogated:3) Objective #3 is gated behind other objectives
+..(Ogated:4) Objective #4 is gated behind other objectives
+..(Ogated:5) Objective #5 is gated behind other objectives
+..(Ogated:6) Objective #6 is gated behind other objectives
+..(Ogated:7) Objective #7 is gated behind other objectives
+..(Ogated:8) Objective #8 is gated behind other objectives
+..(Ogated:9) Objective #9 is gated behind other objectives
+..(Ogated:10) Objective #10 is gated behind other objectives
+..(Ogated:11) Objective #11 is gated behind other objectives
+..(Ogated:12) Objective #12 is gated behind other objectives
+..(Ogated:13) Objective #13 is gated behind other objectives
+..(Ogated:14) Objective #14 is gated behind other objectives
+..(Ogated:15) Objective #15 is gated behind other objectives
+..(Ogated:16) Objective #16 is gated behind other objectives
+..(Ogated:17) Objective #17 is gated behind other objectives
+..(Ogated:18) Objective #18 is gated behind other objectives
 .()# Hard Required Objectives
-..[Hreq:1] Objective #1 is hard required
-..[Hreq:2] Objective #2 is hard required
-..[Hreq:3] Objective #3 is hard required
-..[Hreq:4] Objective #4 is hard required
-..[Hreq:5] Objective #5 is hard required
-..[Hreq:6] Objective #6 is hard required
-..[Hreq:7] Objective #7 is hard required
-..[Hreq:8] Objective #8 is hard required
-..[Hreq:9] Objective #9 is hard required
-..[Hreq:10] Objective #10 is hard required
-..[Hreq:11] Objective #11 is hard required
-..[Hreq:12] Objective #12 is hard required
-..[Hreq:13] Objective #13 is hard required
-..[Hreq:14] Objective #14 is hard required
-..[Hreq:15] Objective #15 is hard required
-..[Hreq:16] Objective #16 is hard required
-..[Hreq:17] Objective #17 is hard required
-..[Hreq:18] Objective #18 is hard required
+..[Ohardreq:1] Objective #1 is hard required
+..[Ohardreq:2] Objective #2 is hard required
+..[Ohardreq:3] Objective #3 is hard required
+..[Ohardreq:4] Objective #4 is hard required
+..[Ohardreq:5] Objective #5 is hard required
+..[Ohardreq:6] Objective #6 is hard required
+..[Ohardreq:7] Objective #7 is hard required
+..[Ohardreq:8] Objective #8 is hard required
+..[Ohardreq:9] Objective #9 is hard required
+..[Ohardreq:10] Objective #10 is hard required
+..[Ohardreq:11] Objective #11 is hard required
+..[Ohardreq:12] Objective #12 is hard required
+..[Ohardreq:13] Objective #13 is hard required
+..[Ohardreq:14] Objective #14 is hard required
+..[Ohardreq:15] Objective #15 is hard required
+..[Ohardreq:16] Objective #16 is hard required
+..[Ohardreq:17] Objective #17 is hard required
+..[Ohardreq:18] Objective #18 is hard required
 .<>* Reward
 ..(Owin:game) Completing objectives wins the game
 ..(Owin:crystal) Completing objectives awards the Crystal

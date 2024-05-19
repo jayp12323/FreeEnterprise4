@@ -803,42 +803,42 @@ const _FE_FLAGSPEC = {
         "Oreq:8",
         "Oreq:9",
         "Oreq:10",
-        "Hreq:1",
-        "Hreq:2",
-        "Hreq:3",
-        "Hreq:4",
-        "Hreq:5",
-        "Hreq:6",
-        "Hreq:7",
-        "Hreq:8",
-        "Hreq:9",
-        "Hreq:10",
-        "Hreq:11",
-        "Hreq:12",
-        "Hreq:13",
-        "Hreq:14",
-        "Hreq:15",
-        "Hreq:16",
-        "Hreq:17",
-        "Hreq:18",
-        "Greq:1",
-        "Greq:2",
-        "Greq:3",
-        "Greq:4",
-        "Greq:5",
-        "Greq:6",
-        "Greq:7",
-        "Greq:8",
-        "Greq:9",
-        "Greq:10",
-        "Greq:11",
-        "Greq:12",
-        "Greq:13",
-        "Greq:14",
-        "Greq:15",
-        "Greq:16",
-        "Greq:17",
-        "Greq:18",
+        "Ohardreq:1",
+        "Ohardreq:2",
+        "Ohardreq:3",
+        "Ohardreq:4",
+        "Ohardreq:5",
+        "Ohardreq:6",
+        "Ohardreq:7",
+        "Ohardreq:8",
+        "Ohardreq:9",
+        "Ohardreq:10",
+        "Ohardreq:11",
+        "Ohardreq:12",
+        "Ohardreq:13",
+        "Ohardreq:14",
+        "Ohardreq:15",
+        "Ohardreq:16",
+        "Ohardreq:17",
+        "Ohardreq:18",
+        "Ogated:1",
+        "Ogated:2",
+        "Ogated:3",
+        "Ogated:4",
+        "Ogated:5",
+        "Ogated:6",
+        "Ogated:7",
+        "Ogated:8",
+        "Ogated:9",
+        "Ogated:10",
+        "Ogated:11",
+        "Ogated:12",
+        "Ogated:13",
+        "Ogated:14",
+        "Ogated:15",
+        "Ogated:16",
+        "Ogated:17",
+        "Ogated:18",
         "Owin:game",
         "Owin:crystal",
         "Kvanilla",
@@ -1967,24 +1967,24 @@ const _FE_FLAGSPEC = {
             "Oreq:10"
         ],
         [
-            "Greq:1",
-            "Greq:2",
-            "Greq:3",
-            "Greq:4",
-            "Greq:5",
-            "Greq:6",
-            "Greq:7",
-            "Greq:8",
-            "Greq:9",
-            "Greq:10",
-            "Greq:11",
-            "Greq:12",
-            "Greq:13",
-            "Greq:14",
-            "Greq:15",
-            "Greq:16",
-            "Greq:17",
-            "Greq:18"
+            "Ogated:1",
+            "Ogated:2",
+            "Ogated:3",
+            "Ogated:4",
+            "Ogated:5",
+            "Ogated:6",
+            "Ogated:7",
+            "Ogated:8",
+            "Ogated:9",
+            "Ogated:10",
+            "Ogated:11",
+            "Ogated:12",
+            "Ogated:13",
+            "Ogated:14",
+            "Ogated:15",
+            "Ogated:16",
+            "Ogated:17",
+            "Ogated:18"
         ],
         [
             "Owin:game",
@@ -7018,217 +7018,217 @@ const _FE_FLAGSPEC = {
             "value": 11
         },
         {
-            "flag": "Hreq:1",
+            "flag": "Ohardreq:1",
             "offset": 133,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:2",
+            "flag": "Ohardreq:2",
             "offset": 134,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:3",
+            "flag": "Ohardreq:3",
             "offset": 135,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:4",
+            "flag": "Ohardreq:4",
             "offset": 136,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:5",
+            "flag": "Ohardreq:5",
             "offset": 137,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:6",
+            "flag": "Ohardreq:6",
             "offset": 138,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:7",
+            "flag": "Ohardreq:7",
             "offset": 139,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:8",
+            "flag": "Ohardreq:8",
             "offset": 140,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:9",
+            "flag": "Ohardreq:9",
             "offset": 141,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:10",
+            "flag": "Ohardreq:10",
             "offset": 142,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:11",
+            "flag": "Ohardreq:11",
             "offset": 143,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:12",
+            "flag": "Ohardreq:12",
             "offset": 144,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:13",
+            "flag": "Ohardreq:13",
             "offset": 145,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:14",
+            "flag": "Ohardreq:14",
             "offset": 146,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:15",
+            "flag": "Ohardreq:15",
             "offset": 147,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:16",
+            "flag": "Ohardreq:16",
             "offset": 148,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:17",
+            "flag": "Ohardreq:17",
             "offset": 149,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Hreq:18",
+            "flag": "Ohardreq:18",
             "offset": 150,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Greq:1",
+            "flag": "Ogated:1",
             "offset": 151,
             "size": 5,
             "value": 1
         },
         {
-            "flag": "Greq:2",
+            "flag": "Ogated:2",
             "offset": 151,
             "size": 5,
             "value": 2
         },
         {
-            "flag": "Greq:3",
+            "flag": "Ogated:3",
             "offset": 151,
             "size": 5,
             "value": 3
         },
         {
-            "flag": "Greq:4",
+            "flag": "Ogated:4",
             "offset": 151,
             "size": 5,
             "value": 4
         },
         {
-            "flag": "Greq:5",
+            "flag": "Ogated:5",
             "offset": 151,
             "size": 5,
             "value": 5
         },
         {
-            "flag": "Greq:6",
+            "flag": "Ogated:6",
             "offset": 151,
             "size": 5,
             "value": 6
         },
         {
-            "flag": "Greq:7",
+            "flag": "Ogated:7",
             "offset": 151,
             "size": 5,
             "value": 7
         },
         {
-            "flag": "Greq:8",
+            "flag": "Ogated:8",
             "offset": 151,
             "size": 5,
             "value": 8
         },
         {
-            "flag": "Greq:9",
+            "flag": "Ogated:9",
             "offset": 151,
             "size": 5,
             "value": 9
         },
         {
-            "flag": "Greq:10",
+            "flag": "Ogated:10",
             "offset": 151,
             "size": 5,
             "value": 10
         },
         {
-            "flag": "Greq:11",
+            "flag": "Ogated:11",
             "offset": 151,
             "size": 5,
             "value": 11
         },
         {
-            "flag": "Greq:12",
+            "flag": "Ogated:12",
             "offset": 151,
             "size": 5,
             "value": 12
         },
         {
-            "flag": "Greq:13",
+            "flag": "Ogated:13",
             "offset": 151,
             "size": 5,
             "value": 13
         },
         {
-            "flag": "Greq:14",
+            "flag": "Ogated:14",
             "offset": 151,
             "size": 5,
             "value": 14
         },
         {
-            "flag": "Greq:15",
+            "flag": "Ogated:15",
             "offset": 151,
             "size": 5,
             "value": 15
         },
         {
-            "flag": "Greq:16",
+            "flag": "Ogated:16",
             "offset": 151,
             "size": 5,
             "value": 16
         },
         {
-            "flag": "Greq:17",
+            "flag": "Ogated:17",
             "offset": 151,
             "size": 5,
             "value": 17
         },
         {
-            "flag": "Greq:18",
+            "flag": "Ogated:18",
             "offset": 151,
             "size": 5,
             "value": 18
@@ -10070,24 +10070,6 @@ const _FE_FLAGSPEC = {
             "not",
             [
                 "or",
-                "Greq:1",
-                "Greq:2",
-                "Greq:3",
-                "Greq:4",
-                "Greq:5",
-                "Greq:6",
-                "Greq:7",
-                "Greq:8",
-                "Greq:9",
-                "Greq:10",
-                "Greq:11",
-                "Greq:12",
-                "Greq:13",
-                "Greq:14",
-                "Greq:15",
-                "Greq:16",
-                "Greq:17",
-                "Greq:18",
                 "Gdupe",
                 "Gmp",
                 "Gwarp",

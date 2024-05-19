@@ -446,10 +446,10 @@ class FlagLogicCore:
                 flagset.set('Oreq:all')
                 self._lib.push(log, ['correction', 'Required number of objectives not specified; setting Oreq:all'])
 
-            hard_required_objectives = flagset.get_list(r'^Hreq:')            
+            hard_required_objectives = flagset.get_list(r'^Ohardreq:')            
             if flagset.has('Oreq:all'):                
                 if len(hard_required_objectives) != 0:
-                    self._simple_disable_regex(flagset, log, 'Removing hard required flags', r'^Hreq:')
+                    self._simple_disable_regex(flagset, log, 'Removing hard required flags', r'^Ohardreq:')
                     self._lib.push(log, ['correction', 'Hard required objectives found, but all objectives are already required.  Ignoring hard required flags.'])                    
             else:
                 required_count = flagset.get_list(r'^Oreq:')
@@ -479,15 +479,14 @@ class FlagLogicCore:
                 self._lib.push(log, ['correction', 'Objectives set without outcome specified; added Owin:game'])
 
             # Check that the gated objective number is a custom objective
-            gated_objectives = flagset.get_list(rf'^Greq:\d')
+            gated_objectives = flagset.get_list(rf'^Ogated:\d')
             gated_objective_index = -1
             for gated_objective in gated_objectives:
-                gated_objective_index = int(self._lib.re_sub(rf'^Greq:', '', gated_objective))                
+                gated_objective_index = int(self._lib.re_sub(rf'^Ogated:', '', gated_objective))                
             custom_objectives = flagset.get_list(r'^O\d+:')            
             if gated_objective_index > len(custom_objectives):
                 self._lib.push(log, ['error', f"Gated objective #{gated_objective_index} specified, but only {len(custom_objectives)} custom objective(s) specified."])
-                # if item_reward[0] != '':
-                #     self._lib.push(log, ['error', f"Gated objective #{gated_objective_index} specified, but only {OBJECTIVES[objective_ids[gated_objective_index]]} custom objective(s) specified."])
+                
             # force Pkey if pass objective is set
             pass_quest_flags = flagset.get_list(r'^O\d+:quest_pass$')
             if len(pass_quest_flags) > 0 and flagset.has('Pnone'):

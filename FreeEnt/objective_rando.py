@@ -137,7 +137,7 @@ def setup(env):
         objective_ids = get_unique_objective_ids(env)
         env.meta['gated_objective_reward'] = ''
         env.meta['has_gated_objective'] = False
-        gated_objective_specifier = env.options.flags.get_suffix(f"Greq:")
+        gated_objective_specifier = env.options.flags.get_suffix(f"Ogated:")
         if gated_objective_specifier != None:
             gated_objective_specifier = int(gated_objective_specifier)-1
             target_objective_id = objective_ids[gated_objective_specifier]
@@ -323,8 +323,8 @@ def apply(env):
         hard_required_objective_ids.append(0x00)
 
     if required_objective_count != total_objective_count:        
-        for f in env.options.flags.get_list(r'^Hreq:\d'):
-            hard_required_objective_index = int(f[len('Hreq:'):])
+        for f in env.options.flags.get_list(r'^Ohardreq:\d'):
+            hard_required_objective_index = int(f[len('Ohardreq:'):])
             if hard_required_objective_index >total_objective_count:
                 raise BuildError(f"Flags stipulate that objective # {hard_required_objective_index} is required, but there are only {total_objective_count} objectives specified.")
             hard_required_objective_ids[hard_required_objective_index-1] = objective_ids[hard_required_objective_index-1]

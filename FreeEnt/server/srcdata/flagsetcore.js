@@ -495,10 +495,10 @@ class FlagLogicCore {
                 flagset.set("Oreq:all");
                 this._lib.push(log, ["correction", "Required number of objectives not specified; setting Oreq:all"]);
             }
-            hard_required_objectives = flagset.get_list("^Hreq:");
+            hard_required_objectives = flagset.get_list("^Ohardreq:");
             if (flagset.has("Oreq:all")) {
                 if ((hard_required_objectives.length !== 0)) {
-                    this._simple_disable_regex(flagset, log, "Removing hard required flags", "^Hreq:");
+                    this._simple_disable_regex(flagset, log, "Removing hard required flags", "^Ohardreq:");
                     this._lib.push(log, ["correction", "Hard required objectives found, but all objectives are already required.  Ignoring hard required flags."]);
                 }
             } else {
@@ -530,11 +530,11 @@ class FlagLogicCore {
                     this._lib.push(log, ["correction", "Objectives set without outcome specified; added Owin:game"]);
                 }
             }
-            gated_objectives = flagset.get_list(`^Greq:\d`);
+            gated_objectives = flagset.get_list(`^Ogated:\d`);
             gated_objective_index = (- 1);
             for (var gated_objective, _pj_c = 0, _pj_a = gated_objectives, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 gated_objective = _pj_a[_pj_c];
-                gated_objective_index = Number.parseInt(this._lib.re_sub(`^Greq:`, "", gated_objective));
+                gated_objective_index = Number.parseInt(this._lib.re_sub(`^Ogated:`, "", gated_objective));
             }
             custom_objectives = flagset.get_list("^O\\d+:");
             if ((gated_objective_index > custom_objectives.length)) {
