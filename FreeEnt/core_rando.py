@@ -392,16 +392,23 @@ def apply(env):
     keyitem_assigner.item_tier(1).extend(ESSENTIAL_KEY_ITEMS)
     keyitem_assigner.item_tier(2).extend(NONESSENTIAL_KEY_ITEMS)
 
+    gated_underground_route = False
     # assign gated objective item and metadata
-    gated_objective_item = ''        
-    for gated_condition in env.meta.get('gated_objective_reward', []):
-        if '#' in gated_condition:
-            gated_objective_item = gated_condition
-            keyitem_assigner.item_tier(1).remove(gated_objective_item)
-            env.add_substitution('no gated objective', '')
-    if gated_objective_item == '':
+    gated_objective_item = env.meta['gated_objective_reward']           
+    if '#' not in gated_objective_item:
         env.add_substitution('has gated objective', '')
-        
+    else:
+        # Remove both methods of underground access when magma is specified
+        if gated_objective_item == "#item.Magma":
+            keyitem_assigner.item_tier(1).remove(gated_objective_item)
+            keyitem_assigner.item_tier(1).remove("#item.fe_Hook")
+            gated_underground_route = True
+            if env.options.flags.has('key_items_force_hook'):
+                gated_objective_item = "#item.fe_Hook"                
+        else:
+            keyitem_assigner.item_tier(1).remove(gated_objective_item)
+        env.meta['gated_objective_reward'] = gated_objective_item
+        env.add_substitution('no gated objective', '')
 
     # debug
     #keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.EarthCrystal'))
@@ -596,13 +603,23 @@ def apply(env):
         for branch in COMMON_BRANCHES:
             add_branch_with_substitutions(*branch)
 
-        if not prevent_hook_seed:
+        if not prevent_hook_seed and not gated_underground_route:
             add_branch_with_substitutions(*HOOK_UNDERGROUND_BRANCH)
 
-        for slot in rewards_assignment:
+        
+        if gated_objective_item != '':
+            rewards_assignment[RewardSlot.gated_objective] = ItemReward(gated_objective_item,True)
+
+        for slot in rewards_assignment:            
             if rewards_assignment[slot] == EmptyReward():
                 continue
-            if slot in ITEM_SLOTS:
+
+            if slot == RewardSlot.gated_objective:
+                if gated_objective_item == "#item.Magma" or gated_objective_item == "#item.fe_Hook":
+                    src_branch = ['moon?', 'underground']
+                else:
+                    continue
+            elif slot in ITEM_SLOTS:
                 src_branch = ITEM_SLOTS[slot]
             elif slot in SUMMON_QUEST_SLOTS:
                 src_branch = SUMMON_QUEST_SLOTS[slot]
@@ -615,9 +632,6 @@ def apply(env):
 
         for slot in boss_assignment:        
             add_branch_with_substitutions(*assignable_boss_slots[slot], boss_assignment[slot])
-        
-        if gated_objective_item != '':
-            rewards_assignment[RewardSlot.gated_objective] = ItemReward(gated_objective_item,True)
 
         checker.resolve()
 
@@ -657,7 +671,7 @@ def apply(env):
         if underground_path_disallowed:
             tests.append(['underground', underground_path_disallowed])
 
-        if env.options.flags.has('key_items_force_hook'):
+        if env.options.flags.has('key_items_force_hook') and not gated_underground_route:
             tests.append(['#item.Magma', [], 'underground'])
        
        

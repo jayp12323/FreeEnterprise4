@@ -135,7 +135,7 @@ def setup(env):
                 random_objective_count += int(f[len(random_prefix):])
 
         objective_ids = get_unique_objective_ids(env)
-        env.meta.setdefault('gated_objective_reward', set())
+        env.meta['gated_objective_reward'] = ''
         env.meta['has_gated_objective'] = False
         gated_objective_specifier = env.options.flags.get_suffix(f"Greq:")
         if gated_objective_specifier != None:
@@ -150,7 +150,7 @@ def setup(env):
             elif len(objective_ids) < gated_objective_specifier:
                 raise BuildError(f"Flags stipulate generating gated objective #{gated_objective_specifier+1}, but there are only {len(objective_ids)} custom objectives")
             else:
-                env.meta['gated_objective_reward'].add(target_objective['reward'])
+                env.meta['gated_objective_reward'] = target_objective['reward']
                 env.meta['has_gated_objective'] = True
                 env.meta['gated_objective_id'] = target_objective_id                
             env.add_substitution('gated objective id', f'{target_objective_id:02X}')
@@ -352,26 +352,25 @@ def apply(env):
 
     gated_objective_reward_text = ''
     if env.meta['has_gated_objective']:
-        for reward in env.meta['gated_objective_reward']:
-            if reward == '#item.DarkCrystal':
-                gated_objective_reward_text = f'Darkness Crystal'
-            elif reward == '#item.EarthCrystal':
-                gated_objective_reward_text = f'Earth Crystal'
-            elif reward == '#item.Baron':
-                gated_objective_reward_text = f'Baron Key'
-            elif reward == '#item.Tower':
-                gated_objective_reward_text = f'Tower Key'
-            elif reward == '#item.Luca':
-                gated_objective_reward_text = f'Luca Key'
-            elif reward == '#item.Magma':
-                gated_objective_reward_text = f'Magma Key'
-            elif reward == '#item.Pink':
-                gated_objective_reward_text = f'Pink Tail'
-            elif reward == '#item.Rat':
-                gated_objective_reward_text = f'Rat Tail'
-            else:
-                gated_objective_reward_text = f'{reward[6:]}'        
-            break
+        reward = env.meta['gated_objective_reward']
+        if reward == '#item.DarkCrystal':
+            gated_objective_reward_text = f'Darkness Crystal'
+        elif reward == '#item.EarthCrystal':
+            gated_objective_reward_text = f'Earth Crystal'
+        elif reward == '#item.Baron':
+            gated_objective_reward_text = f'Baron Key'
+        elif reward == '#item.Tower':
+            gated_objective_reward_text = f'Tower Key'
+        elif reward == '#item.Luca':
+            gated_objective_reward_text = f'Luca Key'
+        elif reward == '#item.Magma':
+            gated_objective_reward_text = f'Magma Key'
+        elif reward == '#item.Pink':
+            gated_objective_reward_text = f'Pink Tail'
+        elif reward == '#item.Rat':
+            gated_objective_reward_text = f'Rat Tail'
+        else:
+            gated_objective_reward_text = f'{reward[6:]}'        
         env.add_substitution('gated objective reward text', gated_objective_reward_text)
             
     gold_hunt_text = str(gold_hunt_count) + ',000'
@@ -411,7 +410,7 @@ def apply(env):
             if objective_id in hard_required_objective_ids and j==0:
                 objective_number_suffix = "!"
             elif env.meta['has_gated_objective'] and objective_id == env.meta['gated_objective_id'] and j==0:
-                objective_number_suffix = "?"
+                objective_number_suffix = "[crystal]"
 
             if line.strip():                
                 prefix = f"{i+1}" + objective_number_suffix + (" " if i < 9 else "")

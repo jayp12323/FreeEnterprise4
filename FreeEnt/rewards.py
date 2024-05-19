@@ -192,7 +192,7 @@ REWARD_SLOT_SPOILER_NAMES = {
     RewardSlot.forge_item                  : "Kokkol forged item",
     RewardSlot.pink_trade_item             : "Pink Tail trade item",
     RewardSlot.fixed_crystal               : "Objective completion", 
-    RewardSlot.gated_objective             : "Gated Objective completion", 
+    RewardSlot.gated_objective             : "Gated requirements completion", 
 }
 
 class Reward:
