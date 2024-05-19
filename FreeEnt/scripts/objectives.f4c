@@ -37,12 +37,12 @@ patch($21fa04 bus) {
     00
 // %end%
 }
-patch($21fa07 bus) {
+patch($21fa0b bus) {
 // %gated objective id%
     00
 // %end%
 }
-patch($21fa08 bus) {
+patch($21fa0c bus) {
 // %gated objective required count%
     00
 // %end%
@@ -190,8 +190,8 @@ msfpatch
     .def  GoldHunt__Goal          $21fa06
 
     .def  GoldHunt_Scratch         $7e1621
-    .def  Objectives__GatedObjectiveID     $21fa07
-    .def  Objectives__GatedObjectiveRequiredCount         $21fa08
+    .def  Objectives__GatedObjectiveID     $21fa0b
+    .def  Objectives__GatedObjectiveRequiredCount         $21fa0c
 }
 
 msfpatch
