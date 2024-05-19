@@ -280,6 +280,9 @@ msfpatch
         jmp $_EvEx__If_Fail
         
     EvEx__If_GatedRequirementsComplete:
+        jsr $_CountCompletedHardRequired
+        cmp $=Objectives__HardRequiredCount
+        bcc $-Failed
         jsl $=CountCompletedNonGated
         cmp $=Objectives__GatedObjectiveRequiredCount
         bcc $-Failed
