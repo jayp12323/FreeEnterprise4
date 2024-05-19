@@ -410,7 +410,7 @@ def apply(env):
             if objective_id in hard_required_objective_ids and j==0:
                 objective_number_suffix = "!"
             elif env.meta['has_gated_objective'] and objective_id == env.meta['gated_objective_id'] and j==0:
-                objective_number_suffix = "[crystal]"
+                objective_number_suffix = "?"
 
             if line.strip():                
                 prefix = f"{i+1}" + objective_number_suffix + (" " if i < 9 else "")
