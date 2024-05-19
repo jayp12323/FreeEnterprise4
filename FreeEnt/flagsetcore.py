@@ -477,16 +477,7 @@ class FlagLogicCore:
             elif len(win_flags) == 0:
                 flagset.set('Owin:game')
                 self._lib.push(log, ['correction', 'Objectives set without outcome specified; added Owin:game'])
-
-            # Check that the gated objective number is a custom objective
-            gated_objectives = flagset.get_list(rf'^Ogated:\d')
-            gated_objective_index = -1
-            for gated_objective in gated_objectives:
-                gated_objective_index = int(self._lib.re_sub(rf'^Ogated:', '', gated_objective))                
-            custom_objectives = flagset.get_list(r'^O\d+:')            
-            if gated_objective_index > len(custom_objectives):
-                self._lib.push(log, ['error', f"Gated objective #{gated_objective_index} specified, but only {len(custom_objectives)} custom objective(s) specified."])
-                
+        
             # force Pkey if pass objective is set
             pass_quest_flags = flagset.get_list(r'^O\d+:quest_pass$')
             if len(pass_quest_flags) > 0 and flagset.has('Pnone'):

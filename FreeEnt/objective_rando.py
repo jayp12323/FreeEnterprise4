@@ -129,12 +129,8 @@ def setup(env):
         
 
         # Handle gated objectives
-        random_objective_count = 0
-        for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
-            for f in env.options.flags.get_list(rf'^{random_prefix}\d'):            
-                random_objective_count += int(f[len(random_prefix):])
-
         objective_ids = get_unique_objective_ids(env)
+        total_objective_count = get_total_objective_count(env)
         env.meta['gated_objective_reward'] = ''
         env.meta['has_gated_objective'] = False
         gated_objective_specifier = env.options.flags.get_suffix(f"Ogated:")
@@ -145,15 +141,22 @@ def setup(env):
             
             if target_objective['reward'][0] != '#':
                 raise BuildError(f"Flags stipulate generating gated objective #{gated_objective_specifier+1}, objective {target_objective['slug']} has no reward")
-            elif (len(objective_ids) + random_objective_count )<= 1:
+            elif total_objective_count <= 1:
                 raise BuildError(f"Flags stipulate generating gated objective #{gated_objective_specifier+1}, but there is only one objective. (You need at least two)")
-            elif len(objective_ids) < gated_objective_specifier:
+            elif total_objective_count < gated_objective_specifier:
                 raise BuildError(f"Flags stipulate generating gated objective #{gated_objective_specifier+1}, but there are only {len(objective_ids)} custom objectives")
             else:
                 env.meta['gated_objective_reward'] = target_objective['reward']
                 env.meta['has_gated_objective'] = True
                 env.meta['gated_objective_id'] = target_objective_id                
             env.add_substitution('gated objective id', f'{target_objective_id:02X}')
+
+def get_total_objective_count(env):
+    random_objective_count = 0
+    for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:
+        for f in env.options.flags.get_list(rf'^{random_prefix}\d'):            
+            random_objective_count += int(f[len(random_prefix):])
+    return len(get_unique_objective_ids(env)) + random_objective_count
 
 def get_objective_ids(env):
     objective_ids = []
