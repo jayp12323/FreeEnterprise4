@@ -1206,14 +1206,8 @@ msfpatch {
         bra $+DrawFirstLine
         // %end%
     %DefaultText:
-        lda $=Objectives__HardRequiredCount
-        bne $+HardRequiredText
         tya
         ldy #$_Text_Enabled0
-        bra $+DrawFirstLine
-    %HardRequiredText:
-        tya
-        ldy #$_Text_Enabled0Hard
         bra $+DrawFirstLine
     %DrawFirstLine:
         jsr $_MK_DrawText
@@ -1229,22 +1223,11 @@ msfpatch {
     %WinOrCrystal:
         lda $=RandoFlag_objective_zeromus
         beq $+ObjectivesWin
-        lda $=Objectives__HardRequiredCount
-        bne $+LoadHardCrystal
         ldy #$_Text_Enabled1Crystal
         bra $+HaveLine1
-    %LoadHardCrystal:
-        ldy #$_Text_Enabled1HardCrystal
-        bra $+HaveLine1
     %ObjectivesWin:
-        lda $=Objectives__HardRequiredCount
-        bne $+LoadHardWin
         ldy #$_Text_Enabled1Win
         bra $+HaveLine1
-    %LoadHardWin:
-        ldy #$_Text_Enabled1HardWin        
-        bra $+HaveLine1
-
     %ObjectivesDisabled:
         phk
         pla
@@ -1287,10 +1270,6 @@ msfpatch {
     %Text_Enabled1Win:     "any order to win the game."             [[ 00 ]]
     %Text_Enabled1Crystal: "any order for the [crystal]Crystal." [[ 00 ]]
 // %end% 
-
-    %Text_Enabled0Hard:    "Complete {% required objective count text : all objectives %} with"                [[ 00 ]]    
-    %Text_Enabled1HardWin: "{% hard required objective count text : 0 %} required to win the game."             [[ 00 ]]
-    %Text_Enabled1HardCrystal: "{% hard required objective count text : 0 %} hard required for the [crystal]."             [[ 00 ]]    
 }
 
 msfpatch {
