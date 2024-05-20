@@ -50,6 +50,7 @@ consts(randoflag)
     $0A     characters_irretrievable
     $0B     objective_zeromus
     $0C     no_earned_characters
+    $0D     no_starting_partner
 }
 
 msfpatch {

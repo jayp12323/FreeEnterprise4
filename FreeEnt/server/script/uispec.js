@@ -4147,6 +4147,10 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
+        "flag": "Cnopartner",
+        "title": "No starting partner"
+      },
+      {
         "flag": "@anon35",
         "title": "Specify possible starting characters",
         "null": true,

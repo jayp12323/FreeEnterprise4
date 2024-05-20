@@ -127,6 +127,18 @@ def apply(env):
         start_character = env.rnd.choice(requested_start_characters)
 
     assignable_slots = STARTING_SLOTS.copy()
+    
+    # maximum party size
+    max_party_size = env.options.flags.get_suffix('Cparty:')
+    if max_party_size:
+        max_party_size = int(max_party_size)
+    else:
+        max_party_size = 5
+
+    env.add_binary(BusAddress(0x21F0FF), [max_party_size])
+    
+    if env.options.flags.has('no_starting_partner') or max_party_size == 1:
+        assignable_slots.remove('kain1_slot')
     if not env.options.flags.has('no_earned_characters'):
         assignable_slots.extend(EASY_SLOTS + HARD_SLOTS)
     if not env.options.flags.has('no_free_characters'):
@@ -369,7 +381,7 @@ def apply(env):
     for slot in assignment:
         character = assignment[slot]
         if character is None:
-            if slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain2_slot']:
+            if slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain1_slot', 'kain2_slot']:
                 axtor_map[SLOTS[slot]] = 0xFE  # placeholder piggy for required overworld NPCs
             else:
                 axtor_map[SLOTS[slot]] = 0x00
@@ -381,15 +393,6 @@ def apply(env):
             env.meta['available_nonstarting_characters'].add(character)
 
     env.add_substitution('axtor map', ' '.join([f'{b:02X}' for b in axtor_map]))
-
-    # maximum party size
-    max_party_size = env.options.flags.get_suffix('Cparty:')
-    if max_party_size:
-        max_party_size = int(max_party_size)
-    else:
-        max_party_size = 5
-
-    env.add_binary(BusAddress(0x21F0FF), [max_party_size])
 
     # permadeath :S
     if env.options.flags.has('characters_permadeath'):

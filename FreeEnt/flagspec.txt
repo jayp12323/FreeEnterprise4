@@ -32,7 +32,7 @@ Owin:game/Owin:crystal
 Kvanilla Kmain Ksummon Kmoon Kmiab Knofree Kunsafe Kforce:magma/Kforce:hook
 Pnone Pshop Pkey Pchests
 Dvanilla Dtowns/Ddungeon/Dshuffle
-Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe 
+Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe Cnopartner
 Cdistinct:1/Cdistinct:2/Cdistinct:3/Cdistinct:4/Cdistinct:5/Cdistinct:6/Cdistinct:7/Cdistinct:8/Cdistinct:9/Cdistinct:10/Cdistinct:11
 Cstart:cecil Cstart:kain Cstart:rydia Cstart:tellah Cstart:edward Cstart:rosa Cstart:yang Cstart:palom Cstart:porom Cstart:cid Cstart:edge Cstart:fusoya Cstart:any
 Cstart:not_cecil Cstart:not_kain Cstart:not_rydia Cstart:not_tellah Cstart:not_edward Cstart:not_rosa Cstart:not_yang Cstart:not_palom Cstart:not_porom Cstart:not_cid Cstart:not_edge Cstart:not_fusoya
@@ -123,6 +123,7 @@ Cstandard            characters_standard
 Crelaxed             characters_relaxed
 Cnofree              no_free_characters
 Cnoearned            no_earned_characters
+Cnopartner           no_starting_partner
 Cmaybe               characters_not_guaranteed
 Cj:spells            japanese_spells
 Cj:abilities         japanese_abilities

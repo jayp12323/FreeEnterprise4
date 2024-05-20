@@ -306,6 +306,7 @@
 ....[Cno:fusoya] Exclude Fusoya
 [Cnofree]! No free characters
 [Cnoearned]! No earned characters
+[Cnopartner] No starting partner
 <>- Specify possible starting characters
 .(@CstartDefine)# Define starting character pool
 ..[Cstart:cecil]  May start with Cecil

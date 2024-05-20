@@ -603,7 +603,8 @@ def build(romfile, options, force_recompile=False):
         'vanilla_agility',
         'characters_irretrievable',
         'objective_zeromus',
-        'no_earned_characters'
+        'no_earned_characters',
+        'no_starting_partner',
         ]
     flags_as_hex = []
     for slug in embedded_flags:
