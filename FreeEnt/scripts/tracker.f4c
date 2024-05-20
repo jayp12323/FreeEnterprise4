@@ -1088,21 +1088,7 @@ msfpatch {
         lda $1688
         ora #$80
         sta $b604,y
-        ldx $1680
-        lda $=Objectives__IDs,x
-        cmp $=Objectives__GatedObjectiveID
-        beq $+DoQMark
-        lda $=ObjectivesHardRequired__IDs,x
-        beq $+DoPeriod        
-        // exclamation    
-        lda #$c4
-        sta $b608,y
-        bra $+WriteText
-    %DoQMark:
-        lda #$c5
-        sta $b608,y
-        bra $+WriteText
-    %DoPeriod:
+        ldx $1680          
         // period    
         lda #$c1
         sta $b608,y

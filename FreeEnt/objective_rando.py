@@ -357,23 +357,27 @@ def apply(env):
     if env.meta['has_gated_objective']:
         reward = env.meta['gated_objective_reward']
         if reward == '#item.DarkCrystal':
-            gated_objective_reward_text = f'Darkness Crystal'
+            gated_objective_reward_text = f'[crystal]Darkness'
         elif reward == '#item.EarthCrystal':
-            gated_objective_reward_text = f'Earth Crystal'
+            gated_objective_reward_text = f'[crystal]Earth'
         elif reward == '#item.Baron':
-            gated_objective_reward_text = f'Baron Key'
+            gated_objective_reward_text = f'[key]Baron'
         elif reward == '#item.Tower':
-            gated_objective_reward_text = f'Tower Key'
+            gated_objective_reward_text = f'[key]Tower'
         elif reward == '#item.Luca':
-            gated_objective_reward_text = f'Luca Key'
+            gated_objective_reward_text = f'[key]Luca'
         elif reward == '#item.Magma':
-            gated_objective_reward_text = f'Magma Key'
+            gated_objective_reward_text = f'[key]Magma'
         elif reward == '#item.Pink':
-            gated_objective_reward_text = f'Pink Tail'
+            gated_objective_reward_text = f'[tail]Pink'
         elif reward == '#item.Rat':
-            gated_objective_reward_text = f'Rat Tail'
+            gated_objective_reward_text = f'[tail]Rat'
         elif reward == '#item.fe_Hook':
             gated_objective_reward_text = f'Hook'
+        elif reward == '#item.TwinHarp':
+            gated_objective_reward_text = f'[harp]TwinHarp'  
+        elif reward == '#item.SandRuby':
+            gated_objective_reward_text = f'[stone]Sandruby'  
         else:
             gated_objective_reward_text = f'{reward[6:]}'        
         env.add_substitution('gated objective reward text', gated_objective_reward_text)
@@ -397,31 +401,30 @@ def apply(env):
         elif OBJECTIVES[objective_id]['slug'] == 'internal_goldhunter':
             text = text.replace('%d', f'{gold_hunt_text}' )
 
+        lines = _split_lines(text)
+        if env.meta['has_gated_objective'] and objective_id == env.meta['gated_objective_id']:
+            lines[-1] = lines[-1] + ' [key]'
+        elif objective_id in hard_required_objective_ids:
+            lines[-1] = lines[-1] + ' [crystal]'
+
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
-        lines = _split_lines(text)
+        
         if len(lines) > 2:
             raise ValueError(f"Objective text cannot fit on 2 lines; text is {text}")
         while len(lines) < 2:
             lines.append('')
 
         for j,line in enumerate(lines):
-            addr = 0x23C000 + (i * 0x40) + (j * 0x20)
-            env.add_binary(BusAddress(addr), [len(line)], as_script=True)
-            encoded_line = line.replace('(', '[$cc]').replace(')', '[$cd]')
+            addr = 0x23C000 + (i * 0x40) + (j * 0x20)          
+            env.add_binary(BusAddress(addr), [len(line)], as_script=True)            
+            encoded_line = line.replace('(', '[$cc]').replace(')', '[$cd]')            
             env.add_script(f'text(${addr + 1:06X} bus) {{{encoded_line}}}')
 
-            objective_number_suffix = "."
-            if objective_id in hard_required_objective_ids and j==0:
-                objective_number_suffix = "!"
-            elif env.meta['has_gated_objective'] and objective_id == env.meta['gated_objective_id'] and j==0:
-                objective_number_suffix = "?"
-
-            if line.strip():                
-                prefix = f"{i+1}" + objective_number_suffix + (" " if i < 9 else "")
-                if j > 0:
+            if line.strip():
+                prefix = f"{i+1}" + '.' + (" " if i < 9 else "")
+                if j > 0:                    
                     prefix = " " * len(prefix)
-                               
                 pregame_text_lines.append(prefix + line)
         pregame_text_lines.append("")
 

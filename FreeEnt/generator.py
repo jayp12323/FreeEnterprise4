@@ -50,7 +50,6 @@ from . import version
 
 from .util import Distribution
 
-
 F4C_FILES = '''
     scripts/default.consts
     scripts/unused.f4c
@@ -441,7 +440,14 @@ def _generate_title_screen_text(options):
 
 #--------------------------------------------------------------------------
 def _generate_pregame_screen_text(env):
-    lines = [(l + " " * (32 - len(l))) for l in env.pregame_text_lines]
+    lines = []
+
+    for l in env.pregame_text_lines:
+        line_length = len(l)
+        replacements = (re.findall('\[.*\]', l))
+        for r in replacements:
+            line_length -= len(r)-1
+        lines.append(l + " " * (32 - line_length))
 
     info_bytes = []
 
@@ -453,6 +459,8 @@ def _generate_pregame_screen_text(env):
 
     for line in lines:
         line = line.replace('(', '[$cc]').replace(')', '[$cd]')
+        line = line.replace('!', '[$7e]')
+        line = line.replace('?', '[$7d]')
         tiles = f4c.encode_text(line)
         text_bytes.extend(tiles)
 
@@ -749,7 +757,9 @@ def build(romfile, options, force_recompile=False):
         env.add_pregame_text('FLAGS', 'hidden')
     else:
         env.add_pregame_text('FLAGS', env.options.flags.to_string(pretty=True, wrap_width=26), center=False)
-    env.add_substitution('pregame_screen_text', _generate_pregame_screen_text(env))
+        
+    pregame_bytes = _generate_pregame_screen_text(env)
+    env.add_substitution('pregame_screen_text', pregame_bytes)
 
     if options.debug:
         with open(os.path.join(os.path.dirname(__file__), 'scripts/debug_init.f4c'), 'r') as infile:
