@@ -82,12 +82,13 @@ def _split_lines(text, line_length=24):
 def setup(env):
     env.meta['has_objectives'] = False
     env.meta['zeromus_required'] = True
+    env.meta['gated_objective_reward'] = ''
+    env.meta['has_gated_objective'] = False
     env.meta.setdefault('objectives_from_flags', [])
     env.meta.setdefault('objective_required_characters', set())
     env.meta.setdefault('objective_required_bosses', set())
     env.meta.setdefault('required_treasures', {})
     env.meta.setdefault('objective_required_key_items', set())
-
     if not env.options.flags.has('objective_none'):
         env.meta['has_objectives'] = True
         env.meta['zeromus_required'] = env.options.flags.has("objective_zeromus")
@@ -131,8 +132,6 @@ def setup(env):
         # Handle gated objectives
         objective_ids = get_unique_objective_ids(env)
         total_objective_count = get_total_objective_count(env)
-        env.meta['gated_objective_reward'] = ''
-        env.meta['has_gated_objective'] = False
         gated_objective_specifier = env.options.flags.get_suffix(f"Ogated:")
         if gated_objective_specifier != None:
             gated_objective_specifier = int(gated_objective_specifier)-1
