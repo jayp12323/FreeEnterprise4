@@ -121,7 +121,8 @@ event($10)  //Opening events
 
     // Has partner flag
     set #Temp
-    // %flags: Cparty:1%
+
+    // %flags: Cparty:1 ~Cpermajoin%
     clear #Temp
     // %end%
 
@@ -134,10 +135,7 @@ event($10)  //Opening events
     {
         [#B #Text_LoadRewardNameFromSlot #reward_slot.starting_partner_character 0]
         map message 6 // Let's go!
-    }
 
-    [#B #If #Flag #flag.Temp]
-    {
         //TODO: restore? [#B #Objectives_TickRewardSlot #reward_slot.starting_partner_character]
         [#B #Rando_DeliverRewardFromSlot #reward_slot.starting_partner_character]
         pause 2

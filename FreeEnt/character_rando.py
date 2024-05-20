@@ -137,7 +137,7 @@ def apply(env):
 
     env.add_binary(BusAddress(0x21F0FF), [max_party_size])
     
-    if env.options.flags.has('no_starting_partner') or max_party_size == 1:
+    if env.options.flags.has('no_starting_partner'):
         assignable_slots.remove('kain1_slot')
     if not env.options.flags.has('no_earned_characters'):
         assignable_slots.extend(EASY_SLOTS + HARD_SLOTS)
