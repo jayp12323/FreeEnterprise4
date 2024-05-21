@@ -37,6 +37,12 @@ class PriorityAssigner:
         while idx >= len(self._item_tiers):
             self._item_tiers.append(ItemTier())
         return self._item_tiers[idx]
+        
+    def remove_item(self, item):
+        for item_tier in self._item_tiers:
+            if item not in item_tier:
+                continue
+            item_tier.remove(item)
 
     def assign(self, rnd):
         assignment = {}

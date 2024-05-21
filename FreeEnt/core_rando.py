@@ -28,6 +28,26 @@ COMMON_BRANCHES = [
 
 HOOK_UNDERGROUND_BRANCH = ['#item.fe_Hook?', 'kingqueen_slot', 'rubicant_slot', 'underground']
 
+STARTING_ITEM_MAP = {
+    'Kstart:package'                        : '#item.Package',
+    'Kstart:sandruby'                       : '#item.Sandruby',
+    'Kstart:baron'                          : '#item.Baron',
+    'Kstart:twinharp'                       : '#item.Twinharp',
+    'Kstart:earthcrystal'                   : '#item.EarthCrystal',
+    'Kstart:magma'                          : '#item.Magma',
+    'Kstart:tower'                          : '#item.Tower',
+    'Kstart:hook'                           : '#item.Fe_Hook',
+    'Kstart:luca'                           : '#item.Luca',
+    'Kstart:darkcrystal'                    : '#item.DarkCrystal',
+    'Kstart:rat'                            : '#item.Rat',
+    'Kstart:pan'                            : '#item.Pan',
+    'Kstart:crystal'                        : '#item.Crystal',
+    'Kstart:legend'                         : '#item.Legend',
+    'Kstart:adamant'                        : '#item.Adamant',
+    'Kstart:spoon'                          : '#item.Spoon',
+    'Kstart:pink'                           : '#item.Pink',
+}
+
 ESSENTIAL_KEY_ITEMS = {
     KeyItemReward('#item.Package')         : RewardSlot.starting_item, #'package_slot',
     KeyItemReward('#item.SandRuby')        : RewardSlot.antlion_item, #'sandruby_slot', 
@@ -381,9 +401,6 @@ def apply(env):
 
     keyitem_assigner.slot_tier(0).extend(ITEM_SLOTS)
 
-    # debug
-    #keyitem_assigner.slot_tier(0).remove(RewardSlot.starting_item)
-    
     if env.options.flags.has('no_free_key_item'):
         keyitem_assigner.slot_tier(0).remove(RewardSlot.toroia_hospital_item)
     else:
@@ -400,23 +417,22 @@ def apply(env):
     else:
         # Remove both methods of underground access when magma is specified
         if gated_objective_item == "#item.Magma":
-            keyitem_assigner.item_tier(1).remove(gated_objective_item)
-            keyitem_assigner.item_tier(1).remove("#item.fe_Hook")
+            keyitem_assigner.remove_item(gated_objective_item)
+            keyitem_assigner.remove_item("#item.fe_Hook")
             gated_underground_route = True
             if env.options.flags.has('key_items_force_hook'):
-                gated_objective_item = "#item.fe_Hook"                
+                gated_objective_item = "#item.fe_Hook"
         else:
-            keyitem_assigner.item_tier(1).remove(gated_objective_item)
+            keyitem_assigner.remove_item(gated_objective_item)
         env.meta['gated_objective_reward'] = gated_objective_item
         env.add_substitution('no gated objective', '')
 
     forced_starting_key_item = ''
-    if env.options.flags.get_suffix(f"Kstart:") != None:
-        forced_starting_key_item = env.options.flags.get_suffix(f"Kstart:")
-
-    print(f'starting key item is {forced_starting_key_item}')
-    # debug
-    #keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.EarthCrystal'))
+    for f in env.options.flags.get_list(rf'^Kstart:'):
+        forced_starting_key_item = STARTING_ITEM_MAP[f]
+        keyitem_assigner.slot_tier(0).remove(RewardSlot.starting_item)
+        keyitem_assigner.remove_item(forced_starting_key_item)
+        break
 
     if env.meta.get('has_objectives', False) and env.meta.get('zeromus_required', True):
         keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.Crystal'))
@@ -550,8 +566,8 @@ def apply(env):
                     if slot not in rewards_assignment:
                         remaining_slots.append(slot)
         else:
-            # debug
-            #rewards_assignment[RewardSlot.starting_item] = KeyItemReward('#item.EarthCrystal')
+            if forced_starting_key_item != '':
+                rewards_assignment[RewardSlot.starting_item] = KeyItemReward(forced_starting_key_item)
             keyitem_assignment, remaining_slots, remaining_items = keyitem_assigner.assign(env.rnd)
             rewards_assignment.update(keyitem_assignment)
 
