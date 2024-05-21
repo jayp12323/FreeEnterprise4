@@ -113,6 +113,22 @@ Kunsafe              key_items_unsafe
 Kforce:magma         key_items_force_magma
 Kforce:hook          key_items_force_hook
 
+Kstart:package          key_items_start_package          
+Kstart:sandruby         key_items_start_sandruby         
+Kstart:baron            key_items_start_baron            
+Kstart:twinharp         key_items_start_twinharp         
+Kstart:earthcrystal     key_items_start_earthcrystal         
+Kstart:magma            key_items_start_magma            
+Kstart:tower            key_items_start_tower            
+Kstart:hook             key_items_start_hook         
+Kstart:luca             key_items_start_luca         
+Kstart:darkcrystal      key_items_start_darkcrystal          
+Kstart:rat              key_items_start_rat          
+Kstart:pan              key_items_start_pan          
+Kstart:crystal          key_items_start_crystal          
+Kstart:legend           key_items_start_legend           
+Kstart:adamant          key_items_start_adamant          
+
 Pnone                pass_none
 Pshop                pass_in_shop
 Pkey                 pass_in_key_items

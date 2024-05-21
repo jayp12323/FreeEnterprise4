@@ -200,6 +200,22 @@
 ...(Kforce:magma) Guarantee underworld access via Magma Key
 ...(Kforce:hook)! Force underworld access via Hook route
 ..[Kunsafe]! No safety checks
+..<> Starting items
+...(Kstart:package) You start with the Package
+...(Kstart:sandruby) You start with the Sandruby
+...(Kstart:baron) You start with the Baron Key
+...(Kstart:twinharp) You start with the Twinharp
+...(Kstart:earthcrystal) You start with the Earth Crystal
+...(Kstart:magma) You start with the Magma Key
+...(Kstart:tower) You start with the Tower Key
+...(Kstart:hook) You start with the Hook
+...(Kstart:luca) You start with the Luca Key
+...(Kstart:darkcrystal) You start with the Dark Crystal
+...(Kstart:rat) You start with the Rat Tail
+...(Kstart:pan) You start with the Pan
+...(Kstart:crystal) You start with the Crystal
+...(Kstart:legend) You start with the Legend Sword
+...(Kstart:adamant) You start with the Adamant
 
 == PASS
 [Pshop] Include Pass in a shop
@@ -306,7 +322,7 @@
 ....[Cno:fusoya] Exclude Fusoya
 [Cnofree]! No free characters
 [Cnoearned]! No earned characters
-[Cnopartner] No starting partner
+[Cnopartner]! No starting partner
 <>- Specify possible starting characters
 .(@CstartDefine)# Define starting character pool
 ..[Cstart:cecil]  May start with Cecil

@@ -388,7 +388,7 @@ def apply(env):
         keyitem_assigner.slot_tier(0).remove(RewardSlot.toroia_hospital_item)
     else:
         keyitem_assigner.slot_tier(0).remove(RewardSlot.rydias_mom_item)
-
+    
     keyitem_assigner.item_tier(1).extend(ESSENTIAL_KEY_ITEMS)
     keyitem_assigner.item_tier(2).extend(NONESSENTIAL_KEY_ITEMS)
 
@@ -410,6 +410,11 @@ def apply(env):
         env.meta['gated_objective_reward'] = gated_objective_item
         env.add_substitution('no gated objective', '')
 
+    forced_starting_key_item = ''
+    if env.options.flags.get_suffix(f"Kstart:") != None:
+        forced_starting_key_item = env.options.flags.get_suffix(f"Kstart:")
+
+    print(f'starting key item is {forced_starting_key_item}')
     # debug
     #keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.EarthCrystal'))
 
