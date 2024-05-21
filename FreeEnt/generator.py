@@ -415,6 +415,9 @@ def _generate_title_screen_text(options):
 
     data = []
     for c in text:
+        if (len(data) >= 160):
+            raise BuildError(f"_generate_title_screen_text: data exceeds allocated size in ROM")
+            
         if c == ' ':
             data.append('FF 04')
         elif c == '.':
@@ -435,7 +438,6 @@ def _generate_title_screen_text(options):
             data.append('{:02X} 04'.format((ord(c) - ord('a')) + 0xCA))
         else:
             data.append('00 00')
-
     return ' '.join(data)
 
 #--------------------------------------------------------------------------
