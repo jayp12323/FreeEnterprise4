@@ -476,6 +476,8 @@ msfpatch {
         tax
         lda $=Objectives__BossCollectorID
         jsl $=Objectives__StageProgress
+        lda $_EvEx__Param1
+        tax
         lda $=Objectives__BossSlotMap,x
         jsl $=Objectives__StageProgress
         jmp $_EvEx__ObjectivesImpl_DoEvent
