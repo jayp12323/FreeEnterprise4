@@ -354,6 +354,7 @@
 [Cj:spells] Characters learn J-spells
 [Cj:abilities] Characters have J-commands
 [Cnekkie] Characters start with limited gear
+[Cpaladin] Cecil starts the game as a paladin
 [Cnodupes] Duplicate characters not allowed
 [Cbye] Dismissed characters are irretrievable
 <> Limit maximum party size

@@ -5,7 +5,7 @@ event($10)  //Opening events
     // Initial game state
     set #OpeningComplete
     set #DamcyanBombed
-    set #ReinforcedEnterprise
+    set #ReinforcedEnterprise    
 
     // disable "free" spots with no free lunch flag
     // (Damcyan needs special case handling in damcyan.f4c)
@@ -64,6 +64,10 @@ event($10)  //Opening events
         p #Soldier3 toggle visible
     }
 
+    // %flag characters_cecil_paladin on%
+    set #CecilBecamePaladin
+    [#B #Rando_PaladinizeCecil]
+    // %end%
     toggle screen fade
     pause 2
     player visible

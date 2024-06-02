@@ -4358,6 +4358,10 @@ var FLAG_UISPEC = [
         "description": "Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)"
       },
       {
+        "flag": "Cpaladin",
+        "title": "Cecil starts the game as a paladin"
+      },
+      {
         "flag": "Cnodupes",
         "title": "Duplicate characters not allowed",
         "description": "If a duplicate character tries to join your party, instead nothing happens."
