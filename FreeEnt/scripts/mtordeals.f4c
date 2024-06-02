@@ -188,6 +188,16 @@ placement($15 7) {
     face down
 }
 
+// Patched in to replace the CecilBecamePaladin flag with a custom one since cecil can start as a paladin
+eventcall($1F)
+{
+     if not #fe_FinishedOrdealsRoom:
+        $62   //Cecil's transformation, Tellah remembering
+    else:
+        $00   //(no event)
+}
+
+
 // solo battle indicator is patched out in solo_battle.f4c
 
 event($62)  //Cecil's transformation, Tellah remembering
@@ -313,6 +323,7 @@ event($62)  //Cecil's transformation, Tellah remembering
 
     // flag set moved up here because PaladinizeCecil requires it (kludgey)
     set #CecilBecamePaladin
+    set #fe_FinishedOrdealsRoom
 
     [#B #If #Flag #flag.Temp] {
         batch 1 {

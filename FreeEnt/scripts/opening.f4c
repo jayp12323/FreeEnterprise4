@@ -36,6 +36,11 @@ event($10)  //Opening events
     [#B #DebugFillShadowParty]
     // %end%
 
+    // %flag characters_cecil_paladin on%
+    set #CecilBecamePaladin
+    [#B #Rando_PaladinizeCecil]    
+    // %end%
+
     // %quickstart%
     [#B #Rando_DeliverRewardFromSlot #reward_slot.starting_partner_character]
     [#B #Rando_DeliverRewardFromSlot #reward_slot.starting_item]
@@ -63,11 +68,7 @@ event($10)  //Opening events
         p #Soldier2 toggle visible
         p #Soldier3 toggle visible
     }
-
-    // %flag characters_cecil_paladin on%
-    set #CecilBecamePaladin
-    [#B #Rando_PaladinizeCecil]
-    // %end%
+    
     toggle screen fade
     pause 2
     player visible

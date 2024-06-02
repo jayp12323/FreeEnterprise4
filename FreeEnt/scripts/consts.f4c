@@ -38,6 +38,7 @@ consts(flag) {
     $72   fe_BossBypass
     $7F   fe_UptCo
     $80   fe_CompletedGatedRequirements
+    $81   fe_FinishedOrdealsRoom
 }
 
 consts(vfx) {
