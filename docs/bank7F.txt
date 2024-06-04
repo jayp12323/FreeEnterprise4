@@ -1,0 +1,34 @@
+.include "header.inc"
+
+.ramsection "LowRAM" bank $7F slot 0
+    r_airship_perspective_data                              dsb                                8704 ; $7F0000.21FF
+    r_big_whale_perspective_data                            dsb                                8704 ; $7F2200.43FF
+    r_dungeon_tilemap_tmp_data                              dsb                                1024 ; $7F4400.47FF
+    r_tile_composition_data                                 .dsb                               1024 ; $7F4800.4BFF
+    r_tile_composition_data_outdoor                         .dsb                                512 ; $7F4800.49FF
+    r_tile_composition_data_dungeon_upper_left              .dsb                                256 ; $7F4800.48FF
+    r_tile_composition_data_outdoor_upper_left              dsb                                 128 ; $7F4800.487F
+    r_tile_composition_data_outdoor_upper_right             dsb                                 128 ; $7F4880.48FF
+    r_tile_composition_data_dungeon_upper_right             .dsb                                256 ; $7F4900.49FF
+    r_tile_composition_data_outdoor_lower_left              dsb                                 128 ; $7F4900.497F
+    r_tile_composition_data_outdoor_lower_right             dsb                                 128 ; $7F4980.49FF
+    r_tile_composition_data_dungeon_lower_left              dsb                                 256 ; $7F4A00.4AFF
+    r_tile_composition_data_dungeon_lower_right             dsb                                 256 ; $7F4B00.4BFF
+    r_field_sprite_positioning                              dsb                                1024 ; $7F4C00.4FFF
+    r_tile_animations                                       dsb                                2048 ; $7F5000.57FF
+    r_lake_ocean_tiles                                      dsb                                 256 ; $7F5800.58FF
+    r_waterfall_tiles                                       dsb                                 256 ; $7F5900.59FF
+    r_hdma_table                                            instanceof hdma_entry                 4 ; $7F5A00.5A0B
+
+    __unknown_5a0c                                          dsb                                 613 ; $7F5A0C.5C70
+
+    r_tilemap_data                                          dsb                                1024 ; $7F5C71.9C70 | TODO: What is the actual size?
+.ends
+
+.ramsection "HighRAM" bank $7F slot 1
+    __unknown_8000                                          dsb                               28672 ; $7F8000.EFFF
+
+    r_battle_spell_tile_offsets                             dsb                                1536 ; $7FF000.F5FF
+
+    __unknown_7ff600                                        dsb                                2560 ; $7FF600.FFFF
+.ends

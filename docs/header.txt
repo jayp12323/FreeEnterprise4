@@ -1,0 +1,4082 @@
+;
+; Memory Layout Definition
+;
+
+.memorymap
+    slotsize $8000
+    defaultslot 1
+    slot 0 $0000
+    slot 1 $8000
+.endme
+
+.rombanksize $8000
+.rombanks 32
+
+;
+; SNES Header Information
+;
+
+.if FF4_VERSION == "JAPAN"
+    .snesheader
+        name "FINAL FANTASY 4      "
+        lorom
+        slowrom
+        cartridgetype $02                              ; ROM+SRAM
+        romsize $0A                                    ; 8 megabit ROM
+        sramsize $03                                   ; 64 kilobit SRAM
+        country $00                                    ; Japan
+        licenseecode $C3
+        version $00
+    .endsnes
+.endif
+
+.if FF4_VERSION == "JAPAN_REV_1"
+    .snesheader
+        name "FINAL FANTASY 4      "
+        lorom
+        slowrom
+        cartridgetype $02                              ; ROM+SRAM
+        romsize $0A                                    ; 8 megabit ROM
+        sramsize $03                                   ; 64 kilobit SRAM
+        country $00                                    ; Japan
+        licenseecode $C3
+        version $01
+    .endsnes
+.endif
+
+.if FF4_VERSION == "JAPAN_EASYTYPE"
+    .snesheader
+        name "FINAL FANTASY 4 EASY "
+        lorom
+        slowrom
+        cartridgetype $02                              ; ROM+SRAM
+        romsize $0A                                    ; 8 megabit ROM
+        sramsize $03                                   ; 64 kilobit SRAM
+        country $00                                    ; Japan
+        licenseecode $C3
+        version $00
+    .endsnes
+.endif
+
+.if FF4_VERSION == "USA"
+    .snesheader
+        name "FINAL FANTASY II     "
+        lorom
+        slowrom
+        cartridgetype $02                              ; ROM+SRAM
+        romsize $0A                                    ; 8 megabit ROM
+        sramsize $03                                   ; 64 kilobit SRAM
+        country $01                                    ; USA
+        licenseecode $C3
+        version $00
+    .endsnes
+.endif
+
+.if FF4_VERSION == "USA_REV_1"
+    .snesheader
+        name "FINAL FANTASY 2      "
+        lorom
+        slowrom
+        cartridgetype $02                              ; ROM+SRAM
+        romsize $0A                                    ; 8 megabit ROM
+        sramsize $03                                   ; 64 kilobit SRAM
+        country $01                                    ; USA
+        licenseecode $C3
+        version $01
+    .endsnes
+.endif
+
+.snesnativevector
+   COP    $FFFF
+   BRK    $FFFF
+   ABORT  $FFFF
+   NMI    r_nmi_handler
+   UNUSED $FFFF
+   IRQ    r_irq_handler
+.endnativevector
+
+.snesemuvector
+   COP    $FFFF
+   UNUSED $FFFF
+   ABORT  $FFFF
+   NMI    $FFFF
+   RESET  bank00.main
+   IRQBRK $FFFF
+.endemuvector
+
+.asciitable
+    MAP "A" to "Z" = $42
+    MAP "a" to "z" = $5C
+    MAP "0" to "9" = $80
+    MAP "'"        = $C0
+    MAP "."        = $C1
+    MAP "-"        = $C2
+    MAP "!"        = $C4
+    MAP "?"        = $C5
+    MAP "%"        = $C6
+    MAP "/"        = $C7
+    MAP ":"        = $C8
+    MAP ","        = $C9
+    MAP " "        = $FF
+.enda
+
+;
+; Macros
+;
+
+; AUDIO_ADDRESS
+;
+; Given the system bus address of audio data, calculates the adjusted address as used by the sound code. Ultimately, it
+; is based on the following decoding table (which this routine attempts to calculate the reverse of):
+;
+;   $000000 - $003FFF: Add $04C000
+;   $004000 - $00BFFF: Add $054000
+;   $00C000 - $013FFF: Add $05C000
+;   $014000 - $01BFFF: Add $064000
+;   $01C000 -        : Add $06C000
+;
+; This decoding table results in full addresses that range from $04:C000 to $08:FFFF, always remaining in the $8000 to
+; $FFFF range.
+;
+; TODO: I'm not even sure this routine actually works yet, and won't know for sure until I actually confirm I've
+;       located the correct locations of data in the ROM. If it does work, I leave figuring out why as an exercise to
+;       the reader (which includes me in five years when I wonder what the heck it's doing.) I was originally planning
+;       on a simpler method using if statements, but WLA-DX didn't like doing comparisons on labels in a macro or
+;       something.
+.macro AUDIO_ADDRESS
+    .dl (((\1 - $048000) >> 16) << 15) + ((\1 & $FFFF) - $8000) - $4000
+.endm
+
+; AUDIO_OPCODE_JUMP
+;
+; This macro allows a jump instruction to be specified accurately without having to manually calculate the target
+; address. Instead, it takes two parameters: the label to jump to and the base label for the track (the location of the
+; pointer table).
+.macro AUDIO_OPCODE_JUMP
+    .db AUDIO_OPCODE_JUMP
+    .addr \1 - \2 + $2000
+.endm
+
+; AUDIO_OPCODE_CONDITIONAL_JUMP
+;
+; Similar to the previous macro, this allows the same procedure except with the conditional jump. The only difference is
+; the insertion of a parameter to specify on which loop the jump should be taken.
+.macro AUDIO_OPCODE_CONDITIONAL_JUMP
+    .db AUDIO_OPCODE_CONDITIONAL_JUMP, \1
+    .addr \2 - \3 + $2000
+.endm
+
+; COLOR
+;
+; Given three integers ranging from 0 to 31, outputs a 16-bit value representing
+; the equivalent SNES color value.
+.macro COLOR
+    .dw (\3 << 10) + (\2 << 5) + \1
+.endm
+
+; DDW
+;
+; Defines a double word (32-bit) numerical value.
+.macro .ddw
+    .dw (\1 & $FFFF), (\1 >> 16)
+.endm
+
+; MENU_COORDINATES
+;
+; Generates a 16-bit offset to a particular coordinate in a menu tilemap. The
+; first parameter is the X coordinate and the second is the Y coordinate.
+.macro MENU_COORDINATES
+    .dw (\1 * 2) + (\2 * 2 * 32)
+.endm
+
+; MONSTERSPRITE
+;
+; Calculates the four bytes to encode data used in drawing a monster's battle
+; sprite.
+.macro MONSTERSPRITE
+    .dw (\4 << 8) + (\1 << 7) + (\2 << 6) + \3, (\5 << 15) + ((:\6 - 9) << 12 )+ ((\6 - $8000) >> 3)
+.endm
+
+; LEVELUP
+;
+; Calculates the bytes needed to encode information about a level up.
+.macro LEVELUP
+    .db (\1 << 7) + (\2 << 6) + (\3 << 5) + (\4 << 4) + (\5 << 3) + \6, \7, \8 + ((\9 >> 16) << 5), \9 & $FF, (\9 & $FFFF) >> 8
+.endm
+
+; BATTLE_MENU_HDMA_END
+;
+; Calculates the address to the last 8 line block of battle menu HDMA data.
+.macro BATTLE_MENU_HDMA_END
+    .addr \1 + _sizeof_\1 - 32
+.endm
+
+; SHOP_PRICE
+;
+; Defines the price of an item at a shop.
+.macro SHOP_PRICE
+    .if \1 <= 1270
+        .db \1 / 10
+    .else
+        .db \1 / 1000 | %10000000
+    .endif
+.endm
+
+; STAT
+;
+; Describes a single stat gain for a level up.
+.macro STAT
+    .db (\1 << 7) + (\2 << 6) + (\3 << 5) + (\4 << 4) + (\5 << 3) + \6
+.endm
+
+; OAM
+;
+; Encodes an OAM table entry. This does not include any data that goes into the
+; high table.
+;   X coordinate: 8 bits
+;   Y coordinate: 8 bits
+;   Vertical flip: 1 bit
+;   Horizontal flip: 1 bit
+;   Priority: 2 bits
+;   Palette: 3 bits
+;   Name table: 1 bit
+;   Character: 8 bits
+.macro OAM
+    .dw (\2 << 8) | (\1 & $FF), ((\3 & $1) << 15) + ((\4 & $1) << 14) + ((\5 & $3) << 12) + ((\6 & $7) << 9) + ((\7 ^ $1) << 8) + \8
+.endm
+
+; TARGET_MAP
+;
+; Encodes a target map entry. There are two bytes, with the first being for the
+; up and down buttons, and the second being for the left and right buttons. The
+; values correspond to the slot that would become the next target if that button
+; is pressed (with each button getting four bits). The monster slots are
+; numbered 0-7, with the party slots taking 8-12. 15 is a special value.
+.macro TARGET_MAP
+    .dw (\3 << 12) | (\4 << 8) | (\1 << 4) | \2
+.endm
+
+; TILE
+;
+; Encodes data about a tile, intended for being copied to VRAM for non-mode 7
+; graphics. Parameters are, in order:
+;   Horizontal flip: 1 bit
+;   Vertical flip: 1 bit
+;   Priority: 1 bit
+;   Palette: 3 bits
+;   Tile Number: 10 bits
+.macro TILE
+    .dw ((\1 & $1) << 15) + ((\2 & $1) << 14) + ((\3 & $1) << 13) + ((\4 & $7) << 10) + (\5 & $3FF)
+.endm
+
+;
+; Constants
+;
+
+.define APPARITION_SET_EDWARD_TELLAH               $01
+.define APPARITION_SET_PALOM_POROM                 $02
+.define APPARITION_SET_YANG_CID                    $03
+.define APPARITION_SET_FUSOYA_GOLBEZ               $04
+.define APPARITION_SET_ANNA                        $05
+
+.define ALTERNATE_PARTY_SPRITE_MODE_DISABLED       $00
+.define ALTERNATE_PARTY_SPRITE_MODE_CALL           $01
+.define ALTERNATE_PARTY_SPRITE_MODE_INVISIBLE      $FF
+
+; These sound effects are generally named for their primary use, rather than what they're intended
+; to sound like. (Usage in events is generally the last item considered, as other uses such as
+; spells or weapons have more obvious in-game names.) For instance, the sound effect used for the
+; Lit spells is called AUDIO_EFFECT_LIT, rather than AUDIO_EFFECT_THUNDER, even though is is used
+; rather frequently in events as a generic thunder sound. Do note that several of these effects are
+; reused in places that bear little relation to their primary use, and this convention is just an
+; easy way to name things relatively consistently, rather than assigning names of my own.
+.define AUDIO_EFFECT_NONE                          $00
+.define AUDIO_EFFECT_INDRA                         $01
+.define AUDIO_EFFECT_MIST                          $02
+.define AUDIO_EFFECT_ODIN                          $03
+.define AUDIO_EFFECT_METEO                         $04
+.define AUDIO_EFFECT_EXPLODE                       $05
+.define AUDIO_EFFECT_CHOCB                         $06
+.define AUDIO_EFFECT_SWORD                         $07
+.define AUDIO_EFFECT_PUNCH                         $08
+.define AUDIO_EFFECT_BLACK_MAGIC                   $09
+.define AUDIO_EFFECT_UNKNOWN_0A                    $0A
+.define AUDIO_EFFECT_STAFF_ROD                     $0B
+.define AUDIO_EFFECT_EXIT                          $0C
+.define AUDIO_EFFECT_FIRE                          $0D
+.define AUDIO_EFFECT_LIT                           $0E
+.define AUDIO_EFFECT_STONE                         $0F
+.define AUDIO_EFFECT_MONSTER_DEATH                 $10
+.define AUDIO_EFFECT_ICE_2                         $11
+.define AUDIO_EFFECT_MAGNETIC_FIELD_ENABLE         $12
+.define AUDIO_EFFECT_WEAK                          $13
+.define AUDIO_EFFECT_SIZE_TOAD_PIGGY               $14
+.define AUDIO_EFFECT_MUTE                          $15
+.define AUDIO_EFFECT_ARROW_FIRING                  $16
+.define AUDIO_EFFECT_WHITE_MAGIC                   $17
+.define AUDIO_EFFECT_ARROW_HIT                     $18
+.define AUDIO_EFFECT_SHIVA                         $19
+.define AUDIO_EFFECT_CURE                          $1A
+.define AUDIO_EFFECT_SHORT_EXPLOSION               $1B
+.define AUDIO_EFFECT_STOP                          $1C
+.define AUDIO_EFFECT_ICE_1                         $1D
+.define AUDIO_EFFECT_WALL                          $1E
+.define AUDIO_EFFECT_FLOAT                         $1F
+.define AUDIO_EFFECT_QUAKE                         $20
+.define AUDIO_EFFECT_ESCAPE                        $21
+.define AUDIO_EFFECT_HEALING_POT                   $22
+.define AUDIO_EFFECT_CRUSH                         $23
+.define AUDIO_EFFECT_CHIME                         $24
+.define AUDIO_EFFECT_DART                          $25
+.define AUDIO_EFFECT_BAHAMUT                       $26
+.define AUDIO_EFFECT_LIFE                          $27
+.define AUDIO_EFFECT_DART_HIT                      $28
+.define AUDIO_EFFECT_FLOOD                         $29
+.define AUDIO_EFFECT_GENERIC_HIT                   $2A
+.define AUDIO_EFFECT_CASH_REGISTER                 $2B
+.define AUDIO_EFFECT_HAMMER                        $2C
+.define AUDIO_EFFECT_GLOBE199                      $2D
+.define AUDIO_EFFECT_FIRE3                         $2E
+.define AUDIO_EFFECT_OCEAN                         $2F
+.define AUDIO_EFFECT_TREASURE_CHEST                $30
+.define AUDIO_EFFECT_LARGE_DOOR                    $31
+.define AUDIO_EFFECT_AIRSHIP                       $32
+.define AUDIO_EFFECT_BIG_BANG                      $33
+.define AUDIO_EFFECT_CALL_MAGIC                    $34
+.define AUDIO_EFFECT_GLANCE                        $35
+.define AUDIO_EFFECT_LASER                         $36
+.define AUDIO_EFFECT_RECEIVE_ITEM                  $37
+.define AUDIO_EFFECT_FALLING                       $38
+.define AUDIO_EFFECT_AIRSHIP_REMODEL               $39
+.define AUDIO_EFFECT_HARP                          $3A
+.define AUDIO_EFFECT_FATAL                         $3B
+.define AUDIO_EFFECT_ALERT                         $3C
+.define AUDIO_EFFECT_JUMP                          $3D
+.define AUDIO_EFFECT_VIRUS                         $3E
+.define AUDIO_EFFECT_BATTLE_START                  $3F
+.define AUDIO_EFFECT_POWDER                        $40
+.define AUDIO_EFFECT_FAST                          $41
+.define AUDIO_EFFECT_MECHANICAL_HUM                $42
+.define AUDIO_EFFECT_PEEP                          $43
+.define AUDIO_EFFECT_SPLASH                        $44
+.define AUDIO_EFFECT_SMALL_DOOR                    $45
+.define AUDIO_EFFECT_TICKING_CLOCK                 $46
+.define AUDIO_EFFECT_WHIRLPOOL                     $47
+.define AUDIO_EFFECT_GIANT_STEP                    $48
+.define AUDIO_EFFECT_HUMMINGWAY                    $49
+.define AUDIO_EFFECT_BLK_HOLE                      $4A
+.define AUDIO_EFFECT_PACKAGE                       $4B
+.define AUDIO_EFFECT_WHISTLE                       $4C
+.define AUDIO_EFFECT_COMET                         $4D
+.define AUDIO_EFFECT_ABSORB                        $4E
+.define AUDIO_EFFECT_SYLPH                         $50
+.define AUDIO_EFFECT_LONG_FIRE                     $51
+.define AUDIO_EFFECT_SLAP                          $52
+.define AUDIO_EFFECT_CHARM_MONSTER                 $53
+.define AUDIO_EFFECT_RUMBLE                        $54
+.define AUDIO_EFFECT_POW                           $55
+.define AUDIO_EFFECT_SMOKE                         $56
+.define AUDIO_EFFECT_MAGNET                        $57
+.define AUDIO_EFFECT_MENU_CHIME                    $58
+.define AUDIO_EFFECT_MONSTER_TRANSFORM             $59
+.define AUDIO_EFFECT_HATCH                         $5A
+.define AUDIO_EFFECT_NEEDLE                        $5B
+.define AUDIO_EFFECT_SERPENT_ROAD_ACTIVATE         $5C
+.define AUDIO_EFFECT_MAGNETIC_FIELD_DISABLE        $5D
+.define AUDIO_EFFECT_DISINTEGRATE                  $5E
+.define AUDIO_EFFECT_FLARE                         $5F
+.define AUDIO_EFFECT_SERPENT_ROAD                  $60
+.define AUDIO_EFFECT_HOLD                          $61
+.define AUDIO_EFFECT_HOVERCRAFT                    $62
+.define AUDIO_EFFECT_ODIN_MONSTER                  $63
+.define AUDIO_EFFECT_ANTLION_STRIKE                $64
+.define AUDIO_EFFECT_DARK_WAVE                     $65
+.define AUDIO_EFFECT_HEAL                          $66
+.define AUDIO_EFFECT_VENOM                         $67
+.define AUDIO_EFFECT_DRAIN                         $68
+.define AUDIO_EFFECT_ICE_3                         $69
+.define AUDIO_EFFECT_NUKE                          $6A
+.define AUDIO_EFFECT_WARP                          $6B
+.define AUDIO_EFFECT_WHITE                         $6C
+.define AUDIO_EFFECT_DISPEL                        $6D
+.define AUDIO_EFFECT_BLINK                         $6E
+.define AUDIO_EFFECT_SLEEP                         $6F
+.define AUDIO_EFFECT_BERSK                         $70
+.define AUDIO_EFFECT_CHARM                         $71
+.define AUDIO_EFFECT_SLOW                          $72
+.define AUDIO_EFFECT_KICK                          $73
+.define AUDIO_EFFECT_CRY                           $74
+.define AUDIO_EFFECT_BLUFF                         $75
+.define AUDIO_EFFECT_PAN                           $76
+.define AUDIO_EFFECT_WEAPON_HOLY                   $77
+.define AUDIO_EFFECT_WEAPON_FIRE                   $78
+.define AUDIO_EFFECT_WEAPON_ICE                    $79
+.define AUDIO_EFFECT_WALK_POISON                   $7A
+.define AUDIO_EFFECT_WALK_DAMAGE                   $7B
+.define AUDIO_EFFECT_BOOMERANG                     $7C
+.define AUDIO_EFFECT_DRIPPING_WATER                $7D
+.define AUDIO_EFFECT_ACTIVATION_CHIME              $7E
+.define AUDIO_EFFECT_CRICKETS                      $7F
+
+.define AUDIO_MODE_NORMAL                          $01
+.define AUDIO_MODE_EFFECT                          $02
+.define AUDIO_MODE_NORMAL_2                        $03
+.define AUDIO_MODE_NORMAL_FADE_IN                  $04
+.define AUDIO_MODE_EFFECT_CURSOR                   $11 ; TODO: Really need to dig through the SPC code and figure out better names for parameters.
+.define AUDIO_MODE_EFFECT_ERROR                    $12
+.define AUDIO_MODE_EFFECT_BATTLE_COMMAND_1         $18
+.define AUDIO_MODE_EFFECT_BATTLE_COMMAND_2         $19
+.define AUDIO_MODE_VOLUME_FADE_OUT_SLOW            $85
+.define AUDIO_MODE_VOLUME_FADE_OUT                 $86
+.define AUDIO_MODE_VOLUME_FADE_QUIET_SLOW          $87
+.define AUDIO_MODE_VOLUME_NORMAL                   $88
+.define AUDIO_MODE_VOLUME_FADE_NORMAL_SLOW         $89
+.define AUDIO_MODE_VOLUME_QUIET                    $8A
+.define AUDIO_MODE_VOLUME_FADE_OUT_FAST            $8B
+.define AUDIO_MODE_SET_STEREO_MONO                 $90
+
+.define AUDIO_PAN_LEFT                             $00
+.define AUDIO_PAN_CENTER_LEFT                      $40
+.define AUDIO_PAN_CENTER                           $80
+.define AUDIO_PAN_CENTER_RIGHT                     $C0
+.define AUDIO_PAN_RIGHT                            $FF
+
+.define AUDIO_SPECIAL_MENU_ERROR                   $12
+.define AUDIO_SPECIAL_MENU_SELECT                  $13
+.define AUDIO_SPECIAL_MENU_MOVE                    $14
+
+.define AUDIO_TRACK_NONE                           $00
+.define AUDIO_TRACK_PROLOGUE                       $01
+.define AUDIO_TRACK_A_LONG_WAY_TO_GO               $02
+.define AUDIO_TRACK_UNUSED_FANFARE                 $03
+.define AUDIO_TRACK_CHOCOBO_CHOCOBO                $04
+.define AUDIO_TRACK_SAMBA_DE_CHOCOBO               $05
+.define AUDIO_TRACK_LAND_OF_DWARVES                $06
+.define AUDIO_TRACK_THE_FINAL_BATTLE               $07
+.define AUDIO_TRACK_FANFARE                        $08
+.define AUDIO_TRACK_WELCOME_TO_OUR_TOWN            $09
+.define AUDIO_TRACK_RYDIA                          $0A
+.define AUDIO_TRACK_BATTLE_WITH_THE_FOUR_FIENDS    $0B
+.define AUDIO_TRACK_MT_ORDEALS                     $0C
+.define AUDIO_TRACK_MAIN_THEME                     $0D
+.define AUDIO_TRACK_LUNAR_WHALE                    $0E
+.define AUDIO_TRACK_SORROW_AND_LOSS                $0F
+.define AUDIO_TRACK_GOOD_NIGHT                     $10
+.define AUDIO_TRACK_GOLBEZ_CLAD_IN_DARKNESS        $11
+.define AUDIO_TRACK_EDWARDS_HARP                   $12
+.define AUDIO_TRACK_THEME_OF_LOVE                  $13
+.define AUDIO_TRACK_KINGDOM_OF_BARON               $14
+.define AUDIO_TRACK_PRELUDE                        $15
+.define AUDIO_TRACK_SOMEWHERE_IN_THE_WORLD         $16
+.define AUDIO_TRACK_TOWER_OF_BABIL                 $17
+.define AUDIO_TRACK_THE_AIRSHIP                    $18
+.define AUDIO_TRACK_TOWER_OF_ZOT                   $19
+.define AUDIO_TRACK_BATTLE_2                       $1A
+.define AUDIO_TRACK_WITHIN_THE_GIANT               $1B
+.define AUDIO_TRACK_THE_LAND_OF_SUMMONS            $1C
+.define AUDIO_TRACK_BOMB_RING                      $1D
+.define AUDIO_TRACK_THE_LUNARIANS                  $1E
+.define AUDIO_TRACK_SURPRISE                       $1F
+.define AUDIO_TRACK_GIOTT_KING_OF_THE_DWARVES      $20
+.define AUDIO_TRACK_PALOM_AND_POROM                $21
+.define AUDIO_TRACK_DANCING_CALBRENA               $22
+.define AUDIO_TRACK_RUN                            $23
+.define AUDIO_TRACK_HEY_CID                        $24
+.define AUDIO_TRACK_INTO_THE_DARKNESS              $25
+.define AUDIO_TRACK_DANCER                         $26
+.define AUDIO_TRACK_BATTLE_1                       $27
+.define AUDIO_TRACK_DAMCYAN_CASTLE                 $28
+.define AUDIO_TRACK_GOOD_FANFARE                   $29
+.define AUDIO_TRACK_BAD_FANFARE                    $2A
+.define AUDIO_TRACK_CHOCOBO_FOREST                 $2B
+.define AUDIO_TRACK_THE_RED_WINGS                  $2C
+.define AUDIO_TRACK_SUSPICION                      $2D
+.define AUDIO_TRACK_FABUL                          $2E
+.define AUDIO_TRACK_LONG_FANFARE                   $2F
+.define AUDIO_TRACK_ENTER_FAT_CHOCOBO              $30
+.define AUDIO_TRACK_ANOTHER_MOON                   $31
+.define AUDIO_TRACK_TROIAN_BEAUTY                  $32
+.define AUDIO_TRACK_MYSTIC_MYSIDIA                 $33
+.define AUDIO_TRACK_LUNAR_SUBTERRANE               $34
+.define AUDIO_TRACK_EPILOGUE_1                     $35
+.define AUDIO_TRACK_EPILOGUE_2                     $36
+.define AUDIO_TRACK_EPILOGUE_3                     $37
+.define AUDIO_TRACK_AIRSHIP_RIGHT_TO_LEFT          $3E
+.define AUDIO_TRACK_SHIP_LAUNCH                    $3F
+.define AUDIO_TRACK_RUMBLING                       $42
+.define AUDIO_TRACK_FALLING_TONE                   $43
+.define AUDIO_TRACK_FLOWING_WATER                  $44
+
+.define AUDIO_TRACK_UNKNOWN_45                     $45 ; Seems entirely silent
+
+.define AUTO_BATTLE_INDEX_ZEMUS                    $0C
+.define AUTO_BATTLE_INDEX_ZEROMUS                  $0E
+
+.define BACKGROUND_PROPERTIES_COLOR_MATH        %00000001
+.define BACKGROUND_PROPERTIES_VERTICAL_SCROLL   %00000010
+.define BACKGROUND_PROPERTIES_HORIZONTAL_SCROLL %00000100
+.define BACKGROUND_PROPERTIES_MOVE_DIRECTION    %00110000
+.define BACKGROUND_PROPERTIES_SCROLL_SPEED      %11000000
+
+.define BATTLE_ACTION_FLAG_DART              %00001000
+.define BATTLE_ACTION_FLAG_WEAPON            %00010000
+.define BATTLE_ACTION_FLAG_MAGIC             %00100000
+.define BATTLE_ACTION_FLAG_ITEM              %01000000
+.define BATTLE_ACTION_FLAG_COMMAND           %10000000
+
+.define BATTLE_ACTION_DETAILS_ACTOR_FLAG_MONSTER  %10000000
+.define BATTLE_ACTION_DETAILS_ACTOR_FLAG_SILENT   %01000000
+
+.define BATTLE_ACTION_DETAILS_TARGET_FLAG_MONSTER %10000000
+.define BATTLE_ACTION_DETAILS_TARGET_FLAG_ALL     %01000000
+
+.define BATTLE_ACTION_DETAILS_ACTION_FLAG_CRITICAL %00000100
+.define BATTLE_ACTION_DETAILS_ACTION_FLAG_MISS     %00001000
+.define BATTLE_ACTION_DETAILS_ACTION_FLAG_COMMAND  %00010000
+.define BATTLE_ACTION_DETAILS_ACTION_FLAG_ITEM     %00100000
+.define BATTLE_ACTION_DETAILS_ACTION_FLAG_SPELL    %01000000
+.define BATTLE_ACTION_DETAILS_ACTION_FLAG_PHYSICAL %10000000
+
+.define BATTLE_ALERT_NOTHING_HAPPENED              $00
+.define BATTLE_ALERT_NOT_ENOUGH_MP                 $01
+.define BATTLE_ALERT_STRIKE_FIRST                  $02
+.define BATTLE_ALERT_SURPRISED                     $03
+.define BATTLE_ALERT_ATTACKED_FROM_BEHIND          $04
+.define BATTLE_ALERT_RAN_AWAY                      $05
+.define BATTLE_ALERT_DUMMY_9                       $09
+.define BATTLE_ALERT_SONG_OF_TOAD                  $0B
+.define BATTLE_ALERT_LULLABY                       $0C
+.define BATTLE_ALERT_SONG_OF_CHARM                 $0D
+.define BATTLE_ALERT_SONG_OF_SILENCE               $0E
+.define BATTLE_ALERT_DUMMY_F                       $0F
+.define BATTLE_ALERT_DUMMY_10                      $10
+.define BATTLE_ALERT_FAILED                        $11
+.define BATTLE_ALERT_DUMMY_12                      $12
+.define BATTLE_ALERT_DUMMY_13                      $13
+.define BATTLE_ALERT_NO_WEAK_POINTS_FOUND          $14
+.define BATTLE_ALERT_WEAK_AGAINST_FIRE             $15
+.define BATTLE_ALERT_FAILED_1B                     $1B
+.define BATTLE_ALERT_FAILED_1C                     $1C
+.define BATTLE_ALERT_FOUND                         $1D
+.define BATTLE_ALERT_HP_MAX_HP                     $1E
+.define BATTLE_ALERT_RECEIVED_GP                   $1F
+.define BATTLE_ALERT_RECEIVED_EXP                  $20
+.define BATTLE_ALERT_GAINED_A_LEVEL                $21
+.define BATTLE_ALERT_CANT_RUN                      $22
+.define BATTLE_ALERT_LEARNED                       $23
+.define BATTLE_ALERT_PERISHED                      $24
+.define BATTLE_ALERT_DAMAGED_BY_POISON             $35
+.define BATTLE_ALERT_DUMMY_36                      $36
+.define BATTLE_ALERT_DROPPED_GP                    $37
+.define BATTLE_ALERT_HP_RAN_OUT                    $38
+.define BATTLE_ALERT_DUMMY_39                      $39
+.define BATTLE_ALERT_DUMMY_3A                      $3A
+.define BATTLE_ALERT_NONE                          $FF
+
+.define BATTLE_ANIMATE_PHYSICAL_SPECIAL_ROD        $01
+.define BATTLE_ANIMATE_PHYSICAL_SPECIAL_DANCING    $02
+
+.define BATTLE_AUDIO_TRACK_NONE                    $03
+
+.define BATTLE_AUTO_COMMAND_BASE                   $C0
+.define BATTLE_AUTO_ITEM                           $01
+
+.define BATTLE_BACKGROUND_GRASSLAND                $00
+.define BATTLE_BACKGROUND_FOREST                   $01
+.define BATTLE_BACKGROUND_MOUNTAIN                 $02
+.define BATTLE_BACKGROUND_TOWN_CASTLE              $03
+.define BATTLE_BACKGROUND_WATERWAY_GROUND          $04
+.define BATTLE_BACKGROUND_MOON                     $05
+.define BATTLE_BACKGROUND_SHIP                     $06
+.define BATTLE_BACKGROUND_WATERWAY_WATER           $07
+.define BATTLE_BACKGROUND_CAVERN                   $08
+.define BATTLE_BACKGROUND_DESERT                   $09
+.define BATTLE_BACKGROUND_BEACH                    $0A
+.define BATTLE_BACKGROUND_MAGICAL_CAVE             $0B
+.define BATTLE_BACKGROUND_TOWER                    $0C
+.define BATTLE_BACKGROUND_LUNAR_SUBTERRANE         $0D
+.define BATTLE_BACKGROUND_LUNAR_CORE               $0E
+.define BATTLE_BACKGROUND_UNDERWORLD               $0F
+.define BATTLE_BACKGROUND_ZEROMUS                  $10
+
+.define BATTLE_BACKGROUND_MAGNETIC           %10000000
+.define BATTLE_BACKGROUND_WATER              %01000000
+.define BATTLE_BACKGROUND_ALTERNATE_PALETTE  %00100000
+.define BATTLE_BACKGROUND_BACKGROUND         %00011111
+
+.define BATTLE_BASE_TILE_SMALL                     $29 ; $229
+.define BATTLE_BASE_TILE_TOAD                      $2D ; $22D
+.define BATTLE_BASE_TILE_PIG                       $31 ; $231
+.define BATTLE_BASE_TILE_EGG                       $41 ; $241
+
+.define BATTLE_COMMAND_FIGHT                       $00
+.define BATTLE_COMMAND_ITEM                        $01
+.define BATTLE_COMMAND_WHITE                       $02
+.define BATTLE_COMMAND_BLACK                       $03
+.define BATTLE_COMMAND_CALL                        $04
+.define BATTLE_COMMAND_DARK_WAVE                   $05
+.define BATTLE_COMMAND_JUMP                        $06
+.define BATTLE_COMMAND_RECALL                      $07
+.define BATTLE_COMMAND_SING                        $08
+.define BATTLE_COMMAND_HIDE                        $09
+.define BATTLE_COMMAND_HEAL                        $0A
+.define BATTLE_COMMAND_PRAY                        $0B
+.define BATTLE_COMMAND_AIM                         $0C
+.define BATTLE_COMMAND_BUILD_UP                    $0D
+.define BATTLE_COMMAND_KICK                        $0E
+.define BATTLE_COMMAND_ENDURE                      $0F
+.define BATTLE_COMMAND_TWIN                        $10
+.define BATTLE_COMMAND_BLUFF                       $11
+.define BATTLE_COMMAND_CRY                         $12
+.define BATTLE_COMMAND_COVER                       $13
+.define BATTLE_COMMAND_PEEP                        $14
+.define BATTLE_COMMAND_DUMMY_15                    $15
+.define BATTLE_COMMAND_DART                        $16
+.define BATTLE_COMMAND_SNEAK                       $17
+.define BATTLE_COMMAND_NINJA                       $18
+.define BATTLE_COMMAND_BLESS                       $19
+.define BATTLE_COMMAND_CHANGE                      $1A
+.define BATTLE_COMMAND_PARRY                       $1B
+.define BATTLE_COMMAND_SHOW                        $1C
+.define BATTLE_COMMAND_OFF                         $1D
+.define BATTLE_COMMAND_LAND                        $1E
+.define BATTLE_COMMAND_RELEASE                     $1F
+.define BATTLE_COMMAND_TWIN_CAST                   $20
+.define BATTLE_COMMAND_WAIT                        $21
+.define BATTLE_COMMAND_BLESS_OFF                   $22
+
+.define BATTLE_COMMAND_FLAG_DISABLED          %10000000
+.define BATTLE_COMMAND_FLAG_TARGETING         %01110000
+.define BATTLE_COMMAND_FLAG_TARGETING_MONSTER %01000000
+.define BATTLE_COMMAND_FLAG_TARGETING_ALL     %00100000
+.define BATTLE_COMMAND_FLAG_TARGETING_MONSTER_ALL %01100000
+.define BATTLE_COMMAND_FLAG_TARGETING_SINGLE  %00010000
+.define BATTLE_COMMAND_FLAG_UNKNOWN_3         %00001000
+
+.define BATTLE_DAMAGE_RESTORE        %1000000000000000
+.define BATTLE_DAMAGE_MISS           %0100000000000000
+.define BATTLE_DAMAGE_UNKNOWN        %0100000000000000 ; Same as miss, but clearly not a miss.
+.define BATTLE_DAMAGE_VALUE          %0011111111111111
+
+.define BATTLE_DIALOG_BOX_INFO_MENU_MONSTER        $00
+.define BATTLE_DIALOG_BOX_INFO_MENU_CHARACTER      $01
+.define BATTLE_DIALOG_BOX_INFO_MENU_MENU           $02
+.define BATTLE_DIALOG_BOX_INFO_MONSTER             $03
+.define BATTLE_DIALOG_BOX_INFO_CHARACTER           $04
+.define BATTLE_DIALOG_BOX_INVENTORY                $05
+.define BATTLE_DIALOG_BOX_HAND_INVENTORY           $06
+.define BATTLE_DIALOG_BOX_CHARACTER_MP             $07
+.define BATTLE_DIALOG_BOX_PARRY                    $08
+.define BATTLE_DIALOG_BOX_CHANGE                   $09
+.define BATTLE_DIALOG_BOX_HP_STATUS_CHARACTER      $0A
+.define BATTLE_DIALOG_BOX_HP_STATUS_STATUS         $0B
+.define BATTLE_DIALOG_BOX_PAUSE                    $0C
+
+.define BATTLE_DIALOG_DMA_INFO_AREA                $00
+.define BATTLE_DIALOG_DMA_INFO_AREA_MENU           $01
+.define BATTLE_DIALOG_DMA_SPELL_LIST               $02
+.define BATTLE_DIALOG_DMA_INVENTORY_1              $03
+.define BATTLE_DIALOG_DMA_INVENTORY_2              $04
+.define BATTLE_DIALOG_DMA_INVENTORY_3              $05
+.define BATTLE_DIALOG_DMA_MP                       $06
+.define BATTLE_DIALOG_DMA_HAND_INVENTORY           $07
+.define BATTLE_DIALOG_DMA_HP_AND_STATUS            $08
+
+.define BATTLE_DIALOG_DMA_OFFSET_1                 $02
+.define BATTLE_DIALOG_DMA_OFFSET_2                 $08
+.define BATTLE_DIALOG_DMA_OFFSET_3                 $0E
+
+.define BATTLE_MENU_NONE                           $00
+.define BATTLE_MENU_COMMAND                        $01
+.define BATTLE_MENU_PARRY                          $02
+.define BATTLE_MENU_CHANGE                         $03
+.define BATTLE_MENU_TARGET_FIGHT                   $04
+.define BATTLE_MENU_INVENTORY                      $05 ; | TODO: Someday, disambiguate between this and the item/magic common code from bank $0D.
+.define BATTLE_MENU_MAGIC                          $06
+.define BATTLE_MENU_TARGET_COMMAND                 $07
+.define BATTLE_MENU_CLOSING                        $08
+.define BATTLE_MENU_OPENING_MAGIC                  $09
+.define BATTLE_MENU_CLOSING_MAGIC                  $0A
+.define BATTLE_MENU_HAND_INVENTORY                 $0B
+.define BATTLE_MENU_TARGET_ITEM_MAGIC              $0C
+.define BATTLE_MENU_CLOSING_INVENTORY              $0D
+.define BATTLE_MENU_CLOSING_HP_AND_STATUS_MAGIC    $0E
+.define BATTLE_MENU_OPENING_HP_AND_STATUS          $0F
+.define BATTLE_MENU_CLOSING_HP_AND_STATUS_ITEM     $10
+
+.define BATTLE_MENU_FLAG_1_MAIN              %00000001
+.define BATTLE_MENU_FLAG_1_COMMAND           %00000010
+.define BATTLE_MENU_FLAG_1_INVENTORY         %00000100
+.define BATTLE_MENU_FLAG_1_HAND_INVENTORY    %00001000
+.define BATTLE_MENU_FLAG_1_SPELL_LIST_1      %00010000
+.define BATTLE_MENU_FLAG_1_SPELL_LIST_2      %00100000
+.define BATTLE_MENU_FLAG_1_SPELL_LIST_3      %01000000
+.define BATTLE_MENU_FLAG_1_MP                %10000000
+.define BATTLE_MENU_FLAG_1_SPELL_AND_INVENTORY %01111100
+
+.define BATTLE_MENU_FLAG_2_PARRY_1           %00000001
+.define BATTLE_MENU_FLAG_2_PARRY_2           %00000010
+.define BATTLE_MENU_FLAG_2_PARRY_3           %00000100
+.define BATTLE_MENU_FLAG_2_PARRY_4           %00001000
+.define BATTLE_MENU_FLAG_2_PARRY_5           %00010000
+
+.define BATTLE_MENU_FLAG_3_CHANGE_1          %00000001
+.define BATTLE_MENU_FLAG_3_CHANGE_2          %00000010
+.define BATTLE_MENU_FLAG_3_CHANGE_3          %00000100
+.define BATTLE_MENU_FLAG_3_CHANGE_4          %00001000
+.define BATTLE_MENU_FLAG_3_CHANGE_5          %00010000
+
+.define BATTLE_MENU_FLAG_4_HP_AND_STATUS     %10000000
+
+.define BATTLE_MENU_TARGET_PARTY_BASE              $08
+.define BATTLE_MENU_TARGET_PARTY_ALL               $0D
+.define BATTLE_MENU_TARGET_MONSTER_ALL             $FF
+
+.define BATTLE_MENU_OPEN_COMMAND                   $02
+.define BATTLE_MENU_CLOSE_COMMAND                  $03
+.define BATTLE_MENU_OPEN_INVENTORY                 $04
+.define BATTLE_MENU_CLOSE_INVENTORY                $05
+.define BATTLE_MENU_OPEN_HAND_INVENTORY            $06
+.define BATTLE_MENU_CLOSE_HAND_INVENTORY           $07
+.define BATTLE_MENU_OPEN_MP                        $08
+.define BATTLE_MENU_CLOSE_MP                       $09
+.define BATTLE_MENU_OPEN_PARRY_1                   $0A
+.define BATTLE_MENU_CLOSE_PARRY_1                  $0B
+.define BATTLE_MENU_OPEN_PARRY_2                   $0C
+.define BATTLE_MENU_CLOSE_PARRY_2                  $0D
+.define BATTLE_MENU_OPEN_PARRY_3                   $0E
+.define BATTLE_MENU_CLOSE_PARRY_3                  $0F
+.define BATTLE_MENU_OPEN_PARRY_4                   $10
+.define BATTLE_MENU_CLOSE_PARRY_4                  $11
+.define BATTLE_MENU_OPEN_PARRY_5                   $12
+.define BATTLE_MENU_CLOSE_PARRY_5                  $13
+.define BATTLE_MENU_OPEN_CHANGE_1                  $14
+.define BATTLE_MENU_CLOSE_CHANGE_1                 $15
+.define BATTLE_MENU_OPEN_CHANGE_2                  $16
+.define BATTLE_MENU_CLOSE_CHANGE_2                 $17
+.define BATTLE_MENU_OPEN_CHANGE_3                  $18
+.define BATTLE_MENU_CLOSE_CHANGE_3                 $19
+.define BATTLE_MENU_OPEN_CHANGE_4                  $1A
+.define BATTLE_MENU_CLOSE_CHANGE_4                 $1B
+.define BATTLE_MENU_OPEN_CHANGE_5                  $1C
+.define BATTLE_MENU_CLOSE_CHANGE_5                 $1D
+.define BATTLE_MENU_OPEN_HP_AND_STATUS             $1E
+.define BATTLE_MENU_CLOSE_HP_AND_STATUS            $1F
+
+.define BATTLE_DIALOG_OPCODE_END                   $00
+.define BATTLE_DIALOG_OPCODE_NEXT_LINE             $01
+.define BATTLE_DIALOG_OPCODE_CHARACTER_SLOT_NAME   $02
+.define BATTLE_DIALOG_OPCODE_TILE                  $03
+.define BATTLE_DIALOG_OPCODE_CHARACTER_NAME        $04
+.define BATTLE_DIALOG_OPCODE_BLANKS                $05
+.define BATTLE_DIALOG_OPCODE_EXTENDED              $06
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_SLOT_0 $07
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_SLOT_1 $08
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_SLOT_2 $09
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_SLOT_3 $0A
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_SLOT_4 $0B
+.define BATTLE_DIALOG_OPCODE_MONSTER_NAME          $0C
+.define BATTLE_DIALOG_OPCODE_MONSTER_COUNT         $0D
+.define BATTLE_DIALOG_OPCODE_SET_TILE_FLAGS        $0E
+.define BATTLE_DIALOG_OPCODE_FIRST_DIRECT          $0F
+
+.define BATTLE_DIALOG_OPCODE_EXTENDED_NUMBER_1     $00
+.define BATTLE_DIALOG_OPCODE_EXTENDED_NUMBER_2     $01
+.define BATTLE_DIALOG_OPCODE_EXTENDED_CHARACTER_NAME $02
+.define BATTLE_DIALOG_OPCODE_EXTENDED_ITEM_NAME    $03
+.define BATTLE_DIALOG_OPCODE_EXTENDED_SPELL_NAME   $04
+.define BATTLE_DIALOG_OPCODE_EXTENDED_STATUS_NAME  $05
+
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_NAME   $00
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_HP     $01
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_HP_MAX $02
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_MP     $03
+.define BATTLE_DIALOG_OPCODE_CHARACTER_STAT_MP_MAX $04
+
+.define BATTLE_DIALOG_STAT_MONSTER_NAMES           $00
+.define BATTLE_DIALOG_STAT_CHARACTER_NAMES         $01
+.define BATTLE_DIALOG_STAT_CHARACTER_HP            $02
+.define BATTLE_DIALOG_STAT_CHARACTER_MP            $03
+
+.define BATTLE_DIALOG_INFO_MONSTER_NAMES           $00
+.define BATTLE_DIALOG_INFO_CHARACTER_NAMES         $01
+.define BATTLE_DIALOG_INFO_CHARACTER_HP            $02
+.define BATTLE_DIALOG_INFO_COMMAND_MENU            $03
+
+.define BATTLE_DIALOG_UPDATE_MAIN                  $02
+.define BATTLE_DIALOG_UPDATE_COMMAND               $03
+.define BATTLE_DIALOG_UPDATE_SPELL_LIST_1          $04
+.define BATTLE_DIALOG_UPDATE_SPELL_LIST_2          $05
+.define BATTLE_DIALOG_UPDATE_SPELL_LIST_3          $06
+.define BATTLE_DIALOG_UPDATE_INVENTORY             $07
+.define BATTLE_DIALOG_UPDATE_MP                    $08
+.define BATTLE_DIALOG_UPDATE_HAND_INVENTORY        $09
+.define BATTLE_DIALOG_UPDATE_HP_AND_STATUS         $0C
+
+.define BATTLE_EFFECT_PATTERN_SINGLE_TILE          $21
+.define BATTLE_EFFECT_PATTERN_SINGLE_TILE_60       $22
+
+.define BATTLE_SPELL_SPRITE_PATTERN_FIXED          $00
+.define BATTLE_SPELL_SPRITE_PATTERN_BLOCK          $01
+.define BATTLE_SPELL_SPRITE_PATTERN_RANDOM         $02
+.define BATTLE_SPELL_SPRITE_PATTERN_FIRE3          $03
+.define BATTLE_SPELL_SPRITE_PATTERN_ROTATING_PAIR  $04
+
+.define BATTLE_SPELL_SPECIAL_MODE_NONE             $00
+.define BATTLE_SPELL_SPECIAL_MODE_QUAKE            $01
+.define BATTLE_SPELL_SPECIAL_MODE_PARTY_FIELD      $02
+.define BATTLE_SPELL_SPECIAL_MODE_MONSTER_FIELD    $03
+.define BATTLE_SPELL_SPECIAL_MODE_METEO            $04
+.define BATTLE_SPELL_SPECIAL_MODE_JINN             $05
+.define BATTLE_SPELL_SPECIAL_MODE_BOMB             $06
+.define BATTLE_SPELL_SPECIAL_MODE_BIG_BANG         $07
+
+.define BATTLE_MONSTER_TRANSITION_NONE             $00
+.define BATTLE_MONSTER_TRANSITION_ALERT            $01
+.define BATTLE_MONSTER_TRANSITION_LIFE             $02
+.define BATTLE_MONSTER_TRANSITION_SWAP             $03
+.define BATTLE_MONSTER_TRANSITION_RETREAT          $04
+.define BATTLE_MONSTER_TRANSITION_EXPLODE          $05
+
+.define BATTLE_FLASH_MODE_CONTINUOUS               $01 ; These names are all TODO and best guesses as to functionality.
+.define BATTLE_FLASH_MODE_PULSE                    $02
+.define BATTLE_FLASH_MODE_SINGLE                   $03
+.define BATTLE_FLASH_MODE_FADE_IN                  $04
+.define BATTLE_FLASH_MODE_FADE_OUT                 $05
+.define BATTLE_FLASH_MODE_PULSE_2                  $06 ; Doesn't seem different than 2 at all.
+
+.define BATTLE_FORMATION_USE_ALTERNATE_SCRIPTS %10000000
+
+.define BATTLE_FORMATION_ELEMENTS                $00DC
+.define BATTLE_FORMATION_CPU                     $00DD
+.define BATTLE_FORMATION_D_MIST                  $00DE
+.define BATTLE_FORMATION_OCTOMAMM                $00DF
+.define BATTLE_FORMATION_ANTLION                 $00E0
+.define BATTLE_FORMATION_MOMBOMB                 $00E1
+.define BATTLE_FORMATION_MILON                   $00E2
+.define BATTLE_FORMATION_MILON_Z                 $00E3
+.define BATTLE_FORMATION_BAIGAN                  $00E4
+.define BATTLE_FORMATION_KAINAZZO                $00E5
+.define BATTLE_FORMATION_DARK_ELF_INITIAL        $00E6
+.define BATTLE_FORMATION_DARK_ELF                $00E7
+.define BATTLE_FORMATION_MAGUS_SISTERS           $00E8
+.define BATTLE_FORMATION_VALVALIS                $00EA
+.define BATTLE_FORMATION_FLOATEYE_INTRO          $00EB
+.define BATTLE_FORMATION_GIRL                    $00EC
+.define BATTLE_FORMATION_OFFICER_SOLDIERS        $00ED
+.define BATTLE_FORMATION_BARD                    $00EE
+.define BATTLE_FORMATION_WATERHAG                $00EF
+.define BATTLE_FORMATION_IMP_CAP_YANG            $00F0
+.define BATTLE_FORMATION_DRAGOON                 $00F1
+.define BATTLE_FORMATION_KARATE                  $00F2
+.define BATTLE_FORMATION_GOLBEZ_TELLAH           $00F3
+.define BATTLE_FORMATION_DUMMY                   $00F4
+.define BATTLE_FORMATION_RAVEN_INTRO             $00F5
+.define BATTLE_FORMATION_D_KNIGHT                $00F6
+.define BATTLE_FORMATION_FABUL_GENERAL           $00F7
+.define BATTLE_FORMATION_FABUL_WEEPER            $00F8
+.define BATTLE_FORMATION_FABUL_GARGOYLE          $00F9
+.define BATTLE_FORMATION_GUARDS                  $00FA
+.define BATTLE_FORMATION_ODIN                    $00FB
+.define BATTLE_FORMATION_DARK_ELF_YOU_FOOLS      $00FC
+.define BATTLE_FORMATION_RUBICANT_EDGE           $00FD
+.define BATTLE_FORMATION_EBLAN                   $00FE
+.define BATTLE_FORMATION_RUBICANT                $00FF
+.define BATTLE_FORMATION_DARK_IMPS               $0100
+.define BATTLE_FORMATION_TRAP_DOOR_MANTCORE_1    $015C
+.define BATTLE_FORMATION_TRAP_DOOR_MANTCORE_2    $015D
+.define BATTLE_FORMATION_TRAP_DOOR_YELLOW_D_1    $015E
+.define BATTLE_FORMATION_TRAP_DOOR_YELLOW_D_2    $015F
+.define BATTLE_FORMATION_BEHEMOTH_BOSS           $0198
+.define BATTLE_FORMATION_CALBRENA                $01A7
+.define BATTLE_FORMATION_GOLBEZ_UNUSED           $01A8
+.define BATTLE_FORMATION_LUGAE1                  $01A9
+.define BATTLE_FORMATION_LEVIATAN                $01AD
+.define BATTLE_FORMATION_BAHAMUT                 $01AE
+.define BATTLE_FORMATION_EVILWALL                $01AF
+.define BATTLE_FORMATION_ASURA                   $01B0
+.define BATTLE_FORMATION_ZEMUS                   $01B3
+.define BATTLE_FORMATION_ZEROMUS_INITIAL         $01B4
+.define BATTLE_FORMATION_LUGAE2                  $01B5
+.define BATTLE_FORMATION_GOLBEZ_SHADOW           $01B6
+.define BATTLE_FORMATION_ZEROMUS_FINAL           $01B7
+.define BATTLE_FORMATION_DUMMY_2                 $01B8
+.define BATTLE_FORMATION_FIRST_TRAPPED_CHEST     $01C0
+.define BATTLE_FORMATION_OGOPOGO                 $01FA
+.define BATTLE_FORMATION_PALE_DIM                $01FB
+.define BATTLE_FORMATION_WYVERN                  $01FC
+.define BATTLE_FORMATION_D_LUNAR                 $01FD
+.define BATTLE_FORMATION_PLAGUE                  $01FE
+
+.define BATTLE_INITIAL_ATB_TYPE_NORMAL             $00
+.define BATTLE_INITIAL_ATB_TYPE_STRIKE_FIRST       $01
+.define BATTLE_INITIAL_ATB_TYPE_SURPRISED          $80
+
+.define BATTLE_INVENTORY_FLAG_DISABLED          %10000000
+.define BATTLE_INVENTORY_FLAG_TARGETING         %01110000
+.define BATTLE_INVENTORY_FLAG_TARGETING_MONSTER %01000000
+.define BATTLE_INVENTORY_FLAG_TARGETING_ALL     %00100000
+.define BATTLE_INVENTORY_FLAG_TARGETING_MONSTER_ALL %01100000
+.define BATTLE_INVENTORY_FLAG_TARGETING_SINGLE  %00010000
+.define BATTLE_INVENTORY_FLAG_DARTABLE          %00000100
+
+.define BATTLE_MENU_UPDATE_MODE_NONE               $00
+.define BATTLE_MENU_UPDATE_MODE_OPEN_CLOSE         $01
+.define BATTLE_MENU_UPDATE_MODE_SCROLL_DOWN        $02
+.define BATTLE_MENU_UPDATE_MODE_SCROLL_UP          $03
+
+.define BATTLE_PALETTE_FLASH                       $07
+
+.define BATTLE_PALETTE_OFFSET_MONSTER_DEATH     5 * 16
+
+.define BATTLE_POSE_BASE_SMALL                     $10
+.define BATTLE_POSE_BASE_TOAD                      $20
+.define BATTLE_POSE_BASE_GOLBEZ                    $30
+.define BATTLE_POSE_BASE_PIG                       $40
+
+.define BATTLE_SPELL_BLOCK_FIRST_FIXED_SIZE        $15
+
+.define BATTLE_SPELL_BLOCK_UNKNOWN_14              $14
+
+.define BATTLE_SPELL_TILE_BASE_METEO               $8C
+.define BATTLE_SPELL_TILE_BASE_COMET               $E4
+
+.define BATTLE_SPELL_TILE_OFFSET_WALL_UPPER      $0440
+.define BATTLE_SPELL_TILE_OFFSET_WALL_LOWER      $0460
+
+.define BATTLE_SPELL_TILE_COMPOSITION_TILE            $3FFF
+.define BATTLE_SPELL_TILE_COMPOSITION_HORIZONTAL_FLIP $4000
+.define BATTLE_SPELL_TILE_COMPOSITION_VERTICAL_FLIP   $8000
+
+.define BATTLE_STATUS_CONTINUE               %00000000
+.define BATTLE_STATUS_STALEMATE              %00000100
+.define BATTLE_STATUS_PERISHED_SCRIPTED      %00001000
+.define BATTLE_STATUS_SPOILS                 %00010000
+.define BATTLE_STATUS_VICTORY                %00100000
+.define BATTLE_STATUS_RAN_AWAY               %01000000
+.define BATTLE_STATUS_PERISHED               %10000000
+
+.define BATTLE_SWAP_INVENTORY_MODE_DIRECT            $00
+.define BATTLE_SWAP_INVENTORY_MODE_FROM_HAND         $01
+.define BATTLE_SWAP_INVENTORY_MODE_TO_DIFFERENT_HAND $02
+.define BATTLE_SWAP_INVENTORY_MODE_ARROW_TO_HAND     $03
+.define BATTLE_SWAP_INVENTORY_MODE_TO_EMPTY_HAND     $04
+
+.define BATTLE_UPDATE_DIALOG_DISPATCH_MODE_SWAP_INVENTORY $08
+.define BATTLE_UPDATE_DIALOG_DISPATCH_MODE_SWAP_HAND_INVENTORY $09
+
+.define BATTLE_SPELL_FLAG_NO_CAST            %10000000
+.define BATTLE_SPELL_FLAG_TARGETING          %01110000
+
+.define BATTLE_PAUSE_STATE_STEADY       $00
+.define BATTLE_PAUSE_STATE_PAUSING      $01
+.define BATTLE_PAUSE_STATE_UNPAUSING    $02
+
+.define BATTLE_PAUSE_TIMER_MAXIMUM      $0F
+.define BATTLE_PAUSE_TIMER_MINIMUM      $04
+
+.define BATTLE_POSE_NO_OVERRIDE                    $00
+.define BATTLE_POSE_INVISIBLE                      $00
+.define BATTLE_POSE_NORMAL                         $01
+.define BATTLE_POSE_PARRYING                       $02
+.define BATTLE_POSE_WALKING                        $03
+.define BATTLE_POSE_CROUCHING                      $04
+.define BATTLE_POSE_SWINGING_RIGHT_ARM             $05
+.define BATTLE_POSE_SWINGING_LEFT_ARM              $06
+.define BATTLE_POSE_REELING                        $07
+.define BATTLE_POSE_CHEERING                       $08
+.define BATTLE_POSE_SWOON                          $09
+.define BATTLE_POSE_CASTING_ANIMATED               $0A
+.define BATTLE_POSE_CASTING                        $0B
+.define BATTLE_POSE_RAISED_LEFT_ARM                $0C ; TODO: Needs better name, varies by character
+.define BATTLE_POSE_RAISED_RIGHT_ARM               $0D ; TODO: Needs better name, varies by character
+.define BATTLE_POSE_SPECIAL                        $0E
+.define BATTLE_POSE_SPECIAL_2                      $0F
+
+.define BATTLE_POSE_MONSTER_NORMAL                 $00
+.define BATTLE_POSE_MONSTER_PARRYING               $01
+.define BATTLE_POSE_MONSTER_WALKING                $02
+.define BATTLE_POSE_MONSTER_CROUCHING              $03
+.define BATTLE_POSE_MONSTER_RAISED_RIGHT_ARM       $04
+.define BATTLE_POSE_MONSTER_FORWARD_LEFT_ARM       $05
+.define BATTLE_POSE_MONSTER_RAISED_LEFT_ARM        $06
+.define BATTLE_POSE_MONSTER_REELING                $07
+.define BATTLE_POSE_MONSTER_CHEERING               $08
+.define BATTLE_POSE_MONSTER_UNKNOWN_09             $09
+.define BATTLE_POSE_MONSTER_INVISIBLE              $0A
+.define BATTLE_POSE_MONSTER_CASTING                $0B
+.define BATTLE_POSE_MONSTER_SPECIAL                $0C
+.define BATTLE_POSE_MONSTER_SPECIAL_2              $0D
+
+.define BATTLE_POSE_FRAME_SWOON                    $09
+.define BATTLE_POSE_FRAME_INVISIBLE                $1E
+.define BATTLE_POSE_FRAME_SPECIAL                  $24
+
+.define BATTLE_SPELL_ALIGNMENT_CENTERED            $00
+.define BATTLE_SPELL_ALIGNMENT_BOTTOM              $01
+.define BATTLE_SPELL_ALIGNMENT_TOP                 $02
+.define BATTLE_SPELL_ALIGNMENT_ABOVE               $03
+
+.define BATTLE_SPELL_SIZE_QUAKE                    $03
+.define BATTLE_SPELL_SIZE_12_BY_9                  $04
+.define BATTLE_SPELL_SIZE_16_BY_9                  $05
+.define BATTLE_SPELL_SIZE_FIRE                     $0D
+.define BATTLE_SPELL_SIZE_COLDMIST                 $0E
+
+.define BATTLE_TARGET_MONSTER_ALL            %11111111
+.define BATTLE_TARGET_PARTY_ALL              %11111000
+
+.define BATTLE_UPDATE_MODE_COMMAND_MENU_OPEN       $00
+.define BATTLE_UPDATE_MODE_COMMAND_MENU_CLOSE      $01
+.define BATTLE_UPDATE_MODE_NEXT_FRAME_ACTIVE       $02
+.define BATTLE_UPDATE_MODE_ANIMATE_BATTLE_START    $03
+.define BATTLE_UPDATE_MODE_CHANGE_ROWS             $04
+.define BATTLE_UPDATE_MODE_ANIMATE_AUDIOVISUAL     $05
+.define BATTLE_UPDATE_MODE_INVENTORY_ENTRY         $06
+.define BATTLE_UPDATE_MODE_SPELL_LIST_ENTRY        $07
+.define BATTLE_UPDATE_MODE_HAND_INVENTORY_ENTRY    $08
+.define BATTLE_UPDATE_MODE_COMMAND_MENU_ENTRIES    $09
+.define BATTLE_UPDATE_MODE_CHARACTER_NAMES         $0A
+.define BATTLE_UPDATE_MODE_MONSTER_NAMES           $0B
+.define BATTLE_UPDATE_MODE_CHARACTER_HP            $0C
+.define BATTLE_UPDATE_MODE_CHARACTER_MP            $0D
+.define BATTLE_UPDATE_MODE_SPELL_LIST_PALETTES     $0E
+.define BATTLE_UPDATE_MODE_NEXT_FRAME              $0F
+.define BATTLE_UPDATE_MODE_MONSTER_DEATH           $10
+.define BATTLE_UPDATE_MODE_DAMAGE                  $11
+.define BATTLE_UPDATE_MODE_PARTY_VICTORY           $12
+.define BATTLE_UPDATE_MODE_PARTY_RUN               $13
+.define BATTLE_UPDATE_MODE_MONSTER_BACK_ROW        $14
+.define BATTLE_UPDATE_MODE_FINALIZE_DIALOGS        $15
+
+.define BATTLE_WEAPON_EFFECT_HOLY                  $04
+.define BATTLE_WEAPON_EFFECT_ICE                   $05
+.define BATTLE_WEAPON_EFFECT_FIRE                  $06
+.define BATTLE_WEAPON_EFFECT_LIGHTNING             $07
+
+.define BATTLE_WEAPON_VISUAL_EFFECT_BOW            $04
+.define BATTLE_WEAPON_VISUAL_EFFECT_ARROW          $05
+
+.define BATTLE_WEAPON_SPRITE_FULLMOON              $11
+
+.define BATTLE_COORDINATE_X_PARTY_CHARM            $B0
+.define BATTLE_COORDINATE_X_PARTY_ACTING           $C0
+.define BATTLE_COORDINATE_X_PARTY_FRONT_ROW        $D0
+.define BATTLE_COORDINATE_X_PARTY_BACK_ROW         $E0
+.define BATTLE_COORDINATE_X_PARTY_RIGHT_EXIT       $F0
+
+.define BATTLE_COORDINATE_X_CURSOR_CHANGE          $0C
+.define BATTLE_COORDINATE_X_CURSOR_COMMAND         $28
+.define BATTLE_COORDINATE_X_CURSOR_PARRY           $4C
+
+.define CHARACTER_NONE                             $00
+.define CHARACTER_CECIL_1                          $01
+.define CHARACTER_KAIN_1                           $02
+.define CHARACTER_RYDIA_1                          $03
+.define CHARACTER_TELLAH_1                         $04
+.define CHARACTER_EDWARD                           $05
+.define CHARACTER_ROSA_1                           $06
+.define CHARACTER_YANG_1                           $07
+.define CHARACTER_PALOM                            $08
+.define CHARACTER_POROM                            $09
+.define CHARACTER_TELLAH_2                         $0A
+.define CHARACTER_CECIL_2                          $0B
+.define CHARACTER_TELLAH_3                         $0C
+.define CHARACTER_YANG_2                           $0D
+.define CHARACTER_CID                              $0E
+.define CHARACTER_KAIN_2                           $0F
+.define CHARACTER_ROSA_2                           $10
+.define CHARACTER_RYDIA_2                          $11
+.define CHARACTER_EDGE                             $12
+.define CHARACTER_FUSOYA                           $13
+.define CHARACTER_KAIN_3                           $14
+.define CHARACTER_GOLBEZ                           $15
+.define CHARACTER_ANNA                             $16
+
+.define CHARACTER_LOAD_FROM_SHADOW           %10000000
+.define CHARACTER_SAVE_DISCARD               %10000000
+.define CHARACTER_SAVE_TO_SHADOW             %00000000
+
+.define CHARACTER_STATS_CECIL_DKNIGHT              $00
+.define CHARACTER_STATS_KAIN                       $01
+.define CHARACTER_STATS_RYDIA                      $02
+.define CHARACTER_STATS_TELLAH                     $03
+.define CHARACTER_STATS_EDWARD                     $04
+.define CHARACTER_STATS_ROSA                       $05
+.define CHARACTER_STATS_YANG                       $06
+.define CHARACTER_STATS_PALOM                      $07
+.define CHARACTER_STATS_POROM                      $08
+.define CHARACTER_STATS_CECIL_PALADIN              $09
+.define CHARACTER_STATS_CID                        $0A
+.define CHARACTER_STATS_EDGE                       $0B
+.define CHARACTER_STATS_FUSOYA                     $0C
+.define CHARACTER_STATS_GOLBEZ                     $0D
+
+.define CHARACTER_NAME_CECIL                       $00
+.define CHARACTER_NAME_KAIN                        $01
+.define CHARACTER_NAME_RYDIA                       $02
+.define CHARACTER_NAME_TELLAH                      $03
+.define CHARACTER_NAME_EDWARD                      $04
+.define CHARACTER_NAME_ROSA                        $05
+.define CHARACTER_NAME_YANG                        $06
+.define CHARACTER_NAME_PALOM                       $07
+.define CHARACTER_NAME_POROM                       $08
+.define CHARACTER_NAME_CID                         $09
+.define CHARACTER_NAME_EDGE                        $0A
+.define CHARACTER_NAME_FUSOYA                      $0B
+.define CHARACTER_NAME_GOLBEZ                      $0C
+.define CHARACTER_NAME_ANNA                        $0D
+.define CHARACTER_NAME_UNUSED_0E                   $0E
+.define CHARACTER_NAME_UNUSED_0F                   $0F
+
+.define CHARACTER_VISUAL_FLAG_REVERSE        %00000001
+.define CHARACTER_VISUAL_FLAG_UNKNOWN1       %00000010
+.define CHARACTER_VISUAL_FLAG_UNKNOWN2       %00000100
+.define CHARACTER_VISUAL_FLAG_UNKNOWN3       %00001000
+.define CHARACTER_VISUAL_FLAG_TOAD           %00010000
+.define CHARACTER_VISUAL_FLAG_RETREATING     %00100000
+.define CHARACTER_VISUAL_FLAG_LARGE          %01000000
+.define CHARACTER_VISUAL_FLAG_UNKNOWN7       %10000000
+
+.define CLASS_KARATE                               $06
+.define CLASS_CALLER                               $0B
+.define CLASS_PIG                                  $0E ; Not really a class, only used for sprite purposes.
+.define CLASS_GOLBEZ                               $0F ; Again, used for sprite purposes.
+
+.define COLOR_MASK_RED               %0000000000011111
+.define COLOR_MASK_GREEN             %0000001111100000
+.define COLOR_MASK_BLUE              %0111110000000000
+
+.define COMMAND_MENU_STATUS_NONE                   $00
+.define COMMAND_MENU_STATUS_PENDING_OPEN           $01
+.define COMMAND_MENU_STATUS_PENDING_CLOSE          $02
+
+.define CONDITIONAL_EVENT_ENTERPRISE_OVERWORLD       $2D
+.define CONDITIONAL_EVENT_ENTERPRISE_UNDERWORLD      $2F
+.define CONDITIONAL_EVENT_BIG_WHALE_CONSOLE          $52
+.define CONDITIONAL_EVENT_INDEX_BOARD_BIG_WHALE      $54
+
+.define CUSTOM_EFFECT_RED_WINGS_NORTH_ORDEALS        $00
+.define CUSTOM_EFFECT_RED_WINGS_BARON_LANDING        $01
+.define CUSTOM_EFFECT_BOMB_SWIRL                     $02
+.define CUSTOM_EFFECT_DAMCYAN_BOMBING                $03
+.define CUSTOM_EFFECT_GIRL_BATTLE_AND_TITAN          $04
+.define CUSTOM_EFFECT_SET_TENT_CABIN_SPRITE          $05
+.define CUSTOM_EFFECT_SPARKLE_SWIRL                  $06
+.define CUSTOM_EFFECT_MIST_SWIRL                     $07
+.define CUSTOM_EFFECT_CIRCLING_BOMBS                 $08
+.define CUSTOM_EFFECT_PROLOGUE                       $09
+.define CUSTOM_EFFECT_MAP_HISTORY_POP                $0A
+.define CUSTOM_EFFECT_MAP_HISTORY_RESET              $0B
+.define CUSTOM_EFFECT_GENERAL_BOMBING                $0C
+.define CUSTOM_EFFECT_ENABLE_SHIP                    $0D
+.define CUSTOM_EFFECT_AGART_EXPLOSION                $0E
+.define CUSTOM_EFFECT_LEVIATAN_TAIL                  $0F
+.define CUSTOM_EFFECT_LEVIATAN_RISES                 $10
+.define CUSTOM_EFFECT_LEVIATAN_SWALLOWS_SHIP         $11
+.define CUSTOM_EFFECT_RED_AIRSHIP_FROM_RIGHT         $12
+.define CUSTOM_EFFECT_RED_AIRSHIP_TO_LEFT            $13
+.define CUSTOM_EFFECT_ENTERPRISE_RED_AIRSHIP_RISING  $14
+.define CUSTOM_EFFECT_LAND_ENTERPRISE                $15
+.define CUSTOM_EFFECT_UNDERGROUND_TANKS_VS_AIRSHIPS  $16
+.define CUSTOM_EFFECT_DOWNWARD_AIRSHIP_CHASE         $17
+.define CUSTOM_EFFECT_RIGHTWARD_AIRSHIP_CHASE        $18
+.define CUSTOM_EFFECT_BARON_ANTECHAMBER_SHRINK_1     $19
+.define CUSTOM_EFFECT_BARON_ANTECHAMBER_SHRINK_2     $1A
+.define CUSTOM_EFFECT_BARON_ANTECHAMBER_SHRINK_3     $1B
+.define CUSTOM_EFFECT_MOVE_ENTERPRISE_TO_BARON       $1C
+.define CUSTOM_EFFECT_UNDO_MAP_HISTORY               $1D
+.define CUSTOM_EFFECT_SMALL_EXPLOSION_TOP            $1E
+.define CUSTOM_EFFECT_BIG_WHALE_WHIRLPOOL_RAISING    $1F
+.define CUSTOM_EFFECT_BIG_WHALE_TO_EARTH_EBLAN       $20
+.define CUSTOM_EFFECT_GIANT_ATTACKING                $21
+.define CUSTOM_EFFECT_GIANT_TANKS_APPROACH           $22
+.define CUSTOM_EFFECT_GIANT_AIRSHIPS_APPROACH        $23
+.define CUSTOM_EFFECT_GIANT_EXPLOSIONS               $24
+.define CUSTOM_EFFECT_GIANT_AIRSHIP_LAND_WHALE       $25
+.define CUSTOM_EFFECT_GIANT_AIRSHIP_FLY_LEFT         $26
+.define CUSTOM_EFFECT_GIANT_AIRSHIP_TO_GIANT         $27
+.define CUSTOM_EFFECT_MOVE_ENTERPRISE_TO_DWARF       $28
+.define CUSTOM_EFFECT_BIG_WHALE_WHIRLPOOL_INTRO      $29
+.define CUSTOM_EFFECT_BIG_WHALE_WHIRLPOOL_FINISH     $2A
+.define CUSTOM_EFFECT_ENTERPRISE_RISING              $2B
+.define CUSTOM_EFFECT_ENTERPRISE_LOWERING            $2C
+.define CUSTOM_EFFECT_FLY_BIG_WHALE                  $2D
+.define CUSTOM_EFFECT_HIDE_ENTERPRISE                $2E
+.define CUSTOM_EFFECT_BIG_WHALE_EARTH_MOON_TRAVEL    $2F
+.define CUSTOM_EFFECT_BIG_WHALE_TO_MOON              $30
+.define CUSTOM_EFFECT_CPU_EXPLOSION                  $31
+.define CUSTOM_EFFECT_LEGEND                         $32
+.define CUSTOM_EFFECT_SIGHT                          $33
+.define CUSTOM_EFFECT_AGART_TELESCOPE                $34
+.define CUSTOM_EFFECT_BIG_WHALE_WHIRLPOOL_DESCENT    $35
+.define CUSTOM_EFFECT_BABIL_EXPLOSIONS               $36
+.define CUSTOM_EFFECT_ENDING_LEGEND                  $37
+.define CUSTOM_EFFECT_ENDING_MOON                    $38
+.define CUSTOM_EFFECT_ENDING_CREDITS                 $39
+.define CUSTOM_EFFECT_SMALL_EXPLOSION_CENTER         $3A
+.define CUSTOM_EFFECT_ENTERPRISE_LEFT_DIVE           $3B
+.define CUSTOM_EFFECT_RESET                          $3C
+.define CUSTOM_EFFECT_AUDIO_FADE_QUIET_SLOW          $3D
+.define CUSTOM_EFFECT_AUDIO_FADE_NORMAL_SLOW         $3E
+.define CUSTOM_EFFECT_EVERYBODY_SWOON_BUT_CECIL      $3F
+.define CUSTOM_EFFECT_GIANT_EXPLOSION                $40
+
+.if FF4_REGION == "JAPAN"
+    .define DIALOG_FIRST_CHARACTER_X_COORDINATE      $04
+    .define DIALOG_ITEM_WIDTH                        $08
+    .define DIALOG_TEXT_WIDTH                        $18
+    .define DIALOG_ITEM_OFFSET_COLON                 $08
+    .define DIALOG_ITEM_OFFSET_DIGIT_1               $09
+    .define DIALOG_ITEM_OFFSET_DIGIT_2               $0A
+.else
+    .define DIALOG_FIRST_CHARACTER_X_COORDINATE      $03
+    .define DIALOG_ITEM_WIDTH                        $09
+    .define DIALOG_TEXT_WIDTH                        $1A
+    .define DIALOG_ITEM_OFFSET_COLON                 $09
+    .define DIALOG_ITEM_OFFSET_DIGIT_1               $0A
+    .define DIALOG_ITEM_OFFSET_DIGIT_2               $0B
+.endif
+
+.define DIALOG_CLOSE_MODE_MANUAL                   $01
+.define DIALOG_CLOSE_MODE_AUTO                     $02
+
+.define DIALOG_OPCODE_END_MESSAGE                  $00
+.define DIALOG_OPCODE_END_LINE                     $01
+.define DIALOG_OPCODE_INSERT_BLANKS                $02
+.define DIALOG_OPCODE_PLAY_SONG                    $03
+.define DIALOG_OPCODE_CHARACTER_NAME               $04
+.define DIALOG_OPCODE_SET_DELAY                    $05
+.define DIALOG_OPCODE_END_MESSAGE_AUTO             $06
+.define DIALOG_OPCODE_CURRENT_ITEM_NAME            $07
+.define DIALOG_OPCODE_CURRENT_NUMBER               $08
+.define DIALOG_OPCODE_NEW_LINE                     $09
+.define DIALOG_OPCODE_SPECIAL_PERIOD               $0A
+.define DIALOG_OPCODE_FIRST_DIACRITIC              $0F
+.define DIALOG_OPCODE_SPACE                        $FF
+
+.define DIRECTION_UP                               $00
+.define DIRECTION_RIGHT                            $01
+.define DIRECTION_DOWN                             $02
+.define DIRECTION_LEFT                             $03
+.define DIRECTION_WAVING_1                         $04
+.define DIRECTION_WAVING_2                         $05
+.define DIRECTION_BOWING                           $06
+.define DIRECTION_LYING                            $07
+.define DIRECTION_SPINNING                         $08
+
+.define DIRECTION_HORIZONTAL                 %00000001
+.define DIRECTION_DOWN_LEFT                  %00000010
+
+.define EFFECT_OAM_RESET_MODE_SHIFT                $FE
+.define EFFECT_OAM_RESET_MODE_NONE                 $FF
+
+.define ELEMENT_AIR                          %00100000
+.define ELEMENT_ABSORB                       %01000000
+.define ELEMENT_IMMUNE                       %10000000
+
+.define ELEMENT_MULTIPLIER_ABSORB            %10000000
+
+.define ENDING_PLANET_INDEX_EARTH_SMALL            $4C
+
+.define EQUIPMENT_FLAG_WEAPON_BOW            %10000000
+.define EQUIPMENT_FLAG_WEAPON_ARROW          %01000000
+.define EQUIPMENT_FLAG_WEAPON_TWO_HANDED     %00100000
+.define EQUIPMENT_FLAG_CHARACTER_INDEX       %00011111
+
+.define EQUIPMENT_TYPE_EMPTY                 %10000000
+.define EQUIPMENT_TYPE_ONE_HANDED            %00000001
+.define EQUIPMENT_TYPE_TWO_HANDED            %00000010
+.define EQUIPMENT_TYPE_BOW                   %00000100
+.define EQUIPMENT_TYPE_ARROW                 %00001000
+.define EQUIPMENT_TYPE_SHIELD                %00010000
+
+.define EXPLOSION_SMOKE                      %00000010
+.define EXPLOSION_SIZE_LARGEST                     $00
+.define EXPLOSION_SIZE_LARGE                       $01
+.define EXPLOSION_SIZE_SMALL                       $02
+.define EXPLOSION_SIZE_SMALLEST                    $03
+
+.define EVENT_INDEX_OPENING_EVENTS                 $10
+.define EVENT_INDEX_SAVE_POINT                     $76
+.define EVENT_INDEX_TENT                           $77
+.define EVENT_INDEX_EXIT                           $86
+.define EVENT_INDEX_WARP                           $87
+.define EVENT_INDEX_AGART_OPENING_AIRSHIP          $C6
+.define EVENT_INDEX_MAGAZINE                       $DB
+.define EVENT_INDEX_BOARD_BIG_WHALE                $E8
+.define EVENT_INDEX_SIGHT                          $FB
+
+.define EVENT_OPCODE_FIRST_PLAYER                  $C0
+.define EVENT_OPCODE_FIRST_OTHER                   $D0
+.define EVENT_OPCODE_FIRST_DOUBLE_BYTE             $DB
+
+.define EVENT_OPCODE_NPC_MOVE_UP                   $00
+.define EVENT_OPCODE_NPC_MOVE_RIGHT                $01
+.define EVENT_OPCODE_NPC_MOVE_DOWN                 $02
+.define EVENT_OPCODE_NPC_MOVE_LEFT                 $03
+.define EVENT_OPCODE_NPC_FACE_UP                   $04
+.define EVENT_OPCODE_NPC_FACE_RIGHT                $05
+.define EVENT_OPCODE_NPC_FACE_DOWN                 $06
+.define EVENT_OPCODE_NPC_FACE_LEFT                 $07
+.define EVENT_OPCODE_NPC_TOGGLE_VISIBILITY         $08
+.define EVENT_OPCODE_NPC_JUMP_SIDEWAYS             $09
+.define EVENT_OPCODE_NPC_SPIN                      $0A
+.define EVENT_OPCODE_NPC_SPIN_JUMP                 $0B
+.define EVENT_OPCODE_NPC_WAVE_2                    $0C
+.define EVENT_OPCODE_NPC_WAVE_1                    $0D
+.define EVENT_OPCODE_NPC_BOW                       $0E
+.define EVENT_OPCODE_NPC_LIE_DOWN                  $0F
+
+.define EVENT_OPCODE_NPC1_MOVE_UP                  $00
+.define EVENT_OPCODE_NPC1_MOVE_RIGHT               $01
+.define EVENT_OPCODE_NPC1_MOVE_DOWN                $02
+.define EVENT_OPCODE_NPC1_MOVE_LEFT                $03
+.define EVENT_OPCODE_NPC1_FACE_UP                  $04
+.define EVENT_OPCODE_NPC1_FACE_RIGHT               $05
+.define EVENT_OPCODE_NPC1_FACE_DOWN                $06
+.define EVENT_OPCODE_NPC1_FACE_LEFT                $07
+.define EVENT_OPCODE_NPC1_TOGGLE_VISIBILITY        $08
+.define EVENT_OPCODE_NPC1_JUMP_SIDEWAYS            $09
+.define EVENT_OPCODE_NPC1_SPIN                     $0A
+.define EVENT_OPCODE_NPC1_SPIN_JUMP                $0B
+.define EVENT_OPCODE_NPC1_WAVE_2                   $0C
+.define EVENT_OPCODE_NPC1_BOW                      $0E
+.define EVENT_OPCODE_NPC1_LIE_DOWN                 $0F
+.define EVENT_OPCODE_NPC2_MOVE_UP                  $10
+.define EVENT_OPCODE_NPC2_MOVE_RIGHT               $11
+.define EVENT_OPCODE_NPC2_MOVE_DOWN                $12
+.define EVENT_OPCODE_NPC2_MOVE_LEFT                $13
+.define EVENT_OPCODE_NPC2_FACE_UP                  $14
+.define EVENT_OPCODE_NPC2_FACE_RIGHT               $15
+.define EVENT_OPCODE_NPC2_FACE_DOWN                $16
+.define EVENT_OPCODE_NPC2_FACE_LEFT                $17
+.define EVENT_OPCODE_NPC2_TOGGLE_VISIBILITY        $18
+.define EVENT_OPCODE_NPC2_JUMP_SIDEWAYS            $19
+.define EVENT_OPCODE_NPC2_SPIN                     $1A
+.define EVENT_OPCODE_NPC2_SPIN_JUMP                $1B
+.define EVENT_OPCODE_NPC2_WAVE_2                   $1C
+.define EVENT_OPCODE_NPC2_WAVE_1                   $1D
+.define EVENT_OPCODE_NPC2_BOW                      $1E
+.define EVENT_OPCODE_NPC2_LIE_DOWN                 $1F
+.define EVENT_OPCODE_NPC3_MOVE_UP                  $20
+.define EVENT_OPCODE_NPC3_MOVE_RIGHT               $21
+.define EVENT_OPCODE_NPC3_MOVE_DOWN                $22
+.define EVENT_OPCODE_NPC3_MOVE_LEFT                $23
+.define EVENT_OPCODE_NPC3_FACE_UP                  $24
+.define EVENT_OPCODE_NPC3_FACE_RIGHT               $25
+.define EVENT_OPCODE_NPC3_FACE_DOWN                $26
+.define EVENT_OPCODE_NPC3_FACE_LEFT                $27
+.define EVENT_OPCODE_NPC3_TOGGLE_VISIBILITY        $28
+.define EVENT_OPCODE_NPC3_JUMP_SIDEWAYS            $29
+.define EVENT_OPCODE_NPC3_SPIN                     $2A
+.define EVENT_OPCODE_NPC3_SPIN_JUMP                $2B
+.define EVENT_OPCODE_NPC3_WAVE_2                   $2C
+.define EVENT_OPCODE_NPC3_BOW                      $2E
+.define EVENT_OPCODE_NPC3_LIE_DOWN                 $2F
+.define EVENT_OPCODE_NPC4_MOVE_UP                  $30
+.define EVENT_OPCODE_NPC4_MOVE_RIGHT               $31
+.define EVENT_OPCODE_NPC4_MOVE_DOWN                $32
+.define EVENT_OPCODE_NPC4_MOVE_LEFT                $33
+.define EVENT_OPCODE_NPC4_FACE_UP                  $34
+.define EVENT_OPCODE_NPC4_FACE_RIGHT               $35
+.define EVENT_OPCODE_NPC4_FACE_DOWN                $36
+.define EVENT_OPCODE_NPC4_FACE_LEFT                $37
+.define EVENT_OPCODE_NPC4_TOGGLE_VISIBILITY        $38
+.define EVENT_OPCODE_NPC4_JUMP_SIDEWAYS            $39
+.define EVENT_OPCODE_NPC4_SPIN                     $3A
+.define EVENT_OPCODE_NPC4_SPIN_JUMP                $3B
+.define EVENT_OPCODE_NPC4_WAVE_2                   $3C
+.define EVENT_OPCODE_NPC4_BOW                      $3E
+.define EVENT_OPCODE_NPC4_LIE_DOWN                 $3F
+.define EVENT_OPCODE_NPC5_MOVE_UP                  $40
+.define EVENT_OPCODE_NPC5_MOVE_RIGHT               $41
+.define EVENT_OPCODE_NPC5_MOVE_DOWN                $42
+.define EVENT_OPCODE_NPC5_MOVE_LEFT                $43
+.define EVENT_OPCODE_NPC5_FACE_UP                  $44
+.define EVENT_OPCODE_NPC5_FACE_RIGHT               $45
+.define EVENT_OPCODE_NPC5_FACE_DOWN                $46
+.define EVENT_OPCODE_NPC5_FACE_LEFT                $47
+.define EVENT_OPCODE_NPC5_TOGGLE_VISIBILITY        $48
+.define EVENT_OPCODE_NPC5_JUMP_SIDEWAYS            $49
+.define EVENT_OPCODE_NPC5_SPIN                     $4A
+.define EVENT_OPCODE_NPC5_SPIN_JUMP                $4B
+.define EVENT_OPCODE_NPC5_WAVE_2                   $4C
+.define EVENT_OPCODE_NPC5_BOW                      $4E
+.define EVENT_OPCODE_NPC5_LIE_DOWN                 $4F
+.define EVENT_OPCODE_NPC6_MOVE_UP                  $50
+.define EVENT_OPCODE_NPC6_MOVE_RIGHT               $51
+.define EVENT_OPCODE_NPC6_MOVE_DOWN                $52
+.define EVENT_OPCODE_NPC6_MOVE_LEFT                $53
+.define EVENT_OPCODE_NPC6_FACE_UP                  $54
+.define EVENT_OPCODE_NPC6_FACE_RIGHT               $55
+.define EVENT_OPCODE_NPC6_FACE_DOWN                $56
+.define EVENT_OPCODE_NPC6_FACE_LEFT                $57
+.define EVENT_OPCODE_NPC6_TOGGLE_VISIBILITY        $58
+.define EVENT_OPCODE_NPC6_JUMP_SIDEWAYS            $59
+.define EVENT_OPCODE_NPC6_SPIN                     $5A
+.define EVENT_OPCODE_NPC6_SPIN_JUMP                $5B
+.define EVENT_OPCODE_NPC6_WAVE_2                   $5C
+.define EVENT_OPCODE_NPC6_WAVE_1                   $5D
+.define EVENT_OPCODE_NPC6_BOW                      $5E
+.define EVENT_OPCODE_NPC6_LIE_DOWN                 $5F
+.define EVENT_OPCODE_NPC7_MOVE_UP                  $60
+.define EVENT_OPCODE_NPC7_MOVE_RIGHT               $61
+.define EVENT_OPCODE_NPC7_MOVE_DOWN                $62
+.define EVENT_OPCODE_NPC7_MOVE_LEFT                $63
+.define EVENT_OPCODE_NPC7_FACE_UP                  $64
+.define EVENT_OPCODE_NPC7_FACE_RIGHT               $65
+.define EVENT_OPCODE_NPC7_FACE_DOWN                $66
+.define EVENT_OPCODE_NPC7_FACE_LEFT                $67
+.define EVENT_OPCODE_NPC7_TOGGLE_VISIBILITY        $68
+.define EVENT_OPCODE_NPC7_JUMP_SIDEWAYS            $69
+.define EVENT_OPCODE_NPC7_SPIN                     $6A
+.define EVENT_OPCODE_NPC7_SPIN_JUMP                $6B
+.define EVENT_OPCODE_NPC7_WAVE_2                   $6C
+.define EVENT_OPCODE_NPC7_WAVE_1                   $6D
+.define EVENT_OPCODE_NPC7_BOW                      $6E
+.define EVENT_OPCODE_NPC7_LIE_DOWN                 $6F
+.define EVENT_OPCODE_NPC8_MOVE_UP                  $70
+.define EVENT_OPCODE_NPC8_MOVE_RIGHT               $71
+.define EVENT_OPCODE_NPC8_MOVE_DOWN                $72
+.define EVENT_OPCODE_NPC8_MOVE_LEFT                $73
+.define EVENT_OPCODE_NPC8_FACE_UP                  $74
+.define EVENT_OPCODE_NPC8_FACE_RIGHT               $75
+.define EVENT_OPCODE_NPC8_FACE_DOWN                $76
+.define EVENT_OPCODE_NPC8_FACE_LEFT                $77
+.define EVENT_OPCODE_NPC8_TOGGLE_VISIBILITY        $78
+.define EVENT_OPCODE_NPC8_JUMP_SIDEWAYS            $79
+.define EVENT_OPCODE_NPC8_SPIN                     $7A
+.define EVENT_OPCODE_NPC8_SPIN_JUMP                $7B
+.define EVENT_OPCODE_NPC8_WAVE_2                   $7C
+.define EVENT_OPCODE_NPC8_WAVE_1                   $7D
+.define EVENT_OPCODE_NPC8_BOW                      $7E
+.define EVENT_OPCODE_NPC8_LIE_DOWN                 $7F
+.define EVENT_OPCODE_NPC9_MOVE_UP                  $80
+.define EVENT_OPCODE_NPC9_MOVE_RIGHT               $81
+.define EVENT_OPCODE_NPC9_MOVE_DOWN                $82
+.define EVENT_OPCODE_NPC9_MOVE_LEFT                $83
+.define EVENT_OPCODE_NPC9_FACE_UP                  $84
+.define EVENT_OPCODE_NPC9_FACE_RIGHT               $85
+.define EVENT_OPCODE_NPC9_FACE_DOWN                $86
+.define EVENT_OPCODE_NPC9_FACE_LEFT                $87
+.define EVENT_OPCODE_NPC9_TOGGLE_VISIBILITY        $88
+.define EVENT_OPCODE_NPC9_JUMP_SIDEWAYS            $89
+.define EVENT_OPCODE_NPC9_SPIN                     $8A
+.define EVENT_OPCODE_NPC9_SPIN_JUMP                $8B
+.define EVENT_OPCODE_NPC9_WAVE_2                   $8C
+.define EVENT_OPCODE_NPC9_BOW                      $8E
+.define EVENT_OPCODE_NPC9_LIE_DOWN                 $8F
+.define EVENT_OPCODE_NPC10_MOVE_UP                 $90
+.define EVENT_OPCODE_NPC10_MOVE_RIGHT              $91
+.define EVENT_OPCODE_NPC10_MOVE_DOWN               $92
+.define EVENT_OPCODE_NPC10_MOVE_LEFT               $93
+.define EVENT_OPCODE_NPC10_FACE_UP                 $94
+.define EVENT_OPCODE_NPC10_FACE_RIGHT              $95
+.define EVENT_OPCODE_NPC10_FACE_DOWN               $96
+.define EVENT_OPCODE_NPC10_FACE_LEFT               $97
+.define EVENT_OPCODE_NPC10_TOGGLE_VISIBILITY       $98
+.define EVENT_OPCODE_NPC10_JUMP_SIDEWAYS           $99
+.define EVENT_OPCODE_NPC10_SPIN                    $9A
+.define EVENT_OPCODE_NPC10_SPIN_JUMP               $9B
+.define EVENT_OPCODE_NPC10_WAVE_2                  $9C
+.define EVENT_OPCODE_NPC10_BOW                     $9E
+.define EVENT_OPCODE_NPC10_LIE_DOWN                $9F
+.define EVENT_OPCODE_NPC11_MOVE_UP                 $A0
+.define EVENT_OPCODE_NPC11_MOVE_RIGHT              $A1
+.define EVENT_OPCODE_NPC11_MOVE_DOWN               $A2
+.define EVENT_OPCODE_NPC11_MOVE_LEFT               $A3
+.define EVENT_OPCODE_NPC11_FACE_UP                 $A4
+.define EVENT_OPCODE_NPC11_FACE_RIGHT              $A5
+.define EVENT_OPCODE_NPC11_FACE_DOWN               $A6
+.define EVENT_OPCODE_NPC11_FACE_LEFT               $A7
+.define EVENT_OPCODE_NPC11_TOGGLE_VISIBILITY       $A8
+.define EVENT_OPCODE_NPC11_JUMP_SIDEWAYS           $A9
+.define EVENT_OPCODE_NPC11_SPIN                    $AA
+.define EVENT_OPCODE_NPC11_SPIN_JUMP               $AB
+.define EVENT_OPCODE_NPC11_WAVE_2                  $AC
+.define EVENT_OPCODE_NPC11_BOW                     $AE
+.define EVENT_OPCODE_NPC11_LIE_DOWN                $AF
+.define EVENT_OPCODE_NPC12_MOVE_UP                 $B0
+.define EVENT_OPCODE_NPC12_MOVE_RIGHT              $B1
+.define EVENT_OPCODE_NPC12_MOVE_DOWN               $B2
+.define EVENT_OPCODE_NPC12_MOVE_LEFT               $B3
+.define EVENT_OPCODE_NPC12_FACE_UP                 $B4
+.define EVENT_OPCODE_NPC12_FACE_RIGHT              $B5
+.define EVENT_OPCODE_NPC12_FACE_DOWN               $B6
+.define EVENT_OPCODE_NPC12_FACE_LEFT               $B7
+.define EVENT_OPCODE_NPC12_TOGGLE_VISIBILITY       $B8
+.define EVENT_OPCODE_NPC12_JUMP_SIDEWAYS           $B9
+.define EVENT_OPCODE_NPC12_SPIN                    $BA
+.define EVENT_OPCODE_NPC12_SPIN_JUMP               $BB
+.define EVENT_OPCODE_NPC12_WAVE_2                  $BC
+.define EVENT_OPCODE_NPC12_WAVE_1                  $BD
+.define EVENT_OPCODE_NPC12_BOW                     $BE
+.define EVENT_OPCODE_PLAYER_MOVE                   $C0
+.define EVENT_OPCODE_PLAYER_MOVE_UP                $C0
+.define EVENT_OPCODE_PLAYER_MOVE_RIGHT             $C1
+.define EVENT_OPCODE_PLAYER_MOVE_DOWN              $C2
+.define EVENT_OPCODE_PLAYER_MOVE_LEFT              $C3
+.define EVENT_OPCODE_PLAYER_FACE                   $C4
+.define EVENT_OPCODE_PLAYER_FACE_UP                $C4
+.define EVENT_OPCODE_PLAYER_FACE_RIGHT             $C5
+.define EVENT_OPCODE_PLAYER_FACE_DOWN              $C6
+.define EVENT_OPCODE_PLAYER_FACE_LEFT              $C7
+.define EVENT_OPCODE_PLAYER_SET_INVISIBLE          $C8
+.define EVENT_OPCODE_PLAYER_SET_VISIBLE            $C9
+.define EVENT_OPCODE_PLAYER_POSE_WAVING_2          $CA
+.define EVENT_OPCODE_PLAYER_POSE_WAVING_1          $CB
+.define EVENT_OPCODE_PLAYER_POSE_BOWING            $CC
+.define EVENT_OPCODE_PLAYER_POSE_LYING             $CD
+.define EVENT_OPCODE_PLAYER_TOGGLE_TURNING         $CE
+.define EVENT_OPCODE_PLAYER_TOGGLE_SPINNING        $CF
+.define EVENT_OPCODE_TOGGLE_SCREEN_SHAKING         $D0
+.define EVENT_OPCODE_FLASH_SCREEN                  $D1
+.define EVENT_OPCODE_MOSAIC                        $D2
+.define EVENT_OPCODE_BIG_CHOCOBO                   $D4
+.define EVENT_OPCODE_OPEN_LARGE_DOOR               $D5
+.define EVENT_OPCODE_RANDOM_VERTICAL_OFFSET        $D6
+.define EVENT_OPCODE_TOGGLE_FAST_MOVEMENT          $D7
+.define EVENT_OPCODE_AUDIO_FADE_OUT_SLOW           $D8
+.define EVENT_OPCODE_NAMINGWAY                     $D9
+.define EVENT_OPCODE_PPU_FADE                      $DA
+.define EVENT_OPCODE_TOGGLE_STATUS                 $DB
+.define EVENT_OPCODE_INN                           $DC
+.define EVENT_OPCODE_SET_PLAYER_FIELD_SPRITE       $DD
+.define EVENT_OPCODE_RESTORE_HP                    $DE
+.define EVENT_OPCODE_RESTORE_MP                    $DF
+.define EVENT_OPCODE_INVENTORY_ADD_ITEM            $E0
+.define EVENT_OPCODE_INVENTORY_REMOVE_ITEM         $E1
+.define EVENT_OPCODE_ADD_SPELL                     $E2
+.define EVENT_OPCODE_REMOVE_STATUS                 $E3
+.define EVENT_OPCODE_ADD_STATUS                    $E4
+.define EVENT_OPCODE_ADD_CHARACTER                 $E7
+.define EVENT_OPCODE_REMOVE_CHARACTER              $E8
+.define EVENT_OPCODE_WAIT                          $E9
+.define EVENT_OPCODE_PLAY_SONG_WITH_FADE_IN        $EA
+.define EVENT_OPCODE_REPEAT                        $EB
+.define EVENT_OPCODE_START_BATTLE                  $EC
+.define EVENT_OPCODE_SHOP                          $ED
+.define EVENT_OPCODE_SHOW_MESSAGE_NPC              $EE
+.define EVENT_OPCODE_SHOW_MESSAGE_BANK_0           $EF
+.define EVENT_OPCODE_SHOW_MESSAGE_BANK_1_LO        $F0
+.define EVENT_OPCODE_SHOW_MESSAGE_BANK_1_HI        $F1
+.define EVENT_OPCODE_SET_PLOT_FLAG                 $F2
+.define EVENT_OPCODE_RESET_PLOT_FLAG               $F3
+.define EVENT_OPCODE_ACTIVATE_NPC                  $F4
+.define EVENT_OPCODE_DEACTIVATE_NPC                $F5
+.define EVENT_OPCODE_SHOW_MESSAGE_BANK_2           $F6
+.define EVENT_OPCODE_SELECT_ITEM                   $F7
+.define EVENT_OPCODE_SHOW_MESSAGE_BANK_1_HI_YES_NO $F8
+.define EVENT_OPCODE_TOGGLE_COLOR_SUBTRACTION      $F9
+.define EVENT_OPCODE_PLAY_SONG                     $FA
+.define EVENT_OPCODE_PLAY_SOUND_EFFECT             $FB
+.define EVENT_OPCODE_CUSTOM_EFFECT                 $FD
+.define EVENT_OPCODE_LOAD_MAP                      $FE
+.define EVENT_OPCODE_END                           $FF
+
+.define EVENT_PARAMETER_RESTORE_HP_MAX             $FE
+.define EVENT_PARAMETER_RESTORE_MP_MAX             $FE
+
+.define FIELD_SPRITE_PLAYER                        $00
+.define FIELD_SPRITE_NON_CHARACTER                 $0E
+.define FIELD_SPRITE_MOVING_NPC                    $11
+.define FIELD_SPRITE_STANDING_NPC_FOUR_FRAMES      $2E
+.define FIELD_SPRITE_STANDING_NPC                  $30
+.define FIELD_SPRITE_STATIC_NPC                    $46
+
+.define FIELD_SPRITE_CECIL_DKNIGHT                 $00
+.define FIELD_SPRITE_KAIN                          $01
+.define FIELD_SPRITE_RYDIA_CHILD                   $02
+.define FIELD_SPRITE_TELLAH                        $03
+.define FIELD_SPRITE_EDWARD                        $04
+.define FIELD_SPRITE_ROSA                          $05
+.define FIELD_SPRITE_YANG                          $06
+.define FIELD_SPRITE_PALOM                         $07
+.define FIELD_SPRITE_POROM                         $08
+.define FIELD_SPRITE_CECIL_PALADIN                 $09
+.define FIELD_SPRITE_CID                           $0A
+.define FIELD_SPRITE_RYDIA_ADULT                   $0B
+.define FIELD_SPRITE_EDGE                          $0C
+.define FIELD_SPRITE_FUSOYA                        $0D
+.define FIELD_SPRITE_SMALL                         $0E
+.define FIELD_SPRITE_TOAD                          $0F
+.define FIELD_SPRITE_PIG                           $10
+.define FIELD_SPRITE_ADULT_MALE                    $11
+.define FIELD_SPRITE_ADULT_FEMALE                  $12
+.define FIELD_SPRITE_DANCER                        $13
+.define FIELD_SPRITE_ELDERLY_MALE                  $14
+.define FIELD_SPRITE_ELDERLY_FEMALE                $15
+.define FIELD_SPRITE_CHILD_MALE                    $16
+.define FIELD_SPRITE_CHILD_FEMALE                  $17
+.define FIELD_SPRITE_SOLDIER                       $18
+.define FIELD_SPRITE_MERCHANT                      $19
+.define FIELD_SPRITE_SCHOLAR                       $1A
+.define FIELD_SPRITE_BLACK_MAGE                    $1B
+.define FIELD_SPRITE_WHITE_MAGE                    $1C
+.define FIELD_SPRITE_ENGINEER                      $1D
+.define FIELD_SPRITE_CHOCOBO                       $1E
+.define FIELD_SPRITE_MONK                          $1F
+.define FIELD_SPRITE_GUARD                         $20
+.define FIELD_SPRITE_BOMB                          $21
+.define FIELD_SPRITE_MONSTER                       $22
+.define FIELD_SPRITE_HUMMINGWAY                    $23
+.define FIELD_SPRITE_GOLBEZ                        $24
+.define FIELD_SPRITE_KING                          $25
+.define FIELD_SPRITE_ELDER                         $26
+.define FIELD_SPRITE_CLERIC                        $27
+.define FIELD_SPRITE_DWARF                         $28
+.define FIELD_SPRITE_DOLL                          $29
+.define FIELD_SPRITE_GIOTT                         $2A
+.define FIELD_SPRITE_LUGAE                         $2B
+.define FIELD_SPRITE_LUCA                          $2C
+.define FIELD_SPRITE_HAND                          $2D
+.define FIELD_SPRITE_ROSA_CECIL_EMBRACE            $2E
+.define FIELD_SPRITE_CRYSTAL                       $2F
+.define FIELD_SPRITE_THOUGHT_LOVE                  $30
+.define FIELD_SPRITE_FLAME                         $31
+.define FIELD_SPRITE_THOUGHT_SLEEP                 $32
+.define FIELD_SPRITE_WAVING_FEMALE                 $33
+.define FIELD_SPRITE_SAD_FEMALE                    $34
+.define FIELD_SPRITE_EDWARD_HARP                   $35
+.define FIELD_SPRITE_SPLASH                        $36
+.define FIELD_SPRITE_KATANA                        $37
+.define FIELD_SPRITE_DANCER_CLOTHED                $38
+.define FIELD_SPRITE_SWORD_LEGEND                  $39
+.define FIELD_SPRITE_ROSA_CAPTIVE                  $3A
+.define FIELD_SPRITE_RUBICANT                      $3B
+.define FIELD_SPRITE_SPARKLE                       $3C
+.define FIELD_SPRITE_ELDER_PRAYING                 $3D
+.define FIELD_SPRITE_BLACK_MAGE_PRAYING            $3E
+.define FIELD_SPRITE_ZEMUS_COLLAPSED               $3F
+.define FIELD_SPRITE_WHITE_MAGE_PRAYING            $40
+.define FIELD_SPRITE_SYLPH                         $41
+.define FIELD_SPRITE_ZEROMUS                       $42
+.define FIELD_SPRITE_KAIN_WITHOUT_HELMET           $43
+.define FIELD_SPRITE_LIGHTNING                     $44
+.define FIELD_SPRITE_SMOKE                         $45
+.define FIELD_SPRITE_BIG_CHOCOBO_UPPER_LEFT        $46
+.define FIELD_SPRITE_BIG_CHOCOBO_UPPER_RIGHT       $47
+.define FIELD_SPRITE_BIG_CHOCOBO_LOWER_LEFT        $48
+.define FIELD_SPRITE_BIG_CHOCOBO_LOWER_RIGHT       $49
+.define FIELD_SPRITE_VALVALIS                      $4E
+.define FIELD_SPRITE_DANCER_SWIMMING_LEG           $4F
+.define FIELD_SPRITE_QUEEN                         $50
+.define FIELD_SPRITE_ZEMUS                         $51
+.define FIELD_SPRITE_TENTACLES                     $52
+.define FIELD_SPRITE_MAGUS_SISTER                  $53
+.define FIELD_SPRITE_DARK_ELF                      $54
+.define FIELD_SPRITE_BAHAMUT                       $55
+.define FIELD_SPRITE_KAINAZZO                      $56
+.define FIELD_SPRITE_DRESS                         $57
+.define FIELD_SPRITE_ICE                           $58
+.define FIELD_SPRITE_SPEAR                         $59
+.define FIELD_SPRITE_SUNBATHER                     $5A
+.define FIELD_SPRITE_BALL                          $5B
+.define FIELD_SPRITE_UNKNOWN_5C                    $5C
+.define FIELD_SPRITE_DOOR                          $5D
+.define FIELD_SPRITE_SOLDIER_COLLAPSED             $5E
+.define FIELD_SPRITE_ANTLION_LEFT                  $5F
+.define FIELD_SPRITE_ANTLION_RIGHT                 $60
+.define FIELD_SPRITE_ANNA                          $61
+.define FIELD_SPRITE_GOLBEZ_COLLAPSED              $62
+.define FIELD_SPRITE_SWORD                         $63
+.define FIELD_SPRITE_ANNA_COLLAPSED                $64
+.define FIELD_SPRITE_INVISIBLE                     $65
+.define FIELD_SPRITE_ICE_SPELL                     $66
+.define FIELD_SPRITE_FIRE_TOP                      $67
+.define FIELD_SPRITE_FIRE_BASE                     $68
+.define FIELD_SPRITE_TWIN_STATUE_LEFT              $69
+.define FIELD_SPRITE_TWIN_STATUE_RIGHT             $6A
+
+.define FIELD_EFFECT_SPRITE_SPARKLE                $C0
+.define FIELD_EFFECT_SPRITE_BOMB                   $C4
+.define FIELD_EFFECT_SPRITE_MIST                   $C6
+.define FIELD_EFFECT_SPRITE_FIRE                   $EC
+
+.define FLAG_P_INDEX                         %00010000
+.define FLAG_P_ACCUMULATOR                   %00100000
+
+.define FORMATION_FLAGS_1_VRAM_LAYOUT        %00000111
+.define FORMATION_FLAGS_1_BACK_ATTACK        %00001000
+.define FORMATION_FLAGS_1_SLOW_DEATH         %00010000
+
+.define FORMATION_FLAGS_2_DISABLE_RUNNING    %00000001
+.define FORMATION_FLAGS_2_SCRIPTED           %00000010
+.define FORMATION_FLAGS_2_AUDIO_TRACK        %00001100
+.define FORMATION_FLAGS_2_CHARACTER_SPRITE   %00010000
+.define FORMATION_FLAGS_2_AUTO_BATTLE        %00100000
+.define FORMATION_FLAGS_2_FLOATING           %01000000
+.define FORMATION_FLAGS_2_TRANSPARENT        %10000000
+
+.define GIANT_POSE_OFFSET_WALKING_1                $00
+.define GIANT_POSE_OFFSET_WALKING_2                $18
+.define GIANT_POSE_OFFSET_ATTACKING                $30
+
+.define INN_INDEX_50GP                             $00
+.define INN_INDEX_100GP                            $01
+.define INN_INDEX_200GP                            $02
+.define INN_INDEX_400GP                            $03
+.define INN_INDEX_500GP                            $04
+.define INN_INDEX_600GP                            $05
+.define INN_INDEX_700GP                            $06
+.define INN_INDEX_300GP                            $07
+.define INN_INDEX_1200GP                           $08
+
+.define INSTRUMENT_NONE                            $00
+.define INSTRUMENT_STRINGS                         $01
+.define INSTRUMENT_UNKNOWN_PIANO                   $02
+.define INSTRUMENT_PIANO                           $03
+.define INSTRUMENT_HARP                            $04
+.define INSTRUMENT_ORGAN                           $05
+.define INSTRUMENT_TRUMPET                         $06
+.define INSTRUMENT_FLUTE                           $07
+.define INSTRUMENT_MARIMBA                         $08
+.define INSTRUMENT_BASS_GUITAR                     $09
+.define INSTRUMENT_TIMPANI                         $0A
+.define INSTRUMENT_ELECTRIC_PIANO                  $0B
+.define INSTRUMENT_SNARE_DRUM                      $0C
+.define INSTRUMENT_BASS_DRUM                       $0D
+.define INSTRUMENT_SNARE_DRUM_HARD                 $0E
+.define INSTRUMENT_BASS_DRUM_HARD                  $0F
+.define INSTRUMENT_CYMBAL                          $10
+.define INSTRUMENT_HI_HAT                          $11
+.define INSTRUMENT_COWBELL                         $12
+.define INSTRUMENT_SHAKER                          $13
+.define INSTRUMENT_CUICA                           $14
+.define INSTRUMENT_TIMBAL                          $15
+.define INSTRUMENT_SAMBA_WHISTLE                   $16
+
+.define ITEM_NONE                                  $00
+.define ITEM_SWORD_BLACK                           $18
+.define ITEM_LEGEND                                $19
+.define ITEM_EXCALBUR                              $1B
+.define ITEM_SPEAR_WHITE                           $28
+.define ITEM_MURASAME                              $2F
+.define ITEM_MASAMUNE                              $30
+.define ITEM_SPOON                                 $3E
+.define ITEM_SWORD_CRYSTAL                         $3F
+.define ITEM_SHURIKEN                              $40
+.define ITEM_NINJA                                 $41
+.define ITEM_AVENGER                               $4C
+.define ITEM_NAKED                                 $60
+.define ITEM_ADAMANT_ARMOR                         $9A
+.define ITEM_COPPER_HOURGLASS                      $BB
+.define ITEM_GAIADRUM                              $C7
+.define ITEM_CRYSTAL                               $C8
+.define ITEM_GRIMOIRE                              $CA
+.define ITEM_CURE1                                 $CE
+.define ITEM_ETHER1                                $D1
+.define ITEM_LIFE                                  $D4
+.define ITEM_GOLD_NEEDLE                           $D5
+.define ITEM_HEAL                                  $DD
+.define ITEM_SIREN                                 $DE
+.define ITEM_TENT                                  $E2
+.define ITEM_CABIN                                 $E3
+.define ITEM_MAGAZINE                              $E4
+.define ITEM_CARROT                                $EB
+.define ITEM_PASS                                  $EC
+.define ITEM_WHISTLE                               $ED
+.define ITEM_PACKAGE                               $EE
+.define ITEM_BARON                                 $EF
+.define ITEM_SANDRUBY                              $F0
+.define ITEM_EARTH                                 $F1
+.define ITEM_MAGMA                                 $F2
+.define ITEM_LUCA                                  $F3
+.define ITEM_TWINHARP                              $F4
+.define ITEM_DARKNESS                              $F5
+.define ITEM_RAT                                   $F6
+.define ITEM_ADAMANT                               $F7
+.define ITEM_PAN                                   $F8
+.define ITEM_PINK                                  $F9
+.define ITEM_TOWER                                 $FA
+.define ITEM_SORT                                  $FE
+.define ITEM_TRASHCAN                              $FF
+
+.define ITEM_SPECIAL_EFFECT_ROD                    $60
+.define ITEM_SPECIAL_EFFECT_DANCING                $62
+
+.define ITEM_FIRST_HAND                            $01
+.define ITEM_LAST_HAND                             $6C
+.define ITEM_FIRST_HARP                            $44
+.define ITEM_FIRST_TWO_HANDED                      $44
+.define ITEM_LAST_TWO_HANDED                       $4C
+.define ITEM_FIRST_BOW                             $4D
+.define ITEM_LAST_BOW                              $53
+.define ITEM_FIRST_ARROW                           $54
+.define ITEM_LAST_ARROW                            $5F
+.define ITEM_FIRST_ARMOR                           $60
+.define ITEM_FIRST_SHIELD                          $61
+.define ITEM_LAST_SHIELD                           $6C
+.define ITEM_FIRST_HELM                            $6D
+.define ITEM_LAST_HELM                             $80
+.define ITEM_FIRST_BODY                            $81
+.define ITEM_LAST_BODY                             $9B
+.define ITEM_FIRST_ARMS                            $9C
+.define ITEM_LAST_ARMS                             $AF
+.define ITEM_FIRST_BATTLE_ITEM                     $B0
+.define ITEM_FIRST_FIELD_ITEM                      $CE
+.define ITEM_LAST_FIELD_ITEM                       $EA
+.define ITEM_FIRST_STATUS_REMOVAL_ITEM             $D5
+.define ITEM_FIRST_NON_BATTLE_ITEM                 $DE
+.define ITEM_FIRST_SUMMON                          $E7
+.define ITEM_FIRST_KEY_ITEM                        $EC
+.define ITEM_FIRST_UNSELLABLE_KEY_ITEM             $EE
+
+.define JOYPAD_NONE                          %00000000
+
+.define JOYPAD_L_A                           %10000000
+.define JOYPAD_L_X                           %01000000
+.define JOYPAD_L_L                           %00100000
+.define JOYPAD_L_R                           %00010000
+.define JOYPAD_H_B                           %10000000
+.define JOYPAD_H_Y                           %01000000
+.define JOYPAD_H_SELECT                      %00100000
+.define JOYPAD_H_START                       %00010000
+.define JOYPAD_H_UP                          %00001000
+.define JOYPAD_H_DOWN                        %00000100
+.define JOYPAD_H_LEFT                        %00000010
+.define JOYPAD_H_RIGHT                       %00000001
+.define JOYPAD_H_DPAD                        %00001111
+
+.define JOYPAD_L_CONFIRM                     %10000000
+.define JOYPAD_L_MENU                        %01000000
+.define JOYPAD_H_CANCEL                      %10000000
+
+.if FF4_REGION == "JAPAN"
+    .define LEGEND_BG3_VERTICAL_SCROLL           $FFC8
+    .define LEGEND_LINE_COUNT                        8
+.else
+    .define LEGEND_BG3_VERTICAL_SCROLL           $FFF8
+    .define LEGEND_LINE_COUNT                       13
+.endif
+
+.define LEVEL_UP_STATS_STATS                 %11111000
+.define LEVEL_UP_STATS_VALUE                 %00000111
+.define LEVEL_UP_MP_EXP_MP                   %00011111
+.define LEVEL_UP_MP_EXP_EXP                  %11100000
+
+.define MAP_AREA_OVERWORLD                         $00
+.define MAP_AREA_UNDERWORLD                        $01
+.define MAP_AREA_MOON                              $02
+.define MAP_AREA_DUNGEON                           $03
+
+.define MAP_EFFECTS_FADE_ONLY                      $01
+.define MAP_EFFECTS_FADE_IN_PENDING                $02
+
+.define MAP_HISTORY_ENTRY_LIMIT                    $40
+
+.define MAP_PLANE_OVERWORLD                        $00
+.define MAP_PLANE_UNDERWORLD_MOON                  $01
+.define MAP_PLANE_MOON                             $02
+
+.define MAP_PROPERTIES_FLAGS_BATTLE_BACKGROUND        %00001111
+.define MAP_PROPERTIES_FLAGS_WARP_ENABLED             %00010000
+.define MAP_PROPERTIES_FLAGS_EXIT_ENABLED             %00100000
+.define MAP_PROPERTIES_FLAGS_ALTERNATE_BATTLE_PALETTE %01000000
+.define MAP_PROPERTIES_FLAGS_MAGNETIC                 %10000000
+
+.define MAP_PROPERTIES_BANK_FLAG_HIGH_NPC     %10000000
+.define MAP_PROPERTIES_BANK_FLAG_HIGH_TILEMAP %00000001
+
+.define MAP_ID_CASTLE_BARON_3F                     $8A
+.define MAP_ID_OVERWORLD                           $FB
+.define MAP_ID_UNDERWORLD                          $FC
+.define MAP_ID_MOON                                $FD
+
+.if FF4_REGION == "JAPAN"
+    .define MAP_TITLE_LEFT_MARGIN                  $08
+    .define MAP_TITLE_WIDTH                        $0C
+.else
+    .define MAP_TITLE_LEFT_MARGIN                  $03
+    .define MAP_TITLE_WIDTH                        $16
+.endif
+
+.define MENU_TEXT_OPCODE_NEW_TARGET                $01
+
+.define MESSAGE_BANK_1_LO_FOUND_ITEM_CHEST         $01
+.define MESSAGE_BANK_1_LO_MONSTERS                 $03
+.define MESSAGE_BANK_1_LO_EMPTY                    $04
+.define MESSAGE_BANK_1_LO_NOTHING_HAPPENED         $14
+.define MESSAGE_BANK_1_LO_FOUND_ITEM_OTHER         $16
+.define MESSAGE_BANK_1_LO_NOT_ENOUGH_GP            $19
+.define MESSAGE_BANK_1_LO_HELLO_WILL_YOU_STAY      $1A
+.define MESSAGE_BANK_1_LO_COME_AGAIN               $1B
+
+.if FF4_REGION == "JAPAN"
+.if FF4_EASYTYPE == 1
+    .define MENU_CUSTOM_INDEX_SINGLE_MULTI         $04
+    .define MENU_CUSTOM_INDEX_RGB_BASE             $05
+    .define MENU_CUSTOM_CURSOR_Y_STEREO_MONO       $60
+    .define MENU_CUSTOM_INDEX_MAXIMUM              $07
+.else
+    .define MENU_CUSTOM_INDEX_JOYPAD               $04
+    .define MENU_CUSTOM_INDEX_SINGLE_MULTI         $05
+    .define MENU_CUSTOM_INDEX_RGB_BASE             $07
+    .define MENU_CUSTOM_CURSOR_Y_STEREO_MONO       $60
+    .define MENU_CUSTOM_INDEX_MAXIMUM              $09
+.endif
+.else
+    .define MENU_CUSTOM_INDEX_RGB_BASE             $03
+    .define MENU_CUSTOM_CURSOR_Y_STEREO_MONO       $78
+    .define MENU_CUSTOM_INDEX_MAXIMUM              $05
+.endif
+
+.define MENU_EQUIP_CURSOR_R_HAND                   $00
+.define MENU_EQUIP_CURSOR_L_HAND                   $01
+.define MENU_EQUIP_CURSOR_HEAD                     $02
+.define MENU_EQUIP_CURSOR_BODY                     $03
+.define MENU_EQUIP_CURSOR_ARMS                     $04
+
+.define MENU_EVENT_FLAGS_WARP                %00010000
+.define MENU_EVENT_FLAGS_EXIT                %00100000
+.define MENU_EVENT_FLAGS_SIGHT               %01000000
+.define MENU_EVENT_FLAGS_MAGAZINE            %10000000
+
+.define MENU_EVENT_TENT                            $01
+.define MENU_EVENT_CABIN                           $02
+.define MENU_EVENT_WARP                            $03
+.define MENU_EVENT_EXIT                            $04
+.define MENU_EVENT_SIGHT                           $05
+.define MENU_EVENT_SIREN                           $06
+.define MENU_EVENT_MAGAZINE                        $07
+
+.define MENU_TILEMAP_INDEX_BG2                     $00
+.define MENU_TILEMAP_INDEX_BG1                     $01
+.define MENU_TILEMAP_INDEX_BG4                     $02
+.define MENU_TILEMAP_INDEX_BG3                     $03
+
+.define MENU_PALETTE_INDEX_BG2                     $01
+.define MENU_PALETTE_INDEX_BG1                     $02
+.define MENU_PALETTE_INDEX_BG4                     $03
+.define MENU_PALETTE_INDEX_BG3                     $04
+
+.define MENU_TARGET_SLOT_CHANGE                    $7F
+.define MENU_TARGET_SLOT_NONE                      $FF
+
+.define MENU_POSE_NORMAL                           $00
+.define MENU_POSE_PARRYING                         $01
+.define MENU_POSE_WALKING                          $02
+.define MENU_POSE_CROUCHING                        $03
+.define MENU_POSE_RIGHT_ARM_RAISED                 $04
+.define MENU_POSE_STRIKING                         $05
+.define MENU_POSE_LEFT_ARM_RAISED                  $06
+.define MENU_POSE_REELING                          $07
+.define MENU_POSE_CHEERING                         $08
+.define MENU_POSE_SWOON                            $09
+
+.define MONSTER_COMMAND_AUDIOVISUAL_BASE           $A9
+.define MONSTER_COMMAND_COMMAND_BASE               $C0
+.define MONSTER_COMMAND_STAT_BASE                  $E8
+.define MONSTER_COMMAND_SCRIPT_BASE                $F0
+
+.define MONSTER_COMMAND_FIGHT                      $C0
+.define MONSTER_COMMAND_ITEM                       $C1
+.define MONSTER_COMMAND_WHITE                      $C2
+.define MONSTER_COMMAND_BLACK                      $C3
+.define MONSTER_COMMAND_CALL                       $C4
+.define MONSTER_COMMAND_DARK_WAVE                  $C5
+.define MONSTER_COMMAND_JUMP                       $C6
+.define MONSTER_COMMAND_KICK                       $CE
+.define MONSTER_COMMAND_COVER                      $D3
+.define MONSTER_COMMAND_LAND                       $DE
+.define MONSTER_COMMAND_WAIT                       $E1
+.define MONSTER_COMMAND_FLEE                       $E4
+.define MONSTER_COMMAND_VANISH_PARTY               $E5
+.define MONSTER_COMMAND_CHANGE_RACE                $E8
+.define MONSTER_COMMAND_SET_PHYSICAL_ATTACK        $E9
+.define MONSTER_COMMAND_SET_PHYSICAL_DEFENSE       $EA
+.define MONSTER_COMMAND_SET_MAGIC_DEFENSE          $EB
+.define MONSTER_COMMAND_ADJUST_SPEED               $EC
+.define MONSTER_COMMAND_SET_ELEMENT_DEFENSE        $ED
+.define MONSTER_COMMAND_SET_MAGIC_POWER            $EE
+.define MONSTER_COMMAND_SET_MONSTER_SPRITE         $F0
+.define MONSTER_COMMAND_UNKNOWN_F4                 $F4
+.define MONSTER_COMMAND_DISPLAY_DIALOG             $F8
+.define MONSTER_COMMAND_SET_TARGET                 $F9
+.define MONSTER_COMMAND_UNKNOWN_FA                 $FA
+.define MONSTER_COMMAND_UNKNOWN_FB                 $FB
+.define MONSTER_COMMAND_CHAIN_END                  $FC
+.define MONSTER_COMMAND_CHAIN_START                $FD
+.define MONSTER_COMMAND_PAUSE                      $FE
+.define MONSTER_COMMAND_END                        $FF
+
+.define MONSTER_COMMAND_DISPLAY_DIALOG_ACTION_NAME $02
+.define MONSTER_COMMAND_DISPLAY_DIALOG_ALERT       $03
+.define MONSTER_COMMAND_DISPLAY_DIALOG_DAMAGE      $04
+
+.define MONSTER_ITEM_INDEX_DROP_RATE_NEVER            %00000000
+.define MONSTER_ITEM_INDEX_DROP_RATE_NORMAL           %01000000
+.define MONSTER_ITEM_INDEX_DROP_RATE_FREQUENT         %10000000
+.define MONSTER_ITEM_INDEX_DROP_RATE_ALWAYS           %11000000
+.define MONSTER_ITEM_INDEX_DROP_RATE                  %11000000
+.define MONSTER_ITEM_INDEX_VALUE                      %00111111
+
+.define MONSTER_RACE_DRAGON                           %00000001
+.define MONSTER_RACE_MACHINE                          %00000010
+.define MONSTER_RACE_REPTILE                          %00000100
+.define MONSTER_RACE_SPIRIT                           %00001000
+.define MONSTER_RACE_GIANT                            %00010000
+.define MONSTER_RACE_FLAN                             %00100000
+.define MONSTER_RACE_MAGE                             %01000000
+.define MONSTER_RACE_UNDEAD                           %10000000
+
+.define MONSTER_SCRIPT_TARGET_SELF                          $16
+
+.define MONSTER_FLAGS_ELEMENTAL_STATUS_ATTACK         %10000000
+.define MONSTER_FLAGS_ELEMENTAL_STATUS_DEFENSE        %01000000
+.define MONSTER_FLAGS_ELEMENTAL_WEAKNESS              %00100000
+.define MONSTER_FLAGS_MAGIC_POWER                     %00010000
+.define MONSTER_FLAGS_RACE                            %00001000
+.define MONSTER_FLAGS_COUNTER                         %00000100
+
+.define MONSTER_SPRITE_SIZE_VARIABLE         %10000000
+.define MONSTER_SPRITE_SIZE_CHARACTER        %01000000
+.define MONSTER_SPRITE_SIZE_INDEX            %00111111
+
+.define MONSTER_TRANSITION_NONE                    $00
+.define MONSTER_TRANSITION_MOSAIC                  $01
+.define MONSTER_TRANSITION_STROBE                  $02
+.define MONSTER_TRANSITION_LINE_DISSOLVE           $03
+.define MONSTER_TRANSITION_SHAKE                   $04
+.define MONSTER_TRANSITION_JUMP                    $05
+
+.define MONSTER_VARIABLE_SPRITE_SIZE_RESET   %10000000
+.define MONSTER_VARIABLE_SPRITE_SIZE_HIGH    %01000000
+.define MONSTER_VARIABLE_SPRITE_SIZE_INDEX   %00111111
+
+.define MONSTER_VARIABLE_SPRITE_TYPE_TRANSITION_TYPE   %00110000
+.define MONSTER_VARIABLE_SPRITE_TYPE_TRANSITION_TRANSITION %00001111
+
+.define MONSTER_EGG                                $DF
+.define MONSTER_NONE                               $FF
+
+.define MOVEMENT_DIRECTION_NONE              %00000000
+.define MOVEMENT_DIRECTION_UP                %00000001
+.define MOVEMENT_DIRECTION_RIGHT             %00000010
+.define MOVEMENT_DIRECTION_DOWN              %00000011
+.define MOVEMENT_DIRECTION_LEFT              %00000100
+
+.define MOVEMENT_DIRECTION_VERTICAL          %00000001
+.define MOVEMENT_DIRECTION_POSITIVE          %00000010
+
+.define MOVEMENT_SPEED_WALKING                       0
+.define MOVEMENT_SPEED_YELLOW_CHOCOBO                1
+.define MOVEMENT_SPEED_BLACK_CHOCOBO                 2
+.define MOVEMENT_SPEED_HOVERCRAFT                    1
+.define MOVEMENT_SPEED_ENTERPRISE                    3
+.define MOVEMENT_SPEED_FALCON                        3
+.define MOVEMENT_SPEED_BIG_WHALE                     3
+.define MOVEMENT_SPEED_SHIP                          1
+
+.if FF4_REGION == "JAPAN"
+    .define NAMINGWAY_CHARACTER_SET_HIRAGANA       $00
+    .define NAMINGWAY_CHARACTER_SET_KATAKANA       $01
+    .define NAMINGWAY_CHARACTER_SET_ABC            $02
+    .define NAMINGWAY_CHARACTER_SET_END            $03
+.else
+    .define NAMINGWAY_CHARACTER_SET_ABC            $00
+    .define NAMINGWAY_CHARACTER_SET_END            $01
+.endif
+
+.define NPC_MOVEMENT_DIRECTION_PREVENT_MOVEMENT %10000000
+.define NPC_MOVEMENT_DIRECTION_VALUE            %01111111
+
+.define NPC_MOVEMENT_PROPERTIES_SPEED          %11000000
+.define NPC_MOVEMENT_PROPERTIES_ANIMATED       %00100000 ; only applies for stationary animated NPCs
+.define NPC_MOVEMENT_PROPERTIES_TURNS          %00010000
+.define NPC_MOVEMENT_PROPERTIES_ANIMATION_MODE %00000011
+
+.define NPC_ANIMATION_MODE_NORMAL                  $00
+.define NPC_ANIMATION_MODE_ONE_FRAME               $01
+.define NPC_ANIMATION_MODE_TWO_FRAMES              $02
+.define NPC_ANIMATION_MODE_FOUR_FRAMES             $03
+
+.define NPC_EVENT_PLOT_FLAG_ON                     $FE
+.define NPC_EVENT_DELIMITER                        $FF
+
+.define CONDITIONAL_EVENT_PLOT_FLAG_ON             $FE
+.define CONDITIONAL_EVENT_DELIMITER                $FF
+
+.define NPC_FLAGS_JUMPING                    %00000001
+.define NPC_FLAGS_SPINNING                   %00000010
+
+.define NPC_PLACEMENT_X_COORDINATE           %00111111
+.define NPC_PLACEMENT_MOVEMENT_DIRECTION     %00000011
+.define NPC_PLACEMENT_MOVEMENT_PALETTE       %00001100
+
+; TODO: These NPC numbers are essentially useless, since no distinction between
+;       overworld and underworld NPCs was made.
+.define NPC_UNKNOWN_02                             $02
+.define NPC_UNKNOWN_03                             $03
+.define NPC_UNKNOWN_04                             $04
+.define NPC_UNKNOWN_06                             $06 ; prologue?, activated by boarding ship, deactivated when leaving ship
+.define NPC_UNKNOWN_07                             $07 ; prologue?
+.define NPC_UNKNOWN_08                             $08
+.define NPC_UNKNOWN_09                             $09 ; prologue?
+.define NPC_UNKNOWN_0A                             $0A ; prologue?
+.define NPC_UNKNOWN_0B                             $0B ; prologue?
+.define NPC_UNKNOWN_0C                             $0C ; prologue?
+.define NPC_UNKNOWN_0D                             $0D ; prologue?
+.define NPC_UNKNOWN_0E                             $0E ; prologue?
+.define NPC_UNKNOWN_0F                             $0F
+.define NPC_UNKNOWN_10                             $10
+.define NPC_UNKNOWN_11                             $11
+.define NPC_UNKNOWN_12                             $12 ; prologue?
+.define NPC_UNKNOWN_13                             $13 ; prologue?
+.define NPC_UNKNOWN_14                             $14 ; prologue?
+.define NPC_UNKNOWN_15                             $15 ; prologue?
+.define NPC_UNKNOWN_16                             $16 ; prologue?
+.define NPC_UNKNOWN_17                             $17
+.define NPC_UNKNOWN_18                             $18
+.define NPC_UNKNOWN_1A                             $1A ; Activated when boarding ship
+.define NPC_UNKNOWN_1C                             $1C ; prologue?
+.define NPC_UNKNOWN_1E                             $1E ; prologue?
+.define NPC_UNKNOWN_1F                             $1F ; prologue?
+.define NPC_UNKNOWN_20                             $20 ; prologue?
+.define NPC_UNKNOWN_21                             $21 ; prologue?
+.define NPC_UNKNOWN_24                             $24 ; Deactivated after Mist events, activated during Watery pass scene
+.define NPC_BARON_MAID                             $25
+.define NPC_UNKNOWN_26                             $26
+.define NPC_UNKNOWN_27                             $27
+.define NPC_UNKNOWN_28                             $28
+.define NPC_UNKNOWN_29                             $29
+.define NPC_UNKNOWN_2A                             $2A
+.define NPC_UNKNOWN_2B                             $2B
+.define NPC_BARON_WATERWAY_DOOR                    $2D
+.define NPC_BARON_WEAPON_SHOP_DOOR                 $2E
+.define NPC_UNKNOWN_2F                             $2F
+.define NPC_UNKNOWN_30                             $30
+.define NPC_UNKNOWN_35                             $35 ; Cid in Baron
+.define NPC_UNKNOWN_3A                             $3A
+.define NPC_UNKNOWN_3B                             $3B
+.define NPC_UNKNOWN_3D                             $3D
+.define NPC_UNKNOWN_3E                             $3E
+.define NPC_UNKNOWN_3F                             $3F
+.define NPC_UNKNOWN_40                             $40 ; Deactivated after Mist events
+.define NPC_UNKNOWN_46                             $46 ; Activated after Mist events
+.define NPC_UNKNOWN_47                             $47 ; Activated after Mist events
+.define NPC_UNKNOWN_48                             $48 ; Activated after Mist events
+.define NPC_UNKNOWN_49                             $49 ; Activated after Mist events
+.define NPC_UNKNOWN_4A                             $4A ; Activated during Watery Pass scene, activated when boarding ship
+.define NPC_UNKNOWN_4F                             $4F ; |\
+.define NPC_UNKNOWN_50                             $50 ; | | Likely Kaipo NPCs
+.define NPC_UNKNOWN_51                             $51 ; | |
+.define NPC_UNKNOWN_52                             $52 ; | |
+.define NPC_UNKNOWN_53                             $53 ; | |
+.define NPC_UNKNOWN_54                             $54 ; | |
+.define NPC_UNKNOWN_55                             $55 ; |/
+.define NPC_UNKNOWN_5E                             $5E
+.define NPC_UNKNOWN_61                             $61 ; Deactivated by SandRuby use
+.define NPC_UNKNOWN_62                             $62 ; Activated when boarding ship
+.define NPC_UNKNOWN_65                             $65
+.define NPC_TELLAH                                 $66
+.define NPC_UNKNOWN_69                             $69 ; Deactivated when launching hovercraft
+.define NPC_UNKNOWN_6A                             $6A ; Deactivated when launching hovercraft
+.define NPC_UNKNOWN_6B                             $6B ; Deactivated when launching hovercraft
+.define NPC_UNKNOWN_6C                             $6C ; Deactivated when launching hovercraft
+.define NPC_UNKNOWN_6D                             $6D ; Deactivated when talking to fallen guard in Damcyan basement
+.define NPC_UNKNOWN_6F                             $6F
+.define NPC_UNKNOWN_70                             $70
+.define NPC_UNKNOWN_71                             $71 ; Activated during Damcyan bombing, deactivated after hovercraft
+.define NPC_UNKNOWN_72                             $72
+.define NPC_UNKNOWN_73                             $73
+.define NPC_UNKNOWN_76                             $76
+.define NPC_UNKNOWN_7F                             $7F
+.define NPC_UNKNOWN_80                             $80
+.define NPC_OCTOMAMM                               $8F
+.define NPC_UNKNOWN_98                             $98 ; Deactivated after Fabul
+.define NPC_UNKNOWN_A0                             $A0
+.define NPC_UNKNOWN_A2                             $A2
+.define NPC_UNKNOWN_A3                             $A3
+.define NPC_UNKNOWN_A8                             $A8
+.define NPC_UNKNOWN_AF                             $AF
+.define NPC_UNKNOWN_C5                             $C5
+.define NPC_UNKNOWN_C6                             $C6
+.define NPC_UNKNOWN_C8                             $C8 ; Deactivate after Mist events
+.define NPC_UNKNOWN_D8                             $D8 ; associated with Big Whale
+.define NPC_UNKNOWN_DB                             $DB
+.define NPC_UNKNOWN_DD                             $DD ; prologue?
+.define NPC_UNKNOWN_E7                             $E7
+.define NPC_UNKNOWN_E8                             $E8
+.define NPC_UNKNOWN_E9                             $E9
+.define NPC_UNKNOWN_EB                             $EB
+.define NPC_UNKNOWN_EC                             $EC
+.define NPC_UNKNOWN_EE                             $EE
+.define NPC_UNKNOWN_F5                             $F5
+.define NPC_UNKNOWN_F9                             $F9 ; Agart explosion opening mountain
+
+; NPC $12C uses an unknown sprite
+
+.define BATTLE_MISC_PALETTE_EXIT_BACKGROUND        $26
+.define BATTLE_MISC_PALETTE_EXIT_MONSTER           $27
+.define BATTLE_MISC_PALETTE_UNKNOWN_28             $28
+
+.define PALETTE_AIRSHIP_SHIP                       $00
+.define PALETTE_CAVE_MAGNES                        $02
+.define PALETTE_CASTLE_EXTERIOR                    $03
+.define PALETTE_TOWN_EXTERIOR                      $04
+.define PALETTE_TOWN_INTERIOR                      $05
+.define PALETTE_CASTLE_INTERIOR                    $06
+.define PALETTE_CRYSTAL_ROOM                       $07
+.define PALETTE_BIG_WHALE                          $08
+.define PALETTE_LAND_OF_MONSTERS                   $09
+.define PALETTE_TOWER                              $0A
+.define PALETTE_GIANT                              $0B
+.define PALETTE_LUNAR_SUBTERRANE                   $0C
+.define PALETTE_MOUNTAIN                           $0D
+.define PALETTE_WATERWAY                           $0E
+.define PALETTE_SYLVAN_CAVE                        $0F
+.define PALETTE_GROTTO_ADAMANT                     $10
+.define PALETTE_CAVE_EBLANA                        $11
+.define PALETTE_SEALED_CAVE                        $12
+.define PALETTE_UNDERWORLD_TOWN_EXTERIOR           $13
+.define PALETTE_LUNARS_LAIR                        $14
+.define PALETTE_UNKNOWN15                          $15
+.define PALETTE_CAVE_EBLANA_TOWN_INTERIOR          $16
+.define PALETTE_UNDERWORLD_CASTLE_INTERIOR         $17
+.define PALETTE_AGART                              $18
+.define PALETTE_SILVERA                            $19
+.define PALETTE_UNDERWORLD_TOWN_INTERIOR           $1A
+
+.define PLANET_INDEX_MOON_1                        $00
+.define PLANET_INDEX_MOON_2                        $01
+.define PLANET_INDEX_EARTH                         $02
+.define PLANET_INDEX_BROWN                         $03
+.define PLANET_INDEX_GREEN                         $04
+.define PLANET_INDEX_DEPARTING                     $05
+
+.define PLANET_SPRITE_INDEX_EARTH_LARGE             $00
+.define PLANET_SPRITE_INDEX_MOON_BASE               $10
+.define PLANET_SPRITE_INDEX_SUN                     $30
+.define PLANET_SPRITE_INDEX_EARTH_SMALL             $4C
+.define PLANET_SPRITE_INDEX_STAR_BASE               $50
+.define PLANET_SPRITE_INDEX_EARTH_LARGE_SHADOW      $52
+
+.define PLANET_THETA_MAGNITUDE_INDEX_MOON_1         $00
+.define PLANET_THETA_MAGNITUDE_INDEX_MOON_2         $02
+.define PLANET_THETA_MAGNITUDE_INDEX_EARTH          $04
+.define PLANET_THETA_MAGNITUDE_INDEX_BROWN          $06
+.define PLANET_THETA_MAGNITUDE_INDEX_GREEN          $08
+.define PLANET_THETA_MAGNITUDE_INDEX_DEPARTING      $0A
+
+.define PLANET_SPRITE_BASE_FRAME_INDEX_PLANET       $20
+.define PLANET_SPRITE_BASE_FRAME_INDEX_MOON_NEAR    $10
+
+.define PLANET_COORDINATE_INDEX_BARYCENTER          $00
+.define PLANET_COORDINATE_INDEX_SUN                 $04
+.define PLANET_COORDINATE_INDEX_MOON_1              $08
+.define PLANET_COORDINATE_INDEX_MOON_2              $0C
+.define PLANET_COORDINATE_INDEX_EARTH               $10
+.define PLANET_COORDINATE_INDEX_BROWN               $14
+.define PLANET_COORDINATE_INDEX_GREEN               $18
+.define PLANET_COORDINATE_INDEX_DEPARTING           $1C
+
+.define PLOT_FLAG_OPENING_EVENTS_FINISHED           $00
+.define PLOT_FLAG_CECIL_TALKED_TO_KAIN              $01
+.define PLOT_FLAG_FOUND_ROSA_IN_KAIPO_BED           $02
+.define PLOT_FLAG_CECIL_CID_BARON                   $03
+.define PLOT_FLAG_PROLOGUE_COMPLETE                 $04
+.define PLOT_FLAG_RECRUITED_YANG_AT_BARON           $05
+.define PLOT_FLAG_DEFEATED_KAINAZZO                 $06
+.define PLOT_FLAG_DEFEATED_GOLBEZ                   $07
+.define PLOT_FLAG_DEFEATED_ODIN                     $08
+.define PLOT_FLAG_DEFEATED_BAIGAN                   $09
+.define PLOT_FLAG_ENTERPRISE_MAGMA                  $0A ; Reset after destroying Super Cannon.
+.define PLOT_FLAG_PALADIN                           $0B
+.define PLOT_FLAG_RECRUITED_KAIN_AND_ROSA_ZOT       $0C
+.define PLOT_FLAG_DEFEATED_D_MIST                   $0D
+.define PLOT_FLAG_MIST_EVENTS_FINISHED              $0E
+.define PLOT_FLAG_KAIPO_SOLDIER_EVENTS_FINISHED     $0F
+.define PLOT_FLAG_UNKNOWN10                         $10 ; Reset after launching the hovercraft.
+.define PLOT_FLAG_ROSA_CURED_BY_SANDRUBY            $11
+.define PLOT_FLAG_DEFEATED_ANTLION                  $12
+.define PLOT_FLAG_DEFEATED_OCTOMAMM                 $13
+.define PLOT_FLAG_DAMCYAN_DESTROYED                 $14
+.define PLOT_FLAG_MT_HOBS_ICE_CLEARED               $15
+.define PLOT_FLAG_DEFEATED_MOMBOMB                  $16
+.define PLOT_FLAG_CAMPED_IN_WATERY_PASS             $17
+.define PLOT_FLAG_FABUL_SHIP_SWALLOWED              $18
+.define PLOT_FLAG_SUPER_CANNON_DESTROYED            $19
+.define PLOT_FLAG_FOUND_YANG                        $1A
+.define PLOT_FLAG_FABUL_DEFENDED                    $1B
+.define PLOT_FLAG_TWINS_JOINED                      $1C
+.define PLOT_FLAG_ORDEALS_OPENED                    $1D
+.define PLOT_FLAG_TELLAH_JOINED_AT_ORDEALS          $1E
+.define PLOT_FLAG_MILON_DEFEATED                    $1F
+.define PLOT_FLAG_MILON_Z_DEFEATED                  $20
+.define PLOT_FLAG_ELDER_AFTER_PALADIN               $21
+.define PLOT_FLAG_CECIL_ROSA_BARON_HALLWAY          $22
+.define PLOT_FLAG_EARTH_CRYSTAL                     $23
+.define PLOT_FLAG_TWINHARP_RECEIVED                 $24
+.define PLOT_FLAG_EDWARD_AFTER_DARK_ELF             $25
+.define PLOT_FLAG_ENTERED_ZOT                       $26
+.define PLOT_FLAG_HOVERCRAFT_LAUNCHED               $27
+.define PLOT_FLAG_VISITED_ODIN                      $28
+.define PLOT_FLAG_DEFEATED_MAGUS_SISTERS            $2A
+.define PLOT_FLAG_DEFEATED_VALVALIS                 $2B
+.define PLOT_FLAG_FABUL_COMPLETE                    $2C
+.define PLOT_FLAG_ENTERED_CAVE_MAGNES               $2D
+.define PLOT_FLAG_MAGNETIC_FIELD_RELEASED           $2E
+.define PLOT_FLAG_GOLBEZ_DEFEATED_BY_TELLAH         $2F
+.define PLOT_FLAG_AGART_MOUNTAIN_OPEN               $30
+.define PLOT_FLAG_RETURNED_EARTH_CRYSTAL            $31
+.define PLOT_FLAG_ENTERPRISE_DISABLED               $32
+.define PLOT_FLAG_DEFEATED_LUGAE                    $33
+.define PLOT_FLAG_RECRUITED_EDGE                    $34
+.define PLOT_FLAG_HOOK_INSTALLED                    $36
+.define PLOT_FLAG_DEFEATED_RUBICANT                 $37
+.define PLOT_FLAG_FALCON_ACTIVATED                  $38
+.define PLOT_FLAG_FALCON_MAGMA                      $39
+.define PLOT_FLAG_RECEIVED_LUCA_KEY                 $3A
+.define PLOT_FLAG_UNKNOWN_3B                        $3B
+.define PLOT_FLAG_SEALED_CAVE_OPEN                  $3C
+.define PLOT_FLAG_FALCON_DRILL_INSTALLED            $3D
+.define PLOT_FLAG_TANKS_AT_BABIL                    $3E
+.define PLOT_FLAG_LAND_OF_MONSTERS_MESSAGE          $3F
+.define PLOT_FLAG_DARKNESS_CRYSTAL                  $40
+.define PLOT_FLAG_DEFEATED_EVILWALL                 $41
+.define PLOT_FLAG_TOWER_OF_BABIL_FLASHING           $42
+.define PLOT_FLAG_BIG_WHALE_ACTIVATED               $43
+.define PLOT_FLAG_DEFEATED_ASURA                    $44
+.define PLOT_FLAG_DEFEATED_LEVIATAN                 $45
+.define PLOT_FLAG_DEFEATED_BAHAMUT                  $46
+.define PLOT_FLAG_RECRUITED_FUSOYA                  $47
+.define PLOT_FLAG_DEFEATED_CPU                      $48
+.define PLOT_FLAG_DEFEATED_ELEMENTS                 $49
+.define PLOT_FLAG_RAT_TAIL_EXCHANGED                $4A
+.define PLOT_FLAG_ADAMANT_TURNED_IN                 $4B
+.define PLOT_FLAG_RECEIVED_EXCALBUR                 $4C
+.define PLOT_FLAG_RECEIVED_PAN                      $4D
+.define PLOT_FLAG_HIT_YANG_WITH_PAN                 $4E
+.define PLOT_FLAG_RETURNED_PAN                      $4F
+.define PLOT_FLAG_DEFEATED_BEHEMOTH_2               $50
+.define PLOT_FLAG_DEFEATED_BEHEMOTH_1               $51
+.define PLOT_FLAG_DEFEATED_BEHEMOTH_3               $52
+.define PLOT_FLAG_DEFEATED_K_Q_EBLAN                $53
+.define PLOT_FLAG_SYLPH_LEARNED                     $54
+.define PLOT_FLAG_DEFEATED_D_LUNAR                  $55
+.define PLOT_FLAG_ENDING                            $56
+.define PLOT_FLAG_TELLAH_SPEAKS_EXITING_WATERY_PASS $57
+.define PLOT_FLAG_MAGNETIC_FIELD_ACTIVE             $E1
+
+.define PLOT_FLAG_2_ENTERPRISE_MAGMA         %00000100 ; $0A
+.define PLOT_FLAG_2_MIST_EVENTS_FINISHED     %01000000 ; $0E
+
+.define PLOT_FLAG_3_DAMCYAN_DESTROYED        %00010000 ; $14
+
+.define PLOT_FLAG_7_AGART_MOUNTAIN_OPEN      %00000001 ; $30
+.define PLOT_FLAG_7_ENTERPRISE_DISABLED      %00000100 ; $32
+
+.define PLOT_FLAG_8_FALCON_MAGMA             %00000010 ; $39
+.define PLOT_FLAG_8_FALCON_DRILL_INSTALLED   %00100000 ; $3D
+
+.define PLOT_FLAG_9_TOWER_OF_BABIL_FLASHING  %00000100 ; $42
+
+.define PLOT_FLAG_11_ENDING                  %01000000 ; $56
+
+.define REG_CPU_HVBJOY_AUTO_JOYPAD_STATUS    %00000001
+
+.define SAVE_SIGNATURE                           $1BE4
+
+.define SHOP_INDEX_KAIPO_WEAPON                    $00
+.define SHOP_INDEX_FABUL_WEAPON_ARMOR              $01
+.define SHOP_INDEX_MYSIDIA_WEAPON                  $02
+.define SHOP_INDEX_BARON_WEAPON                    $03
+.define SHOP_INDEX_TOROIA_WEAPON                   $04
+.define SHOP_INDEX_SILVERA_WEAPON                  $05
+.define SHOP_INDEX_DWARF_WEAPON                    $06
+.define SHOP_INDEX_EBLAN_WEAPON                    $07
+.define SHOP_INDEX_TOMRA_WEAPON                    $08
+.define SHOP_INDEX_KOKKOL                          $09
+.define SHOP_INDEX_KAIPO_ARMOR                     $0A
+.define SHOP_INDEX_MYSIDIA_ARMOR                   $0B
+.define SHOP_INDEX_BARON_ARMOR                     $0C
+.define SHOP_INDEX_TOROIA_ARMOR                    $0D
+.define SHOP_INDEX_SILVERA_ARMOR                   $0E
+.define SHOP_INDEX_DWARF_ARMOR                     $0F
+.define SHOP_INDEX_EBLAN_ARMOR                     $10
+.define SHOP_INDEX_TOMRA_ARMOR                     $11
+.define SHOP_INDEX_HUMMINGWAY_ITEM                 $12
+.define SHOP_INDEX_BASIC_ITEM                      $13
+.define SHOP_INDEX_ADVANCED_ITEM                   $14
+.define SHOP_INDEX_SILVERA_ITEM                    $15
+.define SHOP_INDEX_MIST_WEAPON                     $16
+.define SHOP_INDEX_MIST_ARMOR                      $17
+.define SHOP_INDEX_EBLAN_ITEM                      $18
+.define SHOP_INDEX_AGART_WEAPON                    $1A
+.define SHOP_INDEX_AGART_ARMOR                     $1B
+.define SHOP_INDEX_LAND_OF_MONSTERS_WEAPON         $1C
+.define SHOP_INDEX_LAND_OF_MONSTERS_ARMOR          $1D
+.define SHOP_INDEX_DWARF_ITEM                      $1E
+.define SHOP_INDEX_TOROIA_PASS                     $1F
+
+.define SHOP_TYPE_WEAPON                           $00
+.define SHOP_TYPE_ARMOR                            $01
+.define SHOP_TYPE_ITEM                             $02
+
+.define SHOP_COMMAND_BUY                           $00
+.define SHOP_COMMAND_SELL                          $01
+.define SHOP_COMMAND_EXIT                          $02
+
+.define SPELL_NONE                                 $00
+.define SPELL_HOLD                                 $01
+.define SPELL_MUTE                                 $02
+.define SPELL_CHARM                                $03
+.define SPELL_BLINK                                $04
+.define SPELL_ARMOR                                $05
+.define SPELL_SHELL                                $06
+.define SPELL_SLOW                                 $07
+.define SPELL_FAST                                 $08
+.define SPELL_BERSK                                $09
+.define SPELL_WALL                                 $0A
+.define SPELL_WHITE                                $0B
+.define SPELL_DUMMY                                $0C
+.define SPELL_PEEP                                 $0D
+.define SPELL_CURE1                                $0E
+.define SPELL_CURE2                                $0F
+.define SPELL_CURE3                                $10
+.define SPELL_CURE4                                $11
+.define SPELL_HEAL                                 $12
+.define SPELL_LIFE1                                $13
+.define SPELL_LIFE2                                $14
+.define SPELL_SIZE                                 $15
+.define SPELL_EXIT                                 $16
+.define SPELL_SIGHT                                $17
+.define SPELL_FLOAT                                $18
+.define SPELL_TOAD                                 $19
+.define SPELL_PIGGY                                $1A
+.define SPELL_WARP                                 $1B
+.define SPELL_VENOM                                $1C
+.define SPELL_FIRE1                                $1D
+.define SPELL_FIRE2                                $1E
+.define SPELL_FIRE3                                $1F
+.define SPELL_ICE_1                                $20
+.define SPELL_ICE_2                                $21
+.define SPELL_ICE_3                                $22
+.define SPELL_LIT_1                                $23
+.define SPELL_LIT_2                                $24
+.define SPELL_LIT_3                                $25
+.define SPELL_VIRUS                                $26
+.define SPELL_WEAK                                 $27
+.define SPELL_QUAKE                                $28
+.define SPELL_SLEEP                                $29
+.define SPELL_STONE                                $2A
+.define SPELL_FATAL                                $2B
+.define SPELL_STOP                                 $2C
+.define SPELL_DRAIN                                $2D
+.define SPELL_PSYCH                                $2E
+.define SPELL_METEO                                $2F
+.define SPELL_NUKE                                 $30
+.define SPELL_IMP                                  $31
+.define SPELL_BOMB                                 $32
+.define SPELL_SHIVA                                $36
+.define SPELL_INDRA                                $37
+.define SPELL_JINN                                 $38
+.define SPELL_TITAN                                $39
+.define SPELL_MIST                                 $3A
+.define SPELL_SYLPH                                $3B
+.define SPELL_ODIN                                 $3C
+.define SPELL_LEVIA                                $3D
+.define SPELL_ASURA                                $3E
+.define SPELL_BAHAM                                $3F
+.define SPELL_FLOOD                                $43
+.define SPELL_BLITZ                                $44
+
+.define SPELL_AUDIOVISUAL_CAST_BLACK               $00
+.define SPELL_AUDIOVISUAL_CAST_WHITE               $01
+.define SPELL_AUDIOVISUAL_CAST_CALL                $02
+.define SPELL_AUDIOVISUAL_KAMIKAZE                 $32
+.define SPELL_AUDIOVISUAL_FIREBOMB                 $35
+.define SPELL_AUDIOVISUAL_BLIZZARD                 $36
+.define SPELL_AUDIOVISUAL_LIT_BOLT                 $37
+.define SPELL_AUDIOVISUAL_CRYSTAL                  $38
+
+.define SPECIAL_BACKGROUND_MODE_LEGEND             $00
+.define SPECIAL_BACKGROUND_MODE_MOON               $01
+.define SPECIAL_BACKGROUND_MODE_CREDITS            $02
+
+.define SPELL_WEAPON_ROD                           $48
+.define SPELL_WEAPON_SILVER                        $4A
+.define SPELL_WEAPON_DANCING                       $4C
+
+.define SPELL_FIRST_FIELD_CASTABLE                 $0E
+.define SPELL_LAST_FIELD_CASTABLE                  $1B
+.define SPELL_FIRST_BLACK                          $19
+.define SPELL_FIRST_CALL_PROXY                     $31
+.define SPELL_FIRST_TWIN                           $40
+.define SPELL_FIRST_NINJA                          $42
+.define SPELL_FIRST_LONG_NAME                      $48
+.define SPELL_FIRST_CALL                           $4D
+.define SPELL_LAST_CALL                            $5D
+.define SPELL_FIRST_MONSTER                        $5F
+.define SPELL_FIRST_MONSTER_EVADE                  $94
+.define SPELL_FIRST_SCRIPT                         $A9
+
+.define SPELL_TWIN_COMET                           $40
+.define SPELL_TWIN_FLARE                           $41
+
+.define SPELL_CALL_CHOCOBO                         $51
+.define SPELL_CALL_SHIVA                           $52
+.define SPELL_CALL_INDRA                           $53
+.define SPELL_CALL_JINN                            $54
+.define SPELL_CALL_TITAN                           $55
+.define SPELL_CALL_MIST                            $56
+.define SPELL_CALL_SYLPH                           $57
+.define SPELL_CALL_ODIN                            $58
+.define SPELL_CALL_LEVIATAN                        $59
+.define SPELL_CALL_ASURA_CURE_WEAK                 $5A
+.define SPELL_CALL_ASURA_CURE_STRONG               $5B
+.define SPELL_CALL_ASURA_LIFE1                     $5C
+.define SPELL_CALL_BAHAMUT                         $5D
+
+.define SPELL_TWIN_W_METEO                         $5E
+
+.define SPELL_MONSTER_HEAL                         $86
+.define SPELL_MONSTER_ALERT                        $8C
+.define SPELL_MONSTER_VANISH                       $8F
+.define SPELL_MONSTER_FISSION                      $91
+.define SPELL_MONSTER_RETREAT                      $92
+.define SPELL_MONSTER_EXPLODE                      $A0
+.define SPELL_MONSTER_QUAKE                        $A1
+.define SPELL_MONSTER_RECOVER                      $AB
+.define SPELL_MONSTER_REMEDY                       $AC
+.define SPELL_MONSTER_LIFE_ALL                     $BA
+
+.define SPELL_CALL_SINGLE_TARGET             %10000000
+
+.define SPELL_EFFECT_HIT_MISS                %10000000
+.define SPELL_EFFECT_EFFECT                  %01111111
+
+.define SPELL_EFFECT_LIFE                          $0A
+.define SPELL_EFFECT_HEAL                          $0B
+.define SPELL_EFFECT_RECOVER                       $30
+.define SPELL_EFFECT_NOTHING_SILENT                $7E
+.define SPELL_EFFECT_NOTHING_HAPPENED              $7F
+
+.define SPELL_VISUAL_EFFECT_HANDLER_QUAKE          $07
+.define SPELL_VISUAL_EFFECT_HANDLER_EXPLODE_ACTING $1F
+
+.define SPELL_VISUAL_EFFECT_SCRIPT_SYLPH_CURE      $3D
+
+.define SPELL_TIME_TARGETING_TARGETING       %11100000
+.define SPELL_TIME_TARGETING_TARGET_SINGLE   %00100000
+.define SPELL_TIME_TARGETING_TARGET_ALL      %01000000
+.define SPELL_TIME_TARGETING_TARGET_MONSTER  %10000000
+
+.define SPELL_BOSS_ACCURACY_BOSS_IMMUNE      %10000000
+.define SPELL_BOSS_ACCURACY_ACCURACY         %01111111
+
+.define SPELL_ELEMENT_STATUS_DAMAGES         %10000000
+.define SPELL_ELEMENT_STATUS_INDEX           %01111111
+
+.define SPELL_WALL_MP_WALL                   %10000000
+.define SPELL_WALL_MP_MP                     %01111111
+
+.define SPRITE_CLASS_BACK_ROW                %10000000
+.define SPRITE_CLASS_LONG_RANGE              %00100000
+.define SPRITE_CLASS_CLASS                   %00011111
+
+.define SPRITE_CLASS_CALLER_ADULT                  $0B
+
+.define SPRITE_STATUS_ICON_NONE                    $00
+.define SPRITE_STATUS_ICON_MUTE                    $01
+.define SPRITE_STATUS_ICON_DARKNESS                $02
+.define SPRITE_STATUS_ICON_HP_CRITICAL             $03
+.define SPRITE_STATUS_ICON_PARALYZE                $04
+.define SPRITE_STATUS_ICON_SLEEP                   $05
+.define SPRITE_STATUS_ICON_FLOAT                   $06
+.define SPRITE_STATUS_ICON_CHARM                   $07
+.define SPRITE_STATUS_ICON_CURSE                   $08
+.define SPRITE_STATUS_ICON_COUNT                   $09
+
+.define STATUS_NONE                          %00000000
+
+.define STATUS_1_POISON                      %00000001
+.define STATUS_1_DARKNESS                    %00000010
+.define STATUS_1_MUTE                        %00000100
+.define STATUS_1_PIG                         %00001000
+.define STATUS_1_SMALL                       %00010000
+.define STATUS_1_TOAD                        %00100000
+.define STATUS_1_STONE                       %01000000
+.define STATUS_1_SWOON                       %10000000
+
+.define STATUS_2_STONE_STATUS                %00000011
+.define STATUS_2_BERSERK                     %00000100
+.define STATUS_2_CHARM                       %00001000
+.define STATUS_2_SLEEP                       %00010000
+.define STATUS_2_PARALYZE                    %00100000
+.define STATUS_2_FLOAT                       %01000000
+.define STATUS_2_CURSE                       %10000000
+
+.define STATUS_3_COUNT                       %00000001
+.define STATUS_3_JUMPING                     %00000010
+.define STATUS_3_TWIN_CASTING                %00000100
+.define STATUS_3_CHARGING                    %00001000
+.define STATUS_3_DEFENDING                   %00010000
+.define STATUS_3_EGG                         %00100000
+.define STATUS_3_STOP                        %01000000
+.define STATUS_3_MAGNETIZED                  %10000000
+
+.define STATUS_4_CRITICAL                    %00000001
+.define STATUS_4_COVERED                     %00000010
+.define STATUS_4_IMAGE_ONE_HIT               %00000100
+.define STATUS_4_IMAGE_TWO_HITS              %00001000
+.define STATUS_4_IMAGE                       %00001100
+.define STATUS_4_BARRIER                     %00010000
+.define STATUS_4_WALL                        %00100000
+.define STATUS_4_SAP                         %01000000
+.define STATUS_4_HIDING                      %10000000
+
+.define STONE_STATUS_NONE                          $00
+.define STONE_STATUS_LOW                           $01
+.define STONE_STATUS_HIGH                          $02
+.define STONE_STATUS_FULL                          $03
+
+.define SWAPPED_PARTY_BATTLE_INDEX_ZEMUS_ZEROMUS   $0B
+
+.define TARGET_MAP_NONE                            $0F
+
+.define TARGET_MAP_UP_DOWN_UP                %11110000
+.define TARGET_MAP_UP_DOWN_DOWN              %00001111
+.define TARGET_MAP_LEFT_RIGHT_LEFT           %11110000
+.define TARGET_MAP_LEFT_RIGHT_RIGHT          %00001111
+
+.define TARGET_PALETTE_CYCLING_MODE_NONE           $00
+.define TARGET_PALETTE_CYCLING_MODE_FAST_STROBE    $01
+.define TARGET_PALETTE_CYCLING_MODE_SLOW_STROBE    $02
+.define TARGET_PALETTE_CYCLING_MODE_CYCLE          $03
+
+.define TARGET_PALETTE_CYCLING_PALETTE_FIRE        $00
+
+.define TEXT_ICON_BLANK                            $15
+.define TEXT_ICON_CLAW                             $29
+.define TEXT_ICON_ROD                              $2A
+.define TEXT_ICON_STAFF                            $2B
+.define TEXT_ICON_DARK_SWORD                       $2C
+.define TEXT_ICON_SWORD                            $2D
+.define TEXT_ICON_HOLY_SWORD                       $2E
+.define TEXT_ICON_SPEAR                            $2F
+.define TEXT_ICON_KNIFE                            $30
+.define TEXT_ICON_KATANA                           $31
+.define TEXT_ICON_STAR                             $32
+.define TEXT_ICON_BOOMERANG                        $33
+.define TEXT_ICON_AXE                              $34
+.define TEXT_ICON_WRENCH                           $35
+.define TEXT_ICON_HARP                             $36
+.define TEXT_ICON_BOW                              $37
+.define TEXT_ICON_ARROW                            $38
+.define TEXT_ICON_HAMMER                           $39
+.define TEXT_ICON_WHIP                             $3A
+.define TEXT_ICON_SHIELD                           $3B
+.define TEXT_ICON_HELM                             $3C
+.define TEXT_ICON_ARMOR                            $3D
+.define TEXT_ICON_GAUNTLET                         $3E
+.define TEXT_ICON_BLACK_MAGIC                      $3F
+.define TEXT_ICON_WHITE_MAGIC                      $40
+.define TEXT_ICON_CALL_MAGIC                       $41
+.define TEXT_UPPERCASE_A                           $42
+.define TEXT_UPPERCASE_B                           $43
+.define TEXT_UPPERCASE_E                           $46
+.define TEXT_UPPERCASE_G                           $48
+.define TEXT_UPPERCASE_H                           $49
+.define TEXT_UPPERCASE_L                           $4D
+.define TEXT_UPPERCASE_M                           $4E
+.define TEXT_UPPERCASE_P                           $51
+.define TEXT_UPPERCASE_R                           $53
+.define TEXT_UPPERCASE_V                           $57
+.define TEXT_LOWERCASE_E                           $60
+.define TEXT_LOWERCASE_L                           $67
+.define TEXT_LOWERCASE_V                           $71
+.define TEXT_ICON_TENT                             $79
+.define TEXT_ICON_POTION                           $7A
+.define TEXT_ICON_ROBE                             $7B
+.define TEXT_ICON_RING                             $7C
+.define TEXT_ICON_CRYSTAL                          $7D
+.define TEXT_ICON_KEY                              $7E
+.define TEXT_ICON_TAIL                             $7F
+.define TEXT_DIGIT_0                               $80
+.define TEXT_APOSTROPHE                            $C0
+.define TEXT_ELLIPSIS                              $C3
+.define TEXT_PERCENT                               $C6
+.define TEXT_SLASH                                 $C7
+.define TEXT_COLON                                 $C8
+.define TEXT_SPACE                                 $FF
+
+.define TILE_TREASURE_OPEN                         $77
+.define TILE_TREASURE_CLOSED                       $78
+
+.define TILE_BASE_YELLOW_CHOCOBO                   $20
+.define TILE_BASE_HOVERCRAFT                       $48
+.define TILE_BASE_SHIP                             $60
+.define TILE_BASE_ENTERPRISE                       $78
+.define TILE_BASE_BLACK_CHOCOBO                    $90
+.define TILE_BASE_TANK                             $A8
+.define TILE_BASE_FALCON                           $D8
+.define TILE_BASE_LEVIATAN                         $130
+.define TILE_BASE_SPLASH                           $1E4
+.define TILE_BASE_TENT                             $1E8
+
+.define TILE_SINGLE_PIXEL                          $1FF
+
+.define TILE_MENU_SPRITE_SLIDER_HANDLE             $04
+
+.define TILE_MENU_TRASHCAN_BASE                    $04
+.define TILE_MENU_STATUS_BASE                      $21
+.define TILE_MENU_NON_DIACRITIC_BASE               $42
+.define TILE_MENU_NUMBER_BASE                      $80
+.define TILE_MENU_WINDOW_FULL_TOP_ROW_BASE         $F7
+.define TILE_MENU_WINDOW_TOP_ROW_LEFT              $F7
+.define TILE_MENU_WINDOW_TOP_ROW_MIDDLE            $F8
+.define TILE_MENU_WINDOW_TOP_ROW_RIGHT             $F9
+.define TILE_MENU_WINDOW_MIDDLE_ROW_LEFT           $FA
+.define TILE_MENU_WINDOW_MIDDLE_ROW_RIGHT          $FB
+.define TILE_MENU_WINDOW_BOTTOM_ROW_BASE           $FC
+.define TILE_MENU_WINDOW_BOTTOM_ROW_LEFT           $FC
+.define TILE_MENU_WINDOW_BOTTOM_ROW_MIDDLE         $FD
+.define TILE_MENU_WINDOW_BOTTOM_ROW_RIGHT          $FE
+.define TILE_MENU_WINDOW_BLANK                     $FF
+
+.define TILE_OFFSET_VEHICLE_UP                     $00
+.define TILE_OFFSET_VEHICLE_RIGHT                  $20
+.define TILE_OFFSET_VEHICLE_DOWN                   $40
+.define TILE_OFFSET_VEHICLE_LEFT                   $60
+
+.define TILEMAP_TILE_LARGE_DOOR_CLOSED_UPPER_LEFT  $60
+.define TILEMAP_TILE_LARGE_DOOR_OPEN_UPPER_LEFT    $64
+
+.define TILE_PROPERTY_1_DUNGEON_LAYER_1        %00000001
+.define TILE_PROPERTY_1_DUNGEON_LAYER_2        %00000010
+.define TILE_PROPERTY_1_DUNGEON_BRIDGE         %00000100
+.define TILE_PROPERTY_1_DUNGEON_SAVING_ENABLED %00001000
+.define TILE_PROPERTY_1_DUNGEON_UNKNOWN7       %10000000
+
+.define TILE_PROPERTY_1_OUTDOOR_CAN_WALK       %00000001
+.define TILE_PROPERTY_1_OUTDOOR_YELLOW_CHOCOBO %00000010
+.define TILE_PROPERTY_1_OUTDOOR_BLACK_CHOCOBO  %00000100
+.define TILE_PROPERTY_1_OUTDOOR_FOREST         %00001000
+.define TILE_PROPERTY_1_OUTDOOR_HOVERCRAFT     %00010000
+.define TILE_PROPERTY_1_OUTDOOR_AIRSHIP        %00100000
+.define TILE_PROPERTY_1_OUTDOOR_PLATEAU        %01000000
+.define TILE_PROPERTY_1_OUTDOOR_BIG_WHALE      %10000000
+
+.define TILE_PROPERTY_2_OUTDOOR_AIRSHIP_LAND   %00010000
+.define TILE_PROPERTY_2_OUTDOOR_BACKGROUND     %00000111
+
+.define TILE_PROPERTY_2_DAMAGE               %00000001
+.define TILE_PROPERTY_2_WALK_BEHIND          %00000100
+.define TILE_PROPERTY_2_HIDE_LOWER           %00001000
+.define TILE_PROPERTY_2_RETURN               %00010000
+.define TILE_PROPERTY_2_WATER_BATTLE         %00100000
+.define TILE_PROPERTY_2_TALK_OVER            %00100000
+.define TILE_PROPERTY_2_ENCOUNTERS           %01000000
+.define TILE_PROPERTY_2_TRIGGER              %10000000
+
+.define TILESET_AIRSHIP                            $00
+.define TILESET_LUNAR_CORE                         $01
+.define TILESET_CAVERN                             $02
+.define TILESET_CASTLE_EXTERIOR                    $03
+.define TILESET_TOWN_EXTERIOR                      $04
+.define TILESET_TOWN_INTERIOR                      $05
+.define TILESET_CASTLE_INTERIOR                    $06
+.define TILESET_CRYSTAL_ROOM                       $07
+.define TILESET_BIG_WHALE                          $08
+.define TILESET_UNDERWORLD_CAVE                    $09
+.define TILESET_TOWER                              $0A
+.define TILESET_GIANT                              $0B
+.define TILESET_LUNAR_SUBTERRANE                   $0C
+.define TILESET_MOUNTAIN                           $0D
+.define TILESET_WATERWAY                           $0E
+.define TILESET_SHIP                               $0F
+
+.define TIMER_ENABLED_STOP           %1000000000000000
+.define TIMER_ENABLED_ACTION         %0100000000000000
+.define TIMER_ENABLED_SAP            %0010000000000000
+.define TIMER_ENABLED_POISON         %0001000000000000
+.define TIMER_ENABLED_STONE          %0000100000000000
+.define TIMER_ENABLED_WALL           %0000010000000000
+.define TIMER_ENABLED_COUNT          %0000001000000000
+.define TIMER_ENABLED_UNKNOWN6       %0000000001000000
+
+.define TIMER_MODE_RELATIVE_SPEED                  $00
+.define TIMER_MODE_FIXED                           $01
+.define TIMER_MODE_FIXED_2                         $02
+.define TIMER_MODE_SPELL                           $03
+.define TIMER_MODE_PARALYZE_SLEEP_STONE            $04
+.define TIMER_MODE_POISON                          $06
+.define TIMER_MODE_STONE                           $07
+.define TIMER_MODE_WALL                            $08
+.define TIMER_MODE_SAP                             $09
+.define TIMER_MODE_STOP                            $0A
+.define TIMER_MODE_ITEM                            $0B
+.define TIMER_MODE_COMMAND                         $0C
+
+.define TIMER_OFFSET_STOP                          $00
+.define TIMER_OFFSET_ACTION                        $03
+.define TIMER_OFFSET_SAP                           $06
+.define TIMER_OFFSET_POISON                        $09
+.define TIMER_OFFSET_STONE                         $0C
+.define TIMER_OFFSET_WALL                          $0F
+.define TIMER_OFFSET_COUNT                         $12
+
+.define TIMER_FLAG_EXPIRED                   %00000001
+.define TIMER_FLAG_COMMAND                   %00001000
+.define TIMER_FLAG_STATUS                    %01000000
+.define TIMER_FLAG_UNKNOWN7                  %10000000
+
+.define TIMER_STATUS_QUEUE_CHARACTER               $00
+.define TIMER_STATUS_QUEUE_MONSTER                 $01
+.define TIMER_STATUS_EXPIRED_COMMAND               $02
+.define TIMER_STATUS_EXPIRED_STATUS                $03
+
+.define TRIGGER_EVENT                              $FF
+
+.define VARIABLE_SPRITE_ODIN                       $2A
+.define VARIABLE_SPRITE_ODIN_ATTACKING             $2C
+.define VARIABLE_SPRITE_ZEROMUS                    $39
+
+.define VEHICLE_NONE                               $00
+.define VEHICLE_YELLOW_CHOCOBO                     $01
+.define VEHICLE_BLACK_CHOCOBO                      $02
+.define VEHICLE_HOVERCRAFT                         $03
+.define VEHICLE_ENTERPRISE                         $04
+.define VEHICLE_FALCON                             $05
+.define VEHICLE_BIG_WHALE                          $06
+.define VEHICLE_SHIP                               $07
+
+.define VRAM_INN_PARTY_GP_WINDOW                 $2892
+
+.define VRAM_FIELD_TILEMAP_BG3                   $2800
+
+.define VRAM_PROLOGUE_TILES_BG                   $0000
+.define VRAM_PROLOGUE_TILEMAP_BG1                $1800
+.define VRAM_PROLOGUE_TILEMAP_BG3                $2800
+.define VRAM_PROLOGUE_TILEMAP_BG2                $3000
+.define VRAM_PROLOGUE_TILES_OAM                  $4000
+
+.define VRAM_ENDING_TILES_OAM                    $4000
+
+.define VRAM_MENU_TILES_TEXT                     $2000
+.define VRAM_MENU_PORTRAIT_SLOT_0                $4200
+.define VRAM_MENU_PORTRAIT_SLOT_1                $4300
+.define VRAM_MENU_PORTRAIT_SLOT_2                $4400
+.define VRAM_MENU_PORTRAIT_SLOT_3                $4500
+.define VRAM_MENU_PORTRAIT_SLOT_4                $4600
+.define VRAM_MENU_TILEMAP_BG1                    $6000
+.define VRAM_MENU_TILEMAP_BG2                    $6800
+.define VRAM_MENU_TILEMAP_BG3                    $7000
+.define VRAM_MENU_TILEMAP_BG4                    $7800
+
+.define YELLOW_CHOCOBO_STATUS_INACTIVE             $00
+.define YELLOW_CHOCOBO_STATUS_ACTIVE               $01
+.define YELLOW_CHOCOBO_STATUS_LEAVING              $02
+
+.define ZOOM_LEVEL_NORMAL                       $10
+.define ZOOM_LEVEL_AIRSHIP_FLIGHT               $20
+.define ZOOM_LEVEL_BIG_WHALE_FLIGHT             $30
+
+;
+; Data Structures
+;
+
+; word
+;
+; Defines a simple two byte word.
+.struct word
+    lo db
+    hi db
+.endst
+
+; long
+;
+; Defines a three byte long integer.
+.struct long
+    lo db
+    md db
+    hi db
+.endst
+
+; double_word
+;
+; Defines a four byte double word.
+.struct double_word
+    lo instanceof word
+    hi instanceof word
+.endst
+
+; pointer
+;
+; Defines a 24-bit pointer
+.struct pointer
+    address      instanceof word
+    bank         db
+.endst
+
+; action
+;
+; Information about an action a character or monster takes in battle.
+.struct action
+    manual_pending              db ; $D7 or $3937
+    flags                       db ; $D8 or $3938
+    command_index               db ; $D9 or $3939
+    targets                    .dw
+    targets.monster             db ; $DA or $393A
+    targets.party               db ; $DB or $393B
+    command                     db ; $DC or $393C
+.endst
+
+; action_details
+;
+; Information about the currently executing action.
+.struct action_details
+    actor_flags                 db ; $34C2 | $80 if monster acting
+    actor                       db ; $34C3 | Relative to base for player/monster
+    target_flags                db ; $34C4
+    target                      db ; $34C5
+    covered_target              db ; $34C6
+    action_flags                db ; $34C7
+    action                      db ; $34C8
+    unknown8                    db ; $34C9
+.endst
+
+; address
+;
+; A 16-bit address
+.struct address
+    lo                          db
+    hi                          db
+.endst
+
+; apparition_set
+;
+; Details about a set of character apparitions in battle.
+.struct apparition_set
+    pointers.1                  dw
+    pointers.2                  dw
+    palettes.1                  db
+    palettes.2                  db
+    coordinates.1               db
+    coordinates.2               db
+.endst
+
+; battle_dialog_dma
+;
+; Information about a battle dialog DMA transfer.
+.struct battle_dialog_dma
+    source_address              dw
+    target_vram_address         dw
+    bytes                       dw
+.endst
+
+; battle_menu_open_close
+;
+; Information about battle menu open/close parameters.
+.struct battle_menu_open_close
+    source_address              dw
+    target_address              dw
+    tiles                       db
+    reverse                     db
+.endst
+
+; battle_timer
+;
+; Information regarding a battle timer.
+.struct battle_timer
+    value                       .dw
+    value_lo                    db
+    value_hi                    db
+    flags                       db
+.endst
+
+; buy_item
+;
+; Information about an item for sale.
+.struct buy_item
+    id                      db
+    price                   instanceof long
+.endst
+
+; status_icon_timer
+;
+; Information about a status icon timer.
+; TODO: Determine if anything else uses this or if the fourth byte is used for
+; something.
+.struct status_icon_timer
+    active                      db ; $F07B
+    counter                     db ; $F07C
+    counter_slow                db ; $F07D | Counts once every eight frames
+    unknown4                    db ; $F07E
+.endst
+
+; initial_stats
+;
+; The format of the initial stats for characters.
+.struct initial_stats
+    id                          db ; $00
+    sprite_class                db ; $01
+    level                       db ; $02
+    status_1                    db ; $03
+    status_2                    db ; $04
+    status_3                    db ; $05
+    status_4                    db ; $06
+    hp                          dw ; $07.08
+    hp_max                      dw ; $09.0A
+    mp                          dw ; $0B.0C
+    mp_max                      dw ; $0D.0E
+    strength                    db ; $0F
+    agility                     db ; $10
+    vitality                    db ; $11
+    wisdom                      db ; $12
+    will                        db ; $13
+    critical_rate               db ; $14
+    critical_bonus              db ; $15
+    morale                      db ; $16
+    experience                  dl ; $17.19
+    unknown3A                   db ; $1A
+    speed_modifier              db ; $1B
+    unknown3C                   db ; $1C
+    experience_needed           dl ; $1D.1F
+.endst
+
+; character_field
+;
+; The format of the $480 byte character field records stored at $1000.
+.struct character_field
+    id                          db  ; $00
+    sprite_class                db  ; $01
+    level                       db  ; $02
+    status_1                    db  ; $03
+    status_2                    db  ; $04
+    status_3                    db  ; $05
+    status_4                    db  ; $06
+    hp                          .dw ; $07.$08
+    hp_lo                       db  ; $07
+    hp_hi                       db  ; $08
+    hp_max                      .dw ; $09.$0A
+    hp_max_lo                   db  ; $09
+    hp_max_hi                   db  ; $0A
+    mp                          .dw ; $0B.$0C
+    mp_lo                       db  ; $0B
+    mp_hi                       db  ; $0C
+    mp_max                      .dw ; $0D.$0E
+    mp_max_lo                   db  ; $0D
+    mp_max_hi                   db  ; $0E
+    strength_base               db  ; $0F
+    agility_base                db  ; $10
+    vitality_base               db  ; $11
+    wisdom_base                 db  ; $12
+    will_base                   db  ; $13
+    strength                    db  ; $14
+    agility                     db  ; $15
+    vitality                    db  ; $16
+    wisdom                      db  ; $17
+    will                        db  ; $18
+    physical_attack_element     db  ; $19
+    physical_attack_race        db  ; $1A
+    physical_attack_multiplier  db  ; $1B
+    physical_attack_accuracy    db  ; $1C
+    physical_attack_base        db  ; $1D
+    physical_attack_status_1    db  ; $1E
+    physical_attack_status_2    db  ; $1F
+    element_weak                db  ; $20
+    element_very_weak           db  ; $21
+    magic_defense_multiplier    db  ; $22
+    magic_defense_evade         db  ; $23
+    magic_defense_base          db  ; $24
+    element_resistance          db  ; $25
+    element_immunity            db  ; $26
+    physical_defense_race       db  ; $27
+    physical_defense_multiplier db  ; $28
+    physical_defense_evade      db  ; $29
+    physical_defense_base       db  ; $2A
+    status_1_immunity           db  ; $2B
+    status_2_immunity           db  ; $2C
+    critical_rate               db  ; $2D
+    critical_bonus              db  ; $2E
+    unknown2F                   db  ; $2F
+    armor_head                  db  ; $30
+    armor_body                  db  ; $31
+    armor_arms                  db  ; $32
+    right_hand_item             db  ; $33
+    right_hand_count            db  ; $34
+    left_hand_item              db  ; $35
+    left_hand_count             db  ; $36
+    experience                  .dl ; $37.39
+    experience_lo               db  ; $37
+    experience_md               db  ; $38
+    experience_hi               db  ; $39
+    unknown3A                   db  ; $3A
+    speed_modifier              db  ; $3B
+    unknown3C                   db  ; $3C
+    experience_needed           instanceof long ; $3D.3F
+.endst
+
+; character_battle
+;
+; The format of the $80 byte in-battle character records stored at $2000.
+.struct character_battle
+    id                          db  ; $00
+    sprite_class                db  ; $01
+    level                       db  ; $02
+    status_1                    db  ; $03
+    status_2                    db  ; $04
+    status_3                    db  ; $05
+    status_4                    db  ; $06
+    hp                          .dw ; $07.$08
+    hp_lo                       db  ; $07
+    hp_hi                       db  ; $08
+    hp_max                      .dw ; $09.$0A
+    hp_max_lo                   db  ; $09
+    hp_max_hi                   db  ; $0A
+    mp                          .dw ; $0B.$0C
+    mp_lo                       db  ; $0B
+    mp_hi                       db  ; $0C
+    mp_max                      dw  ; $0D.$0E
+    strength_base               db  ; $0F
+    agility_base                db  ; $10
+    vitality_base               db  ; $11
+    wisdom_base                 db  ; $12
+    will_base                   db  ; $13
+    strength                    db  ; $14
+    agility                     db  ; $15
+    vitality                    db  ; $16
+    wisdom                      db  ; $17
+    will                        db  ; $18
+    physical_attack_element     db  ; $19
+    physical_attack_race        db  ; $1A
+    physical_attack_multiplier  db  ; $1B
+    physical_attack_accuracy    db  ; $1C
+    physical_attack_base        db  ; $1D
+    physical_attack_status_1    db  ; $1E
+    physical_attack_status_2    db  ; $1F
+    element_weakness            db  ; $20
+    element_weakness_strong     db  ; $21
+    magic_defense_multiplier    db  ; $22
+    magic_defense_evade         db  ; $23
+    magic_defense_base          db  ; $24
+    element_resistance          db  ; $25
+    element_immunity            db  ; $26
+    physical_defense_race       db  ; $27
+    physical_defense_multiplier db  ; $28
+    physical_defense_evade      db  ; $29
+    physical_defense_base       db  ; $2A
+    status_1_immunity           db  ; $2B
+    status_2_immunity           db  ; $2C
+    critical_rate               db  ; $2D
+    critical_bonus              db  ; $2E
+    unknown2F                   db  ; $2F
+    armor_head                  db  ; $30
+    armor_body                  db  ; $31
+    armor_arms                  db  ; $32
+    right_hand_item             db  ; $33
+    right_hand_count            db  ; $34
+    left_hand_item              db  ; $35
+    left_hand_count             db  ; $36
+    experience_lo               dw  ; $37
+    experience_hi               db  ; $39
+    unknown3A                   db  ; $3A
+    speed_modifier              db  ; $3B
+    unknown3C                   db  ; $3C
+    experience_needed_lo        db  ; $3D
+    experience_needed_md        db  ; $3E
+    experience_needed_hi        db  ; $3F
+    monster_race                db  ; $40
+    base_critical_rate          db  ; $41
+    base_critical_bonus         db  ; $42
+    unknown43                   db  ; $43
+    unknown44                   db  ; $44
+    unknown45                   db  ; $45
+    unknown46                   db  ; $46
+    unknown47                   db  ; $47
+    unknown48                   db  ; $48
+    unknown49                   db  ; $49
+    unknown4A                   db  ; $4A
+    unknown4B                   db  ; $4B
+    unknown4C                   db  ; $4C
+    unknown4D                   db  ; $4D
+    unknown4E                   db  ; $4E
+    unknown4F                   db  ; $4F
+    action_flags                db  ; $50
+    command                     db  ; $51
+    subcommand                  db  ; $52
+    targets                     .dw ; $53.54
+    targets.monster             db  ; $53
+    targets.party               db  ; $54
+    command_offset              .dw ; $55.56
+    command_offset_lo           db  ; $55
+    command_offset_hi           db  ; $56
+    unknown57                   dsb $09 ; $57.5F
+    relative_speed              .dw ; $60.61
+    relative_speed_lo           db  ; $60
+    relative_speed_hi           db  ; $61
+    unknown62                   dsb $0E ; $62.$6F
+    monster_level_boss          db  ; $70
+    unknown71                   db  ; $71
+    unknown72                   db  ; $72
+    monster_item_index          db  ; $73
+    unknown74                   dsb $0C ; $74.$7F
+.endst
+
+; character_stats
+;
+; A struct used by the derived stat calculation function to collect the data it
+; needs to do its calculations.
+.struct character_stats
+    level                   db ; $00
+    strength                db ; $01
+    agility                 db ; $02
+    vitality                db ; $03
+    wisdom                  db ; $04
+    will                    db ; $05
+    shield_count            db ; $06
+    shield_physical_evade   db ; $07
+    shield_1_element        db ; $08
+    shield_2_element        db ; $09
+    shield_physical_defense db ; $0A
+    shield_status_1         db ; $0B
+    shield_status_2         db ; $0C
+    shield_magic_evade      db ; $0D
+    shield_magic_defense    db ; $0E
+    shield_race             db ; $0F
+.endst
+
+; character_name
+;
+; Defines the structure of a character name.
+.struct character_name
+    name                    dsb 6
+.endst
+
+; character_status
+;
+; Four bytes containing data about a character's status. Used by the visual
+; status bytes, among other things.
+.struct character_status
+    status_1                db ; $F015
+    status_2                db ; $F016
+    status_3                db ; $F017
+    status_4                db ; $F018
+.endst
+
+; character_status_backup
+;
+; Used to backup three of the character status bytes during battle end.
+.struct character_status_backup
+    status_1                db
+    status_2                db
+    status_4                db
+.endst
+
+; character_timers
+;
+; Defines the in-battle timers related to a given character/monster slot.
+.struct character_timers
+    .union
+        value    .dw
+        value_lo db
+        value_hi db
+        flags    db
+    .nextu
+        stop     instanceof battle_timer
+        action   instanceof battle_timer
+        sap      instanceof battle_timer
+        poison   instanceof battle_timer
+        stone    instanceof battle_timer
+        wall     instanceof battle_timer
+        count    instanceof battle_timer
+    .endu
+.endst
+
+; enabled_timers
+;
+; Defines two bytes that determine which timers are enabled.
+.struct enabled_timers
+    lo db
+    hi db
+.endst
+
+; character_visual
+;
+; A series of properties for display a character's battle sprite.
+.struct character_visual
+    id                  db ; $EFC4
+    x                   db ; $EFC5
+    y                   db ; $EFC6
+    x_offset            db ; $EFC7
+    y_offset            db ; $EFC8
+    oam_index           db ; $EFC9
+    base_tile           db ; $EFCA
+    oam_flags           db ; $EFCB
+    stone_status        db ; $EFCC
+    animate_pose        db ; $EFCD
+    flags               db ; $EFCE | Potentially flags %???????R R - Reverse
+    pending_steps       db ; $EFCF
+    pose                db ; $EFD0
+    frame_counter       db ; $EFD1
+    pose_frame_mask     db ; $EFD2
+    pose_frame_counter  db ; $EFD3
+.endst
+
+; command_entry
+;
+; Data about a character battle menu command entry.
+.struct command_entry
+    flags                   db ; $3302 | %?TTTA???: T - Targeting, A - potential targeting
+    id                      db ; $3303
+    unknown3                db ; $3304
+    unknown4                db ; $3305
+.endst
+
+; command_entry_list
+;
+; A list of command entries for a given character.
+.struct command_entry_list
+    commands instanceof command_entry 5
+    change instanceof command_entry
+    parry instanceof command_entry
+.endst
+
+; coordinates
+;
+; Defines the structure of a pair of X, Y coordinates.
+.struct coordinates
+    x                       db ; $00
+    y                       db ; $01
+.endst
+
+; reversed_coordinates
+;
+; Defines a pair of coordinates, with Y occurring before X.
+.struct reversed_coordinates
+    y db
+    x db
+.endst
+
+; word_coordinates
+;
+; Defines a pair of coordinates, with each coordinate a full word.
+.struct word_coordinates
+    x instanceof word
+    y instanceof word
+.endst
+
+; menu_magic_coordinates
+;
+; Defines the spell list cursor coordinates for a single character.
+.struct menu_magic_coordinates
+    spell_list instanceof reversed_coordinates
+    spell_current instanceof reversed_coordinates
+    spell_selected instanceof reversed_coordinates
+.endst
+
+; equipment
+;
+; Data about a piece of equipment.
+.struct equipment
+    unknown00	       db ; $00: TODO: Needs complete examination of the bits' purposes.
+    power    	       db ; $01
+    accuracy	       db ; $02
+    spell_mdef 	       db ; $03: Spell for weapons, magic defense for armor
+    element_status_ptr db ; $04
+    race     	       db ; $05
+    flags	           db ; $06
+    stat_bonus	       db ; $07
+.endst
+
+; element_status
+;
+; Additional data about elemental and status properties, used both by equipment
+; and spells.
+.struct element_status
+    element            db ; $00
+    status_1           db ; $01
+    status_2           db ; $02
+.endst
+
+; equipment_full
+;
+; Some functions use a more complete look at equipment, created after copying
+; data from the individual tables.
+.struct equipment_full
+    data instanceof equipment
+    element_status instanceof element_status
+.endst
+
+; character_equipment
+;
+; A temporary struct used by stat-calculation functions to collect complete
+; equipment data for the target character.
+.struct character_equipment
+    head instanceof equipment_full
+    body instanceof equipment_full
+    arms instanceof equipment_full
+    right_hand instanceof equipment_full
+    left_hand instanceof equipment_full
+.endst
+
+; explosion_entry
+;
+; An entry describing one of the explosion sprites.
+; TODO: Determine if this structure is used for other animations.
+.struct explosion_entry
+    cycle       db                     ; $00
+    coordinates instanceof coordinates ; $01.02
+    _unused     db                     ; $03
+.endst
+
+; formation_properties
+;
+; Properties about a battle formation.
+.struct formation_properties
+    flags1                  db ; $299C
+    monster_1_id            db ; $299D
+    monster_2_id            db ; $299E
+    monster_3_id            db ; $299F
+    monster_counts          db ; $29A0: %112233XX where XX is a code that determines which monsters start dead.
+    arrangement             db ; $29A1
+    flags2                  db ; $29A2
+    target_map              db ; $29A3
+.endst
+
+; hdma_entry
+;
+; An entry in an indirect HDMA table.
+.struct hdma_entry
+    scanlines               db ; $00
+    address_lo              db ; $01
+    address_hi              db ; $02
+.endst
+
+; hdma_byte_data_entry
+;
+; An entry in a direct HDMA table where each entry is a byte.
+.struct hdma_byte_data_entry
+    scanlines               db ; $00
+    value                   db ; $01
+.endst
+
+; scroll_hdma_data_entry
+;
+; An entry in an HDMA data table for background scroll registers.
+.struct scroll_hdma_data_entry
+    .union
+        horizontal              dw
+        vertical                dw
+    .nextu
+        horizontal_lo           db
+        horizontal_hi           db
+        vertical_lo             db
+        vertical_hi             db
+    .endu
+.endst
+
+; mode_7_hdma_data_entry
+;
+; An entry in an HDMA data table for mode 7 parameters.
+.struct mode_7_hdma_data_entry
+    .union
+        m7a instanceof word
+        m7b instanceof word
+    .nextu
+        m7c instanceof word
+        m7d instanceof word
+    .endu
+.endst
+
+; coordinate_fraction
+;
+; A set of coordinates with a whole and fractional component.
+.struct coordinate_fraction
+    x.fraction db
+    x.value db
+    y.fraction db
+    y.value db
+.endst
+
+; menu_bg_scroll_single
+;
+; A single entry containing data about a background's scroll in one direction.
+.struct menu_bg_scroll_single
+    fraction db
+    value instanceof word
+.endst
+
+; menu_bg_scroll
+;
+; An entry for a background's scroll values in the menu.
+.struct menu_bg_scroll
+    horizontal instanceof menu_bg_scroll_single
+    vertical instanceof menu_bg_scroll_single
+.endst
+
+; inventory_entry
+;
+; An entry in the player's inventory.
+.struct inventory_entry
+    id                      db ; $1440
+    count                   db ; $1441
+.endst
+
+; battle_inventory_entry
+;
+; An entry in the in-battle inventory.
+.struct battle_inventory_entry
+    flags                   db ; $321A: %ERRR?T??, E = equippable, R = targeting, T = throwable
+    id                      db ; $321B
+    count                   db ; $321C
+    effect                  db ; $321D
+.endst
+
+; joypad_map
+;
+; A mapping of joypad buttons to the values to be ORed into a word to configure
+; that button.
+.struct joypad_map
+    b_button                dw ; $00, $1A05, $1A1D
+    y_button                dw ; $01, $1A07, $1A1F
+    select                  dw ; $02, $1A09, $1A21
+    start                   dw ; $03, $1A0B, $1A23
+    up                      dw ; $04, $1A0D, $1A25
+    down                    dw ; $05, $1A0F, $1A27
+    left                    dw ; $06, $1A11, $1A29
+    right                   dw ; $07, $1A13, $1A2B
+    a_button                dw ; $08, $1A15, $1A2D
+    x_button                dw ; $09, $1A17, $1A2F
+    l_button                dw ; $0A, $1A19, $1A31
+    r_button                dw ; $0B, $1A1B, $1A33
+.endst
+
+; map_history_entry
+;
+; An entry in the map history table (used for certain doors and the Warp spell).
+.struct map_history_entry
+    map_id                  db ; $00
+    x                       db ; $01
+    y                       db ; $02
+.endst
+
+; $0FE4: SSDD?HVC
+; S: speed, D: autoscroll direction, H: horizontal scroll, V: vertical scroll
+; C: color math
+; autoscroll if H and V disabled and speed > 0
+; S: 00: no movement, 1: half speed, 2: regular speed, 3: double speed
+
+; map_properties
+;
+; Bytes containing properties regarding a map.
+.struct map_properties
+    flags                   db ; $00: Four flags and the battle background.
+    tilemap                 db ; $01: The tilemap this map uses.
+    tileset                 db ; $02: The index to the tileset used by this map.
+    npc_placements          db ; $03: Index into the NPC data array.
+    fill_tile               db ; $04: High bit means impassable, low seven are tile number for out of bounds.
+    palette                 db ; $05: Determines the palettes that the map uses.
+    npc_palettes            db ; $06: Determines which four palettes NPCs use.
+    audio_track             db ; $07: Audio track played on this map.
+    background_tilemap      db ; $08: The tilemap number of the background.
+    background_properties   db ; $09: Background properties
+    bank_flags              db ; $0A: %A??????B: A - Use high NPCs, B: Use high tilemaps
+    title                   db ; $0B: The number of the title of the map.
+    treasure_index          db ; $0C: Treasure index of the map's first treasure.
+.endst
+
+; monster
+;
+; Data about a monster. Not all monsters use all bytes, and will therefore have
+; garbage data in later bytes.
+.struct monster
+    level_boss              db     ; $00
+    hp                      .dw    ; $01.02
+    hp_lo                   db     ; $01
+    hp_hi                   db     ; $02
+    physical_attack_index   db     ; $03
+    physical_defense_index  db     ; $04
+    magic_defense_index     db     ; $05
+    agility_index           db     ; $06: TODO: Agility only uses the bottom 6 bits.
+    item_index              db     ; $07
+    script_index            db     ; $08
+    flags                   db     ; $09
+    extra_data              dsb 10 ; $0A.13
+.endst
+
+
+; npc_properties
+;
+; Properties of an NPC on the active map.
+.struct npc_properties
+    frame_counter           db ; $08FF
+    force_normal_speed      db ; $0900
+    movement_properties     db ; $0901 | %SSA???MM, S: Speed, A: Animated (stationary sprites), M: Animation mode
+    movement_direction      db ; $0902 | %ABBBBBBB, A: Force no movement, B: movement direction
+    x_offset                db ; $0903
+    x                       db ; $0904
+    y_offset                db ; $0905
+    y                       db ; $0906
+    npc                     db ; $0907
+    frame_counter_limit     db ; $0908 | used for manual movement in events
+    direction               db ; $0909
+    hide_lower              db ; $090A
+    visible                 db ; $090B
+    flags                   db ; $090C | lowest bit means jumping, second lowest means spinning
+    palette                 db ; $090D
+.endst
+
+; npc_placement
+;
+; Properties of an NPC placement.
+.struct npc_placement
+    npc_index               db
+    x                       db ; %M?XXXXXX, M: Moves, X: X coordinate
+    y                       db ; %YYYYYYYY, Y: Y coordinate
+    movement                db ; %SSATPPDD, S: Speed, A: Animated, T: Turns (when player talks to it), P: Palette, D: Direction
+.endst
+
+; oam_sprite
+;
+; Data about an OAM sprite.
+.struct oam_sprite
+    x                       db ; $00
+    y                       db ; $01
+    tile                    db ; $02
+    flags                   db ; $03
+.endst
+
+; palette
+;
+; Defines a 16-color palette.
+.struct palette
+    color1                  dw ; $00
+    color2                  dw ; $02
+    color3                  dw ; $04
+    color4                  dw ; $06
+    color5                  dw ; $08
+    color6                  dw ; $0A
+    color7                  dw ; $0C
+    color8                  dw ; $0E
+    color9                  dw ; $10
+    color10                 dw ; $12
+    color11                 dw ; $14
+    color12                 dw ; $16
+    color13                 dw ; $18
+    color14                 dw ; $1A
+    color15                 dw ; $1C
+    color16                 dw ; $1E
+.endst
+
+; victim_history_entry
+;
+; An entry in a monster's victim history.
+.struct victim_history_entry
+    actor                   db
+    command                 db
+    unknown3                db
+    element                 db
+.endst
+
+; battle_script_entry
+;
+; Defines a single monster battle script.
+.struct battle_script_entry
+    condition_set_index     db
+    action_index            db
+.endst
+
+; battle_script
+;
+; Defines an entire set of battle scripts.
+.struct battle_script
+    scripts instanceof battle_script_entry 10
+.endst
+
+; condition_set
+;
+; Defines a condition set as part of a battle script.
+.struct condition_set
+    conditions dsb 4
+.endst
+
+; condition
+;
+; Defines a condition used in a battle script.
+.struct condition
+    opcode      db
+    parameter_1 db
+    parameter_2 db
+    parameter_3 db
+.endst
+
+.struct target_map
+    up_down    db
+    left_right db
+.endst
+
+; trigger
+;
+; Defines a map trigger.
+;
+; For treasure chests:
+;   param2: %RT?FFFFF: R - regular item, T - trapped chest, F - trapped formation (each map plane gets 32 encounters starting at $1C0)
+;   param3: either an item ID if R or T is set or a value indicating the amount of GP: %HGGGGGGG where G is multiplied by 10 if H is not
+;           set and by 1000 if is.
+.struct trigger
+    x db
+    y db
+    param1 db ;
+    param2 db
+    param3 db
+.endst
+
+; condition_set_expanded
+;
+; A condition set that has been expanded into its component conditions.
+.struct condition_set_expanded
+    conditions instanceof condition 4
+.endst
+
+; condition_sets
+;
+; Defines multiple condition sets for a single monster, indexed in the same
+; order as their overall script data.
+.struct condition_sets
+    sets instanceof condition_set 10
+.endst
+
+; condition_sets_expanded
+;
+; Defines multiple condition sets for a single monster, expanded to contain the
+; actual condition data.
+.struct condition_sets_expanded
+    sets instanceof condition_set_expanded 10
+.endst
+
+; action_set
+;
+; Defines a set of actions a monster may take at some point.
+.struct action_set
+    actions dsb 60
+.endst
+
+; action_sets
+;
+; Defines multiple action sets for a single monster.
+.struct action_sets
+    sets instanceof action_set 10
+.endst
+
+; level_up
+;
+; Defines data about a character level up.
+.struct level_up
+    stats               db ; %SSSSSAAA where S indicates which stats to change and AAA is the value, with 7 = -1
+    hp                  db ; Base HP value to add at level up
+    mp_exp_hi           db ; %EEEMMMMM where E is the high bits of the experience value and M is the base MP value
+    exp_lo              db
+    exp_md              db
+.endst
+
+; save_slot
+;
+; Defines some of the structure for a save slot. In general, a save is nothing
+; more than a copy of the 2048 bytes starting at $7E1000. However, a few
+; addresses within those slots are referenced directly, and so they are labeled
+; here. The bytes are the same in both cases, and this is just for labeling
+; convenience.
+.struct save_slot
+    _unlabeled_0000     dsb 1700
+    game_time.seconds   instanceof long ; $06A4.06A6
+    _unlabeled_06a7     dsb 3
+    window_color        instanceof word ; $06AA.06AB
+    _unlabeled_06ac     dsb 336
+    checksum            instanceof word ; $07FC.07FD
+    signature           instanceof word ; $07FE.07FF
+.endst
+
+; id_slot
+;
+; Contains a character ID and a slot number for a character.
+.struct id_slot
+    id db
+    slot db
+.endst
+
+; size
+;
+; Defines a size.
+.struct size
+    width db
+    height db
+.endst
+
+; menu_character_sprite
+;
+; Properties of a character sprite within a shop menu.
+.struct menu_character_sprite
+    slot                 db
+    pose                 db
+    coordinates          instanceof coordinates
+.endst
+
+; menu_equip_coordinates
+;
+; Coordinates for the cursor in the equip menu.
+.struct menu_equip_coordinates
+    y db
+    x db
+    first_row db
+.endst
+
+; spell
+;
+; Data about a spell.
+.struct spell
+    time_targeting          db ; $00: %RRRTTTTT
+    power                   db ; $01
+    boss_accuracy           db ; $02: %BAAAAAAA: B = doesn't affect boss, A = accuracy
+    effect                  db ; $03
+    element_status_index    db ; $04: %REEEEEEE: R = reeling, E = element_status_index,
+    wall_mp                 db ; $05: %WMMMMMMM: W = wall, M = MP
+.endst
+
+; spell_full
+;
+; Data about a spell, including its elemental properties, used during magic
+; damage calculations.
+.struct spell_full
+    data instanceof spell
+    element_status instanceof element_status
+.endst
+
+; spell_list
+;
+; Data about a basic spell list, which simply has one byte for each spell.
+.struct spell_list
+    spells dsb 24
+.endst
+
+; spell_entry
+;
+; Defines a spell entry in RAM at $2C7A.
+.struct spell_entry
+    flags                   db ; $2C7A: %?TTT????: T - Targeting
+    id                      db ; $2C7B
+    unknown3                db ; $2C7C
+    cost                    db ; $2C7D
+.endst
+
+; spell_visual
+;
+; Defines the visual properties for a spell.
+.struct spell_visual
+    palette                 db
+    tile_block              db
+    script                  db
+    handler                 db
+.endst
+
+; tile_properties
+;
+; Defines the structure used to define tile properties.
+.struct tile_properties
+    properties_1            db ; $00
+    properties_2            db ; $01
+.endst
+
+.struct weapon_visual
+    palette                 db
+    weapon_sprite           db
+    effect_sprite           db
+    effect                  db
+.endst
+
+; variable_sprite_properties
+;
+; Defines the properties of a battle sprite with a variable layout.
+.struct variable_sprite_properties
+    coordinates             db ; %XXXXYYYY: X, Y
+    size_index              db ; %RTSSSSSS: R - Reset tilemap, T - Increment high character bits, S - size index
+    palette_index           db
+    type_transition         db ; %??MMTTTT: M - monster type index, T - transition type
+    layout_index            db
+.endst
+
+; Registers
+
+.enum $2100
+    reg_ppu_inidisp                                       db                              ; $002100
+    reg_ppu_objsel                                        db                              ; $002101
+    reg_ppu_oamadd                                        .dw                             ; $002102.2103
+    reg_ppu_oamaddl                                       db                              ; $002102
+    reg_ppu_oamaddh                                       db                              ; $002103
+    reg_ppu_oamdata_write                                 db                              ; $002104
+    reg_ppu_bgmode                                        db                              ; $002105
+    reg_ppu_mosaic                                        db                              ; $002106
+    reg_ppu_bg1sc                                         db                              ; $002107
+    reg_ppu_bg2sc                                         db                              ; $002108
+    reg_ppu_bg3sc                                         db                              ; $002109
+    reg_ppu_bg4sc                                         db                              ; $00210A
+    reg_ppu_bg12nba                                       db                              ; $00210B
+    reg_ppu_bg34nba                                       db                              ; $00210C
+    reg_ppu_bg1h0fs                                       db                              ; $00210D
+    reg_ppu_bg1v0fs                                       db                              ; $00210E
+    reg_ppu_bg2h0fs                                       db                              ; $00210F
+    reg_ppu_bg2v0fs                                       db                              ; $002110
+    reg_ppu_bg3h0fs                                       db                              ; $002111
+    reg_ppu_bg3v0fs                                       db                              ; $002112
+    reg_ppu_bg4h0fs                                       db                              ; $002113
+    reg_ppu_bg4v0fs                                       db                              ; $002114
+    reg_ppu_vmainc                                        db                              ; $002115
+    reg_ppu_vmadd                                         .dw                             ; $002116.2117
+    reg_ppu_vmaddl                                        db                              ; $002116
+    reg_ppu_vmaddh                                        db                              ; $002117
+    reg_ppu_vmdata_write                                  .dw                             ; $002118.2119
+    reg_ppu_vmdatal_write                                 db                              ; $002118
+    reg_ppu_vmdatah_write                                 db                              ; $002119
+    reg_ppu_m7sel                                         db                              ; $00211A
+    reg_ppu_m7a                                           db                              ; $00211B
+    reg_ppu_m7b                                           db                              ; $00211C
+    reg_ppu_m7c                                           db                              ; $00211D
+    reg_ppu_m7d                                           db                              ; $00211E
+    reg_ppu_m7x                                           db                              ; $00211F
+    reg_ppu_m7y                                           db                              ; $002120
+    reg_ppu_cgadd                                         db                              ; $002121
+    reg_ppu_cgdata                                        db                              ; $002122
+    reg_ppu_w12sel                                        db                              ; $002123
+    reg_ppu_w34sel                                        db                              ; $002124
+    reg_ppu_wobjsel                                       db                              ; $002125
+    reg_ppu_wh0                                           db                              ; $002126
+    reg_ppu_wh1                                           db                              ; $002127
+    reg_ppu_wh2                                           db                              ; $002128
+    reg_ppu_wh3                                           db                              ; $002129
+    reg_ppu_wbglog                                        db                              ; $00212A
+    reg_ppu_wobjlog                                       db                              ; $00212B
+    reg_ppu_tm                                            db                              ; $00212C
+    reg_ppu_ts                                            db                              ; $00212D
+    reg_ppu_tmw                                           db                              ; $00212E
+    reg_ppu_tsw                                           db                              ; $00212F
+    reg_ppu_cgswsel                                       db                              ; $002130
+    reg_ppu_cgadsub                                       db                              ; $002131
+    reg_ppu_coldata                                       db                              ; $002132
+    reg_ppu_setini                                        db                              ; $002133
+    reg_ppu_mpyl                                          db                              ; $002134
+    reg_ppu_mpym                                          db                              ; $002135
+    reg_ppu_mpyh                                          db                              ; $002136
+    reg_ppu_slhv                                          db                              ; $002137
+    reg_ppu_oamdata_read                                  db                              ; $002138
+    reg_ppu_vmdatal_read                                  db                              ; $002139
+    reg_ppu_vmdatah_read                                  db                              ; $00213A
+.ende
+
+.define reg_apu_apuio0                                                    $2140 ; 8-bit
+.define reg_apu_apuio1                                                    $2141 ; 8-bit
+.define reg_apu_apuio2                                                    $2142 ; 8-bit
+.define reg_apu_apuio3                                                    $2143 ; 8-bit
+
+.define reg_cpu_nmitimen                                                  $4200 ; 8-bit
+.define reg_cpu_wrio                                                      $4201 ; 8-bit
+.define reg_cpu_wrmpya                                                    $4202 ; 8-bit
+.define reg_cpu_wrmpyb                                                    $4203 ; 8-bit
+.define reg_cpu_wrdiv                                                     $4204 ; 16-bit
+.define reg_cpu_wrdivl                                                    $4204 ; 8-bit
+.define reg_cpu_wrdivh                                                    $4205 ; 8-bit
+.define reg_cpu_wrdivb                                                    $4206 ; 8-bit
+.define reg_cpu_htimel                                                    $4207 ; 8-bit
+.define reg_cpu_htimeh                                                    $4208 ; 8-bit
+.define reg_cpu_vtimel                                                    $4209 ; 8-bit
+.define reg_cpu_vtimeh                                                    $420A ; 8-bit
+.define reg_cpu_mdmaen                                                    $420B ; 8-bit
+.define reg_cpu_hdmaen                                                    $420C ; 8-bit
+.define reg_cpu_memsel                                                    $420D ; 8-bit
+
+.define reg_cpu_rdnmi                                                     $4210 ; 8-bit
+.define reg_cpu_timeup                                                    $4211 ; 8-bit
+.define reg_cpu_hvbjoy                                                    $4212 ; 8-bit
+
+.define reg_cpu_rddiv                                                     $4214 ; 16-bit
+.define reg_cpu_rddivl                                                    $4214 ; 8-bit
+.define reg_cpu_rddivh                                                    $4215 ; 8-bit
+.define reg_cpu_rdmpy                                                     $4216 ; 16-bit
+.define reg_cpu_rdmpyl                                                    $4216 ; 8-bit
+.define reg_cpu_rdmpyh                                                    $4217 ; 8-bit
+.define reg_cpu_stdcntrl1                                                 $4218 ; 16-bit
+.define reg_cpu_stdcntrl1l                                                $4218 ; 8-bit
+.define reg_cpu_stdcntrl1h                                                $4219 ; 8-bit
+.define reg_cpu_stdcntrl2                                                 $421A ; 16-bit
+.define reg_cpu_stdcntrl2l                                                $421A ; 8-bit
+.define reg_cpu_stdcntrl2h                                                $421B ; 8-bit
+
+.define reg_cpu_dmap0                                                     $4300 ; 8-bit
+.define reg_cpu_bbad0                                                     $4301 ; 8-bit
+.define reg_cpu_a1t0                                                      $4302 ; 16-bit
+.define reg_cpu_a1t0l                                                     $4302 ; 8-bit
+.define reg_cpu_a1t0h                                                     $4303 ; 8-bit
+.define reg_cpu_a1b0                                                      $4304 ; 8-bit
+.define reg_cpu_das0                                                      $4305 ; 16-bit
+.define reg_cpu_das0l                                                     $4305 ; 8-bit
+.define reg_cpu_das0h                                                     $4306 ; 8-bit
+.define reg_cpu_hdb0                                                      $4307 ; 8-bit
+
+.define reg_cpu_dmap1                                                     $4310 ; 8-bit
+.define reg_cpu_bbad1                                                     $4311 ; 8-bit
+.define reg_cpu_a1t1                                                      $4312 ; 16-bit
+.define reg_cpu_a1t1l                                                     $4312 ; 8-bit
+.define reg_cpu_a1t1h                                                     $4313 ; 8-bit
+.define reg_cpu_a1b1                                                      $4314 ; 8-bit
+.define reg_cpu_das1                                                      $4315 ; 16-bit
+.define reg_cpu_das1l                                                     $4315 ; 8-bit
+.define reg_cpu_das1h                                                     $4316 ; 8-bit
+.define reg_cpu_hdb1                                                      $4317 ; 8-bit
+
+.define reg_cpu_dmap2                                                     $4320 ; 8-bit
+.define reg_cpu_bbad2                                                     $4321 ; 8-bit
+.define reg_cpu_a1t2                                                      $4322 ; 16-bit
+.define reg_cpu_a1t2l                                                     $4322 ; 8-bit
+.define reg_cpu_a1t2h                                                     $4323 ; 8-bit
+.define reg_cpu_a1b2                                                      $4324 ; 8-bit
+.define reg_cpu_das2                                                      $4325 ; 16-bit
+.define reg_cpu_das2l                                                     $4325 ; 8-bit
+.define reg_cpu_das2h                                                     $4326 ; 8-bit
+.define reg_cpu_hdb2                                                      $4327 ; 8-bit
+
+.define reg_cpu_dmap4                                                     $4340 ; 8-bit
+.define reg_cpu_bbad4                                                     $4341 ; 8-bit
+.define reg_cpu_a1t4                                                      $4342 ; 16-bit
+.define reg_cpu_a1t4l                                                     $4342 ; 8-bit
+.define reg_cpu_a1t4h                                                     $4343 ; 8-bit
+.define reg_cpu_a1b4                                                      $4344 ; 8-bit
+.define reg_cpu_das4                                                      $4345 ; 16-bit
+.define reg_cpu_das4l                                                     $4345 ; 8-bit
+.define reg_cpu_das4h                                                     $4346 ; 8-bit
+.define reg_cpu_hdb4                                                      $4347 ; 8-bit
+
+.define reg_cpu_dmap5                                                     $4350 ; 8-bit
+.define reg_cpu_bbad5                                                     $4351 ; 8-bit
+.define reg_cpu_a1t5                                                      $4352 ; 16-bit
+.define reg_cpu_a1t5l                                                     $4352 ; 8-bit
+.define reg_cpu_a1t5h                                                     $4353 ; 8-bit
+.define reg_cpu_a1b5                                                      $4354 ; 8-bit
+.define reg_cpu_das5                                                      $4355 ; 16-bit
+.define reg_cpu_das5l                                                     $4355 ; 8-bit
+.define reg_cpu_das5h                                                     $4356 ; 8-bit
+.define reg_cpu_hdb5                                                      $4357 ; 8-bit
+
+.define reg_cpu_dmap6                                                     $4360 ; 8-bit
+.define reg_cpu_bbad6                                                     $4361 ; 8-bit
+.define reg_cpu_a1t6                                                      $4362 ; 16-bit
+.define reg_cpu_a1t6l                                                     $4362 ; 8-bit
+.define reg_cpu_a1t6h                                                     $4363 ; 8-bit
+.define reg_cpu_a1b6                                                      $4364 ; 8-bit
+.define reg_cpu_das6                                                      $4365 ; 16-bit
+.define reg_cpu_das6l                                                     $4365 ; 8-bit
+.define reg_cpu_das6h                                                     $4366 ; 8-bit
+.define reg_cpu_hdb6                                                      $4367 ; 8-bit
+
+.define reg_cpu_dmap7                                                     $4370 ; 8-bit
+.define reg_cpu_bbad7                                                     $4371 ; 8-bit
+.define reg_cpu_a1t7                                                      $4372 ; 16-bit
+.define reg_cpu_a1t7l                                                     $4372 ; 8-bit
+.define reg_cpu_a1t7h                                                     $4373 ; 8-bit
+.define reg_cpu_a1b7                                                      $4374 ; 8-bit
+.define reg_cpu_das7                                                      $4375 ; 16-bit
+.define reg_cpu_das7l                                                     $4375 ; 8-bit
+.define reg_cpu_das7h                                                     $4376 ; 8-bit
+.define reg_cpu_hdb7                                                      $4377 ; 8-bit

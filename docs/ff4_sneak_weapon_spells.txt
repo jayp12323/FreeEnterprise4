@@ -1,0 +1,96 @@
+00                           Disrupt       
+01       [Claw] FireClaw     Disrupt       
+02       [Claw] IceClaw      Disrupt       
+03       [Claw] Thunder      Disrupt       
+04       [Claw] Charm        Spell #$00    
+05       [Claw] Poison       [W] Charm     
+06       [Claw] CatClaw      Spell #$00    
+07        [Rod] Rod          Disrupt       
+08        [Rod] IceRod       Disrupt       
+09        [Rod] FlameRod     [W] Mute      
+0A        [Rod] Thunder      [W] Mute      
+0B        [Rod] Change       [W] Mute      
+0C        [Rod] Charm        [W] White     
+0D        [Rod] Stardust     Pollen        
+0E        [Rod] Lilith       [W] Mute      
+0F      [Staff] Staff        Disrupt       
+10      [Staff] Cure         Disrupt       
+11      [Staff] Silver       [W] Cure2     
+12      [Staff] Power        [B] Virus     
+13      [Staff] Lunar        [W] Bersk     
+14      [Staff] Life         [W] Hold      
+15      [Staff] Silence      [W] Bersk     
+16 [Dark Sword] Shadow       Disrupt       
+17 [Dark Sword] Darkness     Disrupt       
+18 [Dark Sword] Black        Spell #$00    
+19 [Holy Sword] Legend       [W] Cure2     
+1A [Holy Sword] Light        [W] Hold      
+1B [Holy Sword] Excalbur     [B] Virus     
+1C      [Sword] Fire         Disrupt       
+1D      [Sword] IceBrand     Disrupt       
+1E      [Sword] Defense      Spell #$00    
+1F      [Sword] Drain        [W] Fast      
+20      [Sword] Ancient      Disrupt       
+21      [Sword] Slumber      Disrupt       
+22      [Sword] Medusa       Disrupt       
+23      [Spear] Spear        Disrupt       
+24      [Spear] Wind         Disrupt       
+25      [Spear] Flame        Disrupt       
+26      [Spear] Blizzard     Disrupt       
+27      [Spear] Dragoon      Disrupt       
+28      [Spear] White        Disrupt       
+29      [Spear] Drain        Call          
+2A      [Spear] Gungnir      Spell #$00    
+2B     [Katana] Short        Disrupt       
+2C     [Katana] Middle       Disrupt       
+2D     [Katana] Long         Disrupt       
+2E     [Katana] Ninja        [W] Cure4     
+2F     [Katana] Murasame     Dancing       
+30     [Katana] Masamune     Spell #$00    
+31      [Knife] Assassin     Spell #$00    
+32      [Knife] Mute         [W] Mute      
+33       [Whip] Whip         Disrupt       
+34       [Whip] Chain        Disrupt       
+35       [Whip] Blitz        Disrupt       
+36       [Whip] Flame        Spell #$00    
+37       [Whip] Dragon       Spell #$00    
+38        [Axe] HandAxe      [W] Charm     
+39        [Axe] Dwarf        Spell #$00    
+3A        [Axe] Ogre         Disrupt       
+3B      [Knife] Silver       Disrupt       
+3C      [Knife] Dancing      Disrupt       
+3D      [Sword] Silver       Disrupt       
+3E      [Knife] Spoon        Disrupt       
+3F [Holy Sword] Crystal      [B] Nuke      
+40   [Shuriken] Shuriken     Disrupt       
+41   [Shuriken] Ninja        Disrupt       
+42  [Boomerang] Boomrang     Disrupt       
+43  [Boomerang] FullMoon     Disrupt       
+44       [Harp] Dreamer      Disrupt       
+45       [Harp] Charm        Disrupt       
+46              Dummy        [B] Nuke      
+47        [Axe] Poison       Disrupt       
+48        [Axe] RuneAxe      Disrupt       
+49     [Hammer] Silver       Disrupt       
+4A     [Hammer] Earth        [W] Cure4     
+4B     [Hammer] Wooden       Disrupt       
+4C      [Sword] Avenger      Spell #$00    
+4D        [Bow] ShortBow     Disrupt       
+4E        [Bow] CrossBow     Disrupt       
+4F        [Bow] GreatBow     [W] Charm     
+50        [Bow] Archer       [W] Cure4     
+51        [Bow] ElvenBow     [W] Mute      
+52        [Bow] Samurai      [B] Virus     
+53        [Bow] Artemis      Spell #$00    
+54      [Arrow] Iron         Disrupt       
+55      [Arrow] White        Disrupt       
+56      [Arrow] Fire         Disrupt       
+57      [Arrow] Ice          Disrupt       
+58      [Arrow] Lit          Disrupt       
+59      [Arrow] Darkness     Disrupt       
+5A      [Arrow] Poison       Disrupt       
+5B      [Arrow] Mute         Disrupt       
+5C      [Arrow] Charm        Disrupt       
+5D      [Arrow] Samurai      Disrupt       
+5E      [Arrow] Medusa       Disrupt       
+5F      [Arrow] Artemis      Disrupt       

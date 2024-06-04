@@ -1,0 +1,885 @@
+.include "header.inc"
+.include "spc700-constants.inc"
+
+.bank 4 slot 1
+.section "Bank" namespace "bank04"
+
+; init_apu ($04:8000)
+;
+; This is a proxy function that allows the calling of _init_apu from another bank.
+init_apu:
+    JSR _init_apu                                                                                   ; $048000
+    RTL                                                                                             ; $048003
+
+; play_audio ($04:8004)
+;
+; This is a proxy function that allows the calling of _play_audio from another bank.
+play_audio:
+    JSR _play_audio                                                                                 ; $048004
+    RTL                                                                                             ; $048007
+
+; _init_apu ($04:8008)
+;
+; This function initializes the APU and transfers program data from ROM to the APU. It also
+; initializes some short segments in RAM.
+_init_apu:
+    PHB                                                                                             ; $048008 |\
+    PHD                                                                                             ; $048009 | | Save registers to the stack.
+    PHP                                                                                             ; $04800A | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $04800B | |
+    REP #FLAG_P_INDEX                                                                               ; $04800D | |
+    PHA                                                                                             ; $04800F | |
+    PHX                                                                                             ; $048010 | |
+    PHY                                                                                             ; $048011 |/
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048012 | Switch to 8-bit accumulator mode.
+    LDA #$04                                                                                        ; $048014 |\
+    PHA                                                                                             ; $048016 | | Set the data bank register to $04.
+    PLB                                                                                             ; $048017 |/
+    LDX #$1E00                                                                                      ; $048018 |\
+    PHX                                                                                             ; $04801B | | Set the direct register to $1E00.
+    PLD                                                                                             ; $04801C |/
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $04801D | Switch to 8-bit accumulator mode.
+    LDX #$0000                                                                                      ; $04801F |\
+-   STZ $1E00,X                                                                                     ; $048022 | | Zero out RAM from $1E00 to $1FFF.
+    INX                                                                                             ; $048025 | |
+    CPX #$0200                                                                                      ; $048026 | |
+    BNE -                                                                                           ; $048029 |/
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $04802B |\
+    LDA #$BBAA                                                                                      ; $04802D | |
+-   CMP reg_apu_apuio0                                                                              ; $048030 | | Wait for the APU to be ready.
+    BNE -                                                                                           ; $048033 | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048035 |/
+    LDX #$0000                                                                                      ; $048037 |\
+    LDA apu_data.w + 1,X                                                                            ; $04803A | | Load the size of the data to be transferred into Y.
+    XBA                                                                                             ; $04803D | |
+    LDA apu_data.w,X                                                                                ; $04803E | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048041 | |
+    TAY                                                                                             ; $048043 | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048044 | |
+    INX                                                                                             ; $048046 | |
+    INX                                                                                             ; $048047 |/
+    LDA apu_data.w,X                                                                                ; $048048 |\
+    STA reg_apu_apuio2                                                                              ; $04804B | | Load the target APU address and send it to the APU.
+    LDA apu_data.w + 1,X                                                                            ; $04804E | |
+    STA reg_apu_apuio3                                                                              ; $048051 | |
+    LDA #$01                                                                                        ; $048054 | |
+    STA reg_apu_apuio1                                                                              ; $048056 | |
+    INX                                                                                             ; $048059 | |
+    INX                                                                                             ; $04805A |/
+    LDA #$CC                                                                                        ; $04805B |\
+    STA reg_apu_apuio0                                                                              ; $04805D | | Wait for the APU to acknowledge the transfer.
+-   CMP reg_apu_apuio0                                                                              ; $048060 | |
+    BNE -                                                                                           ; $048063 |/
+    STZ <r_apu_sequence_index                                                                       ; $048065 | Initialize the sequence index to zero.
+@transfer_start:                                                                                    ;         |\
+    LDA apu_data.w,X                                                                                ; $048067 | | Repeatedly transfer data from ROM to the APU until
+    STA reg_apu_apuio1                                                                              ; $04806A | | the specified amount of data was transferred.
+    LDA <r_apu_sequence_index                                                                       ; $04806D | |
+    STA reg_apu_apuio0                                                                              ; $04806F | |
+    INC <r_apu_sequence_index                                                                       ; $048072 | |
+-   CMP reg_apu_apuio0                                                                              ; $048074 | |
+    BNE -                                                                                           ; $048077 | |
+    INX                                                                                             ; $048079 | |
+    DEY                                                                                             ; $04807A | |
+    BNE @transfer_start                                                                             ; $04807B |/
+    INC <r_apu_sequence_index                                                                       ; $04807D |\
+    INC <r_apu_sequence_index                                                                       ; $04807F | | Increase the sequence index by 3 to prepare for the next transfer.
+    INC <r_apu_sequence_index                                                                       ; $048081 |/
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048083 |\
+    LDA apu_data.w,X                                                                                ; $048085 | | Load the byte count for the next block of data. If zero,
+    INX                                                                                             ; $048088 | | skip to the end of the transfer procedure.
+    INX                                                                                             ; $048089 | |
+    TAY                                                                                             ; $04808A | |
+    BEQ @transfer_complete                                                                          ; $04808B |/
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $04808D |\
+    LDA apu_data.w,X                                                                                ; $04808F | | Load the target address for the next block and transfer it
+    STA reg_apu_apuio2                                                                              ; $048092 | | to the APU.
+    LDA apu_data.w + 1,X                                                                            ; $048095 | |
+    STA reg_apu_apuio3                                                                              ; $048098 | |
+    LDA #$01                                                                                        ; $04809B | |
+    STA reg_apu_apuio1                                                                              ; $04809D | |
+    INX                                                                                             ; $0480A0 | |
+    INX                                                                                             ; $0480A1 | |
+    LDA <r_apu_sequence_index                                                                       ; $0480A2 |/
+    STA reg_apu_apuio0                                                                              ; $0480A4 |\
+-   CMP reg_apu_apuio0                                                                              ; $0480A7 | | Wait for the APU to acknowledge the transfer.
+    BNE -                                                                                           ; $0480AA |/
+    STZ <r_apu_sequence_index                                                                       ; $0480AC |\ Reset the sequence index for the next transfer and
+    BRA @transfer_start                                                                             ; $0480AE |/ begin the transfer.
+@transfer_complete:                                                                                 ;         |\
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0480B0 | | Load the start address for the APU program execution
+    LDA apu_data.w,X                                                                                ; $0480B2 | | and transfer it to the APU.
+    STA reg_apu_apuio2                                                                              ; $0480B5 | |
+    LDA apu_data.w + 1,X                                                                            ; $0480B8 | |
+    STA reg_apu_apuio3                                                                              ; $0480BB | |
+    LDA #$00                                                                                        ; $0480BE | |
+    STA reg_apu_apuio1                                                                              ; $0480C0 | |
+    LDA <r_apu_sequence_index                                                                       ; $0480C3 | |
+    STA reg_apu_apuio0                                                                              ; $0480C5 |/
+-   CMP reg_apu_apuio0                                                                              ; $0480C8 |\
+    BNE -                                                                                           ; $0480CB | | Wait for the APU to acknowledge transfer.
+    STZ reg_apu_apuio0                                                                              ; $0480CD | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0480D0 |/
+    LDX #$0000                                                                                      ; $0480D2 |\
+-   STZ $40,X                                                                                       ; $0480D5 | | Zero out RAM from $1E40 to $1E9F.
+    STZ $60,X                                                                                       ; $0480D7 | |
+    STZ $80,X                                                                                       ; $0480D9 | |
+    INX                                                                                             ; $0480DB | |
+    CPX #$0020                                                                                      ; $0480DC | |
+    BNE -                                                                                           ; $0480DF |/
+    STZ <r_play_audio_arg_mode                                                                      ; $0480E1 |\
+    STZ <r_play_audio_arg_parameter_1                                                               ; $0480E3 | | Zero out RAM from $1E00 to $1E07.
+    STZ <r_play_audio_arg_parameter_2                                                               ; $0480E5 | |
+    STZ <r_play_audio_arg_parameter_3                                                               ; $0480E7 | |
+    STZ <r_play_audio_current_mode                                                                  ; $0480E9 | |
+    STZ <r_play_audio_current_track                                                                 ; $0480EB | |
+    STZ <r_unknown_1e06                                                                             ; $0480ED | |
+    STZ <r_unknown_1e07                                                                             ; $0480EF |/
+    LDX #SPC_RAM_SONG_SAMPLE_DATA                                                                   ; $0480F1 |\ Set the SPC RAM pointer for the first instrument sample to the base address for song
+    STX <r_current_instruments.pointer                                                              ; $0480F4 |/ samples, $3000.
+    LDX #$0800                                                                                      ; $0480F6 |\
+-   DEX                                                                                             ; $0480F9 | | Count down from $0800 to 0 to wait.
+    BNE -                                                                                           ; $0480FA |/
+    REP #FLAG_P_INDEX                                                                               ; $0480FC |\
+    PLY                                                                                             ; $0480FE | | Restore the saved registers.
+    PLX                                                                                             ; $0480FF | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048100 | |
+    PLA                                                                                             ; $048102 | |
+    PLP                                                                                             ; $048103 | |
+    PLD                                                                                             ; $048104 | |
+    PLB                                                                                             ; $048105 |/
+    RTS                                                                                             ; $048106
+
+; _play_audio ($04:8107)
+;
+; Given the values in the parameter locations ranging from $1E00 to $1E03, determines the correct
+; routine to call to handle playing that audio.
+_play_audio:
+    PHB                                                                                             ; $048107 |\
+    PHD                                                                                             ; $048108 | | Preserve the contents of various registers.
+    PHP                                                                                             ; $048109 | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $04810A | |
+    REP #FLAG_P_INDEX                                                                               ; $04810C | |
+    PHA                                                                                             ; $04810E | |
+    PHX                                                                                             ; $04810F | |
+    PHY                                                                                             ; $048110 |/
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048111 |\
+    LDA #$04                                                                                        ; $048113 | | Set the data bank register to $04.
+    PHA                                                                                             ; $048115 | |
+    PLB                                                                                             ; $048116 |/
+    LDX #$1E00.w                                                                                    ; $048117 |\
+    PHX                                                                                             ; $04811A | | Set the direct register to $1E00.
+    PLD                                                                                             ; $04811B |/
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $04811C | NOTE: This seems pointless, since it was just done a few lines ago.
+    LDA <r_play_audio_arg_mode                                                                      ; $04811E |\ If the passed mode argument is zero, branch to the end.
+    BEQ @done                                                                                       ; $048120 |/
+    CMP #AUDIO_MODE_NORMAL.b                                                                        ; $048122 |\
+    BNE +                                                                                           ; $048124 | |
+    JSR _play_mode_song                                                                             ; $048126 | | If the mode parameter is $01, $03 or $04, call the routine to play a song.
+    BRA @done                                                                                       ; $048129 |/
++   CMP #AUDIO_MODE_SOUND_EFFECT                                                                    ; $04812B |\
+    BNE +                                                                                           ; $04812D | | If the mode parameter is $02, call the routine to play a sound effect.
+    JSR _play_mode_sound_effect                                                                     ; $04812F | |
+    BRA @done                                                                                       ; $048132 |/
++   CMP #AUDIO_MODE_NORMAL_2                                                                        ; $048134 |\
+    BNE +                                                                                           ; $048136 | | If the mode parameter is $03 or $04, branch back to play a song. $04 tells the APU to
+    JSR _play_mode_song                                                                             ; $048138 | | fade the song in, while $03 doesn't appear to have any special behavior.
+    BRA @done                                                                                       ; $04813B | |
++   CMP #AUDIO_MODE_NORMAL_FADE_IN                                                                  ; $04813D | | TODO: Verify completely that it doesn't have any special behavior. I don't remember
+    BNE +                                                                                           ; $04813F | |       seeing any, but it's possible I missed it. It only seems to be used when playing
+    JSR _play_mode_song                                                                             ; $048141 | |       a vehicle song.
+    BRA @done                                                                                       ; $048144 |/
++   CMP #AUDIO_MODE_DIRECT_BASE                                                                     ; $048146 |\
+    BCC +                                                                                           ; $048148 | | If the mode parameter is in the inclusive range $10 to $1F, call the routine to play
+    CMP #AUDIO_MODE_DIRECT_LIMIT - 1                                                                ; $04814A | | a direct effect.
+    BCS +                                                                                           ; $04814C | |
+    JSR _play_mode_direct_effect                                                                    ; $04814E | |
+    BRA @done                                                                                       ; $048151 |/
++   CMP #AUDIO_MODE_SPECIAL_BASE                                                                    ; $048153 |\
+    BCC @done                                                                                       ; $048155 | | If the mode parameter is $80 or greater, call the special play mode.
+    JSR _play_mode_special                                                                          ; $048157 |/
+@done:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $04815A |\
+    STZ <r_play_audio_arg_mode                                                                      ; $04815C | | Restore the contents of all the registers saved at the start of the function and zero
+    STZ <r_play_audio_arg_parameter_1                                                               ; $04815E | | out the parameter bytes.
+    STZ <r_play_audio_arg_parameter_2                                                               ; $048160 | |
+    STZ <r_play_audio_arg_parameter_3                                                               ; $048162 | |
+    REP #FLAG_P_INDEX                                                                               ; $048164 | |
+    PLY                                                                                             ; $048166 | |
+    PLX                                                                                             ; $048167 | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048168 | |
+    PLA                                                                                             ; $04816A | |
+    PLP                                                                                             ; $04816B | |
+    PLD                                                                                             ; $04816C | |
+    PLB                                                                                             ; $04816D |/
+    RTS                                                                                             ; $04816E
+
+; _play_mode_song ($04:816F)
+;
+; Commands the APU to play a song. It actually has to perform a significant quantity of work. First,
+; it sends the actual song data to the APU. Then, it consolidates existing loaded samples that are
+; still needed, before loading any new samples. It then sends extra information about the samples
+; and how to loop them. Finally, it sends pitch adjustment data regarding the samples.
+;
+; The only parameter it uses is the track number in $7E1E01.
+_play_mode_song:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $04816F | Ensure the processor is in 8-bit accumulator mode.
+    STA <r_apu_sequence_index                                                                       ; $048171 | Store the mode as the current sequence index.
+    STA <r_play_audio_current_mode                                                                  ; $048173 | Save the passed mode as the current mode.
+    LDA #0.b                                                                                        ; $048175 |\ Zero out the high byte of the accumulator.
+    XBA                                                                                             ; $048177 |/
+    LDA <r_play_audio_arg_track                                                                     ; $048178 |\
+    CMP <r_play_audio_current_track                                                                 ; $04817A | | Return if the passed track argument is the same as the current track.
+    BNE +                                                                                           ; $04817C | |
+    RTS                                                                                             ; $04817E |/
++   SEP #FLAG_P_ACCUMULATOR                                                                         ; $04817F | NOTE: Yet another pointless switch to 8-bit accumulator mode.
+    STA <r_play_audio_current_track                                                                 ; $048181 | Set the current track to the passed track argument.
+    STA reg_cpu_wrmpya                                                                              ; $048183 |\
+    LDA #3.b                                                                                        ; $048186 | | Multiply the track number by 3 for later use.
+    STA reg_cpu_wrmpyb                                                                              ; $048188 |/
+    LDA audio_track_offset_offset_data.w + 0                                                        ; $04818B |\
+    STA <r_calculate_audio_address_arg.address.lo                                                   ; $04818E | | Load the offset to the offset data for songs, calculate the bus address for that
+    LDA audio_track_offset_offset_data.w + 1                                                        ; $048190 | | offset, and then store it in a temporary variable.
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $048193 | |
+    LDA audio_track_offset_offset_data.w + 2                                                        ; $048195 | |
+    STA <r_calculate_audio_address_arg.bank                                                         ; $048198 | |
+    JSR _calculate_audio_address                                                                    ; $04819A | |
+    LDA <r_calculate_audio_address_arg.address.lo                                                   ; $04819D | |
+    STA <r_play_audio_tmp_ptr.address.lo                                                            ; $04819F | |
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $0481A1 | |
+    STA <r_play_audio_tmp_ptr.address.hi                                                            ; $0481A3 | |
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $0481A5 | |
+    STA <r_play_audio_tmp_ptr.bank                                                                  ; $0481A7 |/
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $0481A9 |\ NOTE: This pointlessly repeats the previous two instructions.
+    STA <r_play_audio_tmp_ptr.bank                                                                  ; $0481AB |/
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $0481AD |\
+    LDA <r_calculate_audio_address_arg.address                                                      ; $0481AF | | Add the previously calculated track index times three to the address. If the result
+    CLC                                                                                             ; $0481B1 | | overflowed, increment the bank number and subtract $8000 to get the correct address in
+    ADC reg_cpu_rdmpy                                                                               ; $0481B2 | | the next bank.
+    BCC +                                                                                           ; $0481B5 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $0481B7 | |
+    SBC #$8000.w                                                                                    ; $0481B9 | |
++   STA <r_play_audio_tmp_ptr.address                                                               ; $0481BC | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0481BE |/
+    LDA [<r_play_audio_tmp_ptr]                                                                     ; $0481C0 |\ Read the first byte of the offset and store it.
+    STA <r_calculate_audio_address_arg.address.lo                                                   ; $0481C2 |/
+    LDY <r_play_audio_tmp_ptr.address                                                               ; $0481C4 |\
+    INY                                                                                             ; $0481C6 | | Increment the temporary address, handling bank crossing as necessary.
+    BNE +                                                                                           ; $0481C7 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $0481C9 | |
+    LDY #$8000.w                                                                                    ; $0481CB | |
++   STY <r_play_audio_tmp_ptr.address                                                               ; $0481CE |/
+    LDA [<r_play_audio_tmp_ptr]                                                                     ; $0481D0 |\ Read the second byte of the offset and store it.
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $0481D2 |/
+    LDY <r_play_audio_tmp_ptr.address                                                               ; $0481D4 |\
+    INY                                                                                             ; $0481D6 | | Increment the temporary address, handling bank crossing as necessary.
+    BNE +                                                                                           ; $0481D7 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $0481D9 | |
+    LDY #$8000.w                                                                                    ; $0481DB | |
++   STY <r_play_audio_tmp_ptr.address                                                               ; $0481DE |/
+    LDA [<r_play_audio_tmp_ptr]                                                                     ; $0481E0 |\ Read the third byte of the offset and store it.
+    STA <r_calculate_audio_address_arg.bank                                                         ; $0481E2 |/
+    JSR _calculate_audio_address                                                                    ; $0481E4 |\
+    LDA <r_calculate_audio_address_arg.address.lo                                                   ; $0481E7 | | Calculate the actual address from the given offset and store it in the temporary
+    STA <r_play_audio_tmp_ptr.address.lo                                                            ; $0481E9 | | location.
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $0481EB | |
+    STA <r_play_audio_tmp_ptr.address.hi                                                            ; $0481ED | |
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $0481EF | |
+    STA <r_play_audio_tmp_ptr.bank                                                                  ; $0481F1 |/
+    LDA [<r_play_audio_tmp_ptr]                                                                     ; $0481F3 |\
+    XBA                                                                                             ; $0481F5 | | Read the first two bytes of data from the calculated address, and transfer them to the
+    LDY <r_play_audio_tmp_ptr.address                                                               ; $0481F6 | | X register. This is the size of the upcoming data block.
+    INY                                                                                             ; $0481F8 | |
+    BNE +                                                                                           ; $0481F9 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $0481FB | |
+    LDY #$8000.w                                                                                    ; $0481FD | |
++   STY <r_play_audio_tmp_ptr.address                                                               ; $048200 | |
+    LDA [<r_play_audio_tmp_ptr]                                                                     ; $048202 | |
+    XBA                                                                                             ; $048204 | |
+    LDY <r_play_audio_tmp_ptr.address                                                               ; $048205 | |
+    INY                                                                                             ; $048207 | |
+    BNE +                                                                                           ; $048208 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $04820A | |
+    LDY #$8000.w                                                                                    ; $04820C | |
++   STY <r_play_audio_tmp_ptr.address                                                               ; $04820F | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048211 | |
+    TAX                                                                                             ; $048213 | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048214 |/
+--  LDA [<r_play_audio_tmp_ptr]                                                                     ; $048216 |\ Write the current data byte to APU port 2.
+    STA reg_apu_apuio2                                                                              ; $048218 |/
+    LDA <r_apu_sequence_index                                                                       ; $04821B |\ Write the current value of the counter to APU port 0. (The initial value is the audio
+    STA reg_apu_apuio0                                                                              ; $04821D |/ mode.)
+    LDY <r_play_audio_tmp_ptr.address                                                               ; $048220 |\
+    INY                                                                                             ; $048222 | | Increment the current address.
+    BNE +                                                                                           ; $048223 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $048225 | |
+    LDY #$8000.w                                                                                    ; $048227 | |
++   STY <r_play_audio_tmp_ptr.address                                                               ; $04822A |/
+    INC <r_apu_sequence_index                                                                       ; $04822C |\
+    BNE @next                                                                                       ; $04822E | | Increment the counter until it's non-zero (as zero would terminate transfer).
+    INC <r_apu_sequence_index                                                                       ; $048230 |/
+@next:
+-   CMP reg_apu_apuio0                                                                              ; $048232 |\ Loop until APU port 0 reads the value we recently wrote (the APU has acknowledged).
+    BNE -                                                                                           ; $048235 |/
+    DEX                                                                                             ; $048237 |\ Decrement the X register and loop until all bytes are sent to the APU.
+    BNE --                                                                                          ; $048238 |/
+    LDA song_instrument_offset_data.w + pointer.address.lo                                          ; $04823A |\
+    STA <r_calculate_audio_address_arg.address.lo                                                   ; $04823D | | Read the offset to the song instrument data, convert it to an actual memory address,
+    LDA song_instrument_offset_data.w + pointer.address.hi                                          ; $04823F | | and save the result to a temporary variable.
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $048242 | |
+    LDA song_instrument_offset_data.w + pointer.bank                                                ; $048244 | |
+    STA <r_calculate_audio_address_arg.bank                                                         ; $048247 | |
+    JSR _calculate_audio_address                                                                    ; $048249 | |
+    LDA <r_calculate_audio_address_arg.address.lo                                                   ; $04824C | |
+    STA <r_play_audio_tmp_ptr.address.lo                                                            ; $04824E | |
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $048250 | |
+    STA <r_play_audio_tmp_ptr.address.hi                                                            ; $048252 | |
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $048254 | |
+    STA <r_play_audio_tmp_ptr.bank                                                                  ; $048256 |/
+    LDA #0.b                                                                                        ; $048258 |\
+    XBA                                                                                             ; $04825A | | Add the song index times 32 to the address to determine the address for this song,
+    LDA <r_play_audio_arg_track                                                                     ; $04825B | | incrementing the bank (and subtracting $8000) as necessary in the case of an overflow.
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $04825D | |
+    ASL                                                                                             ; $04825F | |
+    ASL                                                                                             ; $048260 | |
+    ASL                                                                                             ; $048261 | |
+    ASL                                                                                             ; $048262 | |
+    ASL                                                                                             ; $048263 | |
+    CLC                                                                                             ; $048264 | |
+    ADC <r_play_audio_tmp_ptr.address                                                               ; $048265 | |
+    BCC +                                                                                           ; $048267 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $048269 | |
+    SBC #$8000.w                                                                                    ; $04826B | |
++   STA <r_play_audio_tmp_ptr.address                                                               ; $04826E |/
+    LDX #0.w                                                                                        ; $048270 |\ Initialize the X register to zero and swith to an 8-bit accumulator.
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048273 |/
+-   LDA [<r_play_audio_tmp_ptr]                                                                     ; $048275 |\
+    STA <r_new_song_instruments.1.lo,X                                                              ; $048277 | | Read the low byte of the instrument and save it to two locations.
+    STA <r_needed_new_instruments.1.lo,X                                                            ; $048279 | |
+    LDY <r_play_audio_tmp_ptr.address                                                               ; $04827B | |
+    INY                                                                                             ; $04827D | |
+    BNE +                                                                                           ; $04827E | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $048280 | |
+    LDY #$8000.w                                                                                    ; $048282 | |
++   STY <r_play_audio_tmp_ptr.address                                                               ; $048285 |/
+    LDA [<r_play_audio_tmp_ptr]                                                                     ; $048287 |\
+    STA <r_new_song_instruments.1.hi,X                                                              ; $048289 | | Repeat with the high byte of the instrument.
+    STA <r_needed_new_instruments.1.hi,X                                                            ; $04828B | |
+    LDY <r_play_audio_tmp_ptr.address                                                               ; $04828D | |
+    INY                                                                                             ; $04828F | |
+    BNE +                                                                                           ; $048290 | |
+    INC <r_play_audio_tmp_ptr.bank                                                                  ; $048292 | |
+    LDY #$8000.w                                                                                    ; $048294 | |
++   STY <r_play_audio_tmp_ptr.address                                                               ; $048297 |/
+    LDA #0.b                                                                                        ; $048299 |\
+    STA <r_existing_new_instruments.1.lo,X                                                          ; $04829B | | Initialize the existing new instruments array to zero.
+    STA <r_existing_new_instruments.1.hi,X                                                          ; $04829D |/
+    INX                                                                                             ; $04829F |\
+    INX                                                                                             ; $0482A0 | | Increment the X register by two and repeat until all potential 16 instruments have
+    CPX #_sizeof_r_existing_new_instruments.w                                                       ; $0482A1 | | been copied.
+    BNE -                                                                                           ; $0482A4 |/
+    LDY #0.w                                                                                        ; $0482A6 |\
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $0482A9 | | For each entry in the current instruments array (which tracks which instrument samples
+--  LDA r_current_instruments.index.1,Y                                                             ; $0482AB | | are currently loaded), scan to see if the sample is needed by the new song. If so,
+    BEQ +++                                                                                         ; $0482AE | | move the value to an array that lists the already loaded samples needed for this song.
+    LDX #0.w                                                                                        ; $0482B0 | | The end result is that the original array now contains the list of samples needed by
+-   CMP <r_needed_new_instruments.1,X                                                               ; $0482B3 | | the song that are not already loaded.
+    BEQ +                                                                                           ; $0482B5 | |
+    INX                                                                                             ; $0482B7 | | Essentially, this code sorts the instrument samples needed by the new song into two
+    INX                                                                                             ; $0482B8 | | groups: those that are already loaded, and those that need to be loaded.
+    CPX #_sizeof_r_needed_new_instruments.w                                                         ; $0482B9 | |
+    BNE -                                                                                           ; $0482BC | | At the end of the process, the Y register will contain the index to the first empty
+    BRA ++                                                                                          ; $0482BE | | slot available for samples (as it aborts as soon as the instrument number for a slot
++   STA r_existing_new_instruments.1,Y                                                              ; $0482C0 | | is zero).
+    LDA #0.w                                                                                        ; $0482C3 | |
+    STA <r_needed_new_instruments.1,X                                                               ; $0482C6 | | The existing new instruments are listed in their currently loaded slot.
+++  INY                                                                                             ; $0482C8 | |
+    INY                                                                                             ; $0482C9 | |
+    CPY #_sizeof_r_current_instruments.index.w                                                      ; $0482CA | |
+    BNE --                                                                                          ; $0482CD |/
++++ LDA #0.w                                                                                        ; $0482CF |\ Reset APU port 1 to zero.
+    STA reg_apu_apuio1                                                                              ; $0482D2 |/
+    TYA                                                                                             ; $0482D5 |\ Skip to a second block if there are no currently loaded samples.
+    BEQ +                                                                                           ; $0482D6 |/
+    LDX #0.w                                                                                        ; $0482D8 |\
+    LDA #0.w                                                                                        ; $0482DB | | Sum the needed instrument samples array and if the total is non-zero, branch ahead to
+    CLC                                                                                             ; $0482DE | | separate code.
+-   ADC <r_needed_new_instruments.1,X                                                               ; $0482DF | |
+    INX                                                                                             ; $0482E1 | |
+    INX                                                                                             ; $0482E2 | |
+    CPX #_sizeof_r_needed_new_instruments.w                                                         ; $0482E3 | |
+    BNE -                                                                                           ; $0482E6 | |
+    TAX                                                                                             ; $0482E8 | |
+    BNE @existing_samples                                                                           ; $0482E9 |/
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0482EB |\
+    LDA #$FF                                                                                        ; $0482ED | | Otherwise, write $FF to port 1 (which will tell the APU to skip the sample loading
+    STA reg_apu_apuio1                                                                              ; $0482EF | | process and instead move on to the source directory), and then write a 0 to port 0 and
+    LDA #0                                                                                          ; $0482F2 | | wait for the APU to acknowledge. Increment the APU sequence index for future transfers.
+    STA reg_apu_apuio0                                                                              ; $0482F4 | | Finally, jump ahead to the source directory code.
+-   CMP reg_apu_apuio0                                                                              ; $0482F7 | |
+    BNE -                                                                                           ; $0482FA | |
+    INC A                                                                                           ; $0482FC | |
+    STA <r_apu_sequence_index                                                                       ; $0482FD | |
+    JMP @source_directory                                                                           ; $0482FF |/
++   SEP #FLAG_P_ACCUMULATOR                                                                         ; $048302 |\
+    LDA #$11                                                                                        ; $048304 | | If there were no currently loaded samples, write $11 to port 1, which will tell the
+    STA reg_apu_apuio1                                                                              ; $048306 | | APU to load samples to the default address. Write a 0 to port 0 and wait for the APU
+    LDA #0                                                                                          ; $048309 | | to acknowledge. Increment the APU sequence index, and then jump ahead to transfer the
+    STA reg_apu_apuio0                                                                              ; $04830B | | new samples to the APU.
+-   CMP reg_apu_apuio0                                                                              ; $04830E | |
+    BNE -                                                                                           ; $048311 | |
+    INC A                                                                                           ; $048313 | |
+    STA <r_apu_sequence_index                                                                       ; $048314 | |
+    JMP @new_samples                                                                                ; $048316 |/
+@existing_samples:
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048319 |\
+    STZ <r_apu_sequence_index                                                                       ; $04831B | | If there are existing samples but also new needed samples, start by scanning for the
+    LDX #0.w                                                                                        ; $04831D | | first empty slot in the existing new instruments array. Transfer the index for that
+-   LDA <r_existing_new_instruments.1,X                                                             ; $048320 | | value to the Y register. If no zero is found, branch instead to load new samples.
+    BEQ +                                                                                           ; $048322 | | Essentially, that value is the first slot with a loaded sample that is not needed.
+    INX                                                                                             ; $048324 | |
+    INX                                                                                             ; $048325 | |
+    CPX #_sizeof_r_existing_new_instruments.w                                                       ; $048326 | |
+    BNE -                                                                                           ; $048329 | |
+    JMP @new_samples                                                                                ; $04832B | |
++   TXY                                                                                             ; $04832E |/
+    INX                                                                                             ; $04832F |\
+    INX                                                                                             ; $048330 | | Increment the X register by two to move to the next slot, looking for the next
+-   LDA <r_existing_new_instruments.1,X                                                             ; $048331 | | existing sample that's already loaded. Once found, branch ahead to the next section.
+    BNE +                                                                                           ; $048333 | |
+@existing_sample_copy_next:                                                                         ;         | | If no more are found, set the sample write address to the pointer associated with the
+    INX                                                                                             ; $048335 | | value in the Y register and branch to be done with the existing samples. When first
+    INX                                                                                             ; $048336 | | entering this loop, the Y register contained the offset to the first slot with a
+    CPX #_sizeof_r_existing_new_instruments.w                                                       ; $048337 | | non-needed sample. At this point, regardless of times through the loop, it will
+    BNE -                                                                                           ; $04833A | | contain the offset to the first unused slot. Thus, this sets the sample load address
+    LDA r_current_instruments.pointer.1,Y                                                           ; $04833C | | to the beginning of the now unused area.
+    STA reg_apu_apuio2                                                                              ; $04833F | |
+    BRA @existing_done                                                                              ; $048342 |/
++   STA r_current_instruments.index.1,Y                                                             ; $048344 | Save the existing instrument index to the new slot.
+    LDA <r_current_instruments.pointer.1,X                                                          ; $048347 |\
+    STA reg_apu_apuio2                                                                              ; $048349 | | Write the existing sample's original location as the copy source address.
+    LDA <r_apu_sequence_index                                                                       ; $04834C | |
+    STA reg_apu_apuio0                                                                              ; $04834E | |
+    INC <r_apu_sequence_index                                                                       ; $048351 | |
+-   CMP reg_apu_apuio0                                                                              ; $048353 | |
+    BNE -                                                                                           ; $048356 |/
+    LDA <r_current_instruments.size.1,X                                                             ; $048358 |\
+    STA r_current_instruments.size.1,Y                                                              ; $04835A | | Copy the sample's size to the new slot, and then add it to the current pointer to
+    CLC                                                                                             ; $04835D | | determine the next slot's new pointer. Write this slot's pointer as the destination
+    ADC r_current_instruments.pointer.1,Y                                                           ; $04835E | | address for the copy.
+    STA r_current_instruments.pointer.2,Y                                                           ; $048361 | |
+    LDA r_current_instruments.pointer.1,Y                                                           ; $048364 | |
+    STA reg_apu_apuio2                                                                              ; $048367 | |
+    LDA <r_apu_sequence_index                                                                       ; $04836A | |
+    STA reg_apu_apuio0                                                                              ; $04836C | |
+    INC <r_apu_sequence_index                                                                       ; $04836F | |
+-   CMP reg_apu_apuio0                                                                              ; $048371 | |
+    BNE -                                                                                           ; $048374 |/
+    LDA <r_current_instruments.size.1,X                                                             ; $048376 |\
+    STA reg_apu_apuio2                                                                              ; $048378 | | Write the size of the copy as the final parameter, upon which the APU will copy the
+    LDA <r_apu_sequence_index                                                                       ; $04837B | | sample from its original location to its new location (consolidating to the left).
+    STA reg_apu_apuio0                                                                              ; $04837D | |
+    INC <r_apu_sequence_index                                                                       ; $048380 | |
+-   CMP reg_apu_apuio0                                                                              ; $048382 | |
+    BNE -                                                                                           ; $048385 |/
+    INY                                                                                             ; $048387 |\ Increment the Y register twice to set the destination slot one higher.
+    INY                                                                                             ; $048388 |/
+    LDA #0.w                                                                                        ; $048389 |\ Zero out the transferred instrument in the existing new instruments array.
+    STA <r_existing_new_instruments.1,X                                                             ; $04838C |/
+    BRA @existing_sample_copy_next                                                                  ; $04838E | Branch back to search for and copy the next sample if needed.
+@existing_done:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048390 |\
+    LDA #$22                                                                                        ; $048392 | | Write a $22 to port 1, which will tell the APU to start loading samples at the address
+    STA reg_apu_apuio1                                                                              ; $048394 | | we previously wrote to port 2 instead of the default address.
+    LDA <r_apu_sequence_index                                                                       ; $048397 | |
+    STA reg_apu_apuio0                                                                              ; $048399 | |
+    INC <r_apu_sequence_index                                                                       ; $04839C | |
+-   CMP reg_apu_apuio0                                                                              ; $04839E | |
+    BNE -                                                                                           ; $0483A1 |/
+@new_samples:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0483A3 | Switch to 8-bit accumulator mode.
+    STY <r_apu_new_sample_slot_offset                                                               ; $0483A5 | Save the Y register as the offset to the new sample slot.
+    LDA instrument_offset_offset_data.w + pointer.address.lo                                        ; $0483A7 |\
+    STA <r_calculate_audio_address_arg.address.lo                                                   ; $0483AA | | Load the offset to the table containing the offsets for the instrument samples and
+    LDA instrument_offset_offset_data.w + pointer.address.hi                                        ; $0483AC | | save it to a temporary variable.
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $0483AF | |
+    LDA instrument_offset_offset_data.w + pointer.bank                                              ; $0483B1 | |
+    STA <r_calculate_audio_address_arg.bank                                                         ; $0483B4 | |
+    JSR _calculate_audio_address                                                                    ; $0483B6 | |
+    LDA <r_calculate_audio_address_arg.address.lo                                                   ; $0483B9 | |
+    STA <r_play_audio_tmp_ptr.address.lo                                                            ; $0483BB | |
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $0483BD | |
+    STA <r_play_audio_tmp_ptr.address.hi                                                            ; $0483BF | |
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $0483C1 | |
+    STA <r_play_audio_tmp_ptr.bank                                                                  ; $0483C3 |/
+    LDY #0.w                                                                                        ; $0483C5 | Initialize the Y register to zero.
+@new_sample_loop_start:
+-   REP #FLAG_P_ACCUMULATOR                                                                         ; $0483C8 |\
+    LDA r_needed_new_instruments.1,Y                                                                ; $0483CA | | Search for the next needed instrument and branch forward when found.
+    BNE +                                                                                           ; $0483CD | |
+    INY                                                                                             ; $0483CF | |
+    INY                                                                                             ; $0483D0 | |
+    CPY #_sizeof_r_needed_new_instruments.w                                                         ; $0483D1 | |
+    BCC -                                                                                           ; $0483D4 |/
+    JMP @new_samples_done                                                                           ; $0483D6 | When done, branch forward to the done code.
++   INY                                                                                             ; $0483D9 |\
+    INY                                                                                             ; $0483DA | | Increment the Y register and push the result for later use.
+    PHY                                                                                             ; $0483DB |/
+    STA <r_apu_new_sample_instrument                                                                ; $0483DC | Save the instrument number to a temporary variable.
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0483DE |\
+    STA reg_cpu_wrmpya                                                                              ; $0483E0 | | Multiply the instrument number by 3 and add it to the offset table offset, handling
+    LDA #3.b                                                                                        ; $0483E3 | | bank wrapping as necessary. Save the result to a new temporary variable.
+    STA reg_cpu_wrmpyb                                                                              ; $0483E5 | |
+    LDA <r_play_audio_tmp_ptr.bank                                                                  ; $0483E8 | |
+    STA <r_play_audio_tmp_ptr_2.bank                                                                ; $0483EA | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $0483EC | |
+    LDA <r_play_audio_tmp_ptr.address                                                               ; $0483EE | |
+    CLC                                                                                             ; $0483F0 | |
+    ADC reg_cpu_rdmpy                                                                               ; $0483F1 | |
+    BCC +                                                                                           ; $0483F4 | |
+    INC <r_play_audio_tmp_ptr_2.bank                                                                ; $0483F6 | |
+    SBC #$8000.w                                                                                    ; $0483F8 | |
++   STA <r_play_audio_tmp_ptr_2.address                                                             ; $0483FB | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0483FD |/
+    LDA [<r_play_audio_tmp_ptr_2]                                                                   ; $0483FF |\
+    STA <r_calculate_audio_address_arg.address.lo                                                   ; $048401 | | Read the three bytes of the instrument's sample offset and calculate the associated
+    LDY <r_play_audio_tmp_ptr_2.address                                                             ; $048403 | | address, saving it to yet another temporary variable.
+    INY                                                                                             ; $048405 | |
+    BNE +                                                                                           ; $048406 | |
+    INC <r_play_audio_tmp_ptr_2.bank                                                                ; $048408 | |
+    LDY #$8000.w                                                                                    ; $04840A | |
++   STY <r_play_audio_tmp_ptr_2.address                                                             ; $04840D | |
+    LDA [<r_play_audio_tmp_ptr_2]                                                                   ; $04840F | |
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $048411 | |
+    LDY <r_play_audio_tmp_ptr_2.address                                                             ; $048413 | |
+    INY                                                                                             ; $048415 | |
+    BNE +                                                                                           ; $048416 | |
+    INC <r_play_audio_tmp_ptr_2.bank                                                                ; $048418 | |
+    LDY #$8000.w                                                                                    ; $04841A | |
++   STY <r_play_audio_tmp_ptr_2.address                                                             ; $04841D | |
+    LDA [<r_play_audio_tmp_ptr_2]                                                                   ; $04841F | |
+    STA <r_calculate_audio_address_arg.bank                                                         ; $048421 | |
+    JSR _calculate_audio_address                                                                    ; $048423 | |
+    LDA <r_calculate_audio_address_arg.address.lo                                                   ; $048426 | |
+    STA <r_play_audio_tmp_ptr_3.address.lo                                                          ; $048428 | |
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $04842A | |
+    STA <r_play_audio_tmp_ptr_3.address.hi                                                          ; $04842C | |
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $04842E | |
+    STA <r_play_audio_tmp_ptr_3.bank                                                                ; $048430 |/
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $048432 |\ Read the low byte of the size of the sample, and temporarily swap it to the high byte
+    XBA                                                                                             ; $048434 |/ of the accumulator.
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $048435 |\
+    INY                                                                                             ; $048437 | | Increment the pointer, handling bank wrapping as necessary.
+    BNE +                                                                                           ; $048438 | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $04843A | |
+    LDY #$8000.w                                                                                    ; $04843C | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $04843F |/
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $048441 |\ Read the high byte of the size of the sample, and then swap the accumulator bytes to
+    XBA                                                                                             ; $048443 |/ fix the endianness.
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $048444 |\
+    INY                                                                                             ; $048446 | | Increment the pointer, handling bank wrapping as necessary.
+    BNE +                                                                                           ; $048447 | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $048449 | |
+    LDY #$8000.w                                                                                    ; $04844B | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $04844E |/
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048450 |\
+    TAX                                                                                             ; $048452 | | Update this slot's size with the current sample size, set the next slot's pointer by
+    LDY <r_apu_new_sample_slot_offset                                                               ; $048453 | | adding that size to the current slot's pointer, and set this slot's instrument index
+    STA r_current_instruments.size.1,Y                                                              ; $048455 | | to the current instrument. Increment the Y register and update the value saved in RAM.
+    CLC                                                                                             ; $048458 | |
+    ADC r_current_instruments.pointer.1,Y                                                           ; $048459 | |
+    STA r_current_instruments.pointer.2,Y                                                           ; $04845C | |
+    LDA <r_apu_new_sample_instrument                                                                ; $04845F | |
+    STA r_current_instruments.index.1,Y                                                             ; $048461 | |
+    INY                                                                                             ; $048464 | |
+    INY                                                                                             ; $048465 | |
+    STY <r_apu_new_sample_slot_offset                                                               ; $048466 | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048468 |/
+--  LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $04846A |\
+    STA reg_apu_apuio1                                                                              ; $04846C | | Copy the sample data to the APU three bytes at a time.
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $04846F | |
+    INY                                                                                             ; $048471 | |
+    BNE +                                                                                           ; $048472 | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $048474 | |
+    LDY #$8000.w                                                                                    ; $048476 | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $048479 | |
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $04847B | |
+    STA reg_apu_apuio2                                                                              ; $04847D | |
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $048480 | |
+    INY                                                                                             ; $048482 | |
+    BNE +                                                                                           ; $048483 | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $048485 | |
+    LDY #$8000.w                                                                                    ; $048487 | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $04848A | |
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $04848C | |
+    STA reg_apu_apuio3                                                                              ; $04848E | |
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $048491 | |
+    INY                                                                                             ; $048493 | |
+    BNE +                                                                                           ; $048494 | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $048496 | |
+    LDY #$8000.w                                                                                    ; $048498 | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $04849B | |
+    LDA <r_apu_sequence_index                                                                       ; $04849D | |
+    STA reg_apu_apuio0                                                                              ; $04849F | |
+    INC <r_apu_sequence_index                                                                       ; $0484A2 | |
+    BNE _f                                                                                          ; $0484A4 | |
+    INC <r_apu_sequence_index                                                                       ; $0484A6 | |
+__  CMP reg_apu_apuio0                                                                              ; $0484A8 | |
+    BNE _b                                                                                          ; $0484AB | |
+    DEX                                                                                             ; $0484AD | |
+    DEX                                                                                             ; $0484AE | |
+    DEX                                                                                             ; $0484AF | |
+    BNE --                                                                                          ; $0484B0 |/
+    PLY                                                                                             ; $0484B2 |\ Restore the previously saved Y register value and jump back to the beginning of the loop.
+    JMP @new_sample_loop_start                                                                      ; $0484B3 |/
+@new_samples_done:
+    LDX <r_apu_new_sample_slot_offset                                                               ; $0484B6 |\
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $0484B8 | | Fill the remainder of the current instruments array with zeroes.
+    LDA #INSTRUMENT_NONE.w                                                                          ; $0484BA | |
+    BRA +                                                                                           ; $0484BD | |
+-   STA <r_current_instruments.index.1,X                                                            ; $0484BF | |
+    INX                                                                                             ; $0484C1 | |
+    INX                                                                                             ; $0484C2 | |
++   CPX #_sizeof_r_current_instruments.index.w                                                      ; $0484C3 | |
+    BNE -                                                                                           ; $0484C6 |/
+    STZ <r_apu_sequence_index                                                                       ; $0484C8 | Zero out the APU sequence index.
+@source_directory:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0484CA |\
+    LDA instrument_ram_offset_offset_data.w + pointer.address.lo                                    ; $0484CC | | Load the offset to the table containing data on each instrument's RAM offset data
+    STA <r_calculate_audio_address_arg.address.lo                                                   ; $0484CF | | (which is really just data on where each sample should begin looping).
+    LDA instrument_ram_offset_offset_data.w + pointer.address.hi                                    ; $0484D1 | |
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $0484D4 | |
+    LDA instrument_ram_offset_offset_data.w + pointer.bank                                          ; $0484D6 | |
+    STA <r_calculate_audio_address_arg.bank                                                         ; $0484D9 | |
+    JSR _calculate_audio_address                                                                    ; $0484DB | |
+    LDA <r_calculate_audio_address_arg.address.lo                                                   ; $0484DE | |
+    STA <r_play_audio_tmp_ptr.address.lo                                                            ; $0484E0 | |
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $0484E2 | |
+    STA <r_play_audio_tmp_ptr.address.hi                                                            ; $0484E4 | |
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $0484E6 | |
+    STA <r_play_audio_tmp_ptr.bank                                                                  ; $0484E8 |/
+    LDY #0.w                                                                                        ; $0484EA | Initialize the Y register to zero.
+@source_directory_loop_start:
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $0484ED |\
+    LDA r_new_song_instruments.w,Y                                                                  ; $0484EF | | Read the next instrument for the new song and if it's zero, branch ahead to be done
+    BNE +                                                                                           ; $0484F2 | | with this and move on to the pitch adjustment data.
+    JMP @pitch_adjustment                                                                           ; $0484F4 |/
++   PHY                                                                                             ; $0484F7 | Preserve the value of the Y register.
+    LDX <r_play_audio_tmp_ptr.address.hi                                                            ; $0484F8 |\ Transfer the high two bytes of the table pointer to another variable.
+    STX <r_play_audio_tmp_ptr_3.address.hi                                                          ; $0484FA |/
+    LDX #0.w                                                                                        ; $0484FC |\
+-   CMP <r_current_instruments.index.1,X                                                            ; $0484FF | | Loop through the currently loaded instruments until finding the index of the current
+    BEQ +                                                                                           ; $048501 | | instrument.
+    INX                                                                                             ; $048503 | |
+    INX                                                                                             ; $048504 | |
+    BRA -                                                                                           ; $048505 |/
++   ASL                                                                                             ; $048507 |\
+    ASL                                                                                             ; $048508 | | Multiply the instrument number by four and add that value to the base table offset,
+    CLC                                                                                             ; $048509 | | saving the result (including any bank wrapping) to the other temporary variable.
+    ADC <r_play_audio_tmp_ptr.address                                                               ; $04850A | |
+    BCC +                                                                                           ; $04850C | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $04850E | |
+    SBC #$8000.w                                                                                    ; $048510 | |
++   STA <r_play_audio_tmp_ptr_3.address                                                             ; $048513 | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048515 |/
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $048517 |\
+    XBA                                                                                             ; $048519 | | Read the first two bytes of the table entry (which will always be zero, but this code
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $04851A | | is sufficiently generic that that need not always be the case).
+    INY                                                                                             ; $04851C | |
+    BNE +                                                                                           ; $04851D | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $04851F | |
+    LDY #$8000.w                                                                                    ; $048521 | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $048524 | |
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $048526 | |
+    XBA                                                                                             ; $048528 | |
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $048529 | |
+    INY                                                                                             ; $04852B | |
+    BNE +                                                                                           ; $04852C | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $04852E | |
+    LDY #$8000.w                                                                                    ; $048530 | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $048533 |/
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $048535 |\
+    CLC                                                                                             ; $048537 | | Add the read value to the instrument's pointer and send that value to the APU as the
+    ADC <r_current_instruments.pointer.1,X                                                          ; $048538 | | sample's base address.
+    STA reg_apu_apuio2                                                                              ; $04853A | |
+    LDA <r_apu_sequence_index                                                                       ; $04853D | |
+    STA reg_apu_apuio0                                                                              ; $04853F | |
+    INC <r_apu_sequence_index                                                                       ; $048542 | |
+-   CMP reg_apu_apuio0                                                                              ; $048544 | |
+    BNE -                                                                                           ; $048547 | |
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048549 |/
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $04854B |\
+    XBA                                                                                             ; $04854D | | Read the next two bytes from the table, which determine where in the sample to begin
+    LDY <r_play_audio_tmp_ptr_3.address                                                             ; $04854E | | looping.
+    INY                                                                                             ; $048550 | |
+    BNE +                                                                                           ; $048551 | |
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $048553 | |
+    LDY #$8000.w                                                                                    ; $048555 | |
++   STY <r_play_audio_tmp_ptr_3.address                                                             ; $048558 | |
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $04855A | |
+    XBA                                                                                             ; $04855C | |
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $04855D |/
+    CLC                                                                                             ; $04855F |\
+    ADC <r_current_instruments.pointer.1,X                                                          ; $048560 | | Add that value to the instrument's base pointer and write that to the APU as the loop
+    STA reg_apu_apuio2                                                                              ; $048562 | | pointer.
+    LDA <r_apu_sequence_index                                                                       ; $048565 | |
+    STA reg_apu_apuio0                                                                              ; $048567 | |
+    INC <r_apu_sequence_index                                                                       ; $04856A | |
+-   CMP reg_apu_apuio0                                                                              ; $04856C | |
+    BNE -                                                                                           ; $04856F |/
+    PLY                                                                                             ; $048571 |\
+    INY                                                                                             ; $048572 | | Increment the Y register and loop until all instruments have been processed.
+    INY                                                                                             ; $048573 | |
+    CPY #_sizeof_r_new_song_instruments.w                                                           ; $048574 | |
+    BEQ @pitch_adjustment                                                                           ; $048577 | |
+    JMP @source_directory_loop_start                                                                ; $048579 |/
+@pitch_adjustment:
+    STZ <r_apu_sequence_index                                                                       ; $04857C |\
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $04857E | | Read the pointer to the pitch adjustment table.
+    LDA instrument_pitch_adjustment_offset_data.w + pointer.address.lo                              ; $048580 | |
+    STA <r_calculate_audio_address_arg.address.lo                                                   ; $048583 | |
+    LDA instrument_pitch_adjustment_offset_data.w + pointer.address.hi                              ; $048585 | |
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $048588 | |
+    LDA instrument_pitch_adjustment_offset_data.w + pointer.bank                                    ; $04858A | |
+    STA <r_calculate_audio_address_arg.bank                                                         ; $04858D | |
+    JSR _calculate_audio_address                                                                    ; $04858F | |
+    LDA <r_calculate_audio_address_arg.address.lo                                                   ; $048592 | |
+    STA <r_play_audio_tmp_ptr.address.lo                                                            ; $048594 | |
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $048596 | |
+    STA <r_play_audio_tmp_ptr.address.hi                                                            ; $048598 | |
+    LDA <r_calculate_audio_address_arg.bank                                                         ; $04859A | |
+    STA <r_play_audio_tmp_ptr.bank                                                                  ; $04859C |/
+    LDX #0.w                                                                                        ; $04859E |\ Initialize the X register to zero.
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $0485A1 |/
+--  LDA <r_play_audio_tmp_ptr.address.hi                                                            ; $0485A3 |\ Copy the high two bytes of the pointer to another varaible.
+    STA <r_play_audio_tmp_ptr_3.address.hi                                                          ; $0485A5 |/
+    LDA r_new_song_instruments.1.w,X                                                                ; $0485A7 |\ Read the next instrument, and if zero, branch to the end.
+    BEQ ++                                                                                          ; $0485AA |/
+    CLC                                                                                             ; $0485AC |\
+    ADC <r_play_audio_tmp_ptr.address                                                               ; $0485AD | | Otherwise, add the instrument number to the loaded pointer to get the pointer for this
+    BCC +                                                                                           ; $0485AF | | instrument.
+    INC <r_play_audio_tmp_ptr_3.bank                                                                ; $0485B1 | |
+    SBC #$8000.w                                                                                    ; $0485B3 | |
++   STA <r_play_audio_tmp_ptr_3.address                                                             ; $0485B6 |/
+    LDA [<r_play_audio_tmp_ptr_3]                                                                   ; $0485B8 |\
+    STA reg_apu_apuio2                                                                              ; $0485BA | | Read the value and send it to the APU as the pitch adjustment value.
+    LDA <r_apu_sequence_index                                                                       ; $0485BD | |
+    STA reg_apu_apuio0                                                                              ; $0485BF | |
+    INC <r_apu_sequence_index                                                                       ; $0485C2 | |
+-   CMP reg_apu_apuio0                                                                              ; $0485C4 | |
+    BNE -                                                                                           ; $0485C7 |/
+    INX                                                                                             ; $0485C9 |\
+    INX                                                                                             ; $0485CA | | Loop until all instruments have been processed.
+    CPX #_sizeof_r_new_song_instruments.w                                                           ; $0485CB | |
+    BNE --                                                                                          ; $0485CE |/
+++  LDA <r_apu_sequence_index                                                                       ; $0485D0 |\
+    STA reg_apu_apuio0                                                                              ; $0485D2 | | Write the APU sequence index to the APU and wait for it to acknowledge.
+-   CMP reg_apu_apuio0                                                                              ; $0485D5 | |
+    BNE -                                                                                           ; $0485D8 |/
+    LDA #0.w                                                                                        ; $0485DA |\ Write a zero to APU port 0.
+    STA reg_apu_apuio0                                                                              ; $0485DD |/
+    RTS                                                                                             ; $0485E0
+
+; _play_mode_sound_effect ($04:85E1)
+;
+; Commands the APU to play a sound effect. Technically, all it does is send the mode and three
+; parameter bytes unchanged, but it is used to play sound effects. The only real difference between
+; this routine and _play_mode_special later is that this one only writes a zero to port 0 at the end
+; while the other writes zeroes to all four ports, which most likely has no practical impact
+; whatsoever.
+_play_mode_sound_effect:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $0485E1 | Ensure 8-bit accumulator mode.
+    LDA <r_play_audio_arg_parameter_3                                                               ; $0485E3 |\
+    STA reg_apu_apuio3                                                                              ; $0485E5 | | Write the three parameter bytes to ports 1, 2 and 3.
+    LDA <r_play_audio_arg_parameter_2                                                               ; $0485E8 | |
+    STA reg_apu_apuio2                                                                              ; $0485EA | |
+    LDA <r_play_audio_arg_parameter_1                                                               ; $0485ED | |
+    STA reg_apu_apuio1                                                                              ; $0485EF |/
+    LDA <r_play_audio_arg_mode                                                                      ; $0485F2 |\
+    STA reg_apu_apuio0                                                                              ; $0485F4 | | Write the mode byte and wait for the APU to acknowledge.
+-   CMP reg_apu_apuio0                                                                              ; $0485F7 | |
+    BNE -                                                                                           ; $0485FA |/
+    STZ reg_apu_apuio0                                                                              ; $0485FC |\
+    STZ <r_play_audio_arg_mode                                                                      ; $0485FF | | Write a zero to port 0 and reset the parameter bytes.
+    STZ <r_play_audio_arg_parameter_1                                                               ; $048601 | |
+    STZ <r_play_audio_arg_parameter_2                                                               ; $048603 | |
+    STZ <r_play_audio_arg_parameter_3                                                               ; $048605 |/
+    RTS                                                                                             ; $048607
+
+; _play_mode_direct_effect ($04:8608)
+;
+; Commands the APU to play a direct effect, based on the parameter value, which should range from
+; $10 to $1F.
+_play_mode_direct_effect:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $048608 | Ensure 8-bit accumulator mode.
+    STA reg_apu_apuio0                                                                              ; $04860A |\
+-   CMP reg_apu_apuio0                                                                              ; $04860D | | Store the passed value in port 0 and wait for the APU to acknowledge.
+    BNE -                                                                                           ; $048610 |/
+    STZ reg_apu_apuio0                                                                              ; $048612 | Write another zero to port 0.
+    STZ <r_play_audio_arg_mode                                                                      ; $048615 |\
+    STZ <r_play_audio_arg_track                                                                     ; $048617 | | Zero out the audio parameter bytes to clear the request.
+    STZ <r_play_audio_arg_pan                                                                       ; $048619 | |
+    STZ <r_play_audio_arg_unknown                                                                   ; $04861B |/
+    RTS                                                                                             ; $04861D
+
+; _play_mode_special ($04:861E)
+;
+; A simple play mode that passes the mode from $1E00 and the three parameter bytes from $1E01 to
+; $1E03 to the APU, with no additional transfers. Practically speaking, it's used to handle the
+; special modes $80 and above, which except for $80 and $90, take no parameters at all.
+_play_mode_special:
+    SEP #FLAG_P_ACCUMULATOR                                                                         ; $04861E | Ensure 8-bit accumulator mode.
+    LDA <r_play_audio_arg_parameter_1                                                               ; $048620 |\
+    STA reg_apu_apuio1                                                                              ; $048622 | | Write the three parameter bytes to ports 1, 2 and 3.
+    LDA <r_play_audio_arg_parameter_2                                                               ; $048625 | |
+    STA reg_apu_apuio2                                                                              ; $048627 | |
+    LDA <r_play_audio_arg_parameter_3                                                               ; $04862A | |
+    STA reg_apu_apuio3                                                                              ; $04862C |/
+    LDA <r_play_audio_arg_mode                                                                      ; $04862F |\
+    STA reg_apu_apuio0                                                                              ; $048631 | | Write the mode value and wait for the APU to acknowledge.
+-   CMP reg_apu_apuio0                                                                              ; $048634 | |
+    BNE -                                                                                           ; $048637 |/
+    STZ reg_apu_apuio0                                                                              ; $048639 |\
+    STZ reg_apu_apuio1                                                                              ; $04863C | | Write zeroes to all four ports.
+    STZ reg_apu_apuio2                                                                              ; $04863F | |
+    STZ reg_apu_apuio3                                                                              ; $048642 |/
+    STZ <r_play_audio_arg_mode                                                                      ; $048645 |\
+    STZ <r_play_audio_arg_parameter_1                                                               ; $048647 | | Zero out the parameter bytes so no data is leftover.
+    STZ <r_play_audio_arg_parameter_2                                                               ; $048649 | |
+    STZ <r_play_audio_arg_parameter_3                                                               ; $04864B |/
+    RTS                                                                                             ; $04864D
+
+; _calculate_audio_address ($04:864E)
+;
+; Given a 24-bit offset in $20.22, calculates the bus address to obtain the
+; data, assuming an offset of zero refers to $04:C000 (which is where the audio
+; data begins). The calculated 24-bit address is stored in $20.22.
+_calculate_audio_address:
+    PHP                                                                                             ; $04864E | Preserve the processor flags.
+    REP #FLAG_P_ACCUMULATOR                                                                         ; $04864F | Switch to 16-bit accumulator mode.
+    LDA <r_calculate_audio_address_arg.address.hi                                                   ; $048651 |\
+    CMP #$0040.w                                                                                    ; $048653 | | If the passed offset is less than $004000, add $04C000 to compute
+    BCS +                                                                                           ; $048656 | | the bus address and then branch to the end.
+    ADC #$04C0.w                                                                                    ; $048658 | |
+    BRA @done                                                                                       ; $04865B |/
++   CMP #$00C0.w                                                                                    ; $04865D |\
+    BCS +                                                                                           ; $048660 | | If the passed offset is less than $00C000, add $054000 to compute
+    ADC #$0540.w                                                                                    ; $048662 | | the bus address and then branch to the end.
+    BRA @done                                                                                       ; $048665 |/
++   CMP #$0140.w                                                                                    ; $048667 |\
+    BCS +                                                                                           ; $04866A | | If the passed offset is less than $014000, add $05C000 to compute
+    ADC #$05C0.w                                                                                    ; $04866C | | the bus address and then branch to the end.
+    BRA @done                                                                                       ; $04866F |/
++   CMP #$01C0.w                                                                                    ; $048671 |\
+    BCS +                                                                                           ; $048674 | | If the passed offset is less than $01C000, add $064000 to compute
+    ADC #$0640.w                                                                                    ; $048676 | | the bus address and then branch to the end.
+    BRA @done                                                                                       ; $048679 |/
++   CLC                                                                                             ; $04867B |\ Otherwise, add $06C000 to compute the bus address.
+    ADC #$06C0.w                                                                                    ; $04867C |/
+@done:
+    STA <r_calculate_audio_address_arg.address.hi                                                   ; $04867F | Store the result back into memory.
+    PLP                                                                                             ; $048681 | Restore the process flags.
+    RTS                                                                                             ; $048682
+
+; The remainder of this file is mostly data and has been excluded from this copy. The actual code
+; that runs on the SPC700 is also excluded at this time, but if someone really wants it...
