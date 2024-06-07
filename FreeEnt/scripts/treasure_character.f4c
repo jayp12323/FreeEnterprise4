@@ -1,0 +1,43 @@
+text(bank 1 message $82) {
+    Found a character!
+}
+
+placement($00 11)  //#MountOrdeals2F
+{
+    // %treasure_slot_1 npc1%
+    npc #fe_DynamicNPC
+    // %end%
+}
+
+msfpatch {
+    TreasureCharacter_CheckIfChar:     
+        //lda #$82
+        //sta $b2
+        //lda $09
+        //cmp #$fd  // character item
+        //beq $+DoCharacterReward   
+        sec
+        rtl
+    %DoCharacterReward:
+        // trigger random battle
+        lda $1702
+        sta $3d
+        stz $3e
+        lda $1701
+        beq $+Overworld
+        inc $3e
+    %Overworld:
+        // set can't run value
+        lda #$01
+        sta $09
+
+        lda #$00
+        ldy #$8a73
+        jml $=LongCall // thunk to RTL
+
+    Wacky__PostBattleHook:
+        // clear can't run value
+        stz $09
+        sec
+        rtl
+}

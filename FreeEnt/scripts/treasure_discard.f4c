@@ -231,8 +231,12 @@ msfpatch {
         jmp $_Done
 
     %NotEmpty:
+        // Check if the message should be changed if it's a character here
+        jsl $=TreasureCharacter_CheckIfChar
+        bcs $+Done
+        
         // change the message displayed if the contents can't be discarded
-        jsr $_TreasureDiscard__CheckDiscardable
+        jsr $_TreasureDiscard__CheckDiscardable        
         bcs $+Done
 
         lda #$16

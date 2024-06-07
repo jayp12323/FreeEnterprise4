@@ -65,7 +65,7 @@ class TreasureAssignment:
             slug = self._remaps[slug]
 
         if contents in self._autosells and fight is None:
-            contents = '{} gp'.format(self._autosells[contents])
+            contents = '{} gp'.format(self._autosells[contents])        
         self._assignments[slug] = (contents, fight)
 
     def get(self, t, remap=True):
@@ -81,6 +81,9 @@ class TreasureAssignment:
             contents,fight = self._assignments[slug]
             if contents is None:
                 contents = '$00'
+
+            #print(f'Map id is {slug}')
+
             line = f"trigger({slug}) {{ treasure {contents} "
             if fight is not None:
                 if fight >= 0x1E0:
@@ -89,7 +92,21 @@ class TreasureAssignment:
                     fight -= 0x1C0
                 line += f"fight ${fight:02X} "
             line += "}"
+            # print (f'Contents{contents}')
+
+            # placement($85 2)  //#MountOrdeals2F
+            # {
+            #     // %tellah2_slot npc1%
+            #     npc #fe_DynamicNPC
+            #     // %end%
+            # }
+
+            # line = f"placement({slug}) {{"
+            # line += "event call $12"            
+            # line += "}"
+
             lines.append(line)
+            # print(f'Script: ' + '\n'.join(lines))
         return '\n'.join(lines)
 
 def refineItemsView(dbview, env):    
@@ -163,7 +180,13 @@ def apply(env):
         for old,new in zip(remapped_original_chests, remapped_new_chests):
             treasure_assignment.remap(old, new)
 
-    if env.options.flags.has('treasure_vanilla'):
+    if env.options.flags.has('characters_in_treasure'):
+        # for various reasons we really do need to assign every treasure chest still
+        for t in treasure_dbview:
+            if t.fight is None:
+                contents = (t.jcontents if (t.jcontents and not env.options.flags.has('treasure_no_j_items')) else t.contents)
+                treasure_assignment.assign(t, '#item.fe_CharacterChestItem')
+    elif env.options.flags.has('treasure_vanilla'):
         # for various reasons we really do need to assign every treasure chest still
         for t in treasure_dbview:
             if t.fight is None:

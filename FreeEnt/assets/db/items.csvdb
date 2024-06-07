@@ -252,6 +252,6 @@ code,const,name,spoilername,category,subtype,j,flag,tier,shopoverride,price,thro
 0xFA,#item.Tower,[key]Tower,Tower Key,item,key,,K,,,,,,,,
 0xFB,#item.DkMatter,[$15]DkMatter,DkMatter,item,key,J,K,,,,,,,,
 0xFC,#item.fe_Hook,Hook,Hook,item,key,,K,,,,,,,,
-0xFD,#item.fe_RatTailChestItem,,,,,,D,,,,,,,,
+0xFD,#item.fe_CharacterChestItem,,,,,,D,,,,,,,,
 0xFE,#item.Sort,,,,,,D,,,,,,,,
 0xFF,#item.TrashCan,,,,,,D,,,,,,,,

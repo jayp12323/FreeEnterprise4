@@ -23,6 +23,17 @@ class RewardSlot(enum.IntEnum):
     cave_eblan_character        = 0x12
     lunar_palace_character      = 0x13
     giant_character             = 0x14
+    
+    treasure_character_1        = 0x15
+    treasure_character_2        = 0x16
+    treasure_character_3        = 0x17
+    treasure_character_4        = 0x18
+    treasure_character_5        = 0x19
+    miab_character_1            = 0x1A
+    miab_character_2            = 0x1B
+    miab_character_3            = 0x1C
+    miab_character_4            = 0x1D
+
     starting_item               = 0x20
     antlion_item                = 0x21
     fabul_item                  = 0x22
@@ -87,7 +98,7 @@ class RewardSlot(enum.IntEnum):
     fixed_crystal               = 0x5D
     gated_objective             = 0x5E
 
-    MAX_COUNT = 0x60
+    MAX_COUNT = 0x70
 
 ACTOR_CODES = {
     '#actor.DKCecil'  : 0x01,
@@ -193,6 +204,15 @@ REWARD_SLOT_SPOILER_NAMES = {
     RewardSlot.pink_trade_item             : "Pink Tail trade item",
     RewardSlot.fixed_crystal               : "Objective completion", 
     RewardSlot.gated_objective             : "Gated requirements completion", 
+    RewardSlot.treasure_character_1        : "Treasure Character 1", 
+    RewardSlot.treasure_character_2        : "Treasure Character 2", 
+    RewardSlot.treasure_character_3        : "Treasure Character 3", 
+    RewardSlot.treasure_character_4        : "Treasure Character 4", 
+    RewardSlot.treasure_character_5        : "Treasure Character 5", 
+    RewardSlot.miab_character_1            : "MIAB Character 1", 
+    RewardSlot.miab_character_2            : "MIAB Character 2", 
+    RewardSlot.miab_character_3            : "MIAB Character 3", 
+    RewardSlot.miab_character_4            : "MIAB Character 4", 
 }
 
 class Reward:

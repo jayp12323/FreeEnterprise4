@@ -27,7 +27,16 @@ SLOTS = {
     'arydia_slot' : 0x11, 
     'edge_slot' : 0x12,
     'fusoya_slot' : 0x13, 
-    'kain3_slot' : 0x14
+    'kain3_slot' : 0x14,
+    'treasure_character_1' : 0x15, 
+    'treasure_character_2' : 0x16,
+    'treasure_character_3' : 0x17, 
+    'treasure_character_4' : 0x18,
+    'treasure_character_5' : 0x19,
+    'miab_character_1' : 0x1A, 
+    'miab_character_2' : 0x1B,
+    'miab_character_3' : 0x1C, 
+    'miab_character_4' : 0x1D,
 }
 
 DEFAULTS = {
@@ -48,7 +57,16 @@ DEFAULTS = {
     'arydia_slot' : 'rydia', 
     'edge_slot' : 'edge',
     'fusoya_slot' : 'fusoya', 
-    'kain3_slot' : 'kain'    
+    'kain3_slot' : 'kain',
+    'treasure_slot_1' : 'tellah',
+    'treasure_slot_2' : 'tellah',
+    'treasure_slot_3' : 'tellah',
+    'treasure_slot_4' : 'tellah',
+    'treasure_slot_5' : 'tellah',
+    'miab_slot_1' : 'tellah',
+    'miab_slot_2' : 'tellah',
+    'miab_slot_3' : 'tellah',
+    'miab_slot_4' : 'tellah',
 }
 
 MUTUALLY_EXCLUSIVE_SLOTS = [
@@ -244,6 +262,20 @@ def apply(env):
         if start_character is not None:
             assignable_slots.remove('dkcecil_slot')
 
+
+        if not env.options.flags.has('Ctreasure'):
+            assignable_slots.remove('treasure_character_1')
+            assignable_slots.remove('treasure_character_2')
+            assignable_slots.remove('treasure_character_3')
+            assignable_slots.remove('treasure_character_4')
+            assignable_slots.remove('treasure_character_5')
+
+        if not env.options.flags.has('Cmiab'):
+            assignable_slots.remove('miab_character_1')
+            assignable_slots.remove('miab_character_2')
+            assignable_slots.remove('miab_character_3')
+            assignable_slots.remove('miab_character_4')
+
         num_easy_slots = len([s for s in assignable_slots if s not in HARD_SLOTS])
 
         def subtract_if_able(original_set, subtract_set):
@@ -256,7 +288,7 @@ def apply(env):
         # violating the fewest constraints
         possible_assignments = []
 
-        for attempt in range(20):
+        for attempt in range( len(SLOTS) ):
             characters = []
             if not env.options.flags.has('characters_not_guaranteed'):
                 characters.extend(allowed_characters)
@@ -380,6 +412,7 @@ def apply(env):
     env.meta['available_nonstarting_characters'] = set()
     for slot in assignment:
         character = assignment[slot]
+        #print(f'Assigning character {character} to slot {slot}')
         if character is None:
             if slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain1_slot', 'kain2_slot']:
                 axtor_map[SLOTS[slot]] = 0xFE  # placeholder piggy for required overworld NPCs
@@ -500,6 +533,8 @@ def apply(env):
     env.update_assignments(assignment)
 
     # generate character assignment spoilers
+    # for x in SLOTS:
+    #     print(f'Slots are '+ x)
     CHARACTER_SLOT_SPOILER_NAMES = {
         s : rewards.REWARD_SLOT_SPOILER_NAMES[rewards.RewardSlot(SLOTS[s])] 
         for s in SLOTS

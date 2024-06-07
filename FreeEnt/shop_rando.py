@@ -28,6 +28,7 @@ class ShopAssignment:
     
     def add(self, *item_consts):
         self._manifest.extend(item_consts)
+        #print(f'Manifest{self._shop.memo} extending to {item_consts} {len(self._manifest)}')
 
     def matches_category(self, category):
         return getattr(self._shop, category)
@@ -80,14 +81,20 @@ def apply(env):
         # fill an empty shop whenever possible
         empty_shop_assignments = list(filter(lambda sa: sa.is_empty(), candidate_shop_assignments))
         if empty_shop_assignments:
+            #print('Empty Shop assignment')
             candidate_shop_assignments = empty_shop_assignments
+        elif env.options.flags.has('shops_singles'):
+            candidate_shop_assignments = None
+        
+        if not env.options.flags.has('shops_singles'):
+            candidate_shop_assignments = list(filter(lambda sa: not sa.is_full(), candidate_shop_assignments))
 
-        candidate_shop_assignments = list(filter(lambda sa: not sa.is_full(), candidate_shop_assignments))
         if candidate_shop_assignments:
             # weight the distribution to favor less full shops
             dist = util.Distribution({sa : 12 - len(sa.manifest) for sa in candidate_shop_assignments})
             shop_assignment = dist.choose(env.rnd)
             if item_const not in shop_assignment.manifest:
+                #print(f' Adding {item_const} to shop {shop_assignment.shop.memo}')
                 shop_assignment.add(item_const)
 
     if env.options.flags.has('shops_vanilla'):
@@ -102,10 +109,17 @@ def apply(env):
     elif env.options.flags.has('shops_empty'):
         # literally do nothing
         pass
+    elif env.options.flags.has('shops_same'):
+        if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
+            items_dbview.refine(lambda it: it.const == '#item.Carrot')
+        all_candidates = items_dbview.find_all(lambda it: True)
+        env.rnd.shuffle(all_candidates)
+        for shop_assignment in shop_assignments:
+            shop_assignment.add(all_candidates[0].const)
     elif env.options.flags.has('shops_cabins'):
         for shop_assignment in shop_assignments:
             shop_assignment.add('#item.Cabin')
-    elif env.options.flags.has('shops_shuffle'):
+    elif env.options.flags.has('shops_shuffle'):        
         shop_tiers = [
             list(filter(lambda sa: sa.shop.level == 'free', shop_assignments)),
             list(filter(lambda sa: sa.shop.level != 'free', shop_assignments))
@@ -127,7 +141,7 @@ def apply(env):
                 pools[0][category] = mixed_pools[0]
                 pools[1][category] = mixed_pools[1]
 
-        for pool,shop_tier in zip(pools,shop_tiers):
+        for pool,shop_tier in zip(pools,shop_tiers):            
             for category in pool:
                 eligible_shop_assignments = list(filter(lambda sa: sa.matches_category(category), shop_tier))
                 remaining_items = list(pool[category])
@@ -164,52 +178,14 @@ def apply(env):
             else:
                 return False
 
-        for category in CATEGORY_QTYS:
-            candidates = items_dbview.find_all(lambda it: it.category == category and (can_be_in_shop(it, 'free') or can_be_in_shop(it, 'gated')) )
-            category_qty = CATEGORY_QTYS[category]
-            # number of 'item' items is dependent on S tier            
-            if category == 'item':
-                if env.options.flags.has('shops_standard'):
-                    category_qty = max(category_qty, int(len(candidates) * 0.9))
-                elif env.options.flags.has('shops_wild'):
-                    category_qty = len(candidates)
-
-            if len(candidates) > category_qty:
-                candidates = env.rnd.sample(candidates, category_qty)
-            elif len(candidates) > 0:
-                add_pool = list(candidates)
-                while len(candidates) < category_qty:
-                    if len(add_pool) + len(candidates) > category_qty:
-                        add_pool = env.rnd.sample(add_pool, category_qty - len(candidates))
-                    candidates.extend(add_pool)
-
-            env.rnd.shuffle(candidates)
-            candidates.sort(key = lambda it: it.tier, reverse=True)
-
-            if category == 'item' and env.options.flags.has('shops_standard'):
-                # special behavior: guarantee two tier-5 items in Cave Eblan item shop
-                cave_eblan_shop_assignment = None
-                for sa in shop_assignments:
-                    if sa.shop.id == 0x18:
-                        cave_eblan_shop_assignment = sa
-                        break
-
-                seed_items = list(filter(lambda it: it.tier == 5, candidates))[:2]
-                for item in seed_items:
-                    if sa.is_full():
-                        break
-                    candidates.remove(item)
-                    sa.add(item.const)
-
-            category_shop_assignments = list(filter(lambda sa: sa.matches_category(category) and sa.shop.level in ['free', 'gated'], shop_assignments))
-            for item in candidates:
-                eligible_shop_assignments = list(filter(lambda sa: can_be_in_shop(item, sa.shop), category_shop_assignments))
-                place_item(item.const, eligible_shop_assignments)
-
         # Kokkol shop
+        max_kokkol_items = 4
+        if env.options.flags.has('shops_singles'):
+            max_kokkol_items = 1
+
         kokkol_shop_assignment = next(filter(lambda sa: sa.shop.level == 'kokkol', shop_assignments))
         kokkol_candidates = items_dbview.find_all(lambda it: can_be_in_shop(it, 'kokkol'))
-        kokkol_shop_assignment.add(*[it.const for it in env.rnd.sample(kokkol_candidates, min(len(kokkol_candidates), 4))])
+        kokkol_shop_assignment.add(*[it.const for it in env.rnd.sample(kokkol_candidates, min(len(kokkol_candidates), max_kokkol_items))])
 
         # guaranteed items
         if not env.options.flags.has('shops_unsafe'):
@@ -260,6 +236,48 @@ def apply(env):
             for item_const in guaranteed_gated_items:
                 place_item(item_const, gated_shop_assignments)
 
+        for category in CATEGORY_QTYS:
+            candidates = items_dbview.find_all(lambda it: it.category == category and (can_be_in_shop(it, 'free') or can_be_in_shop(it, 'gated')) )
+            category_qty = CATEGORY_QTYS[category]
+            # number of 'item' items is dependent on S tier            
+            if category == 'item':
+                if env.options.flags.has('shops_standard'):
+                    category_qty = max(category_qty, int(len(candidates) * 0.9))
+                elif env.options.flags.has('shops_wild'):
+                    category_qty = len(candidates)
+
+            if len(candidates) > category_qty:
+                candidates = env.rnd.sample(candidates, category_qty)
+            elif len(candidates) > 0:
+                add_pool = list(candidates)
+                while len(candidates) < category_qty:
+                    if len(add_pool) + len(candidates) > category_qty:
+                        add_pool = env.rnd.sample(add_pool, category_qty - len(candidates))
+                    candidates.extend(add_pool)
+
+            env.rnd.shuffle(candidates)
+            candidates.sort(key = lambda it: it.tier, reverse=True)
+
+            if category == 'item' and env.options.flags.has('shops_standard'):
+                # special behavior: guarantee two tier-5 items in Cave Eblan item shop
+                cave_eblan_shop_assignment = None
+                for sa in shop_assignments:
+                    if sa.shop.id == 0x18:
+                        cave_eblan_shop_assignment = sa
+                        break
+
+                seed_items = list(filter(lambda it: it.tier == 5, candidates))[:2]
+                for item in seed_items:
+                    if sa.is_full():
+                        break
+                    candidates.remove(item)
+                    sa.add(item.const)
+
+            category_shop_assignments = list(filter(lambda sa: sa.matches_category(category) and sa.shop.level in ['free', 'gated'], shop_assignments))
+            for item in candidates:                
+                eligible_shop_assignments = list(filter(lambda sa: can_be_in_shop(item, sa.shop), category_shop_assignments))
+                place_item(item.const, eligible_shop_assignments)
+    
     if env.options.flags.has('pass_in_shop') and not env.options.flags.has('shops_vanilla'):
         # (vanilla case is handled earlier)
         eligible_shop_assignments = list(filter(lambda sa: sa.matches_category('item') and sa.shop.level in ['free', 'gated'], shop_assignments))

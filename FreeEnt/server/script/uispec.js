@@ -5050,6 +5050,16 @@ var FLAG_UISPEC = [
             "hard": true
           },
           {
+            "flag": "Ssame",
+            "title": "Shops sell only one type of item.  All shops in the game are the same.",
+            "hard": true
+          },
+          {
+            "flag": "Ssingles",
+            "title": "Shops sell only a single item",
+            "hard": true
+          },
+          {
             "flag": "Sempty",
             "title": "Shops sell nothing",
             "hard": true

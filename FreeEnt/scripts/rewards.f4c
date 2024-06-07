@@ -92,11 +92,21 @@ consts(reward_slot)
     $5D     fixed_crystal
     $5E     gated_objective
 
-    // current maximum: 0x60 reward slots
+    $5E     gated_objective
+    $5F     treasure_character_1
+    $60     treasure_character_2
+    $61     treasure_character_3
+    $62     treasure_character_4
+    $63     treasure_character_5
+    $64     miab_character_1
+    $65     miab_character_2
+    $66     miab_character_3
+    $67     miab_character_4   
+    // current maximum: 0x70 reward slots
 }
 
 msfpatch {
-    .def  Rewards__MaxSlotCount  $60    
+    .def  Rewards__MaxSlotCount  $70    
 }
 
 msfpatch {

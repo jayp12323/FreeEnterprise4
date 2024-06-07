@@ -156,6 +156,7 @@ F4C_FILES = '''
     scripts/stats.f4c
     scripts/level_up_summary.f4c
     scripts/treasure_discard.f4c
+    scripts/treasure_character.f4c
     scripts/config_init.f4c
     scripts/shadow_party.f4c
     scripts/fusoya_challenge.f4c
@@ -417,7 +418,7 @@ def _generate_title_screen_text(options):
     for c in text:
         if (len(data) >= 160):
             raise BuildError(f"_generate_title_screen_text: data exceeds allocated size in ROM")
-            
+
         if c == ' ':
             data.append('FF 04')
         elif c == '.':

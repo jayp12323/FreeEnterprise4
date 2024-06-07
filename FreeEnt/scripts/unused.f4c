@@ -11,7 +11,6 @@ text(bank 1 message $12) {X}
 
 // bank 1 messages in the range $20-7F are reserved for Kory Hints
 
-text(bank 1 message $82) {X}
 text(bank 1 message $83) {X}
 text(bank 1 message $84) {X}
 text(bank 1 message $85) {X}
