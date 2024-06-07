@@ -424,7 +424,7 @@
 .(Ssame)! Shops sell only one type of item.  All shops in the game are the same.
 .(Sempty)! Shops sell nothing
 [Sfree] Shop items are free
-[Ssingles] Shops sell only a single item
+[Ssingles]! Shops sell only a single item
 <> Sell prices
 .(Ssell:quarter) Items sell for 1/4 price
 .(Ssell:0) Items sell for 0 GP
