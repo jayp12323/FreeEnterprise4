@@ -162,6 +162,12 @@ A skill-testing randomization, limiting the strength of available items, and wei
 [Swild]
 An unrestricted randomization, allowing equal chance for items to appear in any shop, including the most powerful items.
 
+[Ssame]
+Shops only sell a single item, and all shops in the game are the same.  The item chosen uses the same rules as Swild.
+
+[Ssingles]
+Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).
+
 [Sunsafe]
 Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.
 
