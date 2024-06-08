@@ -258,7 +258,7 @@ def apply(env):
             env.rnd.shuffle(candidates)
             candidates.sort(key = lambda it: it.tier, reverse=True)
 
-            if category == 'item' and env.options.flags.has('shops_standard'):
+            if category == 'item' and env.options.flags.has('shops_standard') and not env.options.flags.has('shops_singles'):
                 # special behavior: guarantee two tier-5 items in Cave Eblan item shop
                 cave_eblan_shop_assignment = None
                 for sa in shop_assignments:
