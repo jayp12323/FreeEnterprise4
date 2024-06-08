@@ -304,6 +304,7 @@ event($62)  //Cecil's transformation, Tellah remembering
     p #DarkKnightCecil1 face down
     pause 8
 
+
     p #LegendarySword toggle visible
     batch 7 {
         p #LegendarySword move down
@@ -355,7 +356,6 @@ event($62)  //Cecil's transformation, Tellah remembering
     }
     music #None
     sound #BlackMagic
-
     [#B #If #not_Flag #flag.Temp] {
         p #MirrorParty face down
         batch 6 {
@@ -422,6 +422,16 @@ event($62)  //Cecil's transformation, Tellah remembering
     }
     toggle tint $00
     music #LongFanfare
+
+    // %flag characters_cecil_paladin on%
+    message $CB   // "[Cecil] was already a paladin.[pause 80]"
+        batch 9 {
+        p #PaladinCecil1 toggle visible
+        p #MirrorParty toggle visible
+    }
+    // %end%
+
+    // %flag characters_cecil_paladin off%
     [#B #If #Flag #flag.Temp] {
         message $CD   // "[Cecil] became a Paladin![pause 80]"
     }
@@ -432,6 +442,7 @@ event($62)  //Cecil's transformation, Tellah remembering
             p #MirrorParty toggle visible
         }
     }
+    // %end%
 
     music #LunarPath
     pause 4
@@ -509,6 +520,11 @@ event($62)  //Cecil's transformation, Tellah remembering
     player face down
     [#B #Objectives_Tick #objective.quest_ordeals]
     music #Mountain
+}
+
+text(bank 1 message $CB) {
+[Cecil] is already a 
+Paladin!
 }
 
 // %flag characters_no_duplicates on%

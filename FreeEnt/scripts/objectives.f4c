@@ -185,6 +185,7 @@ msfpatch
     .def  Objectives__MaxCount              0x20
 
     .def  Objectives__ProcessEventID  $08
+    .def  Objectives__ProcessDepowerPlayer  $18
     
     .def  GoldHunt__Slot          $21fa05
     .def  GoldHunt__Goal          $21fa06
@@ -465,6 +466,11 @@ msfpatch
     EvEx__ObjectivesImpl_DoEvent:
         lda #$.Objectives__ProcessEventID
         jmp $_EvEx__GoSubEvent_Impl
+
+    EvEx__ObjectivesImpl_DepowerPlayerEvent:
+        lda #$.Objectives__ProcessDepowerPlayer
+        jmp $_EvEx__GoSubEvent_Impl
+        rtl
 }
 
 msfpatch {

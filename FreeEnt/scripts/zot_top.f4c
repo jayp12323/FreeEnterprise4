@@ -60,6 +60,11 @@ event($7A)  //Top of Tower of Zot events
     take item #EarthCrystal
     [#B #Tracker_SetKeyItemUsed #tracker_key_item_index.earth_crystal]
 
+    // %flags: superhero_challenge%
+    [#B #MakeSuperhero]
+    message $EE  // Became a superhero again
+    // %end%
+
     player toggle turning
     toggle run
     toggle tint $A7
@@ -131,6 +136,11 @@ text(bank 1 message $ED) {
 Handed over the Crystal
 of the Earth.
 }
+
+text(bank 1 message $EE) {
+Became a superhero again!
+}
+
 
 //-------------------------------------------------
 

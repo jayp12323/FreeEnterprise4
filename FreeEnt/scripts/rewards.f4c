@@ -209,6 +209,12 @@ msfpatch {
         "Objective completion            "   // $5D     fixed_crystal
 }
 
+text(bank 1 message $120) {
+The earth crystal weakens
+your super powers!
+}
+
+
 msfpatch {
     .def Rewards__CurrentSlot     $7e1621
     .def Rewards__CurrentValueLo  $7e1622
@@ -341,8 +347,18 @@ msfpatch {
         ldx #$_Tracker__KeyItemUsedFlags
         jsl $=Tracker__SetBit
         bra $+ItemNotYetUsed
-    %RemoveSuperhero:    
+    %RemoveSuperhero:       
+        // Show depower message
+        lda #$20 // refers to $120 since this is the behavior for a bank 1 message 
+        sta $b2
+        ldx #$b1e1
+        jsl $=Bank00LongCallX
+        ldx #$b0d1
+        jsl $=Bank00LongCallX
+        ldx #$b164
+        jsl $=Bank00LongCallX
         ldx #$0000
+
     %RemoveSuperheroLoop:        
         lda $100f,x
         sec
@@ -359,11 +375,13 @@ msfpatch {
         sta $=Tracker__KeyItemLocations,x
         inx
         lda #$00
-        sta $=Tracker__KeyItemLocations,x
+        sta $=Tracker__KeyItemLocations,x       
 
         rtl   
         
 }
+
+
 
 msfpatch {
     // params: A = reward slot, X = target text buffer

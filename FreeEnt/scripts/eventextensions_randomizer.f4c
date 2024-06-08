@@ -717,6 +717,6 @@ text(bank 1 message $11E) {
     [amount] boss collected!
 }
 
-text(bank 1 message $11f) {
+text(bank 1 message $11F) {
     [amount] bosses collected!
 }

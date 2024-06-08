@@ -11,7 +11,6 @@ text(bank 1 message $12) {X}
 
 // bank 1 messages in the range $20-7F are reserved for Kory Hints
 
-text(bank 1 message $83) {X}
 text(bank 1 message $84) {X}
 text(bank 1 message $85) {X}
 text(bank 1 message $86) {X}
@@ -78,7 +77,6 @@ text(bank 1 message $C7) {X}
 text(bank 1 message $C8) {X}
 text(bank 1 message $C9) {X}
 text(bank 1 message $CA) {X}
-text(bank 1 message $CB) {X}
 
 text(bank 1 message $D0) {X}
 text(bank 1 message $D1) {X}
@@ -104,7 +102,6 @@ text(bank 1 message $E9) {X}
 text(bank 1 message $EA) {X}
 text(bank 1 message $EB) {X}
 
-text(bank 1 message $EE) {X}
 text(bank 1 message $EF) {X}
 text(bank 1 message $F0) {X}
 text(bank 1 message $F1) {X}
