@@ -13,6 +13,7 @@ Free Enterprise was made possible using the extensive technical research and kno
 This repository contains other code written by community members who are not (necessarily) part of the formal "Green Names" FE development team, including:
 
 - Antidale
+- cassidy
 - Galeswift
 - harumph
 - S3
