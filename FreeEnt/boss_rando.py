@@ -759,7 +759,7 @@ def apply(env):
                     stat, value = pair
                     if stat == 'spell power':
                         scaled_value = str(min(255, int(math.ceil(value * _get_spell_power_ratio(ref_leader, leader)))))
-                        env.add_substitution(f'{monster} script spell power change {value}', f'set spell power {scaled_value}')
+                        env.add_substitution(f'{monster_name} script spell power change {value}', f'set spell power {scaled_value}')
                         csv_row.append(f'scriptSpellPower: {scaled_value}')
                     else:
                         stats_scripted = (SPEED_TABLE if stat == 'speed' else STATS_TABLE)[value]
