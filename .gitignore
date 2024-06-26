@@ -1,5 +1,9 @@
 *.sfc
 *.smc
+*.script
+*.public
+*.private
+*.symbols
 README.md
 ENV/**
 FreeEnt/.build/**
@@ -7,3 +11,5 @@ FreeEnt/.build/**
 FreeEnt/server/_build/**
 .lastseed
 *.env
+.vscode/**
+testsettings.json
