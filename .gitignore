@@ -1,0 +1,9 @@
+*.sfc
+*.smc
+README.md
+ENV/**
+FreeEnt/.build/**
+**/*.pyc
+FreeEnt/server/_build/**
+.lastseed
+*.env

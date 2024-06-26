@@ -193,6 +193,13 @@ KIT_SPECS = {
         ( ['Heroine', 'Carrot'],   [1] ),   # rivers
         ( ['Tiara', 'Grimoire'],   [1] ),   # schala
         ( ['RubyRing', 'CharmHarp'],   [1] ),   # zoe
+    ],
+
+    'atb' : [
+        ( ['SilkWeb'],  [(2,3)] ),
+        ( ['Hermes'],   [(4,5)] ),
+        ( ['HrGlass1'], [1] ),
+        ( ['Heal'],     [(3,4)] ),
     ]
 }
 
