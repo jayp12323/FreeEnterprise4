@@ -5107,6 +5107,10 @@ var FLAG_UISPEC = [
                 "title": "\"The Bodyguard\""
               },
               {
+                "flag": "-wacky:dropitlikeitshot",
+                "title": "\"Drop It Like It's Hot\""
+              },
+              {
                 "flag": "-wacky:enemyunknown",
                 "title": "\"Enemy Unknown\"",
                 "hard": true

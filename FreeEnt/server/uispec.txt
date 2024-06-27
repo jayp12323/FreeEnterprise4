@@ -428,6 +428,7 @@
 ..(-wacky:afflicted)!        "Afflicted"
 ..(-wacky:battlescars)!      "Battle Scars"
 ..(-wacky:bodyguard)         "The Bodyguard"
+..(-wacky:dropitlikeitshot)  "Drop It Like It's Hot"
 ..(-wacky:enemyunknown)!     "Enemy Unknown"
 ..(-wacky:musical)!          "Final Fantasy IV: The Musical"
 ..(-wacky:fistfight)!        "Fist Fight"

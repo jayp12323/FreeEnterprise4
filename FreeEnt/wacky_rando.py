@@ -37,6 +37,7 @@ WACKY_CHALLENGES = {
     'saveusbigchocobo'  : 'Save Us,\nBig Chocobo!',
     'isthisrandomized'  : 'Is This Even\nRandomized?',
     'forwardisback'     : 'Forward is\nthe New Back',
+    'dropitlikeitshot'  : 'Drop It Like It\'s Hot'
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
@@ -475,3 +476,6 @@ def apply_worthfighting(env):
 
 def setup_saveusbigchocobo(env):
     env.meta['wacky_starter_kit'] = [( 'Carrot', [5] )]
+
+def apply_dropitlikeitshot(env):
+    env.add_file('scripts/wacky/dropitlikeitshot.f4c')

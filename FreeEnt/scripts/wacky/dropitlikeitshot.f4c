@@ -1,0 +1,18 @@
+// Normally, the drops algorithm has two parts:
+// Check to see if a monster drops something, and then
+// figure out what it dropped.
+
+// Step 1: make all monsters that sometimes/often drop 
+// items *always* drop items. Note that 0x63 is 99.
+// Conveniently, we exclude bosses/etc., so that we
+// don't run into problematic/non-existent drops.
+patch ($03ecf8 bus) { 63 } // normally 05, for 5%-ish
+patch ($03ed00 bus) { 63 } // normally 19, for 25%-ish
+
+// Step 2: uniformize the drop table, so that every
+// drop is equally likely: 64/256 each.
+// The values are thresholds that the game checks in order.
+patch ($03ed31 bus) { 40 } // normally 80, for 128/256 common
+patch ($03ed39 bus) { 80 } // normally d0, for 80/256 uncommon
+patch ($03ed41 bus) { c0 } // normally fc, for 44/256 rare
+// the rest is the 4/256 mythic drop
