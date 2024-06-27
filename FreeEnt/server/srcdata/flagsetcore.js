@@ -464,6 +464,9 @@ class FlagLogicCore {
         if (((start_include_flags.length > 1) && flagset.has("Cstart:any"))) {
             this._simple_disable_regex(flagset, log, "Cstart:any is specified", "^Cstart:(?!any|not_)");
         }
+        if ((flagset.has("Cnekkie") && (flagset.get_list("^Cthrift:").length > 0))) {
+            this._simple_disable_regex(flagset, log, "Starting gear specified by Cnekkie", "^Cthrift:");
+        }
         if (flagset.has("Tempty")) {
             this._simple_disable_regex(flagset, log, "Treasures are empty", "^Tsparse:");
         }
