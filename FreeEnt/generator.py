@@ -699,6 +699,9 @@ def build(romfile, options, force_recompile=False):
     if options.flags.has('edward_spoon'):
         env.add_file('scripts/edward_spoon.f4c')
 
+    if options.flags.has('give_monsters_evade'):
+        env.add_file('scripts/give_monsters_evade.f4c')
+
     if options.flags.has('vintage'):
         env.add_files(
             'scripts/vintage_battlefield.f4c',

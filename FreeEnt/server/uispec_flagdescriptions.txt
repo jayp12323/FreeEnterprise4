@@ -270,6 +270,9 @@ An Ice Brand and a Blizzard Spear.
 [-kit:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
 
+[-kit:atb]
+2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions.
+
 [-kit:random]
 One of the other kit options, selected at random.
 
@@ -347,6 +350,9 @@ An Ice Brand and a Blizzard Spear.
 
 [-kit2:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
+
+[-kit2:atb]
+2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions.
 
 [-kit2:random]
 One of the other kit options, selected at random.
@@ -426,11 +432,17 @@ An Ice Brand and a Blizzard Spear.
 [-kit3:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
 
+[-kit3:atb]
+2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions.
+
 [-kit3:random]
 One of the other kit options, selected at random.
 
 [-noadamants]
 Adamant Armors are not available. Trading the Pink Tail in the Adamant Grotto instead grants a strong item.
+
+[-monsterevade]
+Monsters will be able to evade both physical and magical attacks from your party based on their actual stats. (This change constitutes a significant damage reduction for many fights!)
 
 [-smith:super]
 Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)

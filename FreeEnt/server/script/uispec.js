@@ -4668,6 +4668,11 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit:atb",
+                "title": "ATB kit",
+                "description": "2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions."
+              },
+              {
                 "flag": "-kit:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -4803,6 +4808,11 @@ var FLAG_UISPEC = [
                 "flag": "-kit2:green",
                 "title": "Green Names kit",
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
+              },
+              {
+                "flag": "-kit2:atb",
+                "title": "ATB kit",
+                "description": "2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions."
               },
               {
                 "flag": "-kit2:random",
@@ -4942,6 +4952,11 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit3:atb",
+                "title": "ATB kit",
+                "description": "2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions."
+              },
+              {
                 "flag": "-kit3:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -4962,6 +4977,11 @@ var FLAG_UISPEC = [
       {
         "flag": "-spoon",
         "title": "Edward can equip the Spoon"
+      },
+      {
+        "flag": "-monsterevade",
+        "title": "Monsters get physical and magical evasion",
+        "description": "Monsters will be able to evade both physical and magical attacks from your party based on their actual stats. (This change constitutes a significant damage reduction for many fights!)"
       },
       {
         "flag": "@anon41",
