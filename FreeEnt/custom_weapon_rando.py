@@ -133,10 +133,13 @@ def apply(env):
         gear_bytes[6] |= 0x40
     if custom_weapon.bow:
         gear_bytes[6] |= 0x80
-
-    gear_bytes[7] = _calculate_stats_byte(custom_weapon.str, custom_weapon.agi, custom_weapon.vit, custom_weapon.wis, custom_weapon.wil)
-
-    env.add_binary(UnheaderedAddress(0x79100 + CUSTOM_WEAPON_ITEM_ID * 0x08), gear_bytes, as_script=True)
+    
+    if env.meta.get('wacky_challenge') == 'whatsmygear':
+        # can't double-patch the weapon, so patch only the first seven bytes and leave the eighth for the wacky to handle
+        env.add_binary(UnheaderedAddress(0x79100 + CUSTOM_WEAPON_ITEM_ID * 0x08), gear_bytes[0:7], as_script=True)
+    else:
+        gear_bytes[7] = _calculate_stats_byte(custom_weapon.str, custom_weapon.agi, custom_weapon.vit, custom_weapon.wis, custom_weapon.wil)
+        env.add_binary(UnheaderedAddress(0x79100 + CUSTOM_WEAPON_ITEM_ID * 0x08), gear_bytes, as_script=True)
 
     # write spell data
     env.add_binary(UnheaderedAddress(0x79070 + CUSTOM_WEAPON_ITEM_ID), [custom_weapon.spellpower], as_script=True)

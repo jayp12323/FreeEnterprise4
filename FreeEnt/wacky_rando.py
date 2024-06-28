@@ -1,8 +1,11 @@
 import os
+import re
 
 from . import databases
 from .address import *
 from .core_rando import BOSS_SLOTS
+
+from f4c import encode_text
 
 WACKY_CHALLENGES = {
     'musical'           : 'Final Fantasy IV:\nThe Musical',
@@ -37,7 +40,8 @@ WACKY_CHALLENGES = {
     'saveusbigchocobo'  : 'Save Us,\nBig Chocobo!',
     'isthisrandomized'  : 'Is This Even\nRandomized?',
     'forwardisback'     : 'Forward is\nthe New Back',
-    'dropitlikeitshot'  : 'Drop It Like It\'s Hot'
+    'dropitlikeitshot'  : 'Drop It Like It\'s Hot',
+    'whatsmygear'       : 'What\'s My\nGear Again?'
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
@@ -116,6 +120,75 @@ def apply_fistfight(env):
 def apply_omnidextrous(env):
     env.add_toggle('wacky_all_characters_ambidextrous')
     env.add_toggle('wacky_omnidextrous')
+
+def apply_whatsmygear(env):
+    # this function can't be called from where it lives in assets.item_info.generate.py, so repeat it here
+    def ff4strlen(text):
+        shrunken_text = re.sub(r'\[.*?\]', '*', text)
+        return len(shrunken_text)
+
+    STAT_NAMES = ['STR', 'AGI', 'VIT', 'WIS', 'WIL']
+    BYTE_DICT = {
+        0 : (3, 0),
+        1 : (5, 0),
+        2 : (10, 0),
+        3 : (15, 0),
+        4 : (5, 5),   # use positive second entry for the four negatives because we're writing strings
+        5 : (10, 10), #
+        6 : (15, 15), #
+        7 : (5, 10)   #
+        }
+
+    gear_description_bytes = {} # dictionary with keys = item_ids, values = replacement description lines 2-4 in bytes
+
+    # starting at 0 means we're including "no weapon" and "no armour"; could ignore 0x00 and 0x60 otherwise
+    for i in range(0,176): 
+        # patch each weapon/armour with a new stats byte, chosen uniformly at random
+        # skip 0x00 (empty weapon) and 0x60 (empty armour) for now; descriptions require hooks specifically for equipping different slots
+        if i in [0,96]:
+            continue
+        newstatbyte = env.rnd.randrange(0,256)
+        env.add_binary(UnheaderedAddress(0x079100 + 0x07 + i * 0x08), [newstatbyte], as_script=True)
+
+        # write replacement text descriptions for the Select info box
+        # every weapon/armour gets a "stat-change-only" style box, with the info on the third row
+        stats = newstatbyte & 0xF8 # just the stats bits
+        pair = newstatbyte & 0x07 # just the pair bits
+
+        if stats == 0x00:
+            if pair & 0x04: 
+                # all stats decrease
+                bonus = BYTE_DICT[pair][1]
+                stats_text = '[$c7]'.join(STAT_NAMES) + f'[$c2]{bonus}.'
+                filler = ' ' * (27-ff4strlen(stats_text))
+            else: 
+                # no stat changes, write nothing
+                stats_text = ''
+                filler = ' ' * 27
+        elif (stats == 0xF8) or not (pair & 0x04): 
+            # all or some stats increase, no stats decrease
+            bonus = BYTE_DICT[pair][0]
+            plus_list = [STAT_NAMES[7-b] for b in range(7,2,-1) if (stats >> b) & 0x01]
+            stats_text = '[$c7]'.join(plus_list) + f'[$cb]{bonus}.'
+            filler = ' ' * (27-ff4strlen(stats_text))
+        else:
+            plus_bonus = BYTE_DICT[pair][0]
+            plus_list = [STAT_NAMES[7-b] for b in range(7,2,-1) if (stats >> b) & 0x01]
+            minus_bonus = BYTE_DICT[pair][1]
+            minus_list = [STAT_NAMES[7-b] for b in range(7,2,-1) if not ((stats >> b) & 0x01)]
+            stats_text = '[$c7]'.join(plus_list) + f'[$cb]{plus_bonus}' + '[$c9] ' + '[$c7]'.join(minus_list) + f'[$c2]{minus_bonus}.'
+            filler = ' ' * (27-ff4strlen(stats_text))
+        
+        usual_row = '[$00][$fa]As normal[$c9] except          [$fb][$00][$00]'
+        stats_row = f'[$00][$fa]{stats_text}{filler}[$fb][$00][$00]'
+        blank_row = '[$00][$fa]                           [$fb][$00][$00]'
+        
+        if ff4strlen(stats_row) != 32: # really shouldn't need this check
+            raise Exception(f"Unexpected line length {ff4strlen(stats_row)} : {stats_row}")
+        gear_description_bytes[i] = encode_text(usual_row + stats_row + blank_row)
+
+    # pass the gear_descriptions to env in order to have generator.py make the replacements while it does the other descriptions
+    env.meta['wacky_gear_descriptions'] = gear_description_bytes
 
 def apply_sixleggedrace(env):
     env.add_toggle('wacky_challenge_show_detail')

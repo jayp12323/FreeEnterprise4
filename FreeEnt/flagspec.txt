@@ -56,7 +56,7 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -vanilla:z
 -vintage
 -pushbtojump
--wacky:random/-wacky:musical/-wacky:bodyguard/-wacky:fistfight/-wacky:omnidextrous/-wacky:biggermagnet/-wacky:sixleggedrace/-wacky:floorislava/-wacky:neatfreak/-wacky:timeismoney/-wacky:nightmode/-wacky:mysteryjuice/-wacky:misspelled/-wacky:enemyunknown/-wacky:kleptomania/-wacky:darts/-wacky:unstackable/-wacky:menarepigs/-wacky:skywarriors/-wacky:zombies/-wacky:afflicted/-wacky:batman/-wacky:battlescars/-wacky:imaginarynumbers/-wacky:tellahmaneuver/-wacky:3point/-wacky:friendlyfire/-wacky:payablegolbez/-wacky:gottagofast/-wacky:worthfighting/-wacky:saveusbigchocobo/-wacky:isthisrandomized/-wacky:forwardisback/-wacky:dropitlikeitshot
+-wacky:random/-wacky:musical/-wacky:bodyguard/-wacky:fistfight/-wacky:omnidextrous/-wacky:whatsmygear/-wacky:biggermagnet/-wacky:sixleggedrace/-wacky:floorislava/-wacky:neatfreak/-wacky:timeismoney/-wacky:nightmode/-wacky:mysteryjuice/-wacky:misspelled/-wacky:enemyunknown/-wacky:kleptomania/-wacky:darts/-wacky:unstackable/-wacky:menarepigs/-wacky:skywarriors/-wacky:zombies/-wacky:afflicted/-wacky:batman/-wacky:battlescars/-wacky:imaginarynumbers/-wacky:tellahmaneuver/-wacky:3point/-wacky:friendlyfire/-wacky:payablegolbez/-wacky:gottagofast/-wacky:worthfighting/-wacky:saveusbigchocobo/-wacky:isthisrandomized/-wacky:forwardisback/-wacky:dropitlikeitshot
 -spoil:all
 -spoil:keyitems
 -spoil:rewards

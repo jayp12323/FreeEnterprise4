@@ -17,6 +17,8 @@ import pyaes
 
 import f4c
 
+from f4c import encode_text
+
 from .flags import FlagSet, FlagLogic
 from .address import *
 from .errors import *
@@ -180,12 +182,12 @@ F4C_FILES = '''
     scripts/mist_clip_fix.f4c
     scripts/status_text_fix.f4c
     scripts/fusoya_room.f4c
-    scripts/black_shirt_fix.f4c
     scripts/no_save_point_message.f4c
     scripts/blank_textbox_fix.f4c
     scripts/cycle_party_leader.f4c
     scripts/item_delivery_quantity.f4c
 '''
+# the missing scripts/black_shirt_fix.f4c is included below as a conditional, if -wacky:whatsmygear is not on
 
 BINARY_PATCHES = {
     0x117000 : 'binary_patches/standing_characters.bin',
@@ -744,6 +746,16 @@ def build(romfile, options, force_recompile=False):
         for i in range(len(item_description_override)):
             item_description_data[0x80 * item_id + i] = item_description_override[i]
 
+    # overwrite lines 2-4 of the descriptions of gear with wacky-specific text
+    if env.meta.get('wacky_challenge') == 'whatsmygear':
+        for item_id in range(0,176):
+            # skip 0x00 (no weapon) and 0x60 (no armour) because their descriptions will be hidden anyway
+            if item_id in [0,96]:
+                continue
+            item_description_data[0x80 * item_id + 0x20 : 0x80 * item_id + 0x80] = env.meta['wacky_gear_descriptions'][item_id]
+    else:
+        env.add_file('scripts/black_shirt_fix.f4c') # cannot double-patch the Black Shirt!
+    
     env.add_binary(UnheaderedAddress(0x120000), item_description_data)
 
     # pregame text

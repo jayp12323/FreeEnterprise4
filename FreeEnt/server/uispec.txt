@@ -463,6 +463,7 @@
 ..(-wacky:timeismoney)       "Time is Money"
 ..(-wacky:darts)             "World Championship of Darts"
 ..(-wacky:unstackable)!      "Unstackable"
+..(-wacky:whatsmygear)       "What's My Gear Again?"
 ..(-wacky:zombies)           "Zombies!!!"
 
 == SPOILERS

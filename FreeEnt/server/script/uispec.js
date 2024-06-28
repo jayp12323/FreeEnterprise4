@@ -5268,6 +5268,10 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
+                "flag": "-wacky:whatsmygear",
+                "title": "\"What's My Gear Again?\""
+              },
+              {
                 "flag": "-wacky:zombies",
                 "title": "\"Zombies!!!\""
               }
