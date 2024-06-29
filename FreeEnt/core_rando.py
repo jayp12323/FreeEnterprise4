@@ -415,46 +415,60 @@ def apply(env):
         keyitem_incapable_fight_slots.extend(MOON_BOSS_SLOTS)
 
     env.rnd.shuffle(keyitem_capable_fight_slots)
-    num_privileged_fight_slots = int(math.ceil(len(keyitem_capable_fight_slots) / 2))
+    if not env.options.flags.has('key_items_unweighted'):
+        num_privileged_fight_slots = int(math.ceil(len(keyitem_capable_fight_slots) / 2))
 
-    # limit the number of fight slots that may contain key items according to probability curve
-    r = env.rnd.random()
-    while r < 0.5:
-        num_privileged_fight_slots += 1
-        r *= 2.0
+        # limit the number of fight slots that may contain key items according to probability curve
+        r = env.rnd.random()
+        while r < 0.5:
+            num_privileged_fight_slots += 1
+            r *= 2.0
 
-    keyitem_assigner.slot_tier(0).extend(keyitem_capable_fight_slots[:num_privileged_fight_slots])
-    keyitem_assigner.slot_tier(2).extend(keyitem_capable_fight_slots[num_privileged_fight_slots:])
+        keyitem_assigner.slot_tier(0).extend(keyitem_capable_fight_slots[:num_privileged_fight_slots])
+        keyitem_assigner.slot_tier(2).extend(keyitem_capable_fight_slots[num_privileged_fight_slots:])
+    else:
+        # every possible KI capable fight slot gets a uniform chance
+        keyitem_assigner.slot_tier(0).extend(keyitem_capable_fight_slots)
 
     keyitem_assigner.slot_tier(3).extend(keyitem_incapable_fight_slots)
 
     if env.options.flags.has('key_items_in_miabs'):
-        # limit the number of MIABs that may contain key items according to probability curve
-        max_good_per_area = 2
-        r = env.rnd.random()
-        while r < 0.5:
-            max_good_per_area += 1
-            r *= 2.0
-
         good_miabs = []
         bad_miabs = []
-        for group in CHEST_ITEM_SLOT_GROUPS:
-            if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe):
-                bad_miabs.extend(group)
-            elif len(group) > max_good_per_area:
-                group = list(group)
-                env.rnd.shuffle(group)
-                good_miabs.extend(group[:max_good_per_area])
-                bad_miabs.extend(group[max_good_per_area:])
-            else:
-                good_miabs.extend(group)
+        if not env.options.flags.has('key_items_unweighted'):
+            # limit the number of MIABs that may contain key items according to probability curve
+            max_good_per_area = 2
+            r = env.rnd.random()
+            while r < 0.5:
+                max_good_per_area += 1
+                r *= 2.0
 
-        env.rnd.shuffle(good_miabs)
-        bad_miabs.extend(good_miabs[:3])
-        good_miabs = good_miabs[3:]
+            for group in CHEST_ITEM_SLOT_GROUPS:
+                if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe):
+                    bad_miabs.extend(group)
+                elif len(group) > max_good_per_area:
+                    group = list(group)
+                    env.rnd.shuffle(group)
+                    good_miabs.extend(group[:max_good_per_area])
+                    bad_miabs.extend(group[max_good_per_area:])
+                else:
+                    good_miabs.extend(group)
 
-        keyitem_assigner.slot_tier(1).extend(good_miabs)
-        keyitem_assigner.slot_tier(3).extend(bad_miabs)
+            env.rnd.shuffle(good_miabs)
+            bad_miabs.extend(good_miabs[:3])
+            good_miabs = good_miabs[3:]
+
+            keyitem_assigner.slot_tier(1).extend(good_miabs)
+            keyitem_assigner.slot_tier(3).extend(bad_miabs)
+        else:
+            for group in CHEST_ITEM_SLOT_GROUPS:
+                if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe):
+                    bad_miabs.extend(group)
+                else:
+                    good_miabs.extend(group)
+
+            keyitem_assigner.slot_tier(1).extend(good_miabs)
+            keyitem_assigner.slot_tier(3).extend(bad_miabs)   
     else:
         keyitem_assigner.slot_tier(3).extend(CHEST_ITEM_SLOTS)
     

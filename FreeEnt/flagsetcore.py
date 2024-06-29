@@ -395,7 +395,7 @@ class FlagLogicCore:
             self._lib.push(log, ['correction', 'Advanced key item randomizations are enabled; forced to add Kmain'])
 
         if flagset.has('Kvanilla'):
-            self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe'])
+            self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe','Kunweighted'])
 
         if flagset.has('Cvanilla'):
             self._simple_disable_regex(flagset, log, 'Characters not randomized', r'^C(maybe|distinct:|only:|no:)')

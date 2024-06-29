@@ -443,7 +443,7 @@ class FlagLogicCore {
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }
         if (flagset.has("Kvanilla")) {
-            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe"]);
+            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunweighted"]);
         }
         if (flagset.has("Cvanilla")) {
             this._simple_disable_regex(flagset, log, "Characters not randomized", "^C(maybe|distinct:|only:|no:)");
