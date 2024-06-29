@@ -210,6 +210,13 @@ def apply(env):
             weights = {i : getattr(row, f"tier{i}") for i in range(1,9)}
             if env.options.flags.has('treasure_wild_weighted'):
                 weights = util.get_boosted_weights(weights)
+            # adjust weights down if vanilla miabs are on, for balancing
+            if env.options.flags.has('vanilla_miabs'):
+                # see assests/db/curves.csvdb for the numbers;
+                # in order, it's Zot, Castle Eblan, Lower Bab-il, Cave Eblan, Upper Bab-il, 
+                # Sylph Cave, Feymarch, Lunar Path, Giant, Lunar Subterrane/Core
+                if row.wikiindex in [22, 25, 24, 26, 27, 31, 32, 36, 37, 38]:
+                    weights = util.get_vanilla_miabs_weights(weights)
 
             # null out distributions for empty item tiers
             for i in range(1,9):
