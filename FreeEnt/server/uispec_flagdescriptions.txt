@@ -59,6 +59,9 @@ You are guaranteed that the Hook route through Cave Eblan is the only way to acc
     <li>If Kmiab is enabled, key items may appear in the Lunar Subterrane monster-in-a-box chests.</li>
 </ul>
 
+[Kunweighted]
+Normally, key-item-enabled locations outside of the <em>Kmain</em> checks are weighted against in terms of placement. This flag removes that weighting. 
+
 [Pchests]
 Passes are placed in three random treasure chests (not on the moon).
 
@@ -138,6 +141,9 @@ An unrestricted randomization, allowing equal chance for items to appear in any 
 [Twildish]
 Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.
 
+[Tplayable]
+Items in chests will be usable by at least one character that you can acquire in the seed.
+
 [Tjunk]
 Normally, poor-quality items in chests are replaced with an equivalent amount of GP (based on sell price) to reduce inventory bloat. Enable this flag if you want to keep them as items.
 
@@ -173,6 +179,9 @@ Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from
 
 [Bwhichburn]
 The replacement attack will be weaker than MegaNuke (unless <em>Bunsafe</em> is enabled, in which case it may not be).
+
+[Bwoahdin]
+The replacement attack will be single-target (and generally weaker than e.g. Nuke, unless <em>Bunsafe</em> is enabled). Odin will not raise the sword before the random attack.
 
 [@G]
 The glitches explicitly referenced here are <em>disabled by default</em>; setting these flags enables them to act as they do in original FF4. Glitches not mentioned here remain intact and available.
@@ -449,6 +458,9 @@ Monsters will be able to evade both physical and magical attacks from your party
 
 [-smith:super]
 Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)
+
+[-smith:playable]
+The item that Kokkol forges will be usable by a character you can acquire in the seed.
 
 [-vintage]
 Enables the April Fools Day 2019 mode.

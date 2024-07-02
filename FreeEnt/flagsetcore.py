@@ -422,6 +422,7 @@ class FlagLogicCore:
 
         if flagset.has_any('Tempty', 'Tvanilla', 'Tshuffle'):
             self._simple_disable_regex(flagset, log, 'Treasures are not random', r'^Tmaxtier:')
+            self._simple_disable(flagset, log, 'Treasures are not random', ['Tplayable'])
 
         if flagset.has_any('Svanilla', 'Scabins', 'Sempty'):
             self._simple_disable_regex(flagset, log, 'Shops are not random', r'^Sno:([^j]|j.)')
@@ -435,6 +436,9 @@ class FlagLogicCore:
 
         if flagset.has('Evanilla'):
             self._simple_disable(flagset, log, 'Encounters are vanilla', ['Ekeep:behemoths', 'Ekeep:doors', 'Edanger'])
+
+        if len(flagset.get_list(r'^-smith:playable')) == len(flagset.get_list(r'^-smith:')):
+            self._simple_disable(flagset, log, 'No smith item requested', ['-smith:playable'])
 
         all_spoiler_flags = flagset.get_list(r'^-spoil:')
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')

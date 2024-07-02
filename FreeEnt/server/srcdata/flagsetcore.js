@@ -472,6 +472,7 @@ class FlagLogicCore {
         }
         if (flagset.has_any("Tempty", "Tvanilla", "Tshuffle")) {
             this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmaxtier:");
+            this._simple_disable(flagset, log, "Treasures are not random", ["Tplayable"]);
         }
         if (flagset.has_any("Svanilla", "Scabins", "Sempty")) {
             this._simple_disable_regex(flagset, log, "Shops are not random", "^Sno:([^j]|j.)");
@@ -485,6 +486,9 @@ class FlagLogicCore {
         }
         if (flagset.has("Evanilla")) {
             this._simple_disable(flagset, log, "Encounters are vanilla", ["Ekeep:behemoths", "Ekeep:doors", "Edanger"]);
+        }
+        if ((flagset.get_list("^-smith:playable").length === flagset.get_list("^-smith:").length)) {
+            this._simple_disable(flagset, log, "No smith item requested", ["-smith:playable"]);
         }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");

@@ -37,6 +37,13 @@ _CHARACTER_TO_USERS = {
 def _is_user(cw, character):
     return bool(set(cw.equip + cw.use).intersection(set(_CHARACTER_TO_USERS.get(character, [character]))))
 
+# check for multiple users and not just one; characters is an iterable
+def _are_users(cw, characters):
+    users_set = set()
+    for ch in characters:
+        users_set = users_set.union(set(_CHARACTER_TO_USERS.get(ch, [ch])))
+    return bool(set(cw.equip + cw.use).intersection(users_set))
+
 def _calculate_stats_byte(*stats):
     # stats is in the order: STR, AGI, VIT, WIS, WIL
     plus_bonus = 0
@@ -86,12 +93,25 @@ def apply(env):
         available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _is_user(cw, env.meta['starting_character']))
         custom_weapon = env.rnd.choice(available_weapons)
     elif env.options.flags.has('supersmith'):
-        available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled)
+        if env.options.flags.has('playablesmith') and not env.meta.get('wacky_challenge') == 'omnidextrous':
+            if env.meta.get('wacky_challenge') == 'fistfight':
+                available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _is_user(cw, 'yang'))
+            else:
+                available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _are_users(cw, env.meta['available_characters']))
+        else:
+            available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled)
         custom_weapon = env.rnd.choice(available_weapons)
     elif env.options.flags.has('altsmith'):
         items_dbview = databases.get_items_dbview()
+        # to match the Pink Tail turn-in reward, also restrict the MoonVeil if Tno:j is on
+        if env.options.flags.has('treasure_no_j_items'):
+            items_dbview.refine(lambda it: not it.j)
         if env.options.flags.has('no_adamants'):
             items_dbview.refine(lambda it: it.const != '#item.AdamantArmor')
+        if env.options.flags.has('playablesmith'):
+            # alt smith item can't be a MoonVeil if Tno:j is on! So restricting to Yang-only without Adamants would be bad; don't restrict in that case.
+            if not (env.options.flags.has('no_adamants') and env.options.flags.has('treasure_no_j_items') and (env.meta['available_characters']).issubset(set(['yang']))):
+                items_dbview.refine(lambda it: it.category == 'item' or not set(it.equip).isdisjoint(env.meta['available_characters']))
         items = items_dbview.find_all(lambda it: it.tier in [7, 8])
         smith_reward = env.rnd.choice(items)
         env.meta['rewards_assignment'][RewardSlot.forge_item] = ItemReward(smith_reward.const)

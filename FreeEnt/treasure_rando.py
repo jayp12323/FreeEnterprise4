@@ -38,6 +38,22 @@ FIGHT_SPOILER_DESCRIPTIONS = {
     0x1F4 : "Behemoth"
 }
 
+# needed tool for Tspecific
+_CHARACTER_TO_USERS = {
+    'cecil' : ['dkcecil', 'pcecil'],
+    'rydia' : ['crydia', 'arydia']
+}
+
+def expand_characters_to_users(char_set):
+    user_set = set()
+    for char in char_set:
+        if char in _CHARACTER_TO_USERS:
+            for user in _CHARACTER_TO_USERS[char]:
+                user_set.add(user)
+        else:
+            user_set.add(char)
+    return user_set
+
 def _round_gp(amount):
     if amount < 1280:
         return int(amount / 10) * 10
@@ -105,6 +121,15 @@ def apply(env):
         items_dbview.refine(lambda it: it.const != '#item.AdamantArmor')
     if env.options.flags.has('no_cursed_rings'):
         items_dbview.refine(lambda it: it.const != '#item.Cursed')
+    
+    # In Omnidextrous, everyone can equip anything, hence can use everything, so this flag does nothing.
+    if env.options.flags.has('treasure_playable') and not (env.meta.get('wacky_challenge') == 'omnidextrous'):
+        user_set = expand_characters_to_users(env.meta['available_characters'])
+        # In Fist Fight, the only weapons are claws, which are equippable by everyone, so need more complex logic
+        if env.meta.get('wacky_challenge') == 'fistfight':
+            items_dbview.refine(lambda it: it.category == 'item' or (it.category != 'weapon' and not set(it.equip).isdisjoint(user_set)) or (it.subtype == 'claw'))
+        else:
+            items_dbview.refine(lambda it: it.category == 'item' or not set(it.equip).isdisjoint(user_set))       
 
     maxtier = env.options.flags.get_suffix('Tmaxtier:')
     if maxtier:

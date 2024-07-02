@@ -67,6 +67,7 @@
 ...(Kforce:magma) Guarantee underworld access via Magma Key
 ...(Kforce:hook)! Force underworld access via Hook route
 ..[Kunsafe]! No safety checks
+..[Kunweighted] Key items will be placed uniformly at random
 
 == PASS
 [Pshop] Include Pass in a shop
@@ -254,6 +255,7 @@
 ..[ECHO:Tstandard]
 .(Tempty)! Chests are empty
 [Tno:j] No J-items in chests
+[Tplayable] Chests contain usable items
 <> Junk management
 .[Tjunk] Keep junk
 .[Tmoney] Everything is junk
@@ -289,6 +291,7 @@
 <> Change Wyvern's opening MegaNuke
 .(Bwhyburn) Disable Wyvern's opening MegaNuke
 .(Bwhichburn) Replace Wyvern's opening MegaNuke with random attack
+[Bwoahdin] Replace Odin's first two Zantetsukens 1 and 2 with random attack
 
 == ENCOUNTERS
 <>* Random encounter rate
@@ -413,6 +416,7 @@
 <> Smithy reward
 .(-smith:alt) Kokkol crafts a random tier 7/8 item
 .(-smith:super) Kokkol crafts a weapon from FF4 Advance
+.[-smith:playable] Kokkol's item will be usable
 [@exp] Restore vanilla EXP distribution
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost

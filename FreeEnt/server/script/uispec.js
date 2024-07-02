@@ -3071,6 +3071,11 @@ var FLAG_UISPEC = [
                 "title": "No safety checks",
                 "description": "<ul>\n    <li>Normally, you are guaranteed a path to the underworld that does not require first going to the moon. This flag removes that check.</li>\n    <li>If Kmiab is enabled, key items may appear in the Lunar Subterrane monster-in-a-box chests.</li>\n</ul>",
                 "hard": true
+              },
+              {
+                "flag": "Kunweighted",
+                "title": "Key items will be placed uniformly at random",
+                "description": "Normally, key-item-enabled locations outside of the <em>Kmain</em> checks are weighted against in terms of placement. This flag removes that weighting."
               }
             ]
           }
@@ -4232,6 +4237,11 @@ var FLAG_UISPEC = [
         "title": "No J-items in chests"
       },
       {
+        "flag": "Tplayable",
+        "title": "Chests contain usable items",
+        "description": "Items in chests will be usable by at least one character that you can acquire in the seed."
+      },
+      {
         "flag": "@anon32",
         "title": "Junk management",
         "type": "select",
@@ -4412,6 +4422,11 @@ var FLAG_UISPEC = [
             "description": "The replacement attack will be weaker than MegaNuke (unless <em>Bunsafe</em> is enabled, in which case it may not be)."
           }
         ]
+      },
+      {
+        "flag": "Bwoahdin",
+        "title": "Replace Odin's first two Zantetsukens 1 and 2 with random attack",
+        "description": "The replacement attack will be single-target (and generally weaker than e.g. Nuke, unless <em>Bunsafe</em> is enabled). Odin will not raise the sword before the random attack."
       }
     ]
   },
@@ -5027,6 +5042,11 @@ var FLAG_UISPEC = [
             "flag": "-smith:super",
             "title": "Kokkol crafts a weapon from FF4 Advance",
             "description": "Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)"
+          },
+          {
+            "flag": "-smith:playable",
+            "title": "Kokkol's item will be usable",
+            "description": "The item that Kokkol forges will be usable by a character you can acquire in the seed."
           }
         ]
       },
