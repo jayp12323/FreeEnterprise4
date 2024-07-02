@@ -457,9 +457,7 @@ def apply(env):
             env.rnd.shuffle(good_miabs)
             bad_miabs.extend(good_miabs[:3])
             good_miabs = good_miabs[3:]
-
-            keyitem_assigner.slot_tier(1).extend(good_miabs)
-            keyitem_assigner.slot_tier(3).extend(bad_miabs)
+            
         else:
             for group in CHEST_ITEM_SLOT_GROUPS:
                 if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe):
@@ -467,8 +465,8 @@ def apply(env):
                 else:
                     good_miabs.extend(group)
 
-            keyitem_assigner.slot_tier(1).extend(good_miabs)
-            keyitem_assigner.slot_tier(3).extend(bad_miabs)   
+        keyitem_assigner.slot_tier(1).extend(good_miabs)
+        keyitem_assigner.slot_tier(3).extend(bad_miabs)   
     else:
         keyitem_assigner.slot_tier(3).extend(CHEST_ITEM_SLOTS)
     
