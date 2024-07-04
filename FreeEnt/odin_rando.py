@@ -38,7 +38,7 @@ def apply(env):
     if env.options.flags.has('odin_random_spell'):
         odin_commands = list(POSSIBLE_ODIN_COMMANDS)
         if env.options.flags.has('bosses_unsafe'):
-             odin_commands.append(UNSAFE_ODIN_COMMANDS)
+             odin_commands.extend(UNSAFE_ODIN_COMMANDS)
         cmd = env.rnd.choice(list(odin_commands))
         script = f'use {cmd}'
         env.add_substitution('odin spell replacement', script)
