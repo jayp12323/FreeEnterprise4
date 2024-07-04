@@ -4239,7 +4239,7 @@ var FLAG_UISPEC = [
       {
         "flag": "Tplayable",
         "title": "Chests contain usable items",
-        "description": "Items in chests will be usable by at least one character that you can acquire in the seed."
+        "description": "Equipment in chests will be usable by at least one character that you can acquire in the seed."
       },
       {
         "flag": "@anon32",
@@ -5030,23 +5030,76 @@ var FLAG_UISPEC = [
         "description": "Monsters will be able to evade both physical and magical attacks from your party based on their actual stats. (This change constitutes a significant damage reduction for many fights!)"
       },
       {
-        "flag": "@anon42",
+        "flag": "@smithy",
         "title": "Smithy reward",
-        "type": "select",
+        "description": "Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.",
         "subcontrols": [
           {
-            "flag": "-smith:alt",
-            "title": "Kokkol crafts a random tier 7/8 item"
-          },
-          {
-            "flag": "-smith:super",
-            "title": "Kokkol crafts a weapon from FF4 Advance",
-            "description": "Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)"
+            "flag": "@anon42",
+            "title": "Alternative forge items",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-smith:alt",
+                "title": "Kokkol crafts a random tier 7/8 item"
+              },
+              {
+                "flag": "-smith:super",
+                "title": "Kokkol crafts a weapon from FF4 Advance",
+                "description": "Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)"
+              }
+            ]
           },
           {
             "flag": "-smith:playable",
             "title": "Kokkol's item will be usable",
             "description": "The item that Kokkol forges will be usable by a character you can acquire in the seed."
+          }
+        ]
+      },
+      {
+        "flag": "@fusoya",
+        "title": "Alternative FuSoYa challenges",
+        "description": "By default, Free Enterprise runs with the \"FuSoYa Challenge\", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This behaviour may be changed using these flags.",
+        "subcontrols": [
+          {
+            "flag": "@anon43",
+            "title": "Spell learning changes",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-fusoya:vanilla",
+                "title": "Vanilla FuSoYa",
+                "description": "Restore the vanilla game's FuSoYa behaviour, where he joins with 1900 HP and his full spellset."
+              },
+              {
+                "flag": "-fusoya:sequential_p",
+                "title": "Fixed spell order (Palom/Porom)",
+                "description": "Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Palom and Porom learn their spells."
+              },
+              {
+                "flag": "-fusoya:sequential_r",
+                "title": "Fixed spell order (Rydia/Rosa)",
+                "description": "Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Rydia and Rosa learn their spells. He will not learn spells learned outside of level-ups (Fire1, Fire2/Ice2/Lit2, Exit)."
+              },
+              {
+                "flag": "-fusoya:location",
+                "title": "Location-dependent spells",
+                "description": "FuSoYa will learn three spells after every boss, but the spells learned depend on the boss location. Stronger/gated boss spots are weighted to provide more powerful spells."
+              },
+              {
+                "flag": "-fusoya:nerfed",
+                "title": "Fixed starting spells, no learning",
+                "description": "FuSoYa will start with a fixed pool of 14 black magic and 14 white magic spells (17 with j-spells), mostly tier 2 and below, but will not learn any spells over the course of the game. He will still gain HP as usual.",
+                "hard": true
+              }
+            ]
+          },
+          {
+            "flag": "-fusoya:maybe",
+            "title": "Spells not guaranteed to be learned",
+            "description": "Normally, FuSoYa will eventually learn all possible spells. This flag removes that guarantee; each possible spell will be included independently with an 85% chance.",
+            "hard": true
           }
         ]
       },
@@ -5073,14 +5126,9 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon43",
+        "flag": "@anon44",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
-          {
-            "flag": "-vanilla:fusoya",
-            "title": "Vanilla FuSoYa",
-            "description": "By default, Free Enterprise runs with the \"FuSoYa Challenge\", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This flag disables that challenge and restores vanilla's FuSoYa behavior, where he joins with 1900 HP and his full spellset."
-          },
           {
             "flag": "-vanilla:agility",
             "title": "Vanilla agility anchoring",
@@ -5134,7 +5182,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
         "subcontrols": [
           {
-            "flag": "@anon44",
+            "flag": "@anon45",
             "title": "Select challenge",
             "type": "select",
             "subcontrols": [
@@ -5305,7 +5353,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon45",
+        "flag": "@anon46",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -5359,7 +5407,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon46",
+            "flag": "@anon47",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -5375,7 +5423,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon47",
+                "flag": "@anon48",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

@@ -142,7 +142,7 @@ An unrestricted randomization, allowing equal chance for items to appear in any 
 Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.
 
 [Tplayable]
-Items in chests will be usable by at least one character that you can acquire in the seed.
+Equipment in chests will be usable by at least one character that you can acquire in the seed.
 
 [Tjunk]
 Normally, poor-quality items in chests are replaced with an equivalent amount of GP (based on sell price) to reduce inventory bloat. Enable this flag if you want to keep them as items.
@@ -456,11 +456,35 @@ Adamant Armors are not available. Trading the Pink Tail in the Adamant Grotto in
 [-monsterevade]
 Monsters will be able to evade both physical and magical attacks from your party based on their actual stats. (This change constitutes a significant damage reduction for many fights!)
 
+[@smithy]
+Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.
+
 [-smith:super]
 Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)
 
 [-smith:playable]
 The item that Kokkol forges will be usable by a character you can acquire in the seed.
+
+[@fusoya] 
+By default, Free Enterprise runs with the "FuSoYa Challenge", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This behaviour may be changed using these flags.
+
+[-fusoya:vanilla] 
+Restore the vanilla game's FuSoYa behaviour, where he joins with 1900 HP and his full spellset.
+
+[-fusoya:sequential_p] 
+Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Palom and Porom learn their spells.
+
+[-fusoya:sequential_r] 
+Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Rydia and Rosa learn their spells. He will not learn spells learned outside of level-ups (Fire1, Fire2/Ice2/Lit2, Exit).
+
+[-fusoya:location] 
+FuSoYa will learn three spells after every boss, but the spells learned depend on the boss location. Stronger/gated boss spots are weighted to provide more powerful spells.
+
+[-fusoya:nerfed] 
+FuSoYa will start with a fixed pool of 14 black magic and 14 white magic spells (17 with j-spells), mostly tier 2 and below, but will not learn any spells over the course of the game. He will still gain HP as usual.
+
+[-fusoya:maybe] 
+Normally, FuSoYa will eventually learn all possible spells. This flag removes that guarantee; each possible spell will be included independently with an 85% chance.
 
 [-vintage]
 Enables the April Fools Day 2019 mode.
@@ -473,9 +497,6 @@ Enables the April Fools Day 2019 mode.
     <li>Instability is absolutely guaranteed.</li>
     <li>(If a door goes somewhere you don't expect it to go, it was probably a "return" door, which takes you back to your previous location.)</li>
 </ul>
-
-[-vanilla:fusoya]
-By default, Free Enterprise runs with the "FuSoYa Challenge", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This flag disables that challenge and restores vanilla's FuSoYa behavior, where he joins with 1900 HP and his full spellset.
 
 [-vanilla:agility]
 FF4 scales the speed of combat based on the agility stat of your party's "agility anchor". In Free Enterprise, the anchor is always the first occupied party slot (in the sequence of middle, top, bottom, top-middle, bottom-middle). However, in vanilla FF4, if Cecil is in the party, then he is the agility anchor, regardless of position. Enabling this flag will restore that behavior, making the first Cecil in your party the anchor, if present. (Note that this overrides the <em>Chero</em> agility effect, if playing with the hero challenge.)

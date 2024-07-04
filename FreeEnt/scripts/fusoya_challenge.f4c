@@ -211,10 +211,11 @@ msfpatch {
 
 
 // ----------------------------------------------------------
-//  Fusoya challenge level 2
+//  Fusoya challenge - spells by number of bosses (formerly level 2)
+// (level 1 was the Tellah-style Ordeals buff)
 
 msfpatch {
-    FusoyaChallenge__AdvanceLevel2:
+    FusoyaChallenge__AdvanceBossNumber:
         // the HP credits counter tells us what spells to give
         lda #$00
         xba
@@ -229,11 +230,11 @@ msfpatch {
         sta $=FusoyaChallenge__LearnedSpell2
         sta $=FusoyaChallenge__LearnedSpell3
         ldy #$0000
-    FusoyaChallenge__AdvanceLevel2_GiveLoop:
+    FusoyaChallenge__AdvanceBossNumber_GiveLoop:
         lda $=FusoyaChallenge__Spells,x
-        beq $+FusoyaChallenge__AdvanceLevel2_GiveLoopNext
+        beq $+FusoyaChallenge__AdvanceBossNumber_GiveLoopNext
         cmp #$ff
-        beq $+FusoyaChallenge__AdvanceLevel2_GiveLoopNext
+        beq $+FusoyaChallenge__AdvanceBossNumber_GiveLoopNext
 
         phx
         tyx
@@ -249,26 +250,90 @@ msfpatch {
         ply
         plx
 
-    FusoyaChallenge__AdvanceLevel2_GiveLoopNext:
+    FusoyaChallenge__AdvanceBossNumber_GiveLoopNext:
         inx
         iny
         cpy #$0003
-        bne $-FusoyaChallenge__AdvanceLevel2_GiveLoop
+        bne $-FusoyaChallenge__AdvanceBossNumber_GiveLoop
 
     // done giving spells; do HP credits
         lda $_FusoyaChallenge__Credits
         cmp #$.FusoyaChallenge__MaxCredits
-        bcs $+FusoyaChallenge__AdvanceLevel2_HPDone
+        bcs $+FusoyaChallenge__AdvanceBossNumber_HPDone
 
         inc $_FusoyaChallenge__Credits
         lda #$01
         jsr $_FusoyaChallenge__GiveHP
 
-    FusoyaChallenge__AdvanceLevel2_HPDone:
+    FusoyaChallenge__AdvanceBossNumber_HPDone:
         rts
 }
 
-// %flag characters_no_duplicates on%
+// ----------------------------------------------------------
+//  Fusoya challenge - spells by boss location
+//  (It's the same code, just loading the boss slot instead of the current number of credits)
+
+msfpatch { 
+    FusoyaChallenge__AdvanceLocation:
+        // credits do nothing except HP, it's all about the boss slots you've fought
+        // in particular, the table at $21f600 has three spells for each slot, in #rando.[]_slot order
+        lda #$00
+        xba
+        lda $_EvEx__Param1 // multiply the boss_slot by 3 to get the table offset for the first of the spells
+        asl a
+        clc
+        adc $_EvEx__Param1 // now we have finished multiplying by 3
+        tax
+        
+        lda #$ff
+        sta $=FusoyaChallenge__LearnedSpell1
+	sta $=FusoyaChallenge__LearnedSpell2
+        sta $=FusoyaChallenge__LearnedSpell3
+        ldy #$0000
+    FusoyaChallenge__AdvanceLocation_GiveLoop:
+        lda $=FusoyaChallenge__Spells,x
+        beq $+FusoyaChallenge__AdvanceLocation_GiveLoopNext
+        cmp #$ff
+        beq $+FusoyaChallenge__AdvanceLocation_GiveLoopNext
+
+        phx
+        tyx
+        sta $=FusoyaChallenge__LearnedSpell1,x
+
+        phy
+        ldy #$000a  // white magic set
+        cmp #$19
+        bcc $+HaveSpellSet
+        ldy #$000b  // black magic set
+    %HaveSpellSet:
+        jsl $=CharEx__GiveSpell
+        ply
+        plx
+
+    FusoyaChallenge__AdvanceLocation_GiveLoopNext:
+        inx
+        iny
+        cpy #$0003
+        bne $-FusoyaChallenge__AdvanceLocation_GiveLoop        
+    
+    // done giving spells; do HP credits
+        lda $_FusoyaChallenge__Credits
+        cmp #$.FusoyaChallenge__MaxCredits
+        bcs $+FusoyaChallenge__AdvanceLocation_HPDone
+
+        inc $_FusoyaChallenge__Credits
+        lda #$01
+        jsr $_FusoyaChallenge__GiveHP
+
+    FusoyaChallenge__AdvanceLocation_HPDone:
+        rts
+}
+
+// Handle the textboxes after each boss. 
+// Because we need to care about both location/not-location and
+// dupes/no-dupes, use flags: to specify the four cases
+
+// %flags: characters_no_duplicates ~location_fusoya%
 text(bank 1 message $103) {
 [Fusoya] unlocked [name $e0],
  [name $e1], and [name $e2].
@@ -287,7 +352,7 @@ text(bank 1 message $105) {
 }
 // %end%
 
-// %flag characters_no_duplicates off%
+// %flags: ~characters_no_duplicates ~location_fusoya%
 text(bank 1 message $103) {
 All [Fusoya]s unlocked 
  [name $e0], [name $e1], and
@@ -309,6 +374,44 @@ All [Fusoya]s are at full
 }
 // %end%
 
+// %flags: characters_no_duplicates location_fusoya%
+text(bank 1 message $103) {
+[Fusoya] unlocked [name $e0],
+ [name $e1], and [name $e2].
+}
+
+text(bank 1 message $104) {
+[Fusoya] unlocked [name $e0],
+ [name $e1], and [name $e2].
+
+
+[Fusoya] is at max HP!
+}
+
+text(bank 1 message $105) {
+[Fusoya] is at max HP!
+}
+// %end%
+
+// %flags: ~characters_no_duplicates location_fusoya%
+text(bank 1 message $103) {
+All [Fusoya]s unlocked 
+ [name $e0], [name $e1], and
+ [name $e2].
+}
+
+text(bank 1 message $104) {
+All [Fusoya]s unlocked
+ [name $e0], [name $e1], and
+ [name $e2].
+
+All [Fusoya]s are at max HP!
+}
+
+text(bank 1 message $105) {
+All [Fusoya]s are at max HP!
+}
+// %end%
 
 patch($21f600 bus) {
 // %fusoya challenge spells%

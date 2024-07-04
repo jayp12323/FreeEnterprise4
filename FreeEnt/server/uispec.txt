@@ -413,16 +413,24 @@
 [-nocursed] No Cursed Rings
 [-spoon] Edward can equip the Spoon
 [-monsterevade] Monsters get physical and magical evasion
-<> Smithy reward
-.(-smith:alt) Kokkol crafts a random tier 7/8 item
-.(-smith:super) Kokkol crafts a weapon from FF4 Advance
+[@smithy] Smithy reward
+.<> Alternative forge items
+..(-smith:alt) Kokkol crafts a random tier 7/8 item
+..(-smith:super) Kokkol crafts a weapon from FF4 Advance
 .[-smith:playable] Kokkol's item will be usable
+[@fusoya] Alternative FuSoYa challenges
+.<> Spell learning changes
+..(-fusoya:vanilla) Vanilla FuSoYa
+..(-fusoya:sequential_p) Fixed spell order (Palom/Porom)
+..(-fusoya:sequential_r) Fixed spell order (Rydia/Rosa)
+..(-fusoya:location) Location-dependent spells
+..(-fusoya:nerfed)! Fixed starting spells, no learning
+.[-fusoya:maybe]! Spells not guaranteed to be learned
 [@exp] Restore vanilla EXP distribution
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
 [] Restore vanilla behaviors
-.[-vanilla:fusoya] Vanilla FuSoYa
 .[-vanilla:agility] Vanilla agility anchoring
 .[-vanilla:hobs] Vanilla Hobs spell
 .[-vanilla:growup] Vanilla Dwarf Castle summons
