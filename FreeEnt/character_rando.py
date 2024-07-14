@@ -28,15 +28,15 @@ SLOTS = {
     'edge_slot' : 0x12,
     'fusoya_slot' : 0x13, 
     'kain3_slot' : 0x14,
-    'treasure_character_1' : 0x15, 
-    'treasure_character_2' : 0x16,
-    'treasure_character_3' : 0x17, 
-    'treasure_character_4' : 0x18,
-    'treasure_character_5' : 0x19,
-    'miab_character_1' : 0x1A, 
-    'miab_character_2' : 0x1B,
-    'miab_character_3' : 0x1C, 
-    'miab_character_4' : 0x1D,
+    'treasure_character_1' : 0x5F, 
+    'treasure_character_2' : 0x60,
+    'treasure_character_3' : 0x61, 
+    'treasure_character_4' : 0x62,
+    'treasure_character_5' : 0x63,
+    'miab_character_1' : 0x64, 
+    'miab_character_2' : 0x65,
+    'miab_character_3' : 0x66, 
+    'miab_character_4' : 0x67,
 }
 
 DEFAULTS = {
@@ -405,26 +405,31 @@ def apply(env):
         elif assignment[slot] not in pregame_name_characters:
             pregame_name_characters.add(assignment[slot])
 
-    axtor_map = [0x00] * 0x20
+    axtor_map = [0x00] * 0x70           # 112
 
     # build substitutions table accordingly, and set metadata objective purposes
     env.meta['available_characters'] = set()
     env.meta['available_nonstarting_characters'] = set()
+    #print(f"Total assignments {len(assignment)} axtor_map{len(axtor_map)}")
     for slot in assignment:
         character = assignment[slot]
-        #print(f'Assigning character {character} to slot {slot}')
+        target_slot = SLOTS[slot]
+        target_axtor_map = axtor_map
+        #print(f'Assigning character {character} to slot {slot} and target slot{target_slot}')
+        #print(f' Target slot {target_slot}')
         if character is None:
             if slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain1_slot', 'kain2_slot']:
-                axtor_map[SLOTS[slot]] = 0xFE  # placeholder piggy for required overworld NPCs
+                target_axtor_map[target_slot] = 0xFE  # placeholder piggy for required overworld NPCs
             else:
-                axtor_map[SLOTS[slot]] = 0x00
+                target_axtor_map[target_slot] = 0x00        
         else:
-            axtor_map[SLOTS[slot]] = CHARACTERS[character]
+            target_axtor_map[target_slot] = CHARACTERS[character]
 
         env.meta['available_characters'].add(character)
         if slot not in ['dkcecil_slot', 'kain1_slot']:
             env.meta['available_nonstarting_characters'].add(character)
 
+    #print(f'Axtor map is {axtor_map}')
     env.add_substitution('axtor map', ' '.join([f'{b:02X}' for b in axtor_map]))
 
     # permadeath :S
@@ -474,14 +479,19 @@ def apply(env):
         available_palettes = {c : list(range(NUM_PALETTES)) for c in CHARACTERS}
         resolve_order = list(SLOTS)
         env.rnd.shuffle(resolve_order)
-        fashion_codes = [0] * 0x20
+        fashion_codes = [0] * 0x70
+
         for slot in resolve_order:
             character = assignment[slot]
             if character is None:
                 continue
 
             code = env.rnd.choice(available_palettes[character])
-            fashion_codes[SLOTS[slot]] = code
+            target_slot = SLOTS[slot]
+            if 'treasure_character' in slot or 'miab_character' in slot:
+                target_slot = 0x14 + SLOTS[slot] - 0x5F
+                #print(f'Adjusting target to {target_slot}')
+            fashion_codes[target_slot] = code
             available_palettes[character].remove(code)
             if not available_palettes[character]:
                 available_palettes[character] = list(range(NUM_PALETTES))
@@ -489,7 +499,7 @@ def apply(env):
         env.add_binary(BusAddress(0x21f770), fashion_codes, as_script=True)
     else:
         # write null fashion table
-        env.add_binary(BusAddress(0x21f770), [0x00] * 0x20, as_script=True)
+        env.add_binary(BusAddress(0x21f770), [0x00] * 0x70, as_script=True)
 
     # create distinguisher tag codes for naming
     distinguisher_tiles = list(range(0x42, 0x5C)) + list(range(0x80, 0x8A)) # start with A-Z+0-9
@@ -499,6 +509,7 @@ def apply(env):
     distinguisher_tiles.remove(0x50) # remove O (ambiguous with 0)
 
     env.rnd.shuffle(distinguisher_tiles)
+    #env.add_binary(BusAddress(0x21f740), [0x0A] * 0x16, as_script=True)
     env.add_substitution('name distinguishers', ' '.join([f'{b:02X}' for b in distinguisher_tiles]))
 
     SILLY_NAME_CHAR_LISTS = {

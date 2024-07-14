@@ -207,7 +207,7 @@ def apply(env):
         weird_sprite_data.append(source_tile_addr)
         weird_sprite_data.append(palette_addr)
 
-    env.add_script('patch ($21f740 bus) {{ {} }}'.format(
+    env.add_script('patch ($21f760 bus) {{ {} }}'.format(
         ' '.join([util.value_byte_string(v & 0xFFFF, 2) for v in weird_sprite_data])
         ))
 

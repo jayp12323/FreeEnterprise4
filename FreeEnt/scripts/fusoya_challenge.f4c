@@ -1,6 +1,6 @@
 msfpatch {
     .def  FusoyaChallenge__Credits  $7e158b
-    .def  FusoyaChallenge__Spells   $21f600
+    .def  FusoyaChallenge__Spells   $21f500
     .def  FusoyaChallenge__MaxCredits  $0e
 
     .def  FusoyaChallenge__LearnedSpell1  $7e2630

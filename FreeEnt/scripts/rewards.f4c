@@ -207,6 +207,15 @@ msfpatch {
         "Forged by Kokkol                "   // $5B     forge_item
         "Adamant Grotto[$cc][tail]Pink trade[$cd]     "   // $5C     pink_trade_item
         "Objective completion            "   // $5D     fixed_crystal
+        "Treasure Character 1" // $5F     treasure_character_1
+        "Treasure Character 2" // $60     treasure_character_2
+        "Treasure Character 3" // $61     treasure_character_3
+        "Treasure Character 4" // $62     treasure_character_4
+        "Treasure Character 5" // $63     treasure_character_5
+        "Miab Character 1" // $64     miab_character_1
+        "Miab Character 2" // $65     miab_character_2
+        "Miab Character 3" // $66     miab_character_3
+        "Miab Character 4" // $67     miab_character_4
 }
 
 text(bank 1 message $120) {

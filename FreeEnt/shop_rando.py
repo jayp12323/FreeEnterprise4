@@ -112,7 +112,7 @@ def apply(env):
     elif env.options.flags.has('shops_same'):
         if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
             items_dbview.refine(lambda it: it.const == '#item.Carrot')
-        all_candidates = items_dbview.find_all(lambda it: True)
+        all_candidates = items_dbview.find_all()
         env.rnd.shuffle(all_candidates)
         for shop_assignment in shop_assignments:
             shop_assignment.add(all_candidates[0].const)

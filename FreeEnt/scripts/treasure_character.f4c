@@ -6,17 +6,66 @@ text(bank 1 message $83) {
     Found a character!
 }
 
+// 8 slots for trigger ID into reward character lookup, 2 bytes per slot,
+// two bytes per treasure.  First byte = MapID, second byte = treasure Index
+// The byte the treasure is in also corresponds to the reward slot, starting from #$15
+// one row per world => Overworld = 0 , Underworld = 1 , Moon = 2
+patch($21fa50 bus) {
+// %character treasure rewards overworld%
+    00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 
+// %end%
+
+// %character treasure rewards underworld%
+    00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 
+// $end
+
+// %character treasure rewards moon%
+    00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 
+// $end
+}
+
 msfpatch {
-    TreasureCharacter_CheckIfChar:             
-        lda $08
-        cmp #$FD  // character item
-        beq $+DoCharacterReward   
-        rtl
+    .def  CharacterTreasureRewardLoc__IDs       $21fa50
+    // 8 checks per world total (2 bytes per check)
+    .def  CharacterTreasure__MaxCount              0x18
+    .def  CharacterTreasure__TreasureIndex      $7e158f
+}
+msfpatch {
+    TreasureCharacter_CheckIfChar:
+        lda $08FC
+        sec
+        sbc $0fe7   // subtract mapinfo's treasure offset
+        sta $_CharacterTreasure__TreasureIndex
+        clc
+        ldx #$0000
+    %CheckLoopCharacterChest:
+        lda $=CharacterTreasureRewardLoc__IDs,x        
+        inx
+        cmp $1702
+        bne $+NextCharacterChest
+        lda $=CharacterTreasureRewardLoc__IDs,x
+        cmp $_CharacterTreasure__TreasureIndex
+        bne $+NextCharacterChest
+        bra $+DoCharacterReward
+    %NextCharacterChest:
+        cpx #$_CharacterTreasure__MaxCount
+        inx
+        bcc $-CheckLoopCharacterChest
+        bra $+FinishCharacterReward
     %DoCharacterReward:
-        lda #$83 // message is incremented by 1
-        sta $b2 
-        lda #$13
+        lda $08fc   // get absolute treasure number
+        lda #$83    // message is incremented by 1
+        sta $b2
+        dex
+        txa
+        lsr a
+        clc
+        adc #$5F    // Reward 
         jsl $=Rewards__DeliverFromSlot
+    %FinishCharacterReward:
         sec      
         rtl
 }

@@ -21,7 +21,7 @@ consts(flag) {
     $01   UsedPass
     $03   Temp
     $22   Temp2	
-    $0F   CarryingAroundChildRydia
+$0F   CarryingAroundChildRydia
 
     $24   SpokeToEdwardInToroia  // was GotTwinharp but means the same thing for our purposes
 

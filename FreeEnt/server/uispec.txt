@@ -421,7 +421,7 @@
 .(Swild) Wild shop randomization
 ..[ECHO:Sstandard]
 .(Scabins)! Shops sell only cabins
-.(Ssame)! Shops sell only one type of item.  All shops in the game are the same.
+.(Ssame)! Shops sell only one type of item.
 .(Sempty)! Shops sell nothing
 [Sfree] Shop items are free
 [Ssingles]! Shops sell only a single item

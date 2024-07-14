@@ -4,6 +4,7 @@ EVENT = 1
 TREASURE = 2
 TELEPORT = 3
 
+treasureIdx=0
 class Trigger:
     def __init__(self):
         self.x = 0
@@ -30,12 +31,12 @@ class Trigger:
         return str_result
 
     def encode(self):
-        encoding = [self.x, self.y, 0, 0, 0]
-        #print(f'Encoded trigger into map {self.map}')
+        encoding = [self.x, self.y, 0, 0, 0]        
         if self.type == EVENT:
             encoding[2] = 0xFF
             encoding[3] = self.event_call
         elif self.type == TREASURE:
+            #print(f'Encoded trigger into map {self.map} {self.x},{self.y}')
             encoding[2] = 0xFE
             encoding[3] = pack_byte('6bb', self.formation, self.is_miab, (self.item is not None))
             if self.item is not None:

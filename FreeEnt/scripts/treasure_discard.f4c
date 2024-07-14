@@ -25,7 +25,7 @@ msfpatch {
 msfpatch {
     .def  TreasureDiscard__Flags0  $7e158c
     .def  TreasureDiscard__Flags1  $7e158d
-    .def  TreasureDiscard__Flags2  $7e158e
+    .def  TreasureDiscard__Flags2  $7e158e    
 
     TreasureDiscard__LoadOffsets:
         // largely a copy of $009924
@@ -234,7 +234,7 @@ msfpatch {
         // Check if the message should be changed if it's a character here
         jsl $=TreasureCharacter_CheckIfChar
         bcs $+Done
-        
+
         // change the message displayed if the contents can't be discarded
         jsr $_TreasureDiscard__CheckDiscardable        
         bcs $+Done

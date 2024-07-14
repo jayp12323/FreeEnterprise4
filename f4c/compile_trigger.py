@@ -67,6 +67,7 @@ def process_trigger_block(block, rom, env):
     params_tree = compile_common.parse(block['parameters'], 'trigger', 'trigger_block_parameters')
     map_id = params_tree.children[0]
     trigger_id = params_tree.children[1]    
+    #print(f"Processing block{block} map{map_id} trigger{trigger_id}")
     tree = compile_common.parse(block['body'], 'trigger', 'trigger_block_body')
 
     if tree.data == 'delete':

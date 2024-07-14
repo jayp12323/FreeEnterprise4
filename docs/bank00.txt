@@ -4193,7 +4193,7 @@ _handle_dungeon_triggers:
     LDA bank15.dungeon_trigger_data.l + trigger.y,X                             ; $009A4B | | NOTE: If the player is able to access an unexpected trigger for
     CMP r_current_coordinates.y.w                                               ; $009A4F | |       which no trigger has been specified, this will scan memory
     BEQ ++                                                                      ; $009A52 | |       indefinitely until it finds matching coordinates. This is
-+   INX                                                                         ; $009A54 | |       the trick behind the inventory warp of the NoCW speedrun.
++   INX                                                                           ; $009A54 | |       the trick behind the inventory warp of the NoCW speedrun.
     INX                                                                         ; $009A55 | |
     INX                                                                         ; $009A56 | |
     INX                                                                         ; $009A57 | |

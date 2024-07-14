@@ -5,6 +5,8 @@ from .address import *
 from . import rewards
 from . import util
 from . import spoilers
+import random
+from random import shuffle
 
 FIGHT_SPOILER_DESCRIPTIONS = {
     0x1C0 : "Staleman/Skulls",
@@ -59,14 +61,14 @@ class TreasureAssignment:
     def remap(self, old, new):
         self._remaps[_slug(old)] = _slug(new)
 
-    def assign(self, t, contents, fight=None, remap=True):
+    def assign(self, t, contents, original_chest=None, fight=None, remap=True):
         slug = _slug(t)
         if remap and slug in self._remaps:
             slug = self._remaps[slug]
 
         if contents in self._autosells and fight is None:
             contents = '{} gp'.format(self._autosells[contents])        
-        self._assignments[slug] = (contents, fight)
+        self._assignments[slug] = (contents, fight, t if original_chest == None else original_chest)
 
     def get(self, t, remap=True):
         slug = _slug(t)
@@ -75,14 +77,37 @@ class TreasureAssignment:
 
         return self._assignments.get(slug, (None, None))
 
-    def get_script(self):
-        lines = []
+    def get_assignments(self):
+        return self._assignments
+
+    def do_substitution(self, env):
+        treasure_list = [ [] ]
         for slug in self._assignments:
-            contents,fight = self._assignments[slug]
+            contents,fight,t = self._assignments[slug]
             if contents is None:
                 contents = '$00'
 
-            #print(f'Map id is {slug}')
+            if 'item.fe_CharacterChestItem' in contents :
+                worldId = 0
+                if 'Underworld' in t.world:
+                    worldId = 1
+                elif 'Moon' in t.world:
+                    worldId = 2
+                treasure_list[worldId].append(f'{int(t.mapid,16):02X}')
+                treasure_list[worldId].append(f'{t.index:02X}')
+                #print(f'Treasure character: Map id is {slug} with Mapid {t.mapid} and World {worldId}')            
+        replacement_lookup = ["overworld","underworld","moon"]
+        worldIndex = 0
+        for world in treasure_list:
+            env.add_substitution(f'character treasure rewards {replacement_lookup[worldIndex]}', ' '.join(world))
+            worldIndex+=1
+
+    def get_script(self):
+        lines = []
+        for slug in self._assignments:
+            contents,fight,t = self._assignments[slug]
+            if contents is None:
+                contents = '$00'
 
             line = f"trigger({slug}) {{ treasure {contents} "
             if fight is not None:
@@ -91,22 +116,8 @@ class TreasureAssignment:
                 else:
                     fight -= 0x1C0
                 line += f"fight ${fight:02X} "
-            line += "}"
-            # print (f'Contents{contents}')
-
-            # placement($85 2)  //#MountOrdeals2F
-            # {
-            #     // %tellah2_slot npc1%
-            #     npc #fe_DynamicNPC
-            #     // %end%
-            # }
-
-            # line = f"placement({slug}) {{"
-            # line += "event call $12"            
-            # line += "}"
-
+            line += "}"          
             lines.append(line)
-            # print(f'Script: ' + '\n'.join(lines))
         return '\n'.join(lines)
 
 def refineItemsView(dbview, env):    
@@ -121,7 +132,7 @@ def refineItemsView(dbview, env):
     if env.meta.get('wacky_challenge') == 'kleptomania':
         dbview.refine(lambda it: (it.category not in ['weapon', 'armor']))   
 
-def apply(env):
+def apply(env):   
     treasure_dbview = databases.get_treasure_dbview()
 
     treasure_dbview.refine(lambda t: not t.exclude)
@@ -181,12 +192,14 @@ def apply(env):
             treasure_assignment.remap(old, new)
 
     if env.options.flags.has('characters_in_treasure'):
-        # for various reasons we really do need to assign every treasure chest still
         for t in treasure_dbview:
-            if t.fight is None:
+            #force baron inn
+            if t.fight is None and t.ordr >= 19 and t.ordr <= 22:
                 contents = (t.jcontents if (t.jcontents and not env.options.flags.has('treasure_no_j_items')) else t.contents)
                 treasure_assignment.assign(t, '#item.fe_CharacterChestItem')
-    elif env.options.flags.has('treasure_vanilla'):
+        plain_chests_dbview = treasure_dbview.get_refined_view(lambda t: t.ordr < 19 or t.ordr > 22)
+    
+    if env.options.flags.has('treasure_vanilla'):
         # for various reasons we really do need to assign every treasure chest still
         for t in treasure_dbview:
             if t.fight is None:
@@ -320,16 +333,24 @@ def apply(env):
         treasure_assignment.assign(
             '{} {}'.format(chest_number[0], chest_number[1]), 
             reward_slot_name, 
+            orig_chest,
             orig_chest.fight,
             remap = False)
 
     env.add_script(treasure_assignment.get_script())
+    all_treasure_assignments = treasure_assignment.get_assignments()
+    treasure_index = 0
+    for slug in all_treasure_assignments:
+        contents,fight,t = all_treasure_assignments[slug]
+        treasure_index +=1
+        #if "#item.fe_CharacterChestItem" in contents:
+            #print(f'character fight {treasure_index}:{slug} is {contents}')
 
     # write the pre-opened chest values
     chest_init_flags = [0x00] * 0x40
     empty_count = 0
     for t in treasure_dbview.find_all():
-        contents,fight = treasure_assignment.get(t, remap=False)
+        contents,fight,t = treasure_assignment.get(t, remap=False)
         if contents is None:
             byte_index = t.flag >> 3
             bit_index = t.flag & 0x7
@@ -346,7 +367,7 @@ def apply(env):
     all_treasure_public = env.options.flags.has_any('-spoil:all', '-spoil:treasure')
     miabs_public = all_treasure_public or env.options.flags.has('-spoil:miabs')
     for t in treasure_spoiler_order:
-        contents,fight = treasure_assignment.get(t, remap=False)
+        contents,fight,treasure = treasure_assignment.get(t, remap=False)
         if contents is None:
             contents = "  (nothing)"
         elif contents.startswith('#reward_slot.'):
@@ -374,7 +395,7 @@ def apply(env):
                 obscurable=True,
                 obscure_mask="NYN"
                 ) )
-
+    treasure_assignment.do_substitution(env)
     env.spoilers.add_table("TREASURE", treasure_spoilers, public=(all_treasure_public or miabs_public), ditto_depth=1)
 
 

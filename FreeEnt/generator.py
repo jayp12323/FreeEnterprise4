@@ -733,6 +733,9 @@ def build(romfile, options, force_recompile=False):
 
     # finalize rewards table
     rewards_data = env.meta['rewards_assignment'].generate_table()
+    # for reward in env.meta['rewards_assignment']:
+    #     print(f'Rewards data is '+str(reward) + ' with value ' + str(int(reward)))
+    #print(f' Final rewards data {rewards_data}')
     env.blob.add('Rewards__Table', rewards_data)
 
     # generate blob and defines

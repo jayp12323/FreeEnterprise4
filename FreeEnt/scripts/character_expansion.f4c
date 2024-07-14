@@ -2,7 +2,7 @@
 // a specific unique character instance
 
 // dummy axtor mapping data for testing
-patch($21f700 bus) {
+patch($21faf0 bus) {
     // %axtor map%
     00  // axtor 0 should be unused
     01  // DKCecil
@@ -13,7 +13,7 @@ patch($21f700 bus) {
     06  // Rosa1
     07  // Yang1
     08  // Palom
-    09  // Porom
+    09  
     04  // Tellah2
     01  // PCecil
     04  // Tellah3
@@ -27,10 +27,11 @@ patch($21f700 bus) {
     02  // Kain3
     15  // Golbez
     16  // Anna
+        // 112 total because the treasure characters start at $_CharEx__TreasureCharStartIdx
     // %end%
 }
 
-patch($21f790 bus) {
+patch($21f740 bus) {
     // %name distinguishers%
     //00 29 2A 2B 2E 2F 30 32 33 34 35 36 37 38 39 3A
     //3B 3C 3D 3E 3F 40 41 79 7A 7B 7C 7D 7E 7F 14 31
@@ -40,16 +41,17 @@ patch($21f790 bus) {
 }
 
 msfpatch {
-    .def CharEx__MaxAxtors              $18
+    .def CharEx__MaxAxtors              $2C
 
     .def CharEx__ShadowPartyBank        $70
     .def CharEx__ShadowPartyAddr        $702000
     .def CharEx__ShadowPartyDataSize    $600
     .def CharEx__SpellSetBank           $70
+    .def CharEx__TreasureCharStartIdx   $5f
     .def CharEx__SpellSetAddr           $702600
     .def CharEx__GlobalNames            $707000
     .def CharEx__InitialStateSpellSets  $702CC0
-
+    .def CharEx__NameDistinguisher      $21f740
     .def CharEx__AxtorBeingGiven        $7e1619
 
     .def MaxPartySize                   $21f0ff
@@ -65,7 +67,7 @@ msfpatch {
         lda #$00
         xba
         tax
-        lda $21f700,x
+        lda $21faf0,x
         rts
 }
 
@@ -784,16 +786,28 @@ msfpatch {
         iny
     %FoundTagPosition:
         lda $_CharEx__AxtorBeingGiven
-        tax
-        lda $21f790,x  // [hardcoded]
+        cmp #$_CharEx__TreasureCharStartIdx
+        bcc $+DoNameStuff
+        clc
+        sbc #$_CharEx__TreasureCharStartIdx    // Treasure character, subtract the slot
+        adc #$17    // Add 23
+    %DoNameStuff:     
+        tax        
+        lda $=CharEx__NameDistinguisher,x  // [hardcoded]
         sta $1180,y
 
         bra $+NameInitialized
 
     %UseSillyDistinguisher:
         lda $_CharEx__AxtorBeingGiven
+        cmp #$_CharEx__TreasureCharStartIdx
+        bcc $+DoNameStuff2
+        clc
+        sbc #$_CharEx__TreasureCharStartIdx    // Treasure character, subtract the slot
+        adc #$17    // Add 23
+    %DoNameStuff2: 
         tax
-        lda $21f790,x  // [hardcoded]
+        lda $=CharEx__NameDistinguisher,x  // [hardcoded]
     
         // normalize distinguisher range
         cmp #$80

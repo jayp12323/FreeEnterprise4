@@ -29,6 +29,6 @@ def apply_cleanup_processes(env):
         triggers = ff4struct.trigger.decode_set(rom.map_trigger_sets[map_id])
         treasure_triggers = [t for t in triggers if t.type == ff4struct.trigger.TREASURE]
         treasure_index += len(treasure_triggers)
-
+        #print(f"Treasure index is {treasure_index}")
         if treasure_index > 0x100:
             raise compile_common.CompileError("Too many treasures; overflow reached at map {:X}".format(map_id))

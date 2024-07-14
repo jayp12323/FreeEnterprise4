@@ -611,9 +611,9 @@ msfpatch {
         sta $49
 
         ldx $1680
-        lda $21f740,x  // [hardcoded]
+        lda $21f760,x  // [hardcoded]
         sta $4a
-        lda $21f741,x  // [hardcoded]
+        lda $21f761,x  // [hardcoded]
         sta $4b
 
         lda $_EvEx__Param2
