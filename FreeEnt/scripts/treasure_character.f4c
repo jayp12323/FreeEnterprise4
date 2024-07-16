@@ -8,7 +8,7 @@ text(bank 1 message $83) {
 
 // 8 slots for trigger ID into reward character lookup, 2 bytes per slot,
 // two bytes per treasure.  First byte = MapID, second byte = treasure Index
-// The byte the treasure is in also corresponds to the reward slot, starting from #$15
+// The byte the treasure is in also corresponds to the reward slot in the lookup for character treasure rewards slot
 // one row per world => Overworld = 0 , Underworld = 1 , Moon = 2
 patch($21fa50 bus) {
 // %character treasure rewards overworld%
@@ -19,16 +19,25 @@ patch($21fa50 bus) {
 // %character treasure rewards underworld%
     00 00 00 00 00 00 00 00 
     00 00 00 00 00 00 00 00 
-// $end
+// %end%
 
 // %character treasure rewards moon%
     00 00 00 00 00 00 00 00 
     00 00 00 00 00 00 00 00 
-// $end
+// %end%
+}
+
+patch($21fa80 bus)
+{
+// %character treasure slots%
+    00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 
+// %end%
 }
 
 msfpatch {
     .def  CharacterTreasureRewardLoc__IDs       $21fa50
+    .def  CharacterTreasureRewardSlot__IDs       $21fa80
     // 8 checks per world total (2 bytes per check)
     .def  CharacterTreasure__MaxCount              0x18
     .def  CharacterTreasure__TreasureIndex      $7e158f
@@ -63,7 +72,8 @@ msfpatch {
         txa
         lsr a
         clc
-        adc #$5F    // Reward 
+        tax
+        lda $=CharacterTreasureRewardSlot__IDs,x
         jsl $=Rewards__DeliverFromSlot
     %FinishCharacterReward:
         sec      

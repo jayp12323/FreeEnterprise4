@@ -28,15 +28,6 @@ SLOTS = {
     'edge_slot' : 0x12,
     'fusoya_slot' : 0x13, 
     'kain3_slot' : 0x14,
-    'treasure_character_1' : 0x5F, 
-    'treasure_character_2' : 0x60,
-    'treasure_character_3' : 0x61, 
-    'treasure_character_4' : 0x62,
-    'treasure_character_5' : 0x63,
-    'miab_character_1' : 0x64, 
-    'miab_character_2' : 0x65,
-    'miab_character_3' : 0x66, 
-    'miab_character_4' : 0x67,
 }
 
 DEFAULTS = {
@@ -58,15 +49,6 @@ DEFAULTS = {
     'edge_slot' : 'edge',
     'fusoya_slot' : 'fusoya', 
     'kain3_slot' : 'kain',
-    'treasure_slot_1' : 'tellah',
-    'treasure_slot_2' : 'tellah',
-    'treasure_slot_3' : 'tellah',
-    'treasure_slot_4' : 'tellah',
-    'treasure_slot_5' : 'tellah',
-    'miab_slot_1' : 'tellah',
-    'miab_slot_2' : 'tellah',
-    'miab_slot_3' : 'tellah',
-    'miab_slot_4' : 'tellah',
 }
 
 MUTUALLY_EXCLUSIVE_SLOTS = [
@@ -96,6 +78,7 @@ STARTING_SLOTS = ['dkcecil_slot', 'kain1_slot']
 FREE_SLOTS = [
     'tellah1_slot', 'edward_slot', 'palom_slot', 'porom_slot', 'tellah2_slot'
     ]
+
 EASY_SLOTS = ['yang1_slot', 'yang2_slot']
 HARD_SLOTS = [s for s in SLOTS if s not in (FREE_SLOTS + EASY_SLOTS + STARTING_SLOTS)]
 
@@ -160,6 +143,9 @@ def apply(env):
     if not env.options.flags.has('no_earned_characters'):
         assignable_slots.extend(EASY_SLOTS + HARD_SLOTS)
     if not env.options.flags.has('no_free_characters'):
+        assignable_slots.extend(FREE_SLOTS)
+
+    if env.options.flags.has('Ctreasure'):
         assignable_slots.extend(FREE_SLOTS)
 
     if env.options.flags.has('objective_mode_classicgiant'):
@@ -261,20 +247,6 @@ def apply(env):
         # done the total available character count
         if start_character is not None:
             assignable_slots.remove('dkcecil_slot')
-
-
-        if not env.options.flags.has('Ctreasure'):
-            assignable_slots.remove('treasure_character_1')
-            assignable_slots.remove('treasure_character_2')
-            assignable_slots.remove('treasure_character_3')
-            assignable_slots.remove('treasure_character_4')
-            assignable_slots.remove('treasure_character_5')
-
-        if not env.options.flags.has('Cmiab'):
-            assignable_slots.remove('miab_character_1')
-            assignable_slots.remove('miab_character_2')
-            assignable_slots.remove('miab_character_3')
-            assignable_slots.remove('miab_character_4')
 
         num_easy_slots = len([s for s in assignable_slots if s not in HARD_SLOTS])
 
@@ -405,7 +377,7 @@ def apply(env):
         elif assignment[slot] not in pregame_name_characters:
             pregame_name_characters.add(assignment[slot])
 
-    axtor_map = [0x00] * 0x70           # 112
+    axtor_map = [0x00] * 0x20           # 112
 
     # build substitutions table accordingly, and set metadata objective purposes
     env.meta['available_characters'] = set()
@@ -479,7 +451,7 @@ def apply(env):
         available_palettes = {c : list(range(NUM_PALETTES)) for c in CHARACTERS}
         resolve_order = list(SLOTS)
         env.rnd.shuffle(resolve_order)
-        fashion_codes = [0] * 0x70
+        fashion_codes = [0] * 0x20
 
         for slot in resolve_order:
             character = assignment[slot]
@@ -488,9 +460,6 @@ def apply(env):
 
             code = env.rnd.choice(available_palettes[character])
             target_slot = SLOTS[slot]
-            if 'treasure_character' in slot or 'miab_character' in slot:
-                target_slot = 0x14 + SLOTS[slot] - 0x5F
-                #print(f'Adjusting target to {target_slot}')
             fashion_codes[target_slot] = code
             available_palettes[character].remove(code)
             if not available_palettes[character]:
@@ -499,7 +468,7 @@ def apply(env):
         env.add_binary(BusAddress(0x21f770), fashion_codes, as_script=True)
     else:
         # write null fashion table
-        env.add_binary(BusAddress(0x21f770), [0x00] * 0x70, as_script=True)
+        env.add_binary(BusAddress(0x21f770), [0x00] * 0x20, as_script=True)
 
     # create distinguisher tag codes for naming
     distinguisher_tiles = list(range(0x42, 0x5C)) + list(range(0x80, 0x8A)) # start with A-Z+0-9

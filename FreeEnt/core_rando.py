@@ -940,15 +940,6 @@ def apply(env):
     rewards_assignment[RewardSlot.cave_eblan_character] = AxtorReward('#actor.Edge')
     rewards_assignment[RewardSlot.lunar_palace_character] = AxtorReward('#actor.Fusoya')
     rewards_assignment[RewardSlot.giant_character] = AxtorReward('#actor.Kain3')
-    rewards_assignment[RewardSlot.treasure_character_1] = AxtorReward('#actor.treasure_character_1')
-    rewards_assignment[RewardSlot.treasure_character_2] = AxtorReward('#actor.treasure_character_2')
-    rewards_assignment[RewardSlot.treasure_character_3] = AxtorReward('#actor.treasure_character_3')
-    rewards_assignment[RewardSlot.treasure_character_4] = AxtorReward('#actor.treasure_character_4')
-    rewards_assignment[RewardSlot.treasure_character_5] = AxtorReward('#actor.treasure_character_5')
-    rewards_assignment[RewardSlot.miab_character_1] = AxtorReward('#actor.miab_character_1')
-    rewards_assignment[RewardSlot.miab_character_2] = AxtorReward('#actor.miab_character_2')
-    rewards_assignment[RewardSlot.miab_character_3] = AxtorReward('#actor.miab_character_3')
-    rewards_assignment[RewardSlot.miab_character_4] = AxtorReward('#actor.miab_character_4')
 
     combined_assignments = {k : rewards_assignment[k] for k in rewards_assignment}
     combined_assignments.update(boss_assignment)

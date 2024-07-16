@@ -88,18 +88,7 @@ class RewardSlot(enum.IntEnum):
     fixed_crystal               = 0x5D
     gated_objective             = 0x5E
 
-        
-    treasure_character_1        = 0x5F
-    treasure_character_2        = 0x60
-    treasure_character_3        = 0x61
-    treasure_character_4        = 0x62
-    treasure_character_5        = 0x63
-    miab_character_1            = 0x64
-    miab_character_2            = 0x65
-    miab_character_3            = 0x66
-    miab_character_4            = 0x67
-
-    MAX_COUNT = 0x70
+    MAX_COUNT = 0x60
 
 ACTOR_CODES = {
     '#actor.DKCecil'  : 0x01,
@@ -120,16 +109,6 @@ ACTOR_CODES = {
     '#actor.Edge'     : 0x12,
     '#actor.Fusoya'   : 0x13,
     '#actor.Kain3'    : 0x14,    
-
-    '#actor.treasure_character_1'       : 0x5F,
-    '#actor.treasure_character_2'       : 0x60,
-    '#actor.treasure_character_3'       : 0x61,
-    '#actor.treasure_character_4'       : 0x62,
-    '#actor.treasure_character_5'       : 0x63,
-    '#actor.miab_character_1'           : 0x64,
-    '#actor.miab_character_2'           : 0x65,
-    '#actor.miab_character_3'           : 0x66,
-    '#actor.miab_character_4'           : 0x67,
     }
 
 REWARD_SLOT_SPOILER_NAMES = {
@@ -215,15 +194,6 @@ REWARD_SLOT_SPOILER_NAMES = {
     RewardSlot.pink_trade_item             : "Pink Tail trade item",
     RewardSlot.fixed_crystal               : "Objective completion", 
     RewardSlot.gated_objective             : "Gated requirements completion", 
-    RewardSlot.treasure_character_1        : "Treasure Character 1", 
-    RewardSlot.treasure_character_2        : "Treasure Character 2", 
-    RewardSlot.treasure_character_3        : "Treasure Character 3", 
-    RewardSlot.treasure_character_4        : "Treasure Character 4", 
-    RewardSlot.treasure_character_5        : "Treasure Character 5", 
-    RewardSlot.miab_character_1            : "MIAB Character 1", 
-    RewardSlot.miab_character_2            : "MIAB Character 2", 
-    RewardSlot.miab_character_3            : "MIAB Character 3", 
-    RewardSlot.miab_character_4            : "MIAB Character 4", 
 }
 
 class Reward:

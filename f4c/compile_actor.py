@@ -5,7 +5,6 @@ def process_actor_block(block, rom, env):
     tree = compile_common.parse(block['body'], 'actor', 'actor_block_body')
 
     actor_index = params_tree.children[0] - 1
-
     for node in tree.children:
         if node.data == 'name':
             rom.actor_name_ids[actor_index] = node.children[0]
