@@ -203,7 +203,8 @@ def apply(env):
 
     character_slot_index = 0
     if env.options.flags.has('characters_in_treasure'):
-        character_treasure_chests = plain_chests_dbview.get_refined_view(lambda t: t.fight is None)
+        character_treasure_chests = plain_chests_dbview
+        #character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None)
         assigned_ids= []
         while character_slot_index < len(character_rando.FREE_SLOTS):
             t = env.rnd.choice(character_treasure_chests.find_all())
@@ -213,7 +214,7 @@ def apply(env):
             assigned_ids.append(t.ordr)
             print(f'Putting {free_slot_name} in {t.map}:{t.spoilersubarea}:{t.spoilerdetail}')
             character_slot_index+=1
-            character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.fight is None and t.ordr not in assigned_ids)
+            character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.ordr not in assigned_ids)
 
         before_len = len(plain_chests_dbview.find_all())
         plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)

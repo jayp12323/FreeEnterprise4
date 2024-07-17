@@ -10797,6 +10797,10 @@ class FlagLogicCore {
                     this._lib.push(log, ["correction", "Objectives set without outcome specified; added Owin:game"]);
                 }
             }
+            if (flagset.has("Ctreasure")) {
+                flagset.set("Cnofree");
+                this._lib.push(log, ["correction", "Ctreasure set, auto-assigning Cnofree"]);
+            }
             pass_quest_flags = flagset.get_list("^O\\d+:quest_pass$");
             if (((pass_quest_flags.length > 0) && flagset.has("Pnone"))) {
                 flagset.set("Pkey");

@@ -4219,6 +4219,11 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
+        "flag": "Ctreasure",
+        "title": "Free characters are found in treasure chests instead",
+        "hard": true
+      },
+      {
         "flag": "@anon36",
         "title": "Specify possible starting characters",
         "null": true,
@@ -5051,12 +5056,8 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Ssame",
-            "title": "Shops sell only one type of item.  All shops in the game are the same.",
-            "hard": true
-          },
-          {
-            "flag": "Ssingles",
-            "title": "Shops sell only a single item",
+            "title": "Shops sell only one type of item.",
+            "description": "Shops only sell a single item, and all shops in the game are the same.  The item chosen uses the same rules as Swild.",
             "hard": true
           },
           {
@@ -5069,6 +5070,12 @@ var FLAG_UISPEC = [
       {
         "flag": "Sfree",
         "title": "Shop items are free"
+      },
+      {
+        "flag": "Ssingles",
+        "title": "Shops sell only a single item",
+        "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
+        "hard": true
       },
       {
         "flag": "@anon46",
