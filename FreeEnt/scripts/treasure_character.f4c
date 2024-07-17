@@ -3,41 +3,32 @@ consts(item) {
 }
 
 text(bank 1 message $83) {
-    Found a character!
+Found [name $e0] in a chest!
 }
 
-// 8 slots for trigger ID into reward character lookup, 2 bytes per slot,
-// two bytes per treasure.  First byte = MapID, second byte = treasure Index
+// three  bytes per treasure. First byte = WorldID, Next byte = MapID, last byte = treasure Index.  
+// 3 bytes * 16 possible characters in treasure total = 48 bytes total
 // The byte the treasure is in also corresponds to the reward slot in the lookup for character treasure rewards slot
-// one row per world => Overworld = 0 , Underworld = 1 , Moon = 2
 patch($21fa50 bus) {
-// %character treasure rewards overworld%
-    00 00 00 00 00 00 00 00 
-    00 00 00 00 00 00 00 00 
-// %end%
-
-// %character treasure rewards underworld%
-    00 00 00 00 00 00 00 00 
-    00 00 00 00 00 00 00 00 
-// %end%
-
-// %character treasure rewards moon%
-    00 00 00 00 00 00 00 00 
-    00 00 00 00 00 00 00 00 
+// %character treasure rewards%    
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 // %end%
 }
 
-patch($21fa80 bus)
+// One byte per character slot
+patch($21fa90 bus)
 {
 // %character treasure slots%
-    00 00 00 00 00 00 00 00 
-    00 00 00 00 00 00 00 00 
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 // %end%
 }
 
 msfpatch {
     .def  CharacterTreasureRewardLoc__IDs       $21fa50
-    .def  CharacterTreasureRewardSlot__IDs       $21fa80
+    .def  CharacterTreasureRewardSlot__IDs       $21fa90
     // 8 checks per world total (2 bytes per check)
     .def  CharacterTreasure__MaxCount              0x18
     .def  CharacterTreasure__TreasureIndex      $7e158f
@@ -50,31 +41,45 @@ msfpatch {
         sta $_CharacterTreasure__TreasureIndex
         clc
         ldx #$0000
+        ldy #$0000 // current slot index
     %CheckLoopCharacterChest:
-        lda $=CharacterTreasureRewardLoc__IDs,x        
+        lda $=CharacterTreasureRewardLoc__IDs,x                
+        cmp $1701
+        beq $+WorldMatched
         inx
+        inx
+        inx
+        bra $+NextCharacterChest
+    %WorldMatched:
+        inx
+        lda $=CharacterTreasureRewardLoc__IDs,x
         cmp $1702
-        bne $+NextCharacterChest
+        beq $+MapIdMatch
+        inx
+        inx
+        bra $+NextCharacterChest
+    %MapIdMatch:      
+        inx
         lda $=CharacterTreasureRewardLoc__IDs,x
         cmp $_CharacterTreasure__TreasureIndex
         bne $+NextCharacterChest
         bra $+DoCharacterReward
     %NextCharacterChest:
+        iny
         cpx #$_CharacterTreasure__MaxCount
-        inx
         bcc $-CheckLoopCharacterChest
         bra $+FinishCharacterReward
     %DoCharacterReward:
         lda $08fc   // get absolute treasure number
         lda #$83    // message is incremented by 1
         sta $b2
-        dex
-        txa
-        lsr a
-        clc
-        tax
+        tyx
         lda $=CharacterTreasureRewardSlot__IDs,x
+        pha        
         jsl $=Rewards__DeliverFromSlot
+        pla
+        ldx #$0000
+        jsl $=Rewards__LoadNameFromSlot
     %FinishCharacterReward:
         sec      
         rtl

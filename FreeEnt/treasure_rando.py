@@ -87,7 +87,7 @@ class TreasureAssignment:
         return self._assignments
 
     def do_substitution(self, env):
-        treasure_list = [ [] ]
+        treasure_list = [ ]
         slot_list = []
         for slug in self._assignments:
             contents,fight,t,reward_index = self._assignments[slug]
@@ -99,15 +99,14 @@ class TreasureAssignment:
                     worldId = 1
                 elif 'Moon' in t.world:
                     worldId = 2
-                treasure_list[worldId].append(f'{int(t.mapid,16):02X}')
-                treasure_list[worldId].append(f'{t.index:02X}')
+                mapIdStr = f'{int(t.mapid,16):04X}'
+                treasure_list.append(f'{worldId:02x}')
+                treasure_list.append(mapIdStr[-2:])
+                treasure_list.append(f'{t.index:02X}')
                 slot_list.append(int(reward_index))
-            
-        replacement_lookup = ["overworld","underworld","moon"]
-        worldIndex = 0
-        for world in treasure_list:
-            env.add_substitution(f'character treasure rewards {replacement_lookup[worldIndex]}', ' '.join(world))
-            worldIndex+=1
+        
+        treasure_list.extend([f'{0:02X}'] * (48 - len(treasure_list)))
+        env.add_substitution(f'character treasure rewards', ' '.join(treasure_list))
 
         slot_list.extend([0x00] * (16 - len(slot_list)))
         env.add_substitution(f'character treasure slots', ' '.join([f'{s:02X}' for s in slot_list]))
@@ -204,15 +203,20 @@ def apply(env):
 
     character_slot_index = 0
     if env.options.flags.has('characters_in_treasure'):
-        for t in treasure_dbview:
-            #force baron inn
-            if t.fight is None and t.ordr >= 19 and t.ordr <= 22:
-                contents = (t.jcontents if (t.jcontents and not env.options.flags.has('treasure_no_j_items')) else t.contents)
-                free_slot_name = character_rando.FREE_SLOTS[character_slot_index]
-                treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[free_slot_name]))
-                character_slot_index+=1
-        plain_chests_dbview = treasure_dbview.get_refined_view(lambda t: t.ordr < 19 or t.ordr > 22)
-    
+        character_treasure_chests = plain_chests_dbview.get_refined_view(lambda t: t.fight is None)
+        assigned_ids= []
+        while character_slot_index < len(character_rando.FREE_SLOTS):
+            t = env.rnd.choice(character_treasure_chests.find_all())
+            contents = (t.jcontents if (t.jcontents and not env.options.flags.has('treasure_no_j_items')) else t.contents)
+            free_slot_name = character_rando.FREE_SLOTS[character_slot_index]
+            treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[free_slot_name]))
+            assigned_ids.append(t.ordr)
+            print(f'Putting {free_slot_name} in {t.map}:{t.spoilersubarea}:{t.spoilerdetail}')
+            character_slot_index+=1
+            character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.fight is None and t.ordr not in assigned_ids)
+
+        before_len = len(plain_chests_dbview.find_all())
+        plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
     if env.options.flags.has('treasure_vanilla'):
         # for various reasons we really do need to assign every treasure chest still
         for t in treasure_dbview:
