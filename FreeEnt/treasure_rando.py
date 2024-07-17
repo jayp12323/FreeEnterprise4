@@ -396,6 +396,9 @@ def apply(env):
                 contents = databases.get_item_spoiler_name(item)
             except KeyError:
                 contents = 'DEBUG'
+        elif contents.startswith('#item.fe_CharacterChestItem'):
+            print(f'{contents} Reward index is {reward_index}')      
+            contents = rewards.REWARD_SLOT_SPOILER_NAMES[rewards.RewardSlot(int(reward_index))]
         elif not contents.endswith(' gp'):
             contents = databases.get_item_spoiler_name(contents)
 
