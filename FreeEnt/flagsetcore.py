@@ -585,7 +585,7 @@ class FlagLogicCore:
             duplicate_check_count = 0
             character_pool = []
             for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:         
-                if not flagset.get_list(rf'^{random_prefix}'):
+                if not flagset.get_list(rf'^{random_prefix}\d'):
                     continue
 
                 random_only_char_flags = flagset.get_list(rf'{random_prefix}only')

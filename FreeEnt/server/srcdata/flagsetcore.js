@@ -661,7 +661,7 @@ class FlagLogicCore {
             character_pool = [];
             for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:", "Orandom2:", "Orandom3:"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 random_prefix = _pj_a[_pj_c];
-                if ((! flagset.get_list(`^${random_prefix}`))) {
+                if ((! flagset.get_list(`^${random_prefix}\d`))) {
                     continue;
                 }
                 random_only_char_flags = flagset.get_list(`${random_prefix}only`);
