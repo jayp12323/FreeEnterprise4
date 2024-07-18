@@ -80,7 +80,9 @@ msfpatch {
         pla
         ldx #$0000
         jsl $=Rewards__LoadNameFromSlot
+        sec
+        rtl
     %FinishCharacterReward:
-        sec      
+        clc      
         rtl
 }
