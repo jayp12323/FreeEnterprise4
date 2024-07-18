@@ -202,17 +202,21 @@ def apply(env):
         random_objective_allowed_types = set()
         random_objective_allowed_characters = set()
         tough_quests_only = False
+        specific_random_chars_only = False
         for f in env.options.flags.get_list(rf'^{random_prefix}[^\d]'):
-            allowed_type = f[len(random_prefix):]            
+            allowed_type = f[len(random_prefix):]   
+            print(f'Allowed type {allowed_type}')         
             if (allowed_type == 'tough_quest'):
                 allowed_type = 'quest'
                 tough_quests_only = True
-            if allowed_type.startswith('only'):                
+            if allowed_type.startswith('only'): 
+                specific_random_chars_only = True               
                 random_objective_allowed_characters.add(allowed_type[len('only'):])
             else:
                 random_objective_allowed_types.add(allowed_type)
         #print(f'random objective allowed types is {random_objective_allowed_types}')
-        if len(random_objective_allowed_types) == 1 and 'char' in random_objective_allowed_types and random_objective_count > len(random_objective_allowed_characters):
+        # Check if the number of random character objectives desired exceed the amount specified via Orandomonly, and there is only character quests allowed
+        if specific_random_chars_only and len(random_objective_allowed_types) == 1 and 'char' in random_objective_allowed_types and random_objective_count > len(random_objective_allowed_characters):
             raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {random_objective_allowed_characters} were specified.")
         random_objective_pool = {}
         for objective_id in OBJECTIVES:
