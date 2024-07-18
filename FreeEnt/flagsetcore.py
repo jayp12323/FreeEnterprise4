@@ -537,7 +537,7 @@ class FlagLogicCore:
                     self._lib.push(log, ['error', "Character objectives are set while no character slots will be filled"])                           
             
             for random_prefix in ['Orandom:char', 'Orandom2:char', 'Orandom3:char']:    
-                if flagset.has(random_prefix) and flagset.has('Cnoearned') and flagset.has('Cnofree'):
+                if flagset.has(random_prefix) and flagset.has('Cnoearned') and flagset.has('Cnofree') and not flagset.has('Ctreasure'):
                     flagset.unset(random_prefix)
                     self._lib.push(log, ['correction', f'Random character objectives in the pool while no character slots will be filled. Removed {random_prefix}.'])
                     
