@@ -70,10 +70,10 @@ class TreasureAssignment:
         if contents in self._autosells and fight is None:
             contents = '{} gp'.format(self._autosells[contents])        
         
-        reward_index = 0
+        reward_index = -1
         if '#item.fe_CharacterChestItem' in contents:
             reward_index = contents[-2:]
-            contents = '#item.fe_CharacterChestItem'
+            contents = '#item.NoArmor'#contents[:-3]
         self._assignments[slug] = (contents, fight, t if original_chest == None else original_chest, reward_index)
 
     def get(self, t, remap=True):
@@ -93,7 +93,7 @@ class TreasureAssignment:
             contents,fight,t,reward_index = self._assignments[slug]
             if contents is None:
                 contents = '$00'
-            if '#item.fe_CharacterChestItem' in contents:
+            if reward_index != -1:
                 worldId = 0
                 if 'Underworld' in t.world:
                     worldId = 1
@@ -362,8 +362,6 @@ def apply(env):
     for slug in all_treasure_assignments:
         contents,fight,t,reward_index = all_treasure_assignments[slug]
         treasure_index +=1
-        #if "#item.fe_CharacterChestItem" in contents:
-            #print(f'character fight {treasure_index}:{slug} is {contents}')
 
     # write the pre-opened chest values
     chest_init_flags = [0x00] * 0x40
@@ -396,8 +394,7 @@ def apply(env):
                 contents = databases.get_item_spoiler_name(item)
             except KeyError:
                 contents = 'DEBUG'
-        elif contents.startswith('#item.fe_CharacterChestItem'):
-            print(f'{contents} Reward index is {reward_index}')      
+        elif reward_index != -1:
             contents = rewards.REWARD_SLOT_SPOILER_NAMES[rewards.RewardSlot(int(reward_index))]
         elif not contents.endswith(' gp'):
             contents = databases.get_item_spoiler_name(contents)

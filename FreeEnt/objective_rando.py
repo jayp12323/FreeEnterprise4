@@ -205,7 +205,6 @@ def apply(env):
         specific_random_chars_only = False
         for f in env.options.flags.get_list(rf'^{random_prefix}[^\d]'):
             allowed_type = f[len(random_prefix):]   
-            print(f'Allowed type {allowed_type}')         
             if (allowed_type == 'tough_quest'):
                 allowed_type = 'quest'
                 tough_quests_only = True
