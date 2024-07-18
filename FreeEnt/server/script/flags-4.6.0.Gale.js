@@ -10928,7 +10928,7 @@ class FlagLogicCore {
             character_pool = [];
             for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:", "Orandom2:", "Orandom3:"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 random_prefix = _pj_a[_pj_c];
-                if ((! flagset.get_list(`^${random_prefix}\d`))) {
+                if ((flagset.get_list(`^${random_prefix}`).length === 0)) {
                     continue;
                 }
                 random_only_char_flags = flagset.get_list(`${random_prefix}only`);
@@ -10990,7 +10990,7 @@ class FlagLogicCore {
                 }
                 actual_available_characters = (desired_char_count - chars_to_remove);
                 if (((actual_available_characters < required_objective_count) && (skip_pools === false))) {
-                    this._lib.push(log, ["error", `Not enough unique characters for pool ${random_prefix}.  Another pool could potentially consume some or all of these characters ${random_only_char_flags}`]);
+                    this._lib.push(log, ["error", (`Not enough unique characters for pool ${random_prefix}.  Another pool could potentially consume some or all of these characters ${random_only_char_flags}` + ",".join(flagset.get_list(`^${random_prefix}`)))]);
                     break;
                 }
                 duplicate_check_count += required_objective_count;

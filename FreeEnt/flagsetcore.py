@@ -584,8 +584,8 @@ class FlagLogicCore:
             # test if the total amount of avail chararcters exceeds the required_character_count
             duplicate_check_count = 0
             character_pool = []
-            for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:         
-                if not flagset.get_list(rf'^{random_prefix}\d'):
+            for random_prefix in ['Orandom:', 'Orandom2:', 'Orandom3:']:                         
+                if len(flagset.get_list(rf'^{random_prefix}')) == 0:
                     continue
 
                 random_only_char_flags = flagset.get_list(rf'{random_prefix}only')
@@ -635,7 +635,7 @@ class FlagLogicCore:
                 actual_available_characters = desired_char_count - chars_to_remove
                 #print (f'actual_available_characters {actual_available_characters} desired_char_count {desired_char_count} chars_to_remove {chars_to_remove} duplicate_char_count {duplicate_char_count} duplicate_check_count {duplicate_check_count}')
                 if actual_available_characters < required_objective_count and skip_pools == False:
-                    self._lib.push(log, ['error', f'Not enough unique characters for pool {random_prefix}.  Another pool could potentially consume some or all of these characters {random_only_char_flags}'])
+                    self._lib.push(log, ['error', f'Not enough unique characters for pool {random_prefix}.  Another pool could potentially consume some or all of these characters {random_only_char_flags}' + ','.join(flagset.get_list(rf'^{random_prefix}'))])
                     break
                 duplicate_check_count += required_objective_count            
         return log
