@@ -430,7 +430,7 @@
 <> Sell prices
 .(Ssell:quarter) Items sell for 1/4 price
 .(Ssell:0) Items sell for 0 GP
-<> J-item adjustments
+()# J-item adjustments
 .[Sno:j] No J-items in shops
 .[Sno:apples] No Apples/Soma Drops in shops
 .[Sno:sirens] No Sirens in shops
