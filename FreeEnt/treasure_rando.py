@@ -105,10 +105,7 @@ class TreasureAssignment:
                 treasure_list.append(f'{t.index:02X}')
                 slot_list.append(int(reward_index))
         
-        treasure_list.extend([f'{0:02X}'] * (48 - len(treasure_list)))
         env.add_substitution(f'character treasure rewards', ' '.join(treasure_list))
-
-        slot_list.extend([0x00] * (16 - len(slot_list)))
         env.add_substitution(f'character treasure slots', ' '.join([f'{s:02X}' for s in slot_list]))
             
     def get_script(self):

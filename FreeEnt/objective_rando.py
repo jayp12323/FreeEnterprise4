@@ -3,6 +3,7 @@ from .objective_data import *
 from .errors import *
 from . import util
 from .spoilers import SpoilerRow
+from . import character_rando
 
 MODES = {
     'Omode:classicforge'  : ['quest_forge'],
@@ -213,10 +214,27 @@ def apply(env):
                 random_objective_allowed_characters.add(allowed_type[len('only'):])
             else:
                 random_objective_allowed_types.add(allowed_type)
-        #print(f'random objective allowed types is {random_objective_allowed_types}')
+        
+        only_characters = []
+        allowed_characters = list(character_rando.CHARACTERS)
+        for ch in list(character_rando.CHARACTERS):
+            if env.options.flags.has(f'Conly:{ch}'):
+                only_characters.append(ch)            
+            if env.options.flags.has(f'Cno:{ch}'):
+                allowed_characters.remove(ch)
+        
+        # if any Conly flags were specified, count them to make sure the # of random objectives doesn't exceed the total chars allowed
+        total_char_count = len(allowed_characters)
+        if only_characters:
+            total_char_count = min(len(only_characters),total_char_count)
+        
         # Check if the number of random character objectives desired exceed the amount specified via Orandomonly, and there is only character quests allowed
-        if specific_random_chars_only and len(random_objective_allowed_types) == 1 and 'char' in random_objective_allowed_types and random_objective_count > len(random_objective_allowed_characters):
-            raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {random_objective_allowed_characters} were specified.")
+        if len(random_objective_allowed_types) == 1 and 'char' in random_objective_allowed_types:
+            if specific_random_chars_only and random_objective_count > len(random_objective_allowed_characters):
+                raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {random_objective_allowed_characters} were specified.")
+            elif random_objective_count > total_char_count:
+                raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {total_char_count} are allowed.")
+
         random_objective_pool = {}
         for objective_id in OBJECTIVES:
             obj = OBJECTIVES[objective_id]

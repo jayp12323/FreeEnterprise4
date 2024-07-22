@@ -75,8 +75,17 @@ msfpatch {
         sta $b2
         tyx
         lda $=CharacterTreasureRewardSlot__IDs,x
-        pha        
+        pha
         jsl $=Rewards__DeliverFromSlot
+
+        // jsl $=Objectives__StageProgress        
+        // jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
+        // lda #$08  // Load the $08 event handler (which tackles objectives)
+        // ldx #$df63 
+        // jsl $=Bank00LongCallX        
+        // ldx $1615   // [hardcoded]
+        // stx $09d3   // Restore the other events
+
         pla
         ldx #$0000
         jsl $=Rewards__LoadNameFromSlot
