@@ -430,16 +430,17 @@
 <> Sell prices
 .(Ssell:quarter) Items sell for 1/4 price
 .(Ssell:0) Items sell for 0 GP
-[Sno:j] No J-items in shops
-[Sno:apples] No Apples/Soma Drops in shops
-[Sno:sirens] No Sirens in shops
-[Sno:life] No Life potions in shops
-[Sno:vampires] No Vampires in shops
-[Sno:bacchus] No Bacchus in shops
-[Sno:starveil] No Starveil in shops
-[Sno:moonveil] No Moonveil in shops
-[Sno:cure3] No Cure3 in shops
-[Sno:illusion] No Illusion in shops
+<> J-item adjustments
+.[Sno:j] No J-items in shops
+.[Sno:apples] No Apples/Soma Drops in shops
+.[Sno:sirens] No Sirens in shops
+.[Sno:life] No Life potions in shops
+.[Sno:vampires] No Vampires in shops
+.[Sno:bacchus] No Bacchus in shops
+.[Sno:starveil] No Starveil in shops
+.[Sno:moonveil] No Moonveil in shops
+.[Sno:cure3] No Cure3 in shops
+.[Sno:illusion] No Illusion in shops
 
 <> Shop price adjustments
 .(Sprice:20) Shop prices are adjusted to 20% of their normal value
