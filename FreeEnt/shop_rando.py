@@ -52,8 +52,32 @@ def apply(env):
         banned_items.append('#item.AgApple')
         banned_items.append('#item.AuApple')
         banned_items.append('#item.SomaDrop')
+    if env.options.flags.has('shops_no_damage_items'):
+        banned_items.append('#item.Bomb')
+        banned_items.append('#item.BigBomb')
+        banned_items.append('#item.Notus')
+        banned_items.append('#item.Boreas')
+        banned_items.append('#item.ThorRage')
+        banned_items.append('#item.ZeusRage')
+        banned_items.append('#item.FireBomb')
+        banned_items.append('#item.Blizzard')
+        banned_items.append('#item.LitBolt')
+        banned_items.append('#item.Grimoire')
+        banned_items.append('#item.Kamikaze')
     if env.options.flags.has('shops_no_sirens'):
         banned_items.append('#item.Siren')
+    if env.options.flags.has('shops_no_vampires'):
+        banned_items.append('#item.Vampire')
+    if env.options.flags.has('shops_no_bacchus'):
+        banned_items.append('#item.Bacchus')
+    if env.options.flags.has('shops_no_starveil'):
+        banned_items.append('#item.StarVeil')
+    if env.options.flags.has('shops_no_moonveil'):
+        banned_items.append('#item.MoonVeil')
+    if env.options.flags.has('shops_no_cure3'):
+        banned_items.append('#item.Cure3')
+    if env.options.flags.has('shops_no_illusion'):
+        banned_items.append('#item.Illusion')
     if env.options.flags.has('shops_no_life'):
         banned_items.append('#item.Life')
     if env.options.flags.has('no_adamants'):

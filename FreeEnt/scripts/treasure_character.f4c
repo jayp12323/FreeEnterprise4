@@ -32,6 +32,7 @@ msfpatch {
     // 8 checks per world total (2 bytes per check)
     .def  CharacterTreasure__MaxCount              0x10
     .def  CharacterTreasure__TreasureIndex      $7e158f
+    .def  CharacterTreasure__RewardSlotIndex      $7e1590
 }
 msfpatch {
     TreasureCharacter_CheckIfChar:
@@ -75,10 +76,13 @@ msfpatch {
         sta $b2
         tyx
         lda $=CharacterTreasureRewardSlot__IDs,x
-        pha
-        jsl $=Rewards__DeliverFromSlot
+        sta $_CharacterTreasure__RewardSlotIndex
 
         // jsl $=Objectives__StageProgress        
+
+        lda $_CharacterTreasure__RewardSlotIndex
+        jsl $=Rewards__DeliverFromSlot
+
         // jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
         // lda #$08  // Load the $08 event handler (which tackles objectives)
         // ldx #$df63 
@@ -86,7 +90,7 @@ msfpatch {
         // ldx $1615   // [hardcoded]
         // stx $09d3   // Restore the other events
 
-        pla
+        lda $_CharacterTreasure__RewardSlotIndex
         ldx #$0000
         jsl $=Rewards__LoadNameFromSlot
         sec

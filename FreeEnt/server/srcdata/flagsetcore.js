@@ -605,7 +605,7 @@ class FlagLogicCore {
             }
             for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:char", "Orandom2:char", "Orandom3:char"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 random_prefix = _pj_a[_pj_c];
-                if (((flagset.has(random_prefix) && flagset.has("Cnoearned")) && flagset.has("Cnofree"))) {
+                if ((((flagset.has(random_prefix) && flagset.has("Cnoearned")) && flagset.has("Cnofree")) && (! flagset.has("Ctreasure")))) {
                     flagset.unset(random_prefix);
                     this._lib.push(log, ["correction", `Random character objectives in the pool while no character slots will be filled. Removed ${random_prefix}.`]);
                 }

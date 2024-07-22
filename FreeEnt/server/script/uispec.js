@@ -5078,6 +5078,10 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
+        "flag": "Salways:j",
+        "title": "Shops always guaranteed to have xxx"
+      },
+      {
         "flag": "@anon46",
         "title": "Sell prices",
         "type": "select",
@@ -5107,6 +5111,30 @@ var FLAG_UISPEC = [
       {
         "flag": "Sno:life",
         "title": "No Life potions in shops"
+      },
+      {
+        "flag": "Sno:vampires",
+        "title": "No Vampires in shops"
+      },
+      {
+        "flag": "Sno:bacchus",
+        "title": "No Bacchus in shops"
+      },
+      {
+        "flag": "Sno:starveil",
+        "title": "No Starveil in shops"
+      },
+      {
+        "flag": "Sno:moonveil",
+        "title": "No Moonveil in shops"
+      },
+      {
+        "flag": "Sno:cure3",
+        "title": "No Cure3 in shops"
+      },
+      {
+        "flag": "Sno:illusion",
+        "title": "No Illusion in shops"
       },
       {
         "flag": "@anon47",
