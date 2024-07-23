@@ -48,8 +48,8 @@ Spricey:items Spricey:weapons Spricey:armor
 Tunrestrict:treasury Tunrestrict:moon Tunrestrict:underworld Tunrestrict:overworld
 Tno:j Tmaxtier:3/Tmaxtier:4/Tmaxtier:5/Tmaxtier:6/Tmaxtier:7 Tmoney/Tjunk
 Svanilla Sshuffle/Sstandard/Spro/Swild/Scabins/Sempty/Ssame Ssingles Sfree Sunsafe Ssell:quarter/Ssell:0 
-Salways:sirens Salways:vampires Salways:bacchus Salways:starveil Salways:moonveil Salways:cure3 Salways:illusion
-Sno:j Sno:apples Sno:sirens Sno:vampires Sno:bacchus Sno:starveil Sno:moonveil Sno:cure3 Sno:illusion Sno:life Sno:damage_items
+Salways:apples Salways:sirens Salways:vampires Salways:hrglass Salways:bacchus Salways:starveil Salways:cure3 Salways:illusion Salways:damage_items
+Sno:j Sno:apples Sno:sirens Sno:vampires Sno:hrglass Sno:bacchus Sno:starveil Sno:cure3 Sno:illusion Sno:life Sno:damage_items
 Bvanilla Bstandard Bnofree Bunsafe Balt:gauntlet Bwhyburn/Bwhichburn/Bitburns
 Evanilla Etoggle/Ereduce/Enoencounters Ekeep:doors Ekeep:behemoths Edanger Ecantrun Enoexp Eno:jdrops/Eno:sirens
 Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
@@ -189,6 +189,7 @@ Sno:apples           shops_no_apples
 Sno:sirens           shops_no_sirens
 Sno:life             shops_no_life
 Sno:vampires         shops_no_vampires
+Sno:hrglass          shops_no_hourglass
 Sno:bacchus          shops_no_bacchus
 Sno:starveil         shops_no_starveil
 Sno:moonveil         shops_no_moonveil
@@ -196,14 +197,16 @@ Sno:cure3            shops_no_cure3
 Sno:illusion         shops_no_illusion
 Sno:damage_items     shops_no_damage_items
 
+Salways:apples       shops_always_apples
 Salways:sirens       shops_always_sirens 
 Salways:vampires     shops_always_vampires 
+Salways:hrglass      shops_always_hourglass
 Salways:bacchus      shops_always_bacchus 
 Salways:starveil     shops_always_starveil 
 Salways:moonveil     shops_always_moonveil 
 Salways:cure3        shops_always_cure3 
 Salways:illusion     shops_always_illusion
-
+Salways:damage_items  shops_always_damage_items
 
 Bvanilla             bosses_vanilla
 Bstandard            bosses_standard

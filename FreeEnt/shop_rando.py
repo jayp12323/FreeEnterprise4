@@ -72,10 +72,10 @@ def apply(env):
         banned_items.append('#item.Bacchus')
     if env.options.flags.has('shops_no_starveil'):
         banned_items.append('#item.StarVeil')
-    if env.options.flags.has('shops_no_moonveil'):
-        banned_items.append('#item.MoonVeil')
     if env.options.flags.has('shops_no_cure3'):
         banned_items.append('#item.Cure3')
+    if env.options.flags.has('shops_no_hourglass'):
+        banned_items.append('#item.HrGlass2')
     if env.options.flags.has('shops_no_illusion'):
         banned_items.append('#item.Illusion')
     if env.options.flags.has('shops_no_life'):
@@ -174,7 +174,7 @@ def apply(env):
                     place_item(item_const, eligible_shop_assignments)
     else:
         # revised Rivers rando
-        def can_be_in_shop(item, shop):
+        def can_be_in_shop(item, shop):            
             shop_level = (shop if type(shop) is str else shop.level)
 
             if env.options.flags.has('shops_wild'):
@@ -184,7 +184,7 @@ def apply(env):
             elif env.options.flags.has('shops_standard'):
                 if item.tier == 6:
                     return (shop_level == 'kokkol')
-                elif item.tier == 5:
+                elif item.tier == 5:                    
                     return (shop_level == 'gated')
                 elif item.tier < 5:
                     return (shop_level in ['free', 'gated'])
@@ -212,8 +212,56 @@ def apply(env):
         kokkol_shop_assignment.add(*[it.const for it in env.rnd.sample(kokkol_candidates, min(len(kokkol_candidates), max_kokkol_items))])
 
         # guaranteed items
+        guaranteed_free_items = []
+        guaranteed_gated_items = []
+
+        desired_guaranteed_items = []
+        if env.options.flags.has('shops_always_damage_items'):
+            desired_guaranteed_items.append('#item.Bomb')
+            desired_guaranteed_items.append('#item.BigBomb')
+            desired_guaranteed_items.append('#item.Notus')
+            desired_guaranteed_items.append('#item.Boreas')
+            desired_guaranteed_items.append('#item.ThorRage')
+            desired_guaranteed_items.append('#item.ZeusRage')
+            desired_guaranteed_items.append('#item.FireBomb')
+            desired_guaranteed_items.append('#item.Blizzard')
+            desired_guaranteed_items.append('#item.LitBolt')
+            desired_guaranteed_items.append('#item.Grimoire')
+            desired_guaranteed_items.append('#item.Kamikaze')
+        if env.options.flags.has('shops_always_apples'):
+            desired_guaranteed_items.append('#item.AgApple')
+            desired_guaranteed_items.append('#item.AuApple')
+            desired_guaranteed_items.append('#item.SomaDrop')
+        if env.options.flags.has('shops_always_vampires'):
+            desired_guaranteed_items.append('#item.Vampire')
+        if env.options.flags.has('shops_always_hourglass'):
+            desired_guaranteed_items.append('#item.HrGlass2')
+        if env.options.flags.has('shops_always_cure3'):
+            desired_guaranteed_items.append('#item.Cure3')
+        if env.options.flags.has('shops_always_illusion'):
+            desired_guaranteed_items.append('#item.Illusion')
+        if env.options.flags.has('shops_always_sirens'):
+            desired_guaranteed_items.append('#item.Siren')
+        if env.options.flags.has('shops_always_bacchus'):
+            desired_guaranteed_items.append('#item.Bacchus')
+        if env.options.flags.has('shops_always_starveil'):
+            desired_guaranteed_items.append('#item.StarVeil')
+        
+        free_items_view = {}
+        gated_items_view = {}
+        for item_const in desired_guaranteed_items:
+            free_items_view = items_dbview.find_all(lambda it: item_const == it.const and can_be_in_shop(it, 'free'))
+            gated_items_view = items_dbview.find_all(lambda it: item_const == it.const and (it.tier == 7 or can_be_in_shop(it, 'gated')))
+            for item in free_items_view:
+                guaranteed_free_items.append(item.const)
+            for item in gated_items_view:
+                if item in free_items_view:
+                    continue
+                guaranteed_gated_items.append(item.const)
+        print(f'Free items '+','.join(guaranteed_free_items))
+        print(f'Gated items '+','.join(guaranteed_gated_items))
         if not env.options.flags.has('shops_unsafe'):
-            guaranteed_free_items = []
+            # Begin guaranteed 'safe' items
             if env.meta.get('wacky_challenge') == 'friendlyfire':
                 pass
             else:
@@ -222,7 +270,7 @@ def apply(env):
             if not env.options.flags.has('shops_no_life'):
                 guaranteed_free_items.append('#item.Life')
 
-            if not env.options.flags.has('shops_no_j_items'):
+            if not env.options.flags.has('shops_no_j_items') and not env.options.flags.has('shops_no_starveil'):
                 guaranteed_free_items.append('#item.StarVeil')
                 if not env.options.flags.has('bosses_unsafe'):
                     guaranteed_free_items.append('#item.ThorRage')
@@ -230,35 +278,32 @@ def apply(env):
             if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
                 guaranteed_free_items.append('#item.Carrot')
 
-            free_shop_assignments = list(filter(lambda sa: sa.matches_category('item') and sa.shop.level == 'free', shop_assignments))
-
-            # don't add guaranteed items if they are already in a free shop
-            for shop_assignment in free_shop_assignments:
-                for item_const in list(guaranteed_free_items):
-                    if item_const in shop_assignment.manifest:
-                        guaranteed_free_items.remove(item_const)
-
-            for item_const in guaranteed_free_items:
-                place_item(item_const, free_shop_assignments)
-
-
-            gated_shop_assignments = list(filter(lambda sa: sa.matches_category('item') and sa.shop.level == 'gated', shop_assignments))
-            guaranteed_gated_items = []
-
             white_mage_not_guaranteed = env.meta['available_characters'].isdisjoint(WHITE_MAGES)
             if white_mage_not_guaranteed:
                 guaranteed_gated_items.append('#item.Cure3')
 
             if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
                 guaranteed_gated_items.append('#item.Whistle')
+            # End guaranteed 'safe' items
 
-            for shop_assignment in gated_shop_assignments:
-                for item_const in list(guaranteed_gated_items):
-                    if item_const in shop_assignment.manifest:
-                        guaranteed_gated_items.remove(item_const)
+        free_shop_assignments = list(filter(lambda sa: sa.matches_category('item') and sa.shop.level == 'free', shop_assignments))
+        # don't add guaranteed items if they are already in a free shop
+        for shop_assignment in free_shop_assignments:
+            for item_const in list(guaranteed_free_items):
+                if item_const in shop_assignment.manifest:
+                    guaranteed_free_items.remove(item_const)
 
-            for item_const in guaranteed_gated_items:
-                place_item(item_const, gated_shop_assignments)
+        for item_const in guaranteed_free_items:
+            place_item(item_const, free_shop_assignments)
+
+        gated_shop_assignments = list(filter(lambda sa: sa.matches_category('item') and sa.shop.level == 'gated', shop_assignments))
+        for shop_assignment in gated_shop_assignments:
+            for item_const in list(guaranteed_gated_items):
+                if item_const in shop_assignment.manifest:
+                    guaranteed_gated_items.remove(item_const)
+
+        for item_const in guaranteed_gated_items:
+            place_item(item_const, gated_shop_assignments)
 
         for category in CATEGORY_QTYS:
             candidates = items_dbview.find_all(lambda it: it.category == category and (can_be_in_shop(it, 'free') or can_be_in_shop(it, 'gated')) )

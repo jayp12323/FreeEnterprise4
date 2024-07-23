@@ -5078,10 +5078,6 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
-        "flag": "Salways:j",
-        "title": "Shops always guaranteed to have xxx"
-      },
-      {
         "flag": "@anon46",
         "title": "Sell prices",
         "type": "select",
@@ -5097,47 +5093,101 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "Sno:j",
-        "title": "No J-items in shops"
-      },
-      {
-        "flag": "Sno:apples",
-        "title": "No Apples/Soma Drops in shops"
-      },
-      {
-        "flag": "Sno:sirens",
-        "title": "No Sirens in shops"
-      },
-      {
-        "flag": "Sno:life",
-        "title": "No Life potions in shops"
-      },
-      {
-        "flag": "Sno:vampires",
-        "title": "No Vampires in shops"
-      },
-      {
-        "flag": "Sno:bacchus",
-        "title": "No Bacchus in shops"
-      },
-      {
-        "flag": "Sno:starveil",
-        "title": "No Starveil in shops"
-      },
-      {
-        "flag": "Sno:moonveil",
-        "title": "No Moonveil in shops"
-      },
-      {
-        "flag": "Sno:cure3",
-        "title": "No Cure3 in shops"
-      },
-      {
-        "flag": "Sno:illusion",
-        "title": "No Illusion in shops"
-      },
-      {
         "flag": "@anon47",
+        "title": "Guarantee Items",
+        "compact": true,
+        "subcontrols": [
+          {
+            "flag": "Salways:apples",
+            "title": "Apples/Soma Drops always sold in shops"
+          },
+          {
+            "flag": "Salways:sirens",
+            "title": "Sirens always sold in shops"
+          },
+          {
+            "flag": "Salways:vampires",
+            "title": "Vampires always sold in shops"
+          },
+          {
+            "flag": "Salways:hrglass",
+            "title": "HrGlass2 always sold in shops"
+          },
+          {
+            "flag": "Salways:bacchus",
+            "title": "Bacchus always sold in shops"
+          },
+          {
+            "flag": "Salways:starveil",
+            "title": "Starveil always sold in shops"
+          },
+          {
+            "flag": "Salways:cure3",
+            "title": "Cure3 always sold in shops"
+          },
+          {
+            "flag": "Salways:illusion",
+            "title": "Illusion always sold in shops"
+          },
+          {
+            "flag": "Salways:damage_items",
+            "title": "Damage items (Bomb, BigBomb,Notus,Boreas,ThorRage,ZeusRage,FireBomb,Blizzard,LitBolt,Grimoire,Kamikaze) always in shops"
+          }
+        ]
+      },
+      {
+        "flag": "@anon48",
+        "title": "Remove Items",
+        "compact": true,
+        "subcontrols": [
+          {
+            "flag": "Sno:j",
+            "title": "No J-items in shops"
+          },
+          {
+            "flag": "Sno:apples",
+            "title": "No Apples/Soma Drops in shops"
+          },
+          {
+            "flag": "Sno:sirens",
+            "title": "No Sirens in shops"
+          },
+          {
+            "flag": "Sno:life",
+            "title": "No Life potions in shops"
+          },
+          {
+            "flag": "Sno:vampires",
+            "title": "No Vampires in shops"
+          },
+          {
+            "flag": "Sno:hrglass",
+            "title": "No HrGlass2 in shops"
+          },
+          {
+            "flag": "Sno:bacchus",
+            "title": "No Bacchus in shops"
+          },
+          {
+            "flag": "Sno:starveil",
+            "title": "No Starveil in shops"
+          },
+          {
+            "flag": "Sno:cure3",
+            "title": "No Cure3 in shops"
+          },
+          {
+            "flag": "Sno:illusion",
+            "title": "No Illusion in shops"
+          },
+          {
+            "flag": "Sno:damage_items",
+            "title": "No Damage items (Bomb, BigBomb,Notus,Boreas,ThorRage,ZeusRage,FireBomb,Blizzard,LitBolt,Grimoire,Kamikaze) in shops"
+          }
+        ]
+      },
+      {
+        "flag": "@anon49",
         "title": "Shop price adjustments",
         "type": "select",
         "subcontrols": [
@@ -5146,7 +5196,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 20% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5171,7 +5221,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 40% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5196,7 +5246,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 60% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5221,7 +5271,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 80% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5246,7 +5296,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 120% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5271,7 +5321,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 140% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5296,7 +5346,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 160% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5321,7 +5371,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 180% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5346,7 +5396,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 200% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5372,7 +5422,7 @@ var FLAG_UISPEC = [
             "hard": true,
             "subcontrols": [
               {
-                "flag": "@anon48",
+                "flag": "@anon50",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5400,7 +5450,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon49",
+        "flag": "@anon51",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -5437,7 +5487,7 @@ var FLAG_UISPEC = [
         "description": "Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area."
       },
       {
-        "flag": "@anon50",
+        "flag": "@anon52",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -5463,7 +5513,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon51",
+        "flag": "@anon53",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -5536,7 +5586,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon52",
+        "flag": "@anon54",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -5613,7 +5663,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon53",
+            "flag": "@anon55",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -5750,7 +5800,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon54",
+            "flag": "@anon56",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -5887,7 +5937,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon55",
+            "flag": "@anon57",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -6039,7 +6089,7 @@ var FLAG_UISPEC = [
         "title": "Edward can equip the Spoon"
       },
       {
-        "flag": "@anon56",
+        "flag": "@anon58",
         "title": "Smithy reward",
         "type": "select",
         "subcontrols": [
@@ -6077,7 +6127,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon57",
+        "flag": "@anon59",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
           {
@@ -6138,7 +6188,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
         "subcontrols": [
           {
-            "flag": "@anon58",
+            "flag": "@anon60",
             "title": "Select challenge",
             "type": "select",
             "subcontrols": [
@@ -6301,7 +6351,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon59",
+        "flag": "@anon61",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6355,7 +6405,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon60",
+            "flag": "@anon62",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6371,7 +6421,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon61",
+                "flag": "@anon63",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

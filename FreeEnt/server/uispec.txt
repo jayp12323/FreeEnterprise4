@@ -426,21 +426,32 @@
 .(Sempty)! Shops sell nothing
 [Sfree] Shop items are free
 [Ssingles]! Shops sell only a single item
-[Salways:j] Shops always guaranteed to have xxx
 <> Sell prices
 .(Ssell:quarter) Items sell for 1/4 price
 .(Ssell:0) Items sell for 0 GP
-()# J-item adjustments
+()# Guarantee Items
+.[Salways:apples] Apples/Soma Drops always sold in shops
+.[Salways:sirens] Sirens always sold in shops
+.[Salways:vampires] Vampires always sold in shops
+.[Salways:hrglass] HrGlass2 always sold in shops
+.[Salways:bacchus] Bacchus always sold in shops
+.[Salways:starveil] Starveil always sold in shops
+.[Salways:cure3] Cure3 always sold in shops
+.[Salways:illusion] Illusion always sold in shops
+.[Salways:damage_items] Damage items (Bomb, BigBomb,Notus,Boreas,ThorRage,ZeusRage,FireBomb,Blizzard,LitBolt,Grimoire,Kamikaze) always in shops
+
+()# Remove Items
 .[Sno:j] No J-items in shops
 .[Sno:apples] No Apples/Soma Drops in shops
 .[Sno:sirens] No Sirens in shops
 .[Sno:life] No Life potions in shops
 .[Sno:vampires] No Vampires in shops
+.[Sno:hrglass] No HrGlass2 in shops
 .[Sno:bacchus] No Bacchus in shops
 .[Sno:starveil] No Starveil in shops
-.[Sno:moonveil] No Moonveil in shops
 .[Sno:cure3] No Cure3 in shops
 .[Sno:illusion] No Illusion in shops
+.[Sno:damage_items] No Damage items (Bomb, BigBomb,Notus,Boreas,ThorRage,ZeusRage,FireBomb,Blizzard,LitBolt,Grimoire,Kamikaze) in shops
 
 <> Shop price adjustments
 .(Sprice:20) Shop prices are adjusted to 20% of their normal value
