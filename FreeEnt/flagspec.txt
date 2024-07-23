@@ -32,7 +32,6 @@ Owin:game/Owin:crystal
 Kvanilla Kmain Ksummon Kmoon Kmiab Knofree Kunsafe Kforce:magma/Kforce:hook
 Kstart:package/Kstart:sandruby/Kstart:baron/Kstart:twinharp/Kstart:earthcrystal/Kstart:magma/Kstart:tower/Kstart:hook/Kstart:luca/Kstart:darkcrystal/Kstart:rat/Kstart:pan/Kstart:crystal/Kstart:legend/Kstart:adamant/Kstart:spoon/Kstart:pink
 Pnone Pshop Pkey Pchests
-Dvanilla Dtowns/Ddungeon/Dshuffle
 Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe Cnopartner
 Cdistinct:1/Cdistinct:2/Cdistinct:3/Cdistinct:4/Cdistinct:5/Cdistinct:6/Cdistinct:7/Cdistinct:8/Cdistinct:9/Cdistinct:10/Cdistinct:11
 Cstart:cecil Cstart:kain Cstart:rydia Cstart:tellah Cstart:edward Cstart:rosa Cstart:yang Cstart:palom Cstart:porom Cstart:cid Cstart:edge Cstart:fusoya Cstart:any
