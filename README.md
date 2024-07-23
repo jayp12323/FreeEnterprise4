@@ -12,7 +12,7 @@
 - Cpaladin: Cecil starts as a paladin.  Ordeals is still available as an objective as usual.
 - Csuperhero: This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).
 - Ctreasure: Cnofree is forced on, and all normally free characters are hiding in chests/pots in the Overworld.  Unrestricted characters only.
-- CMiab: Cnoearned is forced on, and all normally earned characters are hiding in MIABs everywhere.  Includes restricted characters
+- CMiab `(wip)` : Cnoearned is forced on, and all normally earned characters are hiding in MIABs everywhere.  Includes restricted characters
 - Tunrestrict: Allows ignoring the restrictions placed on tiers in the treasury/moon/underworld/overworld
 - Sprice/Spricey: Changes the price of items in shops.  Can target armor/weapons/items individually
 - Salways: Items are forced to be guaranteed in shops
