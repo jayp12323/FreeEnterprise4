@@ -36,7 +36,7 @@ msfpatch {
 }
 msfpatch {
     TreasureCharacter_CheckIfChar:
-        lda $08FC
+        lda $08fc
         sec
         sbc $0fe7   // subtract mapinfo's treasure offset
         sta $_CharacterTreasure__TreasureIndex
@@ -63,39 +63,50 @@ msfpatch {
         inx
         lda $=CharacterTreasureRewardLoc__IDs,x
         cmp $_CharacterTreasure__TreasureIndex
-        bne $+NextCharacterChest
-        bra $+DoCharacterReward
+        beq $+DoCharacterReward
+        inx
     %NextCharacterChest:
         iny
-        cpx #$_CharacterTreasure__MaxCount
+        cpy #$_CharacterTreasure__MaxCount
         bcc $-CheckLoopCharacterChest
-        bra $+FinishCharacterReward
+        bra $+NoCharacterReward
     %DoCharacterReward:
-        lda $08fc   // get absolute treasure number
-        lda #$83    // message is incremented by 1
-        sta $b2
         tyx
+
         lda $=CharacterTreasureRewardSlot__IDs,x
         sta $_CharacterTreasure__RewardSlotIndex
+        //pha
+        ldx #$0000
+        jsl $=Rewards__LoadNameFromSlot
 
-        // jsl $=Objectives__StageProgress        
+         // overwrite message code
+        lda #$83 // Found character message
+        sta $b2
+
+        // display messages
+        ldx #$b1c8  // _load_message_bank_1_lo_offset
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCall
+        ldx #$b0d1  // _show_upper_dialog
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCall
+        ldx #$b164  // _close_upper_dialog
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCall
+
+        jsl $=Objectives__StageProgress        
+        //jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
+        //lda #$08  // Load the $08 event handler (which tackles objectives)
+        //ldx #$df63 // _decode_event
+        //jsl $=Bank00LongCallX        
+        //ldx $1615   // [hardcoded]
+        //stx $09d3   // Restore the other events      
 
         lda $_CharacterTreasure__RewardSlotIndex
         jsl $=Rewards__DeliverFromSlot
-
-        // jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
-        // lda #$08  // Load the $08 event handler (which tackles objectives)
-        // ldx #$df63 
-        // jsl $=Bank00LongCallX        
-        // ldx $1615   // [hardcoded]
-        // stx $09d3   // Restore the other events
-
-        lda $_CharacterTreasure__RewardSlotIndex
-        ldx #$0000
-        jsl $=Rewards__LoadNameFromSlot
         sec
         rtl
-    %FinishCharacterReward:
+    %NoCharacterReward:
         clc      
         rtl
 }

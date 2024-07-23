@@ -233,15 +233,7 @@ msfpatch {
     %NotEmpty:
         // Check if the message should be changed if it's a character here
         jsl $=TreasureCharacter_CheckIfChar        
-        bcc $+CheckDiscard
-        lda $0608                                                      
-        sta $08fb                                                        
-        ldx #$b1c8
-        jsl $=Bank00LongCallX
-        ldx #$b0d1
-        jsl $=Bank00LongCallX
-        ldx #$b164
-        jsl $=Bank00LongCallX
+        bcc $+CheckDiscard      
         jml $009794 // rts
 
     %CheckDiscard:
