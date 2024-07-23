@@ -145,7 +145,7 @@ def apply(env):
     if not env.options.flags.has('no_free_characters'):
         assignable_slots.extend(FREE_SLOTS)
 
-    if env.options.flags.has('Ctreasure'):
+    if env.options.flags.has('characters_in_treasure'):
         assignable_slots.extend(FREE_SLOTS)
 
     if env.options.flags.has('objective_mode_classicgiant'):

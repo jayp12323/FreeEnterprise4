@@ -201,11 +201,10 @@ def apply(env):
     character_slot_index = 0
     if env.options.flags.has('characters_in_treasure'):
         #character_treasure_chests = plain_chests_dbview
-        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None)
+        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
         assigned_ids= []
         while character_slot_index < len(character_rando.FREE_SLOTS):
             t = env.rnd.choice(character_treasure_chests.find_all())
-            contents = (t.jcontents if (t.jcontents and not env.options.flags.has('treasure_no_j_items')) else t.contents)
             free_slot_name = character_rando.FREE_SLOTS[character_slot_index]
             treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[free_slot_name]))
             assigned_ids.append(t.ordr)

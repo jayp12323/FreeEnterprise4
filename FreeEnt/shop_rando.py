@@ -80,7 +80,7 @@ def apply(env):
         banned_items.append('#item.Illusion')
     if env.options.flags.has('shops_no_coffin'):
         banned_items.append('#item.Coffin')
-        
+
     if env.options.flags.has('shops_no_life'):
         banned_items.append('#item.Life')
     if env.options.flags.has('no_adamants'):
@@ -266,8 +266,6 @@ def apply(env):
                     continue
                 guaranteed_gated_items.append(item.const)
 
-        print(f'Free items '+','.join(guaranteed_free_items))
-        print(f'Gated items '+','.join(guaranteed_gated_items))
         if not env.options.flags.has('shops_unsafe'):
             # Begin guaranteed 'safe' items
             if env.meta.get('wacky_challenge') == 'friendlyfire':
