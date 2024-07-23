@@ -5119,7 +5119,7 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Salways:starveil",
-            "title": "Starveil always sold in shops"
+            "title": "Starveils always sold in shops"
           },
           {
             "flag": "Salways:cure3",
@@ -5127,7 +5127,11 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Salways:illusion",
-            "title": "Illusion always sold in shops"
+            "title": "Illusions always sold in shops"
+          },
+          {
+            "flag": "Salways:coffin",
+            "title": "Coffins always sold in shops"
           },
           {
             "flag": "Salways:damage_items",
@@ -5170,7 +5174,7 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Sno:starveil",
-            "title": "No Starveil in shops"
+            "title": "No Starveils in shops"
           },
           {
             "flag": "Sno:cure3",
@@ -5178,7 +5182,11 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Sno:illusion",
-            "title": "No Illusion in shops"
+            "title": "No Illusions in shops"
+          },
+          {
+            "flag": "Sno:coffin",
+            "title": "No Coffins in shops"
           },
           {
             "flag": "Sno:damage_items",

@@ -48,8 +48,8 @@ Spricey:items Spricey:weapons Spricey:armor
 Tunrestrict:treasury Tunrestrict:moon Tunrestrict:underworld Tunrestrict:overworld
 Tno:j Tmaxtier:3/Tmaxtier:4/Tmaxtier:5/Tmaxtier:6/Tmaxtier:7 Tmoney/Tjunk
 Svanilla Sshuffle/Sstandard/Spro/Swild/Scabins/Sempty/Ssame Ssingles Sfree Sunsafe Ssell:quarter/Ssell:0 
-Salways:apples Salways:sirens Salways:vampires Salways:hrglass Salways:bacchus Salways:starveil Salways:cure3 Salways:illusion Salways:damage_items
-Sno:j Sno:apples Sno:sirens Sno:vampires Sno:hrglass Sno:bacchus Sno:starveil Sno:cure3 Sno:illusion Sno:life Sno:damage_items
+Salways:apples Salways:sirens Salways:vampires Salways:hrglass Salways:bacchus Salways:starveil Salways:cure3 Salways:illusion Salways:damage_items Salways:coffin
+Sno:j Sno:apples Sno:sirens Sno:vampires Sno:hrglass Sno:bacchus Sno:starveil Sno:cure3 Sno:illusion Sno:life Sno:damage_items Sno:coffin
 Bvanilla Bstandard Bnofree Bunsafe Balt:gauntlet Bwhyburn/Bwhichburn/Bitburns
 Evanilla Etoggle/Ereduce/Enoencounters Ekeep:doors Ekeep:behemoths Edanger Ecantrun Enoexp Eno:jdrops/Eno:sirens
 Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
@@ -194,6 +194,7 @@ Sno:bacchus          shops_no_bacchus
 Sno:starveil         shops_no_starveil
 Sno:cure3            shops_no_cure3
 Sno:illusion         shops_no_illusion
+Sno:coffin           shops_no_coffin
 Sno:damage_items     shops_no_damage_items
 
 Salways:apples       shops_always_apples
@@ -204,6 +205,7 @@ Salways:bacchus      shops_always_bacchus
 Salways:starveil     shops_always_starveil 
 Salways:cure3        shops_always_cure3 
 Salways:illusion     shops_always_illusion
+Salways:coffin       shops_always_coffin
 Salways:damage_items  shops_always_damage_items
 
 Bvanilla             bosses_vanilla

@@ -78,6 +78,9 @@ def apply(env):
         banned_items.append('#item.HrGlass2')
     if env.options.flags.has('shops_no_illusion'):
         banned_items.append('#item.Illusion')
+    if env.options.flags.has('shops_no_coffin'):
+        banned_items.append('#item.Coffin')
+        
     if env.options.flags.has('shops_no_life'):
         banned_items.append('#item.Life')
     if env.options.flags.has('no_adamants'):
@@ -246,18 +249,23 @@ def apply(env):
             desired_guaranteed_items.append('#item.Bacchus')
         if env.options.flags.has('shops_always_starveil'):
             desired_guaranteed_items.append('#item.StarVeil')
-        
+        if env.options.flags.has('shops_always_coffin'):
+            desired_guaranteed_items.append('#item.Coffin')
+
         free_items_view = {}
         gated_items_view = {}
         for item_const in desired_guaranteed_items:
-            free_items_view = items_dbview.find_all(lambda it: item_const == it.const and can_be_in_shop(it, 'free'))
-            gated_items_view = items_dbview.find_all(lambda it: item_const == it.const and (it.tier == 7 or can_be_in_shop(it, 'gated')))
+            raw_items_dbview = databases.get_items_dbview()
+            raw_items_dbview.refine(lambda it: it.tier)
+            free_items_view = raw_items_dbview.find_all(lambda it: item_const == it.const and can_be_in_shop(it, 'free'))
+            gated_items_view = raw_items_dbview.find_all(lambda it: item_const == it.const and can_be_in_shop(it, 'gated'))
             for item in free_items_view:
                 guaranteed_free_items.append(item.const)
             for item in gated_items_view:
                 if item in free_items_view:
                     continue
                 guaranteed_gated_items.append(item.const)
+
         print(f'Free items '+','.join(guaranteed_free_items))
         print(f'Gated items '+','.join(guaranteed_gated_items))
         if not env.options.flags.has('shops_unsafe'):

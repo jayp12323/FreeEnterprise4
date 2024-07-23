@@ -435,9 +435,10 @@
 .[Salways:vampires] Vampires always sold in shops
 .[Salways:hrglass] HrGlass2 always sold in shops
 .[Salways:bacchus] Bacchus always sold in shops
-.[Salways:starveil] Starveil always sold in shops
+.[Salways:starveil] Starveils always sold in shops
 .[Salways:cure3] Cure3 always sold in shops
-.[Salways:illusion] Illusion always sold in shops
+.[Salways:illusion] Illusions always sold in shops
+.[Salways:coffin] Coffins always sold in shops
 .[Salways:damage_items] Damage items (BigBomb,ThorRage,etc) always in shops
 
 ()# Remove Items
@@ -448,9 +449,10 @@
 .[Sno:vampires] No Vampires in shops
 .[Sno:hrglass] No HrGlass2 in shops
 .[Sno:bacchus] No Bacchus in shops
-.[Sno:starveil] No Starveil in shops
+.[Sno:starveil] No Starveils in shops
 .[Sno:cure3] No Cure3 in shops
-.[Sno:illusion] No Illusion in shops
+.[Sno:illusion] No Illusions in shops
+.[Sno:coffin] No Coffins in shops
 .[Sno:damage_items] No Damage items (BigBomb,ThorRage,etc) in shops
 
 <> Shop price adjustments
