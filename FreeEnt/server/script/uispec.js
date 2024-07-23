@@ -5131,7 +5131,7 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Salways:damage_items",
-            "title": "Damage items (Bomb, BigBomb,Notus,Boreas,ThorRage,ZeusRage,FireBomb,Blizzard,LitBolt,Grimoire,Kamikaze) always in shops"
+            "title": "Damage items (BigBomb,ThorRage,etc) always in shops"
           }
         ]
       },
@@ -5182,7 +5182,7 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Sno:damage_items",
-            "title": "No Damage items (Bomb, BigBomb,Notus,Boreas,ThorRage,ZeusRage,FireBomb,Blizzard,LitBolt,Grimoire,Kamikaze) in shops"
+            "title": "No Damage items (BigBomb,ThorRage,etc) in shops"
           }
         ]
       },
