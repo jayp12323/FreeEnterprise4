@@ -424,7 +424,6 @@
 .(Scabins)! Shops sell only cabins
 .(Ssame)! Shops sell only one type of item.
 .(Sempty)! Shops sell nothing
-[Smixed] Shop item prices are randomized
 [Sfree] Shop items are free
 [Ssingles]! Shops sell only a single item
 <> Sell prices
@@ -457,6 +456,7 @@
 .[Sno:damage_items] No Damage items (BigBomb,ThorRage,etc) in shops
 
 <> Shop price adjustments
+.[Spricey:mixed] Shop item prices are randomized
 .(Sprice:20) Shop prices are adjusted to 20% of their normal value
 ..()# Only affect specific item types
 ...[Spricey:items] Only affect consumable items

@@ -5068,10 +5068,6 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "Sconfused",
-        "title": "Shop item prices are randomized"
-      },
-      {
         "flag": "Sfree",
         "title": "Shop items are free"
       },
@@ -5203,6 +5199,10 @@ var FLAG_UISPEC = [
         "title": "Shop price adjustments",
         "type": "select",
         "subcontrols": [
+          {
+            "flag": "Spricey:mixed",
+            "title": "Shop item prices are randomized"
+          },
           {
             "flag": "Sprice:20",
             "title": "Shop prices are adjusted to 20% of their normal value",

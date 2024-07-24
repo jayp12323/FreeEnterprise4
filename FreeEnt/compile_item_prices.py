@@ -13,7 +13,7 @@ def apply(env):
     for item_code in range(0x100):
         if env.options.flags.has('shops_free'):
             price = 0
-        elif env.options.flags.has('shops_mixed'):
+        elif env.options.flags.has('shops_mixed_prices'):
             item = items_dbview.find_one(lambda it: it.code == item_code)
             random_item = items_dbview.find_one(lambda it: it.code == randomized_item_codes[item_code])
             price = (random_item.price if random_item else 0)

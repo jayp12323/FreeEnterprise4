@@ -996,6 +996,7 @@ const _FE_FLAGSPEC = {
         "Spricey:items",
         "Spricey:weapons",
         "Spricey:armor",
+        "Spricey:mixed",
         "Tunrestrict:treasury",
         "Tunrestrict:moon",
         "Tunrestrict:underworld",
@@ -1019,7 +1020,6 @@ const _FE_FLAGSPEC = {
         "Ssingles",
         "Sfree",
         "Sunsafe",
-        "Smixed",
         "Ssell:quarter",
         "Ssell:0",
         "Salways:apples",
@@ -8205,139 +8205,139 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "Tunrestrict:treasury",
+            "flag": "Spricey:mixed",
             "offset": 275,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tunrestrict:moon",
+            "flag": "Tunrestrict:treasury",
             "offset": 276,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tunrestrict:underworld",
+            "flag": "Tunrestrict:moon",
             "offset": 277,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tunrestrict:overworld",
+            "flag": "Tunrestrict:underworld",
             "offset": 278,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tno:j",
+            "flag": "Tunrestrict:overworld",
             "offset": 279,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tmaxtier:3",
+            "flag": "Tno:j",
             "offset": 280,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tmaxtier:3",
+            "offset": 281,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Tmaxtier:4",
-            "offset": 280,
+            "offset": 281,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Tmaxtier:5",
-            "offset": 280,
+            "offset": 281,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Tmaxtier:6",
-            "offset": 280,
+            "offset": 281,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Tmaxtier:7",
-            "offset": 280,
+            "offset": 281,
             "size": 3,
             "value": 5
         },
         {
             "flag": "Tmoney",
-            "offset": 283,
+            "offset": 284,
             "size": 2,
             "value": 1
         },
         {
             "flag": "Tjunk",
-            "offset": 283,
+            "offset": 284,
             "size": 2,
             "value": 2
         },
         {
             "flag": "Sshuffle",
-            "offset": 285,
+            "offset": 286,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Sstandard",
-            "offset": 285,
+            "offset": 286,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Spro",
-            "offset": 285,
+            "offset": 286,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Swild",
-            "offset": 285,
+            "offset": 286,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Scabins",
-            "offset": 285,
+            "offset": 286,
             "size": 3,
             "value": 5
         },
         {
             "flag": "Sempty",
-            "offset": 285,
+            "offset": 286,
             "size": 3,
             "value": 6
         },
         {
             "flag": "Ssame",
-            "offset": 285,
+            "offset": 286,
             "size": 3,
             "value": 7
         },
         {
             "flag": "Ssingles",
-            "offset": 288,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Sfree",
             "offset": 289,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Sunsafe",
+            "flag": "Sfree",
             "offset": 290,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Smixed",
+            "flag": "Sunsafe",
             "offset": 291,
             "size": 1,
             "value": 1
