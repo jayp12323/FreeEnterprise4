@@ -5056,7 +5056,7 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Ssame",
-            "title": "Shops sell only one type of item.",
+            "title": "Shops sell only one type of item",
             "description": "Shops only sell a single item, and all shops in the game are the same.  The item chosen uses the same rules as Swild.",
             "hard": true
           },
@@ -5064,21 +5064,32 @@ var FLAG_UISPEC = [
             "flag": "Sempty",
             "title": "Shops sell nothing",
             "hard": true
+          },
+          {
+            "flag": "Ssingles",
+            "title": "Shops sell only a single item",
+            "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
+            "hard": true
           }
         ]
       },
       {
-        "flag": "Sfree",
-        "title": "Shop items are free"
-      },
-      {
-        "flag": "Ssingles",
-        "title": "Shops sell only a single item",
-        "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
-        "hard": true
-      },
-      {
         "flag": "@anon46",
+        "title": "Buy prices",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "Sfree",
+            "title": "Shop items are free"
+          },
+          {
+            "flag": "Smixed",
+            "title": "Shop item prices are randomized"
+          }
+        ]
+      },
+      {
+        "flag": "@anon47",
         "title": "Sell prices",
         "type": "select",
         "subcontrols": [
@@ -5093,7 +5104,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon47",
+        "flag": "@anon48",
         "title": "Guarantee Items",
         "compact": true,
         "subcontrols": [
@@ -5140,7 +5151,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon48",
+        "flag": "@anon49",
         "title": "Remove Items",
         "compact": true,
         "subcontrols": [
@@ -5195,11 +5206,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "Spricey:mixed",
-        "title": "Shop item prices are randomized"
-      },
-      {
-        "flag": "@anon49",
+        "flag": "@anon50",
         "title": "Shop price adjustments",
         "type": "select",
         "subcontrols": [
@@ -5208,7 +5215,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 20% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5233,7 +5240,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 40% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5258,7 +5265,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 60% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5283,7 +5290,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 80% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5308,7 +5315,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 120% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5333,7 +5340,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 140% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5358,7 +5365,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 160% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5383,7 +5390,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 180% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5408,7 +5415,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 200% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5434,7 +5441,7 @@ var FLAG_UISPEC = [
             "hard": true,
             "subcontrols": [
               {
-                "flag": "@anon50",
+                "flag": "@anon51",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5462,7 +5469,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon51",
+        "flag": "@anon52",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -5499,7 +5506,7 @@ var FLAG_UISPEC = [
         "description": "Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area."
       },
       {
-        "flag": "@anon52",
+        "flag": "@anon53",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -5525,7 +5532,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon53",
+        "flag": "@anon54",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -5598,7 +5605,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon54",
+        "flag": "@anon55",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -5675,7 +5682,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon55",
+            "flag": "@anon56",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -5812,7 +5819,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon56",
+            "flag": "@anon57",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -5949,7 +5956,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon57",
+            "flag": "@anon58",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -6101,7 +6108,7 @@ var FLAG_UISPEC = [
         "title": "Edward can equip the Spoon"
       },
       {
-        "flag": "@anon58",
+        "flag": "@anon59",
         "title": "Smithy reward",
         "type": "select",
         "subcontrols": [
@@ -6139,7 +6146,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon59",
+        "flag": "@anon60",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
           {
@@ -6200,7 +6207,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
         "subcontrols": [
           {
-            "flag": "@anon60",
+            "flag": "@anon61",
             "title": "Select challenge",
             "type": "select",
             "subcontrols": [
@@ -6363,7 +6370,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon61",
+        "flag": "@anon62",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6417,7 +6424,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon62",
+            "flag": "@anon63",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6433,7 +6440,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon63",
+                "flag": "@anon64",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [
