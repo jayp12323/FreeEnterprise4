@@ -17,6 +17,7 @@
 - Sprice/Spricey: Changes the price of items in shops.  Can target armor/weapons/items individually
 - Salways: Items are forced to be guaranteed in shops
 - Sno: More options added to exclude items such as bacchus, coffin, etc.
+- Smixed: Shop prices are randomized
 - Ssame: Shops only sell a single item, and all shops in the game are the same. The item chosen uses the same rules as Swild.
 - Ssingles: Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).
 - Bitburns: The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo
