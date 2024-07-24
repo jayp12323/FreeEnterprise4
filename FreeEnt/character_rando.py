@@ -478,7 +478,7 @@ def apply(env):
     distinguisher_tiles.remove(0x50) # remove O (ambiguous with 0)
 
     env.rnd.shuffle(distinguisher_tiles)
-    #env.add_binary(BusAddress(0x21f740), [0x0A] * 0x16, as_script=True)
+    #env.add_binary(BusAddress(0x21f790), [0x0A] * 0x16, as_script=True)
     env.add_substitution('name distinguishers', ' '.join([f'{b:02X}' for b in distinguisher_tiles]))
 
     SILLY_NAME_CHAR_LISTS = {
