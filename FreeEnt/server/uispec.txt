@@ -455,8 +455,8 @@
 .[Sno:coffin] No Coffins in shops
 .[Sno:damage_items] No Damage items (BigBomb,ThorRage,etc) in shops
 
+[Spricey:mixed] Shop item prices are randomized
 <> Shop price adjustments
-.[Spricey:mixed] Shop item prices are randomized
 .(Sprice:20) Shop prices are adjusted to 20% of their normal value
 ..()# Only affect specific item types
 ...[Spricey:items] Only affect consumable items
