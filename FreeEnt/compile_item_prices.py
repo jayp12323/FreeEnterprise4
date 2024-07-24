@@ -1,5 +1,6 @@
 from . import databases
 from .address import *
+import random
 
 def apply(env):
     prices = []
@@ -7,9 +8,15 @@ def apply(env):
 
     items_dbview = databases.get_items_dbview()
     altered_item_prices = env.meta.get('altered_item_prices', {})
+    randomized_item_codes = list(range(0x100))
+    random.shuffle(randomized_item_codes)
     for item_code in range(0x100):
         if env.options.flags.has('shops_free'):
             price = 0
+        elif env.options.flags.has('shops_mixed'):
+            item = items_dbview.find_one(lambda it: it.code == item_code)
+            random_item = items_dbview.find_one(lambda it: it.code == randomized_item_codes[item_code])
+            price = (random_item.price if random_item else 0)
         elif item_code in altered_item_prices:
             price = altered_item_prices[item_code]
         else:

@@ -5068,6 +5068,10 @@ var FLAG_UISPEC = [
         ]
       },
       {
+        "flag": "Sconfused",
+        "title": "Shop item prices are randomized"
+      },
+      {
         "flag": "Sfree",
         "title": "Shop items are free"
       },

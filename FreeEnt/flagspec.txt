@@ -46,7 +46,7 @@ Sprice:20/Sprice:40/Sprice:60/Sprice:80/Sprice:120/Sprice:140/Sprice:160/Sprice:
 Spricey:items Spricey:weapons Spricey:armor
 Tunrestrict:treasury Tunrestrict:moon Tunrestrict:underworld Tunrestrict:overworld
 Tno:j Tmaxtier:3/Tmaxtier:4/Tmaxtier:5/Tmaxtier:6/Tmaxtier:7 Tmoney/Tjunk
-Svanilla Sshuffle/Sstandard/Spro/Swild/Scabins/Sempty/Ssame Ssingles Sfree Sunsafe Ssell:quarter/Ssell:0 
+Svanilla Sshuffle/Sstandard/Spro/Swild/Scabins/Sempty/Ssame Ssingles Sfree Sunsafe Smixed Ssell:quarter/Ssell:0 
 Salways:apples Salways:sirens Salways:vampires Salways:hrglass Salways:bacchus Salways:starveil Salways:cure3 Salways:illusion Salways:damage_items Salways:coffin
 Sno:j Sno:apples Sno:sirens Sno:vampires Sno:hrglass Sno:bacchus Sno:starveil Sno:cure3 Sno:illusion Sno:life Sno:damage_items Sno:coffin
 Bvanilla Bstandard Bnofree Bunsafe Balt:gauntlet Bwhyburn/Bwhichburn/Bitburns
@@ -181,6 +181,7 @@ Ssingles             shops_singles
 Sempty               shops_empty
 Sfree                shops_free
 Sunsafe              shops_unsafe
+Smixed               shops_mixed
 Ssell:quarter        shops_sell_quarter
 Ssell:0              shops_sell_zero
 Sno:j                shops_no_j_items

@@ -424,6 +424,7 @@
 .(Scabins)! Shops sell only cabins
 .(Ssame)! Shops sell only one type of item.
 .(Sempty)! Shops sell nothing
+[Sconfused] Shop item prices are randomized
 [Sfree] Shop items are free
 [Ssingles]! Shops sell only a single item
 <> Sell prices
