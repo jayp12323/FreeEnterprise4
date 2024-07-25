@@ -83,7 +83,7 @@ for line in lines:
 DB_PATH = os.path.join(os.path.dirname(__file__), 'assets', 'db')
 COLUMNS = ['map', 'trigger_number', 'x', 'y', 'dest', 'dest_x', 'dest_y', 'facing', 'type', "name", "world"]
 
-to_remove = ["#SoldierAirship", "#GiantMouth", "#MysidiaSerpentRoad", '#BlackChocoboForest', "#SealedCaveEntrance",
+to_remove = ["#SoldierAirship", "#GiantMouth", "#MysidiaSerpentRoad","#BaronSerpentRoad" '#BlackChocoboForest', "#SealedCaveEntrance",
              '#AdamantGrotto', '#CaveEblanEntrance',"#Damcyan"]
 
 for map_to_remove in to_remove:

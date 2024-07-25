@@ -127,6 +127,7 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Overworld,54,89,163,#BaronChocoboForest,8,11,up,entrance,#Overworld_#BaronChocoboForest_up,#Overworld
 #Overworld,55,34,101,#TroiaChocoboForest,8,11,up,entrance,#Overworld_#TroiaChocoboForest_up,#Overworld
 #Overworld,56,86,79,#IslandChocoboForest,8,11,up,entrance,#Overworld_#IslandChocoboForest_up,#Overworld
+#Overworld,57,41,53,#BlackChocoboForest,8,30,up,entrance,#Overworld_#BlackChocoboForest_up,#Overworld
 #Underworld,0,99,82,#DwarfCastle,15,30,up,entrance,#Underworld_#DwarfCastle_up,#Underworld
 #Underworld,1,100,82,#DwarfCastle,15,30,up,entrance,#Underworld_#DwarfCastle_up,#Underworld
 #Underworld,2,99,81,#DwarfCastle,15,30,up,entrance,#Underworld_#DwarfCastle_up,#Underworld
