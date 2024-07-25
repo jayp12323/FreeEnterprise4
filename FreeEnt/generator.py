@@ -41,7 +41,7 @@ from . import objective_rando
 from . import kit_rando
 from . import custom_weapon_rando
 from . import wacky_rando
-
+from . import doors_rando
 from . import compile_item_prices
 
 from .script_preprocessor import ScriptPreprocessor
@@ -210,6 +210,7 @@ class GeneratorOptions:
         self.cache_path = None
         self.clean_cache = True
         self.quickstart = False
+        #self.test_settings = {'quickstart': True, 'open': True, 'characters': True, 'items': True, 'gp': True}
         self.test_settings = dict()
         self.beta = False
         self.hide_flags = False
@@ -535,6 +536,7 @@ def select_from_catalog(catalog_path, env):
 #--------------------------------------------------------------------------
 
 def build(romfile, options, force_recompile=False):
+    print(options.test_settings)
     flags_version = options.flags.get_version()
     if flags_version is not None and list(flags_version) != list(version.NUMERIC_VERSION):
         raise BuildError(f"Binary flag string is from a different version (got {'.'.join([str(v) for v in flags_version])}, needed {version.NUMERIC_VERSION})")
@@ -575,6 +577,8 @@ def build(romfile, options, force_recompile=False):
         public=False)
 
     env.add_files(*(F4C_FILES.split()))
+
+
 
     env.add_substitution('version_encoded', ''.join([f'{b:02X}' for b in f4c.encode_text(options.get_version_str())]))
     env.add_substitution('title_screen_text', _generate_title_screen_text(options))
@@ -715,7 +719,7 @@ def build(romfile, options, force_recompile=False):
 
     # must be last
     wacky_rando.apply(env)
-
+    doors_rando.apply(env)
 
 
     # finalize rewards table
