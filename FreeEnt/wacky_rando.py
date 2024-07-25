@@ -1,6 +1,8 @@
 import os
 
 from . import databases
+from . import doors_rando
+
 from .address import *
 from .core_rando import BOSS_SLOTS
 
@@ -37,6 +39,7 @@ WACKY_CHALLENGES = {
     'saveusbigchocobo'  : 'Save Us,\nBig Chocobo!',
     'isthisrandomized'  : 'Is This Even\nRandomized?',
     'forwardisback'     : 'Forward is\nthe New Back',
+    'doorsrando'        : 'Door Randomizer',
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
@@ -475,3 +478,8 @@ def apply_worthfighting(env):
 
 def setup_saveusbigchocobo(env):
     env.meta['wacky_starter_kit'] = [( 'Carrot', [5] )]
+
+
+def apply_doorsrando(env):
+    doors_rando.apply(env)
+

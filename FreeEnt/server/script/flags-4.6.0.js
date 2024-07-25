@@ -1021,6 +1021,7 @@ const _FE_FLAGSPEC = {
         "-wacky:saveusbigchocobo",
         "-wacky:isthisrandomized",
         "-wacky:forwardisback",
+        "-wacky:doorsrando",
         "-spoil:all",
         "-spoil:keyitems",
         "-spoil:rewards",
@@ -1984,6 +1985,7 @@ const _FE_FLAGSPEC = {
             "-wacky:saveusbigchocobo",
             "-wacky:isthisrandomized",
             "-wacky:forwardisback"
+            "-wacky:doorsrando"
         ],
         [
             "-spoil:treasure",
@@ -8044,6 +8046,13 @@ const _FE_FLAGSPEC = {
             "size": 6,
             "value": 33
         },
+                {
+            "flag": "-wacky:doorsrando",
+            "offset": 246,
+            "size": 6,
+            "value": 34
+        },
+
         {
             "flag": "-spoil:all",
             "offset": 252,

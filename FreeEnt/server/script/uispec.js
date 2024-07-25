@@ -5087,6 +5087,11 @@ var FLAG_UISPEC = [
                 "title": "\"The Bodyguard\""
               },
               {
+                "flag": "-wacky:doorsrando",
+                "title": "\"Door Randomization\"",
+                "hard": true
+              },
+              {
                 "flag": "-wacky:enemyunknown",
                 "title": "\"Enemy Unknown\"",
                 "hard": true

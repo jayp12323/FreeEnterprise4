@@ -41,7 +41,6 @@ from . import objective_rando
 from . import kit_rando
 from . import custom_weapon_rando
 from . import wacky_rando
-from . import doors_rando
 from . import compile_item_prices
 
 from .script_preprocessor import ScriptPreprocessor
@@ -719,7 +718,6 @@ def build(romfile, options, force_recompile=False):
 
     # must be last
     wacky_rando.apply(env)
-    doors_rando.apply(env)
 
 
     # finalize rewards table
