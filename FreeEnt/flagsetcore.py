@@ -413,6 +413,9 @@ class FlagLogicCore:
         if len(start_include_flags) > 1 and flagset.has('Cstart:any'):
             self._simple_disable_regex(flagset, log, 'Cstart:any is specified', r'^Cstart:(?!any|not_)')
 
+        if flagset.has('Kstart:magma') and flagset.has('Kforce:hook'):
+            self._simple_disable_regex(flagset, log, 'Force hook with start:Magma', r'^Kforce:hook')
+
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
 
