@@ -94,7 +94,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Overworld,14,138,77,#WateryPass5F,24,9,down,entrance,#Overworld_#WateryPass5F_down,#Overworld
 #Overworld,15,134,72,#WaterfallEntrance,16,9,down,entrance,#Overworld_#WaterfallEntrance_down,#Overworld
 #Overworld,16,125,66,#Waterfall2F,16,11,down,entrance,#Overworld_#Waterfall2F_down,#Overworld
-#Overworld,18,118,58,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
 #Overworld,19,119,58,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
 #Overworld,20,118,57,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
 #Overworld,21,119,57,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
