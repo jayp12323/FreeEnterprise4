@@ -420,6 +420,7 @@ event($1B)  //Kainazzo battle, losing twins
     activate #PoromStatue
 
     music #Overworld
+    [#B #PutEnterprise 102 158]
     load map #Overworld at 102 158
 }
 
