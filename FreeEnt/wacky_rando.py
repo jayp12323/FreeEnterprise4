@@ -81,6 +81,7 @@ WACKY_RAM_USAGE = {
     'saveusbigchocobo'  : 0,
     'isthisrandomized'  : 0,
     'forwardisback'     : 0,
+    'doorsrando'     : 0,
     'mirrormirror'      : 13, # StatusEnforcement
 }
 
@@ -659,6 +660,6 @@ def setup_saveusbigchocobo(env):
     env.meta['wacky_starter_kit'] = [( 'Carrot', [5] )]
 
 
-def apply_doorsrando(env):
+def apply_doorsrando(env,rom_base):
     doors_rando.apply(env)
 

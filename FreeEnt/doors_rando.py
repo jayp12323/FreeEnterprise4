@@ -77,7 +77,10 @@ def shuffle_locations(env, entrances, exits, testing=False):
     remapped_ = remapped_entrances + remapped_exits
 
     grids = ["mapgrid ($04 17 31) { 7C }",
-             "mapgrid ($05 16 29) { 7C }"]
+             "mapgrid ($05 16 29) { 7C }",
+             "mapgrid ($06 15 31) { 7C }",
+             "mapgrid ($06 16 31) { 7C }",
+             "mapgrid ($06 17 31) { 7C }", ]
 
     for i in grids:
         env.add_script(i)
