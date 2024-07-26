@@ -6,7 +6,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #BaronTown,11,20,20,#RosaHouse,9,7,up,town_building,#BaronTown_#RosaHouse_up,#Overworld
 #BaronTown,12,3,19,#RoomToSewer,2,6,up,town_building,#BaronTown_#RoomToSewer_up,#Overworld
 #BaronTown,13,14,24,#TrainingRoomMain,7,14,up,town_building,#BaronTown_#TrainingRoomMain_up,#Overworld
-#BaronTown,14,4,26,#BaronSerpentRoad,5,11,up,town_building,#BaronTown_#BaronSerpentRoad_up,#Overworld
 #BaronTown,15,15,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
 #BaronTown,16,16,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
 #BaronTown,17,17,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
@@ -76,7 +75,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #MountHobsEast,1,21,31,#Overworld,160,50,,exit,#MountHobsEast_#Overworld_,#Overworld
 #MountOrdeals1F,3,20,31,#Overworld,218,200,,exit,#MountOrdeals1F_#Overworld_,#Overworld
 #MountOrdeals1F,4,21,31,#Overworld,218,200,,exit,#MountOrdeals1F_#Overworld_,#Overworld
-#CaveEblanEntrance,3,10,3,#Overworld,24,232,,exit,#CaveEblanEntrance_#Overworld_,#Overworld
 #Overworld,0,101,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
 #Overworld,1,102,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
 #Overworld,2,101,157,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
@@ -94,9 +92,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Overworld,14,138,77,#WateryPass5F,24,9,down,entrance,#Overworld_#WateryPass5F_down,#Overworld
 #Overworld,15,134,72,#WaterfallEntrance,16,9,down,entrance,#Overworld_#WaterfallEntrance_down,#Overworld
 #Overworld,16,125,66,#Waterfall2F,16,11,down,entrance,#Overworld_#Waterfall2F_down,#Overworld
-#Overworld,19,119,58,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
-#Overworld,20,118,57,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
-#Overworld,21,119,57,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
 #Overworld,22,136,56,#AntlionCave1F,15,4,down,entrance,#Overworld_#AntlionCave1F_down,#Overworld
 #Overworld,23,152,49,#MountHobsWest,15,28,up,entrance,#Overworld_#MountHobsWest_up,#Overworld
 #Overworld,24,160,49,#MountHobsEast,21,30,up,entrance,#Overworld_#MountHobsEast_up,#Overworld
@@ -127,7 +122,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Overworld,54,89,163,#BaronChocoboForest,8,11,up,entrance,#Overworld_#BaronChocoboForest_up,#Overworld
 #Overworld,55,34,101,#TroiaChocoboForest,8,11,up,entrance,#Overworld_#TroiaChocoboForest_up,#Overworld
 #Overworld,56,86,79,#IslandChocoboForest,8,11,up,entrance,#Overworld_#IslandChocoboForest_up,#Overworld
-#Overworld,57,41,53,#BlackChocoboForest,8,30,up,entrance,#Overworld_#BlackChocoboForest_up,#Overworld
 #Underworld,0,99,82,#DwarfCastle,15,30,up,entrance,#Underworld_#DwarfCastle_up,#Underworld
 #Underworld,1,100,82,#DwarfCastle,15,30,up,entrance,#Underworld_#DwarfCastle_up,#Underworld
 #Underworld,2,99,81,#DwarfCastle,15,30,up,entrance,#Underworld_#DwarfCastle_up,#Underworld
