@@ -1,0 +1,45 @@
+ai_script($E4)
+{
+    chain {
+        target $2a
+
+    // %shadow spell 1 replacement%
+    // %end%
+        
+        target $2a
+
+    // %shadow spell 2 replacement%
+    // %end%
+        
+        target $2a
+
+    // %shadow spell 3 replacement%
+    // %end%
+
+    }
+    
+    chain {
+        use #InvincibleOff
+
+        target self
+        use #Enemy_Retreat
+    }
+}
+
+ai_script($E2)
+{
+    // %golbez spell 1 replacement%
+    // %end%
+
+        pass
+        
+    // %golbez spell 2 replacement%
+    // %end%
+
+        pass
+        
+    // %golbez spell 3 replacement%
+    // %end%
+
+        pass
+}

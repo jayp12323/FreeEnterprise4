@@ -1078,7 +1078,6 @@ const _FE_FLAGSPEC = {
         "-wacky:random6",
         "-wacky:musical",
         "-wacky:bodyguard",
-        "-wacky:doorsrando",
         "-wacky:fistfight",
         "-wacky:omnidextrous",
         "-wacky:biggermagnet",
@@ -8714,12 +8713,6 @@ const _FE_FLAGSPEC = {
             "offset": 317,
             "size": 1,
             "value": 1
-        },
-        {
-            "flag": "-wacky:doorsrando",
-            "offset": 246,
-            "size": 6,
-            "value": 34
         },
         {
             "flag": "-spoil:all",

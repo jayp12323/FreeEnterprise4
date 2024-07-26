@@ -525,7 +525,7 @@ def apply(env):
             if weapon.subtype == 'bow':
                 arrow = env.rnd.choice(arrows_dbview.find_all())
                 starting_weapon_spoilers.append(SpoilerRow(REFERENCE_ACTORS_TO_SPOILER_NAMES[reference_actor_id], databases.get_item_spoiler_name(weapon) + ' + ' + databases.get_item_spoiler_name(arrow), obscurable=True))
-                main_hand_value = arrow.const + (' 1' if env.meta.get('wacky_challenge') == 'unstackable' else ' 20')
+                main_hand_value = arrow.const + (' 1' if 'unstackable' in env.meta.get('wacky_challenge', []) else ' 20')
                 off_hand_value = weapon.const
             else:
                 main_hand_value = weapon.const

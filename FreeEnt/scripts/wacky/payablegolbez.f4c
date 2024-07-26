@@ -19,14 +19,14 @@ msfpatch {
         asl a
         tax
         // Read cost of bribe and store for display
-        lda $=Wacky__ROMData,x
-        sta $_Wacky__RAM
+        lda $=Wacky__ROMData_payablegolbez,x
+        sta $_Wacky__RAM_payablegolbez
         sta $08f8
-        lda $=(Wacky__ROMData+1),x
-        sta $_(Wacky__RAM+1)
+        lda $=(Wacky__ROMData_payablegolbez+1),x
+        sta $_(Wacky__RAM_payablegolbez+1)
         sta $08f9
-        lda $=(Wacky__ROMData+2),x
-        sta $_(Wacky__RAM+2)
+        lda $=(Wacky__ROMData_payablegolbez+2),x
+        sta $_(Wacky__RAM_payablegolbez+2)
         sta $08fa
 
         // Display bribe prompt (based on inn code)
@@ -60,13 +60,13 @@ msfpatch {
         // deduct GP and check if enough
         lda $16a0
         sec
-        sbc $_Wacky__RAM
+        sbc $_Wacky__RAM_payablegolbez
         sta $30
         lda $16a1
-        sbc $_(Wacky__RAM+1)
+        sbc $_(Wacky__RAM_payablegolbez+1)
         sta $31
         lda $16a2
-        sbc $_(Wacky__RAM+2)
+        sbc $_(Wacky__RAM_payablegolbez+2)
         sta $32
         bcs $+EnoughGP
 

@@ -103,14 +103,14 @@ patch ($0fd240 bus) {
 ////////// 
 //////////     .new
 //////////     NightMode:
-//////////         stz $_Wacky__RAM
+//////////         stz $_Wacky__RAM_nightmode
 //////////         lda $81  // displaced
 //////////         bne $+ApplyExistingTint
 ////////// 
 //////////         jsl $=NightMode__IsOutdoorMap
 //////////         bcc $+Normal
 //////////     %IsOutdoors:
-//////////         inc $_Wacky__RAM
+//////////         inc $_Wacky__RAM_nightmode
 //////////         // apply custom night mode tint
 //////////         stz $212d
 //////////         lda #$83
@@ -133,7 +133,7 @@ patch ($0fd240 bus) {
 //////////     NightMode__SetTintAfterMenu:
 //////////         jsl $15C8E5 // displaced
 ////////// 
-//////////         lda $_Wacky__RAM
+//////////         lda $_Wacky__RAM_nightmode
 //////////         beq $+Normal
 //////////     %IsOutdoors:
 //////////         // apply custom night mode tint
@@ -153,7 +153,7 @@ patch ($0fd240 bus) {
 ////////// 
 //////////     .new
 //////////     NightMode__ExitTransitionFix:
-//////////         lda $_Wacky__RAM
+//////////         lda $_Wacky__RAM_nightmode
 //////////         beq $+Normal
 //////////         lda #$00
 //////////         bra $+Apply
@@ -161,7 +161,7 @@ patch ($0fd240 bus) {
 //////////         lda #$01
 //////////     %Apply:
 //////////         sta $212d
-//////////         stz $_Wacky__RAM
+//////////         stz $_Wacky__RAM_nightmode
 //////////         rtl
 ////////// }
 ////////// 

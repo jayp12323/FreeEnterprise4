@@ -64,6 +64,11 @@ event($08)
         [#B #Rando_DeliverRewardFromSlot #reward_slot.fixed_crystal]
         [#B #RestoreMusic]
         // %end%
+	// %if ki_objective_crystal%
+	// recurse in case this was the last KI we needed to complete the
+	// KI objective
+        [#B #GotoEvent $08]
+	// %end%
 
         // %flag objective_zeromus off%
         player face down

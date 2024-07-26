@@ -28,9 +28,148 @@ var FLAG_UISPEC = [
                 "description": "Defeat Milon, Milon Z., Kainazzo, Valvalis, Rubicant, and Elements to complete this mode."
               },
               {
-                "flag": "Omode:dkmatter",
+                "flag": "@anon1",
                 "title": "Dark Matter Hunt",
-                "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 30 of them to Kory in Agart to complete this objective."
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Omode:dkmatter5",
+                    "title": "Dark Matter Hunt - 5 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 5 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter10",
+                    "title": "Dark Matter Hunt - 10 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 10 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter15",
+                    "title": "Dark Matter Hunt - 15 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 15 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter20",
+                    "title": "Dark Matter Hunt - 20 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 20 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter25",
+                    "title": "Dark Matter Hunt - 25 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 25 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter30",
+                    "title": "Dark Matter Hunt - 30 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 30 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter35",
+                    "title": "Dark Matter Hunt - 35 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 35 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter40",
+                    "title": "Dark Matter Hunt - 40 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring 40 of them to Kory in Agart to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:dkmatter45",
+                    "title": "Dark Matter Hunt - 45 Required",
+                    "description": "45 Dark Matters are randomly placed in chests (MIABs excluded); bring all 45 of them to Kory in Agart to complete this objective."
+                  }
+                ]
+              },
+              {
+                "flag": "@anon2",
+                "title": "Key Item Hunt",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Omode:ki1",
+                    "title": "Obtain 1 key item",
+                    "description": "Obtain 1 key item to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki2",
+                    "title": "Obtain 2 key items",
+                    "description": "Obtain 2 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki3",
+                    "title": "Obtain 3 key items",
+                    "description": "Obtain 3 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki4",
+                    "title": "Obtain 4 key items",
+                    "description": "Obtain 4 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki5",
+                    "title": "Obtain 5 key items",
+                    "description": "Obtain 5 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki6",
+                    "title": "Obtain 6 key items",
+                    "description": "Obtain 6 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki7",
+                    "title": "Obtain 7 key items",
+                    "description": "Obtain 7 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki8",
+                    "title": "Obtain 8 key items",
+                    "description": "Obtain 8 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki9",
+                    "title": "Obtain 9 key items",
+                    "description": "Obtain 9 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki10",
+                    "title": "Obtain 10 key items",
+                    "description": "Obtain 10 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki11",
+                    "title": "Obtain 11 key items",
+                    "description": "Obtain 11 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki12",
+                    "title": "Obtain 12 key items",
+                    "description": "Obtain 12 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki13",
+                    "title": "Obtain 13 key items",
+                    "description": "Obtain 13 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki14",
+                    "title": "Obtain 14 key items",
+                    "description": "Obtain 14 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki15",
+                    "title": "Obtain 15 key items",
+                    "description": "Obtain 15 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki16",
+                    "title": "Obtain 16 key items",
+                    "description": "Obtain 16 key items to complete this objective."
+                  },
+                  {
+                    "flag": "Omode:ki17",
+                    "title": "Obtain 17 key items",
+                    "description": "Obtain 17 key items to complete this objective. Incompatible with <em>Owin:crystal</em>."
+                  }
+                ]
               }
             ]
           },
@@ -40,7 +179,7 @@ var FLAG_UISPEC = [
             "description": "<ul>\n    <li>Duplicate objectives will be omitted.</li>\n    <li>A character objective is met when the requirements to gain the character have been fulfilled; you do not need to actually add them to your party.</li>\n    <li>Starting characters do not count towards character objectives.</li>\n    <li>Setting the Pass quest objective with no other P flags will force Pkey to be enabled.</li>\n</ul>",
             "subcontrols": [
               {
-                "flag": "@anon1",
+                "flag": "@anon3",
                 "title": "Custom objective #1",
                 "type": "select",
                 "subcontrols": [
@@ -391,7 +530,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon2",
+                "flag": "@anon4",
                 "title": "Custom objective #2",
                 "type": "select",
                 "subcontrols": [
@@ -742,7 +881,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon3",
+                "flag": "@anon5",
                 "title": "Custom objective #3",
                 "type": "select",
                 "subcontrols": [
@@ -1093,7 +1232,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon4",
+                "flag": "@anon6",
                 "title": "Custom objective #4",
                 "type": "select",
                 "subcontrols": [
@@ -1444,7 +1583,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon5",
+                "flag": "@anon7",
                 "title": "Custom objective #5",
                 "type": "select",
                 "subcontrols": [
@@ -1795,7 +1934,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon6",
+                "flag": "@anon8",
                 "title": "Custom objective #6",
                 "type": "select",
                 "subcontrols": [
@@ -2146,7 +2285,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon7",
+                "flag": "@anon9",
                 "title": "Custom objective #7",
                 "type": "select",
                 "subcontrols": [
@@ -2497,7 +2636,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon8",
+                "flag": "@anon10",
                 "title": "Custom objective #8",
                 "type": "select",
                 "subcontrols": [
@@ -2850,11 +2989,11 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon9",
+            "flag": "@anon11",
             "title": "Random objectives",
             "subcontrols": [
               {
-                "flag": "@anon10",
+                "flag": "@anon12",
                 "title": "Set number of random objectives",
                 "type": "select",
                 "subcontrols": [
@@ -2897,7 +3036,7 @@ var FLAG_UISPEC = [
                 "title": "Restrict allowed random objective types",
                 "subcontrols": [
                   {
-                    "flag": "@anon11",
+                    "flag": "@anon13",
                     "title": "Quests allowed",
                     "type": "select",
                     "subcontrols": [
@@ -2925,7 +3064,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon12",
+            "flag": "@anon14",
             "title": "Set number of objectives required to earn reward",
             "type": "select",
             "subcontrols": [
@@ -2976,7 +3115,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon13",
+            "flag": "@anon15",
             "title": "Reward",
             "important": true,
             "type": "select",
@@ -3001,7 +3140,7 @@ var FLAG_UISPEC = [
     "title": "KEY ITEMS",
     "controls": [
       {
-        "flag": "@anon14",
+        "flag": "@anon16",
         "title": "Key Items",
         "important": true,
         "type": "select",
@@ -3012,10 +3151,30 @@ var FLAG_UISPEC = [
             "null": true,
             "subcontrols": [
               {
-                "flag": "Knofree",
-                "title": "No free key item in Toroia",
-                "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.",
-                "hard": true
+                "flag": "@anon17",
+                "title": "Replace free key item in Toroia",
+                "hard": true,
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Knofree",
+                    "title": "Rydia's mom requires defeating D.Mist to appear",
+                    "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Knofree:dwarf",
+                    "title": "Move key item from Toroia to Dwarf Castle",
+                    "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from talking to Cid in the Dwarf Castle hospital.",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Knofree:package",
+                    "title": "Rydia's mom requires burning Mist to appear",
+                    "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have used the Package to burn Mist Village.",
+                    "hard": true
+                  }
+                ]
               }
             ]
           },
@@ -3043,13 +3202,45 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
-                "flag": "Knofree",
-                "title": "No free key item in Toroia",
-                "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.",
+                "flag": "Kforge",
+                "title": "Forge provides a key item",
+                "description": "The reward for turning in the Legend Sword and Adamant to Kokkol is a key item. The vanilla Excalibur is added to the key items rewards pool. If the hero challenge is enabled, this overrides the normal <em>Chero</em> supersmith reward.",
                 "hard": true
               },
               {
-                "flag": "@anon15",
+                "flag": "Kpink",
+                "title": "Pink Tail trades for a key item",
+                "description": "The reward for trading away the Pink Tail is a key item. The vanilla Adamant Armor is added to the key item rewards pool unless adamant armors are disabled via <em>-noadamants</em>.",
+                "hard": true
+              },
+              {
+                "flag": "@anon18",
+                "title": "Replace free key item in Toroia",
+                "hard": true,
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Knofree",
+                    "title": "Rydia's mom requires defeating D.Mist to appear",
+                    "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Knofree:dwarf",
+                    "title": "Move key item from Toroia to Dwarf Castle",
+                    "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from talking to Cid in the Dwarf Castle hospital.",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Knofree:package",
+                    "title": "Rydia's mom requires burning Mist to appear",
+                    "description": "Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have used the Package to burn Mist Village.",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon19",
                 "title": "Underworld access",
                 "type": "select",
                 "subcontrols": [
@@ -3067,10 +3258,109 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "Kunsafe",
-                "title": "No safety checks",
-                "description": "<ul>\n    <li>Normally, you are guaranteed a path to the underworld that does not require first going to the moon. This flag removes that check.</li>\n    <li>If Kmiab is enabled, key items may appear in the Lunar Subterrane monster-in-a-box chests.</li>\n</ul>",
-                "hard": true
+                "flag": "@anon20",
+                "title": "Underworld safety checks",
+                "hard": true,
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Kunsafe",
+                    "title": "No safety checks",
+                    "description": "<ul>\n    <li>Normally, you are guaranteed a path to the underworld that does not require first going to the moon. This flag removes that check.</li>\n    <li>If Kmiab is enabled, key items may appear in the Lunar Subterrane monster-in-a-box chests.</li>\n</ul>",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Kunsafer",
+                    "title": "Force undeground access via the moon",
+                    "description": "As Kunsafe, but you will be <em>required</em> to obtain moon access prior to obtaining underground access.",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "Klatedark",
+                "title": "Force Darkness Crystal to be gated by underground access",
+                "description": "The Darkness Crystal will be gated by underground access."
+              },
+              {
+                "flag": "@Kstart",
+                "title": "Specify starting key item",
+                "description": "Specify the starting key item, i.e. the item that is given to you at the start of the game. You cannot start with the Crystal if the Crystal is the objective reward.",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Kstart:crystal",
+                    "title": "Start with the Crystal"
+                  },
+                  {
+                    "flag": "Kstart:pass",
+                    "title": "Start with the Pass"
+                  },
+                  {
+                    "flag": "Kstart:hook",
+                    "title": "Start with the Hook"
+                  },
+                  {
+                    "flag": "Kstart:darkness",
+                    "title": "Start with the Darkness Crystal"
+                  },
+                  {
+                    "flag": "Kstart:earth",
+                    "title": "Start with the Earth Crystal"
+                  },
+                  {
+                    "flag": "Kstart:twinharp",
+                    "title": "Start with the TwinHarp"
+                  },
+                  {
+                    "flag": "Kstart:package",
+                    "title": "Start with the Package"
+                  },
+                  {
+                    "flag": "Kstart:sandruby",
+                    "title": "Start with the SandRuby"
+                  },
+                  {
+                    "flag": "Kstart:baron",
+                    "title": "Start with the Baron Key"
+                  },
+                  {
+                    "flag": "Kstart:magma",
+                    "title": "Start with the Magma Key"
+                  },
+                  {
+                    "flag": "Kstart:tower",
+                    "title": "Start with the Tower Key"
+                  },
+                  {
+                    "flag": "Kstart:luca",
+                    "title": "Start with the Luca Key"
+                  },
+                  {
+                    "flag": "Kstart:adamant",
+                    "title": "Start with the Adamant"
+                  },
+                  {
+                    "flag": "Kstart:legend",
+                    "title": "Start with the Legend Sword"
+                  },
+                  {
+                    "flag": "Kstart:pan",
+                    "title": "Start with the Pan"
+                  },
+                  {
+                    "flag": "Kstart:spoon",
+                    "title": "Start with the Spoon"
+                  },
+                  {
+                    "flag": "Kstart:rat",
+                    "title": "Start with the Rat Tail"
+                  },
+                  {
+                    "flag": "Kstart:pink",
+                    "title": "Start with the Pink Tail"
+                  }
+                ]
               }
             ]
           }
@@ -3100,7 +3390,7 @@ var FLAG_UISPEC = [
     "title": "CHARACTERS",
     "controls": [
       {
-        "flag": "@anon16",
+        "flag": "@anon21",
         "title": "Characters",
         "important": true,
         "type": "select",
@@ -3121,7 +3411,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon17",
+                "flag": "@anon22",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -3182,12 +3472,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon18",
+                "flag": "@anon23",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon19",
+                    "flag": "@anon24",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3242,7 +3532,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon20",
+                    "flag": "@anon25",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3367,7 +3657,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon21",
+                "flag": "@anon26",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -3428,12 +3718,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon22",
+                "flag": "@anon27",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon23",
+                    "flag": "@anon28",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3488,7 +3778,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon24",
+                    "flag": "@anon29",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3561,7 +3851,7 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
-        "flag": "@anon25",
+        "flag": "@anon30",
         "title": "Specify possible starting characters",
         "null": true,
         "type": "select",
@@ -3710,7 +4000,7 @@ var FLAG_UISPEC = [
         "description": "Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)"
       },
       {
-        "flag": "@anon26",
+        "flag": "@anon31",
         "title": "Limit maximum party size",
         "type": "select",
         "subcontrols": [
@@ -3738,7 +4028,7 @@ var FLAG_UISPEC = [
         "description": "You have the choice of whether to accept each new party member, but once your party is full, you cannot recruit anyone else."
       },
       {
-        "flag": "@anon27",
+        "flag": "@anon32",
         "title": "Permadeath options",
         "type": "select",
         "subcontrols": [
@@ -3759,7 +4049,7 @@ var FLAG_UISPEC = [
       {
         "flag": "Chero",
         "title": "Hero challenge",
-        "description": "<ul><li>The starting character is your hero.</li><li>The hero is the only instance of that character available (unless other flags force it).</li><li>The hero cannot be dismissed.</li><li>The hero fights the Mt. Ordeals mirror room boss alone.</li><li>Kokkol will craft an FF4 Advance weapon usable by the hero.</li><li>The hero gains EXP even if incapacitated.</li><li>The hero is your agility anchor.</li><li>The hero is exempt from permadeath.</li></ul>",
+        "description": "<ul><li>The starting character is your hero.</li><li>The hero is the only instance of that character available (unless other flags force it).</li><li>The hero cannot be dismissed.</li><li>The hero fights the Mt. Ordeals mirror room boss alone.</li><li>Kokkol will craft an FF4 Advance weapon usable by the hero (unless forge is set to give a key item via <em>Kforge</em>).</li><li>The hero gains EXP even if incapacitated.</li><li>The hero is your agility anchor.</li><li>The hero is exempt from permadeath.</li></ul>",
         "hard": true
       }
     ]
@@ -3768,7 +4058,7 @@ var FLAG_UISPEC = [
     "title": "TREASURES",
     "controls": [
       {
-        "flag": "@anon28",
+        "flag": "@anon33",
         "title": "Treasure chests (other than MIABs)",
         "important": true,
         "type": "select",
@@ -3779,7 +4069,7 @@ var FLAG_UISPEC = [
             "null": true,
             "subcontrols": [
               {
-                "flag": "@anon29",
+                "flag": "@anon34",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -3829,7 +4119,7 @@ var FLAG_UISPEC = [
             "description": "Treasure contents are the same as in original FF4, but their positions are shuffled. This randomization is weighted so that overworld treasures tend to remain in the overworld, and similarly for underworld/moon treasures.",
             "subcontrols": [
               {
-                "flag": "@anon29",
+                "flag": "@anon34",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -3879,7 +4169,7 @@ var FLAG_UISPEC = [
             "description": "A basic randomization, allowing items of reasonable strength to appear. Items are equally likely to appear in any chest regardless of location.",
             "subcontrols": [
               {
-                "flag": "@anon29",
+                "flag": "@anon34",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -3922,7 +4212,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon30",
+                "flag": "@anon35",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -3947,6 +4237,155 @@ var FLAG_UISPEC = [
                     "flag": "Tmaxtier:3",
                     "title": "Chests contain tier 3 items at best",
                     "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon36",
+                "title": "Improve item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmintier:2",
+                    "title": "Chests contain tier 2 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:3",
+                    "title": "Chests contain tier 3 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:4",
+                    "title": "Chests contain tier 4 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:5",
+                    "title": "Chests contain tier 5 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:6",
+                    "title": "Chests contain tier 6 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:7",
+                    "title": "Chests contain tier 7 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:8",
+                    "title": "Chests contain tier 8 items"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "Tvanillaish",
+            "title": "Vanilla-ish chest randomization",
+            "description": "Uses location-based weighting, with item quality approximately that of the vanilla game.",
+            "subcontrols": [
+              {
+                "flag": "@anon34",
+                "title": "Sparse options",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon35",
+                "title": "Restrict item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmaxtier:7",
+                    "title": "Chests contain tier 7 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:6",
+                    "title": "Chests contain tier 6 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:5",
+                    "title": "Chests contain tier 5 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:4",
+                    "title": "Chests contain tier 4 items at best",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Tmaxtier:3",
+                    "title": "Chests contain tier 3 items at best",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon36",
+                "title": "Improve item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmintier:2",
+                    "title": "Chests contain tier 2 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:3",
+                    "title": "Chests contain tier 3 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:4",
+                    "title": "Chests contain tier 4 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:5",
+                    "title": "Chests contain tier 5 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:6",
+                    "title": "Chests contain tier 6 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:7",
+                    "title": "Chests contain tier 7 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:8",
+                    "title": "Chests contain tier 8 items"
                   }
                 ]
               }
@@ -3958,7 +4397,7 @@ var FLAG_UISPEC = [
             "description": "A skill-testing randomization, limiting the strength of available items, and weighted to favor stronger items in later-game and infrequently-visited areas.",
             "subcontrols": [
               {
-                "flag": "@anon29",
+                "flag": "@anon34",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4001,7 +4440,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon30",
+                "flag": "@anon35",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4026,6 +4465,155 @@ var FLAG_UISPEC = [
                     "flag": "Tmaxtier:3",
                     "title": "Chests contain tier 3 items at best",
                     "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon36",
+                "title": "Improve item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmintier:2",
+                    "title": "Chests contain tier 2 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:3",
+                    "title": "Chests contain tier 3 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:4",
+                    "title": "Chests contain tier 4 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:5",
+                    "title": "Chests contain tier 5 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:6",
+                    "title": "Chests contain tier 6 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:7",
+                    "title": "Chests contain tier 7 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:8",
+                    "title": "Chests contain tier 8 items"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "Tsemipro",
+            "title": "Semi-pro chest randomization",
+            "description": "Uses location-based weighting, with item quality between that provided by pro and wildish.",
+            "subcontrols": [
+              {
+                "flag": "@anon34",
+                "title": "Sparse options",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon35",
+                "title": "Restrict item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmaxtier:7",
+                    "title": "Chests contain tier 7 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:6",
+                    "title": "Chests contain tier 6 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:5",
+                    "title": "Chests contain tier 5 items at best"
+                  },
+                  {
+                    "flag": "Tmaxtier:4",
+                    "title": "Chests contain tier 4 items at best",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Tmaxtier:3",
+                    "title": "Chests contain tier 3 items at best",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon36",
+                "title": "Improve item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmintier:2",
+                    "title": "Chests contain tier 2 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:3",
+                    "title": "Chests contain tier 3 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:4",
+                    "title": "Chests contain tier 4 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:5",
+                    "title": "Chests contain tier 5 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:6",
+                    "title": "Chests contain tier 6 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:7",
+                    "title": "Chests contain tier 7 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:8",
+                    "title": "Chests contain tier 8 items"
                   }
                 ]
               }
@@ -4037,7 +4625,7 @@ var FLAG_UISPEC = [
             "description": "An unrestricted randomization, allowing equal chance for items to appear in any chest, including the most powerful items.",
             "subcontrols": [
               {
-                "flag": "@anon29",
+                "flag": "@anon34",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4080,7 +4668,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon30",
+                "flag": "@anon35",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4105,6 +4693,41 @@ var FLAG_UISPEC = [
                     "flag": "Tmaxtier:3",
                     "title": "Chests contain tier 3 items at best",
                     "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon36",
+                "title": "Improve item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmintier:2",
+                    "title": "Chests contain tier 2 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:3",
+                    "title": "Chests contain tier 3 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:4",
+                    "title": "Chests contain tier 4 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:5",
+                    "title": "Chests contain tier 5 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:6",
+                    "title": "Chests contain tier 6 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:7",
+                    "title": "Chests contain tier 7 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:8",
+                    "title": "Chests contain tier 8 items"
                   }
                 ]
               }
@@ -4116,7 +4739,7 @@ var FLAG_UISPEC = [
             "description": "Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.",
             "subcontrols": [
               {
-                "flag": "@anon29",
+                "flag": "@anon34",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4159,7 +4782,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon30",
+                "flag": "@anon35",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4184,6 +4807,41 @@ var FLAG_UISPEC = [
                     "flag": "Tmaxtier:3",
                     "title": "Chests contain tier 3 items at best",
                     "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "@anon36",
+                "title": "Improve item quality",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tmintier:2",
+                    "title": "Chests contain tier 2 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:3",
+                    "title": "Chests contain tier 3 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:4",
+                    "title": "Chests contain tier 4 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:5",
+                    "title": "Chests contain tier 5 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:6",
+                    "title": "Chests contain tier 6 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:7",
+                    "title": "Chests contain tier 7 items at minimum"
+                  },
+                  {
+                    "flag": "Tmintier:8",
+                    "title": "Chests contain tier 8 items"
                   }
                 ]
               }
@@ -4201,7 +4859,7 @@ var FLAG_UISPEC = [
         "title": "No J-items in chests"
       },
       {
-        "flag": "@anon31",
+        "flag": "@anon37",
         "title": "Junk management",
         "type": "select",
         "subcontrols": [
@@ -4223,7 +4881,7 @@ var FLAG_UISPEC = [
     "title": "SHOPS",
     "controls": [
       {
-        "flag": "@anon32",
+        "flag": "@anon38",
         "title": "Shops",
         "important": true,
         "type": "select",
@@ -4265,9 +4923,35 @@ var FLAG_UISPEC = [
             ]
           },
           {
+            "flag": "Swildish",
+            "title": "Wild-ish shop randomization",
+            "description": "A basic randomization, allowing slightly stronger items than the standard randomization to place in shops.",
+            "subcontrols": [
+              {
+                "flag": "Sunsafe",
+                "title": "No safety checks",
+                "description": "Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.",
+                "hard": true
+              }
+            ]
+          },
+          {
             "flag": "Swild",
             "title": "Wild shop randomization",
             "description": "An unrestricted randomization, allowing equal chance for items to appear in any shop, including the most powerful items.",
+            "subcontrols": [
+              {
+                "flag": "Sunsafe",
+                "title": "No safety checks",
+                "description": "Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.",
+                "hard": true
+              }
+            ]
+          },
+          {
+            "flag": "Svanillaish",
+            "title": "Vanilla-ish shop randomization",
+            "description": "Shops will contain items of similar quality and quantity as their vanilla counterparts.",
             "subcontrols": [
               {
                 "flag": "Sunsafe",
@@ -4294,7 +4978,7 @@ var FLAG_UISPEC = [
         "title": "Shop items are free"
       },
       {
-        "flag": "@anon33",
+        "flag": "@anon39",
         "title": "Sell prices",
         "type": "select",
         "subcontrols": [
@@ -4323,6 +5007,14 @@ var FLAG_UISPEC = [
       {
         "flag": "Sno:life",
         "title": "No Life potions in shops"
+      },
+      {
+        "flag": "Sno:veils",
+        "title": "No StarVeils/MoonVeils in shops"
+      },
+      {
+        "flag": "Sno:vampires",
+        "title": "No Vampires in shops"
       }
     ]
   },
@@ -4330,7 +5022,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon34",
+        "flag": "@anon40",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -4367,7 +5059,42 @@ var FLAG_UISPEC = [
         "description": "Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area."
       },
       {
-        "flag": "@anon35",
+        "flag": "@Brestrict",
+        "title": "Restrict required boss locations",
+        "description": "Limits the locations that bosses specified in objectives can appear in. If Knofree is enabled, this will include D.Mist.",
+        "subcontrols": [
+          {
+            "flag": "Brestrict:summon",
+            "title": "Required bosses cannot be at summon spots"
+          },
+          {
+            "flag": "Brestrict:moon",
+            "title": "Required bosses cannot be at moon spots"
+          },
+          {
+            "flag": "Brestrict:zot",
+            "title": "Required bosses cannot be in the Tower of Zot"
+          },
+          {
+            "flag": "Brestrict:hook",
+            "title": "Required bosses cannot be on the Hook route"
+          },
+          {
+            "flag": "Brestrict:giant",
+            "title": "Required bosses cannot be on the Giant of Babil"
+          },
+          {
+            "flag": "Brestrict:sealedcave",
+            "title": "Required bosses cannot be in Sealed Cave"
+          },
+          {
+            "flag": "Brestrict:package",
+            "title": "Required bosses cannot be behind the Package"
+          }
+        ]
+      },
+      {
+        "flag": "@anon41",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -4381,6 +5108,22 @@ var FLAG_UISPEC = [
             "description": "The replacement attack will be weaker than MegaNuke (unless <em>Bunsafe</em> is enabled, in which case it may not be)."
           }
         ]
+      },
+      {
+        "flag": "@anon42",
+        "title": "Change Golbez's behaviour",
+        "subcontrols": [
+          {
+            "flag": "Bwhybez",
+            "title": "Disable Golbez's Shadow summon",
+            "description": "Golbez does not use HoldGas or summon Shadow; he will immediately start cycling through his three available spells."
+          },
+          {
+            "flag": "Bwhichbez",
+            "title": "Replace Golbez's and Shadow's spells with random spells",
+            "description": "Each of Shadow's and Golbez's spells are replaced individually. If <em>Bunsafe</em> is enabled, Golbez has access to more powerful spells."
+          }
+        ]
       }
     ]
   },
@@ -4388,7 +5131,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon36",
+        "flag": "@anon43",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -4461,7 +5204,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon37",
+        "flag": "@anon44",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -4484,6 +5227,17 @@ var FLAG_UISPEC = [
         "flag": "Enoexp",
         "title": "No EXP for random encounters",
         "description": "Bosses and monster-in-a-box fights still award EXP.",
+        "hard": true
+      },
+      {
+        "flag": "Enogp",
+        "title": "No GP for random encounters",
+        "hard": true
+      },
+      {
+        "flag": "Enodmachin",
+        "title": "Disable D.Machin encounters",
+        "description": "The D.Machin in the Searcher encounter is replaced by a Horseman.",
         "hard": true
       }
     ]
@@ -4538,7 +5292,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon38",
+            "flag": "@anon45",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -4668,6 +5422,21 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit:adamant",
+                "title": "Adamant kit",
+                "description": "An Adamant Armor."
+              },
+              {
+                "flag": "-kit:cursed",
+                "title": "Cursed kit",
+                "description": "A Cursed Ring."
+              },
+              {
+                "flag": "-kit:hero",
+                "title": "Hero kit",
+                "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
+              },
+              {
                 "flag": "-kit:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -4675,7 +5444,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon39",
+            "flag": "@anon46",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -4805,6 +5574,21 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit2:adamant",
+                "title": "Adamant kit",
+                "description": "An Adamant Armor."
+              },
+              {
+                "flag": "-kit2:cursed",
+                "title": "Cursed kit",
+                "description": "A Cursed Ring."
+              },
+              {
+                "flag": "-kit2:hero",
+                "title": "Hero kit",
+                "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
+              },
+              {
                 "flag": "-kit2:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -4812,7 +5596,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon40",
+            "flag": "@anon47",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -4942,6 +5726,21 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit3:adamant",
+                "title": "Adamant kit",
+                "description": "An Adamant Armor."
+              },
+              {
+                "flag": "-kit3:cursed",
+                "title": "Cursed kit",
+                "description": "A Cursed Ring."
+              },
+              {
+                "flag": "-kit3:hero",
+                "title": "Hero kit",
+                "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
+              },
+              {
                 "flag": "-kit3:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -4964,7 +5763,7 @@ var FLAG_UISPEC = [
         "title": "Edward can equip the Spoon"
       },
       {
-        "flag": "@anon41",
+        "flag": "@anon48",
         "title": "Smithy reward",
         "type": "select",
         "subcontrols": [
@@ -5002,7 +5801,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon42",
+        "flag": "@anon49",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
           {
@@ -5060,168 +5859,198 @@ var FLAG_UISPEC = [
       {
         "flag": "@wacky",
         "title": "Wacky challenge",
-        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
+        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
-            "flag": "@anon43",
-            "title": "Select challenge",
+            "flag": "@anon50",
+            "title": "Random wacky challenge(s)",
             "type": "select",
             "subcontrols": [
               {
                 "flag": "-wacky:random",
-                "title": "Random wacky challenge",
+                "title": "1 random wacky challenge",
                 "hard": true
               },
               {
-                "flag": "-wacky:afflicted",
-                "title": "\"Afflicted\"",
+                "flag": "-wacky:random2",
+                "title": "2 random wacky challenges",
                 "hard": true
               },
               {
-                "flag": "-wacky:battlescars",
-                "title": "\"Battle Scars\"",
+                "flag": "-wacky:random3",
+                "title": "3 random wacky challenges",
                 "hard": true
               },
               {
-                "flag": "-wacky:bodyguard",
-                "title": "\"The Bodyguard\""
-              },
-              {
-                "flag": "-wacky:doorsrando",
-                "title": "\"Door Randomization\"",
+                "flag": "-wacky:random4",
+                "title": "4 random wacky challenges",
                 "hard": true
               },
               {
-                "flag": "-wacky:enemyunknown",
-                "title": "\"Enemy Unknown\"",
+                "flag": "-wacky:random5",
+                "title": "5 random wacky challenges",
                 "hard": true
               },
               {
-                "flag": "-wacky:musical",
-                "title": "\"Final Fantasy IV: The Musical\"",
+                "flag": "-wacky:random6",
+                "title": "6 random wacky challenges",
                 "hard": true
-              },
-              {
-                "flag": "-wacky:fistfight",
-                "title": "\"Fist Fight\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:floorislava",
-                "title": "\"The Floor Is Made Of Lava\""
-              },
-              {
-                "flag": "-wacky:forwardisback",
-                "title": "\"Forward is the New Back\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:friendlyfire",
-                "title": "\"Friendly Fire\""
-              },
-              {
-                "flag": "-wacky:gottagofast",
-                "title": "\"Gotta Go Fast\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:batman",
-                "title": "\"Holy Onomatopoeias, Batman!\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:imaginarynumbers",
-                "title": "\"Imaginary Numbers\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:isthisrandomized",
-                "title": "\"Is This Even Randomized?\""
-              },
-              {
-                "flag": "-wacky:kleptomania",
-                "title": "\"Kleptomania\""
-              },
-              {
-                "flag": "-wacky:menarepigs",
-                "title": "\"Men Are Pigs\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:misspelled",
-                "title": "\"Misspelled\""
-              },
-              {
-                "flag": "-wacky:biggermagnet",
-                "title": "\"A Much Bigger Magnet\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:mysteryjuice",
-                "title": "\"Mystery Juice\""
-              },
-              {
-                "flag": "-wacky:neatfreak",
-                "title": "\"Neat Freak\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:nightmode",
-                "title": "\"Night Mode\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:omnidextrous",
-                "title": "\"Omnidextrous\""
-              },
-              {
-                "flag": "-wacky:payablegolbez",
-                "title": "\"Payable Golbez\""
-              },
-              {
-                "flag": "-wacky:saveusbigchocobo",
-                "title": "\"Save Us, Big Chocobo!\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:sixleggedrace",
-                "title": "\"Six-Legged Race\""
-              },
-              {
-                "flag": "-wacky:skywarriors",
-                "title": "\"The Sky Warriors\""
-              },
-              {
-                "flag": "-wacky:worthfighting",
-                "title": "\"Something Worth Fighting For\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:tellahmaneuver",
-                "title": "\"The Tellah Maneuver\""
-              },
-              {
-                "flag": "-wacky:3point",
-                "title": "\"The 3-Point System\""
-              },
-              {
-                "flag": "-wacky:timeismoney",
-                "title": "\"Time is Money\""
-              },
-              {
-                "flag": "-wacky:darts",
-                "title": "\"World Championship of Darts\""
-              },
-              {
-                "flag": "-wacky:unstackable",
-                "title": "\"Unstackable\"",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:zombies",
-                "title": "\"Zombies!!!\""
               }
             ]
+          },
+          {
+            "flag": "-wacky:afflicted",
+            "title": "\"Afflicted\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:battlescars",
+            "title": "\"Battle Scars\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:bodyguard",
+            "title": "\"The Bodyguard\""
+          },
+          {
+            "flag": "-wacky:doorsrando",
+            "title": "\"Door Randomization\"",
+            "hard": true
+          },
+
+          {
+            "flag": "-wacky:enemyunknown",
+            "title": "\"Enemy Unknown\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:musical",
+            "title": "\"Final Fantasy IV: The Musical\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:fistfight",
+            "title": "\"Fist Fight\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:floorislava",
+            "title": "\"The Floor Is Made Of Lava\""
+          },
+          {
+            "flag": "-wacky:forwardisback",
+            "title": "\"Forward is the New Back\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:friendlyfire",
+            "title": "\"Friendly Fire\""
+          },
+          {
+            "flag": "-wacky:gottagofast",
+            "title": "\"Gotta Go Fast\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:batman",
+            "title": "\"Holy Onomatopoeias, Batman!\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:imaginarynumbers",
+            "title": "\"Imaginary Numbers\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:isthisrandomized",
+            "title": "\"Is This Even Randomized?\""
+          },
+          {
+            "flag": "-wacky:kleptomania",
+            "title": "\"Kleptomania\""
+          },
+          {
+            "flag": "-wacky:menarepigs",
+            "title": "\"Men Are Pigs\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:misspelled",
+            "title": "\"Misspelled\""
+          },
+          {
+            "flag": "-wacky:biggermagnet",
+            "title": "\"A Much Bigger Magnet\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:mirrormirror",
+            "title": "\"Mirror, Mirror, on the Wall\""
+          },
+          {
+            "flag": "-wacky:mysteryjuice",
+            "title": "\"Mystery Juice\""
+          },
+          {
+            "flag": "-wacky:neatfreak",
+            "title": "\"Neat Freak\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:nightmode",
+            "title": "\"Night Mode\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:omnidextrous",
+            "title": "\"Omnidextrous\""
+          },
+          {
+            "flag": "-wacky:payablegolbez",
+            "title": "\"Payable Golbez\""
+          },
+          {
+            "flag": "-wacky:saveusbigchocobo",
+            "title": "\"Save Us, Big Chocobo!\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:sixleggedrace",
+            "title": "\"Six-Legged Race\""
+          },
+          {
+            "flag": "-wacky:skywarriors",
+            "title": "\"The Sky Warriors\""
+          },
+          {
+            "flag": "-wacky:worthfighting",
+            "title": "\"Something Worth Fighting For\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:tellahmaneuver",
+            "title": "\"The Tellah Maneuver\""
+          },
+          {
+            "flag": "-wacky:3point",
+            "title": "\"The 3-Point System\""
+          },
+          {
+            "flag": "-wacky:timeismoney",
+            "title": "\"Time is Money\""
+          },
+          {
+            "flag": "-wacky:darts",
+            "title": "\"World Championship of Darts\""
+          },
+          {
+            "flag": "-wacky:unstackable",
+            "title": "\"Unstackable\"",
+            "hard": true
+          },
+          {
+            "flag": "-wacky:zombies",
+            "title": "\"Zombies!!!\""
           }
         ]
       }
@@ -5231,7 +6060,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon44",
+        "flag": "@anon51",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -5285,7 +6114,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon45",
+            "flag": "@anon52",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -5301,7 +6130,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon53",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

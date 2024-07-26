@@ -10,7 +10,7 @@ msfpatch {
     %Overworld:
         // set can't run value
         lda #$01
-        sta $_Wacky__RAM
+        sta $_Wacky__RAM_worthfighting
 
         lda #$00
         ldy #$8a73
@@ -18,7 +18,7 @@ msfpatch {
 
     Wacky__PostBattleHook:
         // clear can't run value
-        stz $_Wacky__RAM
+        stz $_Wacky__RAM_worthfighting
         rtl
 }
 
@@ -31,7 +31,7 @@ msfpatch {
     Wacky__WannaFight_RunCheck1:
         and #$01
         bne $+RunningDisabled
-        lda $_Wacky__RAM
+        lda $_Wacky__RAM_worthfighting
         bne $+RunningDisabled
         lda #$00
         jml $03a0b4
@@ -48,7 +48,7 @@ msfpatch {
     Wacky__WannaFight_RunCheck2:
         and #$01
         bne $+RunningDisabled
-        lda $_Wacky__RAM
+        lda $_Wacky__RAM_worthfighting
         bne $+RunningDisabled
         lda #$00
         jml $03d986

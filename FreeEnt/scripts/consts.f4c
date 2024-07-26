@@ -33,6 +33,7 @@ consts(flag) {
     $65   fe_GotLegendSword
     $66   fe_CompletedEnoughObjectives
     $67   fe_UnlockedSewer
+    $68   fe_GotDwarfHospitalItem
     $70   fe_EncountersOff
     $71   fe_HeroSoloBattle
     $72   fe_BossBypass
@@ -62,6 +63,23 @@ consts(msg) {
     $118  fe_WackyChallengeIntro
     $119  fe_WackyChallengeTitle
     $11A  fe_WackyChallengeDetail
+    $11F  fe_WackyChallengeDelimiter
+    $120  fe_WackyChallengeTitle2
+	$121  fe_WackyChallengeTitle3
+    $122  fe_WackyChallengeTitle4
+	$123  fe_WackyChallengeTitle5
+    $124  fe_WackyChallengeTitle6
+	$125  fe_WackyChallengeTitle7
+    $126  fe_WackyChallengeTitle8
+	$127  fe_WackyChallengeTitle9
+    $128  fe_WackyChallengeTitle10
+	$129  fe_WackyChallengeTitle11
+    $12A  fe_WackyChallengeTitle12
+	$12B  fe_WackyChallengeTitle13
+    $12C  fe_WackyChallengeTitle14
+	$12D  fe_WackyChallengeTitle15
+    $12E  fe_WackyChallengeTitle16
+	$12F  fe_WackyChallengeTitle17
 
     $14B  fe_WackyDialogue
 }

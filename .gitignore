@@ -1,0 +1,10 @@
+ENV/**
+FreeEnt/.build/**
+**/*.pyc
+FreeEnt/server/_build/**
+.lastseed
+*.smc
+*.public
+*.private
+*.symbols
+*.script

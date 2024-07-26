@@ -9,6 +9,57 @@ npc(#TrainingRoomSoldierOutside)
 event($F8) {
     message #msg.fe_WackyChallengeIntro
     message #msg.fe_WackyChallengeTitle
+	// %if wacky_challenge_2%
+	message #msg.fe_WackyChallengeDelimiter
+	message #msg.fe_WackyChallengeTitle2
+	// %end%
+	// %if wacky_challenge_3%
+	message #msg.fe_WackyChallengeDelimiter
+	message #msg.fe_WackyChallengeTitle3
+	// %end%
+	// %if wacky_challenge_4%
+	message #msg.fe_WackyChallengeDelimiter
+	message #msg.fe_WackyChallengeTitle4
+	// %end%
+	// %if wacky_challenge_5%
+	message #msg.fe_WackyChallengeTitle5
+	// %end%
+	// %if wacky_challenge_6%
+	message #msg.fe_WackyChallengeTitle6
+	// %end%
+	// %if wacky_challenge_7%
+	message #msg.fe_WackyChallengeTitle7
+	// %end%
+	// %if wacky_challenge_8%
+	message #msg.fe_WackyChallengeTitle8
+	// %end%
+	// %if wacky_challenge_9%
+	message #msg.fe_WackyChallengeTitle9
+	// %end%
+	// %if wacky_challenge_10%
+	message #msg.fe_WackyChallengeTitle10
+	// %end%
+	// %if wacky_challenge_11%
+	message #msg.fe_WackyChallengeTitle11
+	// %end%
+	// %if wacky_challenge_12%
+	message #msg.fe_WackyChallengeTitle12
+	// %end%
+	// %if wacky_challenge_13%
+	message #msg.fe_WackyChallengeTitle13
+	// %end%
+	// %if wacky_challenge_14%
+	message #msg.fe_WackyChallengeTitle14
+	// %end%
+	// %if wacky_challenge_15%
+	message #msg.fe_WackyChallengeTitle15
+	// %end%
+	// %if wacky_challenge_16%
+	message #msg.fe_WackyChallengeTitle16
+	// %end%
+	// %if wacky_challenge_17%
+	message #msg.fe_WackyChallengeTitle17
+	// %end%
     // %if wacky_challenge_show_detail%
     message #msg.fe_WackyChallengeDetail
     // %end%

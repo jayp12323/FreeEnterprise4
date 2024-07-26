@@ -527,10 +527,8 @@ Have you found them all?
 }
 text(bank 1 message $79)   // $59  rydias_mom_item
 {
-Once the Mist Dragon has
-been hunted down, Rydia's
-mother in Mist will offer
-a reward.
+Rydia's mother in Mist
+will offer a reward.
 }
 text(bank 1 message $7A)   // $5A  fallen_golbez_item
 {
@@ -548,3 +546,9 @@ text(bank 1 message $7C)   // $5C  pink_trade_item
 {X}
 text(bank 1 message $7D)   // $5D  fixed_crystal
 {X}
+text(bank 1 message $7E)   // $5E  dwarf_hospital_item
+{
+[Cid] has a gift for you.
+He's injured in the Dwarf
+Castle.
+}

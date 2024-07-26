@@ -90,6 +90,7 @@ consts(reward_slot)
     $5B     forge_item
     $5C     pink_trade_item
     $5D     fixed_crystal
+    $5E     dwarf_hospital_item
 
     // current maximum: 0x60 reward slots
 }
@@ -196,6 +197,7 @@ msfpatch {
         "Forged by Kokkol                "   // $5B     forge_item
         "Adamant Grotto[$cc][tail]Pink trade[$cd]     "   // $5C     pink_trade_item
         "Objective completion            "   // $5D     fixed_crystal
+        "Dwarf Castle infirmiary         "   // $5E     dwarf_hospital_item
 }
 
 msfpatch {
@@ -203,6 +205,7 @@ msfpatch {
     .def Rewards__CurrentValueLo  $7e1622
     .def Rewards__CurrentValueHi  $7e1623
     .def Rewards__PendingDeliverySlot  $7e1626
+    .def Rewards__TriggerDeliveryEvent $7e1627
 
     // sub: given reward code A, return in
     //   X the reward code
@@ -260,6 +263,15 @@ msfpatch {
         // this is a key item, execute required additional steps:
         // set corresponding plot flags
         jsl $=Rewards__DeliverKeyItemSideEffects
+//%if ki_objective_crystal%
+        lda $_Rewards__CurrentValueLo
+	cmp #$c8 //#item.Crystal
+	beq $+DeliverNormalItem // don't recurse when getting the crystal
+	                        // from Omode:ki in case this hangs
+//%end%
+//%if ki_objective%
+        jsl $=EvEx__ObjectivesImpl_DoEvent 
+//%end%
 
     %DeliverNormalItem:
         // get item code back and do "give item" handler
@@ -324,6 +336,20 @@ msfpatch {
         ldx #$_Tracker__KeyItemUsedFlags
         jsl $=Tracker__SetBit
     %ItemNotYetUsed:
+
+// %if ki_objective%
+        lda $_Stats_KeyItems
+// %end%
+// %completed ki objective check%
+// %end%
+// %if ki_objective%
+        bne $+ObjectiveNotYetMet
+
+        lda #$6B
+        jsl $=Objectives__StageProgress
+
+    %ObjectiveNotYetMet:
+// %end%
     
         lda $1680
         asl a
@@ -423,6 +449,15 @@ msfpatch {
         lda $08
         jsl $=Rewards__DeliverFromSlot
 
+//%if ki_objective%
+        ldx #$6dff  // end event on return
+        stx $1615   // [hardcoded]
+	lda #$.Objectives__ProcessEventID
+        ldx #$df63
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCall
+//%end%
+
         jml $009794
 }
 
@@ -462,6 +497,11 @@ msfpatch {
 
         and #$02
         beq $+IsRegularItem
+
+//%if ki_objective%
+	lda #$ff
+	sta $_Rewards__TriggerDeliveryEvent
+//%end%
 
         lda $_Rewards__CurrentValueLo
         cmp #$fc // hook

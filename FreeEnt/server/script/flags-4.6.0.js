@@ -727,7 +727,11 @@ const _FE_FLAGSPEC = {
         "Kmain",
         "Ksummon",
         "Kmoon",
+<<<<<<< HEAD
+        "Ktrap",
+=======
         "Kmiab",
+>>>>>>> main
         "Knofree",
         "Kunsafe",
         "Kforce:magma",
@@ -901,7 +905,11 @@ const _FE_FLAGSPEC = {
         "-kit:yang",
         "-kit:money",
         "-kit:grabbag",
+<<<<<<< HEAD
+        "-kit:trap",
+=======
         "-kit:miab",
+>>>>>>> main
         "-kit:archer",
         "-kit:fabul",
         "-kit:castlevania",
@@ -927,7 +935,11 @@ const _FE_FLAGSPEC = {
         "-kit2:yang",
         "-kit2:money",
         "-kit2:grabbag",
+<<<<<<< HEAD
+        "-kit2:trap",
+=======
         "-kit2:miab",
+>>>>>>> main
         "-kit2:archer",
         "-kit2:fabul",
         "-kit2:castlevania",
@@ -953,7 +965,11 @@ const _FE_FLAGSPEC = {
         "-kit3:yang",
         "-kit3:money",
         "-kit3:grabbag",
+<<<<<<< HEAD
+        "-kit3:trap",
+=======
         "-kit3:miab",
+>>>>>>> main
         "-kit3:archer",
         "-kit3:fabul",
         "-kit3:castlevania",
@@ -983,12 +999,24 @@ const _FE_FLAGSPEC = {
         "-vanilla:hobs",
         "-vanilla:growup",
         "-vanilla:fashion",
+<<<<<<< HEAD
+        "-vanilla:traps",
+=======
         "-vanilla:miabs",
+>>>>>>> main
         "-vanilla:giant",
         "-vanilla:z",
         "-vintage",
         "-pushbtojump",
         "-wacky:random",
+<<<<<<< HEAD
+        "-wacky:random2",
+        "-wacky:random3",
+        "-wacky:random4",
+        "-wacky:random5",
+        "-wacky:random6",
+=======
+>>>>>>> main
         "-wacky:musical",
         "-wacky:bodyguard",
         "-wacky:fistfight",
@@ -1027,7 +1055,11 @@ const _FE_FLAGSPEC = {
         "-spoil:rewards",
         "-spoil:chars",
         "-spoil:treasure",
+<<<<<<< HEAD
+        "-spoil:traps",
+=======
         "-spoil:miabs",
+>>>>>>> main
         "-spoil:shops",
         "-spoil:bosses",
         "-spoil:misc",
@@ -1873,7 +1905,11 @@ const _FE_FLAGSPEC = {
             "-kit:yang",
             "-kit:money",
             "-kit:grabbag",
+<<<<<<< HEAD
+            "-kit:trap",
+=======
             "-kit:miab",
+>>>>>>> main
             "-kit:archer",
             "-kit:fabul",
             "-kit:castlevania",
@@ -1901,7 +1937,11 @@ const _FE_FLAGSPEC = {
             "-kit2:yang",
             "-kit2:money",
             "-kit2:grabbag",
+<<<<<<< HEAD
+            "-kit2:trap",
+=======
             "-kit2:miab",
+>>>>>>> main
             "-kit2:archer",
             "-kit2:fabul",
             "-kit2:castlevania",
@@ -1929,7 +1969,11 @@ const _FE_FLAGSPEC = {
             "-kit3:yang",
             "-kit3:money",
             "-kit3:grabbag",
+<<<<<<< HEAD
+            "-kit3:trap",
+=======
             "-kit3:miab",
+>>>>>>> main
             "-kit3:archer",
             "-kit3:fabul",
             "-kit3:castlevania",
@@ -1953,6 +1997,17 @@ const _FE_FLAGSPEC = {
         ],
         [
             "-wacky:random",
+<<<<<<< HEAD
+            "-wacky:random2",
+            "-wacky:random3",
+            "-wacky:random4",
+            "-wacky:random5",
+            "-wacky:random6"
+        ],
+        [
+            "-spoil:treasure",
+            "-spoil:traps"
+=======
             "-wacky:musical",
             "-wacky:bodyguard",
             "-wacky:fistfight",
@@ -1990,6 +2045,7 @@ const _FE_FLAGSPEC = {
         [
             "-spoil:treasure",
             "-spoil:miabs"
+>>>>>>> main
         ],
         [
             "-spoil:sparse10",
@@ -6325,7 +6381,11 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
+<<<<<<< HEAD
+            "flag": "Ktrap",
+=======
             "flag": "Kmiab",
+>>>>>>> main
             "offset": 77,
             "size": 1,
             "value": 1
@@ -7327,7 +7387,11 @@ const _FE_FLAGSPEC = {
             "value": 9
         },
         {
+<<<<<<< HEAD
+            "flag": "-kit:trap",
+=======
             "flag": "-kit:miab",
+>>>>>>> main
             "offset": 213,
             "size": 5,
             "value": 10
@@ -7483,7 +7547,11 @@ const _FE_FLAGSPEC = {
             "value": 9
         },
         {
+<<<<<<< HEAD
+            "flag": "-kit2:trap",
+=======
             "flag": "-kit2:miab",
+>>>>>>> main
             "offset": 218,
             "size": 5,
             "value": 10
@@ -7639,7 +7707,11 @@ const _FE_FLAGSPEC = {
             "value": 9
         },
         {
+<<<<<<< HEAD
+            "flag": "-kit3:trap",
+=======
             "flag": "-kit3:miab",
+>>>>>>> main
             "offset": 223,
             "size": 5,
             "value": 10
@@ -7819,7 +7891,11 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
+<<<<<<< HEAD
+            "flag": "-vanilla:traps",
+=======
             "flag": "-vanilla:miabs",
+>>>>>>> main
             "offset": 241,
             "size": 1,
             "value": 1
@@ -7851,6 +7927,61 @@ const _FE_FLAGSPEC = {
         {
             "flag": "-wacky:random",
             "offset": 246,
+<<<<<<< HEAD
+            "size": 3,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:random2",
+            "offset": 246,
+            "size": 3,
+            "value": 2
+        },
+        {
+            "flag": "-wacky:random3",
+            "offset": 246,
+            "size": 3,
+            "value": 3
+        },
+        {
+            "flag": "-wacky:random4",
+            "offset": 246,
+            "size": 3,
+            "value": 4
+        },
+        {
+            "flag": "-wacky:random5",
+            "offset": 246,
+            "size": 3,
+            "value": 5
+        },
+        {
+            "flag": "-wacky:random6",
+            "offset": 246,
+            "size": 3,
+            "value": 6
+        },
+        {
+            "flag": "-wacky:musical",
+            "offset": 249,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:bodyguard",
+            "offset": 250,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:fistfight",
+            "offset": 251,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:omnidextrous",
+=======
             "size": 6,
             "value": 1
         },
@@ -8055,109 +8186,354 @@ const _FE_FLAGSPEC = {
 
         {
             "flag": "-spoil:all",
+>>>>>>> main
             "offset": 252,
             "size": 1,
             "value": 1
         },
         {
+<<<<<<< HEAD
+            "flag": "-wacky:biggermagnet",
+=======
             "flag": "-spoil:keyitems",
+>>>>>>> main
             "offset": 253,
             "size": 1,
             "value": 1
         },
         {
+<<<<<<< HEAD
+            "flag": "-wacky:sixleggedrace",
+=======
             "flag": "-spoil:rewards",
+>>>>>>> main
             "offset": 254,
             "size": 1,
             "value": 1
         },
         {
+<<<<<<< HEAD
+            "flag": "-wacky:floorislava",
+=======
             "flag": "-spoil:chars",
+>>>>>>> main
             "offset": 255,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:treasure",
+<<<<<<< HEAD
+            "flag": "-wacky:neatfreak",
             "offset": 256,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:miabs",
-            "offset": 256,
-            "size": 2,
-            "value": 2
+            "flag": "-wacky:timeismoney",
+            "offset": 257,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "-spoil:shops",
+            "flag": "-wacky:nightmode",
             "offset": 258,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:bosses",
+            "flag": "-wacky:mysteryjuice",
             "offset": 259,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:misc",
+            "flag": "-wacky:misspelled",
             "offset": 260,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:sparse10",
+            "flag": "-wacky:enemyunknown",
             "offset": 261,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:kleptomania",
+            "offset": 262,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:darts",
+            "offset": 263,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:unstackable",
+            "offset": 264,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:menarepigs",
+            "offset": 265,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:skywarriors",
+            "offset": 266,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:zombies",
+            "offset": 267,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:afflicted",
+            "offset": 268,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:batman",
+            "offset": 269,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:battlescars",
+            "offset": 270,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:imaginarynumbers",
+            "offset": 271,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:tellahmaneuver",
+            "offset": 272,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:3point",
+            "offset": 273,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:friendlyfire",
+            "offset": 274,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:payablegolbez",
+            "offset": 275,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:gottagofast",
+            "offset": 276,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:worthfighting",
+            "offset": 277,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:saveusbigchocobo",
+            "offset": 278,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:isthisrandomized",
+            "offset": 279,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:forwardisback",
+            "offset": 280,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:all",
+            "offset": 281,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:keyitems",
+            "offset": 282,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:rewards",
+            "offset": 283,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:chars",
+            "offset": 284,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:treasure",
+            "offset": 285,
+=======
+            "flag": "-spoil:treasure",
+            "offset": 256,
+>>>>>>> main
+            "size": 2,
+            "value": 1
+        },
+        {
+<<<<<<< HEAD
+            "flag": "-spoil:traps",
+            "offset": 285,
+=======
+            "flag": "-spoil:miabs",
+            "offset": 256,
+>>>>>>> main
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "-spoil:shops",
+<<<<<<< HEAD
+            "offset": 287,
+=======
+            "offset": 258,
+>>>>>>> main
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:bosses",
+<<<<<<< HEAD
+            "offset": 288,
+=======
+            "offset": 259,
+>>>>>>> main
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:misc",
+<<<<<<< HEAD
+            "offset": 289,
+=======
+            "offset": 260,
+>>>>>>> main
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:sparse10",
+<<<<<<< HEAD
+            "offset": 290,
+=======
+            "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 1
         },
         {
             "flag": "-spoil:sparse20",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 2
         },
         {
             "flag": "-spoil:sparse30",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 3
         },
         {
             "flag": "-spoil:sparse40",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 4
         },
         {
             "flag": "-spoil:sparse50",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 5
         },
         {
             "flag": "-spoil:sparse60",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 6
         },
         {
             "flag": "-spoil:sparse70",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 7
         },
         {
             "flag": "-spoil:sparse80",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 8
         },
         {
             "flag": "-spoil:sparse90",
+<<<<<<< HEAD
+            "offset": 290,
+=======
             "offset": 261,
+>>>>>>> main
             "size": 4,
             "value": 9
         }
@@ -9300,7 +9676,11 @@ class FlagSetCore {
         return lines;
     }
     to_string(pretty = false, wrap_width = null) {
+<<<<<<< HEAD
+        var last_superflag, line, lines, paragraph_indent, parsed, parts, prefix, segment, subflag_obj_index, subflag_obj_list, sublines, subsubflags, superflag, superflag_prefix;
+=======
         var last_superflag, line, lines, paragraph_indent, parsed, parts, prefix, segment, subflag_obj_index, subflag_obj_list, sublines, subsubflags, superflag, superflag_last_index, superflag_prefix;
+>>>>>>> main
         parsed = this.parse();
         parts = [];
         lines = [];
@@ -9316,8 +9696,12 @@ class FlagSetCore {
             }
             superflag = superflag_obj[0];
             last_superflag = superflag;
+<<<<<<< HEAD
+            superflag_prefix = (superflag + ((pretty && (superflag.slice((- 1))[0] !== ":")) ? " " : ""));
+=======
             superflag_last_index = (superflag.length - 1);
             superflag_prefix = (superflag + ((pretty && (superflag[superflag_last_index] !== ":")) ? " " : ""));
+>>>>>>> main
             this._lib.push(parts, superflag_prefix);
             if ((superflag_obj[1].length > 0)) {
                 if ((superflag[0] === "-")) {
@@ -9430,7 +9814,11 @@ class FlagLogicCore {
     fix(flagset) {
         var all_spoiler_flags, ch, char_objective_flags, distinct_count, distinct_flags, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
         log = [];
+<<<<<<< HEAD
+        if ((flagset.has_any("Ksummon", "Kmoon", "Ktrap") && (! flagset.has("Kmain")))) {
+=======
         if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
+>>>>>>> main
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }

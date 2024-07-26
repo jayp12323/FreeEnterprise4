@@ -96,6 +96,7 @@ patch($21d000 bus) {
     ##map.SmithyHouseMainFloor         07 0A // forge_item                  = 0x5B
     ##map.AdamantGrotto                07 0C // pink_trade_item             = 0x5C
     00 00 00 00                              // fixed_crystal               = 0x5D
+    ##map.DwarfCastleHospital          03 03 // dwarf_hospital_item         = 0x5E
 }
 
 
@@ -547,10 +548,6 @@ text($21d500 bus) {
 ~~~~~THEUNTEHUTU
 ~~~~~~~12345678
 // %end%
-
-
-
-
 ~~~~~Completed in
 ~~~~~~~[$03][$04]
 

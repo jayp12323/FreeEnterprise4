@@ -1,75 +1,3 @@
-// Fun fact, we only get 10 digits to work with
-//  0123456789
-//  !ABFKMOPWZ
-// These letters give us:
-//  POP!  -> 7670
-//  POK!  -> 7640
-//  POW!  -> 7680
-//  OOF!  -> 6630
-//  WAM!  -> 8150
-//  WAK!  -> 8140
-//  WAP!  -> 8170
-//  ZAK!  -> 9140
-//  ZOK!  -> 9640
-//  ZAP!  -> 9170
-//  KOF!  -> 4630
-//  BOF!  -> 2630
-//  BOP!  -> 2670
-//  BAP!  -> 2170
-//  BAM!  -> 2150
-//  MOP!  -> 5670
-//  ZOO!  -> 9660
-//  KAK!  -> 4140
-//  KAF!  -> 4130
-//  OOP!  -> 6670
-//  ZAM!  -> 9150
-//  ZOW!  -> 9680
-//  ZZK!  -> 9940
-//  PAF!  -> 7130
-//  PAK!  -> 7140
-//  KOW!  -> 4680
-//  AWK!  -> 1840
-//  BAF!  -> 2130
-//  POF!  -> 7630
-//  OMF!  -> 6530
-//  OWW!  -> 6880
-
-patch(${% wacky_rom_data_addr %} bus)
-{
-        87 86 87 80
-        87 86 84 80
-        87 86 88 80
-        86 86 83 80
-        88 81 85 80
-        88 81 84 80
-        88 81 87 80
-        89 81 84 80
-        89 86 84 80
-        89 81 87 80
-        84 86 83 80
-        82 86 83 80
-        82 86 87 80
-        82 81 87 80
-        82 81 85 80
-        85 86 87 80
-        89 86 86 80
-        84 81 84 80
-        84 81 83 80
-        86 86 87 80
-        89 81 85 80
-        89 86 88 80
-        89 89 84 80
-        87 81 83 80
-        87 81 84 80
-        84 86 88 80
-        81 88 84 80
-        82 81 83 80
-        87 86 83 80
-        86 85 83 80
-        86 88 88 80
-}
-
-
 // 0 -> !
 chr($67e40 3bit) {
 00011000
@@ -209,16 +137,16 @@ msfpatch {
         asl a
         tax
 
-        lda $=Wacky__ROMData,x
+        lda $=Wacky__ROMData_batman,x
         sta $180c
         inx
-        lda $=Wacky__ROMData,x
+        lda $=Wacky__ROMData_batman,x
         sta $180d
         inx
-        lda $=Wacky__ROMData,x
+        lda $=Wacky__ROMData_batman,x
         sta $180e
         inx
-        lda $=Wacky__ROMData,x
+        lda $=Wacky__ROMData_batman,x
         sta $180f
 
         rtl

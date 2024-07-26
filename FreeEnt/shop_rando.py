@@ -55,6 +55,11 @@ def apply(env):
         banned_items.append('#item.Siren')
     if env.options.flags.has('shops_no_life'):
         banned_items.append('#item.Life')
+    if env.options.flags.has('shops_no_veils'):
+        banned_items.append('#item.StarVeil')
+        banned_items.append('#item.MoonVeil')
+    if env.options.flags.has('shops_no_vampires'):
+        banned_items.append('#item.Vampire')
     if env.options.flags.has('no_adamants'):
         banned_items.append('#item.AdamantArmor')
     if env.options.flags.has('no_cursed_rings'):
@@ -65,13 +70,14 @@ def apply(env):
     if env.options.flags.has('shops_no_j_items'):
         items_dbview.refine(lambda it: not it.j)
 
-    if env.meta.get('wacky_challenge') == 'kleptomania':
+    wacky = env.meta.get('wacky_challenge', [])
+    if 'kleptomania' in wacky:
         items_dbview.refine(lambda it: (it.category not in ['weapon', 'armor']) or (it.tier == 1))
-    if env.meta.get('wacky_challenge') == 'friendlyfire':
+    if 'friendlyfire' in wacky:
         items_dbview.refine(lambda it: (it.const not in ['#item.Cure3', '#item.Elixir']))
-    if env.meta.get('wacky_challenge') == 'afflicted':
+    if 'afflicted' in wacky:
         items_dbview.refine(lambda it: it.const != '#item.Heal')
-    if env.meta.get('wacky_challenge') == '3point':
+    if '3point' in wacky:
         items_dbview.refine(lambda it: it.const != '#item.SomaDrop')
 
     shop_assignments = [ShopAssignment(sh) for sh in shops_dbview.find_all()]
@@ -105,6 +111,36 @@ def apply(env):
     elif env.options.flags.has('shops_cabins'):
         for shop_assignment in shop_assignments:
             shop_assignment.add('#item.Cabin')
+    elif env.options.flags.has('shops_vanillaish'):
+        weapons_by_tier = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: []}
+        armor_by_tier = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: []}
+        items_by_tier = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: []}
+
+        for shop_assignment in shop_assignments:
+            shop = shop_assignment.shop
+            manifest = (shop.jmanifest if (shop.jmanifest and not env.options.flags.has('shops_no_j_items')) else shop.manifest)
+            for item_const in manifest:
+                item = items_dbview.find_one(lambda it: it.const == item_const) 
+                if item:
+                    candidate = None
+                    if item.category == 'weapon':
+                        if not weapons_by_tier[item.tier]:
+                            weapons_by_tier[item.tier] = items_dbview.find_all(lambda it: it.category == 'weapon' and it.tier == item.tier) 
+                        candidate = env.rnd.choice(weapons_by_tier[item.tier])
+                        weapons_by_tier[item.tier].remove(candidate)
+                    if item.category == 'armor':
+                        if not armor_by_tier[item.tier]:
+                            armor_by_tier[item.tier] = items_dbview.find_all(lambda it: it.category == 'armor' and it.tier == item.tier) 
+                        candidate = env.rnd.choice(armor_by_tier[item.tier])
+                        armor_by_tier[item.tier].remove(candidate)
+                    if item.category == 'item':
+                        if not items_by_tier[item.tier]:
+                            items_by_tier[item.tier] = items_dbview.find_all(lambda it: it.category == 'item' and it.tier == item.tier and not (it.shopoverride == 'wild')) 
+                        candidate = env.rnd.choice(items_by_tier[item.tier])
+                        items_by_tier[item.tier].remove(candidate)
+                    if candidate:
+                        shop_assignment.add(candidate.const)
+                
     elif env.options.flags.has('shops_shuffle'):
         shop_tiers = [
             list(filter(lambda sa: sa.shop.level == 'free', shop_assignments)),
@@ -152,6 +188,20 @@ def apply(env):
                     return (shop_level in ['free', 'gated'])
                 else:
                     return False
+            elif env.options.flags.has('shops_wildish'):
+                if item.tier == 7:
+                    return (shop_level in ['kokkol'])
+                elif item.tier == 6:
+                    return (shop_level in ['gated', 'kokkol'])
+                elif item.tier == 5:
+                    if (item.category in ['weapon', 'armor']):
+                        return (shop_level in ['free', 'gated']) 
+                    else:
+                        return shop_level == 'gated' 
+                elif item.tier < 5:
+                    return (shop_level in ['free', 'gated']) 
+                else:
+                    return False
             elif env.options.flags.has('shops_pro'):
                 if item.tier == 5 or item.tier == 6:
                     return (shop_level == 'kokkol')
@@ -171,7 +221,7 @@ def apply(env):
             if category == 'item':
                 if env.options.flags.has('shops_standard'):
                     category_qty = max(category_qty, int(len(candidates) * 0.9))
-                elif env.options.flags.has('shops_wild'):
+                elif env.options.flags.has('shops_wild') or env.options.flags.has('shops_wildish'):
                     category_qty = len(candidates)
 
             if len(candidates) > category_qty:
@@ -201,6 +251,35 @@ def apply(env):
                     candidates.remove(item)
                     sa.add(item.const)
 
+            if category == 'item' and env.options.flags.has('shops_wildish'):
+                # Pick two of: Siren, Coffin, HrGlass2, Bacchus, Elixir, Levia
+                # and 1-2 of the damage "wild" items and distribute them
+                # to free shops.
+                first_pool = ['#item.Siren', '#item.Coffin', '#item.HrGlass2', '#item.Bacchus', '#item.Elixir', '#item.Levia']
+                env.rnd.shuffle(first_pool)
+                picks = first_pool[slice(2)]
+                second_pool = ['#item.Grimoire', '#item.GaiaDrum', '#item.LitBolt', '#item.Blizzard', '#item.FireBomb', '#item.Stardust', '#item.ZeusRage', '#item.Boreas', '#item.BigBomb']
+                env.rnd.shuffle(second_pool)
+                picks = picks + second_pool[slice(env.rnd.randint(1, 2))]
+
+                free_shops = []
+
+                for sa in shop_assignments:
+                    if sa.shop.level == 'free' and sa.matches_category('item') and (not sa.is_full()):
+                        free_shops = free_shops + [sa]
+
+                env.rnd.shuffle(free_shops)
+
+                assigned_picks = []
+                for pick in picks:
+                    sa = free_shops.pop()
+                    sa.add(pick)
+                    assigned_picks = assigned_picks + [pick]
+                    if (not free_shops):
+                        break
+
+                candidates = filter(lambda it: it.const not in assigned_picks, candidates)
+
             category_shop_assignments = list(filter(lambda sa: sa.matches_category(category) and sa.shop.level in ['free', 'gated'], shop_assignments))
             for item in candidates:
                 eligible_shop_assignments = list(filter(lambda sa: can_be_in_shop(item, sa.shop), category_shop_assignments))
@@ -214,7 +293,7 @@ def apply(env):
         # guaranteed items
         if not env.options.flags.has('shops_unsafe'):
             guaranteed_free_items = []
-            if env.meta.get('wacky_challenge') == 'friendlyfire':
+            if 'friendlyfire' in wacky:
                 pass
             else:
                 guaranteed_free_items.append('#item.Cure2')
@@ -223,11 +302,12 @@ def apply(env):
                 guaranteed_free_items.append('#item.Life')
 
             if not env.options.flags.has('shops_no_j_items'):
-                guaranteed_free_items.append('#item.StarVeil')
+                if not env.options.flags.has('shops_no_veils'):
+                    guaranteed_free_items.append('#item.StarVeil')
                 if not env.options.flags.has('bosses_unsafe'):
                     guaranteed_free_items.append('#item.ThorRage')
 
-            if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
+            if 'saveusbigchocobo' in wacky:
                 guaranteed_free_items.append('#item.Carrot')
 
             free_shop_assignments = list(filter(lambda sa: sa.matches_category('item') and sa.shop.level == 'free', shop_assignments))
@@ -249,7 +329,7 @@ def apply(env):
             if white_mage_not_guaranteed:
                 guaranteed_gated_items.append('#item.Cure3')
 
-            if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
+            if 'saveusbigchocobo' in wacky:
                 guaranteed_gated_items.append('#item.Whistle')
 
             for shop_assignment in gated_shop_assignments:

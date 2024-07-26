@@ -778,7 +778,7 @@ def apply(env):
         # assign NPC sprites according to slot layout and boss NPC sprites
         layout = SLOT_NPC_LAYOUTS[slot]
         sprites = BOSS_SPRITES[boss]
-        if env.meta.get('wacky_challenge', None) == 'enemyunknown':
+        if 'enemyunknown' in env.meta.get('wacky_challenge', []):
             sprites = [
                 ['Sparkle', 0x00, 1]
                 ]

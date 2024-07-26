@@ -80,7 +80,9 @@ def _calculate_stats_byte(*stats):
 
 def apply(env):
     custom_weapon = None
-    if 'custom_weapon' in env.options.test_settings:
+    if env.options.flags.has('key_item_from_forge'):
+        pass # do nothing, since we'll overwrite the key item otherwise
+    elif 'custom_weapon' in env.options.test_settings:
         custom_weapon = databases.get_custom_weapons_dbview().find_one(lambda cw: env.options.test_settings['custom_weapon'].lower() in f"{cw.name}|{cw.spoilername}".lower())
     elif env.options.flags.has('hero_challenge'):
         available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _is_user(cw, env.meta['starting_character']))

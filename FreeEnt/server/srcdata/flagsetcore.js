@@ -436,14 +436,43 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var all_spoiler_flags, ch, char_objective_flags, distinct_count, distinct_flags, has_unavailable_characters, log, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
+        var WACKY_SET_1, WACKY_SET_2, WACKY_SET_3, all_spoiler_flags, ch, challenges, char_objective_flags, disable, distinct_count, distinct_flags, has_unavailable_characters, log, mode, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
         log = [];
-        if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
+        if ((flagset.has("Kunsafer") && (! flagset.has("Kmoon")))) {
+            flagset.set("Kmoon");
+            this._lib.push(log, ["correction", "Kunsafer requires placing key items on the moon; adding Kmoon"]);
+        }
+        if ((flagset.has("Kforge") && flagset.has("Omode:classicforge"))) {
+            this._simple_disable(flagset, log, "Classic forge is incompatible with Kforge", ["Kforge"]);
+        }
+        if (flagset.has("Kforge")) {
+            this._simple_disable_regex(flagset, log, "-smith is incompatible with Kforge", "^-smith:");
+        }
+        if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab", "Kforge") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }
+        if ((flagset.has("Owin:crystal") && flagset.has("Omode:ki17"))) {
+            flagset.unset("Omode:ki17");
+            flagset.set("Omode:ki16");
+            this._lib.push(log, ["correction", "Can only collect 16 KIs for an objective with Owin:crystal; changing Omode:ki17 to Omode:ki16"]);
+        }
+        if (((! flagset.has_any("Ksummon", "Kmoon", "Kmiab", "Kforge")) && flagset.has("Omode:ki17"))) {
+            this._simple_disable(flagset, log, "Cannot replace a key item if all of them are required", ["Pkey", "Kstart:pass"]);
+        }
         if (flagset.has("Kvanilla")) {
-            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe"]);
+            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunsafer"]);
+            this._simple_disable_regex(flagset, log, "Key items not randomized", "^Kstart:");
+        }
+        if (flagset.has("Kstart:darkness")) {
+            this._simple_disable(flagset, log, "Klatedark is incompatible with starting with Darkness", ["Klatedark"]);
+        }
+        if (flagset.has("Klatedark")) {
+            this._simple_disable(flagset, log, "Klatedark implicitly guarantees safe underground access", ["Kunsafe", "Kunsafer"]);
+        }
+        if ((flagset.has("Kstart:pass") && (! flagset.has("Pkey")))) {
+            flagset.set("Pkey");
+            this._lib.push(log, ["correction", "Kstart:pass implies Pkey"]);
         }
         if (flagset.has("Cvanilla")) {
             this._simple_disable_regex(flagset, log, "Characters not randomized", "^C(maybe|distinct:|only:|no:)");
@@ -469,6 +498,7 @@ class FlagLogicCore {
         }
         if (flagset.has_any("Tempty", "Tvanilla", "Tshuffle")) {
             this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmaxtier:");
+            this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmintier:");
         }
         if (flagset.has_any("Svanilla", "Scabins", "Sempty")) {
             this._simple_disable_regex(flagset, log, "Shops are not random", "^Sno:([^j]|j.)");
@@ -479,6 +509,7 @@ class FlagLogicCore {
         }
         if (flagset.has("Bvanilla")) {
             this._simple_disable(flagset, log, "Bosses not randomized", ["Bunsafe"]);
+            this._simple_disable_regex(flagset, log, "Bosses not randomized", "^Brestrict:");
         }
         if (flagset.has("Evanilla")) {
             this._simple_disable(flagset, log, "Encounters are vanilla", ["Ekeep:behemoths", "Ekeep:doors", "Edanger"]);
@@ -580,6 +611,68 @@ class FlagLogicCore {
             }
             if ((! flagset.get_list("^Orandom:\\d"))) {
                 this._simple_disable_regex(flagset, log, "No random objectives specified", "^Orandom:[^\\d]");
+            }
+        }
+        if (flagset.has("Owin:crystal")) {
+            this._simple_disable(flagset, log, "Cannot start with crystal on Owin:crystal", ["Kstart:crystal"]);
+        }
+        challenges = flagset.get_list("^-wacky:");
+        if (challenges) {
+            WACKY_SET_1 = ["menarepigs", "skywarriors", "zombies", "afflicted", "mirrormirror"];
+            WACKY_SET_2 = ["battlescars", "tellahmaneuver", "payablegolbez", "worthfighting"];
+            WACKY_SET_3 = [["3point", "battlescars", "unstackable", "afflicted", "menarepigs", "skywarriors", "zombies"], ["afflicted", "friendlyfire"], ["battlescars", "afflicted", "zombies", "worthfighting"], ["darts", "musical"]];
+            for (var c, _pj_c = 0, _pj_a = challenges, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                c = _pj_a[_pj_c];
+                mode = this._lib.re_sub("-wacky:", "", c);
+                if (_pj.in_es6(mode, WACKY_SET_1)) {
+                    disable = function () {
+    var _pj_d = [], _pj_e = WACKY_SET_1;
+    for (var _pj_f = 0, _pj_g = _pj_e.length; (_pj_f < _pj_g); _pj_f += 1) {
+        var m = _pj_e[_pj_f];
+        if ((m !== mode)) {
+            _pj_d.push(`-wacky:${m}`);
+        }
+    }
+    return _pj_d;
+}
+.call(this);
+                    this._simple_disable(flagset, log, "Can only have one enforced status wacky mode", function () {
+    var _pj_d = [], _pj_e = WACKY_SET_1;
+    for (var _pj_f = 0, _pj_g = _pj_e.length; (_pj_f < _pj_g); _pj_f += 1) {
+        var m = _pj_e[_pj_f];
+        if ((m !== mode)) {
+            _pj_d.push(`-wacky:${m}`);
+        }
+    }
+    return _pj_d;
+}
+.call(this));
+                    this._simple_disable(flagset, log, "Modes are incompatible with enforced status wacky modes", function () {
+    var _pj_d = [], _pj_e = WACKY_SET_2;
+    for (var _pj_f = 0, _pj_g = _pj_e.length; (_pj_f < _pj_g); _pj_f += 1) {
+        var m = _pj_e[_pj_f];
+        _pj_d.push(`-wacky:${m}`);
+    }
+    return _pj_d;
+}
+.call(this));
+                }
+                for (var group, _pj_f = 0, _pj_d = WACKY_SET_3, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+                    group = _pj_d[_pj_f];
+                    if (_pj.in_es6(mode, group)) {
+                        this._simple_disable(flagset, log, `Wacky modes are incompatible with ${mode}`, function () {
+    var _pj_g = [], _pj_h = group;
+    for (var _pj_i = 0, _pj_j = _pj_h.length; (_pj_i < _pj_j); _pj_i += 1) {
+        var m = _pj_h[_pj_i];
+        if ((m !== mode)) {
+            _pj_g.push(`-wacky:${m}`);
+        }
+    }
+    return _pj_g;
+}
+.call(this));
+                    }
+                }
             }
         }
         return log;

@@ -149,6 +149,9 @@ event($30)  //Mist events
     batch 5 {
         player move down
     }
+// %if flags: Knofree:package%
+    activate #RydiaMom
+// %end%
     activate #MistMan   // all Mist NPCs have been consolidated into MistMan
     deactivate #Cid2
     deactivate #SleepingBubble1

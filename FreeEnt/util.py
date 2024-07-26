@@ -57,3 +57,23 @@ def get_boosted_weights(weights):
             boosted_weights[i] += weights[chunk[0]] * chunk[1]
 
     return boosted_weights
+
+SEMIBOOST_MATRIX = {
+    1: [(1, 15/16)],
+    2: [(1, 1/16), (2, 14/16)],
+    3: [(2, 2/16), (3, 13/16)],
+    4: [(3, 3/16), (4, 12/16)],
+    5: [(4, 4/16), (5, 11/16)],
+    6: [(5, 5/16), (6, 10/16)],
+    7: [(6, 6/16), (7, 9/16)],
+    8: [(7, 7/16), (8, 1)],
+}
+
+def get_semiboosted_weights(weights):
+    semiboosted_weights = {i : 0 for i in range(1,9)}
+
+    for i in semiboosted_weights:
+        for chunk in SEMIBOOST_MATRIX[i]:
+            semiboosted_weights[i] += weights[chunk[0]] * chunk[1]
+
+    return semiboosted_weights

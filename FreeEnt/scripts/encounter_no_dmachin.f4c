@@ -1,0 +1,9 @@
+formation($C8) {
+    monsters {
+        $96 x 1   // Searcher
+        $91 x 1   // Horseman
+        $68 x 2   // Beamer
+    }
+
+    arrangement $5E
+}

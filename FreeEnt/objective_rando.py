@@ -8,7 +8,6 @@ MODES = {
     'Omode:classicforge'  : ['quest_forge'],
     'Omode:classicgiant'  : ['quest_giant'],
     'Omode:fiends'        : ['boss_milon', 'boss_milonz', 'boss_kainazzo', 'boss_valvalis', 'boss_rubicant', 'boss_elements'],
-    'Omode:dkmatter'      : ['internal_dkmatter'],
 }
 
 OBJECTIVE_SLUGS_TO_IDS = {}
@@ -101,6 +100,11 @@ def setup(env):
                 for slug in MODES[mode]:
                     specified_objectives[slug] = True
 
+        if env.options.flags.get_suffix('Omode:dkmatter'):
+            specified_objectives['internal_dkmatter'] = True
+        if env.options.flags.get_suffix('Omode:ki'):
+            specified_objectives['internal_ki'] = True
+
         for objective_id in OBJECTIVES:
             objective = OBJECTIVES[objective_id]
             slug = objective['slug']
@@ -112,7 +116,7 @@ def setup(env):
                 elif slug == 'quest_tradepink':
                     env.meta['objective_required_key_items'].add('#item.Pink')
 
-        if env.options.flags.has('objective_mode_dkmatter'):
+        if env.options.flags.get_suffix('Omode:dkmatter'):
             env.meta['required_treasures'].setdefault('#item.DkMatter', 0)
             env.meta['required_treasures']['#item.DkMatter'] += 45
 
@@ -131,6 +135,11 @@ def apply(env):
     for objective_flag in MODES:
         if env.options.flags.has(objective_flag):
             objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS[q] for q in MODES[objective_flag]])
+
+    if env.options.flags.get_suffix('Omode:dkmatter'):
+        objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS['internal_dkmatter']])
+    if env.options.flags.get_suffix('Omode:ki'):
+        objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS['internal_ki']])
 
     # custom objectives from flags
     for objective_id in OBJECTIVES:
@@ -244,6 +253,17 @@ def apply(env):
             continue
 
         text = OBJECTIVES[objective_id]['desc']
+        # special case for dkmatter
+        if OBJECTIVES[objective_id]['slug'] == 'internal_dkmatter':
+            dkmatter_count = int(env.options.flags.get_suffix('Omode:dkmatter'))
+            text = f'Bring {dkmatter_count} DkMatters to Kory in Agart'
+        # special case for KI hunt
+        if OBJECTIVES[objective_id]['slug'] == 'internal_ki':
+            ki_count = int(env.options.flags.get_suffix('Omode:ki'))
+            if (ki_count == 1):
+                text = f'Obtain 1 key item'
+            else:
+                text = f'Obtain {ki_count} key items'
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
         lines = _split_lines(text)
@@ -274,9 +294,22 @@ def apply(env):
 
     # apply additional objective needs
     if OBJECTIVE_SLUGS_TO_IDS['internal_dkmatter'] in objective_ids:
+        dkmatter_count = int(env.options.flags.get_suffix('Omode:dkmatter'))
+        env.add_substitution('dkmatter condition', f'    [#B #If #not_HasDkMatter {dkmatter_count}] {{')
+        if dkmatter_count == 45:
+            # special text for all 45
+            env.add_substitution('kory dkmatter request', "Hi, I'm Kory! Could you\ndo me a favor and bring\nme all 45 DkMatters?\n\nThey are scattered in\nchests all across the\nworld and the moon!\nThanks!")
+        else:
+            request_text = f"Hi, I'm Kory! Could you\ndo me a favor and bring\nme {dkmatter_count} DkMatters?\n\nThere are 45 of them\nscattered in chests\nall across the world\nand the moon!\nBut I only need {dkmatter_count}.\nThanks!"
+            env.add_substitution('kory dkmatter request', request_text) 
         env.add_file('scripts/dark_matter_hunt.f4c')
-        
 
+    if OBJECTIVE_SLUGS_TO_IDS['internal_ki'] in objective_ids:
+        env.add_toggle('ki_objective')
+        if env.options.flags.has("objective_zeromus"):
+            env.add_toggle('ki_objective_crystal')
+        ki_count = int(env.options.flags.get_suffix('Omode:ki'))
+        env.add_substitution('completed ki objective check', f"        cmp #${ki_count:02x}")
 
 if __name__ == '__main__':
     print("Checking line lengths")

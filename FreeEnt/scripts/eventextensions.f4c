@@ -73,7 +73,6 @@ consts(eventext) {
     $53    Objectives_TickBossSlot
     $54    Objectives_TickRewardSlot
     $55    Objectives_ListInDialog
-
 }
 
 // replace old 0xE6 event handler with jump to new code

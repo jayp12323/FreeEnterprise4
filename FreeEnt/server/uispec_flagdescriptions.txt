@@ -10,8 +10,83 @@ Defeat the Giant of Bab-il to complete this objective. In this mode, there is no
 [Omode:fiends]
 Defeat Milon, Milon Z., Kainazzo, Valvalis, Rubicant, and Elements to complete this mode.
 
-[Omode:dkmatter]
+[Omode:dkmatter5]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring 5 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter10]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring 10 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter15]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring 15 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter20]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring 20 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter25]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring 25 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter30]
 45 Dark Matters are randomly placed in chests (MIABs excluded); bring 30 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter35]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring 35 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter40]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring 40 of them to Kory in Agart to complete this objective.
+
+[Omode:dkmatter45]
+45 Dark Matters are randomly placed in chests (MIABs excluded); bring all 45 of them to Kory in Agart to complete this objective.
+
+[Omode:ki1]
+Obtain 1 key item to complete this objective.
+
+[Omode:ki2]
+Obtain 2 key items to complete this objective.
+
+[Omode:ki3]
+Obtain 3 key items to complete this objective.
+
+[Omode:ki4]
+Obtain 4 key items to complete this objective.
+
+[Omode:ki5]
+Obtain 5 key items to complete this objective.
+
+[Omode:ki6]
+Obtain 6 key items to complete this objective.
+
+[Omode:ki7]
+Obtain 7 key items to complete this objective.
+
+[Omode:ki8]
+Obtain 8 key items to complete this objective.
+
+[Omode:ki9]
+Obtain 9 key items to complete this objective.
+
+[Omode:ki10]
+Obtain 10 key items to complete this objective.
+
+[Omode:ki11]
+Obtain 11 key items to complete this objective.
+
+[Omode:ki12]
+Obtain 12 key items to complete this objective.
+
+[Omode:ki13]
+Obtain 13 key items to complete this objective.
+
+[Omode:ki14]
+Obtain 14 key items to complete this objective.
+
+[Omode:ki15]
+Obtain 15 key items to complete this objective.
+
+[Omode:ki16]
+Obtain 16 key items to complete this objective.
+
+[Omode:ki17]
+Obtain 17 key items to complete this objective. Incompatible with <em>Owin:crystal</em>.
 
 [Orandom:tough_quest]
 Refers only to the more difficult, later-game quest objectives.
@@ -44,8 +119,20 @@ Key items may be awarded by the bosses of the Lunar Subterrane.
 [Kmiab]
 This excludes monster-in-a-box chests in the Lunar Subterrane, unless also using Kmoon or Kunsafe.
 
+[Kforge]
+The reward for turning in the Legend Sword and Adamant to Kokkol is a key item. The vanilla Excalibur is added to the key items rewards pool. If the hero challenge is enabled, this overrides the normal <em>Chero</em> supersmith reward.
+
+[Kpink]
+The reward for trading away the Pink Tail is a key item. The vanilla Adamant Armor is added to the key item rewards pool unless adamant armors are disabled via <em>-noadamants</em>.
+
 [Knofree]
 Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.
+
+[Knofree:dwarf]
+Edward in Toroia will not give you a key item. Instead, a key item may be earned from talking to Cid in the Dwarf Castle hospital. 
+
+[Knofree:package]
+Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have used the Package to burn Mist Village. 
 
 [Kforce:magma]
 You are guaranteed that there is a path to the underworld via the Magma Key, without needing to use the Hook route through Cave Eblan.
@@ -58,6 +145,15 @@ You are guaranteed that the Hook route through Cave Eblan is the only way to acc
     <li>Normally, you are guaranteed a path to the underworld that does not require first going to the moon. This flag removes that check.</li>
     <li>If Kmiab is enabled, key items may appear in the Lunar Subterrane monster-in-a-box chests.</li>
 </ul>
+
+[Kunsafer]
+As Kunsafe, but you will be <em>required</em> to obtain moon access prior to obtaining underground access.
+
+[Klatedark]
+The Darkness Crystal will be gated by underground access.
+
+[@Kstart]
+Specify the starting key item, i.e. the item that is given to you at the start of the game. You cannot start with the Crystal if the Crystal is the objective reward.
 
 [Pchests]
 Passes are placed in three random treasure chests (not on the moon).
@@ -115,7 +211,7 @@ Party members that are swoon or stone at the end of any battle are permanently r
 - The hero is the only instance of that character available (unless other flags force it).
 - The hero cannot be dismissed.
 - The hero fights the Mt. Ordeals mirror room boss alone.
-- Kokkol will craft an FF4 Advance weapon usable by the hero.
+- Kokkol will craft an FF4 Advance weapon usable by the hero (unless forge is set to give a key item via <em>Kforge</em>).
 - The hero gains EXP even if incapacitated.
 - The hero is your agility anchor.
 - The hero is exempt from permadeath.
@@ -135,6 +231,12 @@ An unrestricted randomization, allowing equal chance for items to appear in any 
 [Twildish]
 Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.
 
+[Tsemipro]
+Uses location-based weighting, with item quality between that provided by pro and wildish.
+
+[Tvanillaish]
+Uses location-based weighting, with item quality approximately that of the vanilla game.
+
 [Tjunk]
 Normally, poor-quality items in chests are replaced with an equivalent amount of GP (based on sell price) to reduce inventory bloat. Enable this flag if you want to keep them as items.
 
@@ -153,6 +255,12 @@ A skill-testing randomization, limiting the strength of available items, and wei
 [Swild]
 An unrestricted randomization, allowing equal chance for items to appear in any shop, including the most powerful items.
 
+[Swildish]
+A basic randomization, allowing slightly stronger items than the standard randomization to place in shops.
+
+[Svanillaish]
+Shops will contain items of similar quality and quantity as their vanilla counterparts.
+
 [Sunsafe]
 Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.
 
@@ -168,8 +276,17 @@ All boss battle enemies have the "boss bit" set.  The alternate win conditions a
 [Balt:gauntlet]
 Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area.
 
+[@Brestrict]
+Limits the locations that bosses specified in objectives can appear in. If Knofree is enabled, this will include D.Mist.
+
 [Bwhichburn]
 The replacement attack will be weaker than MegaNuke (unless <em>Bunsafe</em> is enabled, in which case it may not be).
+
+[Bwhybez]
+Golbez does not use HoldGas or summon Shadow; he will immediately start cycling through his three available spells.
+
+[Bwhichbez]
+Each of Shadow's and Golbez's spells are replaced individually. If <em>Bunsafe</em> is enabled, Golbez has access to more powerful spells.
 
 [@G]
 The glitches explicitly referenced here are <em>disabled by default</em>; setting these flags enables them to act as they do in original FF4. Glitches not mentioned here remain intact and available.
@@ -191,6 +308,9 @@ Back attacks and "Surprised!" encounters will still occur, even when encounters 
 
 [Enoexp]
 Bosses and monster-in-a-box fights still award EXP.
+
+[Enodmachin]
+The D.Machin in the Searcher encounter is replaced by a Horseman.
 
 [@kit]
 Starter kits allow you to begin the game with additional items in your inventory.
@@ -270,6 +390,15 @@ An Ice Brand and a Blizzard Spear.
 [-kit:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
 
+[-kit:adamant]
+An Adamant Armor.
+
+[-kit:cursed]
+A Cursed Ring.
+
+[-kit:hero]
+One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon.
+
 [-kit:random]
 One of the other kit options, selected at random.
 
@@ -347,6 +476,15 @@ An Ice Brand and a Blizzard Spear.
 
 [-kit2:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
+
+[-kit2:adamant]
+An Adamant Armor.
+
+[-kit2:cursed]
+A Cursed Ring.
+
+[-kit2:hero]
+One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon.
 
 [-kit2:random]
 One of the other kit options, selected at random.
@@ -426,6 +564,15 @@ An Ice Brand and a Blizzard Spear.
 [-kit3:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
 
+[-kit3:adamant]
+An Adamant Armor.
+
+[-kit3:cursed]
+A Cursed Ring.
+
+[-kit3:hero]
+One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon.
+
 [-kit3:random]
 One of the other kit options, selected at random.
 
@@ -490,3 +637,14 @@ Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battl
     <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>
     <li>(They are intended to be wacky.)</li>
 </ul>
+<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>
+<ul>
+	<li>Only one of the following can be used: "afflicted", "menarepigs", "skywarriors", "zombies"</li>
+	<li>If any of the above are set, none of these can be used: "battlescars", "payablegolbez", "tellahmaneuver", "worthfighting"</li>
+	<li>None of these modes can be used together: "3point", "afflicted", "battlescars", "menarepigs", "mirrormirror", "skywarriors", "unstackable", "zombies"</li>
+	<li>None of these modes can be used together: "afflicted", "friendlyfire"</li>
+	<li>None of these modes can be used together: "afflicted", "battlescars", "worthfighting", "zombies"</li>
+	<li>None of these modes can be used together: "darts", "musical"</li>
+	<li>None of these modes can be used together: "3point", "tellahmaneuver"</li>
+</ul>
+<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>

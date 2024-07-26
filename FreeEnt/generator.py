@@ -35,6 +35,7 @@ from . import fusoya_rando
 from . import encounter_rando
 from . import dialogue_rando
 from . import wyvern_rando
+from . import golbez_rando
 from . import sprite_rando
 from . import summons_rando
 from . import objective_rando
@@ -472,9 +473,7 @@ def _generate_ending_version_text(options):
     lines = [options.get_version_str()]
 
     if len(binary_flags) > 22:
-        cut_length = len(binary_flags) // 2
-        lines.append(binary_flags[:cut_length])
-        lines.append(binary_flags[cut_length:])
+        lines.extend(binary_flags[i:i+22] for i in range(0, len(binary_flags), 22))
     else:
         lines.append(binary_flags)
         lines.append('')
@@ -486,6 +485,9 @@ def _generate_ending_version_text(options):
         if line and not line.startswith('~'):
             padding_length = int((22 - len(line)) / 2)
             lines[i] = ('~' * padding_length) + line
+
+    extra_lines = 9 - len(lines)
+    lines.extend([''] * extra_lines)
 
     return '\n'.join(lines)
 
@@ -601,7 +603,11 @@ def build(romfile, options, force_recompile=False):
         ]
     flags_as_hex = []
     for slug in embedded_flags:
-        flags_as_hex.append(1 if options.flags.has(slug) else 0)
+        set_flag = options.flags.has(slug)
+        # disable talking to Edward if any no_free_key_item flag is set
+        if (slug == 'no_free_key_item') and options.flags.has_any('no_free_key_item_dwarf', 'no_free_key_item_package'):
+            set_flag = True
+        flags_as_hex.append(1 if set_flag else 0)
     env.add_binary(BusAddress(0x21f0d0), flags_as_hex, as_script=True)
 
     # must be first
@@ -631,6 +637,7 @@ def build(romfile, options, force_recompile=False):
         sprite_rando,
         summons_rando,
         wyvern_rando,
+        golbez_rando,
         dialogue_rando,
         kit_rando,
         custom_weapon_rando
@@ -669,8 +676,10 @@ def build(romfile, options, force_recompile=False):
     # hack: add a block area to insert default names in rescript.py
     env.add_scripts('// [[[ NAMES START ]]]\n// [[[ NAMES END ]]]')
 
-    if options.flags.has('no_free_key_item'):
+    if options.flags.has_any('no_free_key_item', 'no_free_key_item_package'):
         env.add_file('scripts/rydias_mom_slot.f4c')
+    if options.flags.has('no_free_key_item_dwarf'):
+        env.add_file('scripts/dwarf_hospital_slot.f4c')
 
     if options.flags.has('no_free_bosses'):
         env.add_substitution('free boss', '')
@@ -692,7 +701,7 @@ def build(romfile, options, force_recompile=False):
         env.add_file('scripts/remove_dark_crystal_skip.f4c')
     if not options.flags.has('glitch_allow_life'):
         env.add_file('scripts/remove_life_glitch.f4c')
-    if (not options.flags.has('glitch_allow_backrow')) or env.meta.get('wacky_challenge', None) == 'sixleggedrace':
+    if (not options.flags.has('glitch_allow_backrow')) or 'sixleggedrace' in env.meta.get('wacky_challenge', []):
         env.add_file('scripts/remove_backrow_glitch.f4c')
 
     # some part of this fix is always needed; substitutions within

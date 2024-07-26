@@ -14,12 +14,12 @@ msfpatch {
     Wacky__PostBattleHook:
         // BAND-AID: if a level-up occurs in battle, this function
         //  will run twice. Use a flag to make sure we don't do so
-        lda $_Wacky__RAM
+        lda $_Wacky__RAM_battlescars
         beq $+FirstTime
         rtl
     
     %FirstTime:
-        inc $_Wacky__RAM
+        inc $_Wacky__RAM_battlescars
 
         // do not apply effects after "no gameover" battles
         lda $38e5
@@ -69,7 +69,7 @@ msfpatch {
 
     .new
     Wacky__BattleScars_PreBattle:
-        stz $_Wacky__RAM
+        stz $_Wacky__RAM_battlescars
         // displaced
         ldx #$007f
         tdc

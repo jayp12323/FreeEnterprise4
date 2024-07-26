@@ -219,10 +219,12 @@ msfpatch {
     %IsNotFinalBattle:
         // special behavior: activate Rydia's dead mom if we
         // fight the actual mist dragon
+	// %if flags: ~Knofree:package%
         ldx $1800
         cpx #$00de
         bne $03
         jsr $_KillRydiasMom
+	// %end%
 
         // advance gauntlet index
         inc $_EvEx__Param3
