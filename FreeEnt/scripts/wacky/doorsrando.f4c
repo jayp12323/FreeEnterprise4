@@ -1,0 +1,10 @@
+event($20)  //Unlock the Weapon/Armor shop
+{
+    consts(placement) {
+        1   LockedDoorWeaponArmorShop
+    }
+    sound #Unlock
+    message $06   // "Opened!"
+    p #LockedDoorWeaponArmorShop toggle visible
+    deactivate #LockedDoorWeaponArmorShop
+}
