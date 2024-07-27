@@ -82,8 +82,6 @@ def shuffle_locations(env, entrances, exits, testing=False):
              "mapgrid ($06 16 31) { 7C }",
              "mapgrid ($06 17 31) { 7C }", ]
 
-    for i in grids:
-        env.add_script(i)
 
     for i in remapped_:
         script = '''trigger({0} {1})
@@ -98,6 +96,9 @@ def shuffle_locations(env, entrances, exits, testing=False):
     '''
         print(i)
         if not testing:
+            for i in grids:
+                env.add_script(i)
+
             env.add_script(script)
             print(script)
 
