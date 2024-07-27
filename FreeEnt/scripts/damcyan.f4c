@@ -87,6 +87,7 @@ event($43)  //Tellah fighting Edward, Edward joining
     pause 2
     music #Overworld
     sound $62
+    [#B #PutEnterprise 118 62]
     load map #Overworld at 117 57 on hovercraft
     player visible
     set #TellahFightsEdward

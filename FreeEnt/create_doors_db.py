@@ -84,16 +84,14 @@ DB_PATH = os.path.join(os.path.dirname(__file__), 'assets', 'db')
 COLUMNS = ['map', 'trigger_number', 'x', 'y', 'dest', 'dest_x', 'dest_y', 'facing', 'type', "name", "world"]
 
 to_remove = ["#SoldierAirship", "#GiantMouth", "#MysidiaSerpentRoad","#BaronSerpentRoad", '#BlackChocoboForest', "#SealedCaveEntrance",
-             '#AdamantGrotto', '#CaveEblanEntrance',"#Damcyan"]
+             '#AdamantGrotto', '#CaveEblanEntrance',"#TrainingRoomMain"]
 
 
-triggers_temp=list(triggers)
 for map_to_remove in to_remove:
-    for trigger in triggers:
+    for trigger in list(triggers):
         if map_to_remove == trigger[4] or map_to_remove == trigger[0]:
-            print(trigger)
-            triggers_temp.remove(trigger)
-triggers = list(triggers_temp)
+            triggers.remove(trigger)
+
 hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "entrance", "#Underworld_#Babil1F_up",
               "#Underworld"],
              ["#Underworld", "6", "49", "15", "#Babil1F", "15", "24", "up", "entrance", "#Underworld_#Babil1F_up",

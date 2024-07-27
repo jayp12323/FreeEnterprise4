@@ -5,7 +5,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #BaronTown,10,6,11,#CidHouse,10,8,up,town_building,#BaronTown_#CidHouse_up,#Overworld
 #BaronTown,11,20,20,#RosaHouse,9,7,up,town_building,#BaronTown_#RosaHouse_up,#Overworld
 #BaronTown,12,3,19,#RoomToSewer,2,6,up,town_building,#BaronTown_#RoomToSewer_up,#Overworld
-#BaronTown,13,14,24,#TrainingRoomMain,7,14,up,town_building,#BaronTown_#TrainingRoomMain_up,#Overworld
 #BaronTown,15,15,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
 #BaronTown,16,16,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
 #BaronTown,17,17,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
@@ -21,7 +20,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Kaipo,2,28,13,#KaipoHospital,4,15,up,town_building,#Kaipo_#KaipoHospital_up,#Overworld
 #Kaipo,3,23,23,#KaipoWeapon,4,7,up,town_building,#Kaipo_#KaipoWeapon_up,#Overworld
 #Kaipo,4,9,18,#KaipoArmor,4,7,up,town_building,#Kaipo_#KaipoArmor_up,#Overworld
-#Kaipo,5,9,25,#TrainingRoomMain,7,14,up,town_building,#Kaipo_#TrainingRoomMain_up,#Overworld
 #Kaipo,6,14,31,#Overworld,124,104,,exit,#Kaipo_#Overworld_,#Overworld
 #Kaipo,7,15,31,#Overworld,125,105,,exit,#Kaipo_#Overworld_,#Overworld
 #Kaipo,8,16,31,#Overworld,126,104,,exit,#Kaipo_#Overworld_,#Overworld
@@ -30,7 +28,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Mysidia,2,7,23,#MysidiaWeapon,4,7,up,town_building,#Mysidia_#MysidiaWeapon_up,#Overworld
 #Mysidia,3,9,23,#MysidiaArmor,4,7,up,town_building,#Mysidia_#MysidiaArmor_up,#Overworld
 #Mysidia,4,27,26,#MysidiaItem,5,7,up,town_building,#Mysidia_#MysidiaItem_up,#Overworld
-#Mysidia,6,2,24,#TrainingRoomMain,7,14,up,town_building,#Mysidia_#TrainingRoomMain_up,#Overworld
 #Mysidia,7,15,31,#Overworld,154,200,,exit,#Mysidia_#Overworld_,#Overworld
 #Mysidia,8,16,31,#Overworld,154,200,,exit,#Mysidia_#Overworld_,#Overworld
 #Mysidia,9,17,31,#Overworld,154,200,,exit,#Mysidia_#Overworld_,#Overworld
@@ -44,7 +41,6 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #ToroiaTown,7,17,17,#ToroiaItem,5,7,up,town_building,#ToroiaTown_#ToroiaItem_up,#Overworld
 #ToroiaTown,8,26,4,#ToroiaStable,2,9,up,town_building,#ToroiaTown_#ToroiaStable_up,#Overworld
 #ToroiaTown,9,12,13,#ToroiaCafe,12,12,up,town_building,#ToroiaTown_#ToroiaCafe_up,#Overworld
-#ToroiaTown,10,28,17,#TrainingRoomMain,7,14,up,town_building,#ToroiaTown_#TrainingRoomMain_up,#Overworld
 #Agart,1,23,8,#AgartWeapon,4,7,up,town_building,#Agart_#AgartWeapon_up,#Overworld
 #Agart,2,25,8,#AgartArmor,4,7,up,town_building,#Agart_#AgartArmor_up,#Overworld
 #Agart,3,5,25,#AstroTower,16,5,up,town_building,#Agart_#AstroTower_up,#Overworld
@@ -92,6 +88,10 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Overworld,14,138,77,#WateryPass5F,24,9,down,entrance,#Overworld_#WateryPass5F_down,#Overworld
 #Overworld,15,134,72,#WaterfallEntrance,16,9,down,entrance,#Overworld_#WaterfallEntrance_down,#Overworld
 #Overworld,16,125,66,#Waterfall2F,16,11,down,entrance,#Overworld_#Waterfall2F_down,#Overworld
+#Overworld,18,118,58,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
+#Overworld,19,119,58,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
+#Overworld,20,118,57,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
+#Overworld,21,119,57,#Damcyan,16,30,up,entrance,#Overworld_#Damcyan_up,#Overworld
 #Overworld,22,136,56,#AntlionCave1F,15,4,down,entrance,#Overworld_#AntlionCave1F_down,#Overworld
 #Overworld,23,152,49,#MountHobsWest,15,28,up,entrance,#Overworld_#MountHobsWest_up,#Overworld
 #Overworld,24,160,49,#MountHobsEast,21,30,up,entrance,#Overworld_#MountHobsEast_up,#Overworld
