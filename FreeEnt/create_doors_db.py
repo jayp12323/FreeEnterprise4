@@ -17,7 +17,8 @@ overworld = ['#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeap
              '#WateryPass1F', '#WateryPass5F', "#Overworld", '#SoldierAirship']
 underworld = ['#Babil1F', '#CaveOfSummons1F', '#DwarfCastle', '#DwarfCastleBasement', '#SealedCaveEntrance',
               '#SmithyHouse', '#SylvanCave1F', '#Tomra', '#TomraEquipment', '#TomraInn', '#TomraInn', '#TomraItem',
-              '#TomraTreasury', "#Underworld"]
+              '#TomraTreasury', "#Underworld","#Feymarch2F","#FeymarchSaveRoom","#FeymarchLibrary1F","#FeymarchWeapon",
+              '#FeymarchArmor','#FeymarchInn']
 
 moon = ['#Bahamut1F', '#Hummingway', '#LunarPalaceLobby', '#LunarPassage1', '#LunarPassage2', "#Moon"]
 
@@ -37,8 +38,7 @@ for line in lines:
     line = line.strip()
     if "trigger" in line:
         if start == 1:
-            if "teleport" in trigger[
-                3]:  # and "Overworld" not in trigger[3] and "Underworld" not in trigger[3] and "Moon" not in trigger[3]:
+            if "teleport" in trigger[3]:
                 loc, number = trigger[0].split("#")[1].strip(")").split(" ")
                 loc = "#" + loc
                 x, y = trigger[2].split(" ")[1:]
@@ -58,6 +58,8 @@ for line in lines:
                     door_type = "town_building"
                 elif target_loc in towns:
                     door_type = "return"
+                elif loc=="#Feymarch2F":
+                    door_type = "town_building"
                 else:
                     door_type = "interior"
                 if door_type != "interior":
