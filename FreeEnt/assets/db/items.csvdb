@@ -211,7 +211,7 @@ code,const,name,spoilername,category,subtype,j,flag,tier,shopoverride,price,thro
 0xD1,#item.Ether1,[potion]Ether1,Ether1,item,potion,,,3,,1000,,,,,
 0xD2,#item.Ether2,[potion]Ether2,Ether2,item,potion,,,4,,5000,,,,,
 0xD3,#item.Elixir,[potion]Elixir,Elixir,item,potion,,,5,,30000,,,,,
-0xD4,#item.Life,[potion]Life,Life,item,potion,,,2,,1000,,,,,
+0xD4,#item.Life,[potion]Life,Life,item,potion,,,2,,600,,,,,
 0xD5,#item.Soft,[$15]Soft,Soft,item,potion,J,,1,,400,,,,,
 0xD6,#item.MaidKiss,[$15]MaidKiss,MaidKiss,item,potion,J,,1,,60,,,,,
 0xD7,#item.Mallet,[$15]Mallet,Mallet,item,potion,J,,1,,80,,,,,
