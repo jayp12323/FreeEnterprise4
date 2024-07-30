@@ -1,3 +1,5 @@
+import json
+
 try:
     from . import databases
 except ImportError:
@@ -5,6 +7,8 @@ except ImportError:
 import random
 
 rnd = random.Random()
+towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
+         "#Underworld": ['#Tomra', "#Feymarch2F","#CaveOfSummons1F"], "#Moon": []}
 
 
 def map_exit_to_entrance(remapped_entrances, exit):
@@ -28,7 +32,8 @@ def map_exit_to_entrance(remapped_entrances, exit):
     return ""
 
 
-def shuffle_locations(env, entrances, exits, testing=False):
+def shuffle_locations(entrances, exits, world, testing=False):
+    towns_ = towns[world]
     entrance_destinations = [entrance[4:] for entrance in entrances]
     exit_dict = {}
     for dest in entrance_destinations:
@@ -40,19 +45,20 @@ def shuffle_locations(env, entrances, exits, testing=False):
     shuffled_exits = list(exit__)
     exit_dict = {}
     rnd.shuffle(shuffled_exits)
-    towns = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra']
     while exit__:
         exit___ = exit__.pop(0)
         shuffled_exit = shuffled_exits.pop(0)
-        if shuffled_exit[0] in towns and shuffled_exit[4] == 'entrance' and exit___[4] == 'town_building':
+        if (shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[0] == shuffled_exit[
+            0]) or (shuffled_exit[0] == "#CaveOfSummons1F" and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[
+            0] == "#Feymarch2F"):
             exit__ = [exit___] + exit__
             shuffled_exits.append(shuffled_exit)
             continue
         exit_dict[tuple([exit___[0], exit___[3]])] = shuffled_exit
     remapped_entrances = []
     for entrance in entrances:
-        exit = tuple([entrance[4], entrance[7]])
-        remapped_exit = exit_dict[exit]
+        exit_key = tuple([entrance[4], entrance[7]])
+        remapped_exit = exit_dict[exit_key]
         remapped_entrances.append(entrance[0:4] + [entrance[-2]] + remapped_exit)
 
     remapped_exits = []
@@ -74,14 +80,76 @@ def shuffle_locations(env, entrances, exits, testing=False):
             print("not found")
             print(i)
 
-    remapped_ = remapped_entrances + remapped_exits
+    return [remapped_entrances, remapped_exits]
 
-    grids = ["mapgrid ($04 17 31) { 7C }",
+
+def apply(env, testing=False):
+    doors_view = databases.get_doors_dbview()
+
+    shuffled_entrances = []
+    shuffled_exits = []
+
+    for i in ["#Overworld", "#Underworld", "#Moon"]:
+        graph = {}
+        entrances = [list(i) for i in doors_view.find_all(
+            lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == i)]
+        exits = [list(i) for i in
+                 doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == i)]
+
+
+        is_loop=True
+        loop_count=0
+        while is_loop:
+            if loop_count > 100:
+                return ChildProcessError
+            remapped_entrances, remapped_exits = shuffle_locations(entrances, exits, i, testing)
+            shuffled_entrances += remapped_entrances
+            shuffled_exits += remapped_exits
+
+            for j in remapped_entrances + remapped_exits:
+                location = j[0]
+                destination = j[5]
+                if len(j) == 13:
+                    type = "entrances"
+                else:
+                    type = "exits"
+                if location not in graph:
+                    graph[location] = {"entrances": [], "exits": []}
+                if destination not in graph[location][type]:
+                    graph[location][type].append(destination)
+            if i=="#Underworld":
+                graph["#Feymarch2F"]["exits"]=graph["#CaveOfSummons1F"]["exits"]
+
+
+            # print(json.dumps(graph,indent=4))
+            try:
+                for town in towns[i]:
+                    checked=[]
+                    stack=[town]
+                    while(1):
+                        cur_town=stack.pop()
+                        checked.append(cur_town)
+                        if i in graph[cur_town]["exits"]:
+                            # print(cur_town,checked)
+                            break
+                        else:
+                            for exit in graph[cur_town]["exits"]:
+                                if exit not in checked:
+                                    stack.append(exit)
+            except IndexError:
+                loop_count+=1
+                print(loop_count)
+            is_loop=False
+
+
+
+    return2teleport = ["mapgrid ($04 17 31) { 7C }",
              "mapgrid ($05 16 29) { 7C }",
              "mapgrid ($06 15 31) { 7C }",
              "mapgrid ($06 16 31) { 7C }",
-             "mapgrid ($06 17 31) { 7C }", ]
+             "mapgrid ($136 17 9) { 7B }", ]
 
+    remapped_ = shuffled_entrances + shuffled_exits
 
     for i in remapped_:
         script = '''trigger({0} {1})
@@ -96,23 +164,11 @@ def shuffle_locations(env, entrances, exits, testing=False):
     '''
         print(i)
         if not testing:
-            for i in grids:
+            for i in return2teleport:
                 env.add_script(i)
 
             env.add_script(script)
             print(script)
-
-
-def apply(env, testing=False):
-    doors_view = databases.get_doors_dbview()
-
-    for i in ["#Overworld", "#Underworld", "#Moon"]:
-        entrances = [list(i) for i in doors_view.find_all(
-            lambda sp: ((sp.type == "entrance" or sp.type == "town_building")) and sp.world == i)]
-        exits = [list(i) for i in
-                 doors_view.find_all(lambda sp: ((sp.type == "exit" or sp.type == "return")) and sp.world == i)]
-
-        shuffle_locations(env, entrances, exits, testing)
 
 
 if __name__ == '__main__':

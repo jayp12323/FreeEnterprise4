@@ -168,3 +168,4 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Underworld,6,49,15,#Babil1F,15,24,up,entrance,#Underworld_#Babil1F_up,#Underworld
 #Silvera,7,17,31,#Overworld,210,130,,exit,#Silvera_#Overworld_,#Overworld
 #ToroiaTown,11,16,29,#Overworld,36,83,,exit,#ToroiaTown_#Overworld_,#Overworld
+#CaveOfSummons1F,5,17,9,#Underworld,27,86,,exit,#CaveOfSummons1F_#Underworld_,#Underworld

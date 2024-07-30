@@ -1,7 +1,7 @@
 import csv
 import os
 
-with open("..\\f4c\\dump.triggers.f4c", 'r') as file:
+with open("../f4c/dump.triggers.f4c", 'r') as file:
     lines = file.read().splitlines()
 overworld = ['#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeapon', '#AgartWell', '#AntlionCave1F',
              '#AstroTower', '#BaronCastle', '#BaronChocoboForest', '#BaronEquipment', '#BaronInn', '#BaronSerpentRoad',
@@ -101,7 +101,9 @@ hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "ent
              ["#Silvera", "7", "17", "31", "#Overworld", "210", "130", "", "exit", "#Silvera_#Overworld_",
               "#Overworld"],
              ["#ToroiaTown", "11", "16", "29", "#Overworld", "36", "83", "", "exit", "#ToroiaTown_#Overworld_",
-              "#Overworld"]
+              "#Overworld"],
+             ["#CaveOfSummons1F", "5", "17", "9", "#Underworld", "27", "86", "", "exit", "#CaveOfSummons1F_#Underworld_",
+              "#Underworld"]
              ]
 
 triggers += hardcoded
