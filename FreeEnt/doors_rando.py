@@ -165,7 +165,7 @@ def apply(env, testing=False):
             if not towns_with_exit:
                 print("No exits found, trying again")
                 continue
-            sys.setrecursionlimit(10)
+            sys.setrecursionlimit(50)
             try:
                 for town in towns[i]:
                     print("for town", town)
@@ -180,10 +180,9 @@ def apply(env, testing=False):
                 pass
             if is_loop:
                 break
-            sys.setrecursionlimit(1000)
             print("not able to validate exits, retrying")
         print("needed loops: ", loop_count, "to validate exits for ",i)
-
+    sys.setrecursionlimit(1000)
     return2teleport = ["mapgrid ($04 17 31) { 7C }",
                        "mapgrid ($05 16 29) { 7C }",
                        "mapgrid ($06 15 31) { 7C }",
