@@ -182,7 +182,7 @@ def apply(env, testing=False):
                 break
             sys.setrecursionlimit(1000)
             print("not able to validate exits, retrying")
-        print("needed loops: ", loop_count)
+        print("needed loops: ", loop_count, "to validate exits for ",i)
 
     return2teleport = ["mapgrid ($04 17 31) { 7C }",
                        "mapgrid ($05 16 29) { 7C }",
