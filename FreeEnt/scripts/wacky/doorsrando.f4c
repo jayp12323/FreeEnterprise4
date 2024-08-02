@@ -14,3 +14,16 @@ You realize this that is
 probabaly a softlock,
 right?
 }
+
+// Removing mountain from right side of mist to not lock that entrance
+msfpatch {
+    .addr $15C73C
+        nop nop nop nop nop nop nop nop
+
+    .addr $15C757
+        nop nop nop nop
+
+    .addr $15C75D
+        nop nop nop nop
+
+}
