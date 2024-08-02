@@ -8,3 +8,9 @@ event($20)  //Unlock the Weapon/Armor shop
     p #LockedDoorWeaponArmorShop toggle visible
     deactivate #LockedDoorWeaponArmorShop
 }
+
+text(bank 1 message $1A5) {
+You realize this that is
+probabaly a softlock,
+right?
+}
