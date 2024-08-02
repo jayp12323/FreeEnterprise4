@@ -130,6 +130,7 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Underworld,9,63,121,#Tomra,17,27,up,entrance,#Underworld_#Tomra_up,#Underworld
 #Underworld,10,63,122,#Tomra,17,27,up,entrance,#Underworld_#Tomra_up,#Underworld
 #Underworld,11,13,14,#SylvanCave1F,16,2,down,entrance,#Underworld_#SylvanCave1F_down,#Underworld
+#Underworld,12,46,109,#SealedCaveEntrance,4,10,up,entrance,#Underworld_#SealedCaveEntrance_up,#Underworld
 #Underworld,13,27,86,#CaveOfSummons1F,17,10,down,entrance,#Underworld_#CaveOfSummons1F_down,#Underworld
 #Moon,0,61,23,#Bahamut1F,8,7,down,entrance,#Moon_#Bahamut1F_down,#Moon
 #Moon,1,28,25,#LunarPalaceLobby,16,28,up,entrance,#Moon_#LunarPalaceLobby_up,#Moon
