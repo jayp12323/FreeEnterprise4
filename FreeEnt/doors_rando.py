@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 
 try:
@@ -10,7 +11,7 @@ import random
 rnd = random.Random()
 towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
          "#Underworld": ['#Tomra', "#Feymarch2F", "#CaveOfSummons1F"], "#Moon": []}
-
+towns_flat=['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart','#Tomra', "#CaveOfSummons1F"]
 
 def map_exit_to_entrance(remapped_entrances, exit):
     try:
@@ -115,7 +116,7 @@ def apply(env, testing=False):
 
     shuffled_entrances = []
     shuffled_exits = []
-
+    spoil_entrances=[]
     for i in ["#Overworld", "#Underworld", "#Moon"]:
         graph = {}
         entrances = [list(i) for i in doors_view.find_all(
@@ -127,7 +128,7 @@ def apply(env, testing=False):
         loop_count = 0
         tries = 1
         while not is_loop:
-            if loop_count > 15:
+            if loop_count > 200:
                 raise ChildProcessError
             loop_count += 1
             max_tries = 100
@@ -148,6 +149,8 @@ def apply(env, testing=False):
                 destination = j[5]
                 if len(j) == 13:
                     type = "entrances"
+                    if f"{j[4].split('_')[1]} leads to {j[5]}" not in spoil_entrances:
+                        spoil_entrances.append(f"{j[4].split('_')[1]} leads to {j[5]}")
                 else:
                     type = "exits"
                 if location not in graph:
@@ -202,14 +205,26 @@ def apply(env, testing=False):
         script += '''
     }
     '''
-        print(i)
         if not testing:
             for i in return2teleport:
                 env.add_script(i)
 
             env.add_script(script)
-            print(script)
+            # print(script)
 
+    towns_map=[]
+    other_entrances=[]
+    for i in sorted(spoil_entrances):
+        istown=""
+        for j in towns_flat:
+            if i.endswith(j):
+                istown=True
+                break
+        if istown:
+            towns_map.append(i)
+        else:
+            other_entrances.append(i)
 
+    print ("\n".join(towns_map+other_entrances))
 if __name__ == '__main__':
     apply(None, True)
