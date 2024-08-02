@@ -193,9 +193,9 @@ def apply(env, testing=False):
                        "mapgrid ($136 17 9) { 74 }", ]
 
     remapped_ = shuffled_entrances + shuffled_exits
-
+    script=""
     for i in remapped_:
-        script = '''trigger({0} {1})
+        script += '''trigger({0} {1})
     {{
         position {2} {3}
         teleport {5} at {6} {7}'''.format(*i)
@@ -204,13 +204,14 @@ def apply(env, testing=False):
             script += " facing {8}".format(*i)
         script += '''
     }
+    
     '''
-        if not testing:
-            for i in return2teleport:
-                env.add_script(i)
+    if not testing:
+        for i in return2teleport:
+            env.add_script(i)
 
-            env.add_script(script)
-            # print(script)
+        env.add_script(script)
+    print(script)
 
     towns_map=[]
     other_entrances=[]
