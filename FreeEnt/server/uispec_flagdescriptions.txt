@@ -44,6 +44,9 @@ Key items may be awarded by the bosses of the Lunar Subterrane.
 [Kmiab]
 This excludes monster-in-a-box chests in the Lunar Subterrane, unless also using Kmoon or Kunsafe.
 
+[Klstmiab]
+This ignores the Kmoon or Kunsafe safety check that Kmiab has.
+
 [Knofree]
 Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.
 

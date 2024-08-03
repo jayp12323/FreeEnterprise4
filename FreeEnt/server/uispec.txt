@@ -61,7 +61,9 @@
 .[Kmain] Randomize key items
 ..[Ksummon]! Mix with summon quest rewards
 ..[Kmoon]! Mix with moon boss rewards
-..[Kmiab]! Mix with monster-in-a-box chests
+..<> Mix with monster-in-a-box chests
+...(Kmiab)! All non-LST miabs; also LST miabs under Kmoon or Kunsafe
+...(Klstmiab)! All LST miabs
 ..[Knofree]! No free key item in Toroia
 ..<> Underworld access
 ...(Kforce:magma) Guarantee underworld access via Magma Key

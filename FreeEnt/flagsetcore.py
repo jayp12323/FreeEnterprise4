@@ -397,6 +397,9 @@ class FlagLogicCore:
         if flagset.has('Kvanilla'):
             self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe','Kunweighted'])
 
+        if flagset.has('Klstmiab') and flagset.has('Kmiab') and flagset.has_any('Kmoon','Kunsafe'):
+            self._simple_disable(flagset, log, 'LST miabs already included', ['Klstmiab'])
+
         if flagset.has('Cvanilla'):
             self._simple_disable_regex(flagset, log, 'Characters not randomized', r'^C(maybe|distinct:|only:|no:)')
         else:
