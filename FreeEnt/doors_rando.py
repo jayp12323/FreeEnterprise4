@@ -101,8 +101,10 @@ def shuffle_locations(entrances, exits, world):
     return [remapped_entrances, remapped_exits]
 
 
-def has_exit(graph, town, towns_with_exit, checked=[], stack=[]):
-    print(town, stack, checked)
+def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
+    print(town, stack, checked,count)
+    if count>10:
+        return False
     if town not in checked:
         checked.append(town)
     if [element for element in checked if element in towns_with_exit]:
@@ -110,7 +112,8 @@ def has_exit(graph, town, towns_with_exit, checked=[], stack=[]):
     else:
         stack += graph[town]["exits"]
         town = stack.pop(0)
-        return has_exit(graph, town, towns_with_exit, checked, stack)
+        count += 1
+        return has_exit(graph, town, towns_with_exit, checked, stack,count)
 
 def apply(env, testing=False):
     doors_view = databases.get_doors_dbview()
