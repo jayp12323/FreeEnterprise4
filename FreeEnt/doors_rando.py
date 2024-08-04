@@ -237,6 +237,6 @@ def apply(env, testing=False):
         else:
             other_entrances.append(i)
 
-    # print ("\n".join(towns_map+other_entrances))
+    print ("\n".join(towns_map+other_entrances))
 if __name__ == '__main__':
     apply(None, True)
