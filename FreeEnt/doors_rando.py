@@ -119,7 +119,7 @@ def apply(env, testing=False):
 
     shuffled_entrances = {"#Overworld": [], "#Underworld": [], "#Moon": []}
     shuffled_exits = {"#Overworld": [], "#Underworld": [], "#Moon": []}
-    spoil_entrances = []
+    spoil_entrances = {"#Overworld": [], "#Underworld": [], "#Moon": []}
 
     for i in ["#Overworld", "#Underworld", "#Moon"]:
         graph = {}
@@ -132,6 +132,7 @@ def apply(env, testing=False):
         loop_count = 0
         tries = 1
         while not is_loop:
+            spoil_entrances[i] = []
             if loop_count > 200:
                 return False
             loop_count += 1
@@ -153,8 +154,8 @@ def apply(env, testing=False):
                 destination = j[5]
                 if len(j) == 13:
                     type = "entrances"
-                    if f"{j[4].split('_')[1]} leads to {j[5]}" not in spoil_entrances:
-                        spoil_entrances.append(f"{j[4].split('_')[1]} leads to {j[5]}")
+                    if f"{j[4].split('_')[1]} leads to {j[5]}" not in spoil_entrances[i]:
+                        spoil_entrances[i].append(f"{j[4].split('_')[1]} leads to {j[5]}")
                 else:
                     type = "exits"
                 if location not in graph:
@@ -191,8 +192,10 @@ def apply(env, testing=False):
                        "mapgrid ($06 16 31) { 7C }",
                        "mapgrid ($136 17 9) { 74 }", ]
     remapped_ = []
+    remapped_spoiled = []
     for i in ["#Overworld", "#Underworld", "#Moon"]:
         remapped_ += shuffled_entrances[i] + shuffled_exits[i]
+        remapped_spoiled += spoil_entrances[i]
     print("len of remapped=", len(remapped_))
     script = ""
     for i in remapped_:
@@ -216,7 +219,7 @@ def apply(env, testing=False):
 
     towns_map = []
     other_entrances = []
-    for i in sorted(spoil_entrances):
+    for i in sorted(remapped_spoiled):
         istown = ""
         for j in towns_flat:
             if i.endswith(j):
@@ -227,7 +230,7 @@ def apply(env, testing=False):
         else:
             other_entrances.append(i)
 
-    print("\n".join(towns_map+other_entrances))
+    print("\n".join(towns_map + ["", "", "", ] + other_entrances))
 
 
 if __name__ == '__main__':
