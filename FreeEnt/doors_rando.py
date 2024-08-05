@@ -1,7 +1,3 @@
-import json
-import re
-import sys
-
 try:
     from . import databases
 except ImportError:
@@ -11,7 +7,9 @@ import random
 rnd = random.Random()
 towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
          "#Underworld": ['#Tomra', "#Feymarch2F", "#CaveOfSummons1F"], "#Moon": []}
-towns_flat=['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart','#Tomra', "#CaveOfSummons1F"]
+towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
+              "#CaveOfSummons1F"]
+
 
 def map_exit_to_entrance(remapped_entrances, exit):
     try:
@@ -35,7 +33,7 @@ def map_exit_to_entrance(remapped_entrances, exit):
 
 
 def shuffle_locations(entrances, exits, world):
-    max_towns_in_overworld={"#Overworld": 4, "#Underworld": 2, "#Moon": 10}
+    max_towns_in_overworld = {"#Overworld": 4, "#Underworld": 2, "#Moon": 10}
     towns_ = towns[world]
     entrance_destinations = [entrance[4:] for entrance in entrances]
     exit_dict = {}
@@ -97,117 +95,106 @@ def shuffle_locations(entrances, exits, world):
             print("not found")
             print(i)
 
-
     return [remapped_entrances, remapped_exits]
 
 
 def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
-    print(town, stack, checked,count)
-    if count>10:
+    print(town, stack, checked, count)
+    if count > 10:
         return False
     if town not in checked:
         checked.append(town)
     if [element for element in checked if element in towns_with_exit]:
+
         return True
     else:
         stack += graph[town]["exits"]
         town = stack.pop(0)
         count += 1
-        return has_exit(graph, town, towns_with_exit, checked, stack,count)
+        return has_exit(graph, town, towns_with_exit, checked, stack, count)
+
 
 def apply(env, testing=False):
     doors_view = databases.get_doors_dbview()
 
-    num_dupes=0
-    no_dupes=False
-    while not no_dupes:
-        shuffled_entrances = []
-        shuffled_exits = []
-        spoil_entrances = []
+    shuffled_entrances = {"#Overworld": [], "#Underworld": [], "#Moon": []}
+    shuffled_exits = {"#Overworld": [], "#Underworld": [], "#Moon": []}
+    spoil_entrances = []
 
-        for i in ["#Overworld", "#Underworld", "#Moon"]:
-            graph = {}
-            entrances = [list(i) for i in doors_view.find_all(
-                lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == i)]
-            exits = [list(i) for i in
-                     doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == i)]
+    for i in ["#Overworld", "#Underworld", "#Moon"]:
+        graph = {}
+        entrances = [list(i) for i in doors_view.find_all(
+            lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == i)]
+        exits = [list(i) for i in
+                 doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == i)]
 
-            is_loop = False
-            loop_count = 0
-            tries = 1
-            while not is_loop:
-                if loop_count > 200:
-                    raise ChildProcessError
-                loop_count += 1
-                max_tries = 100
-                try:
-                    remapped_entrances, remapped_exits = shuffle_locations(entrances, exits, i)
-                except TypeError:
-                    tries += 1
-                    if tries < max_tries:
-                        continue
-                    else:
-                        return False
-                print("max locations took tries: ",tries, "for world ", i)
-                shuffled_entrances += remapped_entrances
-                shuffled_exits += remapped_exits
-
-                for j in remapped_entrances + remapped_exits:
-                    location = j[0]
-                    destination = j[5]
-                    if len(j) == 13:
-                        type = "entrances"
-                        if f"{j[4].split('_')[1]} leads to {j[5]}" not in spoil_entrances:
-                            spoil_entrances.append(f"{j[4].split('_')[1]} leads to {j[5]}")
-                    else:
-                        type = "exits"
-                    if location not in graph:
-                        graph[location] = {"entrances": [], "exits": []}
-                    if destination not in graph[location][type]:
-                        graph[location][type].append(destination)
-                if i == "#Underworld":
-                    graph["#Feymarch2F"]["exits"] = graph["#CaveOfSummons1F"]["exits"]
-
-                elif i=="#Moon":
-                    break
-
-                towns_with_exit = [town for town in towns[i] if i in graph[town]["exits"]]
-                print(towns_with_exit)
-                if not towns_with_exit:
-                    print("No exits found, trying again")
+        is_loop = False
+        loop_count = 0
+        tries = 1
+        while not is_loop:
+            if loop_count > 200:
+                return False
+            loop_count += 1
+            max_tries = 1000
+            try:
+                remapped_entrances, remapped_exits = shuffle_locations(entrances, exits, i)
+            except TypeError:
+                tries += 1
+                if tries < max_tries:
                     continue
-                sys.setrecursionlimit(50)
-                try:
-                    for town in towns[i]:
-                        print("for town", town)
-                        if has_exit(graph, town, towns_with_exit, [], []):
+                else:
+                    return False
+            print("max locations took tries: ", tries, "for world ", i)
+            shuffled_entrances[i] = remapped_entrances
+            shuffled_exits[i] = remapped_exits
 
-                            is_loop = True
-                            continue
-                        else:
-                            print("not able to exit for: ", town, ", retrying")
-                            raise RecursionError
-                except RecursionError:
-                    pass
-                if is_loop:
+            for j in remapped_entrances + remapped_exits:
+                location = j[0]
+                destination = j[5]
+                if len(j) == 13:
+                    type = "entrances"
+                    if f"{j[4].split('_')[1]} leads to {j[5]}" not in spoil_entrances:
+                        spoil_entrances.append(f"{j[4].split('_')[1]} leads to {j[5]}")
+                else:
+                    type = "exits"
+                if location not in graph:
+                    graph[location] = {"entrances": [], "exits": []}
+                if destination not in graph[location][type]:
+                    graph[location][type].append(destination)
+            if i == "#Underworld":
+                graph["#Feymarch2F"]["exits"] = graph["#CaveOfSummons1F"]["exits"]
+
+            elif i == "#Moon":
+                break
+
+            towns_with_exit = [town for town in towns[i] if i in graph[town]["exits"]]
+            print(towns_with_exit)
+            if not towns_with_exit:
+                print("No exits found, trying again")
+                continue
+            for town in towns[i]:
+                print("for town", town)
+                if has_exit(graph, town, towns_with_exit, [], []):
+                    is_loop = True
+                    continue
+                else:
+                    print("not able to exit for: ", town, ", retrying")
+                    is_loop = False
                     break
-                print("not able to validate exits, retrying")
-            print("needed loops: ", loop_count, "to validate exits for ",i)
-        sys.setrecursionlimit(1000)
-        return2teleport = ["mapgrid ($04 17 31) { 7C }",
-                           "mapgrid ($05 16 29) { 7C }",
-                           "mapgrid ($06 15 31) { 7C }",
-                           "mapgrid ($06 16 31) { 7C }",
-                           "mapgrid ($136 17 9) { 74 }", ]
-
-        remapped_ = shuffled_entrances + shuffled_exits
-        if len(remapped_)==171:
-            no_dupes=True
-        else:
-            num_dupes+=1
-
-    print("needed tries to not get dupes",num_dupes)
-    script=""
+            if is_loop:
+                break
+            print("not able to validate exits, retrying")
+        print("needed loops: ", loop_count, "to validate exits for ", i)
+    return2teleport = ["mapgrid ($04 17 31) { 7C }",
+                       "mapgrid ($05 16 29) { 7C }",
+                       "mapgrid ($06 15 31) { 7C }",
+                       "mapgrid ($06 16 31) { 7C }",
+                       "mapgrid ($136 17 9) { 74 }", ]
+    remapped_ = []
+    for i in ["#Overworld", "#Underworld", "#Moon"]:
+        remapped_ += shuffled_entrances[i] + shuffled_exits[i]
+    print("len of remapped=", len(remapped_))
+    script = ""
     for i in remapped_:
         script += '''trigger({0} {1})
     {{
@@ -227,19 +214,21 @@ def apply(env, testing=False):
         env.add_script(script)
     # print(script)
 
-    towns_map=[]
-    other_entrances=[]
+    towns_map = []
+    other_entrances = []
     for i in sorted(spoil_entrances):
-        istown=""
+        istown = ""
         for j in towns_flat:
             if i.endswith(j):
-                istown=True
+                istown = True
                 break
         if istown:
             towns_map.append(i)
         else:
             other_entrances.append(i)
 
-    print ("\n".join(towns_map+other_entrances))
+    print("\n".join(towns_map+other_entrances))
+
+
 if __name__ == '__main__':
     apply(None, True)
