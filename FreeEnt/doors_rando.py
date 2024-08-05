@@ -49,7 +49,7 @@ def shuffle_locations(entrances, exits, world):
     rnd.shuffle(shuffled_exits)
     max_towns_in_overworld = random.randint(1, max_towns_in_overworld[world])
     overworld_entrances = 0
-    print("max_towns", world, max_towns_in_overworld)
+    # print("max_towns", world, max_towns_in_overworld)
     tries = 0
     while exit__:
         if tries > 20:
