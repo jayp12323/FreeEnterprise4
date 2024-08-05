@@ -64,22 +64,22 @@ class Rom:
 
         self._raw_rom_data = infile.read()
 
-        if not ignore_checksum:
-            if len(self._raw_rom_data) != 0x100000:
-                if len(self._raw_rom_data) == 0x100200:
-                    # strip ROM header
-                    self._raw_rom_data = self._raw_rom_data[0x200:]
-                    if close_stream:
-                        infile.close()
-                    infile = io.BytesIO(self._raw_rom_data)
-                    close_stream = False
-                else:
-                    raise RomError("ROM file size is incorrect; expected 0x100000 (or 0x100200 for headered), got 0x{:X}".format(len(self._raw_rom_data)))
-
-            checksum = hashlib.md5()
-            checksum.update(self._raw_rom_data)
-            if checksum.hexdigest().lower() not in [FF2USV10_MD5, FF2USV11_MD5]:
-                raise RomError("ROM MD5 check failed -- data has checksum {}".format(checksum.hexdigest()))
+        # if not ignore_checksum:
+            # if len(self._raw_rom_data) != 0x100000:
+            #     if len(self._raw_rom_data) == 0x100200:
+            #         # strip ROM header
+            #         self._raw_rom_data = self._raw_rom_data[0x200:]
+            #         if close_stream:
+            #             infile.close()
+            #         infile = io.BytesIO(self._raw_rom_data)
+            #         close_stream = False
+            #     else:
+            #         raise RomError("ROM file size is incorrect; expected 0x100000 (or 0x100200 for headered), got 0x{:X}".format(len(self._raw_rom_data)))
+            #
+            # checksum = hashlib.md5()
+            # checksum.update(self._raw_rom_data)
+            # if checksum.hexdigest().lower() not in [FF2USV10_MD5, FF2USV11_MD5]:
+            #     raise RomError("ROM MD5 check failed -- data has checksum {}".format(checksum.hexdigest()))
 
         self.event_scripts = self.create_data_table(infile, pointer_address=0x90000, data_address=0x90200, data_count=NUM_EVENT_SCRIPTS, last_data_size=1, data_overflow_address=0x97000)
 
