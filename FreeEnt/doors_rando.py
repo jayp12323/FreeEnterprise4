@@ -100,7 +100,7 @@ def shuffle_locations(entrances, exits, world):
 
 def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
     print(town, stack, checked, count)
-    if count > 10:
+    if count >= 10:
         return False
     if town not in checked:
         checked.append(town)
@@ -108,10 +108,14 @@ def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
 
         return True
     else:
-        stack += graph[town]["exits"]
-        town = stack.pop(0)
-        count += 1
-        return has_exit(graph, town, towns_with_exit, checked, stack, count)
+        try:
+            stack += graph[town]["exits"]
+            town = stack.pop(0)
+            count += 1
+            return has_exit(graph, town, towns_with_exit, checked, stack, count)
+        except:
+            print("empty set")
+            return False
 
 
 def apply(env, testing=False):
@@ -179,7 +183,7 @@ def apply(env, testing=False):
                     is_loop = True
                     continue
                 else:
-                    print("not able to exit for: ", town, ", retrying")
+                    print("not able find overworld to exit for: ", town, ", due to loop... retrying")
                     is_loop = False
                     break
             if is_loop:
@@ -230,7 +234,7 @@ def apply(env, testing=False):
         else:
             other_entrances.append(i)
 
-    print("\n".join(towns_map + ["", "", "", ] + other_entrances))
+    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
 
 
 if __name__ == '__main__':
