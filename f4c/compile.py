@@ -306,6 +306,7 @@ def compile(input_rom, output_rom, *scripts, options=CompileOptions()):
     blocks.sort(key = lambda b : (0 if b['type'] == 'consts' else 1))
 
     for block in blocks:
+        print(block)
         if block['type'] not in block_processors:
             print('No compiler found for block type "{}"'.format(block['type']))
             continue
