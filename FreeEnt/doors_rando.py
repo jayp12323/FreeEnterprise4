@@ -183,7 +183,7 @@ def apply(env, testing=False):
                     is_loop = True
                     continue
                 else:
-                    print("not able find overworld to exit for: ", town, ", due to loop... retrying")
+                    print("not able find overworld to exit for:", town, "due to loop... retrying")
                     is_loop = False
                     break
             if is_loop:
