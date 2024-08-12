@@ -28,6 +28,12 @@ Complete the required number of objectives to immediately win the game. Zeromus 
 [Owin:crystal]
 Complete the required number of objectives to get the Crystal, then defeat Zeromus to win the game.
 
+[@Ogated]
+A gated objective means that you will only get the reward for that objective upon completion of all required other objectives.  So if you set "Complete the Tower of Zot" as a gated objective, you will be granted the earth crystal automatically upon completion of the other objectives.
+
+[@Ohardreq]
+Hard required objectives are a # of objectives that must be completed in order to consider all objectives completed.  So if you require 4 out of 5 objectives, and 1 hard required, the hard objective must be included as part of the 4.
+
 [@Ocustom]
 <ul>
     <li>Duplicate objectives will be omitted.</li>

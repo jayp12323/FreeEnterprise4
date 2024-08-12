@@ -145,7 +145,7 @@
 ..(Oreq:8) Complete 8 objectives for reward
 ..(Oreq:9) Complete 9 objectives for reward
 ..(Oreq:10) Complete 10 objectives for reward
-.<> Gated Objective
+.<[@Ogated]> Gated Objective
 ..(Ogated:1) Objective #1 is gated behind other objectives
 ..(Ogated:2) Objective #2 is gated behind other objectives
 ..(Ogated:3) Objective #3 is gated behind other objectives
@@ -164,7 +164,7 @@
 ..(Ogated:16) Objective #16 is gated behind other objectives
 ..(Ogated:17) Objective #17 is gated behind other objectives
 ..(Ogated:18) Objective #18 is gated behind other objectives
-.()# Hard Required Objectives
+.(@Ohardreq)# Hard Required Objectives
 ..[Ohardreq:1] Objective #1 is hard required
 ..[Ohardreq:2] Objective #2 is hard required
 ..[Ohardreq:3] Objective #3 is hard required
@@ -623,7 +623,7 @@
 [-noadamants] No Adamant Armors
 [-nocursed] No Cursed Rings
 [-spoon] Edward can equip the Spoon
-[-monsterevade] Monsters get physical and magical evasion
+[-monsterevade!] Monsters get physical and magical evasion
 [@smithy] Smithy reward
 .<> Alternative forge items
 ..(-smith:alt) Kokkol crafts a random tier 7/8 item
