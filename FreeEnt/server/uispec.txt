@@ -145,7 +145,7 @@
 ..(Oreq:8) Complete 8 objectives for reward
 ..(Oreq:9) Complete 9 objectives for reward
 ..(Oreq:10) Complete 10 objectives for reward
-.<[@Ogated]> Gated Objective
+.<@Ogated> Gated Objective
 ..(Ogated:1) Objective #1 is gated behind other objectives
 ..(Ogated:2) Objective #2 is gated behind other objectives
 ..(Ogated:3) Objective #3 is gated behind other objectives
