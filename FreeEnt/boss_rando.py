@@ -763,11 +763,20 @@ def apply(env):
                         csv_row.append(f'scriptSpellPower: {scaled_value}')
                     else:
                         stats_scripted = (SPEED_TABLE if stat == 'speed' else STATS_TABLE)[value]
-                        stats_ratio = [stats_scripted[i] / max(monster[stat][i], 1) for i in range(len(stats_scripted))]
-                        stats_ideal = [monster_scaled_stats[stat][i] * stats_ratio[i] for i in range(len(stats_ratio))]
                         if stat == 'speed':
+                            stats_ratio = [stats_scripted[i] / max(monster[stat][i], 1) for i in range(len(stats_scripted))]
+                            stats_ideal = [monster_scaled_stats[stat][i] * stats_ratio[i] for i in range(len(stats_ratio))]
                             closest_index, closest_value = _get_closest_stat(stats_ideal, SPEED_TABLE, (1.0, 1.0))
                         else:
+                            # New scripted-stats-scaling algorithm; speed still works the same, because no monster has 0 speed.
+                            # For all other stats, the old algorithm treated the scripted changes as multiplicative scaling, but for example,
+                            # if a boss spot has 0 base defense (like at Zot 2, the vanilla Val spot), then the scripted change would be to (0,0,0).
+                            # Instead, we scale the *difference* between the original spot's usual and scripted stat using level (no monster has level 0),
+                            # then add that to the spot's stats; since Waterhag *loses* defense and is low-level, then we take a max to avoid negative ideal stats.
+                            # (Technically this algorithm will not give Waterhag (0,0,0) defense at exactly the Antlion spot, but it's close enough.)
+                            diff_stats_scripted = [stats_scripted[i] - monster[stat][i] for i in range(len(stats_scripted))]
+                            scaled_diff = [diff_stats_scripted[i] * (ref_leader['level'] / leader['level']) for i in range(len(diff_stats_scripted))]
+                            stats_ideal = [max(0,monster_scaled_stats[stat][i] + scaled_diff[i]) for i in range(len(scaled_diff))]
                             closest_index, closest_value = _get_closest_stat(stats_ideal, STATS_TABLE, (1.0, 0.1, 1.0))
                         env.add_substitution(f'{monster_name} script {stat} change ${value:02X}', f'set {stat} index ${closest_index:02X}')
                         csv_row.append(f'script-{stat}: {"-".join([str(v) for v in closest_value])}')

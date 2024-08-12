@@ -41,6 +41,22 @@ FIGHT_SPOILER_DESCRIPTIONS = {
     0x1F4 : "Behemoth"
 }
 
+# needed tool for Tspecific
+_CHARACTER_TO_USERS = {
+    'cecil' : ['dkcecil', 'pcecil'],
+    'rydia' : ['crydia', 'arydia']
+}
+
+def expand_characters_to_users(char_set):
+    user_set = set()
+    for char in char_set:
+        if char in _CHARACTER_TO_USERS:
+            for user in _CHARACTER_TO_USERS[char]:
+                user_set.add(user)
+        else:
+            user_set.add(char)
+    return user_set
+
 def _round_gp(amount):
     if amount < 1280:
         return int(amount / 10) * 10
@@ -134,9 +150,17 @@ def refineItemsView(dbview, env):
         dbview.refine(lambda it: it.const != '#item.AdamantArmor')
     if env.options.flags.has('no_cursed_rings'):
         dbview.refine(lambda it: it.const != '#item.Cursed')
-
     if env.meta.get('wacky_challenge') == 'kleptomania':
         dbview.refine(lambda it: (it.category not in ['weapon', 'armor']))   
+
+    # In Omnidextrous, everyone can equip anything, hence can use everything, so this flag does nothing.
+    if env.options.flags.has('treasure_playable') and not (env.meta.get('wacky_challenge') == 'omnidextrous'):
+        user_set = expand_characters_to_users(env.meta['available_characters'])
+        # In Fist Fight, the only weapons are claws, which are equippable by everyone, so need more complex logic
+        if env.meta.get('wacky_challenge') == 'fistfight':
+            dbview.refine(lambda it: it.category == 'item' or (it.category != 'weapon' and not set(it.equip).isdisjoint(user_set)) or (it.subtype == 'claw'))
+        else:
+            dbview.refine(lambda it: it.category == 'item' or not set(it.equip).isdisjoint(user_set))       
 
 def apply(env):   
     treasure_dbview = databases.get_treasure_dbview()
@@ -144,10 +168,11 @@ def apply(env):
     treasure_dbview.refine(lambda t: not t.exclude)
     plain_chests_dbview = treasure_dbview.get_refined_view(lambda t: t.fight is None)
 
-    items_dbview = databases.get_items_dbview()    
+    items_dbview = databases.get_items_dbview()
     items_dbview_unrestricted = databases.get_items_dbview()
     refineItemsView(items_dbview, env)        
-    refineItemsView(items_dbview_unrestricted, env)    
+    refineItemsView(items_dbview_unrestricted, env)        
+
     maxtier = env.options.flags.get_suffix('Tmaxtier:')
     if maxtier:
         maxtier = int(maxtier)
@@ -268,6 +293,13 @@ def apply(env):
             weights = {i : getattr(row, f"tier{i}") for i in range(1,9)}            
             if env.options.flags.has('treasure_wild_weighted'):
                 weights = util.get_boosted_weights(weights)
+            # adjust weights down if vanilla miabs are on, for balancing
+            if env.options.flags.has('vanilla_miabs'):
+                # see assests/db/curves.csvdb for the numbers;
+                # in order, it's Zot, Castle Eblan, Lower Bab-il, Cave Eblan, Upper Bab-il, 
+                # Sylph Cave, Feymarch, Lunar Path, Giant, Lunar Subterrane/Core
+                if row.wikiindex in [22, 25, 24, 26, 27, 31, 32, 36, 37, 38]:
+                    weights = util.get_vanilla_miabs_weights(weights)
 
             distributions_unrestricted[row.area] = util.Distribution(weights)
             # null out distributions for empty item tiers

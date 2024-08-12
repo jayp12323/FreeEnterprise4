@@ -531,6 +531,7 @@ def apply(env):
     env.spoilers.add_table("CHARACTERS", character_spoilers, public=character_spoilers_public)
 
     # set starting gear, if needed
+    # first, check for Cnekkie
     if env.options.flags.has('characters_nekkie'):
         starting_weapon_spoilers = []
         weapons_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'weapon' and it.subtype != 'arrow' and it.tier in (1,2,3))
@@ -565,8 +566,76 @@ def apply(env):
                 '}')
 
             env.add_script(gear_script)
-
         env.spoilers.add_table('CHARACTER STARTING WEAPONS', starting_weapon_spoilers, ditto_depth=1, public=character_spoilers_public)
+    
+    # then, check for Cthrift (which is mutually exclusive with Cnekkie)
+    thrift_tier = env.options.flags.get_suffix('Cthrift:')
+    if thrift_tier:
+        thrift_tier = int(thrift_tier)
+        starting_gear_spoilers = []
+        weapons_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'weapon' and it.subtype != 'arrow' and it.tier in range(1,thrift_tier+1))
+        arrows_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'weapon' and it.subtype == 'arrow' and it.tier in range(1,thrift_tier+1))
+        shields_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype == 'shield' and it.tier in range(1,thrift_tier+1))
+        head_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype in ['helmet','hat'] and it.tier in range(1,thrift_tier+1))
+        body_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype in ['armor','robe'] and it.tier in range(1,thrift_tier+1))
+        arms_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype in ['gauntlet','ring'] and it.tier in range(1,thrift_tier+1))
+
+        for reference_actor_id in REFERENCE_ACTORS_TO_EQUIP_JOBS:
+            job = REFERENCE_ACTORS_TO_EQUIP_JOBS[reference_actor_id]
+            gear_list = [] # list of strings to be joined together to form the spoiler row
+
+            weapons = weapons_dbview.find_all(lambda it: job in it.equip)
+            weapon = env.rnd.choice(weapons)
+            if weapon.subtype == 'bow':
+                arrow = env.rnd.choice(arrows_dbview.find_all())
+                gear_list.append(databases.get_item_spoiler_name(weapon) + ' + ' + databases.get_item_spoiler_name(arrow))
+                main_hand_value = arrow.const + (' 1' if env.meta.get('wacky_challenge') == 'unstackable' else ' 20')
+                off_hand_value = weapon.const
+            else:
+                main_hand_value = weapon.const
+                gear_list.append(databases.get_item_spoiler_name(weapon))
+                if (job in ['dkcecil','pcecil','kain','cid']) and (not weapon.twohanded):
+                    shields = shields_dbview.find_all(lambda it: job in it.equip)
+                    shield = env.rnd.choice(shields)
+                    gear_list.append(databases.get_item_spoiler_name(shield))
+                    off_hand_value = shield.const
+                elif (job in ['yang','edge']):
+                    weapon2 = env.rnd.choice(weapons)
+                    off_hand_value = weapon2.const
+                    gear_list.append(databases.get_item_spoiler_name(weapon2))
+                else:
+                    off_hand_value = '$00 0'
+
+            heads = head_dbview.find_all(lambda it: job in it.equip)
+            head = env.rnd.choice(heads)
+            gear_list.append(databases.get_item_spoiler_name(head))
+
+            bodys = body_dbview.find_all(lambda it: job in it.equip)
+            body = env.rnd.choice(bodys)
+            gear_list.append(databases.get_item_spoiler_name(body))
+
+            armss = arms_dbview.find_all(lambda it: job in it.equip)
+            arms = env.rnd.choice(armss)
+            gear_list.append(databases.get_item_spoiler_name(arms))
+
+            if (job in ['kain', 'palom']):
+                main_hand = 'left hand'
+                off_hand = 'right hand'
+            else:
+                main_hand = 'right hand'
+                off_hand = 'left hand'
+
+            gear_script = (f'actor(${reference_actor_id:02X}) {{\n' +
+                f'{ main_hand } { main_hand_value }\n' +
+                f'{ off_hand } { off_hand_value }\n' +
+                f'head { head.const }\n' +
+                f'body { body.const }\n' +
+                f'arms { arms.const }\n' +
+                '}')
+
+            env.add_script(gear_script)
+            starting_gear_spoilers.append(SpoilerRow(REFERENCE_ACTORS_TO_SPOILER_NAMES[reference_actor_id], ", ".join(gear_list), obscurable=True))
+        env.spoilers.add_table('CHARACTER STARTING EQUIPMENT', starting_gear_spoilers, ditto_depth=1, public=character_spoilers_public)        
 
     # note starting character in metadata
     env.meta['starting_character'] = assignment['dkcecil_slot']

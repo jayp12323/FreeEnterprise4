@@ -1,0 +1,39 @@
+// Give monsters base evade/magic evade; a well-known "bug" (or intended
+// feature) means that monsters have no evade, physical or magical, unless
+// they change their stats in the middle of battle (the magic evade for
+// scripted changes is also bugged). This script fixes this "bug" and is 
+// intended to be a hard-mode flag.
+
+// See character_battle in Aexoden's header.txt for why the precise bytes
+// are what they are.
+
+patch($0390d8 bus) { 29 } // correctly set physical evade
+patch($0390f0 bus) { 23 } // correctly set magical evade
+patch($03b7d8 bus) { 23 } // correctly set scripted magical evade
+
+// Incidentally, because some bosses have low spell-power but high magic
+// evade and cast Wall on themselves (hi Wyvern), without a tweak to the 
+// hits algorithm this fix breaks a couple of bosses. So, we also rewrite
+// the hits code to be an exclusive-or: if it's monster casting on monster
+// or character casting on character, set magic defense to zero and
+// skip checking evade rolls. On the bright side, reflect strats still work!
+// Monsters cannot bypass the 255 MDef -> miss code, though.
+
+msfpatch { 
+    .def BattleCommandActorSlot  $7e00cd
+    .def BattleCommandTargetSlot $7e00ce
+    
+    // new code to allow monsters to cast against zero defense
+    .addr $03d083
+        lda $.BattleCommandActorSlot
+        eor $.BattleCommandTargetSlot
+        and #$80
+        nop nop nop nop
+    
+    // new code to allow monsters to skip magic evade checks
+    .addr $03d113
+        lda $.BattleCommandActorSlot
+        eor $.BattleCommandTargetSlot
+        and #$80
+        nop nop nop nop
+}

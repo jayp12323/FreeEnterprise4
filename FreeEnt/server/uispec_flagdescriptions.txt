@@ -50,6 +50,9 @@ Key items may be awarded by the bosses of the Lunar Subterrane.
 [Kmiab]
 This excludes monster-in-a-box chests in the Lunar Subterrane, unless also using Kmoon or Kunsafe.
 
+[Klstmiab]
+This ignores the Kmoon or Kunsafe safety check that Kmiab has.
+
 [Knofree]
 Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.
 
@@ -64,6 +67,9 @@ You are guaranteed that the Hook route through Cave Eblan is the only way to acc
     <li>Normally, you are guaranteed a path to the underworld that does not require first going to the moon. This flag removes that check.</li>
     <li>If Kmiab is enabled, key items may appear in the Lunar Subterrane monster-in-a-box chests.</li>
 </ul>
+
+[Kunweighted]
+Normally, key-item-enabled locations outside of the <em>Kmain</em> checks are weighted against in terms of placement. This flag removes that weighting. 
 
 [Pchests]
 Passes are placed in three random treasure chests (not on the moon).
@@ -104,6 +110,9 @@ If a duplicate character tries to join your party, instead nothing happens.
 [Cnekkie]
 Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)
 
+[@Cthrifttier]
+Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear.)
+
 [Cbye]
 Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)
 
@@ -143,6 +152,9 @@ An unrestricted randomization, allowing equal chance for items to appear in any 
 
 [Twildish]
 Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.
+
+[Tplayable]
+Equipment in chests will be usable by at least one character that you can acquire in the seed.
 
 [Tjunk]
 Normally, poor-quality items in chests are replaced with an equivalent amount of GP (based on sell price) to reduce inventory bloat. Enable this flag if you want to keep them as items.
@@ -188,6 +200,9 @@ The replacement attack will be weaker than MegaNuke (unless <em>Bunsafe</em> is 
 
 [Bitburns]
 The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo
+
+[Bwoahdin]
+The replacement attack will be single-target (and generally weaker than e.g. Nuke, unless <em>Bunsafe</em> is enabled). Odin will not raise the sword before the random attack.
 
 [@G]
 The glitches explicitly referenced here are <em>disabled by default</em>; setting these flags enables them to act as they do in original FF4. Glitches not mentioned here remain intact and available.
@@ -288,6 +303,9 @@ An Ice Brand and a Blizzard Spear.
 [-kit:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
 
+[-kit:atb]
+2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions.
+
 [-kit:random]
 One of the other kit options, selected at random.
 
@@ -365,6 +383,9 @@ An Ice Brand and a Blizzard Spear.
 
 [-kit2:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
+
+[-kit2:atb]
+2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions.
 
 [-kit2:random]
 One of the other kit options, selected at random.
@@ -444,14 +465,47 @@ An Ice Brand and a Blizzard Spear.
 [-kit3:green]
 A grab bag of items selected individually by FE devs without any coordination whatsoever.
 
+[-kit3:atb]
+2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions.
+
 [-kit3:random]
 One of the other kit options, selected at random.
 
 [-noadamants]
 Adamant Armors are not available. Trading the Pink Tail in the Adamant Grotto instead grants a strong item.
 
+[-monsterevade]
+Monsters will be able to evade both physical and magical attacks from your party based on their actual stats. (This change constitutes a significant damage reduction for many fights!)
+
+[@smithy]
+Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.
+
 [-smith:super]
 Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)
+
+[-smith:playable]
+The item that Kokkol forges will be usable by a character you can acquire in the seed.
+
+[@fusoya] 
+By default, Free Enterprise runs with the "FuSoYa Challenge", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This behaviour may be changed using these flags.
+
+[-fusoya:vanilla] 
+Restore the vanilla game's FuSoYa behaviour, where he joins with 1900 HP and his full spellset.
+
+[-fusoya:sequential_p] 
+Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Palom and Porom learn their spells.
+
+[-fusoya:sequential_r] 
+Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Rydia and Rosa learn their spells. He will not learn spells learned outside of level-ups (Fire1, Fire2/Ice2/Lit2, Exit).
+
+[-fusoya:location] 
+FuSoYa will learn three spells after every boss, but the spells learned depend on the boss location. Stronger/gated boss spots are weighted to provide more powerful spells.
+
+[-fusoya:nerfed] 
+FuSoYa will start with a fixed pool of 14 black magic and 14 white magic spells (17 with j-spells), mostly tier 2 and below, but will not learn any spells over the course of the game. He will still gain HP as usual.
+
+[-fusoya:maybe] 
+Normally, FuSoYa will eventually learn all possible spells. This flag removes that guarantee; each possible spell will be included independently with an 85% chance.
 
 [-vintage]
 Enables the April Fools Day 2019 mode.
@@ -464,9 +518,6 @@ Enables the April Fools Day 2019 mode.
     <li>Instability is absolutely guaranteed.</li>
     <li>(If a door goes somewhere you don't expect it to go, it was probably a "return" door, which takes you back to your previous location.)</li>
 </ul>
-
-[-vanilla:fusoya]
-By default, Free Enterprise runs with the "FuSoYa Challenge", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This flag disables that challenge and restores vanilla's FuSoYa behavior, where he joins with 1900 HP and his full spellset.
 
 [-vanilla:agility]
 FF4 scales the speed of combat based on the agility stat of your party's "agility anchor". In Free Enterprise, the anchor is always the first occupied party slot (in the sequence of middle, top, bottom, top-middle, bottom-middle). However, in vanilla FF4, if Cecil is in the party, then he is the agility anchor, regardless of position. Enabling this flag will restore that behavior, making the first Cecil in your party the anchor, if present. (Note that this overrides the <em>Chero</em> agility effect, if playing with the hero challenge.)
@@ -508,3 +559,7 @@ Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battl
     <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>
     <li>(They are intended to be wacky.)</li>
 </ul>
+
+[-tweak:kainmagic] Kain gets two spellsets: White (with a new spell Lance replacing Sight) and Black.
+
+[-tweak:edwardheal] Edward's Heal command will now use the best of Cure3/Cure2/Cure1 available.

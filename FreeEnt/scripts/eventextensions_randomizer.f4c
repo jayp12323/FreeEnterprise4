@@ -356,7 +356,12 @@ msfpatch {
         lda $=FusoyaChallenge__Credits
         sta $_EvEx__Param2
 
-        jsr $_FusoyaChallenge__AdvanceLevel2
+        // %flag location_fusoya on%
+        jsr $_FusoyaChallenge__AdvanceLocation
+        // %end%
+        // %flag location_fusoya off%
+        jsr $_FusoyaChallenge__AdvanceBossNumber
+        // %end%
         
         // check if Fusoya is in party
         lda #$0d
@@ -366,15 +371,27 @@ msfpatch {
         // Fusoya not in party
         jmp $_Return
 
-        // check if challenge already complete
+        // %if location_fusoya%
+        lda $_EvEx__Param2  
+        inc a
+        cmp #$.FusoyaChallenge__MaxCredits // check if final HP stage has just been completed
+        beq $+FusoyaJustCompletedWithSpells // textbox has been rewritten to say "max HP!"
+        
+        lda #$03 // load the spells-only textbox offset
+        sta $b2
+        jsr $_LoadLearnedSpellNames // always learn three spells
+        jmp $_FusoyaDisplayMessage // display the textbox, back out of the event
+
+        // %else%
         lda $_EvEx__Param2
-        cmp #$.FusoyaChallenge__MaxCredits
+        cmp #$.FusoyaChallenge__MaxCredits // check if challenge already complete
         bcs $+Return
+        // %end%
 
         // check if final stage completed
         inc a
         cmp #$.FusoyaChallenge__MaxCredits
-        beq $+Fusoya2JustCompleted
+        beq $+FusoyaJustCompleted
 
         // check if learned any spells
         lda $=FusoyaChallenge__LearnedSpell1
@@ -389,27 +406,27 @@ msfpatch {
 
         jsr $_LoadLearnedSpellNames
 
-        jmp $_Fusoya2DisplayMessage
+        jmp $_FusoyaDisplayMessage
 
-    %Fusoya2JustCompleted:
+    %FusoyaJustCompleted:
         // check if learned any spells
         lda $=FusoyaChallenge__LearnedSpell1
         cmp #$ff
-        bne $+Fusoya2JustCompletedWithSpells
+        bne $+FusoyaJustCompletedWithSpells
         // load "full power" message
         lda #$05
         sta $b2
-        jmp $_Fusoya2DisplayMessage
+        jmp $_FusoyaDisplayMessage
 
-    %Fusoya2JustCompletedWithSpells:
+    %FusoyaJustCompletedWithSpells:
         jsr $_LoadLearnedSpellNames
 
         // load "learned spells + full power" message
         lda #$04
         sta $b2
-        jmp $_Fusoya2DisplayMessage
+        jmp $_FusoyaDisplayMessage
 
-    %Fusoya2DisplayMessage:
+    %FusoyaDisplayMessage:
         // Play sound
         lda #$24
         jsr $_Util__PlaySFX

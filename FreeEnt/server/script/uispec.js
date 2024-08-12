@@ -3623,10 +3623,23 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
-                "flag": "Kmiab",
+                "flag": "@anon25",
                 "title": "Mix with monster-in-a-box chests",
-                "description": "This excludes monster-in-a-box chests in the Lunar Subterrane, unless also using Kmoon or Kunsafe.",
-                "hard": true
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Kmiab",
+                    "title": "All non-LST miabs; also LST miabs under Kmoon or Kunsafe",
+                    "description": "This excludes monster-in-a-box chests in the Lunar Subterrane, unless also using Kmoon or Kunsafe.",
+                    "hard": true
+                  },
+                  {
+                    "flag": "Klstmiab",
+                    "title": "All LST miabs",
+                    "description": "This ignores the Kmoon or Kunsafe safety check that Kmiab has.",
+                    "hard": true
+                  }
+                ]
               },
               {
                 "flag": "Knofree",
@@ -3635,7 +3648,7 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
-                "flag": "@anon25",
+                "flag": "@anon26",
                 "title": "Underworld access",
                 "type": "select",
                 "subcontrols": [
@@ -3659,7 +3672,7 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
-                "flag": "@anon26",
+                "flag": "@anon27",
                 "title": "Starting items",
                 "type": "select",
                 "subcontrols": [
@@ -3724,6 +3737,11 @@ var FLAG_UISPEC = [
                     "title": "You start with the Adamant"
                   }
                 ]
+              },
+              {
+                "flag": "Kunweighted",
+                "title": "Key items will be placed uniformly at random",
+                "description": "Normally, key-item-enabled locations outside of the <em>Kmain</em> checks are weighted against in terms of placement. This flag removes that weighting."
               }
             ]
           }
@@ -3753,7 +3771,7 @@ var FLAG_UISPEC = [
     "title": "CHARACTERS",
     "controls": [
       {
-        "flag": "@anon27",
+        "flag": "@anon28",
         "title": "Characters",
         "important": true,
         "type": "select",
@@ -3774,7 +3792,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon28",
+                "flag": "@anon29",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -3835,12 +3853,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon29",
+                "flag": "@anon30",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon30",
+                    "flag": "@anon31",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3895,7 +3913,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon31",
+                    "flag": "@anon32",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -4020,7 +4038,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon32",
+                "flag": "@anon33",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -4081,12 +4099,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon33",
+                "flag": "@anon34",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon34",
+                    "flag": "@anon35",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -4141,7 +4159,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon35",
+                    "flag": "@anon36",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -4224,7 +4242,7 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
-        "flag": "@anon36",
+        "flag": "@anon37",
         "title": "Specify possible starting characters",
         "null": true,
         "type": "select",
@@ -4358,9 +4376,40 @@ var FLAG_UISPEC = [
         "description": "Characters retain the battle commands from FF4j that were removed in FF4us."
       },
       {
-        "flag": "Cnekkie",
-        "title": "Characters start with limited gear",
-        "description": "Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)"
+        "flag": "@anon38",
+        "title": "Specify possible starting gear",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "Cnekkie",
+            "title": "Characters start with limited gear",
+            "description": "Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)"
+          },
+          {
+            "flag": "@Cthrifttier",
+            "title": "Characters start with full random gear",
+            "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear.)",
+            "compact": true,
+            "subcontrols": [
+              {
+                "flag": "Cthrift:2",
+                "title": "Starting gear is at best tier 2"
+              },
+              {
+                "flag": "Cthrift:3",
+                "title": "Starting gear is at best tier 3"
+              },
+              {
+                "flag": "Cthrift:4",
+                "title": "Starting gear is at best tier 4"
+              },
+              {
+                "flag": "Cthrift:5",
+                "title": "Starting gear is at best tier 5"
+              }
+            ]
+          }
+        ]
       },
       {
         "flag": "Cpaladin",
@@ -4377,7 +4426,7 @@ var FLAG_UISPEC = [
         "description": "Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)"
       },
       {
-        "flag": "@anon37",
+        "flag": "@anon39",
         "title": "Limit maximum party size",
         "type": "select",
         "subcontrols": [
@@ -4405,7 +4454,7 @@ var FLAG_UISPEC = [
         "description": "You have the choice of whether to accept each new party member, but once your party is full, you cannot recruit anyone else."
       },
       {
-        "flag": "@anon38",
+        "flag": "@anon40",
         "title": "Permadeath options",
         "type": "select",
         "subcontrols": [
@@ -4424,7 +4473,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon39",
+        "flag": "@anon41",
         "title": "Hero Options",
         "type": "select",
         "subcontrols": [
@@ -4448,7 +4497,7 @@ var FLAG_UISPEC = [
     "title": "TREASURES",
     "controls": [
       {
-        "flag": "@anon40",
+        "flag": "@anon42",
         "title": "Treasure chests (other than MIABs)",
         "important": true,
         "type": "select",
@@ -4459,7 +4508,7 @@ var FLAG_UISPEC = [
             "null": true,
             "subcontrols": [
               {
-                "flag": "@anon41",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4509,7 +4558,7 @@ var FLAG_UISPEC = [
             "description": "Treasure contents are the same as in original FF4, but their positions are shuffled. This randomization is weighted so that overworld treasures tend to remain in the overworld, and similarly for underworld/moon treasures.",
             "subcontrols": [
               {
-                "flag": "@anon41",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4559,7 +4608,7 @@ var FLAG_UISPEC = [
             "description": "A basic randomization, allowing items of reasonable strength to appear. Items are equally likely to appear in any chest regardless of location.",
             "subcontrols": [
               {
-                "flag": "@anon41",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4602,7 +4651,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon42",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4631,7 +4680,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon43",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4661,7 +4710,7 @@ var FLAG_UISPEC = [
             "description": "A skill-testing randomization, limiting the strength of available items, and weighted to favor stronger items in later-game and infrequently-visited areas.",
             "subcontrols": [
               {
-                "flag": "@anon41",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4704,7 +4753,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon42",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4733,7 +4782,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon43",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4763,7 +4812,7 @@ var FLAG_UISPEC = [
             "description": "An unrestricted randomization, allowing equal chance for items to appear in any chest, including the most powerful items.",
             "subcontrols": [
               {
-                "flag": "@anon41",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4806,7 +4855,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon42",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4835,7 +4884,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon43",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4865,7 +4914,7 @@ var FLAG_UISPEC = [
             "description": "Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.",
             "subcontrols": [
               {
-                "flag": "@anon41",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4908,7 +4957,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon42",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4937,7 +4986,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon43",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4973,7 +5022,12 @@ var FLAG_UISPEC = [
         "title": "No J-items in chests"
       },
       {
-        "flag": "@anon44",
+        "flag": "Tplayable",
+        "title": "Chests contain usable items",
+        "description": "Equipment in chests will be usable by at least one character that you can acquire in the seed."
+      },
+      {
+        "flag": "@anon46",
         "title": "Junk management",
         "type": "select",
         "subcontrols": [
@@ -4995,7 +5049,7 @@ var FLAG_UISPEC = [
     "title": "SHOPS",
     "controls": [
       {
-        "flag": "@anon45",
+        "flag": "@anon47",
         "title": "Shops",
         "important": true,
         "type": "select",
@@ -5074,7 +5128,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon46",
+        "flag": "@anon48",
         "title": "Buy prices",
         "type": "select",
         "subcontrols": [
@@ -5089,7 +5143,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon47",
+        "flag": "@anon49",
         "title": "Sell prices",
         "type": "select",
         "subcontrols": [
@@ -5104,7 +5158,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon48",
+        "flag": "@anon50",
         "title": "Guarantee Items",
         "compact": true,
         "subcontrols": [
@@ -5151,7 +5205,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon49",
+        "flag": "@anon51",
         "title": "Remove Items",
         "compact": true,
         "subcontrols": [
@@ -5206,7 +5260,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon50",
+        "flag": "@anon52",
         "title": "Shop price adjustments",
         "type": "select",
         "subcontrols": [
@@ -5215,7 +5269,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 20% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5240,7 +5294,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 40% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5265,7 +5319,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 60% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5290,7 +5344,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 80% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5315,7 +5369,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 120% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5340,7 +5394,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 140% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5365,7 +5419,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 160% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5390,7 +5444,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 180% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5415,7 +5469,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 200% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5441,7 +5495,7 @@ var FLAG_UISPEC = [
             "hard": true,
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5469,7 +5523,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon52",
+        "flag": "@anon54",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -5506,7 +5560,7 @@ var FLAG_UISPEC = [
         "description": "Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area."
       },
       {
-        "flag": "@anon53",
+        "flag": "@anon55",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -5525,6 +5579,11 @@ var FLAG_UISPEC = [
             "description": "The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo"
           }
         ]
+      },
+      {
+        "flag": "Bwoahdin",
+        "title": "Replace Odin's first two Zantetsukens 1 and 2 with random attack",
+        "description": "The replacement attack will be single-target (and generally weaker than e.g. Nuke, unless <em>Bunsafe</em> is enabled). Odin will not raise the sword before the random attack."
       }
     ]
   },
@@ -5532,7 +5591,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon54",
+        "flag": "@anon56",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -5605,7 +5664,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon55",
+        "flag": "@anon57",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -5682,7 +5741,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon56",
+            "flag": "@anon58",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -5812,6 +5871,11 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit:atb",
+                "title": "ATB kit",
+                "description": "2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions."
+              },
+              {
                 "flag": "-kit:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -5819,7 +5883,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon57",
+            "flag": "@anon59",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -5949,6 +6013,11 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit2:atb",
+                "title": "ATB kit",
+                "description": "2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions."
+              },
+              {
                 "flag": "-kit2:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -5956,7 +6025,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon58",
+            "flag": "@anon60",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -6086,6 +6155,11 @@ var FLAG_UISPEC = [
                 "description": "A grab bag of items selected individually by FE devs without any coordination whatsoever."
               },
               {
+                "flag": "-kit3:atb",
+                "title": "ATB kit",
+                "description": "2-3 SilkWebs, 4-5 Hermes, 1 HrGlass1, and 3-4 Heal potions."
+              },
+              {
                 "flag": "-kit3:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -6108,18 +6182,81 @@ var FLAG_UISPEC = [
         "title": "Edward can equip the Spoon"
       },
       {
-        "flag": "@anon59",
+        "flag": "-monsterevade",
+        "title": "Monsters get physical and magical evasion",
+        "description": "Monsters will be able to evade both physical and magical attacks from your party based on their actual stats. (This change constitutes a significant damage reduction for many fights!)"
+      },
+      {
+        "flag": "@smithy",
         "title": "Smithy reward",
-        "type": "select",
+        "description": "Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.",
         "subcontrols": [
           {
-            "flag": "-smith:alt",
-            "title": "Kokkol crafts a random tier 7/8 item"
+            "flag": "@anon61",
+            "title": "Alternative forge items",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-smith:alt",
+                "title": "Kokkol crafts a random tier 7/8 item"
+              },
+              {
+                "flag": "-smith:super",
+                "title": "Kokkol crafts a weapon from FF4 Advance",
+                "description": "Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)"
+              }
+            ]
           },
           {
-            "flag": "-smith:super",
-            "title": "Kokkol crafts a weapon from FF4 Advance",
-            "description": "Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantasy 4 Advance. (Some weapons have been modified slightly due to technical limitations.)"
+            "flag": "-smith:playable",
+            "title": "Kokkol's item will be usable",
+            "description": "The item that Kokkol forges will be usable by a character you can acquire in the seed."
+          }
+        ]
+      },
+      {
+        "flag": "@fusoya",
+        "title": "Alternative FuSoYa challenges",
+        "description": "By default, Free Enterprise runs with the \"FuSoYa Challenge\", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This behaviour may be changed using these flags.",
+        "subcontrols": [
+          {
+            "flag": "@anon62",
+            "title": "Spell learning changes",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-fusoya:vanilla",
+                "title": "Vanilla FuSoYa",
+                "description": "Restore the vanilla game's FuSoYa behaviour, where he joins with 1900 HP and his full spellset."
+              },
+              {
+                "flag": "-fusoya:sequential_p",
+                "title": "Fixed spell order (Palom/Porom)",
+                "description": "Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Palom and Porom learn their spells."
+              },
+              {
+                "flag": "-fusoya:sequential_r",
+                "title": "Fixed spell order (Rydia/Rosa)",
+                "description": "Instead of learning spells randomly, FuSoYa will learn spells in order based on the levels at which Rydia and Rosa learn their spells. He will not learn spells learned outside of level-ups (Fire1, Fire2/Ice2/Lit2, Exit)."
+              },
+              {
+                "flag": "-fusoya:location",
+                "title": "Location-dependent spells",
+                "description": "FuSoYa will learn three spells after every boss, but the spells learned depend on the boss location. Stronger/gated boss spots are weighted to provide more powerful spells."
+              },
+              {
+                "flag": "-fusoya:nerfed",
+                "title": "Fixed starting spells, no learning",
+                "description": "FuSoYa will start with a fixed pool of 14 black magic and 14 white magic spells (17 with j-spells), mostly tier 2 and below, but will not learn any spells over the course of the game. He will still gain HP as usual.",
+                "hard": true
+              }
+            ]
+          },
+          {
+            "flag": "-fusoya:maybe",
+            "title": "Spells not guaranteed to be learned",
+            "description": "Normally, FuSoYa will eventually learn all possible spells. This flag removes that guarantee; each possible spell will be included independently with an 85% chance.",
+            "hard": true
           }
         ]
       },
@@ -6146,14 +6283,9 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon60",
+        "flag": "@anon63",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
-          {
-            "flag": "-vanilla:fusoya",
-            "title": "Vanilla FuSoYa",
-            "description": "By default, Free Enterprise runs with the \"FuSoYa Challenge\", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This flag disables that challenge and restores vanilla's FuSoYa behavior, where he joins with 1900 HP and his full spellset."
-          },
           {
             "flag": "-vanilla:agility",
             "title": "Vanilla agility anchoring",
@@ -6204,10 +6336,10 @@ var FLAG_UISPEC = [
       {
         "flag": "@wacky",
         "title": "Wacky challenge",
-        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
+        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n\n[-tweak:kainmagic] Kain gets two spellsets: White (with a new spell Lance replacing Sight) and Black.\n\n[-tweak:edwardheal] Edward's Heal command will now use the best of Cure3/Cure2/Cure1 available.",
         "subcontrols": [
           {
-            "flag": "@anon61",
+            "flag": "@anon64",
             "title": "Select challenge",
             "type": "select",
             "subcontrols": [
@@ -6229,6 +6361,10 @@ var FLAG_UISPEC = [
               {
                 "flag": "-wacky:bodyguard",
                 "title": "\"The Bodyguard\""
+              },
+              {
+                "flag": "-wacky:dropitlikeitshot",
+                "title": "\"Drop It Like It's Hot\""
               },
               {
                 "flag": "-wacky:enemyunknown",
@@ -6357,10 +6493,28 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
+                "flag": "-wacky:whatsmygear",
+                "title": "\"What's My Gear Again?\""
+              },
+              {
                 "flag": "-wacky:zombies",
                 "title": "\"Zombies!!!\""
               }
             ]
+          }
+        ]
+      },
+      {
+        "flag": "@anon65",
+        "title": "Miscellaneous tweaks",
+        "subcontrols": [
+          {
+            "flag": "-tweak:kainmagic",
+            "title": "Give Kain magic (with Lance)"
+          },
+          {
+            "flag": "-tweak:edwardheal",
+            "title": "Improve Edward's Heal command"
           }
         ]
       }
@@ -6370,7 +6524,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon62",
+        "flag": "@anon66",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6424,7 +6578,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon63",
+            "flag": "@anon67",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6440,7 +6594,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon64",
+                "flag": "@anon68",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

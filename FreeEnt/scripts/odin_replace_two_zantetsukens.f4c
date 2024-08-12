@@ -1,0 +1,44 @@
+// Given a randomly chosen single-target spell from
+// odin_rando.py, replace the first two Odin/Zantetsuken
+// attacks with that spell (random targeting). In addition,
+// do not change Odin's sprite (more thematic!).
+
+ai_script($D3)
+{
+    fight
+    
+    fight
+    
+    fight
+    
+    pass
+    
+    pass
+    
+    // %odin spell replacement%
+    // %end%
+    
+    fight
+    
+    fight
+    
+    pass
+    
+    pass
+    
+    // %odin spell replacement%
+    // %end%
+    
+    fight
+    
+    chain {
+        set sprite $2B
+        pass
+        
+        condition 1
+        pass
+    }
+
+    condition 0
+    use #Enemy_Odin
+}

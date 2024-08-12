@@ -443,7 +443,10 @@ class FlagLogicCore {
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }
         if (flagset.has("Kvanilla")) {
-            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe"]);
+            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunweighted"]);
+        }
+        if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
+            this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
         }
         if (flagset.has("Cvanilla")) {
             this._simple_disable_regex(flagset, log, "Characters not randomized", "^C(maybe|distinct:|only:|no:)");
@@ -464,11 +467,18 @@ class FlagLogicCore {
         if (((start_include_flags.length > 1) && flagset.has("Cstart:any"))) {
             this._simple_disable_regex(flagset, log, "Cstart:any is specified", "^Cstart:(?!any|not_)");
         }
+        if ((flagset.has("Kstart:magma") && flagset.has("Kforce:hook"))) {
+            this._simple_disable_regex(flagset, log, "Force hook with start:Magma", "^Kforce:hook");
+        }
+        if ((flagset.has("Cnekkie") && (flagset.get_list("^Cthrift:").length > 0))) {
+            this._simple_disable_regex(flagset, log, "Starting gear specified by Cnekkie", "^Cthrift:");
+        }
         if (flagset.has("Tempty")) {
             this._simple_disable_regex(flagset, log, "Treasures are empty", "^Tsparse:");
         }
         if (flagset.has_any("Tempty", "Tvanilla", "Tshuffle")) {
             this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmaxtier:");
+            this._simple_disable(flagset, log, "Treasures are not random", ["Tplayable"]);
         }
         if (flagset.has_any("Svanilla", "Scabins", "Sempty")) {
             this._simple_disable_regex(flagset, log, "Shops are not random", "^Sno:([^j]|j.)");
@@ -482,6 +492,9 @@ class FlagLogicCore {
         }
         if (flagset.has("Evanilla")) {
             this._simple_disable(flagset, log, "Encounters are vanilla", ["Ekeep:behemoths", "Ekeep:doors", "Edanger"]);
+        }
+        if ((flagset.get_list("^-smith:playable").length === flagset.get_list("^-smith:").length)) {
+            this._simple_disable(flagset, log, "No smith item requested", ["-smith:playable"]);
         }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");

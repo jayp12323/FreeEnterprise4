@@ -394,7 +394,10 @@ class FlagLogicCore:
             self._lib.push(log, ['correction', 'Advanced key item randomizations are enabled; forced to add Kmain'])
 
         if flagset.has('Kvanilla'):
-            self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe'])
+            self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe','Kunweighted'])
+
+        if flagset.has('Klstmiab') and flagset.has('Kmiab') and flagset.has_any('Kmoon','Kunsafe'):
+            self._simple_disable(flagset, log, 'LST miabs already included', ['Klstmiab'])
 
         if flagset.has('Cvanilla'):
             self._simple_disable_regex(flagset, log, 'Characters not randomized', r'^C(maybe|distinct:|only:|no:)')
@@ -415,12 +418,15 @@ class FlagLogicCore:
 
         if flagset.has('Kstart:magma') and flagset.has('Kforce:hook'):
             self._simple_disable_regex(flagset, log, 'Force hook with start:Magma', r'^Kforce:hook')
+        if flagset.has('Cnekkie') and len(flagset.get_list(r'^Cthrift:')) > 0:
+            self._simple_disable_regex(flagset, log, 'Starting gear specified by Cnekkie', r'^Cthrift:')
 
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
 
         if flagset.has_any('Tempty', 'Tvanilla', 'Tshuffle'):
             self._simple_disable_regex(flagset, log, 'Treasures are not random', r'^Tmaxtier:')
+            self._simple_disable(flagset, log, 'Treasures are not random', ['Tplayable'])
 
         if flagset.has_any('Svanilla', 'Scabins', 'Sempty'):
             self._simple_disable_regex(flagset, log, 'Shops are not random', r'^Sno:([^j]|j.)')
@@ -434,6 +440,9 @@ class FlagLogicCore:
 
         if flagset.has('Evanilla'):
             self._simple_disable(flagset, log, 'Encounters are vanilla', ['Ekeep:behemoths', 'Ekeep:doors', 'Edanger'])
+
+        if len(flagset.get_list(r'^-smith:playable')) == len(flagset.get_list(r'^-smith:')):
+            self._simple_disable(flagset, log, 'No smith item requested', ['-smith:playable'])
 
         all_spoiler_flags = flagset.get_list(r'^-spoil:')
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')
