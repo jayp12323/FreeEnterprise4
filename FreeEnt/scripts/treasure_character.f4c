@@ -8,7 +8,7 @@ Found [name $e0] in a chest!
 
 // three  bytes per treasure. First byte = WorldID, Next byte = MapID, last byte = treasure Index.  
 // 3 bytes * 16 possible characters in treasure total = 48 bytes total
-// The byte the treasure is in also corresponds to the reward slot in the lookup for character treasure rewards slot
+// The byte group the treasure is in also corresponds to the reward slot in the lookup for character treasure rewards slot
 patch($21fa50 bus) {
 // %character treasure rewards%    
     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -94,13 +94,15 @@ msfpatch {
         stx $_Bank00LongCallAddr
         jsl $=Bank00LongCall
 
+        lda $_CharacterTreasure__RewardSlotIndex
+        jsr $_Lookup_AxtorToActor
         jsl $=Objectives__StageProgress        
-        //jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
-        //lda #$08  // Load the $08 event handler (which tackles objectives)
-        //ldx #$df63 // _decode_event
-        //jsl $=Bank00LongCallX        
-        //ldx $1615   // [hardcoded]
-        //stx $09d3   // Restore the other events      
+        jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue
+        lda #$08  // Load the $08 event handler (which tackles objectives)
+        ldx #$df63 // _decode_event
+        jsl $=Bank00LongCallX        
+        ldx $1615   // [hardcoded]
+        stx $09d3   // Restore the other events      
 
         lda $_CharacterTreasure__RewardSlotIndex
         jsl $=Rewards__DeliverFromSlot
