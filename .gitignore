@@ -13,3 +13,4 @@ FreeEnt/server/_build/**
 *.env
 .vscode/**
 testsettings.json
+FreeEnt/server/bin
