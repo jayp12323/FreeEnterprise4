@@ -1,0 +1,78 @@
+// Make Edward split a Cure3, or a Cure2 if no Cure3s, or a Cure1 if no Cure3s/Cure2s, or fail.
+
+msfpatch {
+    .addr $03E2E1
+        jml $=Heal__MultipleChecks
+
+    .def Heal__FoundSomething $03E2FF
+    .def Heal__FoundNothing   $03E2F5
+
+    .def Heal__InventoryStart $321B
+}
+
+msfpatch {
+    Heal__MultipleChecks:
+        // hardcode the loop that the vanilla code does for Cure1 three times, starting with Cure3
+        tdc // direct page should always be $00 in battle code, maybe
+        tax 
+        tay 
+    %HealCure3Check__LoopStart:
+        lda $_Heal__InventoryStart,x // the label,x that gives you the offset in the battle inventory
+        cmp #$D0 // #Cure3
+        beq $+Done
+        iny
+        inx
+        inx
+        inx
+        inx
+        cpx #$00C0 // when to stop looking (size of inventory)
+        bne $-HealCure3Check__LoopStart
+
+        tdc
+        tax
+        tay 
+    %HealCure2Check__LoopStart:
+        lda $_Heal__InventoryStart,x 
+        cmp #$CF // #Cure2
+        beq $+Done
+        iny
+        inx
+        inx
+        inx
+        inx
+        cpx #$00C0 
+        bne $-HealCure2Check__LoopStart
+
+        tdc
+        tax
+        tay 
+    %HealCure1Check__LoopStart:
+        lda $_Heal__InventoryStart,x 
+        cmp #$CE // #Cure1
+        beq $+Done
+        iny
+        inx
+        inx
+        inx
+        inx
+        cpx #$00C0 
+        bne $-HealCure1Check__LoopStart
+
+    // if we've fallen through this far, do nothing
+        jml $=Heal__FoundNothing
+
+    %Done:
+        sta $26D2 // set the subcommand to be the correct item
+        sta $33C5 // set the audiovisual script similarly
+        jml $=Heal__FoundSomething
+}
+
+msfpatch {
+    // we've already set the subcommand
+    .addr $03E331
+        nop nop nop nop nop
+    
+    // we've already set the audiovisual script
+    .addr $03E33E
+        nop nop nop
+}

@@ -1041,6 +1041,8 @@ const _FE_FLAGSPEC = {
         "-wacky:isthisrandomized",
         "-wacky:forwardisback",
         "-wacky:dropitlikeitshot",
+        "-tweak:kainmagic",
+        "-tweak:edwardheal",
         "-spoil:all",
         "-spoil:keyitems",
         "-spoil:rewards",
@@ -8203,110 +8205,122 @@ const _FE_FLAGSPEC = {
             "value": 35
         },
         {
-            "flag": "-spoil:all",
+            "flag": "-tweak:kainmagic",
             "offset": 264,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:keyitems",
+            "flag": "-tweak:edwardheal",
             "offset": 265,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:rewards",
+            "flag": "-spoil:all",
             "offset": 266,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:chars",
+            "flag": "-spoil:keyitems",
             "offset": 267,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:treasure",
+            "flag": "-spoil:rewards",
             "offset": 268,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:chars",
+            "offset": 269,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:treasure",
+            "offset": 270,
             "size": 2,
             "value": 1
         },
         {
             "flag": "-spoil:miabs",
-            "offset": 268,
+            "offset": 270,
             "size": 2,
             "value": 2
         },
         {
             "flag": "-spoil:shops",
-            "offset": 270,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:bosses",
-            "offset": 271,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:misc",
             "offset": 272,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:sparse10",
+            "flag": "-spoil:bosses",
             "offset": 273,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:misc",
+            "offset": 274,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:sparse10",
+            "offset": 275,
             "size": 4,
             "value": 1
         },
         {
             "flag": "-spoil:sparse20",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 2
         },
         {
             "flag": "-spoil:sparse30",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 3
         },
         {
             "flag": "-spoil:sparse40",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 4
         },
         {
             "flag": "-spoil:sparse50",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 5
         },
         {
             "flag": "-spoil:sparse60",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 6
         },
         {
             "flag": "-spoil:sparse70",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 7
         },
         {
             "flag": "-spoil:sparse80",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 8
         },
         {
             "flag": "-spoil:sparse90",
-            "offset": 273,
+            "offset": 275,
             "size": 4,
             "value": 9
         }

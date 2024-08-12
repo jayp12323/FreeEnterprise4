@@ -5192,7 +5192,7 @@ var FLAG_UISPEC = [
       {
         "flag": "@wacky",
         "title": "Wacky challenge",
-        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
+        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n\n[-tweak:kainmagic] Kain gets two spellsets: White (with a new spell Lance replacing Sight) and Black.\n\n[-tweak:edwardheal] Edward's Heal command will now use the best of Cure3/Cure2/Cure1 available.",
         "subcontrols": [
           {
             "flag": "@anon46",
@@ -5359,6 +5359,20 @@ var FLAG_UISPEC = [
             ]
           }
         ]
+      },
+      {
+        "flag": "@anon47",
+        "title": "Miscellaneous tweaks",
+        "subcontrols": [
+          {
+            "flag": "-tweak:kainmagic",
+            "title": "Give Kain magic (with Lance)"
+          },
+          {
+            "flag": "-tweak:edwardheal",
+            "title": "Improve Edward's Heal command"
+          }
+        ]
       }
     ]
   },
@@ -5366,7 +5380,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon47",
+        "flag": "@anon48",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -5420,7 +5434,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon48",
+            "flag": "@anon49",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -5436,7 +5450,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon49",
+                "flag": "@anon50",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

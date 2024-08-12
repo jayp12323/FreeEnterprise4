@@ -717,6 +717,12 @@ def build(romfile, options, force_recompile=False):
     if options.flags.has('jump'):
         env.add_file('scripts/jump.f4c')
 
+    # misc/creative tweaks
+    if options.flags.has('kainmagic'):
+        env.add_file('scripts/give_kain_magic.f4c')
+    if options.flags.has('edwardheal'):
+        env.add_file('scripts/improve_edward_heal.f4c')
+
     if not options.hide_flags:
         env.add_substitution('flags hidden', '')
 

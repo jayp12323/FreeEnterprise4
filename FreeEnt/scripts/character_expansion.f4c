@@ -893,14 +893,14 @@ msfpatch {
 
     %NextSpell:
         inx
-        cpy #$0138
+        cpy #$01e0
         bne $-LoopStart
 
         // copy wholesale working area to live SRAM expansion area
         phb
         rep #$20
         .mx 0x00
-        lda #$0137
+        lda #$01df
         ldx #$2300
         ldy #$_CharEx__InitialStateSpellSets
         mvn $7e, $70

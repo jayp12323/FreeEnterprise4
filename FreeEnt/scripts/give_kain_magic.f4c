@@ -1,0 +1,80 @@
+// Kain should be a mage. Let's make him a mage.
+// give him some white magic, black magic, and MP.
+
+// first, assign his class the new white magic set and his (unused) black magic set
+patch($13fde0 bus) { 0d 01 ff } // battle?
+patch($14ffa5 bus) { 0d 01 ff } // menu?
+
+// second, overwrite the black magic set
+spellset($01) {
+    initial {
+        #Fire2
+        #Ice2
+        #Lit2
+    }
+    learned {
+        25 #Weak
+    }
+}
+
+// 2.5th, make a fancy new spell out of Sight: Lance, a strong holy Drain spell
+// I'm just playing around, so it doesn't matter that other characters get it
+text( spell name $17 ) {
+[$40]Lance
+}
+
+//spell($17) // #Lance
+//{ 
+//    casting time 1
+//    target $05
+//    param $19
+//    hit 100
+//    boss False
+//    effect $04
+//    damage False
+//    element $05
+//    impact True
+//    mp cost 15
+//    ignore wall True
+//}
+// there's no compiler for spell blocks, so just directly write the six bytes, shrug:
+patch($0f982a bus) { A1 19 64 04 85 8F }
+
+// set the audio effect for this spell to be the same as White
+patch($0fa366 bus) { 6C }
+
+// set the visual effect for this spell to be... I guess the same as Psych?
+patch($0fa0a8 bus) { 06 04 00 06 }
+
+// third, build the white magic set from scratch. 
+spellset($0d) {
+    initial {
+        #Cure2
+        #Heal
+        $17 // formerly #Sight, now #Lance
+    }
+    learned {
+        15 #Blink
+        17 #Bersk
+        30 #White
+    }
+}
+
+// fourth, make sure the game does a full initialization of the spellsets to include Kain's
+patch($15c271 bus) { 50 } // 38 + 18 = 50
+
+// fifth, GIVE KAIN MP! too lazy to do level-up so just provide 255 base MP
+patch($0fa92b bus) { FF }
+patch($0fa92d bus) { FF }
+
+// sixth, actually give Kain the commands to use White/Black in battle
+actor(#Kain1)
+{
+    commands {
+        #Fight
+        #Jump
+        #White
+        #Black
+        #Item
+    }
+}
