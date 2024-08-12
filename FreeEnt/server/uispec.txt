@@ -689,6 +689,8 @@
 ..(-wacky:unstackable)!      "Unstackable"
 ..(-wacky:whatsmygear)       "What's My Gear Again?"
 ..(-wacky:zombies)           "Zombies!!!"
+
+== TWEAKS
 [] Miscellaneous tweaks
 .[-tweak:kainmagic] Give Kain magic (with Lance)
 .[-tweak:edwardheal] Improve Edward's Heal command
