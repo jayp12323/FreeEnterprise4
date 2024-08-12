@@ -116,13 +116,13 @@ If a duplicate character tries to join your party, instead nothing happens.
 [Cnekkie]
 Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)
 
-[@Cthrift:2]
+[Cthrift:2]
 Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most tier 2. (Duplicate characters will have the same starting gear.)
 
-[@Cthrift:3]
+[Cthrift:3]
 Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most tier 3. (Duplicate characters will have the same starting gear.)
 
-[@Cthrift:4]
+[Cthrift:4]
 Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most tier 4. (Duplicate characters will have the same starting gear.)
 
 [Cbye]
