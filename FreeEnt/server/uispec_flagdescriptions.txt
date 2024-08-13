@@ -558,6 +558,12 @@ Removes the added exit at the start of the Giant of Bab-il, forcing you to compl
 [-vanilla:z]
 Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battle behavior and stats are unchanged.) Enable this flag to preserve Zeromus' original battle sprite.
 
+[-tweak:kainmagic] 
+Kain gets two spellsets: White (with a new spell Lance replacing Sight) and Black.
+
+[-tweak:edwardheal] 
+Edward's Heal command will now use the best of Cure3/Cure2/Cure1 available.
+
 [@wacky]
 <ul>
     <li>Guidingway will introduce the challenge.</li>
@@ -566,8 +572,3 @@ Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battl
     <li>(They are intended to be wacky.)</li>
 </ul>
 
-[-tweak:kainmagic] 
-Kain gets two spellsets: White (with a new spell Lance replacing Sight) and Black.
-
-[-tweak:edwardheal] 
-Edward's Heal command will now use the best of Cure3/Cure2/Cure1 available.
