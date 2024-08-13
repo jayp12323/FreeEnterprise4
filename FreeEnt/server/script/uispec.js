@@ -3404,87 +3404,95 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon21",
+            "flag": "@Ogated",
             "title": "Gated Objective",
-            "type": "select",
+            "description": "A gated objective means that you will only get the reward for that objective upon completion of all required other objectives.  So if you set \"Complete the Tower of Zot\" as a gated objective, you will be granted the earth crystal automatically upon completion of the other objectives.",
             "subcontrols": [
               {
-                "flag": "Ogated:1",
-                "title": "Objective #1 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:2",
-                "title": "Objective #2 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:3",
-                "title": "Objective #3 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:4",
-                "title": "Objective #4 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:5",
-                "title": "Objective #5 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:6",
-                "title": "Objective #6 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:7",
-                "title": "Objective #7 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:8",
-                "title": "Objective #8 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:9",
-                "title": "Objective #9 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:10",
-                "title": "Objective #10 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:11",
-                "title": "Objective #11 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:12",
-                "title": "Objective #12 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:13",
-                "title": "Objective #13 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:14",
-                "title": "Objective #14 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:15",
-                "title": "Objective #15 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:16",
-                "title": "Objective #16 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:17",
-                "title": "Objective #17 is gated behind other objectives"
-              },
-              {
-                "flag": "Ogated:18",
-                "title": "Objective #18 is gated behind other objectives"
+                "flag": "@anon21",
+                "title": "Pick an objective",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Ogated:1",
+                    "title": "Objective #1 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:2",
+                    "title": "Objective #2 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:3",
+                    "title": "Objective #3 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:4",
+                    "title": "Objective #4 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:5",
+                    "title": "Objective #5 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:6",
+                    "title": "Objective #6 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:7",
+                    "title": "Objective #7 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:8",
+                    "title": "Objective #8 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:9",
+                    "title": "Objective #9 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:10",
+                    "title": "Objective #10 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:11",
+                    "title": "Objective #11 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:12",
+                    "title": "Objective #12 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:13",
+                    "title": "Objective #13 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:14",
+                    "title": "Objective #14 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:15",
+                    "title": "Objective #15 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:16",
+                    "title": "Objective #16 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:17",
+                    "title": "Objective #17 is gated behind other objectives"
+                  },
+                  {
+                    "flag": "Ogated:18",
+                    "title": "Objective #18 is gated behind other objectives"
+                  }
+                ]
               }
             ]
           },
           {
-            "flag": "@anon22",
+            "flag": "@Ohardreq",
             "title": "Hard Required Objectives",
+            "description": "Hard required objectives are a # of objectives that must be completed in order to consider all objectives completed.  So if you require 4 out of 5 objectives, and 1 hard required, the hard objective must be included as part of the 4.",
             "compact": true,
             "subcontrols": [
               {
@@ -3562,7 +3570,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon23",
+            "flag": "@anon22",
             "title": "Reward",
             "important": true,
             "type": "select",
@@ -3587,7 +3595,7 @@ var FLAG_UISPEC = [
     "title": "KEY ITEMS",
     "controls": [
       {
-        "flag": "@anon24",
+        "flag": "@anon23",
         "title": "Key Items",
         "important": true,
         "type": "select",
@@ -3623,9 +3631,8 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
-                "flag": "@anon25",
+                "flag": "@anon24",
                 "title": "Mix with monster-in-a-box chests",
-                "type": "select",
                 "subcontrols": [
                   {
                     "flag": "Kmiab",
@@ -3648,7 +3655,7 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
-                "flag": "@anon26",
+                "flag": "@anon25",
                 "title": "Underworld access",
                 "type": "select",
                 "subcontrols": [
@@ -3672,7 +3679,7 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
-                "flag": "@anon27",
+                "flag": "@anon26",
                 "title": "Starting items",
                 "type": "select",
                 "subcontrols": [
@@ -3771,7 +3778,7 @@ var FLAG_UISPEC = [
     "title": "CHARACTERS",
     "controls": [
       {
-        "flag": "@anon28",
+        "flag": "@anon27",
         "title": "Characters",
         "important": true,
         "type": "select",
@@ -3792,7 +3799,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon29",
+                "flag": "@anon28",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -3853,12 +3860,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon30",
+                "flag": "@anon29",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon31",
+                    "flag": "@anon30",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -3913,7 +3920,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon32",
+                    "flag": "@anon31",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -4038,7 +4045,7 @@ var FLAG_UISPEC = [
                 "description": "Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear."
               },
               {
-                "flag": "@anon33",
+                "flag": "@anon32",
                 "title": "Limit number of distinct characters",
                 "hard": true,
                 "null": true,
@@ -4099,12 +4106,12 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon34",
+                "flag": "@anon33",
                 "title": "Specify available characters",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "@anon35",
+                    "flag": "@anon34",
                     "title": "Only include specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -4159,7 +4166,7 @@ var FLAG_UISPEC = [
                     ]
                   },
                   {
-                    "flag": "@anon36",
+                    "flag": "@anon35",
                     "title": "Exclude specific characters",
                     "compact": true,
                     "subcontrols": [
@@ -4242,7 +4249,7 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
-        "flag": "@anon37",
+        "flag": "@anon36",
         "title": "Specify possible starting characters",
         "null": true,
         "type": "select",
@@ -4376,7 +4383,7 @@ var FLAG_UISPEC = [
         "description": "Characters retain the battle commands from FF4j that were removed in FF4us."
       },
       {
-        "flag": "@anon38",
+        "flag": "@anon37",
         "title": "Specify possible starting gear",
         "type": "select",
         "subcontrols": [
@@ -4388,25 +4395,27 @@ var FLAG_UISPEC = [
           {
             "flag": "@Cthrifttier",
             "title": "Characters start with fully random gear",
-            "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear.)",
             "type": "select",
             "subcontrols": [
               {
-                "flag": "@anon39",
+                "flag": "@anon38",
                 "title": "Max equipment tier",
                 "type": "select",
                 "subcontrols": [
                   {
                     "flag": "Cthrift:2",
-                    "title": "Starting gear is at best tier 2"
+                    "title": "Starting gear is at best tier 2",
+                    "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most tier 2. (Duplicate characters will have the same starting gear.)"
                   },
                   {
                     "flag": "Cthrift:3",
-                    "title": "Starting gear is at best tier 3"
+                    "title": "Starting gear is at best tier 3",
+                    "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most tier 3. (Duplicate characters will have the same starting gear.)"
                   },
                   {
                     "flag": "Cthrift:4",
-                    "title": "Starting gear is at best tier 4"
+                    "title": "Starting gear is at best tier 4",
+                    "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most tier 4. (Duplicate characters will have the same starting gear.)"
                   },
                   {
                     "flag": "Cthrift:5",
@@ -4429,7 +4438,7 @@ var FLAG_UISPEC = [
         "description": "Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)"
       },
       {
-        "flag": "@anon40",
+        "flag": "@anon39",
         "title": "Limit maximum party size",
         "type": "select",
         "subcontrols": [
@@ -4457,7 +4466,7 @@ var FLAG_UISPEC = [
         "description": "You have the choice of whether to accept each new party member, but once your party is full, you cannot recruit anyone else."
       },
       {
-        "flag": "@anon41",
+        "flag": "@anon40",
         "title": "Permadeath options",
         "type": "select",
         "subcontrols": [
@@ -4476,7 +4485,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon42",
+        "flag": "@anon41",
         "title": "Hero Options",
         "type": "select",
         "subcontrols": [
@@ -4500,7 +4509,7 @@ var FLAG_UISPEC = [
     "title": "TREASURES",
     "controls": [
       {
-        "flag": "@anon43",
+        "flag": "@anon42",
         "title": "Treasure chests (other than MIABs)",
         "important": true,
         "type": "select",
@@ -4511,7 +4520,7 @@ var FLAG_UISPEC = [
             "null": true,
             "subcontrols": [
               {
-                "flag": "@anon44",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4561,7 +4570,7 @@ var FLAG_UISPEC = [
             "description": "Treasure contents are the same as in original FF4, but their positions are shuffled. This randomization is weighted so that overworld treasures tend to remain in the overworld, and similarly for underworld/moon treasures.",
             "subcontrols": [
               {
-                "flag": "@anon44",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4611,7 +4620,7 @@ var FLAG_UISPEC = [
             "description": "A basic randomization, allowing items of reasonable strength to appear. Items are equally likely to appear in any chest regardless of location.",
             "subcontrols": [
               {
-                "flag": "@anon44",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4654,7 +4663,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4683,7 +4692,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4713,7 +4722,7 @@ var FLAG_UISPEC = [
             "description": "A skill-testing randomization, limiting the strength of available items, and weighted to favor stronger items in later-game and infrequently-visited areas.",
             "subcontrols": [
               {
-                "flag": "@anon44",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4756,7 +4765,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4785,7 +4794,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4815,7 +4824,7 @@ var FLAG_UISPEC = [
             "description": "An unrestricted randomization, allowing equal chance for items to appear in any chest, including the most powerful items.",
             "subcontrols": [
               {
-                "flag": "@anon44",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4858,7 +4867,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4887,7 +4896,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4917,7 +4926,7 @@ var FLAG_UISPEC = [
             "description": "Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.",
             "subcontrols": [
               {
-                "flag": "@anon44",
+                "flag": "@anon43",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4960,7 +4969,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4989,7 +4998,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -5030,7 +5039,7 @@ var FLAG_UISPEC = [
         "description": "Equipment in chests will be usable by at least one character that you can acquire in the seed."
       },
       {
-        "flag": "@anon47",
+        "flag": "@anon46",
         "title": "Junk management",
         "type": "select",
         "subcontrols": [
@@ -5052,7 +5061,7 @@ var FLAG_UISPEC = [
     "title": "SHOPS",
     "controls": [
       {
-        "flag": "@anon48",
+        "flag": "@anon47",
         "title": "Shops",
         "important": true,
         "type": "select",
@@ -5131,7 +5140,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon49",
+        "flag": "@anon48",
         "title": "Buy prices",
         "type": "select",
         "subcontrols": [
@@ -5146,7 +5155,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon50",
+        "flag": "@anon49",
         "title": "Sell prices",
         "type": "select",
         "subcontrols": [
@@ -5161,7 +5170,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon51",
+        "flag": "@anon50",
         "title": "Guarantee Items",
         "compact": true,
         "subcontrols": [
@@ -5208,7 +5217,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon52",
+        "flag": "@anon51",
         "title": "Remove Items",
         "compact": true,
         "subcontrols": [
@@ -5263,7 +5272,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon53",
+        "flag": "@anon52",
         "title": "Shop price adjustments",
         "type": "select",
         "subcontrols": [
@@ -5272,7 +5281,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 20% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5297,7 +5306,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 40% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5322,7 +5331,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 60% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5347,7 +5356,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 80% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5372,7 +5381,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 120% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5397,7 +5406,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 140% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5422,7 +5431,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 160% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5447,7 +5456,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 180% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5472,7 +5481,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 200% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5498,7 +5507,7 @@ var FLAG_UISPEC = [
             "hard": true,
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5526,7 +5535,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon55",
+        "flag": "@anon54",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -5563,7 +5572,7 @@ var FLAG_UISPEC = [
         "description": "Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area."
       },
       {
-        "flag": "@anon56",
+        "flag": "@anon55",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -5594,7 +5603,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon57",
+        "flag": "@anon56",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -5667,7 +5676,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon58",
+        "flag": "@anon57",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -5744,7 +5753,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon59",
+            "flag": "@anon58",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -5886,7 +5895,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon60",
+            "flag": "@anon59",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -6028,7 +6037,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon61",
+            "flag": "@anon60",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -6196,7 +6205,7 @@ var FLAG_UISPEC = [
         "description": "Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.",
         "subcontrols": [
           {
-            "flag": "@anon62",
+            "flag": "@anon61",
             "title": "Alternative forge items",
             "type": "select",
             "subcontrols": [
@@ -6224,7 +6233,7 @@ var FLAG_UISPEC = [
         "description": "By default, Free Enterprise runs with the \"FuSoYa Challenge\", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This behaviour may be changed using these flags.",
         "subcontrols": [
           {
-            "flag": "@anon63",
+            "flag": "@anon62",
             "title": "Spell learning changes",
             "type": "select",
             "subcontrols": [
@@ -6287,7 +6296,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon64",
+        "flag": "@anon63",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
           {
@@ -6343,7 +6352,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
         "subcontrols": [
           {
-            "flag": "@anon65",
+            "flag": "@anon64",
             "title": "Select challenge",
             "type": "select",
             "subcontrols": [
@@ -6507,9 +6516,14 @@ var FLAG_UISPEC = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "title": "TWEAKS",
+    "controls": [
       {
-        "flag": "@anon66",
+        "flag": "@anon65",
         "title": "Miscellaneous tweaks",
         "subcontrols": [
           {
@@ -6530,7 +6544,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon67",
+        "flag": "@anon66",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6584,7 +6598,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon68",
+            "flag": "@anon67",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6600,7 +6614,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon69",
+                "flag": "@anon68",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [
