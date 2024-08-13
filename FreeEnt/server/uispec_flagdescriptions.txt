@@ -560,6 +560,8 @@ Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battl
     <li>(They are intended to be wacky.)</li>
 </ul>
 
-[-tweak:kainmagic] Kain gets two spellsets: White (with a new spell Lance replacing Sight) and Black.
+[-tweak:kainmagic] 
+Kain gets two spellsets: White (with a new spell Lance replacing Sight) and Black.
 
-[-tweak:edwardheal] Edward's Heal command will now use the best of Cure3/Cure2/Cure1 available.
+[-tweak:edwardheal] 
+Edward's Heal command will now use the best of Cure3/Cure2/Cure1 available.
