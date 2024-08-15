@@ -459,6 +459,9 @@ Adamant Armors are not available. Trading the Pink Tail in the Adamant Grotto in
 [-monsterevade]
 Monsters will be able to evade both physical and magical attacks from your party based on their actual stats. (This change constitutes a significant damage reduction for many fights!)
 
+[-monsterflee]
+Monsters will be able to flee from battles that you can run from, based on their evasion stat. Requires <em>-monsterevade</em> to be active.
+
 [@smithy]
 Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.
 

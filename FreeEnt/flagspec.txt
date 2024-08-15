@@ -43,6 +43,7 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -nocursed
 -spoon
 -monsterevade
+-monsterflee
 -smith:super/-smith:alt -smith:playable
 -fusoya:vanilla/-fusoya:location/-fusoya:sequential_p/-fusoya:sequential_r/-fusoya:nerfed
 -fusoya:maybe
@@ -185,6 +186,7 @@ G64                  glitch_allow_64
 -vintage             vintage
 -spoon               edward_spoon
 -monsterevade        give_monsters_evade
+-monsterflee         let_monsters_flee
 -smith:super         supersmith
 -smith:alt           altsmith
 -smith:playable      playablesmith

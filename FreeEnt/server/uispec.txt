@@ -416,6 +416,7 @@
 [-nocursed] No Cursed Rings
 [-spoon] Edward can equip the Spoon
 [-monsterevade]! Monsters get physical and magical evasion
+[-monsterflee] Monsters can flee from battle
 [@smithy] Smithy reward
 .<> Alternative forge items
 ..(-smith:alt) Kokkol crafts a random tier 7/8 item

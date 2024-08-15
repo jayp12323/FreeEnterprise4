@@ -5051,6 +5051,11 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
+        "flag": "-monsterflee",
+        "title": "Monsters can flee from battle",
+        "description": "Monsters will be able to flee from battles that you can run from, based on their evasion stat. Requires <em>-monsterevade</em> to be active."
+      },
+      {
         "flag": "@smithy",
         "title": "Smithy reward",
         "description": "Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.",

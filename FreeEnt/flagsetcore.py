@@ -443,6 +443,10 @@ class FlagLogicCore:
         if len(flagset.get_list(r'^-smith:playable')) == len(flagset.get_list(r'^-smith:')):
             self._simple_disable(flagset, log, 'No smith item requested', ['-smith:playable'])
 
+        if flagset.has('-monsterflee'):
+            flagset.set('-monsterevade')
+            self._lib.push(log, ['correction', 'Monsters require evade to flee; forced to add -monsterevade'])
+
         all_spoiler_flags = flagset.get_list(r'^-spoil:')
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')
         if (len(all_spoiler_flags) > 0 and len(all_spoiler_flags) == len(sparse_spoiler_flags)):
