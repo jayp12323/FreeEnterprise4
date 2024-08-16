@@ -33,4 +33,21 @@ msfpatch {
         nop nop nop
 }
 // Allowing it to land anywhere by changing bne -> bra
-patch ($009F15 bus) { 80 }
+
+
+msfpatch{
+    .addr $009F11
+        jsl $=Wacky__CheckBlackChocoboForest
+
+    .new
+    Wacky__CheckBlackChocoboForest:
+        lda $a1
+        and #$8
+        beq $+Wacky__CheckBlackChocoboAirship
+        rtl
+    %Wacky__CheckBlackChocoboAirship:
+        lda $a2
+        and #$10
+        rtl
+}
+
