@@ -500,6 +500,35 @@ msfpatch {
 
         // load XP value from table and add to total
         clc
+        // %flag experience_geometric on%
+        // load the base experience and set the Y register equal to the current number of monsters left to handle
+        lda $21f500,x
+        sta $393d
+        lda $21f501,x
+        sta $393e
+        lda $21f502,x
+        sta $df
+        ldy #$0000
+        lda $b1
+        tay
+        jsr $_Util__BattleGeometric__Mod
+
+        // now that we've scaled the exp, time to add it in
+        lda $393d
+        adc $3591
+        sta $3591
+        lda $393e
+        adc $3592
+        sta $3592
+        lda $df
+        adc $3593
+        sta $3593
+
+        plx
+        jml $03ecb7
+        // %end%
+
+        // %flag experience_geometric off%
         lda $21f500,x
         adc $3591
         sta $3591
@@ -513,14 +542,43 @@ msfpatch {
         // return to original code after XP lookup/addition
         plx
         jml $03ecb7
-
+        // %end%
 
     BreakXPLimit__NormalCase:
+        // %flag experience_geometric on%
+        lda $0ea1c0,x
+        sta $393d
+        lda $0ea1c1,x
+        sta $393e
+        stz $df
+        ldy #$0000
+        lda $b1
+        tay
+        phx
+        jsr $_Util__BattleGeometric__Mod
+
+        // add in the scaled exp
+        lda $393d
+        adc $3591
+        sta $3591
+        lda $393e
+        adc $3592
+        sta $3592
+        lda $df
+        adc $3593
+        sta $3593
+
+        plx
+        jml $03ecb7
+        // %end%
+
+        // %flag experience_geometric off%
         // perform displaced instruction and
         // return to original code
         clc
         lda $0ea1c0,x
         jml $03ec9f
+        // %end%
 
 }
 

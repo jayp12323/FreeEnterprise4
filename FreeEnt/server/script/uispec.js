@@ -5148,6 +5148,11 @@ var FLAG_UISPEC = [
             "flag": "-exp:nokeybonus",
             "title": "No EXP bonus after 10 key items",
             "description": "By default in Free Enterprise, once 10 key items have been collected, earned EXP is doubled. Set this flag to remove this bonus."
+          },
+          {
+            "flag": "-exp:geometric",
+            "title": "Repeated monster skills scale down in EXP",
+            "description": "Normally in FF4, each copy of a monster killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield 90% of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills."
           }
         ]
       },

@@ -50,6 +50,7 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -exp:split
 -exp:noboost
 -exp:nokeybonus
+-exp:geometric
 -vanilla:agility
 -vanilla:hobs
 -vanilla:growup
@@ -201,6 +202,7 @@ G64                  glitch_allow_64
 -exp:split           experience_split
 -exp:noboost         experience_no_boost
 -exp:nokeybonus      experience_no_key_item_bonus
+-exp:geometric       experience_geometric
 
 -vanilla:agility     vanilla_agility
 -vanilla:hobs        vanilla_hobs
