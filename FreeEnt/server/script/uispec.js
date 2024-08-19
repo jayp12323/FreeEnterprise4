@@ -5437,6 +5437,11 @@ var FLAG_UISPEC = [
                 "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
               },
               {
+                "flag": "-kit:exit",
+                "title": "Exit kit",
+                "description": "5-10 Exits"
+              },
+              {
                 "flag": "-kit:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -5589,6 +5594,11 @@ var FLAG_UISPEC = [
                 "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
               },
               {
+                "flag": "-kit2:exit",
+                "title": "Exit kit",
+                "description": "5-10 Exits"
+              },
+              {
                 "flag": "-kit2:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -5739,6 +5749,10 @@ var FLAG_UISPEC = [
                 "flag": "-kit3:hero",
                 "title": "Hero kit",
                 "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
+              },
+              {
+                "flag": "-kit3:exit",
+                "title": "Exit kit"
               },
               {
                 "flag": "-kit3:random",
@@ -5914,10 +5928,8 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "-wacky:doorsrando",
-            "title": "\"Door Randomization\"",
-            "hard": true
+            "title": "\"Door Randomization\""
           },
-
           {
             "flag": "-wacky:enemyunknown",
             "title": "\"Enemy Unknown\"",
