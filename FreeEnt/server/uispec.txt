@@ -434,7 +434,8 @@
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
-.[-exp:geometric] Repeated monster skills scale down in EXP
+.[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
+.[-exp:geometric] Repeated monster kills scale down in EXP
 [] Restore vanilla behaviors
 .[-vanilla:agility] Vanilla agility anchoring
 .[-vanilla:hobs] Vanilla Hobs spell

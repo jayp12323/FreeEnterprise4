@@ -455,6 +455,7 @@ class FlagLogicCore:
         # Objectives logic
         if flagset.has('Onone'):
             self._simple_disable_regex(flagset, log, 'No objectives set', r'^O(win|req):')
+            self._simple_disable(flagset, log, 'No objectives set', ['-exp:objectivebonus'])
         else:
             # Force Oreq:all if a req: flag is not specified
             if not flagset.get_list(r'^Oreq:'):
