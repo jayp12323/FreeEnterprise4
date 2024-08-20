@@ -623,11 +623,8 @@
 [-noadamants] No Adamant Armors
 [-nocursed] No Cursed Rings
 [-spoon] Edward can equip the Spoon
-<<<<<<< HEAD
 [-monsterevade]! Monsters get physical and magical evasion
-=======
-[-monsterevade!] Monsters get physical and magical evasion
->>>>>>> 3a2cfc58226827bc7b81c96b1430cc4249b3f9a9
+[-monsterflee] Monsters can flee from battle
 [@smithy] Smithy reward
 .<> Alternative forge items
 ..(-smith:alt) Kokkol crafts a random tier 7/8 item
@@ -645,6 +642,8 @@
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
+.[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
+.[-exp:geometric] Repeated monster kills scale down in EXP
 [] Restore vanilla behaviors
 .[-vanilla:agility] Vanilla agility anchoring
 .[-vanilla:hobs] Vanilla Hobs spell

@@ -6200,6 +6200,11 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
+        "flag": "-monsterflee",
+        "title": "Monsters can flee from battle",
+        "description": "Monsters will be able to flee from battles that you can run from, based on their evasion stat. Requires <em>-monsterevade</em> to be active."
+      },
+      {
         "flag": "@smithy",
         "title": "Smithy reward",
         "description": "Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.",
@@ -6292,6 +6297,16 @@ var FLAG_UISPEC = [
             "flag": "-exp:nokeybonus",
             "title": "No EXP bonus after 10 key items",
             "description": "By default in Free Enterprise, once 10 key items have been collected, earned EXP is doubled. Set this flag to remove this bonus."
+          },
+          {
+            "flag": "-exp:objectivebonus",
+            "title": "Each completed objective gives 12.5% extra EXP",
+            "description": "Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you 12.5% more EXP from each battle."
+          },
+          {
+            "flag": "-exp:geometric",
+            "title": "Repeated monster kills scale down in EXP",
+            "description": "Normally in FF4, each copy of a monster killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield 90% of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills."
           }
         ]
       },

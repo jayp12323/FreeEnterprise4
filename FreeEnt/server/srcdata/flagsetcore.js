@@ -496,6 +496,10 @@ class FlagLogicCore {
         if ((flagset.get_list("^-smith:playable").length === flagset.get_list("^-smith:").length)) {
             this._simple_disable(flagset, log, "No smith item requested", ["-smith:playable"]);
         }
+        if (flagset.has("-monsterflee")) {
+            flagset.set("-monsterevade");
+            this._lib.push(log, ["correction", "Monsters require evade to flee; forced to add -monsterevade"]);
+        }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");
         if (((all_spoiler_flags.length > 0) && (all_spoiler_flags.length === sparse_spoiler_flags.length))) {
@@ -503,6 +507,7 @@ class FlagLogicCore {
         }
         if (flagset.has("Onone")) {
             this._simple_disable_regex(flagset, log, "No objectives set", "^O(win|req):");
+            this._simple_disable(flagset, log, "No objectives set", ["-exp:objectivebonus"]);
         } else {
             if ((! flagset.get_list("^Oreq:"))) {
                 flagset.set("Oreq:all");
