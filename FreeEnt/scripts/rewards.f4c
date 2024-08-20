@@ -211,6 +211,7 @@ msfpatch {
     .def Rewards__CurrentValueLo  $7e1622
     .def Rewards__CurrentValueHi  $7e1623
     .def Rewards__PendingDeliverySlot  $7e1626
+    .def Rewards__DeliveredItemCount  $7e1627
 
     // sub: given reward code A, return in
     //   X the reward code
@@ -244,11 +245,10 @@ msfpatch {
 msfpatch {
     // A = reward slot
     Rewards__DeliverFromSlot:
-        sta $_Rewards__CurrentSlot
+        sta $_Rewards__CurrentSlot        
 
         ldx #$_Tracker__RewardSlotFlags
-        jsl $=Tracker__SetBit
-
+        jsl $=Tracker__SetBit        
         lda $_Rewards__CurrentSlot
         jsl $=Rewards__GetFromSlot
         stx $_Rewards__CurrentValueLo
@@ -262,6 +262,9 @@ msfpatch {
         jmp $_EvEx__End
 
     %DeliverItem:
+        lda $=Rewards__DeliveredItemCount
+        inc a
+        sta $=Rewards__DeliveredItemCount
         lda $_Rewards__CurrentValueHi
         beq $+DeliverNormalItem
 
