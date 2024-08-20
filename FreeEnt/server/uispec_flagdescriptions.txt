@@ -624,6 +624,9 @@ Normally in Free Enterprise, in a full party, low-level party members (at least 
 [-exp:nokeybonus]
 By default in Free Enterprise, once 10 key items have been collected, earned EXP is doubled. Set this flag to remove this bonus.
 
+[-exp:kicheckbonus]
+Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each key item location checked earns you 12.5% more EXP from each battle.
+
 [-exp:objectivebonus]
 Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you 12.5% more EXP from each battle.
 

@@ -62,12 +62,12 @@ msfpatch {
     %NextModifier:
         // %end%
 
+        ldy #$0000
         // %flag experience_objective_bonus on%
         // note that this flag only makes sense if there are objectives, so ignore the case of Onone
         // repeat the counting in tracker.f4c to find the number of objectives
         // goal was to scale experience up by (num_obj * 10%) 
-        // but because that's a pain in the butt, let's just do 12.5%, since that's 1/8
-        stz $df
+        // but because that's a pain in the butt, let's just do 12.5%, since that's 1/8        
         ldx #$0000
     %CountLoop:
         lda $=Objectives__IDs,x
@@ -78,12 +78,22 @@ msfpatch {
         bcc $+ObjectiveCompleted
         bra $+CountLoopNext
     %ObjectiveCompleted:
-        inc $df
+        iny 
     %CountLoopNext:
         inx
         cpx #$_Objectives__MaxCount
         bcc $-CountLoop
+        // %end%
 
+        tya
+        // %experience_ki_check_bonus on %
+        adc $=Rewards__DeliveredItemCount
+        // subtract one for the starting KI check
+        dec a
+        // %end%
+        
+        beq $+ExperienceAcceleration_CalculateMedianLevel
+        sta $df
     %DivideByEight:
         lda $ad
         lsr a
@@ -143,7 +153,6 @@ msfpatch {
         sta $ad
         sta $ae
         sta $af
-        // %end%
 
     ExperienceAcceleration_CalculateMedianLevel:
         // I am sincerely hoping at this point that
