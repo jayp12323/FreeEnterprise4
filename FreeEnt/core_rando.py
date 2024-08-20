@@ -789,8 +789,7 @@ def apply(env):
                     rewards_assignment[slot] = item
         else:
             pool.extend(MOON_BOSS_ITEMS)
-
-        if is_vanilla and not env.options.flags.has_any('key_items_in_miabs','key_items_in_lstmiabs'):
+        if is_vanilla and not env.options.flags.has_any('key_items_in_miabs','key_items_in_lst_miabs'):
             for slot in CHEST_NUMBERS:                                      
                 if slot not in rewards_assignment:
                     treasure = treasure_dbview.find_one(lambda t : [t.map, t.index] == CHEST_NUMBERS[slot])
