@@ -547,8 +547,7 @@ def apply(env):
     # if env.options.flags.has('key_items_no_magma'):
     #     keyitem_assigner.item_tier(1).remove(KeyItemReward('#item.Magma'))
     #     layout = '"Package  SandRuby   [lightsword]Legend"      [[ 01 ]]\n        "[key]Baron   [harp]TwinHarp  [crystal]Earth" [[ 01 ]]\n        "         [key]Tower     Hook"            [[ 01 ]]\n        "[key]Luca    [crystal]Darkness  [tail]Rat"   [[ 01 ]]\n        "Adamant  Pan        [knife]Spoon"            [[ 01 ]]\n        "[tail]Pink    [crystal]Crystal"              [[ 00 ]]'
-    #     env.add_substitution('tracker layout', layout)
-
+    #     env.add_substitution('tracker layout', layout)    
     assignable_boss_slots = BOSS_SLOTS.copy()
     bosses = list(BOSSES)
 

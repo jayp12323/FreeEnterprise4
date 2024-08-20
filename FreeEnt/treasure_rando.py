@@ -225,9 +225,9 @@ def apply(env):
 
     character_slot_index = 0
     if env.options.flags.has('characters_in_treasure'):
+        assigned_ids= []
         #character_treasure_chests = plain_chests_dbview
         character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
-        assigned_ids= []
         while character_slot_index < len(character_rando.FREE_SLOTS):
             t = env.rnd.choice(character_treasure_chests.find_all())
             free_slot_name = character_rando.FREE_SLOTS[character_slot_index]
@@ -236,8 +236,19 @@ def apply(env):
             print(f'Putting {free_slot_name} in {t.map}:{t.spoilersubarea}:{t.spoilerdetail}')
             character_slot_index+=1
             character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.ordr not in assigned_ids)
-
         plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
+
+    if env.options.flags.has('characters_in_miab'):
+        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is not None and t.world == "Overworld")
+        while character_slot_index < len(character_rando.HARD_SLOTS):
+            t = env.rnd.choice(character_treasure_chests.find_all())
+            hard_slot_name = character_rando.HARD_SLOTS[character_slot_index]
+            treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[hard_slot_name]))
+            print(f'Putting earned {hard_slot_name} in {t.map}:{t.spoilersubarea}:{t.spoilerdetail}')
+            character_slot_index+=1
+            character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.ordr not in assigned_ids)
+
+
     if env.options.flags.has('treasure_vanilla'):
         # for various reasons we really do need to assign every treasure chest still
         for t in treasure_dbview:
