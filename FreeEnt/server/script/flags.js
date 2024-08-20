@@ -993,6 +993,7 @@ const _FE_FLAGSPEC = {
         "-kit:adamant",
         "-kit:cursed",
         "-kit:hero",
+        "-kit:exit",
         "-kit:random",
         "-kit2:basic",
         "-kit2:better",
@@ -1022,6 +1023,7 @@ const _FE_FLAGSPEC = {
         "-kit2:adamant",
         "-kit2:cursed",
         "-kit2:hero",
+        "-kit2:exit",
         "-kit2:random",
         "-kit3:basic",
         "-kit3:better",
@@ -1051,6 +1053,7 @@ const _FE_FLAGSPEC = {
         "-kit3:adamant",
         "-kit3:cursed",
         "-kit3:hero",
+        "-kit3:exit",
         "-kit3:random",
         "-noadamants",
         "-nocursed",
@@ -2052,6 +2055,7 @@ const _FE_FLAGSPEC = {
             "-kit:adamant",
             "-kit:cursed",
             "-kit:hero",
+            "-kit:exit",
             "-kit:random"
         ],
         [
@@ -2083,6 +2087,7 @@ const _FE_FLAGSPEC = {
             "-kit2:adamant",
             "-kit2:cursed",
             "-kit2:hero",
+            "-kit2:exit",
             "-kit2:random"
         ],
         [
@@ -2114,6 +2119,7 @@ const _FE_FLAGSPEC = {
             "-kit3:adamant",
             "-kit3:cursed",
             "-kit3:hero",
+            "-kit3:exit",
             "-kit3:random"
         ],
         [
@@ -8020,10 +8026,16 @@ const _FE_FLAGSPEC = {
             "value": 28
         },
         {
-            "flag": "-kit:random",
+            "flag": "-kit:exit",
             "offset": 249,
             "size": 5,
             "value": 29
+        },
+        {
+            "flag": "-kit:random",
+            "offset": 249,
+            "size": 5,
+            "value": 30
         },
         {
             "flag": "-kit2:basic",
@@ -8194,10 +8206,16 @@ const _FE_FLAGSPEC = {
             "value": 28
         },
         {
-            "flag": "-kit2:random",
+            "flag": "-kit2:exit",
             "offset": 254,
             "size": 5,
             "value": 29
+        },
+        {
+            "flag": "-kit2:random",
+            "offset": 254,
+            "size": 5,
+            "value": 30
         },
         {
             "flag": "-kit3:basic",
@@ -8368,10 +8386,16 @@ const _FE_FLAGSPEC = {
             "value": 28
         },
         {
-            "flag": "-kit3:random",
+            "flag": "-kit3:exit",
             "offset": 259,
             "size": 5,
             "value": 29
+        },
+        {
+            "flag": "-kit3:random",
+            "offset": 259,
+            "size": 5,
+            "value": 30
         },
         {
             "flag": "-noadamants",
