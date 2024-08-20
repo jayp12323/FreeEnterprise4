@@ -69,6 +69,7 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -exp:noboost
 -exp:nokeybonus
 -exp:objectivebonus
+-exp:kicheckbonus
 -exp:geometric
 -vanilla:agility
 -vanilla:hobs
@@ -270,6 +271,7 @@ G64                  glitch_allow_64
 -exp:noboost         experience_no_boost
 -exp:nokeybonus      experience_no_key_item_bonus
 -exp:objectivebonus  experience_objective_bonus
+-exp:kicheckbonus    experience_ki_check_bonus
 -exp:geometric       experience_geometric
 
 -vanilla:agility     vanilla_agility
