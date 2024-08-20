@@ -718,6 +718,9 @@ def build(romfile, options, force_recompile=False):
 
     if options.flags.has('give_monsters_evade'):
         env.add_file('scripts/give_monsters_evade.f4c')
+    
+    if options.flags.has('let_monsters_flee'):
+        env.add_file('scripts/monster_flee.f4c')
 
     if options.flags.has('vintage'):
         env.add_files(

@@ -1,0 +1,38 @@
+// Goal: allow monsters to flee!
+
+// Step 1: change the comparison that sets Flee to Wait in battle_command_dispatch
+patch($03B11F bus) { E5 } // $E5 because the comparison is "less than", so need to include $E4
+
+// Step 2: insist that monsters have evade. This flag will require -monsterevade.
+
+// Step 3: When setting the Flee command, *also set self-targetting*, so that Wait doesn't overwrite it.
+msfpatch {
+    .addr $03B427
+        jsl $=MonsterFlee__Expansion
+        nop
+}
+
+msfpatch {
+    MonsterFlee__Expansion:
+        // displaced
+        lda #$E4 // Flee
+        sta $2051,x // set the Flee command
+
+        // also set targetting, mostly a copy of $03b73e
+        lda $361c // load the current monster slot
+        tax
+        tdc
+        // instead of using the _set_bit_x subroutine at $03855f, we need to replicate it because it's got an rts, not rtl
+        ora $13fefe,x // set the correct targetting bit to a
+        ldx $a6 // load the offset to the monster's battle record into x
+        sta $2053,x // set the targetting bit
+        
+        // done! we've cleared out any code remnants, so we can simply rtl and continue
+        rtl
+}
+
+// Very unnecessary but hilarious Step 4: let monsters run from Can't-Run battles.
+msfpatch {
+    .addr $03b420
+        nop nop nop nop nop nop nop
+}

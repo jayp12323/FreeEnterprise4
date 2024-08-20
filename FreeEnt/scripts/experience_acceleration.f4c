@@ -46,13 +46,99 @@ msfpatch {
         // check for key item bonus
         lda $=Stats_KeyItems
         cmp #$0a
-        bcc $+ExperienceAcceleration_CalculateMedianLevel
+        bcc $+NextModifier
 
         clc
         rol $ad
         rol $ae
         rol $af
+        bcc $+NextModifier
+        lda #$ff
+        sta $ad
+        sta $ae
+        sta $af
+        jmp $_ExperienceAcceleration_CalculateMedianLevel
+
+    %NextModifier:
+        // %end%
+
+        // %flag experience_objective_bonus on%
+        // note that this flag only makes sense if there are objectives, so ignore the case of Onone
+        // repeat the counting in tracker.f4c to find the number of objectives
+        // goal was to scale experience up by (num_obj * 10%) 
+        // but because that's a pain in the butt, let's just do 12.5%, since that's 1/8
+        stz $df
+        ldx #$0000
+    %CountLoop:
+        lda $=Objectives__IDs,x
+        beq $+CountLoopNext
+        lda $=Objectives__Thresholds,x
+        cmp $_Objectives__Progress,x
+        beq $+ObjectiveCompleted
+        bcc $+ObjectiveCompleted
+        bra $+CountLoopNext
+    %ObjectiveCompleted:
+        inc $df
+    %CountLoopNext:
+        inx
+        cpx #$_Objectives__MaxCount
+        bcc $-CountLoop
+
+    %DivideByEight:
+        lda $ad
+        lsr a
+        lsr a
+        lsr a
+        sta $3941
+        lda $ae
+        asl a
+        asl a
+        asl a
+        asl a
+        asl a
+        ora $3941
+        sta $3941
+
+        lda $ae
+        lsr a
+        lsr a
+        lsr a
+        sta $3942
+        lda $af
+        asl a
+        asl a
+        asl a
+        asl a
+        asl a
+        ora $3942
+        sta $3942
+
+        lda $af
+        lsr a
+        lsr a
+        lsr a
+        sta $3943 // $3941-3943 contains the experience divided by 8
+
+        lda $df
+        tax
+    %EighthsAddingLoopStart:
+        cpx #$0001
         bcc $+ExperienceAcceleration_CalculateMedianLevel
+        clc
+        lda $3941
+        adc $ad
+        sta $ad
+        lda $3942
+        adc $ae
+        sta $ae
+        lda $3943
+        adc $af
+        bcs $+MaxExp
+        sta $af
+        dex
+        bra $-EighthsAddingLoopStart
+
+    %MaxExp:
         lda #$ff
         sta $ad
         sta $ae
