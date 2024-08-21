@@ -10,7 +10,7 @@ event($20)  //Unlock the Weapon/Armor shop
 }
 
 text(bank 1 message $1A5) {
-You realize this that is
+You realize that this is
 probabaly a softlock,
 right?
 }
@@ -27,3 +27,27 @@ msfpatch {
         nop nop nop nop
 
 }
+// Removing Black Chocobo autofly back to origin
+msfpatch {
+    .addr $009E2B
+        nop nop nop
+}
+// Allowing it to land anywhere by changing bne -> bra
+
+
+msfpatch{
+    .addr $009F11
+        jsl $=Wacky__CheckBlackChocoboForest
+
+    .new
+    Wacky__CheckBlackChocoboForest:
+        lda $a1
+        and #$8
+        beq $+Wacky__CheckBlackChocoboAirship
+        rtl
+    %Wacky__CheckBlackChocoboAirship:
+        lda $a2
+        and #$10
+        rtl
+}
+

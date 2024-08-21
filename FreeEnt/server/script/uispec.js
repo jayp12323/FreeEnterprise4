@@ -5437,6 +5437,11 @@ var FLAG_UISPEC = [
                 "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
               },
               {
+                "flag": "-kit:exit",
+                "title": "Exit kit",
+                "description": "5-10 Exits"
+              },
+              {
                 "flag": "-kit:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -5587,6 +5592,11 @@ var FLAG_UISPEC = [
                 "flag": "-kit2:hero",
                 "title": "Hero kit",
                 "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
+              },
+              {
+                "flag": "-kit2:exit",
+                "title": "Exit kit",
+                "description": "5-10 Exits"
               },
               {
                 "flag": "-kit2:random",
@@ -5741,6 +5751,10 @@ var FLAG_UISPEC = [
                 "description": "One tier 4-5 weapon, body armor, headgear, and ring/gauntlet for your starting character. If the weapon is a bow, it will come with arrows; if the starting character is Edge or the Omnidextrous flag is enabled, there will also be a second weapon."
               },
               {
+                "flag": "-kit3:exit",
+                "title": "Exit kit"
+              },
+              {
                 "flag": "-kit3:random",
                 "title": "Select a random kit",
                 "description": "One of the other kit options, selected at random."
@@ -5797,6 +5811,16 @@ var FLAG_UISPEC = [
             "flag": "-exp:nokeybonus",
             "title": "No EXP bonus after 10 key items",
             "description": "By default in Free Enterprise, once 10 key items have been collected, earned EXP is doubled. Set this flag to remove this bonus."
+          },
+          {
+            "flag": "-exp:objectivebonus",
+            "title": "Each completed objective gives 12.5% extra EXP",
+            "description": "Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you 12.5% more EXP from each battle."
+          },
+          {
+            "flag": "-exp:geometric",
+            "title": "Repeated monster kills scale down in EXP",
+            "description": "Normally in FF4, each copy of a monster killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield 90% of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills."
           }
         ]
       },
@@ -5914,10 +5938,8 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "-wacky:doorsrando",
-            "title": "\"Door Randomization\"",
-            "hard": true
+            "title": "\"Door Randomization\""
           },
-
           {
             "flag": "-wacky:enemyunknown",
             "title": "\"Enemy Unknown\"",

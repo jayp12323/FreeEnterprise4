@@ -203,6 +203,10 @@ KIT_SPECS = {
         ( 'Cursed',         [1]  )
     ],
 
+    'exit': [
+        ('Exit', [(5,10)])
+    ],
+
     'hero' : None # special case handling
 }
 

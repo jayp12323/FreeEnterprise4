@@ -965,11 +965,8 @@ const _FE_FLAGSPEC = {
         "-kit3:yang",
         "-kit3:money",
         "-kit3:grabbag",
-<<<<<<< HEAD
         "-kit3:trap",
-=======
         "-kit3:miab",
->>>>>>> main
         "-kit3:archer",
         "-kit3:fabul",
         "-kit3:castlevania",

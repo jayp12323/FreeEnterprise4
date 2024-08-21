@@ -464,6 +464,14 @@ class FlagLogicCore:
         if flagset.has('Evanilla'):
             self._simple_disable(flagset, log, 'Encounters are vanilla', ['Ekeep:behemoths', 'Ekeep:doors', 'Edanger'])
 
+        if flagset.has('-monsterflee'):
+            flagset.set('-monsterevade')
+            self._lib.push(log, ['correction', 'Monsters require evade to flee; forced to add -monsterevade'])
+
+        if flagset.has('-monsterflee'):
+            flagset.set('-monsterevade')
+            self._lib.push(log, ['correction', 'Monsters require evade to flee; forced to add -monsterevade'])
+
         all_spoiler_flags = flagset.get_list(r'^-spoil:')
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')
         if (len(all_spoiler_flags) > 0 and len(all_spoiler_flags) == len(sparse_spoiler_flags)):
@@ -472,6 +480,7 @@ class FlagLogicCore:
         # Objectives logic
         if flagset.has('Onone'):
             self._simple_disable_regex(flagset, log, 'No objectives set', r'^O(win|req):')
+            self._simple_disable(flagset, log, 'No objectives set', ['-exp:objectivebonus'])
         else:
             # Force Oreq:all if a req: flag is not specified
             if not flagset.get_list(r'^Oreq:'):
