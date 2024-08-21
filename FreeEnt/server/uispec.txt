@@ -507,6 +507,8 @@
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
+.[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
+.[-exp:geometric] Repeated monster kills scale down in EXP
 [] Restore vanilla behaviors
 .[-vanilla:fusoya] Vanilla FuSoYa
 .[-vanilla:agility] Vanilla agility anchoring
