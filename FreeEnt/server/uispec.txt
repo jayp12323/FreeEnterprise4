@@ -503,7 +503,7 @@
 <> Smithy reward
 .(-smith:alt) Kokkol crafts a random tier 7/8 item
 .(-smith:super) Kokkol crafts a weapon from FF4 Advance
-[@exp] Restore vanilla EXP distribution
+[@exp] Change Exp distributions
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items

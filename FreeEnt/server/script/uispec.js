@@ -5794,7 +5794,7 @@ var FLAG_UISPEC = [
       },
       {
         "flag": "@exp",
-        "title": "Restore vanilla EXP distribution",
+        "title": "Change Exp distributions",
         "description": "To reduce grinding, Free Enterprise normally applies a number of experience boosts, which may be individually disabled by these flags.",
         "subcontrols": [
           {
@@ -5817,11 +5817,12 @@ var FLAG_UISPEC = [
             "title": "Each completed objective gives 12.5% extra EXP",
             "description": "Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you 12.5% more EXP from each battle."
           },
-          {
+                    {
              "flag": "-exp:kicheckbonus",
              "title": "Each KI location checked gives 12.5% extra EXP (except the starting KI check)",
              "description": "Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each key item location checked earns you 12.5% more EXP from each battle."
            },
+
           {
             "flag": "-exp:geometric",
             "title": "Repeated monster kills scale down in EXP",

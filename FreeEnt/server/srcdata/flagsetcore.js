@@ -514,14 +514,6 @@ class FlagLogicCore {
         if (flagset.has("Evanilla")) {
             this._simple_disable(flagset, log, "Encounters are vanilla", ["Ekeep:behemoths", "Ekeep:doors", "Edanger"]);
         }
-        if (flagset.has("-monsterflee")) {
-            flagset.set("-monsterevade");
-            this._lib.push(log, ["correction", "Monsters require evade to flee; forced to add -monsterevade"]);
-        }
-        if (flagset.has("-monsterflee")) {
-            flagset.set("-monsterevade");
-            this._lib.push(log, ["correction", "Monsters require evade to flee; forced to add -monsterevade"]);
-        }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");
         if (((all_spoiler_flags.length > 0) && (all_spoiler_flags.length === sparse_spoiler_flags.length))) {
