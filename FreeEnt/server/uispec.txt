@@ -508,6 +508,7 @@
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
 .[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
+.[-exp:kicheckbonus] Each KI location checked gives 12.5% extra EXP (except the starting KI check)
 .[-exp:geometric] Repeated monster kills scale down in EXP
 [] Restore vanilla behaviors
 .[-vanilla:fusoya] Vanilla FuSoYa
