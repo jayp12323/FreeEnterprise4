@@ -632,8 +632,8 @@ def build(romfile, options, force_recompile=False):
         env.add_file('scripts/japanese_abilities.f4c')
 
     RANDO_MODULES = [
-        core_rando,
         character_rando,
+        core_rando,
         objective_rando,
         keyitem_rando,
         boss_rando,

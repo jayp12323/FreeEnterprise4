@@ -11,6 +11,7 @@ from . import databases
 from . import dep_checker
 from . import priority_assigner
 from . import util
+from . import treasure_rando
 from .spoilers import SpoilerRow
 
 from .address import *
@@ -368,12 +369,7 @@ def apply(env):
     treasure_dbview.refine(lambda t: not t.exclude)
 
     items_dbview = databases.get_items_dbview()
-    if env.options.flags.has('treasure_no_j_items'):
-        items_dbview.refine(lambda it: not it.j)
-    if env.options.flags.has('no_adamants'):
-        items_dbview.refine(lambda it: it.const != '#item.AdamantArmor')
-    if env.options.flags.has('no_cursed_rings'):
-        items_dbview.refine(lambda it: it.const != '#item.Cursed')
+    treasure_rando.refineItemsView(items_dbview, env)
 
     unsafe = False
     if env.options.flags.has('key_items_unsafe'):
@@ -842,6 +838,10 @@ def apply(env):
 
                     tier_src_pool = items_dbview.find_all(lambda it: it.tier == tier)
                     tier_pool = list(tier_src_pool)
+
+                    if len(tier_pool) == 0:
+                        continue
+
                     if len(tier_pool) > tier_counts[tier]:
                         tier_pool = env.rnd.sample(tier_pool, tier_counts[tier])
                     else:
@@ -849,13 +849,14 @@ def apply(env):
                             tier_pool.append(env.rnd.choice(tier_src_pool))
                     pool.extend(tier_pool)
 
-                env.rnd.shuffle(pool)
+                env.rnd.shuffle(pool)                
                 for slot in unassigned_quest_slots_for_curve:
-                    rewards_assignment[slot] = ItemReward(pool.pop().const)
+                    if len(pool) > 0:
+                        rewards_assignment[slot] = ItemReward(pool.pop().const)
             
-            for slot in unassigned_quest_slots:
-                if slot not in rewards_assignment:
-                    raise Exception(f"No reward assigned for slot {slot}")
+            # for slot in unassigned_quest_slots:
+            #     if slot not in rewards_assignment:
+            #         raise Exception(f"No reward assigned for slot {slot}")
 
         unassigned_chest_slots = [slot for slot in CHEST_ITEM_SLOTS if slot not in rewards_assignment]
         if env.options.flags.has('treasure_standard') or env.options.flags.has('treasure_wild'):
@@ -895,6 +896,9 @@ def apply(env):
             pools = {}
             for tier in total_tier_counts:
                 src_pool = items_dbview.find_all(lambda it: it.tier == tier)
+                if len(src_pool) == 0:
+                    continue
+
                 if len(src_pool) > total_tier_counts[tier]:
                     pools[tier] = env.rnd.sample(src_pool, total_tier_counts[tier])
                 else:
@@ -906,10 +910,15 @@ def apply(env):
             for area in unassigned_chest_slots_by_area:
                 area_pool = []
                 for tier in tier_counts_by_area[area]:
+                    if tier >= len(pools) or len(pools[tier]) == 0:
+                        continue
+
                     for i in range(tier_counts_by_area[area][tier]):
                         area_pool.append(pools[tier].pop())
-                env.rnd.shuffle(area_pool)
+                env.rnd.shuffle(area_pool)                
                 for slot in unassigned_chest_slots_by_area[area]:
+                    if len(area_pool) == 0:
+                        break
                     rewards_assignment[slot] = ItemReward(area_pool.pop().const)
 
     # randomize fight treasure locations (keyitem rando needs to know this for ending)
