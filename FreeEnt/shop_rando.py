@@ -256,9 +256,11 @@ def apply(env):
                 # and 1-2 of the damage "wild" items and distribute them
                 # to free shops.
                 first_pool = ['#item.Siren', '#item.Coffin', '#item.HrGlass2', '#item.Bacchus', '#item.Elixir', '#item.Levia']
+                first_pool = list(filter(lambda i: i not in banned_items, first_pool))
                 env.rnd.shuffle(first_pool)
                 picks = first_pool[slice(2)]
                 second_pool = ['#item.Grimoire', '#item.GaiaDrum', '#item.LitBolt', '#item.Blizzard', '#item.FireBomb', '#item.Stardust', '#item.ZeusRage', '#item.Boreas', '#item.BigBomb']
+                second_pool = list(filter(lambda i: i not in banned_items, second_pool))
                 env.rnd.shuffle(second_pool)
                 picks = picks + second_pool[slice(env.rnd.randint(1, 2))]
 
