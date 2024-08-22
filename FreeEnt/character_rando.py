@@ -241,13 +241,12 @@ def apply(env):
             if start_character is not None and start_character not in forced_characters and start_character not in allowed_characters and len(distinct_characters) > 1:
                 distinct_characters.remove(start_character)
 
-            allowed_characters = sorted(list(distinct_characters))
-
+            allowed_characters = sorted(list(distinct_characters))        
         # remove starting slot if start character specified, but after we've already
         # done the total available character count
         if start_character is not None:
             assignable_slots.remove('dkcecil_slot')
-
+        
         num_easy_slots = len([s for s in assignable_slots if s not in HARD_SLOTS])
 
         def subtract_if_able(original_set, subtract_set):
@@ -269,23 +268,22 @@ def apply(env):
             else:
                 characters.extend(env.meta['objective_required_characters'])
 
-            # pre-cull characters if Cnoearned is on
+            # pre-cull characters if Cnoearned is on            
             if env.options.flags.has('no_earned_characters'):
                 valid_restricted_characters = list(restricted_characters)
                 while len(characters) > len(assignable_slots):
                     # remove restricted characters first
-                    if valid_restricted_characters:
+                    if valid_restricted_characters and not env.options.flags.has('characters_relaxed'):
+                        print(f'Foo')
                         ch = env.rnd.choice(valid_restricted_characters)
                         if ch in characters:
                             characters.remove(ch)
                         valid_restricted_characters.remove(ch)
                     else:
                         characters.remove(env.rnd.choice(characters))
-
-            # add characters to the pool as best as we're able
+            # add characters to the pool as best as we're able            
             while len(characters) < len(assignable_slots):        
-                character_choices = set(allowed_characters)
-
+                character_choices = set(allowed_characters)                
                 # if weighted, remove restricted characters from pool if
                 # we don't have enough characters yet to fill the
                 # easy slots
@@ -302,8 +300,7 @@ def apply(env):
                     elif start_character is not None and len(set(characters)) == 1:
                         subtract_if_able(character_choices, set(characters))
 
-                characters.append(env.rnd.choice(sorted(character_choices)))
-
+                characters.append(env.rnd.choice(sorted(character_choices)))            
             cur_assignment = {}
             cur_assignment_score = 0.0
             if start_character is not None:
