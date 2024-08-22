@@ -71,6 +71,7 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -exp:objectivebonus
 -exp:kicheckbonus
 -exp:geometric
+-exp:boost50/-exp:boost100
 -vanilla:agility
 -vanilla:hobs
 -vanilla:growup

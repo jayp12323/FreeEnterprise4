@@ -497,7 +497,7 @@
 .define AUDIO_TRACK_ANOTHER_MOON                   $31
 .define AUDIO_TRACK_TROIAN_BEAUTY                  $32
 .define AUDIO_TRACK_MYSTIC_MYSIDIA                 $33
-.define AUDIO_TRACK_LUNAR_SUBTERRANE               $34
+.define AUDIO_TRACKF_SUBTERRANE               $34
 .define AUDIO_TRACK_EPILOGUE_1                     $35
 .define AUDIO_TRACK_EPILOGUE_2                     $36
 .define AUDIO_TRACK_EPILOGUE_3                     $37
