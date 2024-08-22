@@ -854,9 +854,10 @@ def apply(env):
                     if len(pool) > 0:
                         rewards_assignment[slot] = ItemReward(pool.pop().const)
             
-            # for slot in unassigned_quest_slots:
-            #     if slot not in rewards_assignment:
-            #         raise Exception(f"No reward assigned for slot {slot}")
+            for slot in unassigned_quest_slots:
+                if slot not in rewards_assignment:
+                    print(f"No reward assigned for slot {slot}, giving Cure1")
+                    rewards_assignment[slot] = ItemReward('#item.Cure1')
 
         unassigned_chest_slots = [slot for slot in CHEST_ITEM_SLOTS if slot not in rewards_assignment]
         if env.options.flags.has('treasure_standard') or env.options.flags.has('treasure_wild'):
