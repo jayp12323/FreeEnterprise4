@@ -384,15 +384,20 @@
 <>* Treasure chests (other than MIABs)
 .(Tvanilla)- No chest randomization
 ..<> Sparse options
-...(Tsparse:10) Only 10% of chests are filled
-...(Tsparse:20) Only 20% of chests are filled
-...(Tsparse:30) Only 30% of chests are filled
-...(Tsparse:40) Only 40% of chests are filled
-...(Tsparse:50) Only 50% of chests are filled
-...(Tsparse:60) Only 60% of chests are filled
-...(Tsparse:70) Only 70% of chests are filled
-...(Tsparse:80) Only 80% of chests are filled
-...(Tsparse:90) Only 90% of chests are filled
+...() Sparse locations
+....[Tsparsey:underground]  Chests in the underground are sparse
+....[Tsparsey:moon]         Chests on the moon are sparse
+....[Tsparsey:overworld]    Chests in the overworld are sparse
+...<> Sparse distribution
+....(Tsparse:10) Only 10% of chests are filled
+....(Tsparse:20) Only 20% of chests are filled
+....(Tsparse:30) Only 30% of chests are filled
+....(Tsparse:40) Only 40% of chests are filled
+....(Tsparse:50) Only 50% of chests are filled
+....(Tsparse:60) Only 60% of chests are filled
+....(Tsparse:70) Only 70% of chests are filled
+....(Tsparse:80) Only 80% of chests are filled
+....(Tsparse:90) Only 90% of chests are filled
 .(Tshuffle) Shuffle chests
 ..[ECHO:Tvanilla]
 .(Tstandard) Standard chest randomization

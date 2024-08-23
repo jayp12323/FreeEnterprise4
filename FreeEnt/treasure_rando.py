@@ -87,7 +87,7 @@ class TreasureAssignment:
             contents = '{} gp'.format(self._autosells[contents])        
         
         reward_index = -1
-        if '#item.fe_CharacterChestItem' in contents:
+        if contents != None and '#item.fe_CharacterChestItem' in contents:
             reward_index = contents[-2:]
             contents = '#item.NoArmor'#contents[:-3]
         self._assignments[slug] = (contents, fight, t if original_chest == None else original_chest, reward_index)
@@ -322,15 +322,21 @@ def apply(env):
     sparse_level = env.options.flags.get_suffix('Tsparse:')
     if sparse_level:
         sparse_level = int(sparse_level)
-        plain_chests = plain_chests_dbview.find_all()
-        empty_count = (len(plain_chests) * (100 - sparse_level)) // 100
-        for t in env.rnd.sample(plain_chests, empty_count):
+        target_worlds = []
+        if env.options.flags.has('treasure_sparse_underground'):
+            target_worlds.append('Underworld')            
+        if env.options.flags.has('treasure_sparse_moon'):
+            target_worlds.append('Moon')
+        if env.options.flags.has('treasure_sparse_overworld'):
+            target_worlds.append('Overworld')
+        sparse_db_view = plain_chests_dbview.find_all(lambda t: t.world in target_worlds)
+        empty_count = (len(sparse_db_view) * (100 - sparse_level)) // 100
+        for t in env.rnd.sample(sparse_db_view, empty_count):
             treasure_assignment.assign(t, None)
 
     # apply passes if Pt flag
     if env.options.flags.has('pass_in_chests'):
         remaining_chests = plain_chests_dbview.get_refined_view(lambda t: t.world != 'Moon')
-
         pass_chest = env.rnd.choice(remaining_chests.find_all())
         treasure_assignment.assign(pass_chest, '#item.Pass')
         remaining_chests.refine(lambda t: t.world != 'Overworld' and t.area != pass_chest.area)

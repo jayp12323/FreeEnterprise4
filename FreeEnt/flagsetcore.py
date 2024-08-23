@@ -424,6 +424,11 @@ class FlagLogicCore:
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
 
+        if flagset.get_list(rf'^Tsparse') != 0 and not flagset.get_list(r'^Tsparsey:'):
+            flagset.set('Tsparsey:overworld')
+            flagset.set('Tsparsey:underground')
+            flagset.set('Tsparsey:moon')
+
         if flagset.has_any('Tempty', 'Tvanilla', 'Tshuffle'):
             self._simple_disable_regex(flagset, log, 'Treasures are not random', r'^Tmaxtier:')
             self._simple_disable(flagset, log, 'Treasures are not random', ['Tplayable'])

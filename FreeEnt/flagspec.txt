@@ -43,6 +43,7 @@ Cthrift:2/Cthrift:3/Cthrift:4/Cthrift:5
 Cj:spells Cj:abilities Cpaladin Cnekkie Cnodupes Cparty:1/Cparty:2/Cparty:3/Cparty:4 Cbye Cpermajoin Cpermadeath/Cpermadeader Chero Csuperhero Ctreasure Cmiab
 Tvanilla Tshuffle/Tstandard/Tpro/Twild/Twildish/Tempty 
 Tsparse:10/Tsparse:20/Tsparse:30/Tsparse:40/Tsparse:50/Tsparse:60/Tsparse:70/Tsparse:80/Tsparse:90
+Tsparsey:underground Tsparsey:moon Tsparsey:overworld
 Tplayable
 Sprice:20/Sprice:40/Sprice:60/Sprice:80/Sprice:120/Sprice:140/Sprice:160/Sprice:180/Sprice:200/Sprice:400
 Spricey:items Spricey:weapons Spricey:armor
@@ -180,6 +181,9 @@ Twildish             treasure_wild_weighted
 Tempty               treasure_empty
 Tno:j                treasure_no_j_items
 Tplayable            treasure_playable
+Tsparsey:underground treasure_sparse_underground
+Tsparsey:moon        treasure_sparse_moon
+Tsparsey:overworld   treasure_sparse_overworld
 Tjunk                treasure_junk
 Tmoney               treasure_money
 

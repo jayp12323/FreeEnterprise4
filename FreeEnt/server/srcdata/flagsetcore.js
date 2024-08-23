@@ -476,6 +476,11 @@ class FlagLogicCore {
         if (flagset.has("Tempty")) {
             this._simple_disable_regex(flagset, log, "Treasures are empty", "^Tsparse:");
         }
+        if (((flagset.get_list(`^Tsparse`) !== 0) && (! flagset.get_list("^Tsparsey:")))) {
+            flagset.set("Tsparsey:overworld");
+            flagset.set("Tsparsey:underground");
+            flagset.set("Tsparsey:moon");
+        }
         if (flagset.has_any("Tempty", "Tvanilla", "Tshuffle")) {
             this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmaxtier:");
             this._simple_disable(flagset, log, "Treasures are not random", ["Tplayable"]);
