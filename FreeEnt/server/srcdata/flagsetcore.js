@@ -482,8 +482,8 @@ class FlagLogicCore {
             flagset.set("Tsparsey:moon");
         }
         if ((flagset.get_list("^Tsparsey:") && (! flagset.get_list("^Tsparse:")))) {
-            this._simple_disable_regex(flagset, log, "Tsparsey specified without Tsparse", "^Tsparsey");
-            this._lib.push(log, ["correction", "Tsparsey specified without Tsparse; Removing Tsparsey"]);
+            console.log(`Foo`);
+            this._simple_disable_regex(flagset, log, "Tsparsey specified without Tsparse", "^Tsparsey:");
         }
         if (flagset.has_any("Tempty", "Tvanilla", "Tshuffle")) {
             this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmaxtier:");
