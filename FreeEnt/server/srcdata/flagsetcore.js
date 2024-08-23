@@ -428,6 +428,7 @@ class FlagLogicCore {
             flag = _pj_a[_pj_c];
             if (flagset.has(flag)) {
                 flagset.unset(flag);
+                console.log(((prefix + "; removed ") + flag));
                 this._lib.push(log, ["correction", ((prefix + "; removed ") + flag)]);
             }
         }
@@ -482,7 +483,6 @@ class FlagLogicCore {
             flagset.set("Tsparsey:moon");
         }
         if ((flagset.get_list("^Tsparsey:") && (! flagset.get_list("^Tsparse:")))) {
-            console.log(`Foo`);
             this._simple_disable_regex(flagset, log, "Tsparsey specified without Tsparse", "^Tsparsey:");
         }
         if (flagset.has_any("Tempty", "Tvanilla", "Tshuffle")) {

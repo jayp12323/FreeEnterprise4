@@ -376,6 +376,7 @@ class FlagLogicCore:
         for flag in flags_to_disable:
             if flagset.has(flag):
                 flagset.unset(flag)
+                print(prefix + '; removed ' + flag)
                 self._lib.push(log, ['correction', prefix + '; removed ' + flag])
 
     def _simple_disable_regex(self, flagset, log, prefix, flags_regex):
