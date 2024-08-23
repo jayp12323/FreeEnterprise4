@@ -86,6 +86,8 @@ msfpatch {
         // %end%
 
         tya
+        clc
+
         // %experience_ki_check_bonus on %
         adc $=Rewards__DeliveredItemCount
         // subtract one for the starting KI check

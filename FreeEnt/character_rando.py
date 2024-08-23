@@ -259,7 +259,7 @@ def apply(env):
                 valid_restricted_characters = list(restricted_characters)
                 while len(characters) > len(assignable_slots):
                     # remove restricted characters first
-                    if valid_restricted_characters:
+                    if valid_restricted_characters and not env.options.flags.has('characters_relaxed'):
                         ch = env.rnd.choice(valid_restricted_characters)
                         if ch in characters:
                             characters.remove(ch)
