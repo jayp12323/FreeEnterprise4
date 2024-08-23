@@ -364,6 +364,8 @@ QUEST_REWARD_CURVES = {
     ]
 }
 
+default_item_reward = ItemReward('#item.Cure1')
+
 def apply(env):
     treasure_dbview = databases.get_treasure_dbview()
     treasure_dbview.refine(lambda t: not t.exclude)
@@ -803,7 +805,7 @@ def apply(env):
                         rewards_assignment[slot] = pool.pop()
                     except:
                         # Pnone + win:crystal causes an issue under Tvanilla | Tshuffle. This is a workaround to that.
-                        rewards_assignment[slot] = (ItemReward('#item.Cure1') if not is_vanilla else EmptyReward())
+                        rewards_assignment[slot] = (default_item_reward if not is_vanilla else EmptyReward())
     else:
         # revised Rivers rando
         curves_dbview = databases.get_curves_dbview()
@@ -851,13 +853,14 @@ def apply(env):
 
                 env.rnd.shuffle(pool)                
                 for slot in unassigned_quest_slots_for_curve:
+                    reward_to_insert = default_item_reward
                     if len(pool) > 0:
-                        rewards_assignment[slot] = ItemReward(pool.pop().const)
+                        reward_to_insert = ItemReward(pool.pop().const)
+                    rewards_assignment[slot] = reward_to_insert
             
             for slot in unassigned_quest_slots:
-                if slot not in rewards_assignment:
-                    print(f"No reward assigned for slot {slot}, giving Cure1")
-                    rewards_assignment[slot] = ItemReward('#item.Cure1')
+                if slot not in rewards_assignment:                    
+                    rewards_assignment[slot] = default_item_reward
 
         unassigned_chest_slots = [slot for slot in CHEST_ITEM_SLOTS if slot not in rewards_assignment]
         if env.options.flags.has('treasure_standard') or env.options.flags.has('treasure_wild'):
@@ -918,10 +921,11 @@ def apply(env):
                         area_pool.append(pools[tier].pop())
                 env.rnd.shuffle(area_pool)                
                 for slot in unassigned_chest_slots_by_area[area]:
-                    if len(area_pool) == 0:
-                        break
-                    rewards_assignment[slot] = ItemReward(area_pool.pop().const)
-
+                    reward_to_insert = default_item_reward
+                    if len(area_pool) != 0:
+                        reward_to_insert = ItemReward(area_pool.pop().const)
+                    rewards_assignment[slot] = reward_to_insert
+                    
     # randomize fight treasure locations (keyitem rando needs to know this for ending)
     env.meta['miab_locations'] = {}
     if env.options.flags.has('vanilla_miabs'):
