@@ -424,12 +424,12 @@ class FlagLogicCore:
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
 
-        if flagset.get_list(rf'^Tsparse') != 0 and not flagset.get_list(r'^Tsparsey:'):
+        if flagset.get_list(rf'^Tsparse') and not flagset.get_list(r'^Tsparsey:'):
             flagset.set('Tsparsey:overworld')
             flagset.set('Tsparsey:underground')
             flagset.set('Tsparsey:moon')
 
-        if flagset.get_list(r'^Tsparsey:') and flagset.get_list(rf'^Tsparse') == 0:
+        if flagset.get_list(r'^Tsparsey:') and not flagset.get_list(rf'^Tsparse'):
             self._simple_disable_regex(flagset, log, 'Tsparsey specified without Tsparse', r'^Tsparsey')
             self._lib.push(log, ['correction', 'Tsparsey specified without Tsparse; Removing Tsparsey'])
 

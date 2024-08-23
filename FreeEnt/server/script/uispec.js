@@ -4511,68 +4511,63 @@ var FLAG_UISPEC = [
             "subcontrols": [
               {
                 "flag": "@anon42",
-                "title": "Sparse options",
+                "title": "Sparse options (defaults to everywhere)",
+                "compact": true,
                 "subcontrols": [
                   {
-                    "flag": "@anon43",
-                    "title": "Sparse locations (defaults to every chest)",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparsey:underground",
-                        "title": "Chests in the underground are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:moon",
-                        "title": "Chests on the moon are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:overworld",
-                        "title": "Chests in the overworld are sparse"
-                      }
-                    ]
+                    "flag": "Tsparsey:underground",
+                    "title": "Chests in the underground are sparse"
                   },
                   {
-                    "flag": "@anon44",
-                    "title": "Sparse distribution",
-                    "type": "select",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparse:10",
-                        "title": "Only 10% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:20",
-                        "title": "Only 20% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:30",
-                        "title": "Only 30% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:40",
-                        "title": "Only 40% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:50",
-                        "title": "Only 50% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:60",
-                        "title": "Only 60% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:70",
-                        "title": "Only 70% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:80",
-                        "title": "Only 80% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:90",
-                        "title": "Only 90% of chests are filled"
-                      }
-                    ]
+                    "flag": "Tsparsey:moon",
+                    "title": "Chests on the moon are sparse"
+                  },
+                  {
+                    "flag": "Tsparsey:overworld",
+                    "title": "Chests in the overworld are sparse"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon43",
+                "title": "Sparse distribution",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
                   }
                 ]
               }
@@ -4585,68 +4580,63 @@ var FLAG_UISPEC = [
             "subcontrols": [
               {
                 "flag": "@anon42",
-                "title": "Sparse options",
+                "title": "Sparse options (defaults to everywhere)",
+                "compact": true,
                 "subcontrols": [
                   {
-                    "flag": "@anon43",
-                    "title": "Sparse locations (defaults to every chest)",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparsey:underground",
-                        "title": "Chests in the underground are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:moon",
-                        "title": "Chests on the moon are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:overworld",
-                        "title": "Chests in the overworld are sparse"
-                      }
-                    ]
+                    "flag": "Tsparsey:underground",
+                    "title": "Chests in the underground are sparse"
                   },
                   {
-                    "flag": "@anon44",
-                    "title": "Sparse distribution",
-                    "type": "select",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparse:10",
-                        "title": "Only 10% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:20",
-                        "title": "Only 20% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:30",
-                        "title": "Only 30% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:40",
-                        "title": "Only 40% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:50",
-                        "title": "Only 50% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:60",
-                        "title": "Only 60% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:70",
-                        "title": "Only 70% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:80",
-                        "title": "Only 80% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:90",
-                        "title": "Only 90% of chests are filled"
-                      }
-                    ]
+                    "flag": "Tsparsey:moon",
+                    "title": "Chests on the moon are sparse"
+                  },
+                  {
+                    "flag": "Tsparsey:overworld",
+                    "title": "Chests in the overworld are sparse"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon43",
+                "title": "Sparse distribution",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
                   }
                 ]
               }
@@ -4659,73 +4649,68 @@ var FLAG_UISPEC = [
             "subcontrols": [
               {
                 "flag": "@anon42",
-                "title": "Sparse options",
+                "title": "Sparse options (defaults to everywhere)",
+                "compact": true,
                 "subcontrols": [
                   {
-                    "flag": "@anon43",
-                    "title": "Sparse locations (defaults to every chest)",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparsey:underground",
-                        "title": "Chests in the underground are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:moon",
-                        "title": "Chests on the moon are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:overworld",
-                        "title": "Chests in the overworld are sparse"
-                      }
-                    ]
+                    "flag": "Tsparsey:underground",
+                    "title": "Chests in the underground are sparse"
                   },
                   {
-                    "flag": "@anon44",
-                    "title": "Sparse distribution",
-                    "type": "select",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparse:10",
-                        "title": "Only 10% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:20",
-                        "title": "Only 20% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:30",
-                        "title": "Only 30% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:40",
-                        "title": "Only 40% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:50",
-                        "title": "Only 50% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:60",
-                        "title": "Only 60% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:70",
-                        "title": "Only 70% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:80",
-                        "title": "Only 80% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:90",
-                        "title": "Only 90% of chests are filled"
-                      }
-                    ]
+                    "flag": "Tsparsey:moon",
+                    "title": "Chests on the moon are sparse"
+                  },
+                  {
+                    "flag": "Tsparsey:overworld",
+                    "title": "Chests in the overworld are sparse"
                   }
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon43",
+                "title": "Sparse distribution",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4754,7 +4739,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4785,73 +4770,68 @@ var FLAG_UISPEC = [
             "subcontrols": [
               {
                 "flag": "@anon42",
-                "title": "Sparse options",
+                "title": "Sparse options (defaults to everywhere)",
+                "compact": true,
                 "subcontrols": [
                   {
-                    "flag": "@anon43",
-                    "title": "Sparse locations (defaults to every chest)",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparsey:underground",
-                        "title": "Chests in the underground are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:moon",
-                        "title": "Chests on the moon are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:overworld",
-                        "title": "Chests in the overworld are sparse"
-                      }
-                    ]
+                    "flag": "Tsparsey:underground",
+                    "title": "Chests in the underground are sparse"
                   },
                   {
-                    "flag": "@anon44",
-                    "title": "Sparse distribution",
-                    "type": "select",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparse:10",
-                        "title": "Only 10% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:20",
-                        "title": "Only 20% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:30",
-                        "title": "Only 30% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:40",
-                        "title": "Only 40% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:50",
-                        "title": "Only 50% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:60",
-                        "title": "Only 60% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:70",
-                        "title": "Only 70% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:80",
-                        "title": "Only 80% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:90",
-                        "title": "Only 90% of chests are filled"
-                      }
-                    ]
+                    "flag": "Tsparsey:moon",
+                    "title": "Chests on the moon are sparse"
+                  },
+                  {
+                    "flag": "Tsparsey:overworld",
+                    "title": "Chests in the overworld are sparse"
                   }
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon43",
+                "title": "Sparse distribution",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4880,7 +4860,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -4911,73 +4891,68 @@ var FLAG_UISPEC = [
             "subcontrols": [
               {
                 "flag": "@anon42",
-                "title": "Sparse options",
+                "title": "Sparse options (defaults to everywhere)",
+                "compact": true,
                 "subcontrols": [
                   {
-                    "flag": "@anon43",
-                    "title": "Sparse locations (defaults to every chest)",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparsey:underground",
-                        "title": "Chests in the underground are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:moon",
-                        "title": "Chests on the moon are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:overworld",
-                        "title": "Chests in the overworld are sparse"
-                      }
-                    ]
+                    "flag": "Tsparsey:underground",
+                    "title": "Chests in the underground are sparse"
                   },
                   {
-                    "flag": "@anon44",
-                    "title": "Sparse distribution",
-                    "type": "select",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparse:10",
-                        "title": "Only 10% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:20",
-                        "title": "Only 20% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:30",
-                        "title": "Only 30% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:40",
-                        "title": "Only 40% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:50",
-                        "title": "Only 50% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:60",
-                        "title": "Only 60% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:70",
-                        "title": "Only 70% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:80",
-                        "title": "Only 80% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:90",
-                        "title": "Only 90% of chests are filled"
-                      }
-                    ]
+                    "flag": "Tsparsey:moon",
+                    "title": "Chests on the moon are sparse"
+                  },
+                  {
+                    "flag": "Tsparsey:overworld",
+                    "title": "Chests in the overworld are sparse"
                   }
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon43",
+                "title": "Sparse distribution",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -5006,7 +4981,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -5037,73 +5012,68 @@ var FLAG_UISPEC = [
             "subcontrols": [
               {
                 "flag": "@anon42",
-                "title": "Sparse options",
+                "title": "Sparse options (defaults to everywhere)",
+                "compact": true,
                 "subcontrols": [
                   {
-                    "flag": "@anon43",
-                    "title": "Sparse locations (defaults to every chest)",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparsey:underground",
-                        "title": "Chests in the underground are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:moon",
-                        "title": "Chests on the moon are sparse"
-                      },
-                      {
-                        "flag": "Tsparsey:overworld",
-                        "title": "Chests in the overworld are sparse"
-                      }
-                    ]
+                    "flag": "Tsparsey:underground",
+                    "title": "Chests in the underground are sparse"
                   },
                   {
-                    "flag": "@anon44",
-                    "title": "Sparse distribution",
-                    "type": "select",
-                    "subcontrols": [
-                      {
-                        "flag": "Tsparse:10",
-                        "title": "Only 10% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:20",
-                        "title": "Only 20% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:30",
-                        "title": "Only 30% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:40",
-                        "title": "Only 40% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:50",
-                        "title": "Only 50% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:60",
-                        "title": "Only 60% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:70",
-                        "title": "Only 70% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:80",
-                        "title": "Only 80% of chests are filled"
-                      },
-                      {
-                        "flag": "Tsparse:90",
-                        "title": "Only 90% of chests are filled"
-                      }
-                    ]
+                    "flag": "Tsparsey:moon",
+                    "title": "Chests on the moon are sparse"
+                  },
+                  {
+                    "flag": "Tsparsey:overworld",
+                    "title": "Chests in the overworld are sparse"
                   }
                 ]
               },
               {
-                "flag": "@anon45",
+                "flag": "@anon43",
+                "title": "Sparse distribution",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "Tsparse:10",
+                    "title": "Only 10% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:20",
+                    "title": "Only 20% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:30",
+                    "title": "Only 30% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:40",
+                    "title": "Only 40% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:50",
+                    "title": "Only 50% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:60",
+                    "title": "Only 60% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:70",
+                    "title": "Only 70% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:80",
+                    "title": "Only 80% of chests are filled"
+                  },
+                  {
+                    "flag": "Tsparse:90",
+                    "title": "Only 90% of chests are filled"
+                  }
+                ]
+              },
+              {
+                "flag": "@anon44",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -5132,7 +5102,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon46",
+                "flag": "@anon45",
                 "title": "Unrestrict item quality",
                 "compact": true,
                 "subcontrols": [
@@ -5173,7 +5143,7 @@ var FLAG_UISPEC = [
         "description": "Equipment in chests will be usable by at least one character that you can acquire in the seed."
       },
       {
-        "flag": "@anon47",
+        "flag": "@anon46",
         "title": "Junk management",
         "type": "select",
         "subcontrols": [
@@ -5195,7 +5165,7 @@ var FLAG_UISPEC = [
     "title": "SHOPS",
     "controls": [
       {
-        "flag": "@anon48",
+        "flag": "@anon47",
         "title": "Shops",
         "important": true,
         "type": "select",
@@ -5274,7 +5244,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon49",
+        "flag": "@anon48",
         "title": "Buy prices",
         "type": "select",
         "subcontrols": [
@@ -5289,7 +5259,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon50",
+        "flag": "@anon49",
         "title": "Sell prices",
         "type": "select",
         "subcontrols": [
@@ -5304,7 +5274,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon51",
+        "flag": "@anon50",
         "title": "Guarantee Items",
         "compact": true,
         "subcontrols": [
@@ -5351,7 +5321,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon52",
+        "flag": "@anon51",
         "title": "Remove Items",
         "compact": true,
         "subcontrols": [
@@ -5406,7 +5376,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon53",
+        "flag": "@anon52",
         "title": "Shop price adjustments",
         "type": "select",
         "subcontrols": [
@@ -5415,7 +5385,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 20% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5440,7 +5410,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 40% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5465,7 +5435,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 60% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5490,7 +5460,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 80% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5515,7 +5485,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 120% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5540,7 +5510,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 140% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5565,7 +5535,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 160% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5590,7 +5560,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 180% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5615,7 +5585,7 @@ var FLAG_UISPEC = [
             "title": "Shop prices are adjusted to 200% of their normal value",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5641,7 +5611,7 @@ var FLAG_UISPEC = [
             "hard": true,
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon53",
                 "title": "Only affect specific item types",
                 "compact": true,
                 "subcontrols": [
@@ -5669,7 +5639,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon55",
+        "flag": "@anon54",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -5706,7 +5676,7 @@ var FLAG_UISPEC = [
         "description": "Replaces the Fabul Gauntlet boss with five unscaled normal enemy encounters from the nearby area."
       },
       {
-        "flag": "@anon56",
+        "flag": "@anon55",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -5737,7 +5707,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon57",
+        "flag": "@anon56",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -5810,7 +5780,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon58",
+        "flag": "@anon57",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -5887,7 +5857,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon59",
+            "flag": "@anon58",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -6029,7 +5999,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon60",
+            "flag": "@anon59",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -6171,7 +6141,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon61",
+            "flag": "@anon60",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -6344,7 +6314,7 @@ var FLAG_UISPEC = [
         "description": "Normally, Kokkol the Smith forges the Adamant and Legend to make Excalibur. These flags change what Kokkol will make.",
         "subcontrols": [
           {
-            "flag": "@anon62",
+            "flag": "@anon61",
             "title": "Alternative forge items",
             "type": "select",
             "subcontrols": [
@@ -6372,7 +6342,7 @@ var FLAG_UISPEC = [
         "description": "By default, Free Enterprise runs with the \"FuSoYa Challenge\", where FuSoYa begins with 500 HP and a collection of low-level spells, and each boss defeated grants him 100 HP and three random additional spells. This behaviour may be changed using these flags.",
         "subcontrols": [
           {
-            "flag": "@anon63",
+            "flag": "@anon62",
             "title": "Spell learning changes",
             "type": "select",
             "subcontrols": [
@@ -6450,7 +6420,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon64",
+        "flag": "@anon63",
         "title": "Restore vanilla behaviors",
         "subcontrols": [
           {
@@ -6506,7 +6476,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>",
         "subcontrols": [
           {
-            "flag": "@anon65",
+            "flag": "@anon64",
             "title": "Select challenge",
             "type": "select",
             "subcontrols": [
@@ -6677,7 +6647,7 @@ var FLAG_UISPEC = [
     "title": "TWEAKS",
     "controls": [
       {
-        "flag": "@anon66",
+        "flag": "@anon65",
         "title": "Miscellaneous tweaks",
         "subcontrols": [
           {
@@ -6698,7 +6668,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon67",
+        "flag": "@anon66",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6752,7 +6722,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon68",
+            "flag": "@anon67",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6768,7 +6738,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon69",
+                "flag": "@anon68",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [
