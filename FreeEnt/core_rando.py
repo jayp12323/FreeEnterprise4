@@ -808,8 +808,7 @@ def apply(env):
                         rewards_assignment[slot] = (default_item_reward if not is_vanilla else EmptyReward())
     else:
         # revised Rivers rando
-        curves_dbview = databases.get_curves_dbview()
-
+        curves_dbview = databases.get_curves_dbview()        
         unassigned_quest_slots = [slot for slot in (list(ITEM_SLOTS) + list(SUMMON_QUEST_SLOTS) + list(MOON_BOSS_SLOTS)) if slot not in rewards_assignment]
         if env.options.flags.has('no_free_key_item'):
             unassigned_quest_slots.remove(RewardSlot.toroia_hospital_item)
@@ -859,7 +858,7 @@ def apply(env):
                     rewards_assignment[slot] = reward_to_insert
             
             for slot in unassigned_quest_slots:
-                if slot not in rewards_assignment:                    
+                if slot not in rewards_assignment:     
                     rewards_assignment[slot] = default_item_reward
 
         unassigned_chest_slots = [slot for slot in CHEST_ITEM_SLOTS if slot not in rewards_assignment]
@@ -914,7 +913,7 @@ def apply(env):
             for area in unassigned_chest_slots_by_area:
                 area_pool = []
                 for tier in tier_counts_by_area[area]:
-                    if tier >= len(pools) or len(pools[tier]) == 0:
+                    if tier not in pools:
                         continue
 
                     for i in range(tier_counts_by_area[area][tier]):
@@ -925,7 +924,7 @@ def apply(env):
                     if len(area_pool) != 0:
                         reward_to_insert = ItemReward(area_pool.pop().const)
                     rewards_assignment[slot] = reward_to_insert
-                    
+
     # randomize fight treasure locations (keyitem rando needs to know this for ending)
     env.meta['miab_locations'] = {}
     if env.options.flags.has('vanilla_miabs'):
