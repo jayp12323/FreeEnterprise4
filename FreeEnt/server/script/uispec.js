@@ -4512,11 +4512,10 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon42",
                 "title": "Sparse options",
-                "type": "select",
                 "subcontrols": [
                   {
                     "flag": "@anon43",
-                    "title": "Sparse locations",
+                    "title": "Sparse locations (defaults to every chest)",
                     "subcontrols": [
                       {
                         "flag": "Tsparsey:underground",
@@ -4587,11 +4586,10 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon42",
                 "title": "Sparse options",
-                "type": "select",
                 "subcontrols": [
                   {
                     "flag": "@anon43",
-                    "title": "Sparse locations",
+                    "title": "Sparse locations (defaults to every chest)",
                     "subcontrols": [
                       {
                         "flag": "Tsparsey:underground",
@@ -4662,11 +4660,10 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon42",
                 "title": "Sparse options",
-                "type": "select",
                 "subcontrols": [
                   {
                     "flag": "@anon43",
-                    "title": "Sparse locations",
+                    "title": "Sparse locations (defaults to every chest)",
                     "subcontrols": [
                       {
                         "flag": "Tsparsey:underground",
@@ -4789,11 +4786,10 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon42",
                 "title": "Sparse options",
-                "type": "select",
                 "subcontrols": [
                   {
                     "flag": "@anon43",
-                    "title": "Sparse locations",
+                    "title": "Sparse locations (defaults to every chest)",
                     "subcontrols": [
                       {
                         "flag": "Tsparsey:underground",
@@ -4916,11 +4912,10 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon42",
                 "title": "Sparse options",
-                "type": "select",
                 "subcontrols": [
                   {
                     "flag": "@anon43",
-                    "title": "Sparse locations",
+                    "title": "Sparse locations (defaults to every chest)",
                     "subcontrols": [
                       {
                         "flag": "Tsparsey:underground",
@@ -5043,11 +5038,10 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon42",
                 "title": "Sparse options",
-                "type": "select",
                 "subcontrols": [
                   {
                     "flag": "@anon43",
-                    "title": "Sparse locations",
+                    "title": "Sparse locations (defaults to every chest)",
                     "subcontrols": [
                       {
                         "flag": "Tsparsey:underground",
