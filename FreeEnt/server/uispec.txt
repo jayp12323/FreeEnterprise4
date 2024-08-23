@@ -383,11 +383,10 @@
 == TREASURES
 <>* Treasure chests (other than MIABs)
 .(Tvanilla)- No chest randomization
-..() Sparse options
-...() Sparse locations (defaults to every chest)
-....[Tsparsey:underground]  Chests in the underground are sparse
-....[Tsparsey:moon]         Chests on the moon are sparse
-....[Tsparsey:overworld]    Chests in the overworld are sparse
+..()# Sparse options (defaults to every chest)
+...[Tsparsey:underground]  Chests in the underground are sparse
+...[Tsparsey:moon]         Chests on the moon are sparse
+...[Tsparsey:overworld]    Chests in the overworld are sparse
 ...<> Sparse distribution
 ....(Tsparse:10) Only 10% of chests are filled
 ....(Tsparse:20) Only 20% of chests are filled
