@@ -195,7 +195,7 @@ def apply(env, testing=False):
                        "mapgrid ($06 15 31) { 7C }",
                        "mapgrid ($06 16 31) { 7C }",
                        "mapgrid ($06 17 31) { 7C }",
-                       "mapgrid ($136 17 9) { 74 }", ]
+                       "mapgrid ($136 17 9) { 72 }", ]
     remapped_ = []
     remapped_spoiled = []
     for i in ["#Overworld", "#Underworld", "#Moon"]:
