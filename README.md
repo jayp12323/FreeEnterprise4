@@ -21,7 +21,7 @@ Sgrunt and Wylem for numerous flag additions and multi wacky
 
 ScytheMarshall and Galeswift for Exp modification flags 
 
-Antidale for song and Z sprites
+Antidale/ Xenocat for song and Z sprites
 
 Fleury14 for extensive testing of the entrance randomizer
 
