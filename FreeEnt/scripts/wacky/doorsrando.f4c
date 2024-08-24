@@ -1,3 +1,6 @@
+
+
+
 event($20)  //Unlock the Weapon/Armor shop
 {
     consts(placement) {
@@ -32,6 +35,12 @@ msfpatch {
     .addr $009E2B
         nop nop nop
 }
+// Allow Black Chocobo to fly over mountains
+msfpatch {
+    .addr $00AA33
+        nop nop
+}
+
 // Allowing it to land anywhere by changing bne -> bra
 
 
