@@ -207,10 +207,10 @@ msfpatch {
     .def Rewards__PendingDeliverySlot  $7e1626
 
     // KI Experience
-    .def Rewards__DeliveredItemCount  $7e1627
+    .def Rewards__DeliveredItemCount  $7e162b
 
     // KI Objective
-    .def Rewards__TriggerDeliveryEvent $7e1628
+    .def Rewards__TriggerDeliveryEvent $7e162c
 
     // sub: given reward code A, return in
     //   X the reward code
