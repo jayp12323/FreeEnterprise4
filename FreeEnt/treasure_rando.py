@@ -89,7 +89,7 @@ class TreasureAssignment:
         reward_index = -1
         if contents != None and '#item.fe_CharacterChestItem' in contents:
             reward_index = contents[-2:]
-            contents = '#item.NoArmor'#contents[:-3]
+            contents = '#item.NoArmor'
         self._assignments[slug] = (contents, fight, t if original_chest == None else original_chest, reward_index)
 
     def get(self, t, remap=True):

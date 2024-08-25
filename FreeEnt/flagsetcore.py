@@ -422,6 +422,12 @@ class FlagLogicCore:
         if flagset.has('Cnekkie') and len(flagset.get_list(r'^Cthrift:')) > 0:
             self._simple_disable_regex(flagset, log, 'Starting gear specified by Cnekkie', r'^Cthrift:')
 
+        if flagset.has('Ctreasure') and (flagset.has('Tvanilla') or flagset.has('Tshuffle') or flagset.has('Tempty')):
+            self._simple_disable_regex(flagset, log, 'Ctreasure with vanilla-ish or empty chests', r'^Ctreasure')
+
+        if flagset.has('Cmiab') and (flagset.has('Tvanilla') or flagset.has('Tshuffle') or flagset.has('Tempty')):
+            self._simple_disable_regex(flagset, log, 'Ctreasure with vanilla-ish or empty chests', r'^Cmiab')
+
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
 

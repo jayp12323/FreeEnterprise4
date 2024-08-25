@@ -211,7 +211,7 @@ msfpatch {
     .def Rewards__CurrentValueLo  $7e1622
     .def Rewards__CurrentValueHi  $7e1623
     .def Rewards__PendingDeliverySlot  $7e1626
-    .def Rewards__DeliveredItemCount  $7e1627
+    .def Rewards__DeliveredItemCount  $7e162b
 
     // sub: given reward code A, return in
     //   X the reward code
