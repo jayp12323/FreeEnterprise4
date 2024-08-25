@@ -1,12 +1,13 @@
 
 
-
+// Change Baron equipment shop to always open
 npc(#LockedDoorWeaponArmorShop)
 {
     default inactive
 
 }
 
+// Change Mysidia lady who turns you into pig's dialog
 text(bank 1 message $1A5) {
 You realize that this is
 probabaly a softlock,
@@ -36,9 +37,7 @@ msfpatch {
         nop nop
 }
 
-// Allowing it to land anywhere by changing bne -> bra
-
-
+// Allowing Black Chocobos to land anywhere
 msfpatch{
     .addr $009F11
         jsl $=Wacky__CheckBlackChocoboForest
