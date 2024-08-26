@@ -4249,6 +4249,11 @@ var FLAG_UISPEC = [
         "hard": true
       },
       {
+        "flag": "Cmiab",
+        "title": "Earned characters are found in MIAB chests instead",
+        "hard": true
+      },
+      {
         "flag": "@anon36",
         "title": "Specify possible starting characters",
         "null": true,

@@ -474,6 +474,12 @@ class FlagLogicCore {
         if ((flagset.has("Cnekkie") && (flagset.get_list("^Cthrift:").length > 0))) {
             this._simple_disable_regex(flagset, log, "Starting gear specified by Cnekkie", "^Cthrift:");
         }
+        if ((flagset.has("Ctreasure") && ((flagset.has("Tvanilla") || flagset.has("Tshuffle")) || flagset.has("Tempty")))) {
+            this._simple_disable_regex(flagset, log, "Ctreasure with vanilla-ish or empty chests", "^Ctreasure");
+        }
+        if ((flagset.has("Cmiab") && ((flagset.has("Tvanilla") || flagset.has("Tshuffle")) || flagset.has("Tempty")))) {
+            this._simple_disable_regex(flagset, log, "Ctreasure with vanilla-ish or empty chests", "^Cmiab");
+        }
         if (flagset.has("Tempty")) {
             this._simple_disable_regex(flagset, log, "Treasures are empty", "^Tsparse:");
         }
@@ -560,6 +566,10 @@ class FlagLogicCore {
             if (flagset.has("Ctreasure")) {
                 flagset.set("Cnofree");
                 this._lib.push(log, ["correction", "Ctreasure set, auto-assigning Cnofree"]);
+            }
+            if (flagset.has("Cmiab")) {
+                flagset.set("Cnoearned");
+                this._lib.push(log, ["correction", "Cmiab set, auto-assigning Cnoearned"]);
             }
             pass_quest_flags = flagset.get_list("^O\\d+:quest_pass$");
             if (((pass_quest_flags.length > 0) && flagset.has("Pnone"))) {

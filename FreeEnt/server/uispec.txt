@@ -328,6 +328,7 @@
 [Cnoearned]! No earned characters
 [Cnopartner]! No starting partner
 [Ctreasure]! Free characters are found in treasure chests instead
+[Cmiab]! Earned characters are found in MIAB chests instead
 <>- Specify possible starting characters
 .(@CstartDefine)# Define starting character pool
 ..[Cstart:cecil]  May start with Cecil
