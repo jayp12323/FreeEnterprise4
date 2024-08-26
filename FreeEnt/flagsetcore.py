@@ -510,9 +510,13 @@ class FlagLogicCore:
                 flagset.set('Owin:game')
                 self._lib.push(log, ['correction', 'Objectives set without outcome specified; added Owin:game'])
         
-            if flagset.has('Ctreasure'):
+            if flagset.has('Ctreasure'):                
                 flagset.set('Cnofree')
                 self._lib.push(log, ['correction', 'Ctreasure set, auto-assigning Cnofree'])
+            
+            if flagset.has('Cmiab'):
+                flagset.set('Cnoearned')
+                self._lib.push(log, ['correction', 'Cmiab set, auto-assigning Cnoearned'])
 
             # force Pkey if pass objective is set
             pass_quest_flags = flagset.get_list(r'^O\d+:quest_pass$')

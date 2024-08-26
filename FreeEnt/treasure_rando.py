@@ -6,6 +6,7 @@ from . import rewards
 from . import util
 from . import spoilers
 from . import character_rando
+from .rewards import AxtorChestReward
 import random
 from random import shuffle
 
@@ -70,27 +71,35 @@ def _slug(treasure):
         return f"{treasure.map} {treasure.index}"
 
 class TreasureAssignment:
-    def __init__(self, autosells):
+    def __init__(self, autosells, env):
         self._autosells = autosells
         self._assignments = {}
         self._remaps = {}
+        self._env = env
 
     def remap(self, old, new):
-        self._remaps[_slug(old)] = _slug(new)
+        self._remaps[_slug(old)] = _slug(new)    
 
-    def assign(self, t, contents, original_chest=None, fight=None, remap=True):
+    def assign(self, t, contents, fight=None, remap=True):
         slug = _slug(t)
         if remap and slug in self._remaps:
             slug = self._remaps[slug]
 
         if contents in self._autosells and fight is None:
             contents = '{} gp'.format(self._autosells[contents])        
-        
-        reward_index = -1
-        if contents != None and '#item.fe_CharacterChestItem' in contents:
+      
+        reward_index = -1        
+        #translate either a reward slot or item into a reward index
+        if contents.startswith('#reward_slot.'):            
+            slot = rewards.RewardSlot[contents[len('#reward_slot.'):]]
+            reward = self._env.meta['rewards_assignment'][slot]
+            if type(reward) is AxtorChestReward:
+                reward_index = reward.reward_index
+        elif contents != None and '#item.fe_CharacterChestItem' in contents:
             reward_index = contents[-2:]
-            contents = '#item.NoArmor'
-        self._assignments[slug] = (contents, fight, t if original_chest == None else original_chest, reward_index)
+            contents = '#item.NoArmor'  
+         
+        self._assignments[slug] = (contents, fight, t, reward_index)
 
     def get(self, t, remap=True):
         slug = _slug(t)
@@ -106,10 +115,10 @@ class TreasureAssignment:
         treasure_list = [ ]
         slot_list = []
         for slug in self._assignments:
-            contents,fight,t,reward_index = self._assignments[slug]
+            contents,fight,t,reward_index = self._assignments[slug]            
             if contents is None:
                 contents = '$00'
-            if reward_index != -1:
+            if reward_index != -1:                
                 worldId = 0
                 if 'Underworld' in t.world:
                     worldId = 1
@@ -194,7 +203,7 @@ def apply(env):
             divisor = (4 if env.options.flags.has('shops_sell_quarter') else 2)
             autosells[item.const] = max(10, _round_gp(int(item.price * multiplier / divisor)))
 
-    treasure_assignment = TreasureAssignment(autosells)
+    treasure_assignment = TreasureAssignment(autosells, env)
 
     fight_chest_locations = ['{} {}'.format(*env.meta['miab_locations'][slot]) for slot in env.meta['miab_locations']]
     fight_treasure_areas = list(set([t.area for t in treasure_dbview.find_all(lambda t: t.fight is not None)]))
@@ -233,7 +242,6 @@ def apply(env):
             free_slot_name = character_rando.FREE_SLOTS[character_slot_index]
             treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[free_slot_name]))
             assigned_ids.append(t.ordr)
-            print(f'Putting {free_slot_name} in {t.map}:{t.spoilersubarea}:{t.spoilerdetail}')
             character_slot_index+=1
             character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.ordr not in assigned_ids)
 
@@ -380,12 +388,12 @@ def apply(env):
     for chest_slot in core_rando.CHEST_ITEM_SLOTS:
         chest_number = env.meta['miab_locations'][chest_slot]
         orig_chest_number = core_rando.CHEST_NUMBERS[chest_slot]
-        reward_slot_name =  f'#reward_slot.{chest_slot.name}'
+        reward_slot_name =  f'#reward_slot.{chest_slot.name}'        
         orig_chest = treasure_dbview.find_one(lambda t: t.map == orig_chest_number[0] and t.index == orig_chest_number[1])
-        treasure_assignment.assign(
-            '{} {}'.format(chest_number[0], chest_number[1]), 
-            reward_slot_name, 
-            orig_chest,
+        target_chest = treasure_dbview.find_one(lambda t: t.map == chest_number[0] and t.index == chest_number[1])
+        treasure_assignment.assign(            
+            target_chest,
+            reward_slot_name,             
             orig_chest.fight,
             remap = False)
 

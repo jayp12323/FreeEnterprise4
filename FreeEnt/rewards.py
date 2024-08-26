@@ -258,6 +258,35 @@ class AxtorReward(Reward):
     def __str__(self):
         return str(self.axtor)
 
+class AxtorChestReward(Reward):
+    def __init__(self, item, key_item=False):
+        self.item = item
+        self.is_key = key_item
+        if self.item != None and '#item.fe_CharacterChestItem' in self.item:
+            self.reward_index = self.item[-2:]
+            self.item = '#item.Cure1'
+        else:
+            self.reward_index = 0
+        super().__init__(item, (0x02 if key_item else 0x00))
+
+    def __eq__(self, other):
+        if type(other) in (int, str):
+            return self.item == other
+        else:
+            return super().__eq__(other)
+
+    __hash__ = Reward.__hash__
+
+    def __str__(self):
+        return ('*' if self.is_key else '') + '[' + str(self.item) + ']'
+
+    def encode(self):        
+        encoding = super().encode()
+        if type(self.item) is str:
+            return [databases.get_items_dbview().find_one(lambda it: it.const == self.item).code, encoding[1]]
+        else:
+            return encoding
+
 class RewardsAssignment:
     def __init__(self):
         self._assignment = {}

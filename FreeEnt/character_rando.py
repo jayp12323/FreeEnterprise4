@@ -140,12 +140,11 @@ def apply(env):
     
     if env.options.flags.has('no_starting_partner'):
         assignable_slots.remove('kain1_slot')
-    if not env.options.flags.has('no_earned_characters'):
-        assignable_slots.extend(EASY_SLOTS + HARD_SLOTS)
-    if not env.options.flags.has('no_free_characters'):
-        assignable_slots.extend(FREE_SLOTS)
 
-    if env.options.flags.has('characters_in_treasure'):
+    if env.options.flags.has('characters_in_miab') or not env.options.flags.has('no_earned_characters'):
+        assignable_slots.extend(EASY_SLOTS + HARD_SLOTS)
+
+    if env.options.flags.has('characters_in_treasure') or not env.options.flags.has('no_free_characters'):
         assignable_slots.extend(FREE_SLOTS)
 
     if env.options.flags.has('objective_mode_classicgiant'):
@@ -269,7 +268,7 @@ def apply(env):
                 characters.extend(env.meta['objective_required_characters'])
 
             # pre-cull characters if Cnoearned is on            
-            if env.options.flags.has('no_earned_characters'):
+            if env.options.flags.has('no_earned_characters') and not env.options.flags.has('characters_in_miab'):
                 valid_restricted_characters = list(restricted_characters)
                 while len(characters) > len(assignable_slots):
                     # remove restricted characters first
@@ -328,7 +327,7 @@ def apply(env):
                 scored_slots = []
                 for slot in assignable_slots:
                     if slot in cur_assignment:
-                        continue
+                        continue                    
                     scored_slots.append( (calculate_slot_score(slot, ch), slot) )
 
                 scored_slots.sort()
@@ -378,13 +377,10 @@ def apply(env):
     # build substitutions table accordingly, and set metadata objective purposes
     env.meta['available_characters'] = set()
     env.meta['available_nonstarting_characters'] = set()
-    #print(f"Total assignments {len(assignment)} axtor_map{len(axtor_map)}")
     for slot in assignment:
         character = assignment[slot]
         target_slot = SLOTS[slot]
-        target_axtor_map = axtor_map
-        #print(f'Assigning character {character} to slot {slot} and target slot{target_slot}')
-        #print(f' Target slot {target_slot}')
+        target_axtor_map = axtor_map        
         if character is None:
             if slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain1_slot', 'kain2_slot']:
                 target_axtor_map[target_slot] = 0xFE  # placeholder piggy for required overworld NPCs

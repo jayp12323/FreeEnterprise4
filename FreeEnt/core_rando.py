@@ -6,7 +6,7 @@ effects of these assignments are dealt with in keyitem_rando
 and boss_rando.
 '''
 
-from .rewards import EmptyReward, KeyItemReward, ItemReward, AxtorReward, RewardSlot, RewardsAssignment, REWARD_SLOT_SPOILER_NAMES
+from .rewards import EmptyReward, KeyItemReward, ItemReward, AxtorReward, AxtorChestReward, RewardSlot, RewardsAssignment, REWARD_SLOT_SPOILER_NAMES
 from . import databases
 from . import dep_checker
 from . import priority_assigner
@@ -864,24 +864,17 @@ def apply(env):
 
         unassigned_chest_slots = [slot for slot in CHEST_ITEM_SLOTS if slot not in rewards_assignment]
         
-        unassigned_chests_to_remove = []                
         if env.options.flags.has('characters_in_miab'):          
             character_slot_index = 0
-            print(f'Foo')
             while character_slot_index < len(character_rando.HARD_SLOTS):
                 rnd_chest_slot = env.rnd.choice(unassigned_chest_slots)
                 hard_slot_name = character_rando.HARD_SLOTS[character_slot_index]
-                rewards_assignment[rnd_chest_slot] = ItemReward('#item.fe_CharacterChestItem#_'+"{:02d}".format(character_rando.SLOTS[hard_slot_name]))
+                rewards_assignment[rnd_chest_slot] = AxtorChestReward('#item.fe_CharacterChestItem#_'+"{:02d}".format(character_rando.SLOTS[hard_slot_name]))
 
                 t = treasure_dbview.find_one(lambda t: [t.map, t.index] == CHEST_NUMBERS[rnd_chest_slot])
-                print(f'Assigned {t.area} slot {RewardSlot(rnd_chest_slot)}:{hard_slot_name} to '+str(rewards_assignment[rnd_chest_slot]))
+                print(f'Assigned {t.spoilerarea}, {t.spoilersubarea} {t.spoilerdetail}  {t.mapid} slot {RewardSlot(rnd_chest_slot)}:{hard_slot_name} to '+str(rewards_assignment[rnd_chest_slot]))
                 character_slot_index += 1
-                unassigned_chests_to_remove.append(rnd_chest_slot)
-        
-        print(f'Unassigned chests '+','.join([str(s) for s in unassigned_chest_slots]))
-        for remove in unassigned_chests_to_remove:
-            unassigned_chest_slots.remove(RewardSlot(remove))
-            print(f' Removing {RewardSlot(remove)}')
+                unassigned_chest_slots.remove(rnd_chest_slot)           
                         
         if env.options.flags.has('treasure_standard') or env.options.flags.has('treasure_wild'):
             src_pool = items_dbview.find_all(lambda it: it.tier >= 5)

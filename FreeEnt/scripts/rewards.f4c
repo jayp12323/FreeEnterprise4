@@ -496,6 +496,15 @@ msfpatch {
         stz $180a
         stz $180b
 
+        // Check if the message should be changed if it's a character here
+        jsl $=TreasureCharacter_CheckIfChar        
+        bcc $+CheckItem
+        lda #$fe
+        sta $1804  
+        stz $c6
+        rtl
+    
+    %CheckItem:
         lda $_Rewards__CurrentValueHi
         cmp #$04
         bcs $+ExternalReward
