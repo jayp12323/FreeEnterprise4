@@ -468,6 +468,15 @@ class FlagLogicCore:
         if (len(all_spoiler_flags) > 0 and len(all_spoiler_flags) == len(sparse_spoiler_flags)):
             self._simple_disable_regex(flagset, log, 'No spoilers requested', r'^-spoil:sparse')
 
+        if flagset.has('Ctreasure'):                
+            flagset.set('Cnofree')
+            self._lib.push(log, ['correction', 'Ctreasure set, auto-assigning Cnofree'])
+        
+        if flagset.has('Cmiab'):
+            flagset.set('Cnoearned')
+            self._lib.push(log, ['correction', 'Cmiab set, auto-assigning Cnoearned'])
+
+
         # Objectives logic
         if flagset.has('Onone'):
             self._simple_disable_regex(flagset, log, 'No objectives set', r'^O(win|req):')
@@ -509,15 +518,7 @@ class FlagLogicCore:
             elif len(win_flags) == 0:
                 flagset.set('Owin:game')
                 self._lib.push(log, ['correction', 'Objectives set without outcome specified; added Owin:game'])
-        
-            if flagset.has('Ctreasure'):                
-                flagset.set('Cnofree')
-                self._lib.push(log, ['correction', 'Ctreasure set, auto-assigning Cnofree'])
-            
-            if flagset.has('Cmiab'):
-                flagset.set('Cnoearned')
-                self._lib.push(log, ['correction', 'Cmiab set, auto-assigning Cnoearned'])
-
+                   
             # force Pkey if pass objective is set
             pass_quest_flags = flagset.get_list(r'^O\d+:quest_pass$')
             if len(pass_quest_flags) > 0 and flagset.has('Pnone'):

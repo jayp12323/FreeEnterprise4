@@ -380,14 +380,18 @@ def apply(env):
     for slot in assignment:
         character = assignment[slot]
         target_slot = SLOTS[slot]
-        target_axtor_map = axtor_map        
+        target_axtor_map = axtor_map
+        slot_in_overworld = slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain1_slot', 'kain2_slot']
         if character is None:
-            if slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain1_slot', 'kain2_slot']:
+            if slot_in_overworld:
                 target_axtor_map[target_slot] = 0xFE  # placeholder piggy for required overworld NPCs
             else:
                 target_axtor_map[target_slot] = 0x00        
         else:
             target_axtor_map[target_slot] = CHARACTERS[character]
+
+        if env.options.flags.has('characters_in_miab') and slot in HARD_SLOTS:
+            target_axtor_map[target_slot] = 0xFE  # placeholder piggy for hard slot npcs
 
         env.meta['available_characters'].add(character)
         if slot not in ['dkcecil_slot', 'kain1_slot']:
