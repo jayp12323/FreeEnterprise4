@@ -6,9 +6,9 @@ import random
 
 rnd = random.Random()
 towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
-         "#Underworld": ['#Tomra', "#Feymarch2F", "#CaveOfSummons1F"], "#Moon": []}
+         "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F"], "#Moon": []}
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
-              "#CaveOfSummons1F"]
+              '#Feymarch1F', "#Feymarch2F"]
 
 
 def map_exit_to_entrance(remapped_entrances, exit):
@@ -60,8 +60,8 @@ def shuffle_locations(entrances, exits, world):
             overworld_entrances += 1
         if ((shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[0] ==
              shuffled_exit[0])
-                or (shuffled_exit[0] == "#CaveOfSummons1F" and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[
-                    0] == "#Feymarch2F")
+                # or (shuffled_exit[0] == "#CaveOfSummons1F" and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[
+                #     0] == "#Feymarch2F")
                 or (overworld_entrances > max_towns_in_overworld)):
             exit__ = [exit___] + exit__
             rnd.shuffle(exit__)
@@ -86,8 +86,8 @@ def shuffle_locations(entrances, exits, world):
             elif i[0] == "#EblanBasement":
                 entrance = map_exit_to_entrance(remapped_entrances, ["#Eblan", "", "", "", "#Overworld"])
 
-            elif i[0] == "#FeymarchTreasury":
-                entrance = map_exit_to_entrance(remapped_entrances, ["#CaveOfSummons1F", "", "", "", "#Underworld"])
+            # elif i[0] == "#FeymarchTreasury":
+            #     entrance = map_exit_to_entrance(remapped_entrances, ["#CaveOfSummons1F", "", "", "", "#Underworld"])
 
         if entrance:
             remapped_exits.append(i[0:4] + [i[-2]] + entrance)
@@ -166,10 +166,10 @@ def apply(env, testing=False):
                     graph[location] = {"entrances": [], "exits": []}
                 if destination not in graph[location][type]:
                     graph[location][type].append(destination)
-            if i == "#Underworld":
-                graph["#Feymarch2F"]["exits"] = graph["#CaveOfSummons1F"]["exits"]
+            # if i == "#Underworld":
+            #     graph["#Feymarch2F"]["exits"] = graph["#CaveOfSummons1F"]["exits"]
 
-            elif i == "#Moon":
+            if i == "#Moon":
                 break
 
             towns_with_exit = [town for town in towns[i] if i in graph[town]["exits"]]
@@ -195,6 +195,12 @@ def apply(env, testing=False):
                        "mapgrid ($06 15 31) { 7C }",
                        "mapgrid ($06 16 31) { 7C }",
                        "mapgrid ($06 17 31) { 7C }",
+                       "mapgrid ($13A 12 14) { 25 }",
+                       "mapgrid ($13B 16 21) { 25 }",
+                       "mapgrid ($13B 16 24) { 51 }",
+                       "mapgrid ($13C 28 11) { 25 }",
+                       "mapgrid ($149 11 10) { 70 }",
+                       "mapgrid ($149 9 4) { 23 }",
                        "mapgrid ($136 17 9) { 72 }", ]
     remapped_ = []
     remapped_spoiled = []

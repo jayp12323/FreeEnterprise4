@@ -15,10 +15,12 @@ overworld = ['#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeap
              '#ToroiaCafe', '#ToroiaCastle', '#ToroiaInn', '#ToroiaItem', '#ToroiaStable', '#ToroiaTown',
              '#ToroiaWeapon', '#TrainingRoomMain', '#TroiaChocoboForest', '#Waterfall2F', '#WaterfallEntrance',
              '#WateryPass1F', '#WateryPass5F', "#Overworld", '#SoldierAirship']
-underworld = ['#Babil1F', '#CaveOfSummons1F', '#DwarfCastle', '#DwarfCastleBasement', '#SealedCaveEntrance',
-              '#SmithyHouse', '#SylvanCave1F', '#Tomra', '#TomraEquipment', '#TomraInn', '#TomraInn', '#TomraItem',
-              '#TomraTreasury', "#Underworld","#Feymarch2F","#FeymarchSaveRoom","#FeymarchLibrary1F","#FeymarchWeapon",
-              '#FeymarchArmor','#FeymarchInn']
+underworld = ['#Babil1F', '#CaveOfSummons1F', '#CaveOfSummons3F', '#DwarfCastle', '#DwarfCastleBasement',
+              '#SealedCaveEntrance',
+              '#SmithyHouse', '#SylvanCave1F', '#SylvanCaveYangRoom','#Tomra', '#TomraEquipment', '#TomraInn', '#TomraInn', '#TomraItem',
+              '#TomraTreasury', "#Underworld", "#FeymarchTreasury", "#Feymarch1F", "#Feymarch2F", "#FeymarchSaveRoom",
+              "#FeymarchLibrary1F", "#FeymarchWeapon",
+              '#FeymarchArmor', '#FeymarchInn']
 
 moon = ['#Bahamut1F', '#Hummingway', '#LunarPalaceLobby', '#LunarPassage1', '#LunarPassage2', "#Moon"]
 
@@ -33,7 +35,8 @@ for i in moon:
 trigger = ""
 start = 0
 triggers = []
-towns = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra']
+towns = ['#BaronTown', '#Feymarch1F', '#Feymarch2F', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart',
+         '#Tomra']
 for line in lines:
     line = line.strip()
     if "trigger" in line:
@@ -57,10 +60,16 @@ for line in lines:
                 elif loc in towns:
                     door_type = "town_building"
                 elif target_loc in towns:
+                    if loc in ["#CaveOfSummons3F"]:
+                        door_type = "entrance"
+                    else:
+                        door_type = "return"
+                elif loc == "#SylvanCaveYangRoom":
                     door_type = "return"
-                elif loc=="#Feymarch2F":
+                elif target_loc == "#SylvanCaveYangRoom":
                     door_type = "town_building"
                 else:
+                    print(trigger)
                     door_type = "interior"
                 if door_type != "interior":
                     if target_loc in ["#Overworld", "#Underworld", "#Moon"] and loc in ["#LunarPassage1",
@@ -85,14 +94,19 @@ for line in lines:
 DB_PATH = os.path.join(os.path.dirname(__file__), 'assets', 'db')
 COLUMNS = ['map', 'trigger_number', 'x', 'y', 'dest', 'dest_x', 'dest_y', 'facing', 'type', "name", "world"]
 
-to_remove = ["#SoldierAirship", "#GiantMouth", "#MysidiaSerpentRoad","#BaronSerpentRoad",
-             '#AdamantGrotto', '#CaveEblanEntrance',"#TrainingRoomMain","#RoomToSewer"]
-
+to_remove = ["#SoldierAirship", "#GiantMouth", "#MysidiaSerpentRoad", "#BaronSerpentRoad",
+             '#AdamantGrotto', '#CaveEblanEntrance', "#TrainingRoomMain", "#RoomToSewer", "#FeymarchTreasury"]
 
 for map_to_remove in to_remove:
     for trigger in list(triggers):
-        if map_to_remove == trigger[4] or map_to_remove == trigger[0]:
+        if map_to_remove == trigger[4] and map_to_remove != "#FeymarchTreasury":
             triggers.remove(trigger)
+        elif map_to_remove == trigger[0]:
+            triggers.remove(trigger)
+        elif "#SylvanCaveYangRoom"==trigger[4] and "#SylvanCaveYangRoom"==trigger[0]:
+            triggers.remove(trigger)
+
+
 
 hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "entrance", "#Underworld_#Babil1F_up",
               "#Underworld"],
@@ -102,8 +116,19 @@ hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "ent
               "#Overworld"],
              ["#ToroiaTown", "11", "16", "29", "#Overworld", "36", "83", "", "exit", "#ToroiaTown_#Overworld_",
               "#Overworld"],
-             ["#CaveOfSummons1F", "5", "17", "9", "#Underworld", "27", "86", "", "exit", "#CaveOfSummons1F_#Underworld_",
-              "#Underworld"]
+             ["#CaveOfSummons1F", "5", "17", "9", "#Underworld", "27", "86", "", "exit",
+              "#CaveOfSummons1F_#Underworld_",
+              "#Underworld"],
+             ["#Feymarch1F", "7", "12", "14", "#CaveOfSummons3F", "18", "14", "up", "exit",
+              "#Feymarch1F_#CaveOfSummons3F_up",
+              "#Underworld"],
+             ["#FeymarchTreasury", "4", "16", "21", "#Feymarch1F", "19", "15", "up", "return",
+              "#FeymarchTreasury_#Feymarch1F_up",
+              "#Underworld"],
+             ["#Feymarch2F", "5", "28", "11", "#Feymarch1F", "14", "4", "up", "exit", "#Feymarch2F_#Feymarch1F_up",
+              "#Underworld"],
+             ["#SylvanCaveYangRoom", "4", "11", "10", "#SylvanCave3F", "21", "19", "up", "exit", "#SylvanCaveYangRoom_#SylvanCave3F_up",
+              "#Underworld"],
              ]
 
 triggers += hardcoded
