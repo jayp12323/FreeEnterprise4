@@ -6,7 +6,7 @@ import random
 
 rnd = random.Random()
 towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
-         "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F"], "#Moon": []}
+         "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F", ], "#Moon": []}
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F"]
 
@@ -60,8 +60,15 @@ def shuffle_locations(entrances, exits, world):
             overworld_entrances += 1
         if ((shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[0] ==
              shuffled_exit[0])
-                # or (shuffled_exit[0] == "#CaveOfSummons1F" and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[
-                #     0] == "#Feymarch2F")
+                or (shuffled_exit[0] == "#Feymarch2F" and shuffled_exit[4] == 'town_building' and exit___[5].split("_")[
+                    0] in ["#FeymarchTreasury", "#FeymarchSaveRoom", "#FeymarchLibrary1F", "#FeymarchWeapon",
+                           "#FeymarchArmor", "#FeymarchInn"])
+                or (shuffled_exit[0] == "#SylvanCave1F" and exit___[5].split("_")[
+                    1] == "#SylvanCaveYangRoom")
+                or (shuffled_exit[0] == "#CaveOfSummons1F" and exit___[5].split("_")[
+                    1] == "#Feymarch1F")
+                or (shuffled_exit[0] == "#Feymarch1F" and exit___[5].split("_")[
+                    1] in ["#FeymarchTreasury", "Feymarch2F"])
                 or (overworld_entrances > max_towns_in_overworld)):
             exit__ = [exit___] + exit__
             rnd.shuffle(exit__)
@@ -80,12 +87,15 @@ def shuffle_locations(entrances, exits, world):
     for i in exits:
         entrance = map_exit_to_entrance(remapped_entrances, i)
         if not entrance:
-            if "SylvanCave" in i[0]:
+            if "SylvanCaveTreasury" in i[0] or "#SylvanCave3F" in i[0]:
                 entrance = map_exit_to_entrance(remapped_entrances, ["#SylvanCave1F", "", "", "", "#Underworld"])
+            elif "CaveOfSummons3F" in i[0]:
+                entrance = map_exit_to_entrance(remapped_entrances, ["#CaveOfSummons1F", "", "", "", "#Underworld"])
 
             elif i[0] == "#EblanBasement":
                 entrance = map_exit_to_entrance(remapped_entrances, ["#Eblan", "", "", "", "#Overworld"])
-
+            else:
+                print("not found", i)
             # elif i[0] == "#FeymarchTreasury":
             #     entrance = map_exit_to_entrance(remapped_entrances, ["#CaveOfSummons1F", "", "", "", "#Underworld"])
 
@@ -99,13 +109,14 @@ def shuffle_locations(entrances, exits, world):
 
 
 def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
+    if count == 0:
+        print("towns with exit", towns_with_exit)
     print(town, stack, checked, count)
     if count >= 10:
         return False
     if town not in checked:
         checked.append(town)
     if [element for element in checked if element in towns_with_exit]:
-
         return True
     else:
         try:
@@ -158,8 +169,9 @@ def apply(env, testing=False):
                 destination = j[5]
                 if len(j) == 13:
                     type = "entrances"
-                    if f"{j[4].split('_')[1]} leads to {j[5]}" not in spoil_entrances[i]:
-                        spoil_entrances[i].append(f"{j[4].split('_')[1]} leads to {j[5]}")
+                    message = f"{j[5]} is in the {j[4].split('_')[1]} location"
+                    if message not in spoil_entrances[i]:
+                        spoil_entrances[i].append(message)
                 else:
                     type = "exits"
                 if location not in graph:
@@ -233,7 +245,7 @@ def apply(env, testing=False):
     for i in sorted(remapped_spoiled):
         istown = ""
         for j in towns_flat:
-            if i.endswith(j):
+            if i.startswith(j + " is in"):
                 istown = True
                 break
         if istown:

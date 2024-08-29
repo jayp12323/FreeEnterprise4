@@ -61,7 +61,7 @@ for line in lines:
                     door_type = "town_building"
                 elif target_loc in towns:
                     if loc in ["#CaveOfSummons3F"]:
-                        door_type = "entrance"
+                        door_type = "town_building"
                     else:
                         door_type = "return"
                 elif loc == "#SylvanCaveYangRoom":
@@ -69,7 +69,6 @@ for line in lines:
                 elif target_loc == "#SylvanCaveYangRoom":
                     door_type = "town_building"
                 else:
-                    print(trigger)
                     door_type = "interior"
                 if door_type != "interior":
                     if target_loc in ["#Overworld", "#Underworld", "#Moon"] and loc in ["#LunarPassage1",
@@ -103,7 +102,9 @@ for map_to_remove in to_remove:
             triggers.remove(trigger)
         elif map_to_remove == trigger[0]:
             triggers.remove(trigger)
-        elif "#SylvanCaveYangRoom"==trigger[4] and "#SylvanCaveYangRoom"==trigger[0]:
+        elif "#SylvanCaveYangRoom"==trigger[4] and "#SylvanCaveYangRoom"==trigger[0] :
+            triggers.remove(trigger)
+        elif "#Underworld"==trigger[4] and "#SylvanCaveYangRoom"==trigger[0] :
             triggers.remove(trigger)
 
 
@@ -127,7 +128,7 @@ hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "ent
               "#Underworld"],
              ["#Feymarch2F", "5", "28", "11", "#Feymarch1F", "14", "4", "up", "exit", "#Feymarch2F_#Feymarch1F_up",
               "#Underworld"],
-             ["#SylvanCaveYangRoom", "4", "11", "10", "#SylvanCave3F", "21", "19", "up", "exit", "#SylvanCaveYangRoom_#SylvanCave3F_up",
+             ["#SylvanCaveYangRoom", "4", "11", "10", "#SylvanCave3F", "21", "19", "up", "return", "#SylvanCaveYangRoom_#SylvanCave3F_up",
               "#Underworld"],
              ]
 
