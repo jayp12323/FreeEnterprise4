@@ -6,9 +6,9 @@ import random
 
 rnd = random.Random()
 towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
-         "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F", ], "#Moon": []}
+         "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F","#SylvanCave1F"], "#Moon": []}
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
-              '#Feymarch1F', "#Feymarch2F"]
+              '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F","#SylvanCave1F"]
 
 
 def map_exit_to_entrance(remapped_entrances, exit):
@@ -58,18 +58,19 @@ def shuffle_locations(entrances, exits, world):
         shuffled_exit = shuffled_exits.pop(0)
         if shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[4] == "entrance":
             overworld_entrances += 1
-        if ((shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[0] ==
-             shuffled_exit[0])
-                or (shuffled_exit[0] == "#Feymarch2F" and shuffled_exit[4] == 'town_building' and exit___[5].split("_")[
-                    0] in ["#FeymarchTreasury", "#FeymarchSaveRoom", "#FeymarchLibrary1F", "#FeymarchWeapon",
-                           "#FeymarchArmor", "#FeymarchInn"])
-                or (shuffled_exit[0] == "#SylvanCave1F" and exit___[5].split("_")[
-                    1] == "#SylvanCaveYangRoom")
-                or (shuffled_exit[0] == "#CaveOfSummons1F" and exit___[5].split("_")[
-                    1] == "#Feymarch1F")
-                or (shuffled_exit[0] == "#Feymarch1F" and exit___[5].split("_")[
-                    1] in ["#FeymarchTreasury", "Feymarch2F"])
-                or (overworld_entrances > max_towns_in_overworld)):
+        if shuffled_exit[0] == "#Feymarch2F":
+            print("here")
+
+        if (shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[0] ==
+            shuffled_exit[0]) or (
+                shuffled_exit[0] == "#Feymarch2F" and shuffled_exit[4] == 'town_building' and exit___[5].split("_")[1]
+                in ["#FeymarchTreasury", "#FeymarchSaveRoom", "#FeymarchLibrary1F", "#FeymarchWeapon", "#FeymarchArmor",
+                    "#FeymarchInn"]) or (
+                shuffled_exit[0] == "#SylvanCave1F" and exit___[5].split("_")[1] == "#SylvanCaveYangRoom") or (
+                shuffled_exit[0] == "#CaveOfSummons1F" and exit___[5].split("_")[1] == "#Feymarch1F") or (
+                shuffled_exit[0] == "#Feymarch1F" and exit___[5].split("_")[1] in ["#FeymarchTreasury", "Feymarch2F"]):
+                # or (overworld_entrances > max_towns_in_overworld)):
+
             exit__ = [exit___] + exit__
             rnd.shuffle(exit__)
             shuffled_exits.append(shuffled_exit)
@@ -104,24 +105,29 @@ def shuffle_locations(entrances, exits, world):
         else:
             print("not found")
             print(i)
-
     return [remapped_entrances, remapped_exits]
 
 
 def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
     if count == 0:
         print("towns with exit", towns_with_exit)
-    print(town, stack, checked, count)
+        print("Checking town for exit:",town)
+    else:
+        print(town, stack, checked, count)
     if count >= 10:
         return False
     if town not in checked:
         checked.append(town)
     if [element for element in checked if element in towns_with_exit]:
+        print("Town found with exit",[element for element in checked if element in towns_with_exit])
         return True
     else:
         try:
+            prev_town = town
             stack += graph[town]["exits"]
             town = stack.pop(0)
+            print(f"{prev_town} doesn't have exit, now checking {town} for exit")
+
             count += 1
             return has_exit(graph, town, towns_with_exit, checked, stack, count)
         except:
@@ -137,7 +143,6 @@ def apply(env, testing=False):
     spoil_entrances = {"#Overworld": [], "#Underworld": [], "#Moon": []}
 
     for i in ["#Overworld", "#Underworld", "#Moon"]:
-        graph = {}
         entrances = [list(i) for i in doors_view.find_all(
             lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == i)]
         exits = [list(i) for i in
@@ -147,6 +152,7 @@ def apply(env, testing=False):
         loop_count = 0
         tries = 1
         while not is_loop:
+            graph = {}
             spoil_entrances[i] = []
             if loop_count > 200:
                 return False
@@ -177,6 +183,26 @@ def apply(env, testing=False):
                 if location not in graph:
                     graph[location] = {"entrances": [], "exits": []}
                 if destination not in graph[location][type]:
+
+                    if "SylvanCave3F" in location and type=="entrances":
+                        if "#SylvanCave1F" not in graph:
+                            graph["#SylvanCave1F"] = {"entrances": [], "exits": []}
+                        graph["#SylvanCave1F"][type].append(destination)
+                    if "CaveOfSummons3F" in location and type == "entrances":
+                        if "#CaveOfSummons1F" not in graph:
+                            graph["#CaveOfSummons1F"] = {"entrances": [], "exits": []}
+                        graph["#CaveOfSummons1F"][type].append(destination)
+
+
+                    if "SylvanCave1F" in location and type=="exits":
+                        if "#SylvanCave3F" not in graph:
+                            graph["#SylvanCave3F"] = {"entrances": [], "exits": []}
+                        graph["#SylvanCave3F"][type].append(destination)
+                    if "CaveOfSummons1F" in location and type == "exits":
+                        if "#CaveOfSummons3F" not in graph:
+                            graph["#CaveOfSummons3F"] = {"entrances": [], "exits": []}
+                        graph["#CaveOfSummons3F"][type].append(destination)
+
                     graph[location][type].append(destination)
             # if i == "#Underworld":
             #     graph["#Feymarch2F"]["exits"] = graph["#CaveOfSummons1F"]["exits"]
@@ -185,12 +211,13 @@ def apply(env, testing=False):
                 break
 
             towns_with_exit = [town for town in towns[i] if i in graph[town]["exits"]]
-            print(towns_with_exit)
+            if i == "#Underworld":
+                towns_with_exit = [town for town in towns[i] if i in graph[town]["exits"]]
+                print(towns_with_exit)
             if not towns_with_exit:
                 print("No exits found, trying again")
                 continue
             for town in towns[i]:
-                print("for town", town)
                 if has_exit(graph, town, towns_with_exit, [], []):
                     is_loop = True
                     continue
@@ -213,7 +240,8 @@ def apply(env, testing=False):
                        "mapgrid ($13C 28 11) { 25 }",
                        "mapgrid ($149 11 10) { 70 }",
                        "mapgrid ($149 9 4) { 23 }",
-                       "mapgrid ($136 17 9) { 72 }", ]
+                       "mapgrid ($136 17 9) { 72 }",
+                       "mapgrid ($145 16 1) { 72 }", ]
     remapped_ = []
     remapped_spoiled = []
     for i in ["#Overworld", "#Underworld", "#Moon"]:
