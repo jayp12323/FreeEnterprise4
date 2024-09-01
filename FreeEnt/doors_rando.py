@@ -33,7 +33,7 @@ def map_exit_to_entrance(remapped_entrances, exit):
 
 
 def shuffle_locations(entrances, exits, world):
-    max_towns_in_overworld = {"#Overworld": 4, "#Underworld": 2, "#Moon": 10}
+    max_towns_in_overworld = {"#Overworld": 4, "#Underworld": 3, "#Moon": 10}
     towns_ = towns[world]
     entrance_destinations = [entrance[4:] for entrance in entrances]
     exit_dict = {}
@@ -68,8 +68,8 @@ def shuffle_locations(entrances, exits, world):
                     "#FeymarchInn"]) or (
                 shuffled_exit[0] == "#SylvanCave1F" and exit___[5].split("_")[1] == "#SylvanCaveYangRoom") or (
                 shuffled_exit[0] == "#CaveOfSummons1F" and exit___[5].split("_")[1] == "#Feymarch1F") or (
-                shuffled_exit[0] == "#Feymarch1F" and exit___[5].split("_")[1] in ["#FeymarchTreasury", "Feymarch2F"]):
-                # or (overworld_entrances > max_towns_in_overworld)):
+                shuffled_exit[0] == "#Feymarch1F" and exit___[5].split("_")[1] in ["#FeymarchTreasury", "Feymarch2F"]) or (
+                overworld_entrances > max_towns_in_overworld):
 
             exit__ = [exit___] + exit__
             rnd.shuffle(exit__)
@@ -126,6 +126,12 @@ def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
             prev_town = town
             stack += graph[town]["exits"]
             town = stack.pop(0)
+            is_new_town=0
+            while not is_new_town:
+                if town not in checked:
+                    is_new_town=1
+                else:
+                    town=stack.pop()
             print(f"{prev_town} doesn't have exit, now checking {town} for exit")
 
             count += 1
