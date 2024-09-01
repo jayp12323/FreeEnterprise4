@@ -230,9 +230,8 @@ msfpatch {
         sta $b2
         jmp $_Done
 
-    %NotEmpty:
-        // Check if it's a fight chest and skip the character check if so
-        lda $0609
+    %NotEmpty:        
+        lda $0609   // Check if it's a fight chest and skip the character check if so
         cmp #$040
         bcs $+CheckDiscard
         jsl $=TreasureCharacter_IsCharReward

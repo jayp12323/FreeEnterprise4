@@ -510,7 +510,7 @@ msfpatch {
 
         lda $_Rewards__CurrentValueLo
         cmp #$fc // hook
-        beq $+ExternalReward        
+        beq $+ExternalReward
 
         // key item reward that can be given as inventory item
         jsl $=Rewards__DeliverKeyItemSideEffects
