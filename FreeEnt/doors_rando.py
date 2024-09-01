@@ -235,19 +235,20 @@ def apply(env, testing=False):
                 break
             print("not able to validate exits, retrying")
         print("needed loops: ", loop_count, "to validate exits for ", i)
-    return2teleport = ["mapgrid ($04 17 31) { 7C }",
-                       "mapgrid ($05 16 29) { 7C }",
-                       "mapgrid ($06 15 31) { 7C }",
-                       "mapgrid ($06 16 31) { 7C }",
-                       "mapgrid ($06 17 31) { 7C }",
-                       "mapgrid ($13A 12 14) { 25 }",
-                       "mapgrid ($13B 16 21) { 25 }",
-                       "mapgrid ($13B 16 24) { 51 }",
-                       "mapgrid ($13C 28 11) { 25 }",
-                       "mapgrid ($149 11 10) { 70 }",
-                       "mapgrid ($149 9 4) { 23 }",
-                       "mapgrid ($136 17 9) { 72 }",
-                       "mapgrid ($145 16 1) { 72 }", ]
+    return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
+                       "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
+                       "mapgrid ($06 15 31) { 7C }",  # Agart return tile to trigger tile
+                       "mapgrid ($06 16 31) { 7C }",  # Agart return tile to trigger tile
+                       "mapgrid ($06 17 31) { 7C }",  # Agart return tile to trigger tile
+                       "mapgrid ($136 17 9) { 72 }",  # CaveOfSummons1F return tile to trigger tile
+                       "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
+                       "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
+                       "mapgrid ($13B 16 24) { 51 }",  # Feymarch treasury removing exit tile
+                       "mapgrid ($13C 28 11) { 25 }",  # Feymarch 2F return tile to trigger tile
+                       "mapgrid ($145 16 1) { 72 }",  # Sylph Cave return tile to trigger tile
+                       "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
+                       "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
+                       ]
     remapped_ = []
     remapped_spoiled = []
     for i in ["#Overworld", "#Underworld", "#Moon"]:
