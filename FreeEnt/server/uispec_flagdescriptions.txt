@@ -95,8 +95,14 @@ Characters will not join your party in Kaipo, Mt. Hobs, Baron, Zot, the Dwarf Ca
 [Cmaybe]
 Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear.
 
+[Ctreasure]
+Free characters will instead be found in treasure chests in the overworld.
+
 [Cunsafe]
 With Ctreasure on, normally characters will all be placed in treasures in the overworld.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.
+
+[Cmiab]
+Earned characters (Zot, Dwarf Castle, Giant, etc) will instead be found in MIAB chests in the overworld, underworld, and moon with an unweighted distribution
 
 [@CrestrictDefine]
 Under standard settings, the randomizer considers Fusoya and Edge to be "restricted" characters due to their power level, and will try to place them in later-game positions. You may redefine which characters are considered "restricted" here.
