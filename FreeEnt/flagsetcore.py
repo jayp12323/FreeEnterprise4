@@ -471,6 +471,9 @@ class FlagLogicCore:
         if flagset.has('Ctreasure'):                
             flagset.set('Cnofree')
             self._lib.push(log, ['correction', 'Ctreasure set, auto-assigning Cnofree'])
+        else:
+            self._simple_disable(flagset, log, 'Characters are not in treasure', ['Cunsafe'])
+            
         
         if flagset.has('Cmiab'):
             flagset.set('Cnoearned')

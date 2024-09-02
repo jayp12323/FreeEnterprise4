@@ -241,7 +241,10 @@ def apply(env):
     character_slot_index = 0
     if env.options.flags.has('characters_in_treasure'):
         assigned_ids= []
-        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
+        if env.options.flags.has('characters_in_treasure_unsafe'):
+            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None)
+        else:
+            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
         while character_slot_index < len(character_rando.FREE_SLOTS):
             t = env.rnd.choice(character_treasure_chests.find_all())
             free_slot_name = character_rando.FREE_SLOTS[character_slot_index]

@@ -520,6 +520,16 @@ class FlagLogicCore {
         if (((all_spoiler_flags.length > 0) && (all_spoiler_flags.length === sparse_spoiler_flags.length))) {
             this._simple_disable_regex(flagset, log, "No spoilers requested", "^-spoil:sparse");
         }
+        if (flagset.has("Ctreasure")) {
+            flagset.set("Cnofree");
+            this._lib.push(log, ["correction", "Ctreasure set, auto-assigning Cnofree"]);
+        } else {
+            this._simple_disable(flagset, log, "Characters are not in treasure", ["Cunsafe"]);
+        }
+        if (flagset.has("Cmiab")) {
+            flagset.set("Cnoearned");
+            this._lib.push(log, ["correction", "Cmiab set, auto-assigning Cnoearned"]);
+        }
         if (flagset.has("Onone")) {
             this._simple_disable_regex(flagset, log, "No objectives set", "^O(win|req):");
             this._simple_disable(flagset, log, "No objectives set", ["-exp:objectivebonus"]);
@@ -562,14 +572,6 @@ class FlagLogicCore {
                     flagset.set("Owin:game");
                     this._lib.push(log, ["correction", "Objectives set without outcome specified; added Owin:game"]);
                 }
-            }
-            if (flagset.has("Ctreasure")) {
-                flagset.set("Cnofree");
-                this._lib.push(log, ["correction", "Ctreasure set, auto-assigning Cnofree"]);
-            }
-            if (flagset.has("Cmiab")) {
-                flagset.set("Cnoearned");
-                this._lib.push(log, ["correction", "Cmiab set, auto-assigning Cnoearned"]);
             }
             pass_quest_flags = flagset.get_list("^O\\d+:quest_pass$");
             if (((pass_quest_flags.length > 0) && flagset.has("Pnone"))) {
