@@ -378,7 +378,7 @@ def apply(env):
     env.meta['available_characters'] = set()
     env.meta['available_nonstarting_characters'] = set()
     for slot in assignment:
-        character = assignment[slot]
+        character = assignment[slot]        
         target_slot = SLOTS[slot]
         target_axtor_map = axtor_map
         slot_in_overworld = slot in ['crydia_slot', 'rosa1_slot', 'yang2_slot', 'rosa2_slot', 'kain1_slot', 'kain2_slot']
@@ -397,7 +397,7 @@ def apply(env):
         if slot not in ['dkcecil_slot', 'kain1_slot']:
             env.meta['available_nonstarting_characters'].add(character)
 
-    #print(f'Axtor map is {axtor_map}')
+    print(f'Axtor map is {axtor_map}')
     env.add_substitution('axtor map', ' '.join([f'{b:02X}' for b in axtor_map]))
 
     # permadeath :S

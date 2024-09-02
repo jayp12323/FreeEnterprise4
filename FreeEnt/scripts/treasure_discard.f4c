@@ -230,12 +230,14 @@ msfpatch {
         sta $b2
         jmp $_Done
 
-    %NotEmpty:        
+    %NotEmpty:
         lda $0609   // Check if it's a fight chest and skip the character check if so
-        cmp #$040
-        bcs $+CheckDiscard
+        and #$040
+        bne $+CheckDiscard
         jsl $=TreasureCharacter_IsCharReward
         beq $+CheckDiscard
+        //lda #$07
+        //sta $_Rewards__PendingCharacterDeliverySlot
         jsl $=TreasureCharacter_DeliverCharacterReward
         jml $009794 // rts
 
