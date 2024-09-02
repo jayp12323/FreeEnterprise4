@@ -25,12 +25,9 @@
 - Ctreasure and Cmiab: Characters now found in treasure chests
 - Also includes all changes from scythe's fork/branch [here](https://github.com/ScytheMarshall/FreeEnterprise4All/tree/scythe-changes)
 
-# Wishlist/Todo Items:
-- Flag to enable gaining fixed levels after boss encounters or objectives (similar to fusoya), would disable exp completely
-
 # FreeEnterprise4
 
-This fork of [the v4.6.0 FE repository](https://github.com/HungryTenor/FreeEnterprise4) is intended to collect a variety of contributions from community members into one fork, providing players the options for... Bad Ideas. 
+This is a fork of [the v4.6.0 FE repository](https://github.com/HungryTenor/FreeEnterprise4) 
 
 Please see the original repo for its README information.
 
@@ -44,10 +41,10 @@ This repository contains other code written by community members who are not (ne
 
 - Antidale
 - cassidy
-- Galeswift
+- Galeswift (that's me!)
 - harumph
 - S3
-- ScytheMarshall (that's me!)
+- ScytheMarshall
 - sgrunt
 - Wylem
 
