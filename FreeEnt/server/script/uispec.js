@@ -4228,7 +4228,7 @@ var FLAG_UISPEC = [
       },
       {
         "flag": "@anon36",
-        "title": "Difficulty Modifiers",
+        "title": "Difficulty odifiers",
         "null": true,
         "type": "select",
         "subcontrols": [
@@ -4387,7 +4387,7 @@ var FLAG_UISPEC = [
       },
       {
         "flag": "@anon38",
-        "title": "J Abilties/Spells",
+        "title": "J-commands and spells",
         "null": true,
         "type": "select",
         "subcontrols": [
