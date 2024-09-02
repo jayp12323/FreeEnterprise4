@@ -388,10 +388,7 @@ def apply(env):
             else:
                 target_axtor_map[target_slot] = 0x00        
         else:
-            target_axtor_map[target_slot] = CHARACTERS[character]
-
-        if env.options.flags.has('characters_in_miab') and slot in HARD_SLOTS:
-            target_axtor_map[target_slot] = 0xFE  # placeholder piggy for hard slot npcs
+            target_axtor_map[target_slot] = CHARACTERS[character]        
 
         env.meta['available_characters'].add(character)
         if slot not in ['dkcecil_slot', 'kain1_slot']:
