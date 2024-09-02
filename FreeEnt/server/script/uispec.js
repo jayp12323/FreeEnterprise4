@@ -4228,7 +4228,7 @@ var FLAG_UISPEC = [
       },
       {
         "flag": "@anon36",
-        "title": "Difficulty odifiers",
+        "title": "Difficulty modifiers",
         "null": true,
         "type": "select",
         "subcontrols": [

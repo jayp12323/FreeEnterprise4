@@ -324,7 +324,7 @@
 ....[Cno:cid]    Exclude Cid
 ....[Cno:edge]   Exclude Edge
 ....[Cno:fusoya] Exclude Fusoya
-<>- Difficulty odifiers
+<>- Difficulty modifiers
 .[Cnofree]! No free characters
 .[Cnoearned]! No earned characters
 .[Cnopartner]! No starting partner
