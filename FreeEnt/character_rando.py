@@ -81,6 +81,7 @@ FREE_SLOTS = [
 
 EASY_SLOTS = ['yang1_slot', 'yang2_slot']
 HARD_SLOTS = [s for s in SLOTS if s not in (FREE_SLOTS + EASY_SLOTS + STARTING_SLOTS)]
+RESTRICTED_CHARACTERS = []
 
 PREGAME_NAMING_SPRITE_TABLE = [
     0x0E, 0x36, 0xB0, 0x38, 0x16, 0x36, 0xB1, 0x38, 0x0E, 0x3E, 0xB2, 0x38, 0x16, 0x3E, 0xB3, 0x38, 
@@ -107,8 +108,7 @@ def apply(env):
     pregame_name_characters = set(CHARACTERS)
 
     requested_start_characters = []
-    disrequested_start_characters = []
-    restricted_characters = []
+    disrequested_start_characters = []    
     start_character = None
 
     for ch in CHARACTERS:
@@ -117,10 +117,10 @@ def apply(env):
         if env.options.flags.has(f'Cstart:not_{ch}'):
             disrequested_start_characters.append(ch)
         if env.options.flags.has(f'Crestrict:{ch}'):
-            restricted_characters.append(ch)
+            RESTRICTED_CHARACTERS.append(ch)
     
-    if not restricted_characters:
-        restricted_characters.extend(['fusoya', 'edge'])       
+    if not RESTRICTED_CHARACTERS:
+        RESTRICTED_CHARACTERS.extend(['fusoya', 'edge'])       
 
     if requested_start_characters and disrequested_start_characters:
         raise Exception("Cannot specify both inclusions and exclusions for starting character pool")
@@ -186,7 +186,7 @@ def apply(env):
                 allowed_starting_characters = list(CHARACTERS)
             else:
                 if env.options.flags.has('characters_standard'):
-                    allowed_starting_characters = sorted(list(set(allowed_characters) - set(restricted_characters)))
+                    allowed_starting_characters = sorted(list(set(allowed_characters) - set(RESTRICTED_CHARACTERS)))
                     if not allowed_starting_characters:
                         allowed_starting_characters = list(allowed_characters)
                 else:
@@ -269,14 +269,14 @@ def apply(env):
 
             # pre-cull characters if Cnoearned is on            
             if env.options.flags.has('no_earned_characters') and not env.options.flags.has('characters_in_miab'):
-                valid_restricted_characters = list(restricted_characters)
+                valid_RESTRICTED_CHARACTERS = list(RESTRICTED_CHARACTERS)
                 while len(characters) > len(assignable_slots):
                     # remove restricted characters first
-                    if valid_restricted_characters and not env.options.flags.has('characters_relaxed'):
-                        ch = env.rnd.choice(valid_restricted_characters)
+                    if valid_RESTRICTED_CHARACTERS and not env.options.flags.has('characters_relaxed'):
+                        ch = env.rnd.choice(valid_RESTRICTED_CHARACTERS)
                         if ch in characters:
                             characters.remove(ch)
-                        valid_restricted_characters.remove(ch)
+                        valid_RESTRICTED_CHARACTERS.remove(ch)
                     else:
                         characters.remove(env.rnd.choice(characters))
             # add characters to the pool as best as we're able            
@@ -286,9 +286,9 @@ def apply(env):
                 # we don't have enough characters yet to fill the
                 # easy slots
                 if not env.options.flags.has('characters_relaxed'):
-                    num_unrestricted_characters_chosen = len([ch for ch in characters if ch not in restricted_characters])
-                    if num_unrestricted_characters_chosen < num_easy_slots:
-                        subtract_if_able(character_choices, set(restricted_characters))
+                    num_unRESTRICTED_CHARACTERS_chosen = len([ch for ch in characters if ch not in RESTRICTED_CHARACTERS])
+                    if num_unRESTRICTED_CHARACTERS_chosen < num_easy_slots:
+                        subtract_if_able(character_choices, set(RESTRICTED_CHARACTERS))
 
                 # if no duplicates, try to ensure that there is 
                 # a different starting partner character
@@ -306,7 +306,7 @@ def apply(env):
 
             def calculate_slot_score(slot, ch):
                 slot_score = 0.0
-                if not env.options.flags.has('characters_relaxed') and ch in restricted_characters and slot not in HARD_SLOTS:
+                if not env.options.flags.has('characters_relaxed') and ch in RESTRICTED_CHARACTERS and slot not in HARD_SLOTS:
                     slot_score += 1.0
 
                 if env.options.flags.has('characters_no_duplicates'):
@@ -321,7 +321,7 @@ def apply(env):
 
             env.rnd.shuffle(characters)
             if not env.options.flags.has('characters_relaxed'):
-                characters.sort(key=lambda ch: (ch not in restricted_characters))
+                characters.sort(key=lambda ch: (ch not in RESTRICTED_CHARACTERS))
 
             for ch in characters:
                 scored_slots = []
