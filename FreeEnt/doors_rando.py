@@ -2,9 +2,7 @@ try:
     from . import databases
 except ImportError:
     import databases
-import random
 
-rnd = random.Random()
 towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
          "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F","#SylvanCave1F"], "#Moon": []}
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
@@ -32,7 +30,7 @@ def map_exit_to_entrance(remapped_entrances, exit):
     return ""
 
 
-def shuffle_locations(entrances, exits, world):
+def shuffle_locations(rnd, entrances, exits, world):
     max_towns_in_overworld = {"#Overworld": 4, "#Underworld": 3, "#Moon": 10}
     towns_ = towns[world]
     entrance_destinations = [entrance[4:] for entrance in entrances]
@@ -47,7 +45,7 @@ def shuffle_locations(entrances, exits, world):
     shuffled_exits = list(exit__)
     exit_dict = {}
     rnd.shuffle(shuffled_exits)
-    max_towns_in_overworld = random.randint(1, max_towns_in_overworld[world])
+    max_towns_in_overworld = rnd.randint(1, max_towns_in_overworld[world])
     overworld_entrances = 0
     # print("max_towns", world, max_towns_in_overworld)
     tries = 0
@@ -165,7 +163,7 @@ def apply(env, testing=False):
             loop_count += 1
             max_tries = 1000
             try:
-                remapped_entrances, remapped_exits = shuffle_locations(entrances, exits, i)
+                remapped_entrances, remapped_exits = shuffle_locations(env.rnd, entrances, exits, i)
             except TypeError:
                 tries += 1
                 if tries < max_tries:
@@ -292,4 +290,8 @@ def apply(env, testing=False):
 
 
 if __name__ == '__main__':
-    apply(None, True)
+    import random
+    class Environment:
+        def __init__(self):
+            self.rnd = random.Random()
+    apply(Environment(), None, True)
