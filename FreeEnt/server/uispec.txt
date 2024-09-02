@@ -324,11 +324,12 @@
 ....[Cno:cid]    Exclude Cid
 ....[Cno:edge]   Exclude Edge
 ....[Cno:fusoya] Exclude Fusoya
-[Cnofree]! No free characters
-[Cnoearned]! No earned characters
-[Cnopartner]! No starting partner
-[Ctreasure]! Free characters are found in treasure chests instead
-[Cmiab]! Earned characters are found in MIAB chests instead
+<>- Difficulty Modifiers
+.[Cnofree]! No free characters
+.[Cnoearned]! No earned characters
+.[Cnopartner]! No starting partner
+.[Ctreasure]! Free characters are found in treasure chests instead
+.[Cmiab]! Earned characters are found in MIAB chests instead
 <>- Specify possible starting characters
 .(@CstartDefine)# Define starting character pool
 ..[Cstart:cecil]  May start with Cecil
@@ -357,8 +358,9 @@
 ..[Cstart:not_cid]    Cannot start with Cid
 ..[Cstart:not_edge]   Cannot start with Edge
 ..[Cstart:not_fusoya] Cannot start with Fusoya
-[Cj:spells] Characters learn J-spells
-[Cj:abilities] Characters have J-commands
+<>- J Abilties/Spells
+.[Cj:spells] Characters learn J-spells
+.[Cj:abilities] Characters have J-commands
 <> Specify possible starting gear
 .(Cnekkie) Characters start with limited gear
 .(Cthrift:2) Starting gear is at best tier 2
