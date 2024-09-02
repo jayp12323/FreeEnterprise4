@@ -871,7 +871,6 @@ def apply(env):
                 rewards_assignment[rnd_chest_slot] = AxtorChestReward('#item.fe_CharacterChestItem#_'+"{:02d}".format(character_rando.SLOTS[hard_slot_name]))
 
                 t = treasure_dbview.find_one(lambda t: [t.map, t.index] == CHEST_NUMBERS[rnd_chest_slot])
-                print(f'Assigned {t.spoilerarea}, {t.spoilersubarea} {t.spoilerdetail}  {t.mapid} slot {RewardSlot(rnd_chest_slot)}:{hard_slot_name} to '+str(rewards_assignment[rnd_chest_slot]))
                 character_slot_index += 1
                 unassigned_chest_slots.remove(rnd_chest_slot)           
                         

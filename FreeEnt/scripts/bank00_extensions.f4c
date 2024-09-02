@@ -5,8 +5,15 @@ msfpatch {
     .addr $00fd31
 
     Bank00__PostMIABCheck:
-        lda $_Rewards__PendingDeliverySlot
-        beq $+Done
+        lda $_Rewards__PendingCharacterDeliverySlot        
+        beq $+DeliverKeyItemReward        
+        jsl $=TreasureCharacter_DeliverCharacterReward
+        stz $_Rewards__PendingDeliverySlot
+        jmp $80a0
+    %DeliverKeyItemReward:
+        lda $_Rewards__PendingDeliverySlot        
+        beq $+Done       
+    %DeliverRegularReward:
         jsl $=Rewards__DeliverFromSlot
         stz $_Rewards__PendingDeliverySlot
     %Done:

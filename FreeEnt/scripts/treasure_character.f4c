@@ -38,8 +38,9 @@ msfpatch {
     .def  CharacterTreasure__TreasureIndex      $7e158f
     .def  CharacterTreasure__RewardSlotIndex      $7e1590
 }
+
 msfpatch {
-    TreasureCharacter_CheckIfChar:
+    TreasureCharacter_IsCharReward:    
         lda $08fc
         sec
         sbc $0fe7   // subtract mapinfo's treasure offset
@@ -75,8 +76,19 @@ msfpatch {
         bcc $-CheckLoopCharacterChest
         bra $+NoCharacterReward
     %DoCharacterReward:
-        tyx
+        lda #$01
+        sty $_Rewards__PendingCharacterDeliverySlot
+        rtl
+    %NoCharacterReward:
+        lda #$00
+        stz $_Rewards__PendingCharacterDeliverySlot
+        rtl
+}
 
+msfpatch {
+    TreasureCharacter_DeliverCharacterReward:
+        ldx $_Rewards__PendingCharacterDeliverySlot
+        stz $_Rewards__PendingCharacterDeliverySlot
         lda $=CharacterTreasureRewardSlot__IDs,x
         sta $_CharacterTreasure__RewardSlotIndex
         //pha

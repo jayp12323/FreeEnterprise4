@@ -212,6 +212,7 @@ msfpatch {
     .def Rewards__CurrentValueHi  $7e1623
     .def Rewards__PendingDeliverySlot  $7e1626
     .def Rewards__DeliveredItemCount  $7e162b
+    .def Rewards__PendingCharacterDeliverySlot  $7e162d
 
     // sub: given reward code A, return in
     //   X the reward code
@@ -496,14 +497,9 @@ msfpatch {
         stz $180a
         stz $180b
 
-        // Check if the message should be changed if it's a character here
-        jsl $=TreasureCharacter_CheckIfChar        
-        bcc $+CheckItem
-        lda #$fe
-        sta $1804  
-        stz $c6
-        rtl
-    
+        jsl $=TreasureCharacter_IsCharReward
+        bne $+TreasureCharacter
+
     %CheckItem:
         lda $_Rewards__CurrentValueHi
         cmp #$04
@@ -541,6 +537,9 @@ msfpatch {
         sta $_Rewards__PendingDeliverySlot
         stz $c6
 
+        rtl
+
+    %TreasureCharacter:
         rtl
 }
 

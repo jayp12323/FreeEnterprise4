@@ -129,6 +129,12 @@ class TreasureAssignment:
                 treasure_list.append(mapIdStr[-2:])
                 treasure_list.append(f'{t.index:02X}')
                 slot_list.append(int(reward_index))
+                
+                char_name = "unknown"
+                for char in character_rando.SLOTS:
+                    if character_rando.SLOTS[char] == int(reward_index):
+                        char_name = char
+                #print(f'Assigning fight:{fight} {char_name} to {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
         
                 char_name = "unknown"
                 for char in character_rando.SLOTS:
