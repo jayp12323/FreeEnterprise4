@@ -657,7 +657,7 @@ Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battl
 </ul>
 <p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>
 <ul>
-	<li>Only one of the following can be used: "afflicted", "menarepigs", "skywarriors", "zombies"</li>
+	<li>Only one of the following can be used: "afflicted", "menarepigs", "mirrormirror", "skywarriors", "zombies"</li>
 	<li>If any of the above are set, none of these can be used: "battlescars", "payablegolbez", "tellahmaneuver", "worthfighting"</li>
 	<li>None of these modes can be used together: "3point", "afflicted", "battlescars", "menarepigs", "mirrormirror", "skywarriors", "unstackable", "zombies"</li>
 	<li>None of these modes can be used together: "afflicted", "friendlyfire"</li>

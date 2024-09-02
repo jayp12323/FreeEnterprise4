@@ -557,21 +557,21 @@ class FlagLogicCore:
         if challenges:
             # Simplified wacky compatibility logic
             # If one of these is set, none of the others in this group can be
-            WACKY_SET_1 = ['menarepigs', 'skywarriors', 'zombies', 'afflicted', 'mirrormirror']
+            WACKY_SET_1 = ['afflicted', 'menarepigs', 'mirrormirror', 'skywarriors', 'zombies']
             # If one of the above is set, none of these can be
-            WACKY_SET_2 = ['battlescars', 'tellahmaneuver', 'payablegolbez', 'worthfighting']
+            WACKY_SET_2 = ['battlescars', 'payablegolbez', 'tellahmaneuver', 'worthfighting']
             # These are sets of mutually incompatible modes
             WACKY_SET_3 = [
-                ['3point', 'battlescars', 'unstackable', 'afflicted', 'menarepigs', 'skywarriors', 'zombies'],
+                ['3point', 'afflicted', 'battlescars', 'menarepigs', 'mirrormirror', 'skywarriors', 'unstackable', 'zombies'],
                 ['afflicted', 'friendlyfire'],
                 ['battlescars', 'afflicted', 'zombies', 'worthfighting'],
                 ['darts', 'musical'],
+                ['3point', 'tellahmaneuver'],
             ]
 
             for c in challenges:
                 mode = self._lib.re_sub(r'-wacky:', '', c)
                 if mode in WACKY_SET_1:
-                    disable = [fr'-wacky:{m}' for m in WACKY_SET_1 if m != mode]
                     self._simple_disable(flagset, log, 'Can only have one enforced status wacky mode', [fr'-wacky:{m}' for m in WACKY_SET_1 if m != mode])
                     self._simple_disable(flagset, log, 'Modes are incompatible with enforced status wacky modes', [fr'-wacky:{m}' for m in WACKY_SET_2])
                 for group in WACKY_SET_3:
