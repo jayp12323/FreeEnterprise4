@@ -436,6 +436,8 @@ def apply(env):
         contents,fight,treasure,reward_index = treasure_assignment.get(t, remap=False)
         if contents is None:
             contents = "  (nothing)"
+        elif reward_index != -1:
+            contents = rewards.REWARD_SLOT_SPOILER_NAMES[rewards.RewardSlot(int(reward_index))]
         elif contents.startswith('#reward_slot.'):
             slot = rewards.RewardSlot[contents[len('#reward_slot.'):]]
             try:
@@ -443,8 +445,6 @@ def apply(env):
                 contents = databases.get_item_spoiler_name(item)
             except KeyError:
                 contents = 'DEBUG'
-        elif reward_index != -1:
-            contents = rewards.REWARD_SLOT_SPOILER_NAMES[rewards.RewardSlot(int(reward_index))]
         elif not contents.endswith(' gp'):
             contents = databases.get_item_spoiler_name(contents)
 
