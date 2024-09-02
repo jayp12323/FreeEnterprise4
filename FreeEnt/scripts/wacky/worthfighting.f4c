@@ -69,7 +69,7 @@ msfpatch {
         lda $0ec596,x
         pha
         and #$80
-        sta $_(Wacky__RAM+1)
+        sta $_(Wacky__RAM_worthfighting+1)
         pla
         and #$7f
         rtl
@@ -81,7 +81,7 @@ msfpatch {
 
     .new
     Wacky__WannaFight_OutdoorTableCheck2:
-        lda $_(Wacky__RAM+1)
+        lda $_(Wacky__RAM_worthfighting+1)
         bne $+UseOutdoorTable
         lda $0ec816,x
         rtl
