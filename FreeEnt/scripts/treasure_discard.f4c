@@ -172,9 +172,14 @@ msfpatch {
         stz $_TreasureDiscard__Flags0
         stz $_TreasureDiscard__Flags1
         stz $_TreasureDiscard__Flags2
+// note: long-term, this would probably be a more generic wacky hook
+        // %if wacky_doorsrando%
+        jmp $_DoorsRando__HandleDungeonTrigger
+        // %else%
         // do displaced and return
         lda $158302,x
         jml $009a73
+        // %end%
     
     .addr $009a6f
         jml $=TreasureDiscard__TeleportTileHook

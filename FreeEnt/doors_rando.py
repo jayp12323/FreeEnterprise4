@@ -9,6 +9,13 @@ towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaT
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F","#SylvanCave1F"]
 
 
+DIRECTION_MAP = {
+    'up': 0,
+    'right': 1,
+    'down': 2,
+    'left': 3,
+}
+
 def map_exit_to_entrance(remapped_entrances, exit):
     try:
         entrance_key = f"{exit[4]}_{exit[0]}_{exit[7]}"
@@ -139,7 +146,7 @@ def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
             return False
 
 
-def apply(env, testing=False):
+def apply(env, rom_base, testing=False):
     doors_view = databases.get_doors_dbview()
 
     shuffled_entrances = {"#Overworld": [], "#Underworld": [], "#Moon": []}
@@ -249,28 +256,47 @@ def apply(env, testing=False):
                        ]
     remapped_ = []
     remapped_spoiled = []
+    special_triggers = []
     for i in ["#Overworld", "#Underworld", "#Moon"]:
         remapped_ += shuffled_entrances[i] + shuffled_exits[i]
         remapped_spoiled += spoil_entrances[i]
     print("len of remapped=", len(remapped_))
     script = ""
-    for i in remapped_:
-        script += '''trigger({0} {1})
-    {{
-        position {2} {3}
-        teleport {5} at {6} {7}'''.format(*i)
+    for index, i in enumerate(remapped_):
+        # Ok, so this is a big ugly hack to stick a lookup index into the trigger data
+        # without breaking the compilation process.
+        # We use a special map id to indicate that the trigger should be overridden.
+        # (we TRIED using the apparently unused "#CurrentMap" ($FE), but it turns out $FE
+        #  has a special meaning for the compiler, indicating a treasure trigger)
+        # Because we're relying on the compiler, we only get 6 bits for the target's X
+        # coord, so we put the high byte in there and the low byte in the target's Y coord.
+        # In the long run, we'd probably want to manually override the trigger data,
+        # rather than hacking around the f4c compiler.
+        script += (
+            f'trigger({i[0]} {i[1]}) {{\n'
+            f'position {i[2]} {i[3]}\n'
+            f'teleport #EndingFabulThroneRoom at {index >> 8} {index & 0xFF}'
+        )
 
+        x_coord = i[6]
         if i[5] not in ["#Overworld", "#Underworld", "#Moon"]:
-            script += " facing {8}".format(*i)
-        script += '''
-    }
-    
-    '''
+            x_coord |= (DIRECTION_MAP[i[8]] << 6)
+        script += f'  // [${index:04X}] {i[5]} at {i[6]} {i[7]}\n'
+        script += f'facing up'
+        script += '}\n\n'
+        special_triggers.append(f"##map.{i[5][1:]} {x_coord:X} {i[7]:X}")
+        # random assignment just for testing:
+        # map_id = env.rnd.randint(0, 0x17E)
+        # special_triggers.append(f"{map_id & 0xFF:02X} {map_id >> 8:02X} 90 10")
+
+    bytes_used = len(special_triggers)*4
     if not testing:
         for i in return2teleport:
             env.add_script(i)
 
         env.add_script(script)
+        special_triggers_script = '\n'.join(special_triggers)
+        env.add_script(f'patch(${rom_base.get_bus():06X} bus) {{\n{special_triggers_script}\n}}')
     # print(script)
 
     towns_map = []
@@ -287,6 +313,7 @@ def apply(env, testing=False):
             other_entrances.append(i)
 
     print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    return bytes_used
 
 
 if __name__ == '__main__':

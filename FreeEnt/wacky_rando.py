@@ -661,5 +661,6 @@ def setup_saveusbigchocobo(env):
 
 
 def apply_doorsrando(env,rom_base):
-    doors_rando.apply(env)
+    env.add_toggle('wacky_doorsrando')
+    doors_rando.apply(env,rom_base)
 

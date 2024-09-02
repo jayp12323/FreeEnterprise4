@@ -54,3 +54,103 @@ msfpatch{
         rtl
 }
 
+
+msfpatch {
+    .def DoorsRando__SpecialMapId $f7
+
+    DoorsRando__HandleTeleportTrigger:
+        phx
+        rep #$20
+        .mx 0x00
+        asl a
+        asl a
+        sep #$20
+        .mx 0x20
+        tax
+    // grab map id
+        lda $=Wacky__ROMData_doorsrando,x
+        cmp #$fb
+        bcs $+GoingOutdoors
+        sta $1702
+    // grab map plane and set it
+        lda $=(Wacky__ROMData_doorsrando+1),x
+        sta $1701
+    // grab coordinates and direction and set them
+        lda $=(Wacky__ROMData_doorsrando+2),x
+        and #$3f
+        sta $1706
+        lda $=(Wacky__ROMData_doorsrando+2),x
+        and #$c0
+        lsr a
+        lsr a
+        lsr a
+        lsr a
+        lsr a
+        lsr a
+        sta $1705
+        lda $=(Wacky__ROMData_doorsrando+3),x
+        sta $1707
+    // resume
+        plx
+        jml $009a99
+    %GoingOutdoors:
+        phx
+        ldx #$8b2b
+        jsl $=Bank00LongCallX
+        ldx #$9021
+        jsl $=Bank00LongCallX
+        plx
+    // grab and set map area
+        lda $=Wacky__ROMData_doorsrando,x
+        sec
+        sbc #$fb
+        sta $1700
+    // grab coordinates and direction and set them
+        lda $=(Wacky__ROMData_doorsrando+2),x
+        sta $1706
+        lda $=(Wacky__ROMData_doorsrando+3),x
+        sta $1707
+    // resume
+        plx
+        jml $009ac4
+
+
+    DoorsRando__HandleDungeonTrigger:
+        lda $158302,x  // param1 (map id)
+        cmp #$.DoorsRando__SpecialMapId
+        beq $+SpecialTrigger
+    // regular trigger: just resume
+        jml $009a73
+    %SpecialTrigger:
+        lda $158303,x  // param2 (index high byte)
+        xba
+        lda $158304,x  // param3 (index low byte)
+        jmp $_DoorsRando__HandleTeleportTrigger
+
+// [SPAGHETTI] this gets called from treasure_discard.f4c instead of here
+//    .addr $009a6f
+//        jml $=DoorsRando__HandleDungeonTrigger
+}
+
+
+// The outdoor trigger handling code is mostly the same as the dungeon code
+// in vanilla; it just pulls its data from a different spot. (It also doesn't
+// handle transitioning to an outdoor map). So jumping into a function that
+// jumps back into the dungeon trigger function is *probably* fine.
+msfpatch {
+    DoorsRando__HandleOutdoorTrigger:
+        lda $19fe68,x  // param1 (map id)
+        cmp #$.DoorsRando__SpecialMapId
+        beq $+SpecialTrigger
+    // regular trigger: call displaced code and resume
+        sta $1702
+        jml $009e10
+    %SpecialTrigger:
+        lda $19fe69,x  // param2 (index high byte)
+        xba
+        lda $19fe6a,x  // param3 (index low byte)
+        jmp $_DoorsRando__HandleTeleportTrigger
+
+    .addr $009be9
+        jml $=DoorsRando__HandleOutdoorTrigger
+}
