@@ -134,7 +134,7 @@ class TreasureAssignment:
                 for char in character_rando.SLOTS:
                     if character_rando.SLOTS[char] == int(reward_index):
                         char_name = char
-                #print(f'Assigning fight:{fight} {char_name} to {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
+                print(f'Assigning fight:{fight} {char_name} to {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
 
         env.add_substitution(f'character treasure rewards', ' '.join(treasure_list))
         env.add_substitution(f'character treasure slots', ' '.join([f'{s:02X}' for s in slot_list]))
