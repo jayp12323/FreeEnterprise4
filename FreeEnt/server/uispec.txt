@@ -324,7 +324,7 @@
 ....[Cno:cid]    Exclude Cid
 ....[Cno:edge]   Exclude Edge
 ....[Cno:fusoya] Exclude Fusoya
-<>- Difficulty modifiers
+[]- Difficulty modifiers
 .[Cnofree]! No free characters
 .[Cnoearned]! No earned characters
 .[Cnopartner]! No starting partner
@@ -359,7 +359,7 @@
 ..[Cstart:not_cid]    Cannot start with Cid
 ..[Cstart:not_edge]   Cannot start with Edge
 ..[Cstart:not_fusoya] Cannot start with Fusoya
-<>- J-commands and spells
+[]- J-commands and spells
 .[Cj:spells] Characters learn J-spells
 .[Cj:abilities] Characters have J-commands
 <> Specify possible starting gear

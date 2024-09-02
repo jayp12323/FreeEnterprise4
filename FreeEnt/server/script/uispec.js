@@ -4230,7 +4230,6 @@ var FLAG_UISPEC = [
         "flag": "@anon36",
         "title": "Difficulty modifiers",
         "null": true,
-        "type": "select",
         "subcontrols": [
           {
             "flag": "Cnofree",
@@ -4395,7 +4394,6 @@ var FLAG_UISPEC = [
         "flag": "@anon38",
         "title": "J-commands and spells",
         "null": true,
-        "type": "select",
         "subcontrols": [
           {
             "flag": "Cj:spells",
