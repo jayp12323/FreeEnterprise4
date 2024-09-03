@@ -661,6 +661,7 @@ def setup_saveusbigchocobo(env):
 
 
 def apply_doorsrando(env,rom_base):
+    env.add_file('scripts/map_history_extension.f4c')
     env.add_toggle('wacky_doorsrando')
     doors_rando.apply(env,rom_base)
 

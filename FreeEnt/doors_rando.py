@@ -285,6 +285,7 @@ def apply(env, rom_base, testing=False):
         script += f'facing up'
         script += '}\n\n'
         special_triggers.append(f"##map.{i[5][1:]} {x_coord:X} {i[7]:X}")
+        print(script)
         # random assignment just for testing:
         # map_id = env.rnd.randint(0, 0x17E)
         # special_triggers.append(f"{map_id & 0xFF:02X} {map_id >> 8:02X} 90 10")
