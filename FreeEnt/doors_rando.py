@@ -58,7 +58,7 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
                "RewardSlot.zot_character_1": "#ToroiaCastle", "RewardSlot.zot_character_2": "#ToroiaCastle",
                "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
-               "RewardSlot.fixed_crystal":"#LunarPalaceLobby"}
+               "RewardSlot.fixed_crystal": "#LunarPalaceLobby"}
 
 DIRECTION_MAP = {
     'up': 0,
@@ -160,6 +160,26 @@ def shuffle_locations(rnd, entrances, exits):
     return [remapped_entrances, remapped_exits]
 
 
+def sync_entrances_exits(graph):
+    new_graph = graph.copy()
+    for location in graph:
+        entrances = graph[location]["entrances"]
+        exits = graph[location]["exits"]
+
+        for entrance in entrances:
+            if entrance not in new_graph:
+                new_graph[entrance] = {"entrances": [], "exits": []}
+            if location not in new_graph[entrance]["exits"]:
+                new_graph[entrance]["exits"].append(location)
+        for exit_ in exits:
+            if exit_ not in new_graph:
+                new_graph[exit_] = {"entrances": [], "exits": []}
+            if location not in new_graph[exit_]["entrances"]:
+                new_graph[exit_]["entrances"].append(location)
+
+    return new_graph
+
+
 def find_all_paths(graph, start, end, type, path=[]):
     path = path + [start]
     if start == end:
@@ -231,35 +251,34 @@ def apply(env, rom_base, testing=False):
                 if "SylvanCave3F" in location and type == "entrances":
                     if "#SylvanCave1F" not in graph:
                         graph["#SylvanCave1F"] = {"entrances": [], "exits": []}
-                    graph["#SylvanCave1F"][type].append(destination)
-                    graph["#SylvanCave1F"][type].append("SylvanCave3F")
+                    graph["#SylvanCave1F"][type].append("#SylvanCave3F")
                 if "CaveOfSummons3F" in location and type == "entrances":
                     if "#CaveOfSummons1F" not in graph:
                         graph["#CaveOfSummons1F"] = {"entrances": [], "exits": []}
-                    graph["#CaveOfSummons1F"][type].append(destination)
-                    graph["#CaveOfSummons1F"][type].append("CaveOfSummons3F")
+                    graph["#CaveOfSummons1F"][type].append("#CaveOfSummons3F")
 
                 if "SylvanCave1F" in location and type == "exits":
                     if "#SylvanCave3F" not in graph:
                         graph["#SylvanCave3F"] = {"entrances": [], "exits": []}
-                    graph["#SylvanCave3F"][type].append(destination)
-                    graph["#SylvanCave3F"][type].append("SylvanCave1F")
+                    graph["#SylvanCave3F"][type].append("#SylvanCave1F")
                 if "CaveOfSummons1F" in location and type == "exits":
                     if "#CaveOfSummons3F" not in graph:
                         graph["#CaveOfSummons3F"] = {"entrances": [], "exits": []}
-                    graph["#CaveOfSummons3F"][type].append(destination)
-                    graph["#CaveOfSummons3F"][type].append("CaveOfSummons1F")
+                    graph["#CaveOfSummons3F"][type].append("#CaveOfSummons1F")
 
                 graph[location][type].append(destination)
         paths_to_world = {}
-        is_loop=False
-        locations_to_ignore = ["#SylvanCaveTreasury","#EblanBasement","#CaveOfSummons3F","#SylvanCave3F"]
+        is_loop = False
+
+        graph = sync_entrances_exits(graph)
+
+        locations_to_ignore = ["#SylvanCaveTreasury", "#EblanBasement", "#CaveOfSummons3F", "#SylvanCave3F"]
         for location in graph:
             if location in locations_to_ignore:
                 continue
-            paths_to_world[location]=[]
+            paths_to_world[location] = []
             for world in ["#Overworld", "#Underworld", "#Moon"]:
-                paths_to_world[location] += find_all_paths(graph, world,location , "entrances",[])
+                paths_to_world[location] += find_all_paths(graph, world, location, "entrances", [])
             if paths_to_world[location]:
                 is_loop = True
                 continue
@@ -273,7 +292,7 @@ def apply(env, rom_base, testing=False):
     print("needed loops: ", loop_count, "to validate exits for ")
 
     for i in paths_to_world:
-        print(i,paths_to_world[i])
+        print(i, paths_to_world[i])
 
     return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
                        "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
@@ -334,7 +353,7 @@ def apply(env, rom_base, testing=False):
         print(key_items)
         magma_location = key_items['*[#item.Magma]']
         hook_location = key_items['*[#item.fe_Hook]']
-        print("Magma",magma_location,paths_to_world[magma_location])
+        print("Magma", magma_location, paths_to_world[magma_location])
 
         # for i in env.assignments:
         #     name = str(i)
@@ -374,7 +393,11 @@ def apply(env, rom_base, testing=False):
 
 if __name__ == '__main__':
     import random
+
+
     class Environment:
         def __init__(self):
             self.rnd = random.Random()
+
+
     apply(Environment(), None, True)
