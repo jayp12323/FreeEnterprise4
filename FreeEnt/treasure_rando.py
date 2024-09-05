@@ -239,19 +239,21 @@ def apply(env):
 
 
     character_in_chest_slots = character_rando.FREE_SLOTS + character_rando.HARD_SLOTS
+    max_overworld_chests = len(character_rando.FREE_SLOTS) if not env.options.flags.has('characters_in_treasure_unsafe') else 0
     if env.options.flags.has('characters_in_treasure'):
         assigned_ids= []
-        if env.options.flags.has('characters_in_treasure_unsafe'):
-            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None)
-        else:
-            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
+        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
         for slot_name in character_in_chest_slots:
             if slot_name in character_rando.RESTRICTED_SLOTS:
                 continue
+            if max_overworld_chests <= 0:
+                character_treasure_chests = treasure_dbview.get_refined_view(lambda t: lambda t: t.fight is None and t.ordr not in assigned_ids)
+            else:
+                character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids and t.world == "Overworld")
+                max_overworld_chests -= 1            
             t = env.rnd.choice(character_treasure_chests.find_all())
             treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[slot_name]))
             assigned_ids.append(t.ordr)
-            character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.ordr not in assigned_ids)
         
         # update the plain chests to remove the character assigned ones
         plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
