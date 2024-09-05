@@ -183,3 +183,4 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Feymarch2F,5,28,11,#Feymarch1F,14,4,up,exit,#Feymarch2F_#Feymarch1F_up,#Underworld
 #SylvanCaveYangRoom,4,11,10,#SylvanCave3F,21,19,up,return,#SylvanCaveYangRoom_#SylvanCave3F_up,#Underworld
 #SylvanCave1F,12,16,1,#Underworld,13,14,,exit,#SylvanCave1F_#Underworld_,#Underworld
+#LunarPalaceLobby,4,16,29,#Moon,28,26,,exit,#LunarPalaceLobby_#Moon_,#Underworld

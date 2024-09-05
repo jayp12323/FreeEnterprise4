@@ -90,7 +90,7 @@ def map_exit_to_entrance(remapped_entrances, exit):
 
 
 def shuffle_locations(rnd, entrances, exits):
-    towns_ = towns
+    towns_ = towns_flat
     entrance_destinations = [entrance[4:] for entrance in entrances]
     exit_dict = {}
     for dest in entrance_destinations:
@@ -162,7 +162,7 @@ def shuffle_locations(rnd, entrances, exits):
 
 def find_all_paths(graph, start, end, type, path=[]):
     path = path + [start]
-    if start in end:
+    if start == end:
         return [path]
     if start not in graph:
         return []
@@ -253,7 +253,7 @@ def apply(env, rom_base, testing=False):
                 graph[location][type].append(destination)
         paths_to_world = {}
         is_loop=False
-        locations_to_ignore = ["#SylvanCaveTreasury"]
+        locations_to_ignore = ["#SylvanCaveTreasury","#EblanBasement","#CaveOfSummons3F","#SylvanCave3F"]
         for location in graph:
             if location in locations_to_ignore:
                 continue
@@ -288,6 +288,7 @@ def apply(env, rom_base, testing=False):
                        "mapgrid ($145 16 1) { 72 }",  # Sylph Cave return tile to trigger tile
                        "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
                        "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
+                       "mapgrid ($160 16 29) { 6E }",  # Lunar Palace Lobby return tile to trigger tile
                        ]
     remapped_ = []
     remapped_spoiled = []
