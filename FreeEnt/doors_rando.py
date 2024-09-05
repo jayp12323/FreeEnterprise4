@@ -1,13 +1,63 @@
+import json
+
 try:
     from . import databases
 except ImportError:
     import databases
 
 towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart'],
-         "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F","#SylvanCave1F"], "#Moon": []}
+         "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"], "#Moon": []}
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
-              '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F","#SylvanCave1F"]
+              '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
+ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_boss_item": "#Babil1F",
+               "RewardSlot.bahamut_item": "#Bahamut1F", "RewardSlot.baron_castle_character": "#SewerEntrance",
+               "RewardSlot.baron_castle_item": "#SewerEntrance", "RewardSlot.baron_inn_character": "#BaronInn",
+               "RewardSlot.baron_inn_item": "#BaronInn", "RewardSlot.baron_throne_item": "#SewerEntrance",
+               "RewardSlot.cannon_item": "#Babil1F", "RewardSlot.cave_eblan_character": "#CaveEblanEntrance",
+               "RewardSlot.cave_eblan_chest": "#CaveEblanEntrance",
+               "RewardSlot.cave_of_summons_chest": "#CaveOfSummons1F", "RewardSlot.damcyan_character": "#Damcyan",
+               "RewardSlot.dwarf_castle_character": "#DwarfCastle|#DwarfCastleBasement",
+               "RewardSlot.eblan_chest_1": "#Eblan", "RewardSlot.eblan_chest_2": "#Eblan",
+               "RewardSlot.eblan_chest_3": "#Eblan", "RewardSlot.fabul_item": "#Fabul",
+               "RewardSlot.feymarch_item": "#Feymarch1F", "RewardSlot.feymarch_king_item": "#FeymarchLibrary1F",
+               "RewardSlot.feymarch_queen_item": "#FeymarchLibrary1F", "RewardSlot.forge_item": "#SmithyHouse",
+               "RewardSlot.found_yang_item": "#SylvanCaveYangRoom&#Fabul", "RewardSlot.giant_character": "#Mysidia",
+               "RewardSlot.giant_chest": "#Mysidia", "RewardSlot.hobs_character": "#MountHobsEast",
+               "RewardSlot.kaipo_character": "#KaipoHospital", "RewardSlot.lower_babil_chest_1": "#Babil1F",
+               "RewardSlot.lower_babil_chest_2": "#Babil1F", "RewardSlot.lower_babil_chest_3": "#Babil1F",
+               "RewardSlot.lower_babil_chest_4": "#Babil1F",
+               "RewardSlot.luca_item": "#DwarfCastle|#DwarfCastleBasement",
+               "RewardSlot.lunar_boss_1_item": "#LunarPalaceLobby", "RewardSlot.lunar_boss_2_item": "#LunarPalaceLobby",
+               "RewardSlot.lunar_boss_3_item": "#LunarPalaceLobby",
+               "RewardSlot.lunar_boss_4_item_1": "#LunarPalaceLobby",
+               "RewardSlot.lunar_boss_4_item_2": "#LunarPalaceLobby",
+               "RewardSlot.lunar_boss_5_item": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_1": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_2": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_3": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_4": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_5": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_6": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_7": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_8": "#LunarPalaceLobby",
+               "RewardSlot.lunar_core_chest_9": "#LunarPalaceLobby",
+               "RewardSlot.lunar_palace_character": "#LunarPalaceLobby",
+               "RewardSlot.lunar_path_chest": "#LunarPassage1", "RewardSlot.magnes_item": "#CaveMagnes1F",
+               "RewardSlot.mist_character": "#Mist&#KaipoInn", "RewardSlot.mysidia_character_1": "#HouseOfWishes",
+               "RewardSlot.mysidia_character_2": "#HouseOfWishes", "RewardSlot.ordeals_character": "#MountOrdeals1F",
+               "RewardSlot.ordeals_item": "#MountOrdeals1F", "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#Fabul",
+               "RewardSlot.pink_trade_item": "#AdamantGrotto", "RewardSlot.rat_trade_item": "#AdamantGrotto",
+               "RewardSlot.rydias_mom_item": "#Mist", "RewardSlot.sealed_cave_item": "#SealedCaveEntrance",
+               "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "None",
+               "RewardSlot.starting_partner_character": "None", "RewardSlot.sylph_cave_chest_1": "#SylvanCave1F",
+               "RewardSlot.sylph_cave_chest_2": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_3": "#SylvanCave1F",
+               "RewardSlot.sylph_cave_chest_4": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_5": "#SylvanCave1F",
+               "RewardSlot.sylph_cave_chest_6": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_7": "#SylvanCave1F",
+               "RewardSlot.sylph_item": "#SylvanCaveYangRoom", "RewardSlot.upper_babil_chest": "#ToroiaCastle",
+               "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
+               "RewardSlot.zot_character_1": "#ToroiaCastle", "RewardSlot.zot_character_2": "#ToroiaCastle",
+               "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle"}
 
 DIRECTION_MAP = {
     'up': 0,
@@ -15,6 +65,7 @@ DIRECTION_MAP = {
     'down': 2,
     'left': 3,
 }
+
 
 def map_exit_to_entrance(remapped_entrances, exit):
     try:
@@ -37,9 +88,8 @@ def map_exit_to_entrance(remapped_entrances, exit):
     return ""
 
 
-def shuffle_locations(rnd, entrances, exits, world):
-    max_towns_in_overworld = {"#Overworld": 4, "#Underworld": 3, "#Moon": 10}
-    towns_ = towns[world]
+def shuffle_locations(rnd, entrances, exits):
+    towns_ = towns
     entrance_destinations = [entrance[4:] for entrance in entrances]
     exit_dict = {}
     for dest in entrance_destinations:
@@ -52,7 +102,6 @@ def shuffle_locations(rnd, entrances, exits, world):
     shuffled_exits = list(exit__)
     exit_dict = {}
     rnd.shuffle(shuffled_exits)
-    max_towns_in_overworld = rnd.randint(1, max_towns_in_overworld[world])
     overworld_entrances = 0
     # print("max_towns", world, max_towns_in_overworld)
     tries = 0
@@ -73,9 +122,8 @@ def shuffle_locations(rnd, entrances, exits, world):
                     "#FeymarchInn"]) or (
                 shuffled_exit[0] == "#SylvanCave1F" and exit___[5].split("_")[1] == "#SylvanCaveYangRoom") or (
                 shuffled_exit[0] == "#CaveOfSummons1F" and exit___[5].split("_")[1] == "#Feymarch1F") or (
-                shuffled_exit[0] == "#Feymarch1F" and exit___[5].split("_")[1] in ["#FeymarchTreasury", "Feymarch2F"]) or (
-                overworld_entrances > max_towns_in_overworld):
-
+                shuffled_exit[0] == "#Feymarch1F" and exit___[5].split("_")[1] in ["#FeymarchTreasury",
+                                                                                   "Feymarch2F"]):
             exit__ = [exit___] + exit__
             rnd.shuffle(exit__)
             shuffled_exits.append(shuffled_exit)
@@ -113,133 +161,109 @@ def shuffle_locations(rnd, entrances, exits, world):
     return [remapped_entrances, remapped_exits]
 
 
-def has_exit(graph, town, towns_with_exit, checked=[], stack=[], count=0):
-    if count == 0:
-        print("towns with exit", towns_with_exit)
-        print("Checking town for exit:",town)
-    else:
-        print(town, stack, checked, count)
-    if count >= 10:
-        return False
-    if town not in checked:
-        checked.append(town)
-    if [element for element in checked if element in towns_with_exit]:
-        print("Town found with exit",[element for element in checked if element in towns_with_exit])
-        return True
-    else:
-        try:
-            prev_town = town
-            stack += graph[town]["exits"]
-            town = stack.pop(0)
-            is_new_town=0
-            while not is_new_town:
-                if town not in checked:
-                    is_new_town=1
-                else:
-                    town=stack.pop()
-            print(f"{prev_town} doesn't have exit, now checking {town} for exit")
-
-            count += 1
-            return has_exit(graph, town, towns_with_exit, checked, stack, count)
-        except:
-            print("empty set")
-            return False
+def find_all_paths(graph, start, end, type, path=[]):
+    path = path + [start]
+    if start in end:
+        return [path]
+    if start not in graph:
+        return []
+    paths = []
+    for node in graph[start][type]:
+        if node not in path:
+            newpaths = find_all_paths(graph, node, end, type, path)
+            for newpath in newpaths:
+                paths.append(newpath)
+    return paths
 
 
 def apply(env, rom_base, testing=False):
     doors_view = databases.get_doors_dbview()
 
-    shuffled_entrances = {"#Overworld": [], "#Underworld": [], "#Moon": []}
-    shuffled_exits = {"#Overworld": [], "#Underworld": [], "#Moon": []}
-    spoil_entrances = {"#Overworld": [], "#Underworld": [], "#Moon": []}
+    shuffled_entrances = {}
+    shuffled_exits = {}
+    spoil_entrances = {}
 
-    for i in ["#Overworld", "#Underworld", "#Moon"]:
-        entrances = [list(i) for i in doors_view.find_all(
-            lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == i)]
-        exits = [list(i) for i in
-                 doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == i)]
+    # for i in ["#Overworld", "#Underworld", "#Moon"]:
+    entrances = [list(i) for i in doors_view.find_all(
+        lambda sp: (sp.type == "entrance" or sp.type == "town_building"))]
+    exits = [list(i) for i in
+             doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return"))]
 
-        is_loop = False
-        loop_count = 0
-        tries = 1
-        while not is_loop:
-            graph = {}
-            spoil_entrances[i] = []
-            if loop_count > 200:
-                return False
-            loop_count += 1
-            max_tries = 1000
-            try:
-                remapped_entrances, remapped_exits = shuffle_locations(env.rnd, entrances, exits, i)
-            except TypeError:
-                tries += 1
-                if tries < max_tries:
-                    continue
-                else:
-                    return False
-            print("max locations took tries: ", tries, "for world ", i)
-            shuffled_entrances[i] = remapped_entrances
-            shuffled_exits[i] = remapped_exits
+    is_loop = False
+    loop_count = 0
+    tries = 1
+    paths_to_world = {}
 
-            for j in remapped_entrances + remapped_exits:
-                location = j[0]
-                destination = j[5]
-                if len(j) == 13:
-                    type = "entrances"
-                    message = f"{j[5]} is in the {j[4].split('_')[1]} location"
-                    if message not in spoil_entrances[i]:
-                        spoil_entrances[i].append(message)
-                else:
-                    type = "exits"
-                if location not in graph:
-                    graph[location] = {"entrances": [], "exits": []}
-                if destination not in graph[location][type]:
-
-                    if "SylvanCave3F" in location and type=="entrances":
-                        if "#SylvanCave1F" not in graph:
-                            graph["#SylvanCave1F"] = {"entrances": [], "exits": []}
-                        graph["#SylvanCave1F"][type].append(destination)
-                    if "CaveOfSummons3F" in location and type == "entrances":
-                        if "#CaveOfSummons1F" not in graph:
-                            graph["#CaveOfSummons1F"] = {"entrances": [], "exits": []}
-                        graph["#CaveOfSummons1F"][type].append(destination)
-
-
-                    if "SylvanCave1F" in location and type=="exits":
-                        if "#SylvanCave3F" not in graph:
-                            graph["#SylvanCave3F"] = {"entrances": [], "exits": []}
-                        graph["#SylvanCave3F"][type].append(destination)
-                    if "CaveOfSummons1F" in location and type == "exits":
-                        if "#CaveOfSummons3F" not in graph:
-                            graph["#CaveOfSummons3F"] = {"entrances": [], "exits": []}
-                        graph["#CaveOfSummons3F"][type].append(destination)
-
-                    graph[location][type].append(destination)
-            # if i == "#Underworld":
-            #     graph["#Feymarch2F"]["exits"] = graph["#CaveOfSummons1F"]["exits"]
-
-            if i == "#Moon":
-                break
-
-            towns_with_exit = [town for town in towns[i] if i in graph[town]["exits"]]
-            if i == "#Underworld":
-                towns_with_exit = [town for town in towns[i] if i in graph[town]["exits"]]
-                print(towns_with_exit)
-            if not towns_with_exit:
-                print("No exits found, trying again")
+    while not is_loop:
+        graph = {}
+        paths_to_world = {}
+        spoil_entrances = []
+        if loop_count > 200:
+            return False
+        loop_count += 1
+        max_tries = 1000
+        try:
+            remapped_entrances, remapped_exits = shuffle_locations(env.rnd, entrances, exits)
+        except TypeError:
+            tries += 1
+            if tries < max_tries:
                 continue
-            for town in towns[i]:
-                if has_exit(graph, town, towns_with_exit, [], []):
-                    is_loop = True
-                    continue
-                else:
-                    print("not able find overworld to exit for:", town, "due to loop... retrying")
-                    is_loop = False
-                    break
-            if is_loop:
+            else:
+                return False
+        print("max locations took tries: ", tries)
+        shuffled_entrances = remapped_entrances
+        shuffled_exits = remapped_exits
+
+        for j in remapped_entrances + remapped_exits:
+            location = j[0]
+            destination = j[5]
+            if len(j) == 13:
+                type = "entrances"
+                message = f"{j[5]} is in the {j[4].split('_')[1]} location"
+                if message not in spoil_entrances:
+                    spoil_entrances.append(message)
+            else:
+                type = "exits"
+            if location not in graph:
+                graph[location] = {"entrances": [], "exits": []}
+            if destination not in graph[location][type]:
+
+                if "SylvanCave3F" in location and type == "entrances":
+                    if "#SylvanCave1F" not in graph:
+                        graph["#SylvanCave1F"] = {"entrances": [], "exits": []}
+                    graph["#SylvanCave1F"][type].append(destination)
+                if "CaveOfSummons3F" in location and type == "entrances":
+                    if "#CaveOfSummons1F" not in graph:
+                        graph["#CaveOfSummons1F"] = {"entrances": [], "exits": []}
+                    graph["#CaveOfSummons1F"][type].append(destination)
+
+                if "SylvanCave1F" in location and type == "exits":
+                    if "#SylvanCave3F" not in graph:
+                        graph["#SylvanCave3F"] = {"entrances": [], "exits": []}
+                    graph["#SylvanCave3F"][type].append(destination)
+                if "CaveOfSummons1F" in location and type == "exits":
+                    if "#CaveOfSummons3F" not in graph:
+                        graph["#CaveOfSummons3F"] = {"entrances": [], "exits": []}
+                    graph["#CaveOfSummons3F"][type].append(destination)
+
+                graph[location][type].append(destination)
+        paths_to_world = {}
+        for location in graph:
+
+            paths_to_world[location] = find_all_paths(graph, location, ["#Overworld", "#Underworld", "#Moon"], "exits",[])
+
+            if paths_to_world[location]:
+                is_loop = True
+                continue
+            else:
+                print("not able find overworld to exit for:", location, "due to loop... retrying")
+                is_loop = False
                 break
-            print("not able to validate exits, retrying")
-        print("needed loops: ", loop_count, "to validate exits for ", i)
+        if is_loop:
+            break
+        print("not able to validate exits, retrying")
+    print("needed loops: ", loop_count, "to validate exits for ")
+    print(json.dumps(paths_to_world,indent=2))
     return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
                        "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
                        "mapgrid ($06 15 31) { 7C }",  # Agart return tile to trigger tile
@@ -257,11 +281,11 @@ def apply(env, rom_base, testing=False):
     remapped_ = []
     remapped_spoiled = []
     special_triggers = []
-    for i in ["#Overworld", "#Underworld", "#Moon"]:
-        remapped_ += shuffled_entrances[i] + shuffled_exits[i]
-        remapped_spoiled += spoil_entrances[i]
+    remapped_ += shuffled_entrances + shuffled_exits
+    remapped_spoiled += spoil_entrances
     print("len of remapped=", len(remapped_))
     script = ""
+
     for index, i in enumerate(remapped_):
         # Ok, so this is a big ugly hack to stick a lookup index into the trigger data
         # without breaking the compilation process.
@@ -285,12 +309,12 @@ def apply(env, rom_base, testing=False):
         script += f'facing up'
         script += '}\n\n'
         special_triggers.append(f"##map.{i[5][1:]} {x_coord:X} {i[7]:X}")
-        print(script)
+        # print(script)
         # random assignment just for testing:
         # map_id = env.rnd.randint(0, 0x17E)
         # special_triggers.append(f"{map_id & 0xFF:02X} {map_id >> 8:02X} 90 10")
 
-    bytes_used = len(special_triggers)*4
+    bytes_used = len(special_triggers) * 4
     if not testing:
         for i in return2teleport:
             env.add_script(i)
@@ -314,6 +338,14 @@ def apply(env, rom_base, testing=False):
             other_entrances.append(i)
 
     print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+
+    key_items = env.meta["available_key_items"]
+    for i in env.assignments:
+        name = str(i)
+        if "*" in str(env.assignments[i]) and "fixed_crystal" not in name:
+            print(name, str(env.assignments[i]), ki_location[name])
+    #
+
     return bytes_used
 
 
