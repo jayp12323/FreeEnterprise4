@@ -11,9 +11,9 @@ towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaT
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
 ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_boss_item": "#Babil1F",
-               "RewardSlot.bahamut_item": "#Bahamut1F", "RewardSlot.baron_castle_character": "#SewerEntrance",
-               "RewardSlot.baron_castle_item": "#SewerEntrance", "RewardSlot.baron_inn_character": "#BaronInn",
-               "RewardSlot.baron_inn_item": "#BaronInn", "RewardSlot.baron_throne_item": "#SewerEntrance",
+               "RewardSlot.bahamut_item": "#Bahamut1F", "RewardSlot.baron_castle_character": "#RoomToSewer",
+               "RewardSlot.baron_castle_item": "#RoomToSewer", "RewardSlot.baron_inn_character": "#BaronInn",
+               "RewardSlot.baron_inn_item": "#BaronInn", "RewardSlot.baron_throne_item": "#RoomToSewer",
                "RewardSlot.cannon_item": "#Babil1F", "RewardSlot.cave_eblan_character": "#CaveEblanEntrance",
                "RewardSlot.cave_eblan_chest": "#CaveEblanEntrance",
                "RewardSlot.cave_of_summons_chest": "#CaveOfSummons1F", "RewardSlot.damcyan_character": "#Damcyan",
@@ -57,7 +57,8 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.sylph_item": "#SylvanCaveYangRoom", "RewardSlot.upper_babil_chest": "#ToroiaCastle",
                "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
                "RewardSlot.zot_character_1": "#ToroiaCastle", "RewardSlot.zot_character_2": "#ToroiaCastle",
-               "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle"}
+               "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
+               "RewardSlot.fixed_crystal":"#LunarPalaceLobby"}
 
 DIRECTION_MAP = {
     'up': 0,
@@ -112,8 +113,6 @@ def shuffle_locations(rnd, entrances, exits):
         shuffled_exit = shuffled_exits.pop(0)
         if shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[4] == "entrance":
             overworld_entrances += 1
-        if shuffled_exit[0] == "#Feymarch2F":
-            print("here")
 
         if (shuffled_exit[0] in towns_ and shuffled_exit[4] == 'entrance' and exit___[5].split("_")[0] ==
             shuffled_exit[0]) or (
@@ -193,6 +192,7 @@ def apply(env, rom_base, testing=False):
     loop_count = 0
     tries = 1
     paths_to_world = {}
+    graph = {}
 
     while not is_loop:
         graph = {}
@@ -232,26 +232,34 @@ def apply(env, rom_base, testing=False):
                     if "#SylvanCave1F" not in graph:
                         graph["#SylvanCave1F"] = {"entrances": [], "exits": []}
                     graph["#SylvanCave1F"][type].append(destination)
+                    graph["#SylvanCave1F"][type].append("SylvanCave3F")
                 if "CaveOfSummons3F" in location and type == "entrances":
                     if "#CaveOfSummons1F" not in graph:
                         graph["#CaveOfSummons1F"] = {"entrances": [], "exits": []}
                     graph["#CaveOfSummons1F"][type].append(destination)
+                    graph["#CaveOfSummons1F"][type].append("CaveOfSummons3F")
 
                 if "SylvanCave1F" in location and type == "exits":
                     if "#SylvanCave3F" not in graph:
                         graph["#SylvanCave3F"] = {"entrances": [], "exits": []}
                     graph["#SylvanCave3F"][type].append(destination)
+                    graph["#SylvanCave3F"][type].append("SylvanCave1F")
                 if "CaveOfSummons1F" in location and type == "exits":
                     if "#CaveOfSummons3F" not in graph:
                         graph["#CaveOfSummons3F"] = {"entrances": [], "exits": []}
                     graph["#CaveOfSummons3F"][type].append(destination)
+                    graph["#CaveOfSummons3F"][type].append("CaveOfSummons1F")
 
                 graph[location][type].append(destination)
         paths_to_world = {}
+        is_loop=False
+        locations_to_ignore = ["#SylvanCaveTreasury"]
         for location in graph:
-
-            paths_to_world[location] = find_all_paths(graph, location, ["#Overworld", "#Underworld", "#Moon"], "exits",[])
-
+            if location in locations_to_ignore:
+                continue
+            paths_to_world[location]=[]
+            for world in ["#Overworld", "#Underworld", "#Moon"]:
+                paths_to_world[location] += find_all_paths(graph, world,location , "entrances",[])
             if paths_to_world[location]:
                 is_loop = True
                 continue
@@ -263,7 +271,10 @@ def apply(env, rom_base, testing=False):
             break
         print("not able to validate exits, retrying")
     print("needed loops: ", loop_count, "to validate exits for ")
-    print(json.dumps(paths_to_world,indent=2))
+
+    for i in paths_to_world:
+        print(i,paths_to_world[i])
+
     return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
                        "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
                        "mapgrid ($06 15 31) { 7C }",  # Agart return tile to trigger tile
@@ -316,6 +327,22 @@ def apply(env, rom_base, testing=False):
 
     bytes_used = len(special_triggers) * 4
     if not testing:
+
+        key_items = {str(env.assignments[x]): ki_location[str(x)] for x in env.assignments if
+                     "*" in str(env.assignments[x])}
+        print(key_items)
+        magma_location = key_items['*[#item.Magma]']
+        hook_location = key_items['*[#item.fe_Hook]']
+        print("Magma",magma_location,paths_to_world[magma_location])
+
+        # for i in env.assignments:
+        #     name = str(i)
+        #     if "*" in str(env.assignments[i]) and "fixed_crystal" not in name:
+        #
+        #         if Magma
+        #
+        #         print(name, str(env.assignments[i]), ki_location[name])
+
         for i in return2teleport:
             env.add_script(i)
 
@@ -339,11 +366,6 @@ def apply(env, rom_base, testing=False):
 
     print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
 
-    key_items = env.meta["available_key_items"]
-    for i in env.assignments:
-        name = str(i)
-        if "*" in str(env.assignments[i]) and "fixed_crystal" not in name:
-            print(name, str(env.assignments[i]), ki_location[name])
     #
 
     return bytes_used

@@ -17,7 +17,8 @@ overworld = ['#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeap
              '#WateryPass1F', '#WateryPass5F', "#Overworld", '#SoldierAirship']
 underworld = ['#Babil1F', '#CaveOfSummons1F', '#CaveOfSummons3F', '#DwarfCastle', '#DwarfCastleBasement',
               '#SealedCaveEntrance',
-              '#SmithyHouse', '#SylvanCave1F', '#SylvanCaveYangRoom','#Tomra', '#TomraEquipment', '#TomraInn', '#TomraInn', '#TomraItem',
+              '#SmithyHouse', '#SylvanCave1F', '#SylvanCaveYangRoom', '#Tomra', '#TomraEquipment', '#TomraInn',
+              '#TomraInn', '#TomraItem',
               '#TomraTreasury', "#Underworld", "#FeymarchTreasury", "#Feymarch1F", "#Feymarch2F", "#FeymarchSaveRoom",
               "#FeymarchLibrary1F", "#FeymarchWeapon",
               '#FeymarchArmor', '#FeymarchInn']
@@ -94,7 +95,7 @@ DB_PATH = os.path.join(os.path.dirname(__file__), 'assets', 'db')
 COLUMNS = ['map', 'trigger_number', 'x', 'y', 'dest', 'dest_x', 'dest_y', 'facing', 'type', "name", "world"]
 
 to_remove = ["#SoldierAirship", "#GiantMouth", "#MysidiaSerpentRoad", "#BaronSerpentRoad",
-             '#AdamantGrotto', '#CaveEblanEntrance', "#TrainingRoomMain", "#RoomToSewer", "#FeymarchTreasury"]
+             "#TrainingRoomMain", "#FeymarchTreasury"]
 
 for map_to_remove in to_remove:
     for trigger in list(triggers):
@@ -102,12 +103,10 @@ for map_to_remove in to_remove:
             triggers.remove(trigger)
         elif map_to_remove == trigger[0]:
             triggers.remove(trigger)
-        elif "#SylvanCaveYangRoom"==trigger[4] and "#SylvanCaveYangRoom"==trigger[0] :
+        elif "#SylvanCaveYangRoom" == trigger[4] and "#SylvanCaveYangRoom" == trigger[0]:
             triggers.remove(trigger)
-        elif "#Underworld"==trigger[4] and "#SylvanCaveYangRoom"==trigger[0] :
+        elif "#Underworld" == trigger[4] and "#SylvanCaveYangRoom" == trigger[0]:
             triggers.remove(trigger)
-
-
 
 hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "entrance", "#Underworld_#Babil1F_up",
               "#Underworld"],
@@ -128,7 +127,8 @@ hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "ent
               "#Underworld"],
              ["#Feymarch2F", "5", "28", "11", "#Feymarch1F", "14", "4", "up", "exit", "#Feymarch2F_#Feymarch1F_up",
               "#Underworld"],
-             ["#SylvanCaveYangRoom", "4", "11", "10", "#SylvanCave3F", "21", "19", "up", "return", "#SylvanCaveYangRoom_#SylvanCave3F_up",
+             ["#SylvanCaveYangRoom", "4", "11", "10", "#SylvanCave3F", "21", "19", "up", "return",
+              "#SylvanCaveYangRoom_#SylvanCave3F_up",
               "#Underworld"],
              ["#SylvanCave1F", "12", "16", "1", "#Underworld", "13", "14", "", "exit", "#SylvanCave1F_#Underworld_",
               "#Underworld"],

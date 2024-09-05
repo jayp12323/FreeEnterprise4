@@ -4,6 +4,7 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #BaronTown,9,14,16,#BaronEquipment,7,9,up,town_building,#BaronTown_#BaronEquipment_up,#Overworld
 #BaronTown,10,6,11,#CidHouse,10,8,up,town_building,#BaronTown_#CidHouse_up,#Overworld
 #BaronTown,11,20,20,#RosaHouse,9,7,up,town_building,#BaronTown_#RosaHouse_up,#Overworld
+#BaronTown,12,3,19,#RoomToSewer,2,6,up,town_building,#BaronTown_#RoomToSewer_up,#Overworld
 #BaronTown,15,15,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
 #BaronTown,16,16,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
 #BaronTown,17,17,31,#Overworld,102,158,,exit,#BaronTown_#Overworld_,#Overworld
@@ -58,6 +59,7 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #ToroiaCastle,5,15,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
 #ToroiaCastle,6,16,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
 #ToroiaCastle,7,17,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
+#RoomToSewer,2,2,10,#BaronTown,3,20,down,return,#RoomToSewer_#BaronTown_down,#Overworld
 #EblanBasement,3,16,17,#Overworld,45,237,,exit,#EblanBasement_#Overworld_,#Overworld
 #MistCave,4,2,29,#Overworld,76,133,up,exit,#MistCave_#Overworld_up,#Overworld
 #MistCave,5,27,2,#Overworld,84,120,down,exit,#MistCave_#Overworld_down,#Overworld
@@ -69,6 +71,7 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #MountHobsEast,1,21,31,#Overworld,160,50,,exit,#MountHobsEast_#Overworld_,#Overworld
 #MountOrdeals1F,3,20,31,#Overworld,218,200,,exit,#MountOrdeals1F_#Overworld_,#Overworld
 #MountOrdeals1F,4,21,31,#Overworld,218,200,,exit,#MountOrdeals1F_#Overworld_,#Overworld
+#CaveEblanEntrance,3,10,3,#Overworld,24,232,,exit,#CaveEblanEntrance_#Overworld_,#Overworld
 #Overworld,0,101,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
 #Overworld,1,102,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
 #Overworld,2,101,157,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
@@ -112,9 +115,11 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #Overworld,42,46,235,#Eblan,16,31,up,entrance,#Overworld_#Eblan_up,#Overworld
 #Overworld,43,45,236,#Eblan,16,31,up,entrance,#Overworld_#Eblan_up,#Overworld
 #Overworld,44,46,236,#Eblan,16,31,up,entrance,#Overworld_#Eblan_up,#Overworld
+#Overworld,45,24,231,#CaveEblanEntrance,10,4,down,entrance,#Overworld_#CaveEblanEntrance_down,#Overworld
 #Overworld,46,104,215,#Agart,16,31,up,entrance,#Overworld_#Agart_up,#Overworld
 #Overworld,47,105,216,#Agart,16,31,up,entrance,#Overworld_#Agart_up,#Overworld
 #Overworld,48,210,130,#Silvera,17,30,up,entrance,#Overworld_#Silvera_up,#Overworld
+#Overworld,49,219,136,#AdamantGrotto,7,20,up,entrance,#Overworld_#AdamantGrotto_up,#Overworld
 #Overworld,52,228,47,#FabulChocoboForest,8,11,up,entrance,#Overworld_#FabulChocoboForest_up,#Overworld
 #Overworld,53,213,209,#MountOrdealsChocoboForest,8,11,up,entrance,#Overworld_#MountOrdealsChocoboForest_up,#Overworld
 #Overworld,54,89,163,#BaronChocoboForest,8,11,up,entrance,#Overworld_#BaronChocoboForest_up,#Overworld
