@@ -238,20 +238,22 @@ def apply(env):
             treasure_assignment.remap(old, new)
 
 
-    character_slot_index = 0
+    character_in_chest_slots = character_rando.FREE_SLOTS + character_rando.HARD_SLOTS
     if env.options.flags.has('characters_in_treasure'):
         assigned_ids= []
         if env.options.flags.has('characters_in_treasure_unsafe'):
             character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None)
         else:
             character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
-        while character_slot_index < len(character_rando.FREE_SLOTS):
+        for slot_name in character_in_chest_slots:
+            if slot_name in character_rando.RESTRICTED_SLOTS:
+                continue
             t = env.rnd.choice(character_treasure_chests.find_all())
-            free_slot_name = character_rando.FREE_SLOTS[character_slot_index]
-            treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[free_slot_name]))
+            treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[slot_name]))
             assigned_ids.append(t.ordr)
-            character_slot_index+=1
             character_treasure_chests = character_treasure_chests.get_refined_view(lambda t: t.ordr not in assigned_ids)
+        
+        # update the plain chests to remove the character assigned ones
         plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
 
     if env.options.flags.has('treasure_vanilla'):

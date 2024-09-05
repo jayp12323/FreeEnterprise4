@@ -82,7 +82,8 @@ FREE_SLOTS = [
 EASY_SLOTS = ['yang1_slot', 'yang2_slot']
 HARD_SLOTS = [s for s in SLOTS if s not in (FREE_SLOTS + EASY_SLOTS + STARTING_SLOTS)]
 RESTRICTED_CHARACTERS = []
-
+RESTRICTED_SLOTS = []
+FINAL_ASSIGNMENTS = {}
 PREGAME_NAMING_SPRITE_TABLE = [
     0x0E, 0x36, 0xB0, 0x38, 0x16, 0x36, 0xB1, 0x38, 0x0E, 0x3E, 0xB2, 0x38, 0x16, 0x3E, 0xB3, 0x38, 
     0x0E, 0x46, 0xB4, 0x38, 0x16, 0x46, 0xB5, 0x38, 0x0E, 0x56, 0xB6, 0x38, 0x16, 0x56, 0xB7, 0x38, 
@@ -141,7 +142,7 @@ def apply(env):
     if env.options.flags.has('no_starting_partner'):
         assignable_slots.remove('kain1_slot')
 
-    if env.options.flags.has('characters_in_miab') or not env.options.flags.has('no_earned_characters'):
+    if env.options.flags.has('characters_in_treasure') or not env.options.flags.has('no_earned_characters'):
         assignable_slots.extend(EASY_SLOTS + HARD_SLOTS)
 
     if env.options.flags.has('characters_in_treasure') or not env.options.flags.has('no_free_characters'):
@@ -394,7 +395,6 @@ def apply(env):
         if slot not in ['dkcecil_slot', 'kain1_slot']:
             env.meta['available_nonstarting_characters'].add(character)
 
-    print(f'Axtor map is {axtor_map}')
     env.add_substitution('axtor map', ' '.join([f'{b:02X}' for b in axtor_map]))
 
     # permadeath :S
@@ -503,6 +503,9 @@ def apply(env):
 
     env.add_binary(BusAddress(0x21d880), bytes(pregame_sprites))
 
+    for slot in assignment:
+        if assignment[slot] in RESTRICTED_CHARACTERS:
+            RESTRICTED_SLOTS.append(slot)
     env.update_assignments(assignment)
 
     # generate character assignment spoilers

@@ -863,16 +863,15 @@ def apply(env):
 
         unassigned_chest_slots = [slot for slot in CHEST_ITEM_SLOTS if slot not in rewards_assignment]
         
-        if env.options.flags.has('characters_in_miab'):          
-            character_slot_index = 0
-            while character_slot_index < len(character_rando.HARD_SLOTS):
+        if env.options.flags.has('characters_in_treasure'):          
+            for target_slot in character_rando.RESTRICTED_SLOTS:                
+                #print(f'Putting restricted slot {target_slot} in a MIAB chest')
+                # Find the slot this character was assigned to
+                character_slot = character_rando.SLOTS[target_slot]
                 rnd_chest_slot = env.rnd.choice(unassigned_chest_slots)
-                hard_slot_name = character_rando.HARD_SLOTS[character_slot_index]
-                rewards_assignment[rnd_chest_slot] = AxtorChestReward('#item.fe_CharacterChestItem#_'+"{:02d}".format(character_rando.SLOTS[hard_slot_name]))
-
+                rewards_assignment[rnd_chest_slot] = AxtorChestReward('#item.fe_CharacterChestItem#_'+"{:02d}".format(character_slot))
                 t = treasure_dbview.find_one(lambda t: [t.map, t.index] == CHEST_NUMBERS[rnd_chest_slot])
-                character_slot_index += 1
-                unassigned_chest_slots.remove(rnd_chest_slot)           
+                unassigned_chest_slots.remove(rnd_chest_slot)
                         
         if env.options.flags.has('treasure_standard') or env.options.flags.has('treasure_wild'):
             src_pool = items_dbview.find_all(lambda it: it.tier >= 5)

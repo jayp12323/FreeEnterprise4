@@ -425,9 +425,6 @@ class FlagLogicCore:
         if flagset.has('Ctreasure') and (flagset.has('Tvanilla') or flagset.has('Tshuffle') or flagset.has('Tempty')):
             self._simple_disable_regex(flagset, log, 'Ctreasure with vanilla-ish or empty chests', r'^Ctreasure')
 
-        if flagset.has('Cmiab') and (flagset.has('Tvanilla') or flagset.has('Tshuffle') or flagset.has('Tempty')):
-            self._simple_disable_regex(flagset, log, 'Ctreasure with vanilla-ish or empty chests', r'^Cmiab')
-
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
 
@@ -470,15 +467,10 @@ class FlagLogicCore:
 
         if flagset.has('Ctreasure'):                
             flagset.set('Cnofree')
-            self._lib.push(log, ['correction', 'Ctreasure set, auto-assigning Cnofree'])
+            flagset.set('Cnoearned')
+            self._lib.push(log, ['correction', 'Ctreasure set, auto-assigning Cnofree and Cnoearned'])
         else:
             self._simple_disable(flagset, log, 'Characters are not in treasure', ['Cunsafe'])
-            
-        
-        if flagset.has('Cmiab'):
-            flagset.set('Cnoearned')
-            self._lib.push(log, ['correction', 'Cmiab set, auto-assigning Cnoearned'])
-
 
         # Objectives logic
         if flagset.has('Onone'):
