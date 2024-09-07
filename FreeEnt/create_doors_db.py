@@ -133,7 +133,7 @@ hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "ent
              ["#SylvanCave1F", "12", "16", "1", "#Underworld", "13", "14", "", "exit", "#SylvanCave1F_#Underworld_",
               "#Underworld"],
              ["#LunarPalaceLobby", "4", "16", "29", "#Moon", "28", "26", "", "exit", "#LunarPalaceLobby_#Moon_",
-              "#Underworld"],
+              "#Moon"],
              ]
 
 triggers += hardcoded

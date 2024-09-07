@@ -69,6 +69,13 @@ DIRECTION_MAP = {
 
 
 def map_exit_to_entrance(remapped_entrances, exit):
+    if "SylvanCaveTreasury" in exit[0] or "#SylvanCave3F" in exit[0]:
+        exit = ["#SylvanCave1F", "", "", "", "#Underworld"]
+    elif "CaveOfSummons3F" in exit[0]:
+        exit = ["#CaveOfSummons1F", "", "", "", "#Underworld"]
+    elif exit[0] == "#EblanBasement":
+        exit = ["#Eblan", "", "", "", "#Overworld"]
+
     try:
         entrance_key = f"{exit[4]}_{exit[0]}_{exit[7]}"
     except IndexError:
@@ -139,19 +146,6 @@ def shuffle_locations(rnd, entrances, exits):
     remapped_exits = []
     for i in exits:
         entrance = map_exit_to_entrance(remapped_entrances, i)
-        if not entrance:
-            if "SylvanCaveTreasury" in i[0] or "#SylvanCave3F" in i[0]:
-                entrance = map_exit_to_entrance(remapped_entrances, ["#SylvanCave1F", "", "", "", "#Underworld"])
-            elif "CaveOfSummons3F" in i[0]:
-                entrance = map_exit_to_entrance(remapped_entrances, ["#CaveOfSummons1F", "", "", "", "#Underworld"])
-
-            elif i[0] == "#EblanBasement":
-                entrance = map_exit_to_entrance(remapped_entrances, ["#Eblan", "", "", "", "#Overworld"])
-            else:
-                print("not found", i)
-            # elif i[0] == "#FeymarchTreasury":
-            #     entrance = map_exit_to_entrance(remapped_entrances, ["#CaveOfSummons1F", "", "", "", "#Underworld"])
-
         if entrance:
             remapped_exits.append(i[0:4] + [i[-2]] + entrance)
         else:
@@ -208,26 +202,16 @@ def map_path_to_entrance_names(path, remapped_map):
     return new_path
 
 
-def apply(env, rom_base, testing=False):
-    doors_view = databases.get_doors_dbview()
-
-    shuffled_entrances = {}
-    shuffled_exits = {}
-    spoil_entrances = {}
-
-    # for i in ["#Overworld", "#Underworld", "#Moon"]:
-    entrances = [list(i) for i in doors_view.find_all(
-        lambda sp: (sp.type == "entrance" or sp.type == "town_building"))]
-    exits = [list(i) for i in
-             doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return"))]
-
+def randomize_doors(env, entrances, exits):
     is_loop = False
     loop_count = 0
     tries = 1
     paths_to_world = {}
     graph = {}
     remapped_map = {}
-
+    shuffled_entrances = {}
+    shuffled_exits = {}
+    spoil_entrances = []
     while not is_loop:
         graph = {}
         remapped_map = {}
@@ -269,29 +253,18 @@ def apply(env, rom_base, testing=False):
             if location not in graph:
                 graph[location] = {"entrances": [], "exits": []}
             if destination not in graph[location][type]:
-
-                if "SylvanCave3F" in location and type == "entrances":
-                    if "#SylvanCave1F" not in graph:
-                        graph["#SylvanCave1F"] = {"entrances": [], "exits": []}
-                    graph["#SylvanCave1F"][type].append("#SylvanCave3F")
-                if "CaveOfSummons3F" in location and type == "entrances":
-                    if "#CaveOfSummons1F" not in graph:
-                        graph["#CaveOfSummons1F"] = {"entrances": [], "exits": []}
-                    graph["#CaveOfSummons1F"][type].append("#CaveOfSummons3F")
-
-                if "SylvanCave1F" in location and type == "exits":
-                    if "#SylvanCave3F" not in graph:
-                        graph["#SylvanCave3F"] = {"entrances": [], "exits": []}
-                    graph["#SylvanCave3F"][type].append("#SylvanCave1F")
-                if "CaveOfSummons1F" in location and type == "exits":
-                    if "#CaveOfSummons3F" not in graph:
-                        graph["#CaveOfSummons3F"] = {"entrances": [], "exits": []}
-                    graph["#CaveOfSummons3F"][type].append("#CaveOfSummons1F")
-
                 graph[location][type].append(destination)
+
         paths_to_world = {}
         is_loop = False
 
+        try:
+            graph["#SylvanCave1F"]["entrances"].append("#SylvanCave3F")
+            graph["#CaveOfSummons1F"]["entrances"].append("#CaveOfSummons3F")
+            graph["#SylvanCave3F"]["exits"].append("#SylvanCave1F")
+            graph["#CaveOfSummons3F"]["exits"].append("#CaveOfSummons1F")
+        except:
+            pass  # Not underworld
         graph = sync_entrances_exits(graph)
 
         locations_to_ignore = ["#SylvanCaveTreasury", "#EblanBasement", "#CaveOfSummons3F", "#SylvanCave3F"]
@@ -316,25 +289,61 @@ def apply(env, rom_base, testing=False):
             break
         print("not able to validate exits, retrying")
     print("needed loops: ", loop_count, "to validate exits for ")
+    return shuffled_entrances, shuffled_exits, spoil_entrances, graph, paths_to_world
+
+
+def get_entrances_exits(world_object, doors_view):
+    entrances = []
+    exits = []
+    if isinstance(world_object, list):
+        for world in world_object:
+            entrances += [list(i) for i in doors_view.find_all(
+                lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == world)]
+            exits += [list(i) for i in
+                      doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == world)]
+    else:
+        entrances += [list(i) for i in doors_view.find_all(
+            lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == world_object)]
+        exits += [list(i) for i in
+                  doors_view.find_all(
+                      lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == world_object)]
+
+    return entrances, exits
+
+
+def apply(env, rom_base, testing=False):
+    doors_view = databases.get_doors_dbview()
+
+    randomize_type = "all"
+    shuffled_entrances = []
+    shuffled_exits = []
+    spoil_entrances = []
+    graph = {}
+    paths_to_world = {}
+    if randomize_type == "normal":
+        worlds = ["#Overworld", "#Underworld", "#Moon"]
+    elif randomize_type == "blue_planet":
+        worlds = [["#Overworld", "#Underworld"], "#Moon"]
+    elif randomize_type == "gated":
+        worlds = ["#Overworld", ["#Underworld", "#Moon"]]
+    elif randomize_type == "why":
+        worlds = [["#Overworld", "#Moon"], "#Underworld"]
+    elif randomize_type == "all":
+        worlds = [["#Overworld", "#Underworld", "#Moon"]]
+
+    for i in worlds:
+        entrances, exits = get_entrances_exits(i, doors_view)
+        shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, graph_temp, paths_to_world_temp = randomize_doors(
+            env, entrances, exits)
+        shuffled_entrances += shuffled_entrances_temp
+        shuffled_exits += shuffled_exits_temp
+        spoil_entrances += spoil_entrances_temp
+        graph.update(graph_temp)
+        paths_to_world.update(paths_to_world_temp)
 
     for i in paths_to_world:
         print(i, paths_to_world[i])
 
-    return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
-                       "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
-                       "mapgrid ($06 15 31) { 7C }",  # Agart return tile to trigger tile
-                       "mapgrid ($06 16 31) { 7C }",  # Agart return tile to trigger tile
-                       "mapgrid ($06 17 31) { 7C }",  # Agart return tile to trigger tile
-                       "mapgrid ($136 17 9) { 72 }",  # CaveOfSummons1F return tile to trigger tile
-                       "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
-                       "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
-                       "mapgrid ($13B 16 24) { 51 }",  # Feymarch treasury removing exit tile
-                       "mapgrid ($13C 28 11) { 25 }",  # Feymarch 2F return tile to trigger tile
-                       "mapgrid ($145 16 1) { 72 }",  # Sylph Cave return tile to trigger tile
-                       "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
-                       "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
-                       "mapgrid ($160 16 29) { 6E }",  # Lunar Palace Lobby return tile to trigger tile
-                       ]
     remapped_ = []
     remapped_spoiled = []
     special_triggers = []
@@ -413,6 +422,21 @@ def apply(env, rom_base, testing=False):
         #
         #         print(name, str(env.assignments[i]), ki_location[name])
 
+        return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
+                           "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
+                           "mapgrid ($06 15 31) { 7C }",  # Agart return tile to trigger tile
+                           "mapgrid ($06 16 31) { 7C }",  # Agart return tile to trigger tile
+                           "mapgrid ($06 17 31) { 7C }",  # Agart return tile to trigger tile
+                           "mapgrid ($136 17 9) { 72 }",  # CaveOfSummons1F return tile to trigger tile
+                           "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
+                           "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
+                           "mapgrid ($13B 16 24) { 51 }",  # Feymarch treasury removing exit tile
+                           "mapgrid ($13C 28 11) { 25 }",  # Feymarch 2F return tile to trigger tile
+                           "mapgrid ($145 16 1) { 72 }",  # Sylph Cave return tile to trigger tile
+                           "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
+                           "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
+                           "mapgrid ($160 16 29) { 6E }",  # Lunar Palace Lobby return tile to trigger tile
+                           ]
         for i in return2teleport:
             env.add_script(i)
 
