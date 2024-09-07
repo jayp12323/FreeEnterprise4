@@ -194,19 +194,18 @@ def find_all_paths(graph, start, end, type, path=[]):
                 paths.append(newpath)
     return paths
 
-def map_path_to_entrance_names(path,remapped_map):
-    new_path=[]
+
+def map_path_to_entrance_names(path, remapped_map):
+    new_path = []
     for location in path:
         if location in ["#Overworld", "#Underworld", "#Moon"]:
             new_path.append(location)
         else:
             try:
-                new_path.append([remapped_map[location],location])
+                new_path.append([remapped_map[location], location])
             except KeyError:
-                new_path.append([location,location])
+                new_path.append([location, location])
     return new_path
-
-
 
 
 def apply(env, rom_base, testing=False):
@@ -227,7 +226,7 @@ def apply(env, rom_base, testing=False):
     tries = 1
     paths_to_world = {}
     graph = {}
-    remapped_map={}
+    remapped_map = {}
 
     while not is_loop:
         graph = {}
@@ -257,13 +256,13 @@ def apply(env, rom_base, testing=False):
                 type = "entrances"
                 message = f"{j[5]} is in the {j[4].split('_')[1]} location"
                 if message not in spoil_entrances:
-                    if j[5]=="#Mist":
+                    if j[5] == "#Mist":
                         if "#Mist" not in remapped_map:
                             remapped_map[j[5]] = []
                         remapped_map[j[5]].append(j[4].split('_')[1])
 
                     else:
-                        remapped_map[j[5]]=j[4].split('_')[1]
+                        remapped_map[j[5]] = j[4].split('_')[1]
                     spoil_entrances.append(message)
             else:
                 type = "exits"
@@ -303,10 +302,10 @@ def apply(env, rom_base, testing=False):
             for world in ["#Overworld", "#Underworld", "#Moon"]:
                 paths_to_world[location] += find_all_paths(graph, world, location, "entrances", [])
             if paths_to_world[location]:
-                location_doors=[]
+                location_doors = []
                 for path in paths_to_world[location]:
-                    location_doors.append(map_path_to_entrance_names(path,remapped_map))
-                paths_to_world[location]=location_doors
+                    location_doors.append(map_path_to_entrance_names(path, remapped_map))
+                paths_to_world[location] = location_doors
                 is_loop = True
                 continue
             else:
@@ -379,9 +378,9 @@ def apply(env, rom_base, testing=False):
                      "*" in str(env.assignments[x])}
 
         for item in key_items:
-            ki_required_room =key_items[item]["location"]
+            ki_required_room = key_items[item]["location"]
             if ki_required_room == "None":
-                key_items[item]["and"]=None
+                key_items[item]["and"] = None
                 continue
 
             if '|' in ki_required_room:
@@ -401,10 +400,10 @@ def apply(env, rom_base, testing=False):
                         key_items[item]["and"].append(paths_to_world[room])
 
                 else:
-                    key_items[item]["and"]=paths_to_world[ki_required_room]
+                    key_items[item]["and"] = paths_to_world[ki_required_room]
 
         for item in key_items:
-            print (item,key_items[item])
+            print(item, key_items[item])
 
         # for i in env.assignments:
         #     name = str(i)
