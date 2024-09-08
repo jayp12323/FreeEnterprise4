@@ -10,6 +10,8 @@ towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera',
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
+
+
 ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_boss_item": "#Babil1F",
                "RewardSlot.bahamut_item": "#Bahamut1F", "RewardSlot.baron_castle_character": "#RoomToSewer",
                "RewardSlot.baron_castle_item": "#RoomToSewer", "RewardSlot.baron_inn_character": "#BaronInn",
@@ -59,7 +61,21 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.zot_character_1": "#ToroiaCastle", "RewardSlot.zot_character_2": "#ToroiaCastle",
                "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
                "RewardSlot.fixed_crystal": "#LunarPalaceLobby"}
-
+slot_locations = {"dmist_slot": "#MistCave", "officer_slot": "#Mist&#Kaipo", "octomamm_slot": "#Waterfall2F",
+                  "antlion_slot": "#AntlionCave1F", "mombomb_slot": "#MountHobsEast", "fabulgauntlet_slot": "#Fabul",
+                  "milon_slot": "#MountOrdeals1F", "milonz_slot": "#MountOrdeals1F",
+                  "mirrorcecil_slot": "#MountOrdeals1F", "karate_slot": "#BaronInn", "guard_slot": "#BaronInn",
+                  "baigan_slot": "#RoomToSewer", "kainazzo_slot": "#RoomToSewer", "darkelf_slot": "#CaveMagnes1F",
+                  "magus_slot": "#ToroiaCastle", "valvalis_slot": "#ToroiaCastle",
+                  "calbrena_slot": "#DwarfCastle|#DwarfCastleBasement",
+                  "golbez_slot": "#DwarfCastle|#DwarfCastleBasement", "lugae_slot": "#Babil1F",
+                  "darkimp_slot": "#Babil1F", "kingqueen_slot": "#CaveEblanEntrance",
+                  "rubicant_slot": "#CaveEblanEntrance", "evilwall_slot": "#SealedCaveEntrance",
+                  "asura_slot": "#FeymarchLibrary1F", "leviatan_slot": "#FeymarchLibrary1F",
+                  "odin_slot": "#RoomToSewer", "bahamut_slot": "#Bahamut1F", "elements_slot": "None",
+                  "cpu_slot": "None", "paledim_slot": "#LunarPalaceLobby}", "wyvern_slot": "#LunarPalaceLobby",
+                  "plague_slot": "#LunarPalaceLobby", "dlunar_slot": "#LunarPalaceLobby",
+                  "ogopogo_slot": "#LunarPalaceLobby"}
 DIRECTION_MAP = {
     'up': 0,
     'right': 1,
@@ -311,10 +327,23 @@ def get_entrances_exits(world_object, doors_view):
     return entrances, exits
 
 
+
+def check_logic(key_items,paths_to_world):
+
+    baron_location = key_items["*[#item.Baron]"]
+
+
+
+
+
+    # for i in key_items:
+    #     print(i,key_items[i])
+
+
 def apply(env, rom_base, testing=False):
     doors_view = databases.get_doors_dbview()
 
-    randomize_type = "all"
+    randomize_type = "normal"
     shuffled_entrances = []
     shuffled_exits = []
     spoil_entrances = []
@@ -330,6 +359,8 @@ def apply(env, rom_base, testing=False):
         worlds = [["#Overworld", "#Moon"], "#Underworld"]
     elif randomize_type == "all":
         worlds = [["#Overworld", "#Underworld", "#Moon"]]
+    else:
+        worlds = ["#Overworld", "#Underworld", "#Moon"]
 
     for i in worlds:
         entrances, exits = get_entrances_exits(i, doors_view)
@@ -341,15 +372,14 @@ def apply(env, rom_base, testing=False):
         graph.update(graph_temp)
         paths_to_world.update(paths_to_world_temp)
 
-    for i in paths_to_world:
-        print(i, paths_to_world[i])
+    # for i in paths_to_world:
+    #     print(i, paths_to_world[i])
 
     remapped_ = []
     remapped_spoiled = []
     special_triggers = []
     remapped_ += shuffled_entrances + shuffled_exits
     remapped_spoiled += spoil_entrances
-    print("len of remapped=", len(remapped_))
     script = ""
 
     for index, i in enumerate(remapped_):
@@ -376,15 +406,14 @@ def apply(env, rom_base, testing=False):
         script += '}\n\n'
         special_triggers.append(f"##map.{i[5][1:]} {x_coord:X} {i[7]:X}")
         # print(script)
-        # random assignment just for testing:
-        # map_id = env.rnd.randint(0, 0x17E)
-        # special_triggers.append(f"{map_id & 0xFF:02X} {map_id >> 8:02X} 90 10")
 
     bytes_used = len(special_triggers) * 4
     if not testing:
 
         key_items = {str(env.assignments[x]): {"location": ki_location[str(x)]} for x in env.assignments if
                      "*" in str(env.assignments[x])}
+
+        dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x])=="dmist"][0]
 
         for item in key_items:
             ki_required_room = key_items[item]["location"]
@@ -400,27 +429,26 @@ def apply(env, rom_base, testing=False):
                 for room in ki_required_room:
                     key_items[item]["or"].append(paths_to_world[room])
 
+            elif '&' in ki_required_room:
+                key_items[item]["and"] = []
+
+                ki_required_room = ki_required_room.split("&")
+                for room in ki_required_room:
+                    key_items[item]["and"].append(paths_to_world[room])
+
             else:
-                if '&' in ki_required_room:
-                    key_items[item]["and"] = []
 
-                    ki_required_room = ki_required_room.split("&")
-                    for room in ki_required_room:
-                        key_items[item]["and"].append(paths_to_world[room])
+                key_items[item]["and"] = paths_to_world[ki_required_room]
+                if ki_required_room == "#Mist":
+                    print(slot_locations[dmist_slot])
+                    dmist_required_room = paths_to_world[slot_locations[dmist_slot]]
+                    key_items[item]["and"] = [key_items[item]["and"],dmist_required_room]
 
-                else:
-                    key_items[item]["and"] = paths_to_world[ki_required_room]
+        check_logic(key_items,paths_to_world)
 
-        for item in key_items:
-            print(item, key_items[item])
 
-        # for i in env.assignments:
-        #     name = str(i)
-        #     if "*" in str(env.assignments[i]) and "fixed_crystal" not in name:
-        #
-        #         if Magma
-        #
-        #         print(name, str(env.assignments[i]), ki_location[name])
+        # for item in key_items:
+        #     print(item, key_items[item])
 
         return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
                            "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
@@ -458,9 +486,7 @@ def apply(env, rom_base, testing=False):
         else:
             other_entrances.append(i)
 
-    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
-
-    #
+    # print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
 
     return bytes_used
 
