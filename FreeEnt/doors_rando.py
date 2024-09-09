@@ -10,7 +10,25 @@ towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera',
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
+ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "RewardSlot.baron_castle_item", "RewardSlot.baron_throne_item"],
+           "*[#item.DarkCrystal]": ["#Moon", "RewardSlot.giant_chest"],
+           "*[#item.EarthCrystal]": ["RewardSlot.zot_chest"],
+           "*[#item.fe_Hook]": ["#Underworld", "#CaveEblanEntrance", "#AdamantGrotto", "RewardSlot.pink_trade_item"],
+           "*[#item.Luca]": ["RewardSlot.sealed_cave_item"], "*[#item.Magma]": ["#Underground"],
+           "*[#item.Pan]": ["RewardSlot.pan_trade_item", "RewardSlot.sylph_item"],
+           "*[#item.Pink]": ["RewardSlot.pink_trade_item"], "*[#item.Rat]": ["RewardSlot.rat_trade_item"],
+           "*[#item.Tower]": ["RewardSlot.cannon_item"], "*[#item.TwinHarp]": ["RewardSlot.magnes_item"]}
 
+entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]",
+                    "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]", "#CaveEblanEntrance": "*[#item.fe_Hook]",
+                    "#AdamantGrotto": "*[#item.fe_Hook]"}
+
+slots_locked = {"RewardSlot.baron_castle_item": "*[#item.Baron]", "RewardSlot.baron_throne_item": "*[#item.Baron]",
+                "RewardSlot.giant_chest": "*[#item.DarkCrystal]", "RewardSlot.zot_item": "*[#item.EarthCrystal]",
+                "RewardSlot.pink_trade_item": "*[#item.Pink]", "RewardSlot.sealed_cave_item": "*[#item.Luca]",
+                "RewardSlot.pan_trade_item": "*[#item.Pan]", "RewardSlot.sylph_item": "*[#item.Pan]",
+                "RewardSlot.rat_trade_item": "*[#item.Rat]", "RewardSlot.cannon_item": "*[#item.Tower]",
+                "RewardSlot.magnes_item": "*[#item.TwinHarp]"}
 
 ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_boss_item": "#Babil1F",
                "RewardSlot.bahamut_item": "#Bahamut1F", "RewardSlot.baron_castle_character": "#RoomToSewer",
@@ -51,7 +69,7 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.ordeals_item": "#MountOrdeals1F", "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#Fabul",
                "RewardSlot.pink_trade_item": "#AdamantGrotto", "RewardSlot.rat_trade_item": "#AdamantGrotto",
                "RewardSlot.rydias_mom_item": "#Mist", "RewardSlot.sealed_cave_item": "#SealedCaveEntrance",
-               "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "None",
+               "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "starting",
                "RewardSlot.starting_partner_character": "None", "RewardSlot.sylph_cave_chest_1": "#SylvanCave1F",
                "RewardSlot.sylph_cave_chest_2": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_3": "#SylvanCave1F",
                "RewardSlot.sylph_cave_chest_4": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_5": "#SylvanCave1F",
@@ -327,23 +345,132 @@ def get_entrances_exits(world_object, doors_view):
     return entrances, exits
 
 
-
-def check_logic(key_items,paths_to_world):
-
-    baron_location = key_items["*[#item.Baron]"]
+# def is_entrance_in_ki_path(entrance,path):
 
 
+def return_gated_paths(paths_to_world):
+    gated_paths = {}
+    for path in paths_to_world:
+
+        gated_by = []
+        for entrance in paths_to_world[path]:
+            if isinstance(entrance, str):
+                entrance_name = entrance
+
+            else:
+                entrance_name = entrance[0]
+            if not isinstance(entrance_name, str):
+                entrance_name_1, entrance_name_2 = entrance_name
+                locked_1 = ""
+                locked_2 = ""
+                try:
+                    locked_1 = entrances_locked[entrance_name_1]
+                except KeyError:
+                    pass  # not gated
+                try:
+                    locked_2 = entrances_locked[entrance_name_2]
+                except KeyError:
+                    pass  # not gated
+
+                if locked_1 and locked_2:
+                    gated_by.append(locked_1 + "|" + locked_2)
+
+            else:
+                try:
+
+                    gated_by.append(entrances_locked[entrance_name])
+                except KeyError:
+                    pass  # not gated
+        gated_paths[path] = gated_by
+    return gated_paths
 
 
+def return_gated_kis(key_items, gated_paths):
+    gated_ki = {}
+    for i in key_items:
+        gated_ki[i] = {}
+        try:
+            ki_required_location = key_items[i]["and_location"]
+            gated_ki[i]["and"] = []
+            if ki_required_location:
+                for location in ki_required_location:
+                    gated_ki[i]["and"] += gated_paths[location]
+                if len(gated_ki[i]["and"]) ==2 and gated_ki[i]["and"][0] == gated_ki[i]["and"][1]:
+                        gated_ki[i]["and"] =gated_ki[i]["and"][0]
+                if len(gated_ki[i]["and"]) ==1 and gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
+                    del gated_ki[i]["and"]
+                    gated_ki[i]["or"] = ["*[#item.Magma]","*[#item.fe_Hook]"]
+                elif len(gated_ki[i]["and"]) == 2:
 
-    # for i in key_items:
-    #     print(i,key_items[i])
+                    if gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
+                        gated_ki[i]["or"] = ["*[#item.Magma]", "*[#item.fe_Hook]"]
+                        gated_ki[i]["and"] = gated_ki[i]["and"][1]
+                    elif gated_ki[i]["and"][1] == "*[#item.Magma]|*[#item.fe_Hook]":
+                        gated_ki[i]["or"] = ["*[#item.Magma]", "*[#item.fe_Hook]"]
+                        gated_ki[i]["and"] = gated_ki[i]["and"][0]
 
+
+        except KeyError:
+            ki_required_location = key_items[i]["or_location"]
+            gated_ki[i]["or"] = []
+            if ki_required_location:
+                for location in ki_required_location:
+                    gated_ki[i]["or"] += gated_paths[location]
+                if len(gated_ki[i]["or"])<2:
+                    del gated_ki[i]["or"]
+                    gated_ki[i]["and"] = []
+
+                elif gated_ki[i]["or"][0] == gated_ki[i]["or"][1]:
+                    del gated_ki[i]["or"]
+                    gated_ki[i]["and"] = gated_ki[i]["or"][0]
+
+
+    return gated_ki
+
+
+def return_gated_slots(key_items, gated_ki):
+    gated_slots = {}
+    for i in key_items:
+        slot_location = key_items[i]["slot"]
+        try:
+            ki_required_for_slot = slots_locked[slot_location]
+            gated_slots[i]["and"] = ki_required_for_slot
+            try:
+                gated_slots[i]["and"] += gated_ki[ki_required_for_slot]["and"]
+            except KeyError:
+                pass
+        except:
+            pass
+    return gated_slots
+
+
+def check_logic(key_items, paths_to_world):
+    gated_paths = return_gated_paths(paths_to_world)
+    gated_ki = return_gated_kis(key_items, gated_paths)
+    gated_slots = return_gated_slots(key_items, gated_ki)
+
+    ki_full_locked = {}
+    for i in key_items:
+        ki_full_locked[i] = {"and":[],"or":[]}
+        if i in gated_ki:
+            try:
+                ki_full_locked[i]["and"] += gated_ki[i]["and"]
+            except:
+                pass
+            try:
+                ki_full_locked[i]["or"] += gated_ki[i]["or"]
+            except:
+                pass
+
+        if i in gated_slots:
+            ki_full_locked[i]["and"] += gated_slots[i]["and"]
+        print(i, ki_full_locked[i])
+    print(key_items)
 
 def apply(env, rom_base, testing=False):
     doors_view = databases.get_doors_dbview()
 
-    randomize_type = "normal"
+    randomize_type = "all"
     shuffled_entrances = []
     shuffled_exits = []
     spoil_entrances = []
@@ -410,42 +537,39 @@ def apply(env, rom_base, testing=False):
     bytes_used = len(special_triggers) * 4
     if not testing:
 
-        key_items = {str(env.assignments[x]): {"location": ki_location[str(x)]} for x in env.assignments if
-                     "*" in str(env.assignments[x])}
+        key_items = {str(env.assignments[x]): {"location": ki_location[str(x)], "slot": str(x)} for x in env.assignments
+                     if
+                     "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x])}
 
-        dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x])=="dmist"][0]
+        dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
 
         for item in key_items:
             ki_required_room = key_items[item]["location"]
-            if ki_required_room == "None":
+            if ki_required_room == "starting":
                 key_items[item]["and"] = None
+                key_items[item]["and_location"] = None
                 continue
 
             if '|' in ki_required_room:
                 key_items[item]["or"] = []
 
                 ki_required_room = ki_required_room.split("|")
-
+                key_items[item]["or_location"] = ki_required_room
                 for room in ki_required_room:
-                    key_items[item]["or"].append(paths_to_world[room])
+                    key_items[item]["or"] += paths_to_world[room]
 
             elif '&' in ki_required_room:
                 key_items[item]["and"] = []
 
                 ki_required_room = ki_required_room.split("&")
+                key_items[item]["and_location"] = ki_required_room
                 for room in ki_required_room:
-                    key_items[item]["and"].append(paths_to_world[room])
+                    key_items[item]["and"] += (paths_to_world[room])
 
             else:
-
                 key_items[item]["and"] = paths_to_world[ki_required_room]
-                if ki_required_room == "#Mist":
-                    print(slot_locations[dmist_slot])
-                    dmist_required_room = paths_to_world[slot_locations[dmist_slot]]
-                    key_items[item]["and"] = [key_items[item]["and"],dmist_required_room]
-
-        check_logic(key_items,paths_to_world)
-
+                key_items[item]["and_location"] = [ki_required_room]
+        check_logic(key_items, paths_to_world)
 
         # for item in key_items:
         #     print(item, key_items[item])
@@ -486,7 +610,7 @@ def apply(env, rom_base, testing=False):
         else:
             other_entrances.append(i)
 
-    # print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
 
     return bytes_used
 
