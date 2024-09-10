@@ -770,7 +770,7 @@ def apply(env, rom_base, randomize_type,testing=False):
         else:
             other_entrances.append(i)
 
-    # print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    print ("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
 
     return bytes_used
 
