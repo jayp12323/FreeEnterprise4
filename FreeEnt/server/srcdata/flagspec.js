@@ -1085,7 +1085,7 @@ const _FE_FLAGSPEC = {
         "-wacky:musical",
         "-wacky:bodyguard",
         "-wacky:fistfight",
-        "-wacky:random",
+        "-wacky:doorsrando",
         "-wacky:doorsrando_normal",
         "-wacky:doorsrando_gated",
         "-wacky:doorsrando_blueplanet",
@@ -2143,7 +2143,7 @@ const _FE_FLAGSPEC = {
             "-wacky:random6"
         ],
         [
-            "-wacky:random",
+            "-wacky:doorsrando",
             "-wacky:doorsrando_normal",
             "-wacky:doorsrando_gated",
             "-wacky:doorsrando_blueplanet",
@@ -8594,7 +8594,7 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "-wacky:random",
+            "flag": "-wacky:doorsrando",
             "offset": 291,
             "size": 3,
             "value": 1
