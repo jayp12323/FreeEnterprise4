@@ -41,6 +41,10 @@ WACKY_CHALLENGES = {
     'forwardisback'     : 'Forward is\nthe New Back',
     'mirrormirror'      : 'Mirror, Mirror,\non the Wall',
     'doorsrando_normal': 'Door Randomizer',
+    'doorsrando_blueplanet': 'Door Randomizer',
+    'doorsrando_gated': 'Door Randomizer',
+    'doorsrando_all': 'Door Randomizer',
+    'doorsrando_why': 'Door Randomizer',
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
@@ -676,7 +680,7 @@ def setup_saveusbigchocobo(env):
 
 
 def apply_doorsrando(env,rom_base,wacky_orig):
-    rando_type = wacky_orig.split("_")[0]
+    rando_type = wacky_orig.split("_")[1]
     env.add_file('scripts/map_history_extension.f4c')
     env.add_toggle('wacky_doorsrando')
     doors_rando.apply(env,rom_base,rando_type)
