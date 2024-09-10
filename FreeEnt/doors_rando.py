@@ -627,8 +627,8 @@ def apply(env, rom_base, randomize_type,testing=False):
         key_items={}
         for x in env.assignments:
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):
+                print(x)
                 key_items[str(env.assignments[x])]={"location": ki_location[str(x)], "slot": str(x)}
-
         dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
 
         for item in key_items:
