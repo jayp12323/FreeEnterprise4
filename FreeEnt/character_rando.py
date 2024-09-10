@@ -269,7 +269,7 @@ def apply(env):
                 characters.extend(env.meta['objective_required_characters'])
 
             # pre-cull characters if Cnoearned is on            
-            if env.options.flags.has('no_earned_characters') and not env.options.flags.has('characters_in_miab'):
+            if env.options.flags.has('no_earned_characters') and not env.options.flags.has('characters_in_treasure'):
                 valid_RESTRICTED_CHARACTERS = list(RESTRICTED_CHARACTERS)
                 while len(characters) > len(assignable_slots):
                     # remove restricted characters first
