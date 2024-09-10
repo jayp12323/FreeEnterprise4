@@ -114,7 +114,7 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
                "RewardSlot.zot_character_1": "#ToroiaCastle", "RewardSlot.zot_character_2": "#ToroiaCastle",
                "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
-               "RewardSlot.fixed_crystal": "#LunarPalaceLobby"}
+               "RewardSlot.fixed_crystal": "#LunarPalaceLobby","RewardSlot.toroia_hospital_item":"#ToroiaCastle"}
 slot_locations = {"dmist_slot": "#MistCave", "officer_slot": "#Mist&#Kaipo", "octomamm_slot": "#Waterfall2F",
                   "antlion_slot": "#AntlionCave1F", "mombomb_slot": "#MountHobsEast", "fabulgauntlet_slot": "#Fabul",
                   "milon_slot": "#MountOrdeals1F", "milonz_slot": "#MountOrdeals1F",
@@ -658,14 +658,13 @@ def apply(env, rom_base, randomize_type,testing=False):
             graph.update(graph_temp)
             paths_to_world.update(paths_to_world_temp)
         print(env.assignments)
-        for i in env.assignments:
-            print(str(i),str(env.assignments[i]))
         key_items={}
         for x in env.assignments:
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):
                 try:
                     key_items[str(env.assignments[x])]={"location": ki_location[str(x)], "slot": str(x)}
                 except:
+                    print(x,str(env.assignments[x]) )
                     slot = id_to_slot[str(x)]
                     key_items[str(env.assignments[x])]={"location": ki_location[str(slot)], "slot": str(slot)}
 
