@@ -621,8 +621,11 @@ def apply(env, rom_base, randomize_type,testing=False):
             spoil_entrances += spoil_entrances_temp
             graph.update(graph_temp)
             paths_to_world.update(paths_to_world_temp)
+        print(env.assignments)
+        for i in env.assignments:
+            print(str(i),str(env.assignments[x]))
         key_items = {str(env.assignments[x]): {"location": ki_location[str(x)], "slot": str(x)} for x in env.assignments
-                     if
+        if
                      "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x])}
 
         dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
