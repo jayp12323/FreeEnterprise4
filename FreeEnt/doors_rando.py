@@ -10,6 +10,42 @@ towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera',
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
+id_to_slot = {"45": "RewardSlot.feymarch_item", "33": "RewardSlot.antlion_item", "40": "RewardSlot.zot_item",
+              "32": "RewardSlot.starting_item", "48": "RewardSlot.pan_trade_item", "89": "RewardSlot.rydias_mom_item",
+              "34": "RewardSlot.fabul_item", "54": "RewardSlot.lunar_boss_1_item", "43": "RewardSlot.luca_item",
+              "44": "RewardSlot.sealed_cave_item", "41": "RewardSlot.babil_boss_item", "42": "RewardSlot.cannon_item",
+              "37": "RewardSlot.baron_castle_item", "36": "RewardSlot.baron_inn_item",
+              "55": "RewardSlot.lunar_boss_2_item", "59": "RewardSlot.lunar_boss_5_item",
+              "47": "RewardSlot.found_yang_item", "35": "RewardSlot.ordeals_item", "39": "RewardSlot.magnes_item",
+              "46": "RewardSlot.rat_trade_item", "52": "RewardSlot.sylph_item", "49": "RewardSlot.feymarch_queen_item",
+              "50": "RewardSlot.feymarch_king_item", "51": "RewardSlot.baron_throne_item",
+              "53": "RewardSlot.bahamut_item", "56": "RewardSlot.lunar_boss_3_item",
+              "57": "RewardSlot.lunar_boss_4_item_1", "58": "RewardSlot.lunar_boss_4_item_2",
+              "60": "RewardSlot.zot_chest", "61": "RewardSlot.eblan_chest_1", "62": "RewardSlot.eblan_chest_2",
+              "63": "RewardSlot.eblan_chest_3", "64": "RewardSlot.lower_babil_chest_1",
+              "65": "RewardSlot.lower_babil_chest_2", "66": "RewardSlot.lower_babil_chest_3",
+              "67": "RewardSlot.lower_babil_chest_4", "68": "RewardSlot.cave_eblan_chest",
+              "69": "RewardSlot.upper_babil_chest", "70": "RewardSlot.cave_of_summons_chest",
+              "71": "RewardSlot.sylph_cave_chest_1", "72": "RewardSlot.sylph_cave_chest_2",
+              "73": "RewardSlot.sylph_cave_chest_3", "74": "RewardSlot.sylph_cave_chest_4",
+              "75": "RewardSlot.sylph_cave_chest_5", "76": "RewardSlot.sylph_cave_chest_6",
+              "77": "RewardSlot.sylph_cave_chest_7", "78": "RewardSlot.giant_chest",
+              "79": "RewardSlot.lunar_path_chest", "80": "RewardSlot.lunar_core_chest_1",
+              "81": "RewardSlot.lunar_core_chest_2", "82": "RewardSlot.lunar_core_chest_3",
+              "83": "RewardSlot.lunar_core_chest_4", "84": "RewardSlot.lunar_core_chest_5",
+              "85": "RewardSlot.lunar_core_chest_6", "86": "RewardSlot.lunar_core_chest_7",
+              "87": "RewardSlot.lunar_core_chest_8", "88": "RewardSlot.lunar_core_chest_9",
+              "93": "RewardSlot.fixed_crystal", "92": "RewardSlot.pink_trade_item",
+              "1": "RewardSlot.starting_character", "2": "RewardSlot.starting_partner_character",
+              "3": "RewardSlot.mist_character", "4": "RewardSlot.watery_pass_character",
+              "5": "RewardSlot.damcyan_character", "6": "RewardSlot.kaipo_character", "7": "RewardSlot.hobs_character",
+              "8": "RewardSlot.mysidia_character_1", "9": "RewardSlot.mysidia_character_2",
+              "10": "RewardSlot.ordeals_character", "13": "RewardSlot.baron_inn_character",
+              "14": "RewardSlot.baron_castle_character", "15": "RewardSlot.zot_character_1",
+              "16": "RewardSlot.zot_character_2", "17": "RewardSlot.dwarf_castle_character",
+              "18": "RewardSlot.cave_eblan_character", "19": "RewardSlot.lunar_palace_character",
+              "20": "RewardSlot.giant_character"}
+
 ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "RewardSlot.baron_castle_item", "RewardSlot.baron_throne_item"],
            "*[#item.DarkCrystal]": ["#Moon", "RewardSlot.giant_chest"],
            "*[#item.EarthCrystal]": ["RewardSlot.zot_chest"],
@@ -627,8 +663,12 @@ def apply(env, rom_base, randomize_type,testing=False):
         key_items={}
         for x in env.assignments:
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):
-                print(x)
-                key_items[str(env.assignments[x])]={"location": ki_location[str(x)], "slot": str(x)}
+                try:
+                    key_items[str(env.assignments[x])]={"location": ki_location[str(x)], "slot": str(x)}
+                except:
+                    slot = id_to_slot[str(x)]
+                    key_items[str(env.assignments[x])]={"location": ki_location[str(slot)], "slot": str(slot)}
+
         dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
 
         for item in key_items:
