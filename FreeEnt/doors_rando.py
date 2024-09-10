@@ -741,39 +741,7 @@ def apply(env, rom_base, randomize_type,testing=False):
         # print(script)
 
     bytes_used = len(special_triggers) * 4
-    key_items = {str(env.assignments[x]): {"location": ki_location[str(x)], "slot": str(x)} for x in env.assignments
-                 if
-                 "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x])}
 
-    dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
-
-    for item in key_items:
-        ki_required_room = key_items[item]["location"]
-        if ki_required_room == "starting":
-            key_items[item]["and"] = None
-            key_items[item]["and_location"] = None
-            continue
-
-        if '|' in ki_required_room:
-            key_items[item]["or"] = []
-
-            ki_required_room = ki_required_room.split("|")
-            key_items[item]["or_location"] = ki_required_room
-            for room in ki_required_room:
-                key_items[item]["or"] += paths_to_world[room]
-
-        elif '&' in ki_required_room:
-            key_items[item]["and"] = []
-
-            ki_required_room = ki_required_room.split("&")
-            key_items[item]["and_location"] = ki_required_room
-            for room in ki_required_room:
-                key_items[item]["and"] += (paths_to_world[room])
-
-        else:
-            key_items[item]["and"] = paths_to_world[ki_required_room]
-            key_items[item]["and_location"] = [ki_required_room]
-    check_logic(key_items, paths_to_world)
 
         # for item in key_items:
         #     print(item, key_items[item])
