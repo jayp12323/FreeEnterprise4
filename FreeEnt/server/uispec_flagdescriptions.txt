@@ -664,5 +664,6 @@ Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battl
 	<li>None of these modes can be used together: "afflicted", "battlescars", "worthfighting", "zombies"</li>
 	<li>None of these modes can be used together: "darts", "musical"</li>
 	<li>None of these modes can be used together: "3point", "tellahmaneuver"</li>
+	<li>Only One Doors Randomization option can be used</li>
 </ul>
 <p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>

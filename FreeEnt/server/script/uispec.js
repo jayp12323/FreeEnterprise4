@@ -5888,7 +5888,7 @@ var FLAG_UISPEC = [
       {
         "flag": "@wacky",
         "title": "Wacky challenge",
-        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
+        "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n\t<li>Only One Doors Randomization option can be used</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
             "flag": "@anon50",
@@ -5942,8 +5942,36 @@ var FLAG_UISPEC = [
             "title": "\"The Bodyguard\""
           },
           {
-            "flag": "-wacky:doorsrando",
-            "title": "\"Door Randomization\""
+            "flag": "@anon51",
+            "title": "Doors Randomization Options",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-wacky:doorsrando_normal",
+                "title": "No Cross World Shuffle",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:doorsrando_gated",
+                "title": "Underworld and Moon shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:doorsrando_blueplanet",
+                "title": "Overworld and Underworld Shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:doorsrando_why",
+                "title": "Overworld and Moon shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:doorsrando_all",
+                "title": "All locations shuffled",
+                "hard": true
+              }
+            ]
           },
           {
             "flag": "-wacky:enemyunknown",
@@ -6087,7 +6115,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon51",
+        "flag": "@anon52",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6141,7 +6169,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon52",
+            "flag": "@anon53",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6157,7 +6185,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon53",
+                "flag": "@anon54",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

@@ -64,7 +64,7 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -wacky:musical
 -wacky:bodyguard
 -wacky:fistfight
--wacky:doorsrando
+-wacky:random/-wacky:doorsrando_normal/-wacky:doorsrando_gated/-wacky:doorsrando_blueplanet/-wacky:doorsrando_why/-wacky:doorsrando_all
 -wacky:omnidextrous
 -wacky:biggermagnet
 -wacky:sixleggedrace

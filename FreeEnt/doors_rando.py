@@ -344,10 +344,6 @@ def get_entrances_exits(world_object, doors_view):
 
     return entrances, exits
 
-
-# def is_entrance_in_ki_path(entrance,path):
-
-
 def return_gated_paths(paths_to_world):
     gated_paths = {}
     for path in paths_to_world:
@@ -389,40 +385,48 @@ def return_gated_kis(key_items, gated_paths):
     gated_ki = {}
     for i in key_items:
         gated_ki[i] = {}
+        gated_ki[i]["and"] = []
+        gated_ki[i]["or"] = []
+        ki_required_location=""
         try:
             ki_required_location = key_items[i]["and_location"]
-            gated_ki[i]["and"] = []
+        except:
+            pass
+        if ki_required_location:
             if ki_required_location:
                 for location in ki_required_location:
                     gated_ki[i]["and"] += gated_paths[location]
                 if len(gated_ki[i]["and"]) ==2 and gated_ki[i]["and"][0] == gated_ki[i]["and"][1]:
-                        gated_ki[i]["and"] =gated_ki[i]["and"][0]
+                        gated_ki[i]["and"] = gated_ki[i]["and"][0]
                 if len(gated_ki[i]["and"]) ==1 and gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
-                    del gated_ki[i]["and"]
-                    gated_ki[i]["or"] = ["*[#item.Magma]","*[#item.fe_Hook]"]
+                    gated_ki[i]["and"]=[]
+                    gated_ki[i]["or"] = [["*[#item.Magma]"],["*[#item.fe_Hook]"]]
                 elif len(gated_ki[i]["and"]) == 2:
 
                     if gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
-                        gated_ki[i]["or"] = ["*[#item.Magma]", "*[#item.fe_Hook]"]
+                        gated_ki[i]["or"] += ["*[#item.Magma]", "*[#item.fe_Hook]"]
                         gated_ki[i]["and"] = gated_ki[i]["and"][1]
                     elif gated_ki[i]["and"][1] == "*[#item.Magma]|*[#item.fe_Hook]":
-                        gated_ki[i]["or"] = ["*[#item.Magma]", "*[#item.fe_Hook]"]
+                        gated_ki[i]["or"] += [["*[#item.Magma]"], ["*[#item.fe_Hook]"]]
                         gated_ki[i]["and"] = gated_ki[i]["and"][0]
 
-
-        except KeyError:
-            ki_required_location = key_items[i]["or_location"]
-            gated_ki[i]["or"] = []
+        else:
+            try:
+                ki_required_location = key_items[i]["or_location"]
+            except:
+                continue
             if ki_required_location:
                 for location in ki_required_location:
                     gated_ki[i]["or"] += gated_paths[location]
                 if len(gated_ki[i]["or"])<2:
-                    del gated_ki[i]["or"]
-                    gated_ki[i]["and"] = []
+                    gated_ki[i]["or"]=[]
 
                 elif gated_ki[i]["or"][0] == gated_ki[i]["or"][1]:
-                    del gated_ki[i]["or"]
-                    gated_ki[i]["and"] = gated_ki[i]["or"][0]
+                    if gated_ki[i]["or"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
+                        gated_ki[i]["or"] = [["*[#item.Magma]"], ["*[#item.fe_Hook]"]]
+                    else:
+                        gated_ki[i]["and"] = [gated_ki[i]["or"][0]]
+                    gated_ki[i]["or"]=[]
 
 
     return gated_ki
@@ -431,18 +435,133 @@ def return_gated_kis(key_items, gated_paths):
 def return_gated_slots(key_items, gated_ki):
     gated_slots = {}
     for i in key_items:
+        gated_slots[i] = {}
+
         slot_location = key_items[i]["slot"]
         try:
             ki_required_for_slot = slots_locked[slot_location]
-            gated_slots[i]["and"] = ki_required_for_slot
+            gated_slots[i]["and"] = [ki_required_for_slot]
             try:
                 gated_slots[i]["and"] += gated_ki[ki_required_for_slot]["and"]
             except KeyError:
                 pass
         except:
             pass
+        if not gated_slots[i]:
+            del gated_slots[i]
     return gated_slots
 
+# def return_all_recursive_required_ki(key_item,ki_full_locked,ki_required=[]):
+#     ki_required
+
+def recursive_spheres(available_ki,locked_stack,ki_full_locked,spheres,current_sphere):
+    locked_temp=[]
+    available_temp = []
+    spheres[current_sphere]=[]
+    temp_array=[]
+    for i in locked_stack:
+        if isinstance(i,list):
+            i=i[0]
+        temp_array.append(i)
+
+    locked_stack=list(temp_array)
+    for i in locked_stack:
+
+        if isinstance(i,list):
+            i=i[0]
+        ands=ki_full_locked[i]["and"]
+        ors=ki_full_locked[i]["or"]
+        is_available=True
+        if ands:
+            temp_array = []
+            for j in ands:
+                if isinstance(j, list):
+                    j = j[0]
+                temp_array.append(j)
+
+            ands = list(temp_array)
+
+            for ki in ands:
+                if ki not in available_ki:
+                    is_available=False
+                    break
+
+        if ors:
+            temp_array = []
+            for j in ors:
+                if isinstance(j, list) and len(j)==1:
+                    j = j[0]
+                temp_array.append(j)
+            ors = list(temp_array)
+            all_available_parent=[]
+            for or_path in ors:
+                if isinstance(or_path,list):
+                    all_available_sub=[]
+                    for ki in or_path:
+                        if isinstance(ki, list) and len(ki) == 1:
+                            ki = ki[0]
+
+                        if ki not in available_ki:
+                            all_available_sub.append(False)
+                    if False in all_available_sub:
+                        all_available_parent.append(False)
+                    else:
+                        all_available_parent.append(True)
+
+
+                else:
+                    if or_path not in available_ki:
+                        all_available_parent.append(False)
+                    else:
+                        all_available_parent.append(True)
+
+            if True not in all_available_parent:
+                is_available=False
+            else:
+                is_available=True
+        if is_available:
+            spheres[current_sphere].append(i)
+            available_temp.append(i)
+        else:
+            if i not in locked_temp:
+                locked_temp.append(i)
+    if sorted(locked_temp)==sorted(locked_stack):
+        return False
+    elif locked_temp:
+        current_sphere+=1
+        available_ki+=available_temp
+        return recursive_spheres(available_ki,locked_temp,ki_full_locked,spheres,current_sphere)
+    elif not locked_temp:
+        return spheres
+
+
+def calculate_spheres(ki_full_locked):
+    spheres={}
+    current_sphere=0
+    spheres[current_sphere]=[]
+    available_ki=[]
+    locked_stack=[]
+    for i in ki_full_locked:
+        if not ki_full_locked[i]["and"] and not ki_full_locked[i]["or"]:
+            spheres[current_sphere].append(i)
+        else:
+            locked_stack.append(i)
+    available_ki += spheres[current_sphere]
+    current_sphere+=1
+    is_valid = recursive_spheres(available_ki,locked_stack,ki_full_locked,spheres,current_sphere)
+    return is_valid
+def normalize_ands_ors(ki_full_locked):
+    for i in ki_full_locked:
+        ands = ki_full_locked[i]["and"]
+        ors = ki_full_locked[i]["or"]
+        if ands and ors:
+            new_ors = []
+            for or_ki in ors:
+                new_ors.append(ands+[or_ki])
+            ki_full_locked[i]["and"]=[]
+            ki_full_locked[i]["or"]=new_ors
+
+    return ki_full_locked
 
 def check_logic(key_items, paths_to_world):
     gated_paths = return_gated_paths(paths_to_world)
@@ -464,18 +583,16 @@ def check_logic(key_items, paths_to_world):
 
         if i in gated_slots:
             ki_full_locked[i]["and"] += gated_slots[i]["and"]
-        print(i, ki_full_locked[i])
-    print(key_items)
 
-def apply(env, rom_base, testing=False):
+    ki_full_locked = normalize_ands_ors(ki_full_locked)
+    # for i in ki_full_locked:
+    #     print(i,ki_full_locked[i])
+    return calculate_spheres(ki_full_locked)
+
+def apply(env, rom_base, randomize_type,testing=False):
     doors_view = databases.get_doors_dbview()
-
-    randomize_type = "all"
-    shuffled_entrances = []
-    shuffled_exits = []
-    spoil_entrances = []
-    graph = {}
-    paths_to_world = {}
+    print(f"Rando type is {randomize_type}")
+    # randomize_type = "gated"
     if randomize_type == "normal":
         worlds = ["#Overworld", "#Underworld", "#Moon"]
     elif randomize_type == "blue_planet":
@@ -488,16 +605,61 @@ def apply(env, rom_base, testing=False):
         worlds = [["#Overworld", "#Underworld", "#Moon"]]
     else:
         worlds = ["#Overworld", "#Underworld", "#Moon"]
+    attempts=0
+    while attempts < 20:
+        shuffled_entrances = []
+        shuffled_exits = []
+        spoil_entrances = []
+        graph = {}
+        paths_to_world = {}
+        for i in worlds:
+            entrances, exits = get_entrances_exits(i, doors_view)
+            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, graph_temp, paths_to_world_temp = randomize_doors(
+                env, entrances, exits)
+            shuffled_entrances += shuffled_entrances_temp
+            shuffled_exits += shuffled_exits_temp
+            spoil_entrances += spoil_entrances_temp
+            graph.update(graph_temp)
+            paths_to_world.update(paths_to_world_temp)
+        key_items = {str(env.assignments[x]): {"location": ki_location[str(x)], "slot": str(x)} for x in env.assignments
+                     if
+                     "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x])}
 
-    for i in worlds:
-        entrances, exits = get_entrances_exits(i, doors_view)
-        shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, graph_temp, paths_to_world_temp = randomize_doors(
-            env, entrances, exits)
-        shuffled_entrances += shuffled_entrances_temp
-        shuffled_exits += shuffled_exits_temp
-        spoil_entrances += spoil_entrances_temp
-        graph.update(graph_temp)
-        paths_to_world.update(paths_to_world_temp)
+        dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
+
+        for item in key_items:
+            ki_required_room = key_items[item]["location"]
+            if ki_required_room == "starting":
+                key_items[item]["and"] = None
+                key_items[item]["and_location"] = None
+                continue
+
+            if '|' in ki_required_room:
+                key_items[item]["or"] = []
+
+                ki_required_room = ki_required_room.split("|")
+                key_items[item]["or_location"] = ki_required_room
+                for room in ki_required_room:
+                    key_items[item]["or"] += paths_to_world[room]
+
+            elif '&' in ki_required_room:
+                key_items[item]["and"] = []
+
+                ki_required_room = ki_required_room.split("&")
+                key_items[item]["and_location"] = ki_required_room
+                for room in ki_required_room:
+                    key_items[item]["and"] += (paths_to_world[room])
+
+            else:
+                key_items[item]["and"] = paths_to_world[ki_required_room]
+                key_items[item]["and_location"] = [ki_required_room]
+        is_valid = check_logic(key_items, paths_to_world)
+        if not is_valid:
+            attempts+=1
+        else:
+            print(f"Needed {attempts+1} attempts for KI to be available")
+            print(is_valid)
+            break
 
     # for i in paths_to_world:
     #     print(i, paths_to_world[i])
@@ -535,66 +697,64 @@ def apply(env, rom_base, testing=False):
         # print(script)
 
     bytes_used = len(special_triggers) * 4
-    if not testing:
+    key_items = {str(env.assignments[x]): {"location": ki_location[str(x)], "slot": str(x)} for x in env.assignments
+                 if
+                 "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x])}
 
-        key_items = {str(env.assignments[x]): {"location": ki_location[str(x)], "slot": str(x)} for x in env.assignments
-                     if
-                     "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x])}
+    dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
 
-        dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
+    for item in key_items:
+        ki_required_room = key_items[item]["location"]
+        if ki_required_room == "starting":
+            key_items[item]["and"] = None
+            key_items[item]["and_location"] = None
+            continue
 
-        for item in key_items:
-            ki_required_room = key_items[item]["location"]
-            if ki_required_room == "starting":
-                key_items[item]["and"] = None
-                key_items[item]["and_location"] = None
-                continue
+        if '|' in ki_required_room:
+            key_items[item]["or"] = []
 
-            if '|' in ki_required_room:
-                key_items[item]["or"] = []
+            ki_required_room = ki_required_room.split("|")
+            key_items[item]["or_location"] = ki_required_room
+            for room in ki_required_room:
+                key_items[item]["or"] += paths_to_world[room]
 
-                ki_required_room = ki_required_room.split("|")
-                key_items[item]["or_location"] = ki_required_room
-                for room in ki_required_room:
-                    key_items[item]["or"] += paths_to_world[room]
+        elif '&' in ki_required_room:
+            key_items[item]["and"] = []
 
-            elif '&' in ki_required_room:
-                key_items[item]["and"] = []
+            ki_required_room = ki_required_room.split("&")
+            key_items[item]["and_location"] = ki_required_room
+            for room in ki_required_room:
+                key_items[item]["and"] += (paths_to_world[room])
 
-                ki_required_room = ki_required_room.split("&")
-                key_items[item]["and_location"] = ki_required_room
-                for room in ki_required_room:
-                    key_items[item]["and"] += (paths_to_world[room])
-
-            else:
-                key_items[item]["and"] = paths_to_world[ki_required_room]
-                key_items[item]["and_location"] = [ki_required_room]
-        check_logic(key_items, paths_to_world)
+        else:
+            key_items[item]["and"] = paths_to_world[ki_required_room]
+            key_items[item]["and_location"] = [ki_required_room]
+    check_logic(key_items, paths_to_world)
 
         # for item in key_items:
         #     print(item, key_items[item])
 
-        return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
-                           "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
-                           "mapgrid ($06 15 31) { 7C }",  # Agart return tile to trigger tile
-                           "mapgrid ($06 16 31) { 7C }",  # Agart return tile to trigger tile
-                           "mapgrid ($06 17 31) { 7C }",  # Agart return tile to trigger tile
-                           "mapgrid ($136 17 9) { 72 }",  # CaveOfSummons1F return tile to trigger tile
-                           "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
-                           "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
-                           "mapgrid ($13B 16 24) { 51 }",  # Feymarch treasury removing exit tile
-                           "mapgrid ($13C 28 11) { 25 }",  # Feymarch 2F return tile to trigger tile
-                           "mapgrid ($145 16 1) { 72 }",  # Sylph Cave return tile to trigger tile
-                           "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
-                           "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
-                           "mapgrid ($160 16 29) { 6E }",  # Lunar Palace Lobby return tile to trigger tile
-                           ]
-        for i in return2teleport:
-            env.add_script(i)
+    return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
+                       "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
+                       "mapgrid ($06 15 31) { 7C }",  # Agart return tile to trigger tile
+                       "mapgrid ($06 16 31) { 7C }",  # Agart return tile to trigger tile
+                       "mapgrid ($06 17 31) { 7C }",  # Agart return tile to trigger tile
+                       "mapgrid ($136 17 9) { 72 }",  # CaveOfSummons1F return tile to trigger tile
+                       "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
+                       "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
+                       "mapgrid ($13B 16 24) { 51 }",  # Feymarch treasury removing exit tile
+                       "mapgrid ($13C 28 11) { 25 }",  # Feymarch 2F return tile to trigger tile
+                       "mapgrid ($145 16 1) { 72 }",  # Sylph Cave return tile to trigger tile
+                       "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
+                       "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
+                       "mapgrid ($160 16 29) { 6E }",  # Lunar Palace Lobby return tile to trigger tile
+                       ]
+    for i in return2teleport:
+        env.add_script(i)
 
-        env.add_script(script)
-        special_triggers_script = '\n'.join(special_triggers)
-        env.add_script(f'patch(${rom_base.get_bus():06X} bus) {{\n{special_triggers_script}\n}}')
+    env.add_script(script)
+    special_triggers_script = '\n'.join(special_triggers)
+    env.add_script(f'patch(${rom_base.get_bus():06X} bus) {{\n{special_triggers_script}\n}}')
     # print(script)
 
     towns_map = []
@@ -610,7 +770,7 @@ def apply(env, rom_base, testing=False):
         else:
             other_entrances.append(i)
 
-    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    # print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
 
     return bytes_used
 

@@ -532,7 +532,12 @@
 .(-wacky:afflicted)!        "Afflicted"
 .(-wacky:battlescars)!      "Battle Scars"
 .(-wacky:bodyguard)         "The Bodyguard"
-.(-wacky:doorsrando)        "Door Randomization"
+.<> Doors Randomization Options
+..(-wacky:doorsrando_normal)!           No Cross World Shuffle
+..(-wacky:doorsrando_gated)!          Underworld and Moon shuffled
+..(-wacky:doorsrando_blueplanet)!          Overworld and Underworld Shuffled
+..(-wacky:doorsrando_why)!          Overworld and Moon shuffled
+..(-wacky:doorsrando_all)!          All locations shuffled
 .(-wacky:enemyunknown)!     "Enemy Unknown"
 .(-wacky:musical)!          "Final Fantasy IV: The Musical"
 .(-wacky:fistfight)!        "Fist Fight"

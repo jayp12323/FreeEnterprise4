@@ -40,7 +40,7 @@ WACKY_CHALLENGES = {
     'isthisrandomized'  : 'Is This Even\nRandomized?',
     'forwardisback'     : 'Forward is\nthe New Back',
     'mirrormirror'      : 'Mirror, Mirror,\non the Wall',
-    'doorsrando': 'Door Randomizer',
+    'doorsrando_normal': 'Door Randomizer',
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
@@ -82,6 +82,11 @@ WACKY_RAM_USAGE = {
     'isthisrandomized'  : 0,
     'forwardisback'     : 0,
     'doorsrando'     : 0,
+    'doorsrando_normal'     : 0,
+    'doorsrando_blueplanet'     : 0,
+    'doorsrando_gated'     : 0,
+    'doorsrando_all'     : 0,
+    'doorsrando_why'     : 0,
     'mirrormirror'      : 13, # StatusEnforcement
 }
 
@@ -158,6 +163,9 @@ def apply(env):
 
         for idx, wacky in enumerate(wacky_challenge):
             # apply script of the same name, if it exists
+            if "doorsrando" in wacky:
+                wacky_orig=wacky
+                wacky="doorsrando"
             script_filename = f'scripts/wacky/{wacky}.f4c'
             if os.path.isfile(os.path.join(os.path.dirname(__file__), script_filename)):
                 env.add_file(script_filename)
@@ -171,7 +179,11 @@ def apply(env):
 
             apply_func = globals().get(f'apply_{wacky}', None)
             if apply_func:
-                rom_bytes_used = apply_func(env, rom_base) or 0
+                if wacky=="doorsrando":
+                    rom_bytes_used = apply_func(env, rom_base,wacky_orig) or 0
+                else:
+                    rom_bytes_used = apply_func(env, rom_base) or 0
+
                 ram_bytes_used = WACKY_RAM_USAGE[wacky]
                 if rom_bytes_used:
                     if rom_base.get_bus() > WACKY_LAST_AVAILABLE_ROM_ADDR:
@@ -181,8 +193,11 @@ def apply(env):
                 if ram_base.get_bus() + ram_bytes_used - 1 > WACKY_LAST_AVAILABLE_RAM_BYTE:
                     raise Exception(f"Incompatible wacky modes (RAM incompatibility): {', '.join(wacky_challenge)}")
                 ram_base = ram_base.offset(ram_bytes_used)
+            try:
+                text = WACKY_CHALLENGES[wacky]
+            except:
+                text = WACKY_CHALLENGES[wacky_orig]
 
-            text = WACKY_CHALLENGES[wacky]
             centered_text = '\n'.join([line.center(26).upper().rstrip() for line in text.split('\n')])
             env.add_substitution(f'wacky challenge title {idx+1}', f'\n{centered_text}')
             env.add_toggle(f'wacky_challenge_{idx+1}')
@@ -660,8 +675,9 @@ def setup_saveusbigchocobo(env):
     env.meta['wacky_starter_kit'] = [( 'Carrot', [5] )]
 
 
-def apply_doorsrando(env,rom_base):
+def apply_doorsrando(env,rom_base,wacky_orig):
+    rando_type = wacky_orig.split("_")[0]
     env.add_file('scripts/map_history_extension.f4c')
     env.add_toggle('wacky_doorsrando')
-    doors_rando.apply(env,rom_base)
+    doors_rando.apply(env,rom_base,rando_type)
 
