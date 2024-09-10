@@ -90,7 +90,7 @@ class TreasureAssignment:
       
         reward_index = -1        
         #translate either a reward slot or item into a reward index
-        if contents.startswith('#reward_slot.'):            
+        if contents != None and contents.startswith('#reward_slot.'):            
             slot = rewards.RewardSlot[contents[len('#reward_slot.'):]]
             reward = self._env.meta['rewards_assignment'][slot]
             if type(reward) is AxtorChestReward:
