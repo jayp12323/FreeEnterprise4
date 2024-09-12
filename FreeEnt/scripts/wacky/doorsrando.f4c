@@ -56,6 +56,7 @@ msfpatch{
 
 
 msfpatch {
+    .def DoorsRando__TriggerData $21e000
     .def DoorsRando__SpecialMapId $f7
 
     DoorsRando__HandleTeleportTrigger:
@@ -68,18 +69,18 @@ msfpatch {
         .mx 0x20
         tax
     // grab map id
-        lda $=Wacky__ROMData_doorsrando,x
+        lda $=DoorsRando__TriggerData,x
         cmp #$fb
         bcs $+GoingOutdoors
         sta $1702
     // grab map plane and set it
-        lda $=(Wacky__ROMData_doorsrando+1),x
+        lda $=(DoorsRando__TriggerData+1),x
         sta $1701
     // grab coordinates and direction and set them
-        lda $=(Wacky__ROMData_doorsrando+2),x
+        lda $=(DoorsRando__TriggerData+2),x
         and #$3f
         sta $1706
-        lda $=(Wacky__ROMData_doorsrando+2),x
+        lda $=(DoorsRando__TriggerData+2),x
         and #$c0
         lsr a
         lsr a
@@ -88,7 +89,7 @@ msfpatch {
         lsr a
         lsr a
         sta $1705
-        lda $=(Wacky__ROMData_doorsrando+3),x
+        lda $=(DoorsRando__TriggerData+3),x
         sta $1707
     // resume
         plx
@@ -101,14 +102,14 @@ msfpatch {
         jsl $=Bank00LongCallX
         plx
     // grab and set map area
-        lda $=Wacky__ROMData_doorsrando,x
+        lda $=DoorsRando__TriggerData,x
         sec
         sbc #$fb
         sta $1700
     // grab coordinates and direction and set them
-        lda $=(Wacky__ROMData_doorsrando+2),x
+        lda $=(DoorsRando__TriggerData+2),x
         sta $1706
-        lda $=(Wacky__ROMData_doorsrando+3),x
+        lda $=(DoorsRando__TriggerData+3),x
         sta $1707
     // resume
         plx

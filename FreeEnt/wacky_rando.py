@@ -679,9 +679,8 @@ def setup_saveusbigchocobo(env):
     env.meta['wacky_starter_kit'] = [( 'Carrot', [5] )]
 
 
-def apply_doorsrando(env,rom_base,wacky_orig):
+def apply_doorsrando(env,wacky_orig):
     rando_type = wacky_orig.split("_")[1]
     env.add_file('scripts/map_history_extension.f4c')
-    env.add_toggle('wacky_doorsrando')
-    doors_rando.apply(env,rom_base,rando_type)
-
+    env.add_toggle('doorsrando')
+    doors_rando.apply(env,rando_type)

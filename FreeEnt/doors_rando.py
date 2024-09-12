@@ -603,7 +603,7 @@ def check_logic(key_items, paths_to_world):
     return calculate_spheres(ki_full_locked)
 
 
-def apply(env, rom_base, randomize_type, testing=False):
+def apply(env, randomize_type,testing=False):
     doors_view = databases.get_doors_dbview()
     print(f"Rando type is {randomize_type}")
     # randomize_type = "gated"
@@ -739,7 +739,7 @@ def apply(env, rom_base, randomize_type, testing=False):
 
     env.add_script(script)
     special_triggers_script = '\n'.join(special_triggers)
-    env.add_script(f'patch(${rom_base.get_bus():06X} bus) {{\n{special_triggers_script}\n}}')
+    env.add_script(f'patch($21e000 bus) {{\n{special_triggers_script}\n}}')
     # print(script)
 
     towns_map = []
