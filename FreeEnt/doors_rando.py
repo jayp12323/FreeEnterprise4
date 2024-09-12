@@ -254,6 +254,7 @@ def randomize_doors(env, entrances, exits):
         remapped_map = {}
         paths_to_world = {}
         spoil_entrances = []
+        spoil_entrances_for_spoiler = []
         if loop_count > 200:
             return False
         loop_count += 1
@@ -285,7 +286,7 @@ def randomize_doors(env, entrances, exits):
                     else:
                         remapped_map[j[5]] = j[4].split('_')[1]
                     spoil_entrances.append(message)
-                    spoil_entrances_for_spoiler.append((j[5], j[4].split('_')[1]))
+                    spoil_entrances_for_spoiler.append((j[4].split('_')[1],j[5]))
             else:
                 type = "exits"
             if location not in graph:
@@ -755,7 +756,7 @@ def apply(env, rom_base, randomize_type, testing=False):
             other_entrances.append(i)
 
     print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
-    env.spoilers.add_table("Entrance Randomization", spoil_entrances_for_spoiler,
+    env.spoilers.add_table("Entrance Randomization\nLocation X is in Entrance Y", sorted(spoil_entrances_for_spoiler),
                            public=env.options.flags.has_any('-spoil:all', '-spoil:misc'), ditto_depth=1)
 
     return bytes_used
