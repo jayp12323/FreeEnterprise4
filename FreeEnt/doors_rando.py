@@ -248,6 +248,7 @@ def randomize_doors(env, entrances, exits):
     shuffled_entrances = {}
     shuffled_exits = {}
     spoil_entrances = []
+    spoil_entrances_for_spoiler = []
     while not is_loop:
         graph = {}
         remapped_map = {}
@@ -284,6 +285,7 @@ def randomize_doors(env, entrances, exits):
                     else:
                         remapped_map[j[5]] = j[4].split('_')[1]
                     spoil_entrances.append(message)
+                    spoil_entrances_for_spoiler.append((j[5], j[4].split('_')[1]))
             else:
                 type = "exits"
             if location not in graph:
@@ -332,7 +334,7 @@ def randomize_doors(env, entrances, exits):
             break
         print("not able to validate exits, retrying")
     print("needed loops: ", loop_count, "to validate exits for ")
-    return shuffled_entrances, shuffled_exits, spoil_entrances, graph, paths_to_world
+    return shuffled_entrances, shuffled_exits, spoil_entrances,spoil_entrances_for_spoiler, graph, paths_to_world
 
 
 def get_entrances_exits(world_object, doors_view):
@@ -621,15 +623,17 @@ def apply(env, rom_base, randomize_type, testing=False):
         shuffled_entrances = []
         shuffled_exits = []
         spoil_entrances = []
+        spoil_entrances_for_spoiler = []
         graph = {}
         paths_to_world = {}
         for i in worlds:
             entrances, exits = get_entrances_exits(i, doors_view)
-            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, graph_temp, paths_to_world_temp = randomize_doors(
+            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp,graph_temp, paths_to_world_temp = randomize_doors(
                 env, entrances, exits)
             shuffled_entrances += shuffled_entrances_temp
             shuffled_exits += shuffled_exits_temp
             spoil_entrances += spoil_entrances_temp
+            spoil_entrances_for_spoiler += spoil_entrances_for_spoiler_temp
             graph.update(graph_temp)
             paths_to_world.update(paths_to_world_temp)
         print(env.assignments)
@@ -751,6 +755,8 @@ def apply(env, rom_base, randomize_type, testing=False):
             other_entrances.append(i)
 
     print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    env.spoilers.add_table("Entrance Randomization", spoil_entrances_for_spoiler,
+                           public=env.options.flags.has_any('-spoil:all', '-spoil:misc'), ditto_depth=1)
 
     return bytes_used
 
