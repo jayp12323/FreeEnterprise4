@@ -461,9 +461,6 @@ def return_gated_slots(key_items, gated_ki):
     return gated_slots
 
 
-# def return_all_recursive_required_ki(key_item,ki_full_locked,ki_required=[]):
-#     ki_required
-
 def recursive_spheres(available_ki, locked_stack, ki_full_locked, spheres, current_sphere):
     locked_temp = []
     available_temp = []

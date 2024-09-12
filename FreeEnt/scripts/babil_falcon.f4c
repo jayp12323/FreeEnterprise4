@@ -338,6 +338,7 @@ event($A5)  //Finding the Falcon
     // Falcon comes reinforced and with the drill
     set #ReinforcedFalcon
     set #Drill
+    set #UnderworldOpen
 
     music #None
     load map $1FC at 48 16 on falcon
