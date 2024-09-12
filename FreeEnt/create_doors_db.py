@@ -14,7 +14,8 @@ overworld = ['#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeap
              '#Silvera', '#SilveraArmor', '#SilveraInn', '#SilveraItems', '#SilveraWeapons', '#ToroiaArmor',
              '#ToroiaCafe', '#ToroiaCastle', '#ToroiaInn', '#ToroiaItem', '#ToroiaStable', '#ToroiaTown',
              '#ToroiaWeapon', '#TrainingRoomMain', '#TroiaChocoboForest', '#Waterfall2F', '#WaterfallEntrance',
-             '#WateryPass1F', '#WateryPass5F', "#Overworld", '#SoldierAirship']
+             '#WateryPass1F', '#WateryPass5F', "#Overworld", '#SoldierAirship',"#FabulInn",'#FabulEquipment',
+             '#FabulWestTower1F','#BabilB1', '#CaveEblanExit']
 underworld = ['#Babil1F', '#CaveOfSummons1F', '#CaveOfSummons3F', '#DwarfCastle', '#DwarfCastleBasement',
               '#SealedCaveEntrance',
               '#SmithyHouse', '#SylvanCave1F', '#SylvanCaveYangRoom', '#Tomra', '#TomraEquipment', '#TomraInn',
@@ -65,11 +66,18 @@ for line in lines:
                         door_type = "town_building"
                     else:
                         door_type = "return"
+                elif target_loc == '#BabilB1' and loc == '#CaveEblanExit':
+                    door_type = "town_building"
+
+                elif target_loc == '#CaveEblanExit' and loc == '#BabilB1':
+                    door_type = "exit"
                 elif loc == "#SylvanCaveYangRoom":
                     door_type = "return"
-                elif target_loc == "#SylvanCaveYangRoom":
+                elif target_loc in ["#SylvanCaveYangRoom","#FabulInn",'#FabulEquipment','#FabulWestTower1F']:
                     door_type = "town_building"
                 else:
+                    print([loc, number, x, y, target_loc, target_x, target_y,])
+
                     door_type = "interior"
                 if door_type != "interior":
                     if target_loc in ["#Overworld", "#Underworld", "#Moon"] and loc in ["#LunarPassage1",

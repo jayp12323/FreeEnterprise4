@@ -78,7 +78,7 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.eblan_chest_3": "#Eblan", "RewardSlot.fabul_item": "#Fabul",
                "RewardSlot.feymarch_item": "#Feymarch1F", "RewardSlot.feymarch_king_item": "#FeymarchLibrary1F",
                "RewardSlot.feymarch_queen_item": "#FeymarchLibrary1F", "RewardSlot.forge_item": "#SmithyHouse",
-               "RewardSlot.found_yang_item": "#SylvanCaveYangRoom&#Fabul", "RewardSlot.giant_character": "#Mysidia",
+               "RewardSlot.found_yang_item": "#SylvanCaveYangRoom&#FabulWestTower1F", "RewardSlot.giant_character": "#Mysidia",
                "RewardSlot.giant_chest": "#Mysidia", "RewardSlot.hobs_character": "#MountHobsEast",
                "RewardSlot.kaipo_character": "#KaipoHospital", "RewardSlot.lower_babil_chest_1": "#Babil1F",
                "RewardSlot.lower_babil_chest_2": "#Babil1F", "RewardSlot.lower_babil_chest_3": "#Babil1F",
@@ -102,7 +102,7 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.lunar_path_chest": "#LunarPassage1", "RewardSlot.magnes_item": "#CaveMagnes1F",
                "RewardSlot.mist_character": "#Mist&#KaipoInn", "RewardSlot.mysidia_character_1": "#HouseOfWishes",
                "RewardSlot.mysidia_character_2": "#HouseOfWishes", "RewardSlot.ordeals_character": "#MountOrdeals1F",
-               "RewardSlot.ordeals_item": "#MountOrdeals1F", "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#Fabul",
+               "RewardSlot.ordeals_item": "#MountOrdeals1F", "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#FabulWestTower1F",
                "RewardSlot.pink_trade_item": "#AdamantGrotto", "RewardSlot.rat_trade_item": "#AdamantGrotto",
                "RewardSlot.rydias_mom_item": "#Mist", "RewardSlot.sealed_cave_item": "#SealedCaveEntrance",
                "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "starting",
@@ -328,6 +328,13 @@ def randomize_doors(env, entrances, exits):
         paths_to_world = {}
         is_loop = False
 
+        try:
+            graph["#Fabul"]["entrances"].append("#FabulLobby")
+            graph["#FabulLobby"]["exits"].append("#Fabul")
+            graph["#CaveEblanExit"]["exits"].append("#CaveEblanEntrance")
+            graph["#CaveEblanEntrance"]["entrances"].append("#CaveEblanExit")
+        except:
+            pass # Not overworld
         try:
             graph["#SylvanCave1F"]["entrances"].append("#SylvanCave3F")
             graph["#CaveOfSummons1F"]["entrances"].append("#CaveOfSummons3F")
