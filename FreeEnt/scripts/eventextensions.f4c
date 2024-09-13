@@ -37,7 +37,7 @@ consts(eventext) {
     $1F    GiveStarterKit
 
     $20    Rando_KeyItemLocationHint
-    // REMOVED: $21    Rando_GiveCharacter
+    $21    PutWhale
     $22    Rando_PaladinizeCecil
     $23    Rando_CheckCharacterAltVersion
     $24    Rando_BossBattle
