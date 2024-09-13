@@ -10,7 +10,7 @@ towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera',
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
-ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "RewardSlot.baron_castle_item", "RewardSlot.baron_throne_item"],
+ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment","RewardSlot.baron_castle_item", "RewardSlot.baron_throne_item"],
            "*[#item.DarkCrystal]": ["#Moon", "RewardSlot.giant_chest"],
            "*[#item.EarthCrystal]": ["RewardSlot.zot_chest"],
            "*[#item.fe_Hook]": ["#Underworld", "#CaveEblanEntrance", "#AdamantGrotto", "RewardSlot.pink_trade_item"],
@@ -19,7 +19,7 @@ ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "RewardSlot.baron_castle_item", "R
            "*[#item.Pink]": ["RewardSlot.pink_trade_item"], "*[#item.Rat]": ["RewardSlot.rat_trade_item"],
            "*[#item.Tower]": ["RewardSlot.cannon_item"], "*[#item.TwinHarp]": ["RewardSlot.magnes_item"]}
 
-entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]",
+entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]","#BaronEquipment":"*[#item.Baron]",
                     "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]", "#CaveEblanEntrance": "*[#item.fe_Hook]",
                     "#AdamantGrotto": "*[#item.fe_Hook]"}
 
