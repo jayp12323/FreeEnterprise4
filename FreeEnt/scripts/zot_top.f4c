@@ -602,9 +602,9 @@ event($7C)  //Valvalis battle
     restore mp
     vfx #PutEnterpriseAtBaron
     set #FoughtValvalis
-    // %if doorsrando%
-        if #BigWhaleSurfaced:
-            [#B #PutWhale 156 201]
+    // %doorsrando%
+    if #BigWhaleSurfaced:
+        [#B #PutWhale 156 201]
     // %end%
     music #Overworld fade in
     load map #Overworld at 101 158
