@@ -184,9 +184,9 @@ def apply(env):
             apply_func = globals().get(f'apply_{wacky}', None)
             if apply_func:
                 if wacky=="doorsrando":
-                    rom_bytes_used = apply_func(env, rom_base,wacky_orig) or 0
+                    rom_bytes_used = apply_func(env,wacky_orig) or 0
                 else:
-                    rom_bytes_used = apply_func(env, rom_base) or 0
+                    rom_bytes_used = apply_func(env) or 0
 
                 ram_bytes_used = WACKY_RAM_USAGE[wacky]
                 if rom_bytes_used:
