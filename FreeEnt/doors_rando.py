@@ -644,9 +644,11 @@ def apply(env, randomize_type,testing=False):
                 key_items[str(env.assignments[x])] = {"location": ki_location[str(x)], "slot": str(x)}
 
         dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
-
         for item in key_items:
             ki_required_room = key_items[item]["location"]
+            ki_slot = key_items[item]["slot"]
+            if ki_slot=="RewardSlot.rydias_mom_item":
+                ki_required_room+=f"&{slot_locations[dmist_slot]}"
             if ki_required_room == "starting":
                 key_items[item]["and"] = None
                 key_items[item]["and_location"] = None
