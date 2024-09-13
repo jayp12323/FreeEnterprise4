@@ -339,6 +339,10 @@ event($A5)  //Finding the Falcon
     set #ReinforcedFalcon
     set #Drill
     set #UnderworldOpen
+    // %if doorsrando%
+        if #BigWhaleSurfaced:
+            [#B #PutWhale 156 201]
+    // %end%
 
     music #None
     load map $1FC at 48 16 on falcon
