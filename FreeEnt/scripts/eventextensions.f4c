@@ -96,6 +96,7 @@ msfpatch {
             $_EvEx__PlacementSetVisible
             $_EvEx__PlacementSetInvisible
             $_EvEx__PutEnterprise
+            $_EvEx__PutWhale
             $_EvEx__PartyLeaderCecil
             $_EvEx__ActivateNPC
             $_EvEx__DeactivateNPC

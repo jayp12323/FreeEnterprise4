@@ -339,9 +339,10 @@ event($A5)  //Finding the Falcon
     set #ReinforcedFalcon
     set #Drill
     set #UnderworldOpen
-    // %doorsrando%
-    if #BigWhaleSurfaced:
+    // %if doorsrando%
+    [#B #If #Flag #flag.BigWhaleSurfaced]{
         [#B #PutWhale 156 201]
+    }
     // %end%
 
     music #None
