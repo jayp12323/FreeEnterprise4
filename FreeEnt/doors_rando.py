@@ -286,7 +286,7 @@ def randomize_doors(env, entrances, exits):
                     else:
                         remapped_map[j[5]] = j[4].split('_')[1]
                     spoil_entrances.append(message)
-                    spoil_entrances_for_spoiler.append((j[4].split('_')[1],j[5]))
+                    spoil_entrances_for_spoiler.append(j[5]),(j[4].split('_')[1])
             else:
                 type = "exits"
             if location not in graph:
