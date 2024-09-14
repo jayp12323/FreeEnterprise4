@@ -743,7 +743,7 @@ def apply(env, randomize_type,testing=False):
                        "mapgrid ($06 16 31) { 7C }",  # Agart return tile to trigger tile
                        "mapgrid ($06 17 31) { 7C }",  # Agart return tile to trigger tile
                        "mapgrid ($136 17 9) { 72 }",  # CaveOfSummons1F return tile to trigger tile
-                       "mapgrid ($137 14 8) { 72 }",  # CaveOfSummons2F return tile to trigger tile
+                       "mapgrid ($137 4 18) { 72 }",  # CaveOfSummons2F return tile to trigger tile
                        "mapgrid ($138 11 1) { 72 }",  # CaveOfSummons3F return tile to trigger tile
                        "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
                        "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
@@ -753,7 +753,7 @@ def apply(env, randomize_type,testing=False):
                        "mapgrid ($145 16 27) { 72 }",  # Sylph Cave 1F return tile to trigger tile
                        "mapgrid ($146 6 26) { 72 }",  # Sylph Cave 2F return tile to trigger tile
                        "mapgrid ($146 17 17) { 72 }",  # Sylph Cave 2F return tile to trigger tile
-                       "mapgrid ($147 3 6) { 72 }",  # Sylph Cave 3F return tile to trigger tile
+                       "mapgrid ($147 5 6) { 72 }",  # Sylph Cave 3F return tile to trigger tile
                        "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
                        "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
                        "mapgrid ($160 16 29) { 6E }",  # Lunar Palace Lobby return tile to trigger tile
