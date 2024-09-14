@@ -338,6 +338,13 @@ event($A5)  //Finding the Falcon
     // Falcon comes reinforced and with the drill
     set #ReinforcedFalcon
     set #Drill
+    // %if doorsrando%
+    set #UnderworldOpen
+
+    [#B #If #Flag #flag.BigWhaleSurfaced]{
+        [#B #PutWhale 156 201]
+    }
+    // %end%
 
     music #None
     load map $1FC at 48 16 on falcon

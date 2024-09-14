@@ -10,43 +10,7 @@ towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera',
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
-id_to_slot = {"45": "RewardSlot.feymarch_item", "33": "RewardSlot.antlion_item", "40": "RewardSlot.zot_item",
-              "32": "RewardSlot.starting_item", "48": "RewardSlot.pan_trade_item", "89": "RewardSlot.rydias_mom_item",
-              "34": "RewardSlot.fabul_item", "54": "RewardSlot.lunar_boss_1_item", "43": "RewardSlot.luca_item",
-              "44": "RewardSlot.sealed_cave_item", "41": "RewardSlot.babil_boss_item", "42": "RewardSlot.cannon_item",
-              "37": "RewardSlot.baron_castle_item", "36": "RewardSlot.baron_inn_item",
-              "55": "RewardSlot.lunar_boss_2_item", "59": "RewardSlot.lunar_boss_5_item",
-              "47": "RewardSlot.found_yang_item", "35": "RewardSlot.ordeals_item", "39": "RewardSlot.magnes_item",
-              "46": "RewardSlot.rat_trade_item", "52": "RewardSlot.sylph_item", "49": "RewardSlot.feymarch_queen_item",
-              "50": "RewardSlot.feymarch_king_item", "51": "RewardSlot.baron_throne_item",
-              "53": "RewardSlot.bahamut_item", "56": "RewardSlot.lunar_boss_3_item",
-              "57": "RewardSlot.lunar_boss_4_item_1", "58": "RewardSlot.lunar_boss_4_item_2",
-              "60": "RewardSlot.zot_chest", "61": "RewardSlot.eblan_chest_1", "62": "RewardSlot.eblan_chest_2",
-              "63": "RewardSlot.eblan_chest_3", "64": "RewardSlot.lower_babil_chest_1",
-              "65": "RewardSlot.lower_babil_chest_2", "66": "RewardSlot.lower_babil_chest_3",
-              "67": "RewardSlot.lower_babil_chest_4", "68": "RewardSlot.cave_eblan_chest",
-              "69": "RewardSlot.upper_babil_chest", "70": "RewardSlot.cave_of_summons_chest",
-              "71": "RewardSlot.sylph_cave_chest_1", "72": "RewardSlot.sylph_cave_chest_2",
-              "73": "RewardSlot.sylph_cave_chest_3", "74": "RewardSlot.sylph_cave_chest_4",
-              "75": "RewardSlot.sylph_cave_chest_5", "76": "RewardSlot.sylph_cave_chest_6",
-              "77": "RewardSlot.sylph_cave_chest_7", "78": "RewardSlot.giant_chest",
-              "79": "RewardSlot.lunar_path_chest", "80": "RewardSlot.lunar_core_chest_1",
-              "81": "RewardSlot.lunar_core_chest_2", "82": "RewardSlot.lunar_core_chest_3",
-              "83": "RewardSlot.lunar_core_chest_4", "84": "RewardSlot.lunar_core_chest_5",
-              "85": "RewardSlot.lunar_core_chest_6", "86": "RewardSlot.lunar_core_chest_7",
-              "87": "RewardSlot.lunar_core_chest_8", "88": "RewardSlot.lunar_core_chest_9",
-              "93": "RewardSlot.fixed_crystal", "92": "RewardSlot.pink_trade_item",
-              "1": "RewardSlot.starting_character", "2": "RewardSlot.starting_partner_character",
-              "3": "RewardSlot.mist_character", "4": "RewardSlot.watery_pass_character",
-              "5": "RewardSlot.damcyan_character", "6": "RewardSlot.kaipo_character", "7": "RewardSlot.hobs_character",
-              "8": "RewardSlot.mysidia_character_1", "9": "RewardSlot.mysidia_character_2",
-              "10": "RewardSlot.ordeals_character", "13": "RewardSlot.baron_inn_character",
-              "14": "RewardSlot.baron_castle_character", "15": "RewardSlot.zot_character_1",
-              "16": "RewardSlot.zot_character_2", "17": "RewardSlot.dwarf_castle_character",
-              "18": "RewardSlot.cave_eblan_character", "19": "RewardSlot.lunar_palace_character",
-              "20": "RewardSlot.giant_character"}
-
-ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "RewardSlot.baron_castle_item", "RewardSlot.baron_throne_item"],
+ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment","RewardSlot.baron_castle_item", "RewardSlot.baron_throne_item"],
            "*[#item.DarkCrystal]": ["#Moon", "RewardSlot.giant_chest"],
            "*[#item.EarthCrystal]": ["RewardSlot.zot_chest"],
            "*[#item.fe_Hook]": ["#Underworld", "#CaveEblanEntrance", "#AdamantGrotto", "RewardSlot.pink_trade_item"],
@@ -55,7 +19,7 @@ ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "RewardSlot.baron_castle_item", "R
            "*[#item.Pink]": ["RewardSlot.pink_trade_item"], "*[#item.Rat]": ["RewardSlot.rat_trade_item"],
            "*[#item.Tower]": ["RewardSlot.cannon_item"], "*[#item.TwinHarp]": ["RewardSlot.magnes_item"]}
 
-entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]",
+entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]","#BaronEquipment":"*[#item.Baron]",
                     "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]", "#CaveEblanEntrance": "*[#item.fe_Hook]",
                     "#AdamantGrotto": "*[#item.fe_Hook]"}
 
@@ -78,7 +42,8 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.eblan_chest_3": "#Eblan", "RewardSlot.fabul_item": "#Fabul",
                "RewardSlot.feymarch_item": "#Feymarch1F", "RewardSlot.feymarch_king_item": "#FeymarchLibrary1F",
                "RewardSlot.feymarch_queen_item": "#FeymarchLibrary1F", "RewardSlot.forge_item": "#SmithyHouse",
-               "RewardSlot.found_yang_item": "#SylvanCaveYangRoom&#Fabul", "RewardSlot.giant_character": "#Mysidia",
+               "RewardSlot.found_yang_item": "#SylvanCaveYangRoom&#FabulWestTower1F",
+               "RewardSlot.giant_character": "#Mysidia",
                "RewardSlot.giant_chest": "#Mysidia", "RewardSlot.hobs_character": "#MountHobsEast",
                "RewardSlot.kaipo_character": "#KaipoHospital", "RewardSlot.lower_babil_chest_1": "#Babil1F",
                "RewardSlot.lower_babil_chest_2": "#Babil1F", "RewardSlot.lower_babil_chest_3": "#Babil1F",
@@ -102,7 +67,8 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.lunar_path_chest": "#LunarPassage1", "RewardSlot.magnes_item": "#CaveMagnes1F",
                "RewardSlot.mist_character": "#Mist&#KaipoInn", "RewardSlot.mysidia_character_1": "#HouseOfWishes",
                "RewardSlot.mysidia_character_2": "#HouseOfWishes", "RewardSlot.ordeals_character": "#MountOrdeals1F",
-               "RewardSlot.ordeals_item": "#MountOrdeals1F", "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#Fabul",
+               "RewardSlot.ordeals_item": "#MountOrdeals1F",
+               "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#FabulWestTower1F",
                "RewardSlot.pink_trade_item": "#AdamantGrotto", "RewardSlot.rat_trade_item": "#AdamantGrotto",
                "RewardSlot.rydias_mom_item": "#Mist", "RewardSlot.sealed_cave_item": "#SealedCaveEntrance",
                "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "starting",
@@ -114,7 +80,7 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
                "RewardSlot.zot_character_1": "#ToroiaCastle", "RewardSlot.zot_character_2": "#ToroiaCastle",
                "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
-               "RewardSlot.fixed_crystal": "#LunarPalaceLobby","RewardSlot.toroia_hospital_item":"#ToroiaCastle"}
+               "RewardSlot.fixed_crystal": "#LunarPalaceLobby", "RewardSlot.toroia_hospital_item": "#ToroiaCastle"}
 slot_locations = {"dmist_slot": "#MistCave", "officer_slot": "#Mist&#Kaipo", "octomamm_slot": "#Waterfall2F",
                   "antlion_slot": "#AntlionCave1F", "mombomb_slot": "#MountHobsEast", "fabulgauntlet_slot": "#Fabul",
                   "milon_slot": "#MountOrdeals1F", "milonz_slot": "#MountOrdeals1F",
@@ -123,8 +89,8 @@ slot_locations = {"dmist_slot": "#MistCave", "officer_slot": "#Mist&#Kaipo", "oc
                   "magus_slot": "#ToroiaCastle", "valvalis_slot": "#ToroiaCastle",
                   "calbrena_slot": "#DwarfCastle|#DwarfCastleBasement",
                   "golbez_slot": "#DwarfCastle|#DwarfCastleBasement", "lugae_slot": "#Babil1F",
-                  "darkimp_slot": "#Babil1F", "kingqueen_slot": "#CaveEblanEntrance",
-                  "rubicant_slot": "#CaveEblanEntrance", "evilwall_slot": "#SealedCaveEntrance",
+                  "darkimp_slot": "#Babil1F", "kingqueen_slot": "#BabilB1",
+                  "rubicant_slot": "#BabilB1", "evilwall_slot": "#SealedCaveEntrance",
                   "asura_slot": "#FeymarchLibrary1F", "leviatan_slot": "#FeymarchLibrary1F",
                   "odin_slot": "#RoomToSewer", "bahamut_slot": "#Bahamut1F", "elements_slot": "None",
                   "cpu_slot": "None", "paledim_slot": "#LunarPalaceLobby}", "wyvern_slot": "#LunarPalaceLobby",
@@ -282,11 +248,13 @@ def randomize_doors(env, entrances, exits):
     shuffled_entrances = {}
     shuffled_exits = {}
     spoil_entrances = []
+    spoil_entrances_for_spoiler = []
     while not is_loop:
         graph = {}
         remapped_map = {}
         paths_to_world = {}
         spoil_entrances = []
+        spoil_entrances_for_spoiler = []
         if loop_count > 200:
             return False
         loop_count += 1
@@ -318,6 +286,7 @@ def randomize_doors(env, entrances, exits):
                     else:
                         remapped_map[j[5]] = j[4].split('_')[1]
                     spoil_entrances.append(message)
+                    spoil_entrances_for_spoiler.append((j[4].split('_')[1],j[5]))
             else:
                 type = "exits"
             if location not in graph:
@@ -328,6 +297,13 @@ def randomize_doors(env, entrances, exits):
         paths_to_world = {}
         is_loop = False
 
+        try:
+            graph["#Fabul"]["entrances"].append("#FabulLobby")
+            graph["#FabulLobby"]["exits"].append("#Fabul")
+            graph["#CaveEblanExit"]["exits"].append("#CaveEblanEntrance")
+            graph["#CaveEblanEntrance"]["entrances"].append("#CaveEblanExit")
+        except:
+            pass  # Not overworld
         try:
             graph["#SylvanCave1F"]["entrances"].append("#SylvanCave3F")
             graph["#CaveOfSummons1F"]["entrances"].append("#CaveOfSummons3F")
@@ -359,7 +335,7 @@ def randomize_doors(env, entrances, exits):
             break
         print("not able to validate exits, retrying")
     print("needed loops: ", loop_count, "to validate exits for ")
-    return shuffled_entrances, shuffled_exits, spoil_entrances, graph, paths_to_world
+    return shuffled_entrances, shuffled_exits, spoil_entrances,spoil_entrances_for_spoiler, graph, paths_to_world
 
 
 def get_entrances_exits(world_object, doors_view):
@@ -379,6 +355,7 @@ def get_entrances_exits(world_object, doors_view):
                       lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == world_object)]
 
     return entrances, exits
+
 
 def return_gated_paths(paths_to_world):
     gated_paths = {}
@@ -423,7 +400,7 @@ def return_gated_kis(key_items, gated_paths):
         gated_ki[i] = {}
         gated_ki[i]["and"] = []
         gated_ki[i]["or"] = []
-        ki_required_location=""
+        ki_required_location = ""
         try:
             ki_required_location = key_items[i]["and_location"]
         except:
@@ -432,11 +409,11 @@ def return_gated_kis(key_items, gated_paths):
             if ki_required_location:
                 for location in ki_required_location:
                     gated_ki[i]["and"] += gated_paths[location]
-                if len(gated_ki[i]["and"]) ==2 and gated_ki[i]["and"][0] == gated_ki[i]["and"][1]:
-                        gated_ki[i]["and"] = gated_ki[i]["and"][0]
-                if len(gated_ki[i]["and"]) ==1 and gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
-                    gated_ki[i]["and"]=[]
-                    gated_ki[i]["or"] = [["*[#item.Magma]"],["*[#item.fe_Hook]"]]
+                if len(gated_ki[i]["and"]) == 2 and gated_ki[i]["and"][0] == gated_ki[i]["and"][1]:
+                    gated_ki[i]["and"] = gated_ki[i]["and"][0]
+                if len(gated_ki[i]["and"]) == 1 and gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
+                    gated_ki[i]["and"] = []
+                    gated_ki[i]["or"] = [["*[#item.Magma]"], ["*[#item.fe_Hook]"]]
                 elif len(gated_ki[i]["and"]) == 2:
 
                     if gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
@@ -454,16 +431,15 @@ def return_gated_kis(key_items, gated_paths):
             if ki_required_location:
                 for location in ki_required_location:
                     gated_ki[i]["or"] += gated_paths[location]
-                if len(gated_ki[i]["or"])<2:
-                    gated_ki[i]["or"]=[]
+                if len(gated_ki[i]["or"]) < 2:
+                    gated_ki[i]["or"] = []
 
                 elif gated_ki[i]["or"][0] == gated_ki[i]["or"][1]:
                     if gated_ki[i]["or"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
                         gated_ki[i]["or"] = [["*[#item.Magma]"], ["*[#item.fe_Hook]"]]
                     else:
                         gated_ki[i]["and"] = [gated_ki[i]["or"][0]]
-                    gated_ki[i]["or"]=[]
-
+                    gated_ki[i]["or"] = []
 
     return gated_ki
 
@@ -487,27 +463,25 @@ def return_gated_slots(key_items, gated_ki):
             del gated_slots[i]
     return gated_slots
 
-# def return_all_recursive_required_ki(key_item,ki_full_locked,ki_required=[]):
-#     ki_required
 
-def recursive_spheres(available_ki,locked_stack,ki_full_locked,spheres,current_sphere):
-    locked_temp=[]
+def recursive_spheres(available_ki, locked_stack, ki_full_locked, spheres, current_sphere):
+    locked_temp = []
     available_temp = []
-    spheres[current_sphere]=[]
-    temp_array=[]
+    spheres[current_sphere] = []
+    temp_array = []
     for i in locked_stack:
-        if isinstance(i,list):
-            i=i[0]
+        if isinstance(i, list):
+            i = i[0]
         temp_array.append(i)
 
-    locked_stack=list(temp_array)
+    locked_stack = list(temp_array)
     for i in locked_stack:
 
-        if isinstance(i,list):
-            i=i[0]
-        ands=ki_full_locked[i]["and"]
-        ors=ki_full_locked[i]["or"]
-        is_available=True
+        if isinstance(i, list):
+            i = i[0]
+        ands = ki_full_locked[i]["and"]
+        ors = ki_full_locked[i]["or"]
+        is_available = True
         if ands:
             temp_array = []
             for j in ands:
@@ -519,20 +493,20 @@ def recursive_spheres(available_ki,locked_stack,ki_full_locked,spheres,current_s
 
             for ki in ands:
                 if ki not in available_ki:
-                    is_available=False
+                    is_available = False
                     break
 
         if ors:
             temp_array = []
             for j in ors:
-                if isinstance(j, list) and len(j)==1:
+                if isinstance(j, list) and len(j) == 1:
                     j = j[0]
                 temp_array.append(j)
             ors = list(temp_array)
-            all_available_parent=[]
+            all_available_parent = []
             for or_path in ors:
-                if isinstance(or_path,list):
-                    all_available_sub=[]
+                if isinstance(or_path, list):
+                    all_available_sub = []
                     for ki in or_path:
                         if isinstance(ki, list) and len(ki) == 1:
                             ki = ki[0]
@@ -552,40 +526,42 @@ def recursive_spheres(available_ki,locked_stack,ki_full_locked,spheres,current_s
                         all_available_parent.append(True)
 
             if True not in all_available_parent:
-                is_available=False
+                is_available = False
             else:
-                is_available=True
+                is_available = True
         if is_available:
             spheres[current_sphere].append(i)
             available_temp.append(i)
         else:
             if i not in locked_temp:
                 locked_temp.append(i)
-    if sorted(locked_temp)==sorted(locked_stack):
+    if sorted(locked_temp) == sorted(locked_stack):
         return False
     elif locked_temp:
-        current_sphere+=1
-        available_ki+=available_temp
-        return recursive_spheres(available_ki,locked_temp,ki_full_locked,spheres,current_sphere)
+        current_sphere += 1
+        available_ki += available_temp
+        return recursive_spheres(available_ki, locked_temp, ki_full_locked, spheres, current_sphere)
     elif not locked_temp:
         return spheres
 
 
 def calculate_spheres(ki_full_locked):
-    spheres={}
-    current_sphere=0
-    spheres[current_sphere]=[]
-    available_ki=[]
-    locked_stack=[]
+    spheres = {}
+    current_sphere = 0
+    spheres[current_sphere] = []
+    available_ki = []
+    locked_stack = []
     for i in ki_full_locked:
         if not ki_full_locked[i]["and"] and not ki_full_locked[i]["or"]:
             spheres[current_sphere].append(i)
         else:
             locked_stack.append(i)
     available_ki += spheres[current_sphere]
-    current_sphere+=1
-    is_valid = recursive_spheres(available_ki,locked_stack,ki_full_locked,spheres,current_sphere)
+    current_sphere += 1
+    is_valid = recursive_spheres(available_ki, locked_stack, ki_full_locked, spheres, current_sphere)
     return is_valid
+
+
 def normalize_ands_ors(ki_full_locked):
     for i in ki_full_locked:
         ands = ki_full_locked[i]["and"]
@@ -593,11 +569,12 @@ def normalize_ands_ors(ki_full_locked):
         if ands and ors:
             new_ors = []
             for or_ki in ors:
-                new_ors.append(ands+[or_ki])
-            ki_full_locked[i]["and"]=[]
-            ki_full_locked[i]["or"]=new_ors
+                new_ors.append(ands + [or_ki])
+            ki_full_locked[i]["and"] = []
+            ki_full_locked[i]["or"] = new_ors
 
     return ki_full_locked
+
 
 def check_logic(key_items, paths_to_world):
     gated_paths = return_gated_paths(paths_to_world)
@@ -606,7 +583,7 @@ def check_logic(key_items, paths_to_world):
 
     ki_full_locked = {}
     for i in key_items:
-        ki_full_locked[i] = {"and":[],"or":[]}
+        ki_full_locked[i] = {"and": [], "or": []}
         if i in gated_ki:
             try:
                 ki_full_locked[i]["and"] += gated_ki[i]["and"]
@@ -625,7 +602,8 @@ def check_logic(key_items, paths_to_world):
     #     print(i,ki_full_locked[i])
     return calculate_spheres(ki_full_locked)
 
-def apply(env, rom_base, randomize_type,testing=False):
+
+def apply(env, randomize_type,testing=False):
     doors_view = databases.get_doors_dbview()
     print(f"Rando type is {randomize_type}")
     # randomize_type = "gated"
@@ -641,37 +619,36 @@ def apply(env, rom_base, randomize_type,testing=False):
         worlds = [["#Overworld", "#Underworld", "#Moon"]]
     else:
         worlds = ["#Overworld", "#Underworld", "#Moon"]
-    attempts=0
+    attempts = 0
     while attempts < 20:
         shuffled_entrances = []
         shuffled_exits = []
         spoil_entrances = []
+        spoil_entrances_for_spoiler = []
         graph = {}
         paths_to_world = {}
         for i in worlds:
             entrances, exits = get_entrances_exits(i, doors_view)
-            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, graph_temp, paths_to_world_temp = randomize_doors(
+            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp,graph_temp, paths_to_world_temp = randomize_doors(
                 env, entrances, exits)
             shuffled_entrances += shuffled_entrances_temp
             shuffled_exits += shuffled_exits_temp
             spoil_entrances += spoil_entrances_temp
+            spoil_entrances_for_spoiler += spoil_entrances_for_spoiler_temp
             graph.update(graph_temp)
             paths_to_world.update(paths_to_world_temp)
         print(env.assignments)
-        key_items={}
+        key_items = {}
         for x in env.assignments:
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):
-                try:
-                    key_items[str(env.assignments[x])]={"location": ki_location[str(x)], "slot": str(x)}
-                except:
-                    print(x,str(env.assignments[x]) )
-                    slot = id_to_slot[str(x)]
-                    key_items[str(env.assignments[x])]={"location": ki_location[str(slot)], "slot": str(slot)}
+                key_items[str(env.assignments[x])] = {"location": ki_location[str(x)], "slot": str(x)}
 
         dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
-
         for item in key_items:
             ki_required_room = key_items[item]["location"]
+            ki_slot = key_items[item]["slot"]
+            if ki_slot=="RewardSlot.rydias_mom_item":
+                ki_required_room+=f"&{slot_locations[dmist_slot]}"
             if ki_required_room == "starting":
                 key_items[item]["and"] = None
                 key_items[item]["and_location"] = None
@@ -698,9 +675,9 @@ def apply(env, rom_base, randomize_type,testing=False):
                 key_items[item]["and_location"] = [ki_required_room]
         is_valid = check_logic(key_items, paths_to_world)
         if not is_valid:
-            attempts+=1
+            attempts += 1
         else:
-            print(f"Needed {attempts+1} attempts for KI to be available")
+            print(f"Needed {attempts + 1} attempts for KI to be available")
             print(is_valid)
             break
 
@@ -741,9 +718,8 @@ def apply(env, rom_base, randomize_type,testing=False):
 
     bytes_used = len(special_triggers) * 4
 
-
-        # for item in key_items:
-        #     print(item, key_items[item])
+    # for item in key_items:
+    #     print(item, key_items[item])
 
     return2teleport = ["mapgrid ($04 17 31) { 7C }",  # Silvera return tile to trigger tile
                        "mapgrid ($05 16 29) { 7C }",  # Tororia return tile to trigger tile
@@ -765,7 +741,7 @@ def apply(env, rom_base, randomize_type,testing=False):
 
     env.add_script(script)
     special_triggers_script = '\n'.join(special_triggers)
-    env.add_script(f'patch(${rom_base.get_bus():06X} bus) {{\n{special_triggers_script}\n}}')
+    env.add_script(f'patch($21e000 bus) {{\n{special_triggers_script}\n}}')
     # print(script)
 
     towns_map = []
@@ -781,7 +757,9 @@ def apply(env, rom_base, randomize_type,testing=False):
         else:
             other_entrances.append(i)
 
-    print ("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    env.spoilers.add_table("Entrance Randomization\nLocation X is in Entrance Y", sorted(spoil_entrances_for_spoiler),
+                           public=env.options.flags.has_any('-spoil:all', '-spoil:misc'), ditto_depth=1)
 
     return bytes_used
 

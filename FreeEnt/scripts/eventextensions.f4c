@@ -37,7 +37,7 @@ consts(eventext) {
     $1F    GiveStarterKit
 
     $20    Rando_KeyItemLocationHint
-    // REMOVED: $21    Rando_GiveCharacter
+    $21    PutWhale
     $22    Rando_PaladinizeCecil
     $23    Rando_CheckCharacterAltVersion
     $24    Rando_BossBattle
@@ -123,7 +123,7 @@ msfpatch {
             $_EvEx__GiveStarterKit
 
             $_EvEx__Rando_KeyItemLocationHint
-            FF FF // REMOVED: $_EvEx__Rando_GiveCharacter
+            $_EvEx__PutWhale
             $_EvEx__Rando_PaladinizeCecil
             $_EvEx__Rando_CheckCharacterAltVersion
             $_EvEx__Rando_BossBattle

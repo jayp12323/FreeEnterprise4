@@ -184,7 +184,7 @@ def apply(env):
             apply_func = globals().get(f'apply_{wacky}', None)
             if apply_func:
                 if wacky=="doorsrando":
-                    rom_bytes_used = apply_func(env, rom_base,wacky_orig) or 0
+                    rom_bytes_used = apply_func(env, rom_base, wacky_orig) or 0
                 else:
                     rom_bytes_used = apply_func(env, rom_base) or 0
 
@@ -682,6 +682,5 @@ def setup_saveusbigchocobo(env):
 def apply_doorsrando(env,rom_base,wacky_orig):
     rando_type = wacky_orig.split("_")[1]
     env.add_file('scripts/map_history_extension.f4c')
-    env.add_toggle('wacky_doorsrando')
-    doors_rando.apply(env,rom_base,rando_type)
-
+    env.add_toggle('doorsrando')
+    doors_rando.apply(env,rando_type)

@@ -9,7 +9,7 @@ msfpatch {
         lda $_MapHistory__Index
         ldx #$_MapHistory__Plane
         phy
-        jsl $=Tracker__LocateBit
+        jsl $=Tracker__LocateBit  // sets X to byte and A to (1 << bit)
         ply
         and $0000,x
         beq $+PlaneZero
@@ -41,18 +41,21 @@ msfpatch {
         lda $_MapHistory__Index
         ldx #$_MapHistory__Plane
         phy
-        jsl $=Tracker__LocateBit
+        jsl $=Tracker__LocateBit  // sets X to byte and A to (1 << bit)
         ply
         pha
         lda $1701
-        beq $+SetToZero
+        beq $+SetBitToZero
         pla
+    // set bit to 1
         ora $0000,x
-        bra $+Done
-    %SetToZero:
+        bra $+StoreByte
+    %SetBitToZero:
         pla
-        eor $0000,x
-    %Done:
+        eor #$ff
+        and $0000,x
+    %StoreByte:
+        sta $0000,x
         lda $_MapHistory__Index
         inc a
     // mimic the vanilla code's handling of index overflow (64 wraps to 0)

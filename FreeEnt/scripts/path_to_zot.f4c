@@ -51,6 +51,11 @@ event($8E)  //Exiting the Tower of Zot
 {
     toggle music fade
     toggle screen fade
+    // %if doorsrando%
+    [#B #If #Flag #flag.BigWhaleSurfaced]{
+        [#B #PutWhale 156 201]
+    }
+    // %end%
     load map #Overworld at 36 83 on enterprise no launch
     player face left
     music #Airship fade in

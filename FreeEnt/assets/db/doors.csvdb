@@ -55,11 +55,14 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #BaronCastle,1,16,31,#Overworld,102,158,,exit,#BaronCastle_#Overworld_,#Overworld
 #BaronCastle,2,14,31,#Overworld,102,158,,exit,#BaronCastle_#Overworld_,#Overworld
 #BaronCastle,3,17,31,#Overworld,102,158,,exit,#BaronCastle_#Overworld_,#Overworld
+#Fabul,1,13,7,#FabulWestTower1F,8,7,up,town_building,#Fabul_#FabulWestTower1F_up,#Overworld
 #Fabul,3,15,31,#Overworld,215,59,,exit,#Fabul_#Overworld_,#Overworld
 #ToroiaCastle,5,15,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
 #ToroiaCastle,6,16,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
 #ToroiaCastle,7,17,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
 #RoomToSewer,2,2,10,#BaronTown,3,20,down,return,#RoomToSewer_#BaronTown_down,#Overworld
+#FabulLobby,2,5,7,#FabulInn,20,7,up,town_building,#FabulLobby_#FabulInn_up,#Overworld
+#FabulLobby,3,17,7,#FabulEquipment,4,7,up,town_building,#FabulLobby_#FabulEquipment_up,#Overworld
 #EblanBasement,3,16,17,#Overworld,45,237,,exit,#EblanBasement_#Overworld_,#Overworld
 #MistCave,4,2,29,#Overworld,76,133,up,exit,#MistCave_#Overworld_up,#Overworld
 #MistCave,5,27,2,#Overworld,84,120,down,exit,#MistCave_#Overworld_down,#Overworld
@@ -71,7 +74,9 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #MountHobsEast,1,21,31,#Overworld,160,50,,exit,#MountHobsEast_#Overworld_,#Overworld
 #MountOrdeals1F,3,20,31,#Overworld,218,200,,exit,#MountOrdeals1F_#Overworld_,#Overworld
 #MountOrdeals1F,4,21,31,#Overworld,218,200,,exit,#MountOrdeals1F_#Overworld_,#Overworld
+#BabilB1,3,28,18,#CaveEblanExit,22,3,down,exit,#BabilB1_#CaveEblanExit_down,#Overworld
 #CaveEblanEntrance,3,10,3,#Overworld,24,232,,exit,#CaveEblanEntrance_#Overworld_,#Overworld
+#CaveEblanExit,4,22,2,#BabilB1,28,17,up,town_building,#CaveEblanExit_#BabilB1_up,#Overworld
 #Overworld,0,101,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
 #Overworld,1,102,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
 #Overworld,2,101,157,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
