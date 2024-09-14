@@ -189,3 +189,9 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #SylvanCaveYangRoom,4,11,10,#SylvanCave3F,21,19,up,return,#SylvanCaveYangRoom_#SylvanCave3F_up,#Underworld
 #SylvanCave1F,12,16,1,#Underworld,13,14,,exit,#SylvanCave1F_#Underworld_,#Underworld
 #LunarPalaceLobby,4,16,29,#Moon,28,26,,exit,#LunarPalaceLobby_#Moon_,#Moon
+#CaveOfSummons3F,7,11,1,#CaveOfSummons2F,28,16,up,non_randomized,#CaveOfSummons3F_#CaveOfSummons2F_up,#Underworld
+#CaveOfSummons2F,3,4,18,#CaveOfSummons1F,3,17,up,non_randomized,#CaveOfSummons2F_#CaveOfSummons1F_up,#Underworld
+#SylvanCave3F,7,3,6,#SylvanCave2F,4,8,up,non_randomized,#SylvanCave3F_#SylvanCave2F_up,#Underworld
+#SylvanCave2F,15,6,26,#SylvanCave1F,7,29,up,non_randomized,#SylvanCave2F_#SylvanCave1F_up,#Underworld
+#SylvanCave1F,12,16,27,#SylvanCave2F,14,25,up,non_randomized,#SylvanCave1F_#SylvanCave2F_up,#Underworld
+#SylvanCave2F,16,17,17,#SylvanCave1F,16,19,up,non_randomized,#SylvanCave2F_#SylvanCave1F_up,#Underworld
