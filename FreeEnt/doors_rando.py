@@ -702,8 +702,8 @@ def apply(env, randomize_type,testing=False):
             print(is_valid)
             break
 
-    # for i in paths_to_world:
-    #     print(i, paths_to_world[i])
+    for i in key_items:
+        print(i, key_items[i]["slot"])
 
     remapped_ = []
     remapped_spoiled = []
@@ -770,7 +770,7 @@ def apply(env, randomize_type,testing=False):
     env.add_script(script)
     special_triggers_script = '\n'.join(special_triggers)
     env.add_script(f'patch($21e000 bus) {{\n{special_triggers_script}\n}}')
-    print(script)
+    # print(script)
 
     towns_map = []
     other_entrances = []
