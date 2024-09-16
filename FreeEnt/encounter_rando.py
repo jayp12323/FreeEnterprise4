@@ -8,6 +8,7 @@ def apply(env):
     behemoths_to_disable = []
 
     env.add_file('scripts/encounter_reduction.f4c')
+    env.add_file('scripts/encounter_average_level.f4c')
 
     if not env.options.flags.has('encounter_keep_doors'):
         if env.options.flags.has('encounter_reduction'):

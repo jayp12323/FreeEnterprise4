@@ -30,9 +30,11 @@ msfpatch {
         stz $_Util__Divide_Dividend1
         stz $_Util__Divide_Dividend2
         ldx #$0000
+        stz $_Util__Divide_Divisor0
     %PartyLevelSumLoop:
         lda $1000,x
         beq $+PartyLevelSumLoopNext
+        inc $_Util__Divide_Divisor0
         lda $1002,x
         clc
         adc $_Util__Divide_Dividend0
@@ -44,10 +46,7 @@ msfpatch {
         cpx #$0140
         bcc $-PartyLevelSumLoop
 
-        lda #$05
-        sta $_Util__Divide_Divisor0
         stz $_Util__Divide_Divisor1
-
         jsr $_Util__Divide
 
         ldx $_Util__Divide_Quotient0
