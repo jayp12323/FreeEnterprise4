@@ -219,6 +219,8 @@
 ...(Kstart:crystal) You start with the Crystal
 ...(Kstart:legend) You start with the Legend Sword
 ...(Kstart:adamant) You start with the Adamant
+...(Kstart:pink) You start with the Pink tail
+...(Kstart:spoon) You start with the Spoon
 ..[Kunweighted] Key items will be placed uniformly at random
 
 == PASS
