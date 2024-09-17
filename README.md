@@ -14,16 +14,19 @@ Basic setup instructions are included here; for a more detailed guide, visit htt
 
 Free Enterprise was made possible using the extensive technical research and knowledge of PinkPuff, Grimoire LD, Chillyfeez, and Aexoden. This repo contains code written and designed by b0ardface/HungryTenor, Crow, Myself086, Myria, mxzv, and Wylem. It also contains the graphic design work of SchalaKitty and Steph Sybydlo. It is based on the game design work of riversmccown and mxzv. And while their specific assets are not included in this repo, the musical work of Xenocat and Calmlamity contributes extensively to Free Enterprise, and was formative in the development of tools contained here.
 
-
 Thanks to the following people specifically for my branch:
 
+Wylem for implementing cross-plane/world door randomization
+
 Sgrunt and Wylem for numerous flag additions and multi wacky
+
+Wylem and ScytheMarshall for SNES assembly coding help
 
 ScytheMarshall and Galeswift for Exp modification flags 
 
 Antidale/ Xenocat for song and Z sprites
 
-Fleury14 for extensive testing of the entrance randomizer
+Antidale, Fleury14, Inven, Marshal, Skarcerer, Xenocat and more for extensive testing of the entrance randomizer
 
 ### License
 
