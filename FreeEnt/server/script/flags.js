@@ -972,8 +972,8 @@ const _FE_FLAGSPEC = {
         "Chero",
         "Csuperhero",
         "Ctreasure",
-        "Cmiab",
         "Cunsafe",
+        "Chi",
         "Tvanilla",
         "Tshuffle",
         "Tstandard",
@@ -8123,13 +8123,13 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "Cmiab",
+            "flag": "Cunsafe",
             "offset": 265,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cunsafe",
+            "flag": "Chi",
             "offset": 266,
             "size": 1,
             "value": 1
@@ -11086,9 +11086,6 @@ class FlagLogicCore {
         if ((flagset.has("Ctreasure") && ((flagset.has("Tvanilla") || flagset.has("Tshuffle")) || flagset.has("Tempty")))) {
             this._simple_disable_regex(flagset, log, "Ctreasure with vanilla-ish or empty chests", "^Ctreasure");
         }
-        if ((flagset.has("Cmiab") && ((flagset.has("Tvanilla") || flagset.has("Tshuffle")) || flagset.has("Tempty")))) {
-            this._simple_disable_regex(flagset, log, "Ctreasure with vanilla-ish or empty chests", "^Cmiab");
-        }
         if (flagset.has("Tempty")) {
             this._simple_disable_regex(flagset, log, "Treasures are empty", "^Tsparse:");
         }
@@ -11131,13 +11128,10 @@ class FlagLogicCore {
         }
         if (flagset.has("Ctreasure")) {
             flagset.set("Cnofree");
-            this._lib.push(log, ["correction", "Ctreasure set, auto-assigning Cnofree"]);
+            flagset.set("Cnoearned");
+            this._lib.push(log, ["correction", "Ctreasure set, auto-assigning Cnofree and Cnoearned"]);
         } else {
             this._simple_disable(flagset, log, "Characters are not in treasure", ["Cunsafe"]);
-        }
-        if (flagset.has("Cmiab")) {
-            flagset.set("Cnoearned");
-            this._lib.push(log, ["correction", "Cmiab set, auto-assigning Cnoearned"]);
         }
         if (flagset.has("Onone")) {
             this._simple_disable_regex(flagset, log, "No objectives set", "^O(win|req):");

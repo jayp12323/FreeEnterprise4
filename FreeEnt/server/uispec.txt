@@ -369,6 +369,7 @@
 .(Cthrift:5) Starting gear is at best tier 5
 [Cpaladin] Cecil starts the game as a paladin
 [Cnodupes] Duplicate characters not allowed
+[Chi] New characters are forced to join the party
 [Cbye] Dismissed characters are irretrievable
 <> Limit maximum party size
 .(Cparty:1) Maximum party size 1

@@ -4250,20 +4250,14 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Ctreasure",
-            "title": "Free characters are found in treasure chests instead",
-            "description": "Free characters will instead be found in treasure chests in the overworld.",
+            "title": "Free and earned characters are found in treasure chests instead.",
+            "description": "Free and earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
             "hard": true
           },
           {
             "flag": "Cunsafe",
             "title": "Unsafe treasure character distribution",
             "description": "With Ctreasure on, normally characters will all be placed in treasures in the overworld.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.",
-            "hard": true
-          },
-          {
-            "flag": "Cmiab",
-            "title": "Earned characters are found in MIAB chests instead",
-            "description": "Earned characters (Zot, Dwarf Castle, Giant, etc) will instead be found in MIAB chests in the overworld, underworld, and moon with an unweighted distribution",
             "hard": true
           }
         ]

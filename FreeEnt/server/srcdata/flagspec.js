@@ -972,8 +972,8 @@ const _FE_FLAGSPEC = {
         "Chero",
         "Csuperhero",
         "Ctreasure",
-        "Cmiab",
         "Cunsafe",
+        "Chi",
         "Tvanilla",
         "Tshuffle",
         "Tstandard",
@@ -8123,13 +8123,13 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "Cmiab",
+            "flag": "Cunsafe",
             "offset": 265,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Cunsafe",
+            "flag": "Chi",
             "offset": 266,
             "size": 1,
             "value": 1
