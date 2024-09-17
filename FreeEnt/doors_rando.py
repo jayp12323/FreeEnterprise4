@@ -20,8 +20,9 @@ ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment","RewardSlot.baro
            "*[#item.Tower]": ["RewardSlot.cannon_item"], "*[#item.TwinHarp]": ["RewardSlot.magnes_item"]}
 
 entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]","#BaronEquipment":"*[#item.Baron]",
-                    "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]", "#CaveEblanEntrance": "*[#item.fe_Hook]",
+                    "#CaveEblanEntrance": "*[#item.fe_Hook]",
                     "#AdamantGrotto": "*[#item.fe_Hook]"}
+
 
 slots_locked = {"RewardSlot.baron_castle_item": "*[#item.Baron]", "RewardSlot.baron_throne_item": "*[#item.Baron]",
                 "RewardSlot.giant_chest": "*[#item.DarkCrystal]", "RewardSlot.zot_item": "*[#item.EarthCrystal]",
@@ -584,6 +585,18 @@ def normalize_ands_ors(ki_full_locked):
 
     return ki_full_locked
 
+def check_underground(key_items,paths_to_world,gated_paths,gated_ki,gated_slots):
+
+    agartwell_paths = paths_to_world["#AgartWell"]
+    tower_paths = paths_to_world["#BabilB1"]
+    supercannon_paths = paths_to_world["#Babil1F"]
+    magma="and"
+    magma_key_location = key_items['*[#item.Magma]']["slot"]
+    if not magma_key_location:
+        magma="or"
+        magma_key_location = key_items['*[#item.Magma]']["or_location"]
+
+    return True
 
 def check_logic(key_items, paths_to_world):
     gated_paths = return_gated_paths(paths_to_world)
@@ -609,6 +622,7 @@ def check_logic(key_items, paths_to_world):
     ki_full_locked = normalize_ands_ors(ki_full_locked)
     # for i in ki_full_locked:
     #     print(i,ki_full_locked[i])
+    check_underground(key_items,paths_to_world,gated_paths,gated_ki,gated_slots)
     return calculate_spheres(ki_full_locked)
 
 

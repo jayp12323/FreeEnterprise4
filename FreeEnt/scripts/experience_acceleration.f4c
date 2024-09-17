@@ -63,11 +63,10 @@ msfpatch {
         // %end%
 
         ldy #$0000
-        // %flag experience_objective_bonus on%
-        // note that this flag only makes sense if there are objectives, so ignore the case of Onone
-        // repeat the counting in tracker.f4c to find the number of objectives
-        // goal was to scale experience up by (num_obj * 10%) 
-        // but because that's a pain in the butt, let's just do 12.5%, since that's 1/8        
+        // %if experience_objective_bonus%
+        // note that this toggle only makes sense if there are objectives, so ignore the case of Onone
+        // repeat the counting in tracker.f4c to find the number of objectives (stored in Y)
+
         ldx #$0000
     %CountLoop:
         lda $=Objectives__IDs,x
@@ -96,59 +95,34 @@ msfpatch {
         
         beq $+ExperienceAcceleration_CalculateMedianLevel
         sta $df
-    %DivideByEight:
+    %DivideByParam:
+        // use Util__Divide with a wrapper to do a custom flag-based division
+        // options are 4 (25%), 10 (10%), and max number of objectives (so max completed = 100%-ish bonus)
         lda $ad
-        lsr a
-        lsr a
-        lsr a
-        sta $3941
+        sta $_Util__Divide_Dividend0
         lda $ae
-        asl a
-        asl a
-        asl a
-        asl a
-        asl a
-        ora $3941
-        sta $3941
-
-        lda $ae
-        lsr a
-        lsr a
-        lsr a
-        sta $3942
+        sta $_Util__Divide_Dividend1
         lda $af
-        asl a
-        asl a
-        asl a
-        asl a
-        asl a
-        ora $3942
-        sta $3942
+        sta $_Util__Divide_Dividend2
+        jsr $_SpecialParameterDivide
+        // now $_Util__Divide_Quotient0-2 contains the experience divided by the parameter
 
-        lda $af
-        lsr a
-        lsr a
-        lsr a
-        sta $3943 // $3941-3943 contains the experience divided by 8
-
-        lda $df
-        tax
-    %EighthsAddingLoopStart:
-        cpx #$0001
+    %AddingLoopStart:
+        cpy #$0001
         bcc $+ExperienceAcceleration_CalculateMedianLevel
         clc
-        lda $3941
+        lda $_Util__Divide_Quotient0
         adc $ad
         sta $ad
-        lda $3942
+        lda $_Util__Divide_Quotient1
         adc $ae
         sta $ae
-        lda $3943
+        lda $_Util__Divide_Quotient2
         adc $af
         bcs $+MaxExp
         sta $af
-        dex
-        bra $-EighthsAddingLoopStart
+        dey
+        bra $-AddingLoopStart
 
     %MaxExp:
         lda #$ff
@@ -294,5 +268,16 @@ msfpatch {
         sta $ad
         sta $ae
         sta $af
+        rts
+}
+
+msfpatch {
+    SpecialParameterDivide:
+        // %experience objective bonus divisor%
+        lda #$08
+        // %end%
+        sta $_Util__Divide_Divisor0
+        stz $_Util__Divide_Divisor1
+        jsr $_Util__Divide
         rts
 }

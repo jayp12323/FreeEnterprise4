@@ -711,6 +711,22 @@ def build(romfile, options, force_recompile=False):
     if options.flags.has('edward_spoon'):
         env.add_file('scripts/edward_spoon.f4c')
 
+    # experience flag substitutions and toggles
+    exp_objective_bonus = env.options.flags.get_suffix('-exp:objectivebonus_')
+    if exp_objective_bonus:
+        if not (exp_objective_bonus == 'num_obj'):
+            exp_objective_bonus = 100 // int(exp_objective_bonus)
+            env.add_substitution('experience objective bonus divisor', f'        lda #${exp_objective_bonus:02X}')
+        else:
+            num_obj = env.substitutions['objective count']
+            env.add_substitution('experience objective bonus divisor', '        lda #$' + num_obj)
+        env.add_toggle('experience_objective_bonus')
+    exp_geometric_mod = env.options.flags.get_suffix('-exp:geometric_')
+    if exp_geometric_mod:
+        exp_geometric_mod = int(exp_geometric_mod) // 10
+        env.add_substitution('experience geometric numerator', f'        lda #${exp_geometric_mod:02X}')
+        env.add_toggle('experience_geometric')
+
     if options.flags.has('vintage'):
         env.add_files(
             'scripts/vintage_battlefield.f4c',

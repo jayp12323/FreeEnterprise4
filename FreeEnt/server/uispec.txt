@@ -503,14 +503,28 @@
 <> Smithy reward
 .(-smith:alt) Kokkol crafts a random tier 7/8 item
 .(-smith:super) Kokkol crafts a weapon from FF4 Advance
-[@exp] Change Exp distributions
+[@exp] Restore vanilla or change EXP distribution
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
-.[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
 .[-exp:kicheckbonus] Each KI location checked gives 12.5% extra EXP (except the starting KI check)
-.[-exp:geometric] Repeated monster kills scale down in EXP
-[] Restore vanilla behaviors
+.[@objectiveexp] Award extra EXP for completing objectives
+..<> Amount of bonus exp
+...(-exp:objectivebonus_25) Each completed objective gives 25% extra EXP
+...(-exp:objectivebonus_10) Each completed objective gives 10% extra EXP
+...(-exp:objectivebonus_num_obj) Each completed objective gives extra EXP
+.[@geometricexp] Decrease EXP earned from repeated same-type monster kills
+..<> Per-monster-kill percentage reduction
+...(-exp:geometric_90) Repeated monster kills scale down in EXP to 90%
+...(-exp:geometric_80) Repeated monster kills scale down in EXP to 80%
+...(-exp:geometric_70) Repeated monster kills scale down in EXP to 70%
+...(-exp:geometric_60) Repeated monster kills scale down in EXP to 60%
+...(-exp:geometric_50) Repeated monster kills scale down in EXP to 50%
+...(-exp:geometric_40) Repeated monster kills scale down in EXP to 40%
+...(-exp:geometric_30) Repeated monster kills scale down in EXP to 30%
+...(-exp:geometric_20) Repeated monster kills scale down in EXP to 20%
+...(-exp:geometric_10) Repeated monster kills scale down in EXP to 10%
+...(-exp:geometric_0) Repeated monster kills do not award EXP[] Restore vanilla behaviors
 .[-vanilla:fusoya] Vanilla FuSoYa
 .[-vanilla:agility] Vanilla agility anchoring
 .[-vanilla:hobs] Vanilla Hobs spell

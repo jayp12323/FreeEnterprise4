@@ -613,7 +613,7 @@ FF4 scales the speed of combat based on the agility stat of your party's "agilit
 By default, instead of learning Fire1 at Mt. Hobs, Rydia will learn a random summon (other than Leviatan and Bahamut). This flag removes that behavior.
 
 [@exp]
-To reduce grinding, Free Enterprise normally applies a number of experience boosts, which may be individually disabled by these flags.
+To reduce grinding, Free Enterprise normally applies a number of experience boosts, which may be individually disabled by these flags. There are also options to change the experience distribution in other ways.
 
 [-exp:split]
 Normally in Free Enterprise, earned EXP is not divided among the party, and each member receives the full amount. Set this flag to restore the original FF4 EXP distribution scheme (ie. earned EXP is divided among the surviving party members).
@@ -627,11 +627,14 @@ By default in Free Enterprise, once 10 key items have been collected, earned EXP
 [-exp:kicheckbonus]
 Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each key item location checked earns you 12.5% more EXP from each battle.
 
-[-exp:objectivebonus]
-Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you 12.5% more EXP from each battle.
+[@objectiveexp]
+Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you more EXP from each battle.
 
-[-exp:geometric]
-Normally in FF4, each copy of a monster killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield 90% of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills.
+[-exp:objectivebonus_num_obj]
+The EXP bonus is 100% divided by the number of available objectives in the seed; e.g. with 7 objectives, each objective gives you about 14% extra EXP (subject to some truncation).
+
+[@geometricexp]
+Normally in FF4, each instance of a monster type killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield a scaled amount of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills. Note that the reduction is per monster type and not "per slot" in battle.
 
 [-vanilla:growup]
 By default in Free Enterprise, the summons learned when Rydia ages are randomized. Set this flag to return to the vanilla summons learned at that time (Mist, Indra, Jinn, Shiva, and Titan).

@@ -521,7 +521,7 @@ class FlagLogicCore {
         }
         if (flagset.has("Onone")) {
             this._simple_disable_regex(flagset, log, "No objectives set", "^O(win|req):");
-            this._simple_disable(flagset, log, "No objectives set", ["-exp:objectivebonus"]);
+            this._simple_disable_regex(flagset, log, "No objectives set", "^-exp:objectivebonus");
         } else {
             if ((! flagset.get_list("^Oreq:"))) {
                 flagset.set("Oreq:all");

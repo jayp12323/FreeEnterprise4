@@ -47,9 +47,9 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -exp:split
 -exp:noboost
 -exp:nokeybonus
--exp:objectivebonus
+-exp:objectivebonus_25/-exp:objectivebonus_10/-exp:objectivebonus_num_obj
+-exp:geometric_90/-exp:geometric_80/-exp:geometric_70/-exp:geometric_60/-exp:geometric_50/-exp:geometric_40/-exp:geometric_30/-exp:geometric_20/-exp:geometric_10/-exp:geometric_0
 -exp:kicheckbonus
--exp:geometric
 -vanilla:fusoya
 -vanilla:agility
 -vanilla:hobs
@@ -261,10 +261,7 @@ G64                  glitch_allow_64
 -exp:split           experience_split
 -exp:noboost         experience_no_boost
 -exp:nokeybonus      experience_no_key_item_bonus
--exp:objectivebonus  experience_objective_bonus
 -exp:kicheckbonus    experience_ki_check_bonus
--exp:geometric       experience_geometric
-
 -vanilla:fusoya      vanilla_fusoya
 -vanilla:agility     vanilla_agility
 -vanilla:hobs        vanilla_hobs
