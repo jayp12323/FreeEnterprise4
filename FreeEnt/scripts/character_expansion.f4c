@@ -342,6 +342,14 @@ msfpatch {
         cmp $=MaxPartySize
         bcc $+HasEmptySlot
         jmp $_Done
+// %end%
+
+// %flags: characters_force_add characters_commitment%
+    %HasEmptySlot:
+        bra $+EmptySlotSearch
+// %end%
+
+// %flags: ~characters_force_add characters_commitment%
     %HasEmptySlot:
         jmp $_DoJoinMenu
 // %end%
