@@ -382,12 +382,7 @@ msfpatch {
         // check result of menu
         lda $1a01
         bit #$01
-
-        // %flag characters_force_add on%
-        beq $+DoJoinMenu  // if character dismissed, re-open the menu since they're forced to add it
-        // %else%
         beq $+Done  // if character dismissed, just quit now
-        // %end%
 
         // return to search loop, knowing we'll find an empty slot now
         jmp $_EmptySlotSearch
