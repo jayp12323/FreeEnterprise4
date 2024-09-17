@@ -1,0 +1,6 @@
+// Vanilla/reduced encounters still suffer from the "only
+// checking the first three monster slots" bug when checking for
+// back/surprise attacks, which is a one-byte fix:
+patch($038CD1 bus) { 0D } // was 08
+
+// Edanger checks the precalculated levels, so no issue there.
