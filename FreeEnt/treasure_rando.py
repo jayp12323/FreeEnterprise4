@@ -371,7 +371,7 @@ def apply(env):
         area_use_count = {}
         remaining_chests = []
         for t in plain_chests_dbview.find_all():
-            contents,fight = treasure_assignment.get(t)
+            contents,fight,treasure,reward_index = treasure_assignment.get(t)
             if contents != '#item.Pass':
                 remaining_chests.append(t)
                 area_use_count[t.area] = 0
