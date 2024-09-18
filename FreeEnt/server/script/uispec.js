@@ -4456,6 +4456,10 @@ var FLAG_UISPEC = [
         "title": "New characters are forced to join the party"
       },
       {
+        "flag": "Coldest",
+        "title": "Characters that have been in the partest the longest must be dismissed first"
+      },
+      {
         "flag": "Cbye",
         "title": "Dismissed characters are irretrievable",
         "description": "Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)"

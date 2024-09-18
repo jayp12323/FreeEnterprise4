@@ -11140,6 +11140,12 @@ class FlagLogicCore {
         } else {
             this._simple_disable(flagset, log, "Characters are not in treasure", ["Cunsafe"]);
         }
+        if (((flagset.has("Chi") && flagset.has("Chero")) && flagset.has("Cparty:1"))) {
+            this._simple_disable(flagset, log, "No room for characters to be added with Chero and Max Party size of 1", ["Chi"]);
+        }
+        if ((flagset.has("Cpermajoin") && flagset.has("Coldest"))) {
+            this._simple_disable(flagset, log, "Permajoin and Remove Oldest are incompatible", ["Coldest"]);
+        }
         if (flagset.has("Onone")) {
             this._simple_disable_regex(flagset, log, "No objectives set", "^O(win|req):");
             this._simple_disable(flagset, log, "No objectives set", ["-exp:objectivebonus"]);
