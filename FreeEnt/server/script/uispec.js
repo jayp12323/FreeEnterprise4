@@ -3742,6 +3742,14 @@ var FLAG_UISPEC = [
                   {
                     "flag": "Kstart:adamant",
                     "title": "You start with the Adamant"
+                  },
+                  {
+                    "flag": "Kstart:pink",
+                    "title": "You start with the Pink tail"
+                  },
+                  {
+                    "flag": "Kstart:spoon",
+                    "title": "You start with the Spoon"
                   }
                 ]
               },
@@ -4442,6 +4450,10 @@ var FLAG_UISPEC = [
         "flag": "Cnodupes",
         "title": "Duplicate characters not allowed",
         "description": "If a duplicate character tries to join your party, instead nothing happens."
+      },
+      {
+        "flag": "Chi",
+        "title": "New characters are forced to join the party"
       },
       {
         "flag": "Cbye",

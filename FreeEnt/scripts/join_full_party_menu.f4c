@@ -114,6 +114,24 @@ msfpatch {
         %HeroNotSelected:
             // %end%
 
+            // %flag characters_remove_oldest on %
+            jsr $_JoinFullPartyMenu__GetSelectedAxtor            
+            ldx $_CharEx__OldestAxtorIndex            
+            lda $=CharEx__OldestAxtorBuffer,x            
+            bne $+OldestLoaded
+            ldx #$0000
+        %OldestLoaded:
+            jsr $_JoinFullPartyMenu__GetSelectedAxtor
+            cmp $=CharEx__OldestAxtorBuffer,x
+            beq $+OldestCharSelected
+             // play error sound
+            lda #$12
+            sta $1e00
+            jsl $048004
+            bra $-MainLoop_Full
+        %OldestCharSelected:
+            // %end%
+
             // %flag characters_force_add on%
             jsr $_JoinFullPartyMenu__GetSelectedAxtor
             cmp $1a00
