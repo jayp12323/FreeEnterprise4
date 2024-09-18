@@ -189,7 +189,7 @@ F4C_FILES = '''
 
 BINARY_PATCHES = {
     0x117000 : 'binary_patches/standing_characters.bin',
-    0x10da00 : 'assets/encounters/formation_average_levels.bin',
+    0x10da00 : 'assets/encounters/formation_average_levels_mod.bin', # differently generated average levels
 }
 
 class Generator:
@@ -712,16 +712,53 @@ def build(romfile, options, force_recompile=False):
         env.add_file('scripts/edward_spoon.f4c')
 
     # experience flag substitutions and toggles
-    exp_objective_bonus = env.options.flags.get_suffix('-exp:objectivebonus_')
+    # split, noboost, nokeyboost, crystalbonus, and maxlevelbonus are all handled directly via f4c scripts
+    exp_objective_bonus = env.options.flags.get_suffix('-exp:objectivebonus')
     if exp_objective_bonus:
-        if not (exp_objective_bonus == 'num_obj'):
+        if not (exp_objective_bonus == '_num'):
             exp_objective_bonus = 100 // int(exp_objective_bonus)
-            env.add_substitution('experience objective bonus divisor', f'        lda #${exp_objective_bonus:02X}')
+            env.add_substitution('experience objective bonus divisor', f'#${exp_objective_bonus:02X}')
         else:
             num_obj = env.substitutions['objective count']
-            env.add_substitution('experience objective bonus divisor', '        lda #$' + num_obj)
+            env.add_substitution('experience objective bonus divisor', '#$' + num_obj)
         env.add_toggle('experience_objective_bonus')
-    exp_geometric_mod = env.options.flags.get_suffix('-exp:geometric_')
+
+    exp_kicheck_bonus = env.options.flags.get_suffix('-exp:kicheckbonus')
+    if exp_kicheck_bonus:
+        if not (exp_kicheck_bonus == '_num'):
+            exp_kicheck_bonus = 100 // int(exp_kicheck_bonus)
+            env.add_substitution('experience key item check bonus divisor', f'#${exp_kicheck_bonus:02X}')
+        else:
+            num_kichecks = env.meta['number_key_item_slots']
+            # subtract 1 in the following substitution to skip the starting KI check
+            env.add_substitution('experience key item check bonus divisor', f'#${(num_kichecks-1):02X}')
+        env.add_toggle('experience_kicheck_bonus')
+
+    exp_zonk_bonus = env.options.flags.get_suffix('-exp:zonkbonus')
+    if exp_zonk_bonus:
+        exp_zonk_bonus = 100 // int(exp_zonk_bonus)
+        # need to check for the starting key item here, using the rewards assignment;
+        # cannot count starting non-KI as a zonk, so also ignore starting KI if necessary
+        if (env.meta['rewards_assignment'])[rewards.RewardSlot.starting_item].is_key: 
+            env.add_substitution('starting key item zonk', '#$01')
+        else:
+            env.add_substitution('starting key item zonk', '#$00')
+        env.add_substitution('experience zonk bonus divisor', f'#${exp_zonk_bonus:02X}')
+        env.add_toggle('experience_zonk_bonus')
+
+    exp_miab_bonus = env.options.flags.get_suffix('-exp:miabbonus')
+    if exp_miab_bonus:
+        exp_miab_bonus = int(exp_miab_bonus) // 50
+        env.add_substitution('experience miab bonus multiplier', f'#${exp_miab_bonus:04X}')
+        env.add_toggle('experience_miab_bonus')
+
+    exp_moon_bonus = env.options.flags.get_suffix('-exp:moonbonus')
+    if exp_moon_bonus:
+        exp_moon_bonus = int(exp_miab_bonus) // 100
+        env.add_substitution('experience moon bonus multiplier', f'#${exp_miab_bonus:04X}')
+        env.add_toggle('experience_moon_bonus')
+
+    exp_geometric_mod = env.options.flags.get_suffix('-exp:geometric')
     if exp_geometric_mod:
         exp_geometric_mod = int(exp_geometric_mod) // 10
         env.add_substitution('experience geometric numerator', f'        lda #${exp_geometric_mod:02X}')
@@ -743,7 +780,6 @@ def build(romfile, options, force_recompile=False):
 
     # must be last
     wacky_rando.apply(env)
-
 
     # finalize rewards table
     rewards_data = env.meta['rewards_assignment'].generate_table()
