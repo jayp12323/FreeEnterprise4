@@ -5,7 +5,7 @@ placement($00 0)  //#BaronTown, #TownWaterBG, #CastleFloorBG, #CastleWaterBG, $B
 placement($24 12)  //#BaronCastle
 {
     npc #LockedDoorWaterway
-    position 10 1
+    position 0 4
     walking off
     tangible
     face down
