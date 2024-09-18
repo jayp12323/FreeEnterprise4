@@ -114,6 +114,7 @@ WORST_COMMANDS = {
 def apply(env):
     if env.options.flags.has('wyvern_no_meganuke'):
         env.add_file('scripts/wyvern_nomeganuke.f4c')
+        return
     elif env.options.flags.has('wyvern_random_meganuke'):
         commands = dict(POSSIBLE_COMMANDS)
         if env.options.flags.has('bosses_unsafe'):
@@ -130,18 +131,18 @@ def apply(env):
             commands.update({'#spell.Enemy_HeatRay' : 'all characters'})
             commands.update({'#spell.White' : 'all characters'})
 
-        cmd = env.rnd.choice(list(commands))
-        target = env.rnd.choice(commands[cmd].split(' / '))
-        if target == 'random character':
-            script = f'use {cmd}'
-        else:
-            script = f'target {target} use {cmd}'
+    cmd = env.rnd.choice(list(commands))
+    target = env.rnd.choice(commands[cmd].split(' / '))
+    if target == 'random character':
+        script = f'use {cmd}'
+    else:
+        script = f'target {target} use {cmd}'
 
-        env.add_substitution('wyvern meganuke replacement', script)
-        env.add_file('scripts/wyvern_replacemeganuke.f4c')
+    env.add_substitution('wyvern meganuke replacement', script)
+    env.add_file('scripts/wyvern_replacemeganuke.f4c')
 
-        env.spoilers.add_table(
-            "MISC", 
-            [["MegaNuke replacement", databases.get_spell_spoiler_name(cmd)]],
-            public = env.options.flags.has_any('-spoil:all', '-spoil:misc')
-            )
+    env.spoilers.add_table(
+        "MISC", 
+        [["MegaNuke replacement", databases.get_spell_spoiler_name(cmd)]],
+        public = env.options.flags.has_any('-spoil:all', '-spoil:misc')
+        )
