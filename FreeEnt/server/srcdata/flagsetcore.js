@@ -436,7 +436,7 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var WACKY_SET_1, WACKY_SET_2, WACKY_SET_3, all_spoiler_flags, ch, challenges, char_objective_flags, distinct_count, distinct_flags, has_unavailable_characters, log, mode, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
+        var WACKY_SET_1, WACKY_SET_2, WACKY_SET_3, all_spoiler_flags, ch, challenges, char_objective_flags, distinct_count, distinct_flags, has_unavailable_characters, kmiab_flags, log, mode, only_flags, pass_quest_flags, pool, required_chars, sparse_spoiler_flags, start_exclude_flags, start_include_flags, win_flags;
         log = [];
         if ((flagset.has("Kunsafer") && (! flagset.has("Kmoon")))) {
             flagset.set("Kmoon");
@@ -448,7 +448,8 @@ class FlagLogicCore {
         if (flagset.has("Kforge")) {
             this._simple_disable_regex(flagset, log, "-smith is incompatible with Kforge", "^-smith:");
         }
-        if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab", "Kforge") && (! flagset.has("Kmain")))) {
+        kmiab_flags = flagset.get_list("^Kmiab:");
+        if ((flagset.has_any("Ksummon", "Kmoon", "Kforge") || (kmiab_flags  && (! flagset.has("Kmain"))))) {
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }
@@ -477,8 +478,12 @@ class FlagLogicCore {
         if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
             this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
         }
-        if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
-            this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
+        if ((_pj.in_es6("Kmiab:all", kmiab_flags) && (kmiab_flags.length > 1))) {
+            this._simple_disable_regex(flagset, log, "All miabs already included", "^Kmiab:(standard|above|below|lst)");
+        } else {
+            if ((_pj.in_es6("Kmiab:standard", kmiab_flags) && (kmiab_flags.length > 1))) {
+                this._simple_disable_regex(flagset, log, "Standard miab inclusion takes priority", "^Kmiab:(above|below|lst)");
+            }
         }
         if (flagset.has("Cvanilla")) {
             this._simple_disable_regex(flagset, log, "Characters not randomized", "^C(maybe|distinct:|only:|no:)");

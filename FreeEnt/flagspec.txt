@@ -19,7 +19,7 @@ O8:char_cecil/O8:char_kain/O8:char_rydia/O8:char_tellah/O8:char_edward/O8:char_r
 Orandom:1/Orandom:2/Orandom:3/Orandom:4/Orandom:5/Orandom:6/Orandom:7/Orandom:8 Orandom:quest/Orandom:tough_quest Orandom:boss Orandom:char
 Oreq:all/Oreq:1/Oreq:2/Oreq:3/Oreq:4/Oreq:5/Oreq:6/Oreq:7/Oreq:8/Oreq:9/Oreq:10
 Owin:game/Owin:crystal
-Kvanilla Kmain Ksummon Kmoon Kmiab Klstmiab Kforge Kpink Knofree/Knofree:dwarf/Knofree:package Kunsafe/Kunsafer Kforce:magma/Kforce:hook Kunweighted Klatedark
+Kvanilla Kmain Ksummon Kmoon Kmiab:standard Kmiab:above Kmiab:below Kmiab:lst Kmiab:all Kforge Kpink Knofree/Knofree:dwarf/Knofree:package Kunsafe/Kunsafer Kforce:magma/Kforce:hook Kunweighted Klatedark
 Kstart:crystal/Kstart:pass/Kstart:hook/Kstart:darkness/Kstart:earth/Kstart:twinharp/Kstart:package/Kstart:sandruby/Kstart:baron/Kstart:magma/Kstart:tower/Kstart:luca/Kstart:adamant/Kstart:legend/Kstart:pan/Kstart:spoon/Kstart:rat/Kstart:pink
 Pnone Pshop Pkey Pchests
 Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe 

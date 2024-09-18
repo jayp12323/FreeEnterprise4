@@ -399,8 +399,8 @@ class FlagLogicCore:
 
         if flagset.has('Kforge'):
             self._simple_disable_regex(flagset, log, '-smith is incompatible with Kforge', r'^-smith:')
-
-        if flagset.has_any('Ksummon', 'Kmoon', 'Kmiab', 'Kforge') and not flagset.has('Kmain'):
+        kmiab_flags = flagset.get_list(r'^Kmiab:')
+        if flagset.has_any('Ksummon', 'Kmoon', 'Kforge') or kmiab_flags and not flagset.has('Kmain'):
             flagset.set('Kmain')
             self._lib.push(log, ['correction', 'Advanced key item randomizations are enabled; forced to add Kmain'])
 
@@ -429,8 +429,10 @@ class FlagLogicCore:
         if flagset.has('Klstmiab') and flagset.has('Kmiab') and flagset.has_any('Kmoon','Kunsafe'):
             self._simple_disable(flagset, log, 'LST miabs already included', ['Klstmiab'])
 
-        if flagset.has('Klstmiab') and flagset.has('Kmiab') and flagset.has_any('Kmoon','Kunsafe'):
-            self._simple_disable(flagset, log, 'LST miabs already included', ['Klstmiab'])
+        if 'Kmiab:all' in kmiab_flags and len(kmiab_flags) > 1:
+            self._simple_disable_regex(flagset, log, 'All miabs already included', r'^Kmiab:(standard|above|below|lst)')
+        elif 'Kmiab:standard' in kmiab_flags and len(kmiab_flags) > 1:
+            self._simple_disable_regex(flagset, log, 'Standard miab inclusion takes priority', r'^Kmiab:(above|below|lst)')
 
         if flagset.has('Cvanilla'):
             self._simple_disable_regex(flagset, log, 'Characters not randomized', r'^C(maybe|distinct:|only:|no:)')

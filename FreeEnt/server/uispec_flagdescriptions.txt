@@ -116,7 +116,7 @@ Key items may be awarded by the Sylphs, the king and queen of the Feymarch, Odin
 [Kmoon]
 Key items may be awarded by the bosses of the Lunar Subterrane.
 
-[Kmiab]
+[Kmiab:standard]
 This excludes monster-in-a-box chests in the Lunar Subterrane, unless also using Kmoon or Kunsafe.
 
 [Kforge]
@@ -128,8 +128,17 @@ The reward for trading away the Pink Tail is a key item. The vanilla Adamant Arm
 [Klstmiab]
 This ignores the Kmoon or Kunsafe safety check that Kmiab has.
 
-[Klstmiab]
-This ignores the Kmoon or Kunsafe safety check that Kmiab has.
+[Kmiab:all]
+All monster-in-a-box chests are included, regardless of any Kmoon or Kunsafe settings.
+
+[Kmiab:above]
+Includes the monster-in-a-box chests in Zot, Castle Eblan, Cave Eblan, Upper Bab-il, the Giant of Bab-il, and the Lunar Path.
+
+[Kmiab:below]
+Includes the monster-in-a-box chests in Lower Bab-il, Sylph Cave, and the Feymarch.
+
+[Kmiab:lst]
+Includes the monster-in-a-box chests in the Lunar Subterrane. This setting ignores the Kmoon or Kunsafe safety check.
 
 [Knofree]
 Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.

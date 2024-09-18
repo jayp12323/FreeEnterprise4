@@ -92,8 +92,12 @@
 ..[Ksummon]! Mix with summon quest rewards
 ..[Kmoon]! Mix with moon boss rewards
 ..<> Mix with monster-in-a-box chests
-...(Kmiab)! All non-LST miabs; also LST miabs under Kmoon or Kunsafe
-...(Klstmiab)! All LST miabs
+...(Kmiab:standard)! All non-LST miabs; also LST miabs under Kmoon or Kunsafe
+...(Kmiab:all)! All miabs (regardless of Kmoon or Kunsafe)
+...<> Specific miab subgroupings
+....[Kmiab:above]! All above-ground non-LST miabs (including Giant/Lunar Path)
+....[Kmiab:below]! All below-ground miabs
+....[Kmiab:lst]! All LST miabs
 ..[Kforge]! Forge provides a key item
 ..[Kpink]! Pink Tail trades for a key item
 ..<>! Replace free key item in Toroia
