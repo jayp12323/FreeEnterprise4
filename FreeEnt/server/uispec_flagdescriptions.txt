@@ -125,6 +125,9 @@ The reward for turning in the Legend Sword and Adamant to Kokkol is a key item. 
 [Kpink]
 The reward for trading away the Pink Tail is a key item. The vanilla Adamant Armor is added to the key item rewards pool unless adamant armors are disabled via <em>-noadamants</em>.
 
+[Klstmiab]
+This ignores the Kmoon or Kunsafe safety check that Kmiab has.
+
 [Knofree]
 Edward in Toroia will not give you a key item. Instead, a key item may be earned from Rydia's mom in Mist, who will appear after you have found and defeated the Mist Dragon.
 

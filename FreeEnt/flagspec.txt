@@ -19,7 +19,7 @@ O8:char_cecil/O8:char_kain/O8:char_rydia/O8:char_tellah/O8:char_edward/O8:char_r
 Orandom:1/Orandom:2/Orandom:3/Orandom:4/Orandom:5/Orandom:6/Orandom:7/Orandom:8 Orandom:quest/Orandom:tough_quest Orandom:boss Orandom:char
 Oreq:all/Oreq:1/Oreq:2/Oreq:3/Oreq:4/Oreq:5/Oreq:6/Oreq:7/Oreq:8/Oreq:9/Oreq:10
 Owin:game/Owin:crystal
-Kvanilla Kmain Ksummon Kmoon Kmiab Kforge Kpink Knofree/Knofree:dwarf/Knofree:package Kunsafe/Kunsafer Kforce:magma/Kforce:hook Klatedark
+Kvanilla Kmain Ksummon Kmoon Kmiab Klstmiab Kforge Kpink Knofree/Knofree:dwarf/Knofree:package Kunsafe/Kunsafer Kforce:magma/Kforce:hook Kunweighted Klatedark
 Kstart:crystal/Kstart:pass/Kstart:hook/Kstart:darkness/Kstart:earth/Kstart:twinharp/Kstart:package/Kstart:sandruby/Kstart:baron/Kstart:magma/Kstart:tower/Kstart:luca/Kstart:adamant/Kstart:legend/Kstart:pan/Kstart:spoon/Kstart:rat/Kstart:pink
 Pnone Pshop Pkey Pchests
 Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe 
@@ -129,6 +129,7 @@ Kmain                key_items_in_main_quests
 Ksummon              key_items_in_summon_quests
 Kmoon                key_items_in_moon_bosses
 Kmiab                key_items_in_miabs
+Klstmiab             key_items_in_lst_miabs
 Kforge               key_item_from_forge
 Kpink                key_item_from_pink_tail
 Knofree              no_free_key_item
@@ -138,6 +139,7 @@ Kunsafe              key_items_unsafe
 Kunsafer             key_items_unsafer
 Kforce:magma         key_items_force_magma
 Kforce:hook          key_items_force_hook
+Kunweighted          key_items_unweighted
 Klatedark            key_items_late_darkness
 Kstart:crystal       key_items_start_crystal
 Kstart:pass          key_items_start_pass

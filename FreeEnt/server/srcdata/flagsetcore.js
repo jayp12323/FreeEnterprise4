@@ -461,7 +461,7 @@ class FlagLogicCore {
             this._simple_disable(flagset, log, "Cannot replace a key item if all of them are required", ["Pkey", "Kstart:pass"]);
         }
         if (flagset.has("Kvanilla")) {
-            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunsafer"]);
+            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunsafer", "Kunweighted"]);
             this._simple_disable_regex(flagset, log, "Key items not randomized", "^Kstart:");
         }
         if (flagset.has("Kstart:darkness")) {
@@ -473,6 +473,9 @@ class FlagLogicCore {
         if ((flagset.has("Kstart:pass") && (! flagset.has("Pkey")))) {
             flagset.set("Pkey");
             this._lib.push(log, ["correction", "Kstart:pass implies Pkey"]);
+        }
+        if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
+            this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
         }
         if (flagset.has("Cvanilla")) {
             this._simple_disable_regex(flagset, log, "Characters not randomized", "^C(maybe|distinct:|only:|no:)");
