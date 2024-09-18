@@ -151,9 +151,9 @@ def compile(input_rom, output_rom, *scripts, options=CompileOptions()):
     metrics = Metrics()
     metrics.start('total')
 
-    with metrics.measure('load rom'):
-        rom = ff4bin.Rom(input_rom)
-
+    # with metrics.measure('load rom'):
+    #     rom = ff4bin.Rom(input_rom)
+    rom=""
     with metrics.measure('load scripts'):
         code_token_sets = []
         text_lines = []
@@ -312,22 +312,22 @@ def compile(input_rom, output_rom, *scripts, options=CompileOptions()):
 
         with metrics.measure('process {} block'.format(block['type'])):
             process_func = block_processors[block['type']]
-            process_func(block, rom, env)
+            # process_func(block, rom, env)
 
     # apply bytes patches
-    with metrics.measure('bytes patches'):
-        for bp in bytes_patches:
-            rom.add_patch(bp.get_unheadered_address(), bp.data)
+    # with metrics.measure('bytes patches'):
+    #     for bp in bytes_patches:
+    #         rom.add_patch(bp.get_unheadered_address(), bp.data)
 
-    with metrics.measure('postprocess'):
-        env.postprocess.apply_registered_processes(env)
-        compile_postprocess.apply_cleanup_processes(env)
+    # with metrics.measure('postprocess'):
+    #     env.postprocess.apply_registered_processes(env)
+    #     compile_postprocess.apply_cleanup_processes(env)
 
     if env.cache and options.clean_cache:
         env.cache.cleanup()
 
-    with metrics.measure('output'):
-        rom.save_rom(output_rom)
+    # with metrics.measure('output'):
+    #     rom.save_rom(output_rom)
 
     metrics.end('total')
 

@@ -510,27 +510,48 @@ def apply(env):
                 max_good_per_area += 1
                 r *= 2.0
 
-            for group in CHEST_ITEM_SLOT_GROUPS:
-                if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe):
-                    bad_miabs.extend(group)
-                elif len(group) > max_good_per_area:
-                    group = list(group)
-                    env.rnd.shuffle(group)
-                    good_miabs.extend(group[:max_good_per_area])
-                    bad_miabs.extend(group[max_good_per_area:])
-                else:
-                    good_miabs.extend(group)
+            if yes_lstmiabs and not yes_miabs:
+                for group in CHEST_ITEM_SLOT_GROUPS:
+                    if 'lunar_core_chest' in group[0].name:
+                        if len(group) > max_good_per_area:
+                            group = list(group)
+                            env.rnd.shuffle(group)
+                            good_miabs.extend(group[:max_good_per_area])
+                            bad_miabs.extend(group[max_good_per_area:])
+                        else:
+                            good_miabs.extend(group)
+                    else:
+                        bad_miabs.extend(group)
+            else:
+                for group in CHEST_ITEM_SLOT_GROUPS:
+                    if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe or yes_lstmiabs):
+                        bad_miabs.extend(group)
+                    elif len(group) > max_good_per_area:
+                        group = list(group)
+                        env.rnd.shuffle(group)
+                        good_miabs.extend(group[:max_good_per_area])
+                        bad_miabs.extend(group[max_good_per_area:])
+                    else:
+                        good_miabs.extend(group)
 
             env.rnd.shuffle(good_miabs)
-            bad_miabs.extend(good_miabs[:3])
-            good_miabs = good_miabs[3:]
+            if yes_miabs or not yes_lstmiabs:
+                bad_miabs.extend(good_miabs[:3])
+                good_miabs = good_miabs[3:]
 
         else:
-            for group in CHEST_ITEM_SLOT_GROUPS:
-                if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe):
-                    bad_miabs.extend(group)
-                else:
-                    good_miabs.extend(group)
+            if yes_lstmiabs and not yes_miabs:
+                for group in CHEST_ITEM_SLOT_GROUPS:
+                    if 'lunar_core_chest' in group[0].name:
+                        good_miabs.extend(group)
+                    else:
+                        bad_miabs.extend(group)
+            else:
+                for group in CHEST_ITEM_SLOT_GROUPS:
+                    if 'lunar_core_chest' in group[0].name and not (env.options.flags.has('key_items_in_moon_bosses') or unsafe or yes_lstmiabs):
+                        bad_miabs.extend(group)
+                    else:
+                        good_miabs.extend(group)
         keyitem_assigner.slot_tier(1).extend(good_miabs)
         keyitem_assigner.slot_tier(3).extend(bad_miabs)
     else:
@@ -550,7 +571,7 @@ def apply(env):
 
     if env.options.flags.has('key_items_force_magma'):
         prevent_hook_seed = True
-    elif not env.options.flags.has_any('key_items_in_summon_quests', 'key_items_in_moon_bosses', 'key_items_in_miabs') and not env.options.flags.has('key_items_force_hook'):
+    elif not env.options.flags.has_any('key_items_in_summon_quests', 'key_items_in_moon_bosses', 'key_items_in_miabs', 'key_items_in_lst_miabs') and not env.options.flags.has('key_items_force_hook'):
         prevent_hook_seed = (env.rnd.random() < 0.5)
     else:
         prevent_hook_seed = False
@@ -865,7 +886,7 @@ def apply(env):
         else:
             pool.extend(MOON_BOSS_ITEMS)
 
-        if is_vanilla and not env.options.flags.has('key_items_in_miabs'):
+        if is_vanilla and not env.options.flags.has_any('key_items_in_miabs','key_items_in_lstmiabs'):
             for slot in CHEST_NUMBERS:
                 if slot not in rewards_assignment:
                     treasure = treasure_dbview.find_one(lambda t : [t.map, t.index] == CHEST_NUMBERS[slot])
@@ -1137,7 +1158,7 @@ def apply(env):
             potential_key_item_slots.extend(SUMMON_QUEST_SLOTS)
         if env.options.flags.has('key_items_in_moon_bosses'):
             potential_key_item_slots.extend(MOON_BOSS_SLOTS)
-        if env.options.flags.has('key_items_in_miabs'):
+        if env.options.flags.has_any('key_items_in_miabs','key_items_in_lst_miabs'):
             potential_key_item_slots.extend(CHEST_ITEM_SLOTS)
         if env.options.flags.has('key_item_from_forge'):
             potential_key_item_slots.append(RewardSlot.forge_item)
