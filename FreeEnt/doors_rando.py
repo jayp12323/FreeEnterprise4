@@ -717,8 +717,9 @@ def apply(env, randomize_type,testing=False):
             break
 
     for i in key_items:
-        print(i, key_items[i]["slot"])
-
+        print(i, key_items[i])
+    for path in paths_to_world:
+        print(path,paths_to_world[path])
     remapped_ = []
     remapped_spoiled = []
     special_triggers = []
