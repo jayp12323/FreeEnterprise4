@@ -409,7 +409,7 @@ class FlagLogicCore:
             flagset.set('Omode:ki16')
             self._lib.push(log, ['correction', 'Can only collect 16 KIs for an objective with Owin:crystal; changing Omode:ki17 to Omode:ki16'])
 
-        if not flagset.has_any('Ksummon', 'Kmoon', 'Kmiab', 'Kforge') and flagset.has('Omode:ki17'):
+        if not (flagset.has_any('Ksummon', 'Kmoon', 'Kmiab', 'Kforge') or kmiab_flags ) and flagset.has('Omode:ki17'):
             self._simple_disable(flagset, log, 'Cannot replace a key item if all of them are required', ['Pkey', 'Kstart:pass'])
 
         if flagset.has('Kvanilla'):
