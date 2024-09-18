@@ -168,19 +168,7 @@ msfpatch {
         inx
         cpx #$_Objectives__MaxCount
         bcc $-CountLoop
-        // %end%
 
-        tya
-        clc
-
-        // %flag experience_ki_check_bonus on%
-        adc $=Rewards__DeliveredItemCount
-        // subtract one for the starting KI check
-        dec a
-        // %end%
-        
-        beq $+ExperienceAcceleration_CalculateMedianLevel
-        sta $df
         lda {% experience objective bonus divisor %}
         jsr $_DivideAndAddLoop
         bcc $+NextModifier__Obj
