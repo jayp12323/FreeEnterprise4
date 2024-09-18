@@ -509,12 +509,33 @@
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
+.[-exp:crystalbonus] Double EXP after obtaining the Crystal
 .[-exp:kicheckbonus] Each KI location checked gives 12.5% extra EXP (except the starting KI check)
 .[@objectiveexp] Award extra EXP for completing objectives
-..<> Amount of bonus exp
-...(-exp:objectivebonus_25) Each completed objective gives 25% extra EXP
-...(-exp:objectivebonus_10) Each completed objective gives 10% extra EXP
-...(-exp:objectivebonus_num_obj) Each completed objective gives extra EXP
+..<> Amount of bonus EXP
+...(-exp:objectivebonus25) Each completed objective gives 25% extra EXP
+...(-exp:objectivebonus10) Each completed objective gives 10% extra EXP
+...(-exp:objectivebonus_num) Each completed objective gives extra EXP
+.[@kicheckexp] Award extra EXP for completing key item checks
+..<> Amount of bonus EXP
+...(-exp:kicheckbonus10) Each completed KI check gives 10% extra EXP
+...(-exp:kicheckbonus5) Each completed KI check gives 5% extra EXP
+...(-exp:kicheckbonus2) Each completed KI check gives 2% extra EXP
+...(-exp:kicheckbonus_num) Each completed KI check gives extra EXP
+.[@zonkbonusexp] Award extra EXP after non-KI rewards from KI checks
+..<> Amount of bonus EXP
+...(-exp:zonkbonus10) Each non-KI reward gives 10% extra EXP
+...(-exp:zonkbonus5) Each non-KI reward gives 5% extra EXP
+...(-exp:zonkbonus2) Each non-KI reward gives 2% extra EXP
+.[@miabbonusexp] Award extra EXP during MIAB encounters
+..<> Amount of bonus EXP
+...(-exp:miabbonus100) MIAB encounters give double EXP
+...(-exp:miabbonus50) MIAB encounters give 50% extra EXP
+.[@moonbonusexp] Award extra EXP when on the moon
+..<> Amount of bonus EXP
+...(-exp:moonbonus200) Moon encounters give triple EXP
+...(-exp:moonbonus100) Moon encounters give double EXP
+.[-exp:maxlevelbonus] Award extra EXP when underlevelled
 .[@geometricexp] Decrease EXP earned from repeated same-type monster kills
 ..<> Per-monster-kill percentage reduction
 ...(-exp:geometric_90) Repeated monster kills scale down in EXP to 90%

@@ -205,9 +205,8 @@ msfpatch {
     .def Rewards__CurrentValueLo  $7e1622
     .def Rewards__CurrentValueHi  $7e1623
     .def Rewards__PendingDeliverySlot  $7e1626
-
     // KI Experience
-    .def Rewards__DeliveredItemCount  $7e162b
+    .def Rewards__KeyItemChecksCount  $7e162b
 
     // KI Objective
     .def Rewards__TriggerDeliveryEvent $7e162c
@@ -261,9 +260,17 @@ msfpatch {
         jmp $_EvEx__End
 
     %DeliverItem:
-        lda $=Rewards__DeliveredItemCount
-        inc a
-        sta $=Rewards__DeliveredItemCount
+        // for exp flag purposes, possibly increment a checks counter
+        // to transfer A to X, need to ensure the upper byte of A is #$00
+        lda #$00
+        xba
+        lda $_Rewards__CurrentSlot
+        tax
+        lda $=PossibleKeyItemRewardSlots,x
+        beq $+NotKeyCheck
+        inc $_Rewards__KeyItemChecksCount
+
+    %NotKeyCheck:
         lda $_Rewards__CurrentValueHi
         beq $+DeliverNormalItem
 
@@ -277,7 +284,7 @@ msfpatch {
 	                        // from Omode:ki in case this hangs
 //%end%
 //%if ki_objective%
-        jsl $=EvEx__ObjectivesImpl_DoEvent 
+        jsl $=EvEx__ObjectivesImpl_DoEvent
 //%end%
 
     %DeliverNormalItem:
@@ -357,7 +364,7 @@ msfpatch {
 
     %ObjectiveNotYetMet:
 // %end%
-    
+
         lda $1680
         asl a
         tax
@@ -486,6 +493,19 @@ msfpatch {
     Rewards__MIABContents:
         // A contains reward slot
         sta $_Rewards__CurrentSlot
+        // %if experience_kicheck_bonus%
+        // to transfer A to X, need to ensure the upper byte of A is #$00
+        xba
+        lda #$00
+        xba
+        tax
+        lda $=PossibleKeyItemRewardSlots,x
+        beq $+NotKeyMIAB
+        inc $_Rewards__KeyItemChecksCount
+
+    %NotKeyMIAB:
+        lda $_Rewards__CurrentSlot
+        // %end%
         jsl $=Rewards__GetFromSlot
         stx $_Rewards__CurrentValueLo
 

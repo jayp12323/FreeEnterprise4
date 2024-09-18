@@ -5826,6 +5826,11 @@ var FLAG_UISPEC = [
             "description": "By default in Free Enterprise, once 10 key items have been collected, earned EXP is doubled. Set this flag to remove this bonus."
           },
           {
+            "flag": "-exp:crystalbonus",
+            "title": "Double EXP after obtaining the Crystal",
+            "description": "Under this flag, characters earn double EXP once you obtain the Crystal."
+          },
+          {
             "flag": "-exp:kicheckbonus",
             "title": "Each KI location checked gives 12.5% extra EXP (except the starting KI check)",
             "description": "Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each key item location checked earns you 12.5% more EXP from each battle."
@@ -5837,19 +5842,19 @@ var FLAG_UISPEC = [
             "subcontrols": [
               {
                 "flag": "@anon50",
-                "title": "Amount of bonus exp",
+                "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
                   {
-                    "flag": "-exp:objectivebonus_25",
+                    "flag": "-exp:objectivebonus25",
                     "title": "Each completed objective gives 25% extra EXP"
                   },
                   {
-                    "flag": "-exp:objectivebonus_10",
+                    "flag": "-exp:objectivebonus10",
                     "title": "Each completed objective gives 10% extra EXP"
                   },
                   {
-                    "flag": "-exp:objectivebonus_num_obj",
+                    "flag": "-exp:objectivebonus_num",
                     "title": "Each completed objective gives extra EXP",
                     "description": "The EXP bonus is 100% divided by the number of available objectives in the seed; e.g. with 7 objectives, each objective gives you about 14% extra EXP (subject to some truncation)."
                   }
@@ -5858,12 +5863,118 @@ var FLAG_UISPEC = [
             ]
           },
           {
+            "flag": "@kicheckexp",
+            "title": "Award extra EXP for completing key item checks",
+            "description": "Normally, completing key item checks does not increase the amount of EXP received from battles. Under this flag, each completed key item check beyond the starting item earns you more EXP from each battle.",
+            "subcontrols": [
+              {
+                "flag": "@anon51",
+                "title": "Amount of bonus EXP",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "-exp:kicheckbonus10",
+                    "title": "Each completed KI check gives 10% extra EXP"
+                  },
+                  {
+                    "flag": "-exp:kicheckbonus5",
+                    "title": "Each completed KI check gives 5% extra EXP"
+                  },
+                  {
+                    "flag": "-exp:kicheckbonus2",
+                    "title": "Each completed KI check gives 2% extra EXP"
+                  },
+                  {
+                    "flag": "-exp:kicheckbonus_num",
+                    "title": "Each completed KI check gives extra EXP",
+                    "description": "The EXP bonus is 100% divided by the number of potential key item checks in the seed; e.g. with the 21 non-starting main and summon checks on, each objective gives you about 4.7% extra EXP (subject to some truncation)."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "@zonkbonusexp",
+            "title": "Award extra EXP after non-KI rewards from KI checks",
+            "description": "Normally, the rewards from key item checks do not impact the amount of EXP received from battles. Under this flag, every time you get a non-key-item reward from a potential key item check (a \"zonk\") you earn more EXP from future battles.",
+            "subcontrols": [
+              {
+                "flag": "@anon52",
+                "title": "Amount of bonus EXP",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "-exp:zonkbonus10",
+                    "title": "Each non-KI reward gives 10% extra EXP"
+                  },
+                  {
+                    "flag": "-exp:zonkbonus5",
+                    "title": "Each non-KI reward gives 5% extra EXP"
+                  },
+                  {
+                    "flag": "-exp:zonkbonus2",
+                    "title": "Each non-KI reward gives 2% extra EXP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "@miabbonusexp",
+            "title": "Award extra EXP during MIAB encounters",
+            "description": "Normally, MIAB encounters have the same EXP calculation as other encounters. Under this flag, MIAB encounters award double or 1.5 times the usual EXP.",
+            "subcontrols": [
+              {
+                "flag": "@anon53",
+                "title": "Amount of bonus EXP",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "-exp:miabbonus100",
+                    "title": "MIAB encounters give double EXP"
+                  },
+                  {
+                    "flag": "-exp:miabbonus50",
+                    "title": "MIAB encounters give 50% extra EXP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "@moonbonusexp",
+            "title": "Award extra EXP when on the moon",
+            "description": "Normally, location of encounter does not increase EXP. Under this flag, encounters on the moon award double or triple the usual EXP.",
+            "subcontrols": [
+              {
+                "flag": "@anon54",
+                "title": "Amount of bonus EXP",
+                "type": "select",
+                "subcontrols": [
+                  {
+                    "flag": "-exp:moonbonus200",
+                    "title": "Moon encounters give triple EXP"
+                  },
+                  {
+                    "flag": "-exp:moonbonus100",
+                    "title": "Moon encounters give double EXP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "flag": "-exp:maxlevelbonus",
+            "title": "Award extra EXP when underlevelled",
+            "description": "Normally, level does not play into EXP calculations. Under this flag, if 5 plus twice the largest level in your party is less than the smallest monster level in the encounter, then the encounter awards 20% bonus EXP (and another 20% for each additional deficit of 5)."
+          },
+          {
             "flag": "@geometricexp",
             "title": "Decrease EXP earned from repeated same-type monster kills",
             "description": "Normally in FF4, each instance of a monster type killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield a scaled amount of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills. Note that the reduction is per monster type and not \"per slot\" in battle.",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon55",
                 "title": "Per-monster-kill percentage reduction",
                 "type": "select",
                 "subcontrols": [
@@ -5969,7 +6080,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n\t<li>Only One Doors Randomization option can be used</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
-            "flag": "@anon52",
+            "flag": "@anon56",
             "title": "Random wacky challenge(s)",
             "type": "select",
             "subcontrols": [
@@ -6020,7 +6131,7 @@ var FLAG_UISPEC = [
             "title": "\"The Bodyguard\""
           },
           {
-            "flag": "@anon53",
+            "flag": "@anon57",
             "title": "Doors Randomization Options",
             "type": "select",
             "subcontrols": [
@@ -6193,7 +6304,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon54",
+        "flag": "@anon58",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6247,7 +6358,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon55",
+            "flag": "@anon59",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6263,7 +6374,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon56",
+                "flag": "@anon60",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

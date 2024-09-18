@@ -1158,13 +1158,21 @@ def apply(env):
             potential_key_item_slots.extend(SUMMON_QUEST_SLOTS)
         if env.options.flags.has('key_items_in_moon_bosses'):
             potential_key_item_slots.extend(MOON_BOSS_SLOTS)
-        if env.options.flags.has_any('key_items_in_miabs','key_items_in_lst_miabs'):
-            potential_key_item_slots.extend(CHEST_ITEM_SLOTS)
         if env.options.flags.has('key_item_from_forge'):
             potential_key_item_slots.append(RewardSlot.forge_item)
         if env.options.flags.has('key_item_from_pink_tail'):
             potential_key_item_slots.append(RewardSlot.pink_trade_item)
-
+        if env.options.flags.has('key_items_in_miabs'):
+            if env.options.flags.has('key_items_in_moon_bosses') or unsafe or env.options.flags.has('key_items_in_lst_miabs'):
+                miab_slots = list(CHEST_ITEM_SLOTS)
+            else:
+                miab_slots = [s for s in CHEST_ITEM_SLOTS if 'lunar_core' not in s.name]
+            potential_key_item_slots.extend(miab_slots)
+        elif env.options.flags.has('key_items_in_lst_miabs'):
+            miab_slots = [s for s in CHEST_ITEM_SLOTS if 'lunar_core' in s.name]
+            potential_key_item_slots.extend(miab_slots)
+    # put this information in env to facilitate -exp:kicheckbonus_num
+    env.meta['number_key_item_slots'] = len(potential_key_item_slots)
     env.add_binary(BusAddress(0x21dc00), [1 if s in potential_key_item_slots else 0 for s in range(RewardSlot.MAX_COUNT)], as_script=True)
     env.add_substitution('randomizer key item count', '{:02X}'.format(rewards_assignment.count_key_items()))
 

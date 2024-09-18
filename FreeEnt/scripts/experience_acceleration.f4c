@@ -42,6 +42,80 @@ msfpatch {
         sta $af
         // %end%
 
+        // %flag experience_max_level_bonus on%
+        // compute max party level, mult by 2, compare against min monster level
+        // each five levels of deficit gives a 20% bonus
+
+        // while I would love to use the precalculated average formation level, it's... wonky,
+        // and doesn't work with boss bit monsters as-is, and changing that behaviour
+        // is not reasonable at the moment. so calculate min monster level:
+        ldx #$0280
+        ldy #$0005
+        lda #$63 // max level is 99
+        pha
+    %MonsterMinLevelLoop:
+        lda $3540,y // check if this monster slot is empty via the empty_slot array
+        bne $+MonsterMinLevelLoopNext
+        pla
+        cmp $2002,x // battle records start at $2000, byte $02 is level
+        // if the current min monster level is >= the next level, update
+        bcc $+MonsterMinLevelNotSmaller
+        lda $2002,x
+    %MonsterMinLevelNotSmaller:
+        pha        
+    %MonsterMinLevelLoopNext:
+        iny
+        jsr $_Util__XPlus80
+        cpy #$000d // stop after the last monster slot
+        bcc $-MonsterMinLevelLoop
+        // now the min monster level is the top item on the stack
+
+        // next, find the max party level, similarly to average party level
+        ldx #$0000
+        lda #$00
+        pha
+    %PartyMaxLevelLoop:
+        lda $1000,x // checking character records, not battle records
+        beq $+PartyMaxLevelLoopNext
+        pla
+        cmp $1002,x
+        // if the current max level is >= the next level, don't update
+        bcs $+PartyMaxLevelNotBigger 
+        lda $1002,x
+    %PartyMaxLevelNotBigger:
+        pha
+    %PartyMaxLevelLoopNext:
+        jsr $_Util__XPlus40
+        cpx #$0140
+        bcc $-PartyMaxLevelLoop
+        pla // now A has the max party level, min monster level is on top of stack 
+
+        // multiply by 2
+        asl a
+        
+        // subtract min monster level from twice the max party level
+        sta $3945
+        pla
+        sec
+        sbc $3945
+        bmi $+NextModifier__Max
+        // result was non-negative, so divide by 5
+        sta $3945
+        stz $3946
+        lda #$05
+        sta $3947
+        stz $3948
+        jsr $_Util__BattleDivide3949 // $3949 is the number of 20% bonuses
+
+        ldy $3949
+        lda #$05
+        jsr $_DivideAndAddLoop
+        bcc $+NextModifier__Max
+        jmp $_MaxExp
+
+    %NextModifier__Max:
+        // %end%
+
         // %flag experience_no_key_item_bonus off%
         // check for key item bonus
         lda $=Stats_KeyItems
@@ -53,20 +127,32 @@ msfpatch {
         rol $ae
         rol $af
         bcc $+NextModifier
-        lda #$ff
-        sta $ad
-        sta $ae
-        sta $af
-        jmp $_ExperienceAcceleration_CalculateMedianLevel
+        jmp $_MaxExp
 
     %NextModifier:
         // %end%
 
-        ldy #$0000
+        // %flag experience_crystal_bonus on%
+        // check for having the Crystal
+        lda #$10
+        ldx #$_Tracker__KeyItemFoundFlags
+        jsl $=Tracker__CheckBit
+        bcc $+NextModifier__Crys
+
+        clc
+        rol $ad
+        rol $ae
+        rol $af
+        bcc $+NextModifier__Crys
+        jmp $_MaxExp
+
+    %NextModifier__Crys:
+        // %end%
+
         // %if experience_objective_bonus%
         // note that this toggle only makes sense if there are objectives, so ignore the case of Onone
         // repeat the counting in tracker.f4c to find the number of objectives (stored in Y)
-
+        ldy #$0000
         ldx #$0000
     %CountLoop:
         lda $=Objectives__IDs,x
@@ -95,21 +181,119 @@ msfpatch {
         
         beq $+ExperienceAcceleration_CalculateMedianLevel
         sta $df
-    %DivideByParam:
-        // use Util__Divide with a wrapper to do a custom flag-based division
-        // options are 4 (25%), 10 (10%), and max number of objectives (so max completed = 100%-ish bonus)
+        lda {% experience objective bonus divisor %}
+        jsr $_DivideAndAddLoop
+        bcc $+NextModifier__Obj
+        jmp $_MaxExp
+
+    %NextModifier__Obj:
+        // %end%
+
+        // %if experience_kicheck_bonus%
+        // look at $_Rewards__KeyItemChecksCount to see how many
+        // KI checks have been completed, then subtract 1 (for the starting key item)
+
+        lda $=Rewards__KeyItemChecksCount
+        dec a
+        xba
+        lda #$00
+        xba
+        tay
+
+        lda {% experience key item check bonus divisor %}
+        jsr $_DivideAndAddLoop
+        bcc $+NextModifier__KI
+        jmp $_MaxExp
+
+    %NextModifier__KI:
+        // %end%
+
+        // %if experience_zonk_bonus%
+        // compute the number of zonks; since we aren't really
+        // treating a non-KI starting item as a zonk, we make a
+        // substitution in the script by looking at the starting
+        // item to handle the arithmetic appropriately
+        lda {% starting key item zonk %}
+        beq $+WasZonk
+        sec
+        bra $+ComputeDifference
+    %WasZonk:
+        clc
+    %ComputeDifference:
+        lda $_Rewards__KeyItemChecksCount
+        sbc $=Stats_KeyItems
+        // setting the carry means we compute (KI checks-1) - (KIs - 1)
+        // clearing the carry means we compute (KI checks-1) - KIs
+
+        xba
+        lda #$00
+        xba
+        tay
+
+        lda {% experience zonk bonus divisor %}
+        jsr $_DivideAndAddLoop
+        bcc $+NextModifier__Zonk
+        jmp $_MaxExp
+
+    %NextModifier__Zonk:
+        // %end%
+
+        // %if experience_miab_bonus%
+        // check if this encounter is a miab
+        lda $7e06c6 // same check as Enoexp
+        beq $+NextModifier__MIAB
+
+        lda #$02
+        ldy {% experience miab bonus multiplier %}
+        jsr $_DivideAndAddLoop
+        bcc $+NextModifier__MIAB
+        jmp $_MaxExp
+
+    %NextModifier__MIAB:
+        // %end%
+
+        // %if experience_moon_bonus%
+        // check if the map plane is 2 (the surface of the moon)
+        lda $7e1701
+        cmp #$02
+        beq $+OnMoon
+        // check if the map plane is 1 and the map ID is at least 0x5A
+        cmp #$01
+        bne $+NextModifier__Moon
+        lda $7e1702
+        cmp #$5A
+        bcc $+NextModifier__Moon
+
+    %OnMoon:
+        lda #$01 // yes, dividing by 1; oh well
+        ldy {% experience moon bonus multiplier %}
+        jsr $_DivideAndAddLoop
+        bcc $+NextModifier__Moon
+        jmp $_MaxExp
+
+    %NextModifier__Moon:
+        // %end%
+
+        bra $+ExperienceAcceleration_CalculateMedianLevel
+    
+    DivideAndAddLoop:
+        // A is the special divisor
+        // Y is the loop parameter
+        sta $_Util__Divide_Divisor0
+        stz $_Util__Divide_Divisor1
         lda $ad
         sta $_Util__Divide_Dividend0
         lda $ae
         sta $_Util__Divide_Dividend1
         lda $af
         sta $_Util__Divide_Dividend2
-        jsr $_SpecialParameterDivide
+        jsr $_Util__Divide
         // now $_Util__Divide_Quotient0-2 contains the experience divided by the parameter
 
     %AddingLoopStart:
+        // add the result back to the experience the required number of times
         cpy #$0001
-        bcc $+ExperienceAcceleration_CalculateMedianLevel
+        bcc $+DoneLoop
         clc
         lda $_Util__Divide_Quotient0
         adc $ad
@@ -119,12 +303,14 @@ msfpatch {
         sta $ae
         lda $_Util__Divide_Quotient2
         adc $af
-        bcs $+MaxExp
+        bcs $+DoneLoop
         sta $af
         dey
         bra $-AddingLoopStart
+    %DoneLoop:
+        rts
 
-    %MaxExp:
+    MaxExp:
         lda #$ff
         sta $ad
         sta $ae
@@ -268,16 +454,5 @@ msfpatch {
         sta $ad
         sta $ae
         sta $af
-        rts
-}
-
-msfpatch {
-    SpecialParameterDivide:
-        // %experience objective bonus divisor%
-        lda #$08
-        // %end%
-        sta $_Util__Divide_Divisor0
-        stz $_Util__Divide_Divisor1
-        jsr $_Util__Divide
         rts
 }

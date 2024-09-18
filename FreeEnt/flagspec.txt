@@ -47,8 +47,14 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -exp:split
 -exp:noboost
 -exp:nokeybonus
--exp:objectivebonus_25/-exp:objectivebonus_10/-exp:objectivebonus_num_obj
--exp:geometric_90/-exp:geometric_80/-exp:geometric_70/-exp:geometric_60/-exp:geometric_50/-exp:geometric_40/-exp:geometric_30/-exp:geometric_20/-exp:geometric_10/-exp:geometric_0
+-exp:crystalbonus
+-exp:objectivebonus25/-exp:objectivebonus10/-exp:objectivebonus5/-exp:objectivebonus_num
+-exp:kicheckbonus10/-exp:kicheckbonus5/-exp:kicheckbonus2/-exp:kicheckbonus_num
+-exp:zonkbonus10/-exp:zonkbonus5/-exp:zonkbonus2
+-exp:miabbonus100/-exp:miabbonus50
+-exp:moonbonus200/-exp:moonbonus100
+-exp:maxlevelbonus
+-exp:geometric90/-exp:geometric80/-exp:geometric70/-exp:geometric60/-exp:geometric50/-exp:geometric40/-exp:geometric30/-exp:geometric20/-exp:geometric10/-exp:geometric0
 -exp:kicheckbonus
 -vanilla:fusoya
 -vanilla:agility
@@ -263,6 +269,8 @@ G64                  glitch_allow_64
 -exp:split           experience_split
 -exp:noboost         experience_no_boost
 -exp:nokeybonus      experience_no_key_item_bonus
+-exp:crystalbonus    experience_crystal_bonus
+-exp:maxlevelbonus   experience_max_level_bonus
 -exp:kicheckbonus    experience_ki_check_bonus
 -vanilla:fusoya      vanilla_fusoya
 -vanilla:agility     vanilla_agility
