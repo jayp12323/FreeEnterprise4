@@ -10511,9 +10511,6 @@ class FlagLogicCore {
             flagset.set("Pkey");
             this._lib.push(log, ["correction", "Kstart:pass implies Pkey"]);
         }
-        if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
-            this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
-        }
         if ((_pj.in_es6("Kmiab:all", kmiab_flags) && (kmiab_flags.length > 1))) {
             this._simple_disable_regex(flagset, log, "All miabs already included", "^Kmiab:(standard|above|below|lst)");
         } else {

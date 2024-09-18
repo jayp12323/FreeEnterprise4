@@ -426,9 +426,6 @@ class FlagLogicCore:
             flagset.set('Pkey')
             self._lib.push(log, ['correction', 'Kstart:pass implies Pkey'])
 
-        if flagset.has('Klstmiab') and flagset.has('Kmiab') and flagset.has_any('Kmoon','Kunsafe'):
-            self._simple_disable(flagset, log, 'LST miabs already included', ['Klstmiab'])
-
         if 'Kmiab:all' in kmiab_flags and len(kmiab_flags) > 1:
             self._simple_disable_regex(flagset, log, 'All miabs already included', r'^Kmiab:(standard|above|below|lst)')
         elif 'Kmiab:standard' in kmiab_flags and len(kmiab_flags) > 1:
