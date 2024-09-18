@@ -134,8 +134,6 @@ Kvanilla             key_items_vanilla
 Kmain                key_items_in_main_quests
 Ksummon              key_items_in_summon_quests
 Kmoon                key_items_in_moon_bosses
-Kmiab                key_items_in_miabs
-Klstmiab             key_items_in_lst_miabs
 Kforge               key_item_from_forge
 Kpink                key_item_from_pink_tail
 Knofree              no_free_key_item
