@@ -531,7 +531,8 @@ def apply(env):
                     bad_miabs.extend(group)
                 else:
                     good_miabs.extend(group)
-
+        keyitem_assigner.slot_tier(1).extend(good_miabs)
+        keyitem_assigner.slot_tier(3).extend(bad_miabs)
     else:
         keyitem_assigner.slot_tier(3).extend(CHEST_ITEM_SLOTS)
 
