@@ -20,9 +20,8 @@ ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment","RewardSlot.baro
            "*[#item.Tower]": ["RewardSlot.cannon_item"], "*[#item.TwinHarp]": ["RewardSlot.magnes_item"]}
 
 entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]","#BaronEquipment":"*[#item.Baron]",
-                    "#CaveEblanEntrance": "*[#item.fe_Hook]",
+                    "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]","#CaveEblanEntrance": "*[#item.fe_Hook]",
                     "#AdamantGrotto": "*[#item.fe_Hook]"}
-
 
 slots_locked = {"RewardSlot.baron_castle_item": "*[#item.Baron]", "RewardSlot.baron_throne_item": "*[#item.Baron]",
                 "RewardSlot.giant_chest": "*[#item.DarkCrystal]", "RewardSlot.zot_item": "*[#item.EarthCrystal]",
@@ -331,10 +330,23 @@ def randomize_doors(env, entrances, exits):
                         print("Black Chocobo Forest is not an overworld entrance... retrying")
                         is_loop = False
                         break
+
                 location_doors = []
                 for path in paths_to_world[location]:
                     location_doors.append(map_path_to_entrance_names(path, remapped_map))
                 paths_to_world[location] = location_doors
+                if location == "#Damcyan":
+                    is_Damcyan_accessible = []
+                    for damcyan_path in paths_to_world[location]:
+                        if damcyan_path[1][0] in ["#AdamantGrotto" "#CaveEblanEntrance"]:
+                            is_Damcyan_accessible.append(False)
+                        else:
+                            is_Damcyan_accessible.append(True)
+                    if True not in  is_Damcyan_accessible:
+                        print("Damcyan is hovercraft locked")
+                        is_loop = False
+                        break
+
                 is_loop = True
                 continue
             else:
@@ -370,7 +382,6 @@ def get_entrances_exits(world_object, doors_view):
 def return_gated_paths(paths_to_world):
     gated_paths = {}
     for path in paths_to_world:
-
         gated_by = []
         for entrance in paths_to_world[path]:
             if isinstance(entrance, str):
@@ -587,17 +598,8 @@ def normalize_ands_ors(ki_full_locked):
 
 def check_underground(key_items,paths_to_world,gated_paths,gated_ki,gated_slots):
 
-    agartwell_paths = paths_to_world["#AgartWell"]
-    tower_paths = paths_to_world["#BabilB1"]
-    supercannon_paths = paths_to_world["#Babil1F"]
-    magma="and"
-    magma_key_location = key_items['*[#item.Magma]']["slot"]
-    if not magma_key_location:
-        magma="or"
-        magma_key_location = key_items['*[#item.Magma]']["or_location"]
 
     return True
-
 def check_logic(key_items, paths_to_world):
     gated_paths = return_gated_paths(paths_to_world)
     gated_ki = return_gated_kis(key_items, gated_paths)
@@ -715,11 +717,11 @@ def apply(env, randomize_type,testing=False):
             print(f"Needed {attempts + 1} attempts for KI to be available")
             print(is_valid)
             break
-
-    for i in key_items:
-        print(i, key_items[i])
-    for path in paths_to_world:
-        print(path,paths_to_world[path])
+    #
+    # for i in key_items:
+    #     print(i, key_items[i])
+    # for path in paths_to_world:
+    #     print(path,paths_to_world[path])
     remapped_ = []
     remapped_spoiled = []
     special_triggers = []
@@ -800,7 +802,7 @@ def apply(env, randomize_type,testing=False):
         else:
             other_entrances.append(i)
 
-    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    # print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
     env.spoilers.add_table("Entrance Randomization\nLocation X is in Entrance Y", sorted(spoil_entrances_for_spoiler),
                            public=env.options.flags.has_any('-spoil:all', '-spoil:misc'), ditto_depth=1)
 
