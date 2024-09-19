@@ -1,7 +1,9 @@
 
 placement($00 0)  //#BaronTown, #TownWaterBG, #CastleFloorBG, #CastleWaterBG, $B3, $B4, $F8, $F9, $FA, #Overworld, #Underworld, #Moon, #CurrentMap, $FF
 {
+npc #fe_None
 }
+
 placement($24 7)  //#BaronCastle
 {
     npc #LockedDoorWaterway
