@@ -871,6 +871,7 @@ def apply(env):
                 rnd_chest_slot = env.rnd.choice(unassigned_chest_slots)
                 rewards_assignment[rnd_chest_slot] = AxtorChestReward('#item.fe_CharacterChestItem#_'+"{:02d}".format(character_slot))
                 t = treasure_dbview.find_one(lambda t: [t.map, t.index] == CHEST_NUMBERS[rnd_chest_slot])
+                print(f'AxtorChestReward for slot {target_slot} {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
                 unassigned_chest_slots.remove(rnd_chest_slot)
                         
         if env.options.flags.has('treasure_standard') or env.options.flags.has('treasure_wild'):
@@ -950,6 +951,7 @@ def apply(env):
         for area in areas:
             new_chests = env.rnd.sample(treasure_dbview.find_all(lambda t: t.area == area), len(areas[area]))
             for i,slot in enumerate(areas[area]):
+                print(f'New MAIB location is {new_chests[i].spoilerarea} - {new_chests[i].spoilersubarea} - {new_chests[i].spoilerdetail}')
                 env.meta['miab_locations'][slot] = [new_chests[i].map, new_chests[i].index]
 
     # hacky cleanup step for _1 and _2 suffixes, and build key item metadata for random objectives

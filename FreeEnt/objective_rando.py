@@ -186,6 +186,7 @@ def get_unique_objective_ids(env):
 
 def apply(env):
     if not env.meta['has_objectives']:
+        env.add_substitution('gated objective reward text', '')
         return
 
     env.add_substitution('intro disable', '')
@@ -400,7 +401,7 @@ def apply(env):
             gated_objective_reward_text = f'[stone]Sandruby'  
         else:
             gated_objective_reward_text = f'{reward[6:]}'        
-        env.add_substitution('gated objective reward text', gated_objective_reward_text)
+    env.add_substitution('gated objective reward text', gated_objective_reward_text)
             
     gold_hunt_text = str(gold_hunt_count) + ',000'
     if gold_hunt_count >= 1000:

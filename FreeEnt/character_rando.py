@@ -505,6 +505,7 @@ def apply(env):
 
     for slot in assignment:
         if assignment[slot] in RESTRICTED_CHARACTERS:
+            print(f'Restricted char is '+assignment[slot])
             RESTRICTED_SLOTS.append(slot)
     env.update_assignments(assignment)
 

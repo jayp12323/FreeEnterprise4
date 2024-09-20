@@ -81,7 +81,7 @@ class TreasureAssignment:
         self._remaps[_slug(old)] = _slug(new)    
 
     def assign(self, t, contents, fight=None, remap=True):
-        slug = _slug(t)
+        slug = _slug(t)        
         if remap and slug in self._remaps:
             slug = self._remaps[slug]
 
@@ -94,7 +94,8 @@ class TreasureAssignment:
             slot = rewards.RewardSlot[contents[len('#reward_slot.'):]]
             reward = self._env.meta['rewards_assignment'][slot]
             if type(reward) is AxtorChestReward:
-                reward_index = reward.reward_index
+                reward_index = reward.reward_index             
+
         elif contents != None and '#item.fe_CharacterChestItem' in contents:
             reward_index = contents[-2:]
             contents = '#item.NoArmor'  
@@ -118,7 +119,7 @@ class TreasureAssignment:
             contents,fight,t,reward_index = self._assignments[slug]            
             if contents is None:
                 contents = '$00'
-            if reward_index != -1:                
+            if reward_index != -1 and type(t) is not str:                
                 worldId = 0
                 if 'Underworld' in t.world:
                     worldId = 1
@@ -145,7 +146,8 @@ class TreasureAssignment:
             contents,fight,t, reward_index = self._assignments[slug]
             if contents is None:
                 contents = '$00'
-
+            # if fight is not None:
+            #     trigger = f'{t.map} {t.index}'
             line = f"trigger({slug}) {{ treasure {contents} "
             if fight is not None:
                 if fight >= 0x1E0:
@@ -154,6 +156,8 @@ class TreasureAssignment:
                     fight -= 0x1C0
                 line += f"fight ${fight:02X} "
             line += "}"          
+            if fight is not None:
+                print(f'Line is {line}')
             lines.append(line)
         return '\n'.join(lines)
 
@@ -403,8 +407,9 @@ def apply(env):
         reward_slot_name =  f'#reward_slot.{chest_slot.name}'        
         orig_chest = treasure_dbview.find_one(lambda t: t.map == orig_chest_number[0] and t.index == orig_chest_number[1])
         target_chest = treasure_dbview.find_one(lambda t: t.map == chest_number[0] and t.index == chest_number[1])
+        print(f'Chest {chest_number[0]} {chest_number[1]}')
         treasure_assignment.assign(            
-            target_chest,
+            target_chest, 
             reward_slot_name,             
             orig_chest.fight,
             remap = False)
@@ -420,8 +425,10 @@ def apply(env):
     chest_init_flags = [0x00] * 0x40
     empty_count = 0
     for t in treasure_dbview.find_all():
-        contents,fight,t,reward_index = treasure_assignment.get(t, remap=False)
+        contents,fight,assigned_t,reward_index = treasure_assignment.get(t, remap=False)
         if contents is None:
+            if fight is not None:
+                print(f't {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail} is none')
             byte_index = t.flag >> 3
             bit_index = t.flag & 0x7
             chest_init_flags[byte_index] |= (1 << bit_index)
