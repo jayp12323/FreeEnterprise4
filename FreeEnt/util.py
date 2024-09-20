@@ -57,24 +57,3 @@ def get_boosted_weights(weights):
             boosted_weights[i] += weights[chunk[0]] * chunk[1]
 
     return boosted_weights
-
-# adjustment matrix for locations with vanilla miabs under weighted distributions
-VANILLA_MIABS_MATRIX = { 
-    1: [(1, 1), (2, 1/4)],
-    2: [(2, 3/4), (3, 1/4)],
-    3: [(3, 3/4), (4, 1/2)],
-    4: [(4, 1/2), (5, 1/2)],
-    5: [(5, 1/2), (6, 3/4)],
-    6: [(6, 1/4), (7, 3/4)],
-    7: [(7, 1/4), (8, 3/4)],
-    8: [(8, 1/4)],
-}
-
-def get_vanilla_miabs_weights(weights):
-    vanilla_miabs_weights = {i : 0 for i in range(1,9)}
-
-    for i in vanilla_miabs_weights:
-        for chunk in VANILLA_MIABS_MATRIX[i]:
-            vanilla_miabs_weights[i] += weights[chunk[0]] * chunk[1]
-
-    return vanilla_miabs_weights
