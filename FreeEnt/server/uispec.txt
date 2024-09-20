@@ -330,11 +330,12 @@
 .[Cnofree]! No free characters
 .[Cnoearned]! No earned characters
 .[Cnopartner]! No starting partner
-.[Ctreasure:free]! Free characters are found in treasure chests instead.
-.[Ctreasure:earned]! Earned characters are found in treasure chests instead.
-.[Ctreasure:relaxed]! Restricted characters in all chests.
-.[Ctreasure:unsafe]! Unsafe characters in chests
 .[Cunsafe]! Unsafe treasure character distribution
+[]- Characters in chests
+.[Ctreasure:free]! Free characters are found in treasure chests instead
+.[Ctreasure:earned]! Earned characters are found in treasure chests instead
+.[Ctreasure:relaxed]! Restricted characters in all chests
+.[Ctreasure:unsafe]! Unsafe characters in chests
 <>- Specify possible starting characters
 .(@CstartDefine)# Define starting character pool
 ..[Cstart:cecil]  May start with Cecil
