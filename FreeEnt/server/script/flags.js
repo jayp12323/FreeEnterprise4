@@ -10485,7 +10485,7 @@ class FlagLogicCore {
             this._simple_disable_regex(flagset, log, "-smith is incompatible with Kforge", "^-smith:");
         }
         kmiab_flags = flagset.get_list("^Kmiab:");
-        if ((flagset.has_any("Ksummon", "Kmoon", "Kforge") || (kmiab_flags && (! flagset.has("Kmain"))))) {
+        if ((flagset.has_any("Ksummon", "Kmoon", "Kforge", "Kpink", "Kmiab:standard", "Kmiab:above", "Kmiab:below", "Kmiab:lst", "Kmiab:all") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }
@@ -10494,7 +10494,7 @@ class FlagLogicCore {
             flagset.set("Omode:ki16");
             this._lib.push(log, ["correction", "Can only collect 16 KIs for an objective with Owin:crystal; changing Omode:ki17 to Omode:ki16"]);
         }
-        if (((! (flagset.has_any("Ksummon", "Kmoon", "Kforge") || kmiab_flags)) && flagset.has("Omode:ki17"))) {
+        if (((! flagset.has_any("Ksummon", "Kmoon", "Kforge", "Kpink", "Kmiab:standard", "Kmiab:above", "Kmiab:below", "Kmiab:lst", "Kmiab:all")) && flagset.has("Omode:ki17"))) {
             this._simple_disable(flagset, log, "Cannot replace a key item if all of them are required", ["Pkey", "Kstart:pass"]);
         }
         if (flagset.has("Kvanilla")) {
