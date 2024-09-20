@@ -422,7 +422,7 @@ class FlagLogicCore:
         if flagset.has('Cnekkie') and len(flagset.get_list(r'^Cthrift:')) > 0:
             self._simple_disable_regex(flagset, log, 'Starting gear specified by Cnekkie', r'^Cthrift:')
 
-        if  (flagset.has('Ctreasure:wild') or flagset.has('Ctreasure:unsafe') or flagset.has('Ctreasure:relaxed')) and not (flagset.has('Ctreasure:free') or flagset.has('Ctreasure:earned')):
+        if  (flagset.has('Ctreasure:unsafe') or flagset.has('Ctreasure:relaxed')) and not (flagset.has('Ctreasure:free') or flagset.has('Ctreasure:earned')):
             flagset.set('Ctreasure:free')
             flagset.set('Ctreasure:earned')
             self._lib.push(log, ['correction', 'Ctreasure:unsafe/wild set, auto-assigning Ctreasure:free and Ctreasure:earned'])            
