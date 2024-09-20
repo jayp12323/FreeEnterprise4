@@ -22,7 +22,7 @@
 - Ssingles: Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).
 - Sno: More discrete options for these flags
 - Bitburns: The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo
-- Ctreasure and Cmiab: Characters now found in treasure chests
+- Ctreasure flags: Characters now found in treasure chests
 - Also includes all changes from scythe's fork/branch [here](https://github.com/ScytheMarshall/FreeEnterprise4All/tree/scythe-changes)
 
 # FreeEnterprise4

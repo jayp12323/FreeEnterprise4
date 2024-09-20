@@ -474,8 +474,21 @@ class FlagLogicCore {
         if ((flagset.has("Cnekkie") && (flagset.get_list("^Cthrift:").length > 0))) {
             this._simple_disable_regex(flagset, log, "Starting gear specified by Cnekkie", "^Cthrift:");
         }
-        if ((flagset.has("Ctreasure") && ((flagset.has("Tvanilla") || flagset.has("Tshuffle")) || flagset.has("Tempty")))) {
-            this._simple_disable_regex(flagset, log, "Ctreasure with vanilla-ish or empty chests", "^Ctreasure");
+        if ((((flagset.has("Ctreasure:wild") || flagset.has("Ctreasure:unsafe")) || flagset.has("Ctreasure:relaxed")) && (! (flagset.has("Ctreasure:free") || flagset.has("Ctreasure:earned"))))) {
+            flagset.set("Ctreasure:free");
+            flagset.set("Ctreasure:earned");
+            this._lib.push(log, ["correction", "Ctreasure:unsafe/wild set, auto-assigning Ctreasure:free and Ctreasure:earned"]);
+        }
+        if ((flagset.get_list("^Ctreasure:") && ((flagset.has("Tvanilla") || flagset.has("Tshuffle")) || flagset.has("Tempty")))) {
+            this._simple_disable_regex(flagset, log, "Ctreasure: with vanilla-ish or empty chests", "^Ctreasure:");
+        }
+        if (flagset.has("Ctreasure:earned")) {
+            flagset.set("Cnoearned");
+            this._lib.push(log, ["correction", "Ctreasure:earned set, auto-assigning Cnoearned"]);
+        }
+        if (flagset.has("Ctreasure:free")) {
+            flagset.set("Cnofree");
+            this._lib.push(log, ["correction", "Ctreasure:earned set, auto-assigning Cnofree"]);
         }
         if (flagset.has("Tempty")) {
             this._simple_disable_regex(flagset, log, "Treasures are empty", "^Tsparse:");
@@ -516,13 +529,6 @@ class FlagLogicCore {
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");
         if (((all_spoiler_flags.length > 0) && (all_spoiler_flags.length === sparse_spoiler_flags.length))) {
             this._simple_disable_regex(flagset, log, "No spoilers requested", "^-spoil:sparse");
-        }
-        if (flagset.has("Ctreasure")) {
-            flagset.set("Cnofree");
-            flagset.set("Cnoearned");
-            this._lib.push(log, ["correction", "Ctreasure set, auto-assigning Cnofree and Cnoearned"]);
-        } else {
-            this._simple_disable(flagset, log, "Characters are not in treasure", ["Cunsafe"]);
         }
         if (((flagset.has("Chi") && flagset.has("Chero")) && flagset.has("Cparty:1"))) {
             this._simple_disable(flagset, log, "No room for characters to be added with Chero and Max Party size of 1", ["Chi"]);
@@ -647,7 +653,7 @@ class FlagLogicCore {
             }
             for (var random_prefix, _pj_c = 0, _pj_a = ["Orandom:char", "Orandom2:char", "Orandom3:char"], _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 random_prefix = _pj_a[_pj_c];
-                if ((((flagset.has(random_prefix) && flagset.has("Cnoearned")) && flagset.has("Cnofree")) && (! flagset.has("Ctreasure")))) {
+                if (((((flagset.has(random_prefix) && flagset.has("Cnoearned")) && flagset.has("Cnofree")) && (! flagset.has("Ctreasure:free"))) && (! flagset.has("Ctreasure:earned")))) {
                     flagset.unset(random_prefix);
                     this._lib.push(log, ["correction", `Random character objectives in the pool while no character slots will be filled. Removed ${random_prefix}.`]);
                 }

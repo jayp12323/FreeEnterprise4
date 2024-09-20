@@ -115,7 +115,9 @@ def apply(env):
     if env.options.flags.has('wyvern_no_meganuke'):
         env.add_file('scripts/wyvern_nomeganuke.f4c')
         return
-    elif env.options.flags.has('wyvern_random_meganuke'):
+    
+    commands = dict()
+    if env.options.flags.has('wyvern_random_meganuke'):
         commands = dict(POSSIBLE_COMMANDS)
         if env.options.flags.has('bosses_unsafe'):
             commands.update(UNSAFE_COMMANDS)
@@ -130,7 +132,9 @@ def apply(env):
             commands.update({'#spell.Enemy_Glare' : 'all characters'})
             commands.update({'#spell.Enemy_HeatRay' : 'all characters'})
             commands.update({'#spell.White' : 'all characters'})
-
+    else:
+        return
+        
     cmd = env.rnd.choice(list(commands))
     target = env.rnd.choice(commands[cmd].split(' / '))
     if target == 'random character':

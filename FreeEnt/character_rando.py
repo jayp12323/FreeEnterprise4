@@ -81,6 +81,8 @@ FREE_SLOTS = [
 
 EASY_SLOTS = ['yang1_slot', 'yang2_slot']
 HARD_SLOTS = [s for s in SLOTS if s not in (FREE_SLOTS + EASY_SLOTS + STARTING_SLOTS)]
+EARNED_SLOTS = EASY_SLOTS + HARD_SLOTS
+
 RESTRICTED_CHARACTERS = []
 RESTRICTED_SLOTS = []
 FINAL_ASSIGNMENTS = {}
@@ -142,10 +144,10 @@ def apply(env):
     if env.options.flags.has('no_starting_partner'):
         assignable_slots.remove('kain1_slot')
 
-    if env.options.flags.has('characters_in_treasure') or not env.options.flags.has('no_earned_characters'):
-        assignable_slots.extend(EASY_SLOTS + HARD_SLOTS)
+    if env.options.flags.has('characters_in_treasure_earned') or not env.options.flags.has('no_earned_characters'):
+        assignable_slots.extend(EARNED_SLOTS)
 
-    if env.options.flags.has('characters_in_treasure') or not env.options.flags.has('no_free_characters'):
+    if env.options.flags.has('characters_in_treasure_free') or not env.options.flags.has('no_free_characters'):
         assignable_slots.extend(FREE_SLOTS)
 
     if env.options.flags.has('objective_mode_classicgiant') and 'kain3_slot' in assignable_slots:
@@ -269,7 +271,7 @@ def apply(env):
                 characters.extend(env.meta['objective_required_characters'])
 
             # pre-cull characters if Cnoearned is on            
-            if env.options.flags.has('no_earned_characters') and not env.options.flags.has('characters_in_treasure'):
+            if env.options.flags.has('no_earned_characters') and not env.options.flags.has('characters_in_treasure_earned'):
                 valid_RESTRICTED_CHARACTERS = list(RESTRICTED_CHARACTERS)
                 while len(characters) > len(assignable_slots):
                     # remove restricted characters first
@@ -505,7 +507,6 @@ def apply(env):
 
     for slot in assignment:
         if assignment[slot] in RESTRICTED_CHARACTERS:
-            print(f'Restricted char is '+assignment[slot])
             RESTRICTED_SLOTS.append(slot)
     env.update_assignments(assignment)
 

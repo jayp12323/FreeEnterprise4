@@ -4257,15 +4257,32 @@ var FLAG_UISPEC = [
             "hard": true
           },
           {
-            "flag": "Ctreasure",
-            "title": "Free and earned characters are found in treasure chests instead.",
-            "description": "Free and earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
+            "flag": "Ctreasure:free",
+            "title": "Free characters are found in treasure chests instead.",
+            "description": "Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
+            "hard": true
+          },
+          {
+            "flag": "Ctreasure:earned",
+            "title": "Earned characters are found in treasure chests instead.",
+            "description": "Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
+            "hard": true
+          },
+          {
+            "flag": "Ctreasure:relaxed",
+            "title": "Restricted characters in all chests.",
+            "description": "Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.",
+            "hard": true
+          },
+          {
+            "flag": "Ctreasure:unsafe",
+            "title": "Unsafe characters in chests",
+            "description": "Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.",
             "hard": true
           },
           {
             "flag": "Cunsafe",
             "title": "Unsafe treasure character distribution",
-            "description": "With Ctreasure on, normally characters will all be placed in treasures in the overworld.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.",
             "hard": true
           }
         ]

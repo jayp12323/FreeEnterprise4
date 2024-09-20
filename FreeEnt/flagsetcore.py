@@ -422,8 +422,21 @@ class FlagLogicCore:
         if flagset.has('Cnekkie') and len(flagset.get_list(r'^Cthrift:')) > 0:
             self._simple_disable_regex(flagset, log, 'Starting gear specified by Cnekkie', r'^Cthrift:')
 
-        if flagset.has('Ctreasure') and (flagset.has('Tvanilla') or flagset.has('Tshuffle') or flagset.has('Tempty')):
-            self._simple_disable_regex(flagset, log, 'Ctreasure with vanilla-ish or empty chests', r'^Ctreasure')
+        if  (flagset.has('Ctreasure:wild') or flagset.has('Ctreasure:unsafe') or flagset.has('Ctreasure:relaxed')) and not (flagset.has('Ctreasure:free') or flagset.has('Ctreasure:earned')):
+            flagset.set('Ctreasure:free')
+            flagset.set('Ctreasure:earned')
+            self._lib.push(log, ['correction', 'Ctreasure:unsafe/wild set, auto-assigning Ctreasure:free and Ctreasure:earned'])            
+
+        if flagset.get_list(r'^Ctreasure:') and (flagset.has('Tvanilla') or flagset.has('Tshuffle') or flagset.has('Tempty')):
+            self._simple_disable_regex(flagset, log, 'Ctreasure: with vanilla-ish or empty chests', r'^Ctreasure:')
+
+        if flagset.has('Ctreasure:earned'):                            
+            flagset.set('Cnoearned')
+            self._lib.push(log, ['correction', 'Ctreasure:earned set, auto-assigning Cnoearned'])
+        
+        if flagset.has('Ctreasure:free'):                            
+            flagset.set('Cnofree')
+            self._lib.push(log, ['correction', 'Ctreasure:earned set, auto-assigning Cnofree'])        
 
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
@@ -464,13 +477,6 @@ class FlagLogicCore:
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')
         if (len(all_spoiler_flags) > 0 and len(all_spoiler_flags) == len(sparse_spoiler_flags)):
             self._simple_disable_regex(flagset, log, 'No spoilers requested', r'^-spoil:sparse')
-
-        if flagset.has('Ctreasure'):                
-            flagset.set('Cnofree')
-            flagset.set('Cnoearned')
-            self._lib.push(log, ['correction', 'Ctreasure set, auto-assigning Cnofree and Cnoearned'])
-        else:
-            self._simple_disable(flagset, log, 'Characters are not in treasure', ['Cunsafe'])
 
         if flagset.has('Chi') and flagset.has('Chero') and flagset.has('Cparty:1'):  
             self._simple_disable(flagset, log, 'No room for characters to be added with Chero and Max Party size of 1', ['Chi'])
@@ -579,7 +585,7 @@ class FlagLogicCore:
                     self._lib.push(log, ['error', "Character objectives are set while no character slots will be filled"])                           
             
             for random_prefix in ['Orandom:char', 'Orandom2:char', 'Orandom3:char']:    
-                if flagset.has(random_prefix) and flagset.has('Cnoearned') and flagset.has('Cnofree') and not flagset.has('Ctreasure'):
+                if flagset.has(random_prefix) and flagset.has('Cnoearned') and flagset.has('Cnofree') and not flagset.has('Ctreasure:free') and not flagset.has('Ctreasure:earned'):
                     flagset.unset(random_prefix)
                     self._lib.push(log, ['correction', f'Random character objectives in the pool while no character slots will be filled. Removed {random_prefix}.'])
                     

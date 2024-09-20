@@ -114,7 +114,7 @@ msfpatch {
         %HeroNotSelected:
             // %end%
 
-            // %flag characters_remove_oldest on %
+            // %flag characters_first_in_first_out on %
             jsr $_JoinFullPartyMenu__GetSelectedAxtor            
             ldx $_CharEx__OldestAxtorIndex            
             lda $=CharEx__OldestAxtorBuffer,x            
