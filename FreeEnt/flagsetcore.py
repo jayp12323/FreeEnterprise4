@@ -475,11 +475,11 @@ class FlagLogicCore:
         if flagset.has('Chi') and flagset.has('Chero') and flagset.has('Cparty:1'):  
             self._simple_disable(flagset, log, 'No room for characters to be added with Chero and Max Party size of 1', ['Chi'])
 
-        if flagset.has('Coldest') and flagset.has('Chero') and flagset.has('Cparty:1'):  
-            self._simple_disable(flagset, log, 'Cant remove characters with Chero and Max Party size of 1', ['Coldest'])
+        if flagset.has('Cfifo') and flagset.has('Chero') and flagset.has('Cparty:1'):  
+            self._simple_disable(flagset, log, 'Cant remove characters with Chero and Max Party size of 1', ['Cfifo'])
 
-        if flagset.has('Cpermajoin') and flagset.has('Coldest'):
-            self._simple_disable(flagset, log, 'Permajoin and Remove Oldest are incompatible', ['Coldest'])
+        if flagset.has('Cpermajoin') and flagset.has('Cfifo'):
+            self._simple_disable(flagset, log, 'Permajoin and Remove Oldest are incompatible', ['Cfifo'])
 
 
         # Objectives logic

@@ -4456,8 +4456,8 @@ var FLAG_UISPEC = [
         "title": "New characters are forced to join the party"
       },
       {
-        "flag": "Coldest",
-        "title": "Characters that have been in the partest the longest must be dismissed first"
+        "flag": "Cfifo",
+        "title": "Characters in the party the longest must be dismissed first"
       },
       {
         "flag": "Cbye",

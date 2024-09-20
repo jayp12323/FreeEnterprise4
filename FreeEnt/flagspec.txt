@@ -40,7 +40,7 @@ Conly:cecil Conly:kain Conly:rydia Conly:tellah Conly:edward Conly:rosa Conly:ya
 Cno:cecil Cno:kain Cno:rydia Cno:tellah Cno:edward Cno:rosa Cno:yang Cno:palom Cno:porom Cno:cid Cno:edge Cno:fusoya
 Crestrict:cecil Crestrict:kain Crestrict:rydia Crestrict:tellah Crestrict:edward Crestrict:rosa Crestrict:yang Crestrict:palom Crestrict:porom Crestrict:cid Crestrict:edge Crestrict:fusoya
 Cthrift:2/Cthrift:3/Cthrift:4/Cthrift:5
-Cj:spells Cj:abilities Cpaladin Cnekkie Cnodupes Cparty:1/Cparty:2/Cparty:3/Cparty:4 Cbye Cpermajoin Cpermadeath/Cpermadeader Chero Csuperhero Ctreasure Cunsafe Chi Coldest
+Cj:spells Cj:abilities Cpaladin Cnekkie Cnodupes Cparty:1/Cparty:2/Cparty:3/Cparty:4 Cbye Cpermajoin Cpermadeath/Cpermadeader Chero Csuperhero Ctreasure Cunsafe Chi Cfifo
 Tvanilla Tshuffle/Tstandard/Tpro/Twild/Twildish/Tempty 
 Tsparse:10/Tsparse:20/Tsparse:30/Tsparse:40/Tsparse:50/Tsparse:60/Tsparse:70/Tsparse:80/Tsparse:90
 Tsparsey:underground Tsparsey:moon Tsparsey:overworld
@@ -168,7 +168,7 @@ Cpermajoin           characters_commitment
 Cpermadeath          characters_permadeath
 Cpermadeader         characters_permadeader
 Chi                  characters_force_add
-Coldest              characters_remove_oldest
+Cfifo                characters_first_in_first_out
 Chero                hero_challenge
 Csuperhero           superhero_challenge
 Ctreasure            characters_in_treasure

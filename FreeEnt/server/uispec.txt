@@ -372,7 +372,7 @@
 [Cpaladin] Cecil starts the game as a paladin
 [Cnodupes] Duplicate characters not allowed
 [Chi] New characters are forced to join the party
-[Coldest] Characters in the party the longest must be dismissed first
+[Cfifo] Characters in the party the longest must be dismissed first
 [Cbye] Dismissed characters are irretrievable
 <> Limit maximum party size
 .(Cparty:1) Maximum party size 1

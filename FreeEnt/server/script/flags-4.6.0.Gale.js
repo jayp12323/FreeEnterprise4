@@ -974,7 +974,7 @@ const _FE_FLAGSPEC = {
         "Ctreasure",
         "Cunsafe",
         "Chi",
-        "Coldest",
+        "Cfifo",
         "Tvanilla",
         "Tshuffle",
         "Tstandard",
@@ -8136,7 +8136,7 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "Coldest",
+            "flag": "Cfifo",
             "offset": 267,
             "size": 1,
             "value": 1
@@ -11143,8 +11143,11 @@ class FlagLogicCore {
         if (((flagset.has("Chi") && flagset.has("Chero")) && flagset.has("Cparty:1"))) {
             this._simple_disable(flagset, log, "No room for characters to be added with Chero and Max Party size of 1", ["Chi"]);
         }
-        if ((flagset.has("Cpermajoin") && flagset.has("Coldest"))) {
-            this._simple_disable(flagset, log, "Permajoin and Remove Oldest are incompatible", ["Coldest"]);
+        if (((flagset.has("Cfifo") && flagset.has("Chero")) && flagset.has("Cparty:1"))) {
+            this._simple_disable(flagset, log, "Cant remove characters with Chero and Max Party size of 1", ["Cfifo"]);
+        }
+        if ((flagset.has("Cpermajoin") && flagset.has("Cfifo"))) {
+            this._simple_disable(flagset, log, "Permajoin and Remove Oldest are incompatible", ["Cfifo"]);
         }
         if (flagset.has("Onone")) {
             this._simple_disable_regex(flagset, log, "No objectives set", "^O(win|req):");
