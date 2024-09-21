@@ -4023,9 +4023,40 @@ var FLAG_UISPEC = [
         "description": "Characters retain the battle commands from FF4j that were removed in FF4us."
       },
       {
-        "flag": "Cnekkie",
-        "title": "Characters start with limited gear",
-        "description": "Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)"
+        "flag": "@anon33",
+        "title": "Specify possible starting gear",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "Cnekkie",
+            "title": "Characters start with limited gear",
+            "description": "Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)"
+          },
+          {
+            "flag": "@Cthrifttier",
+            "title": "Characters start with full random gear",
+            "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear.)",
+            "compact": true,
+            "subcontrols": [
+              {
+                "flag": "Cthrift:2",
+                "title": "Starting gear is at best tier 2"
+              },
+              {
+                "flag": "Cthrift:3",
+                "title": "Starting gear is at best tier 3"
+              },
+              {
+                "flag": "Cthrift:4",
+                "title": "Starting gear is at best tier 4"
+              },
+              {
+                "flag": "Cthrift:5",
+                "title": "Starting gear is at best tier 5"
+              }
+            ]
+          }
+        ]
       },
       {
         "flag": "Cnodupes",
@@ -4038,7 +4069,7 @@ var FLAG_UISPEC = [
         "description": "Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)"
       },
       {
-        "flag": "@anon33",
+        "flag": "@anon34",
         "title": "Limit maximum party size",
         "type": "select",
         "subcontrols": [
@@ -4066,7 +4097,7 @@ var FLAG_UISPEC = [
         "description": "You have the choice of whether to accept each new party member, but once your party is full, you cannot recruit anyone else."
       },
       {
-        "flag": "@anon34",
+        "flag": "@anon35",
         "title": "Permadeath options",
         "type": "select",
         "subcontrols": [
@@ -4096,7 +4127,7 @@ var FLAG_UISPEC = [
     "title": "TREASURES",
     "controls": [
       {
-        "flag": "@anon35",
+        "flag": "@anon36",
         "title": "Treasure chests (other than MIABs)",
         "important": true,
         "type": "select",
@@ -4107,7 +4138,7 @@ var FLAG_UISPEC = [
             "null": true,
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4157,7 +4188,7 @@ var FLAG_UISPEC = [
             "description": "Treasure contents are the same as in original FF4, but their positions are shuffled. This randomization is weighted so that overworld treasures tend to remain in the overworld, and similarly for underworld/moon treasures.",
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4207,7 +4238,7 @@ var FLAG_UISPEC = [
             "description": "A basic randomization, allowing items of reasonable strength to appear. Items are equally likely to appear in any chest regardless of location.",
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4250,7 +4281,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon37",
+                "flag": "@anon38",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4279,7 +4310,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon38",
+                "flag": "@anon39",
                 "title": "Improve item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4321,7 +4352,7 @@ var FLAG_UISPEC = [
             "description": "Uses location-based weighting, with item quality approximately that of the vanilla game.",
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4364,7 +4395,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon37",
+                "flag": "@anon38",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4393,7 +4424,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon38",
+                "flag": "@anon39",
                 "title": "Improve item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4435,7 +4466,7 @@ var FLAG_UISPEC = [
             "description": "A skill-testing randomization, limiting the strength of available items, and weighted to favor stronger items in later-game and infrequently-visited areas.",
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4478,7 +4509,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon37",
+                "flag": "@anon38",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4507,7 +4538,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon38",
+                "flag": "@anon39",
                 "title": "Improve item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4549,7 +4580,7 @@ var FLAG_UISPEC = [
             "description": "Uses location-based weighting, with item quality between that provided by pro and wildish.",
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4592,7 +4623,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon37",
+                "flag": "@anon38",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4621,7 +4652,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon38",
+                "flag": "@anon39",
                 "title": "Improve item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4663,7 +4694,7 @@ var FLAG_UISPEC = [
             "description": "An unrestricted randomization, allowing equal chance for items to appear in any chest, including the most powerful items.",
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4706,7 +4737,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon37",
+                "flag": "@anon38",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4735,7 +4766,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon38",
+                "flag": "@anon39",
                 "title": "Improve item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4777,7 +4808,7 @@ var FLAG_UISPEC = [
             "description": "Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.",
             "subcontrols": [
               {
-                "flag": "@anon36",
+                "flag": "@anon37",
                 "title": "Sparse options",
                 "type": "select",
                 "subcontrols": [
@@ -4820,7 +4851,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon37",
+                "flag": "@anon38",
                 "title": "Restrict item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4849,7 +4880,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "@anon38",
+                "flag": "@anon39",
                 "title": "Improve item quality",
                 "type": "select",
                 "subcontrols": [
@@ -4897,7 +4928,7 @@ var FLAG_UISPEC = [
         "title": "No J-items in chests"
       },
       {
-        "flag": "@anon39",
+        "flag": "@anon40",
         "title": "Junk management",
         "type": "select",
         "subcontrols": [
@@ -4919,7 +4950,7 @@ var FLAG_UISPEC = [
     "title": "SHOPS",
     "controls": [
       {
-        "flag": "@anon40",
+        "flag": "@anon41",
         "title": "Shops",
         "important": true,
         "type": "select",
@@ -5016,7 +5047,7 @@ var FLAG_UISPEC = [
         "title": "Shop items are free"
       },
       {
-        "flag": "@anon41",
+        "flag": "@anon42",
         "title": "Sell prices",
         "type": "select",
         "subcontrols": [
@@ -5060,7 +5091,7 @@ var FLAG_UISPEC = [
     "title": "BOSSES",
     "controls": [
       {
-        "flag": "@anon42",
+        "flag": "@anon43",
         "title": "Bosses",
         "important": true,
         "type": "select",
@@ -5132,7 +5163,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon43",
+        "flag": "@anon44",
         "title": "Change Wyvern's opening MegaNuke",
         "type": "select",
         "subcontrols": [
@@ -5148,7 +5179,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon44",
+        "flag": "@anon45",
         "title": "Change Golbez's behaviour",
         "subcontrols": [
           {
@@ -5169,7 +5200,7 @@ var FLAG_UISPEC = [
     "title": "ENCOUNTERS",
     "controls": [
       {
-        "flag": "@anon45",
+        "flag": "@anon46",
         "title": "Random encounter rate",
         "important": true,
         "type": "select",
@@ -5242,7 +5273,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon46",
+        "flag": "@anon47",
         "title": "Drop tables",
         "type": "select",
         "subcontrols": [
@@ -5330,7 +5361,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon47",
+            "flag": "@anon48",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -5487,7 +5518,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon48",
+            "flag": "@anon49",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -5644,7 +5675,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon49",
+            "flag": "@anon50",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -5815,7 +5846,7 @@ var FLAG_UISPEC = [
         "title": "Edward can equip the Spoon"
       },
       {
-        "flag": "@anon50",
+        "flag": "@anon51",
         "title": "Smithy reward",
         "type": "select",
         "subcontrols": [
@@ -5866,7 +5897,7 @@ var FLAG_UISPEC = [
             "description": "Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you more EXP from each battle.",
             "subcontrols": [
               {
-                "flag": "@anon51",
+                "flag": "@anon52",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5893,7 +5924,7 @@ var FLAG_UISPEC = [
             "description": "Normally, completing key item checks does not increase the amount of EXP received from battles. Under this flag, each completed key item check beyond the starting item earns you more EXP from each battle.",
             "subcontrols": [
               {
-                "flag": "@anon52",
+                "flag": "@anon53",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5924,7 +5955,7 @@ var FLAG_UISPEC = [
             "description": "Normally, the rewards from key item checks do not impact the amount of EXP received from battles. Under this flag, every time you get a non-key-item reward from a potential key item check (a \"zonk\") you earn more EXP from future battles.",
             "subcontrols": [
               {
-                "flag": "@anon53",
+                "flag": "@anon54",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5950,7 +5981,7 @@ var FLAG_UISPEC = [
             "description": "Normally, MIAB encounters have the same EXP calculation as other encounters. Under this flag, MIAB encounters award double or 1.5 times the usual EXP.",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon55",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5972,7 +6003,7 @@ var FLAG_UISPEC = [
             "description": "Normally, location of encounter does not increase EXP. Under this flag, encounters on the moon award double or triple the usual EXP.",
             "subcontrols": [
               {
-                "flag": "@anon55",
+                "flag": "@anon56",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5999,7 +6030,7 @@ var FLAG_UISPEC = [
             "description": "Normally in FF4, each instance of a monster type killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield a scaled amount of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills. Note that the reduction is per monster type and not \"per slot\" in battle.",
             "subcontrols": [
               {
-                "flag": "@anon56",
+                "flag": "@anon57",
                 "title": "Per-monster-kill percentage reduction",
                 "type": "select",
                 "subcontrols": [
@@ -6105,7 +6136,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n\t<li>Only One Doors Randomization option can be used</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
-            "flag": "@anon57",
+            "flag": "@anon58",
             "title": "Random wacky challenge(s)",
             "type": "select",
             "subcontrols": [
@@ -6156,7 +6187,7 @@ var FLAG_UISPEC = [
             "title": "\"The Bodyguard\""
           },
           {
-            "flag": "@anon58",
+            "flag": "@anon59",
             "title": "Doors Randomization Options",
             "type": "select",
             "subcontrols": [
@@ -6329,7 +6360,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon59",
+        "flag": "@anon60",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6383,7 +6414,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon60",
+            "flag": "@anon61",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6399,7 +6430,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon61",
+                "flag": "@anon62",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

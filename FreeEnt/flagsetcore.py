@@ -453,6 +453,9 @@ class FlagLogicCore:
         if len(start_include_flags) > 1 and flagset.has('Cstart:any'):
             self._simple_disable_regex(flagset, log, 'Cstart:any is specified', r'^Cstart:(?!any|not_)')
 
+        if flagset.has('Cnekkie') and len(flagset.get_list(r'^Cthrift:')) > 0:
+            self._simple_disable_regex(flagset, log, 'Starting gear specified by Cnekkie', r'^Cthrift:')
+
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')
 

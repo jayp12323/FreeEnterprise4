@@ -871,6 +871,10 @@ const _FE_FLAGSPEC = {
         "Cj:spells",
         "Cj:abilities",
         "Cnekkie",
+        "Cthrift:2",
+        "Cthrift:3",
+        "Cthrift:4",
+        "Cthrift:5",
         "Cnodupes",
         "Cparty:1",
         "Cparty:2",
@@ -1985,6 +1989,12 @@ const _FE_FLAGSPEC = {
             "Cdistinct:9",
             "Cdistinct:10",
             "Cdistinct:11"
+        ],
+        [
+            "Cthrift:2",
+            "Cthrift:3",
+            "Cthrift:4",
+            "Cthrift:5"
         ],
         [
             "Cparty:1",
@@ -7407,1760 +7417,1784 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "Cnodupes",
+            "flag": "Cthrift:2",
             "offset": 181,
+            "size": 3,
+            "value": 1
+        },
+        {
+            "flag": "Cthrift:3",
+            "offset": 181,
+            "size": 3,
+            "value": 2
+        },
+        {
+            "flag": "Cthrift:4",
+            "offset": 181,
+            "size": 3,
+            "value": 3
+        },
+        {
+            "flag": "Cthrift:5",
+            "offset": 181,
+            "size": 3,
+            "value": 4
+        },
+        {
+            "flag": "Cnodupes",
+            "offset": 184,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Cparty:1",
-            "offset": 182,
+            "offset": 185,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Cparty:2",
-            "offset": 182,
+            "offset": 185,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Cparty:3",
-            "offset": 182,
+            "offset": 185,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Cparty:4",
-            "offset": 182,
+            "offset": 185,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Cbye",
-            "offset": 185,
+            "offset": 188,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Cpermajoin",
-            "offset": 186,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Cpermadeath",
-            "offset": 187,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "Cpermadeader",
-            "offset": 187,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "Chero",
             "offset": 189,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Tshuffle",
+            "flag": "Cpermadeath",
             "offset": 190,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "Cpermadeader",
+            "offset": 190,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "Chero",
+            "offset": 192,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Tshuffle",
+            "offset": 193,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Tstandard",
-            "offset": 190,
+            "offset": 193,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Tpro",
-            "offset": 190,
+            "offset": 193,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Tsemipro",
-            "offset": 190,
+            "offset": 193,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Twild",
-            "offset": 190,
+            "offset": 193,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Twildish",
-            "offset": 190,
+            "offset": 193,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Tvanillaish",
-            "offset": 190,
+            "offset": 193,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Tempty",
-            "offset": 190,
+            "offset": 193,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Tsparse:10",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Tsparse:20",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Tsparse:30",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Tsparse:40",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Tsparse:50",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Tsparse:60",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Tsparse:70",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Tsparse:80",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Tsparse:90",
-            "offset": 194,
+            "offset": 197,
             "size": 4,
             "value": 9
         },
         {
             "flag": "Tno:j",
-            "offset": 198,
+            "offset": 201,
             "size": 1,
             "value": 1
         },
         {
             "flag": "Tmaxtier:3",
-            "offset": 199,
+            "offset": 202,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Tmaxtier:4",
-            "offset": 199,
+            "offset": 202,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Tmaxtier:5",
-            "offset": 199,
+            "offset": 202,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Tmaxtier:6",
-            "offset": 199,
+            "offset": 202,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Tmaxtier:7",
-            "offset": 199,
+            "offset": 202,
             "size": 3,
             "value": 5
         },
         {
             "flag": "Tmintier:2",
-            "offset": 202,
+            "offset": 205,
             "size": 3,
             "value": 1
         },
         {
             "flag": "Tmintier:3",
-            "offset": 202,
+            "offset": 205,
             "size": 3,
             "value": 2
         },
         {
             "flag": "Tmintier:4",
-            "offset": 202,
+            "offset": 205,
             "size": 3,
             "value": 3
         },
         {
             "flag": "Tmintier:5",
-            "offset": 202,
+            "offset": 205,
             "size": 3,
             "value": 4
         },
         {
             "flag": "Tmintier:6",
-            "offset": 202,
+            "offset": 205,
             "size": 3,
             "value": 5
         },
         {
             "flag": "Tmintier:7",
-            "offset": 202,
+            "offset": 205,
             "size": 3,
             "value": 6
         },
         {
             "flag": "Tmintier:8",
-            "offset": 202,
+            "offset": 205,
             "size": 3,
             "value": 7
         },
         {
             "flag": "Tmoney",
-            "offset": 205,
+            "offset": 208,
             "size": 2,
             "value": 1
         },
         {
             "flag": "Tjunk",
-            "offset": 205,
+            "offset": 208,
             "size": 2,
             "value": 2
         },
         {
             "flag": "Sshuffle",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 1
         },
         {
             "flag": "Sstandard",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 2
         },
         {
             "flag": "Spro",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 3
         },
         {
             "flag": "Swildish",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 4
         },
         {
             "flag": "Swild",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 5
         },
         {
             "flag": "Scabins",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 6
         },
         {
             "flag": "Svanillaish",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 7
         },
         {
             "flag": "Sempty",
-            "offset": 207,
+            "offset": 210,
             "size": 4,
             "value": 8
         },
         {
             "flag": "Sfree",
-            "offset": 211,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Ssell:quarter",
-            "offset": 212,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "Ssell:0",
-            "offset": 212,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "Sno:j",
             "offset": 214,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Sno:apples",
+            "flag": "Ssell:quarter",
             "offset": 215,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "Sno:sirens",
-            "offset": 216,
-            "size": 1,
-            "value": 1
+            "flag": "Ssell:0",
+            "offset": 215,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "Sno:life",
+            "flag": "Sno:j",
             "offset": 217,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Sno:vampires",
+            "flag": "Sno:apples",
             "offset": 218,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Sno:veils",
+            "flag": "Sno:sirens",
             "offset": 219,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Sunsafe",
+            "flag": "Sno:life",
             "offset": 220,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bstandard",
+            "flag": "Sno:vampires",
             "offset": 221,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bnofree",
+            "flag": "Sno:veils",
             "offset": 222,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bunsafe",
+            "flag": "Sunsafe",
             "offset": 223,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Balt:gauntlet",
+            "flag": "Bstandard",
             "offset": 224,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Brestrict:summon",
+            "flag": "Bnofree",
             "offset": 225,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Brestrict:moon",
+            "flag": "Bunsafe",
             "offset": 226,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Brestrict:zot",
+            "flag": "Balt:gauntlet",
             "offset": 227,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Brestrict:hook",
+            "flag": "Brestrict:summon",
             "offset": 228,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Brestrict:giant",
+            "flag": "Brestrict:moon",
             "offset": 229,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Brestrict:sealedcave",
+            "flag": "Brestrict:zot",
             "offset": 230,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Brestrict:package",
+            "flag": "Brestrict:hook",
             "offset": 231,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bwhyburn",
+            "flag": "Brestrict:giant",
             "offset": 232,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Bwhichburn",
-            "offset": 232,
-            "size": 2,
-            "value": 2
+            "flag": "Brestrict:sealedcave",
+            "offset": 233,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Bwhybez",
+            "flag": "Brestrict:package",
             "offset": 234,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Bwhichbez",
+            "flag": "Bwhyburn",
             "offset": 235,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "Etoggle",
-            "offset": 236,
             "size": 2,
             "value": 1
         },
         {
-            "flag": "Ereduce",
-            "offset": 236,
+            "flag": "Bwhichburn",
+            "offset": 235,
             "size": 2,
             "value": 2
         },
         {
-            "flag": "Enoencounters",
-            "offset": 236,
-            "size": 2,
-            "value": 3
+            "flag": "Bwhybez",
+            "offset": 237,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Ekeep:doors",
+            "flag": "Bwhichbez",
             "offset": 238,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Ekeep:behemoths",
+            "flag": "Etoggle",
             "offset": 239,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "Edanger",
-            "offset": 240,
-            "size": 1,
-            "value": 1
+            "flag": "Ereduce",
+            "offset": 239,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "Ecantrun",
+            "flag": "Enoencounters",
+            "offset": 239,
+            "size": 2,
+            "value": 3
+        },
+        {
+            "flag": "Ekeep:doors",
             "offset": 241,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Enoexp",
+            "flag": "Ekeep:behemoths",
             "offset": 242,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Enogp",
+            "flag": "Edanger",
             "offset": 243,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Enodmachin",
+            "flag": "Ecantrun",
             "offset": 244,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Eno:jdrops",
+            "flag": "Enoexp",
             "offset": 245,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "Eno:sirens",
-            "offset": 245,
-            "size": 2,
-            "value": 2
+            "flag": "Enogp",
+            "offset": 246,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "Gdupe",
+            "flag": "Enodmachin",
             "offset": 247,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Gmp",
+            "flag": "Eno:jdrops",
             "offset": 248,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "Gwarp",
-            "offset": 249,
-            "size": 1,
-            "value": 1
+            "flag": "Eno:sirens",
+            "offset": 248,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "Glife",
+            "flag": "Gdupe",
             "offset": 250,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Gsylph",
+            "flag": "Gmp",
             "offset": 251,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "Gbackrow",
+            "flag": "Gwarp",
             "offset": 252,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "G64",
+            "flag": "Glife",
             "offset": 253,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-kit:basic",
+            "flag": "Gsylph",
             "offset": 254,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "Gbackrow",
+            "offset": 255,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "G64",
+            "offset": 256,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-kit:basic",
+            "offset": 257,
             "size": 5,
             "value": 1
         },
         {
             "flag": "-kit:better",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 2
         },
         {
             "flag": "-kit:loaded",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 3
         },
         {
             "flag": "-kit:cata",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 4
         },
         {
             "flag": "-kit:freedom",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 5
         },
         {
             "flag": "-kit:cid",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 6
         },
         {
             "flag": "-kit:yang",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 7
         },
         {
             "flag": "-kit:money",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 8
         },
         {
             "flag": "-kit:grabbag",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 9
         },
         {
             "flag": "-kit:miab",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 10
         },
         {
             "flag": "-kit:archer",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 11
         },
         {
             "flag": "-kit:fabul",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 12
         },
         {
             "flag": "-kit:castlevania",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 13
         },
         {
             "flag": "-kit:summon",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 14
         },
         {
             "flag": "-kit:notdeme",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 15
         },
         {
             "flag": "-kit:meme",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 16
         },
         {
             "flag": "-kit:defense",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 17
         },
         {
             "flag": "-kit:mist",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 18
         },
         {
             "flag": "-kit:mysidia",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 19
         },
         {
             "flag": "-kit:baron",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 20
         },
         {
             "flag": "-kit:dwarf",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 21
         },
         {
             "flag": "-kit:eblan",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 22
         },
         {
             "flag": "-kit:libra",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 23
         },
         {
             "flag": "-kit:99",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 24
         },
         {
             "flag": "-kit:green",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 25
         },
         {
             "flag": "-kit:adamant",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 26
         },
         {
             "flag": "-kit:cursed",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 27
         },
         {
             "flag": "-kit:hero",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 28
         },
         {
             "flag": "-kit:exit",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 29
         },
         {
             "flag": "-kit:random",
-            "offset": 254,
+            "offset": 257,
             "size": 5,
             "value": 30
         },
         {
             "flag": "-kit2:basic",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 1
         },
         {
             "flag": "-kit2:better",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 2
         },
         {
             "flag": "-kit2:loaded",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 3
         },
         {
             "flag": "-kit2:cata",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 4
         },
         {
             "flag": "-kit2:freedom",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 5
         },
         {
             "flag": "-kit2:cid",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 6
         },
         {
             "flag": "-kit2:yang",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 7
         },
         {
             "flag": "-kit2:money",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 8
         },
         {
             "flag": "-kit2:grabbag",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 9
         },
         {
             "flag": "-kit2:miab",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 10
         },
         {
             "flag": "-kit2:archer",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 11
         },
         {
             "flag": "-kit2:fabul",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 12
         },
         {
             "flag": "-kit2:castlevania",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 13
         },
         {
             "flag": "-kit2:summon",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 14
         },
         {
             "flag": "-kit2:notdeme",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 15
         },
         {
             "flag": "-kit2:meme",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 16
         },
         {
             "flag": "-kit2:defense",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 17
         },
         {
             "flag": "-kit2:mist",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 18
         },
         {
             "flag": "-kit2:mysidia",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 19
         },
         {
             "flag": "-kit2:baron",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 20
         },
         {
             "flag": "-kit2:dwarf",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 21
         },
         {
             "flag": "-kit2:eblan",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 22
         },
         {
             "flag": "-kit2:libra",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 23
         },
         {
             "flag": "-kit2:99",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 24
         },
         {
             "flag": "-kit2:green",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 25
         },
         {
             "flag": "-kit2:adamant",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 26
         },
         {
             "flag": "-kit2:cursed",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 27
         },
         {
             "flag": "-kit2:hero",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 28
         },
         {
             "flag": "-kit2:exit",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 29
         },
         {
             "flag": "-kit2:random",
-            "offset": 259,
+            "offset": 262,
             "size": 5,
             "value": 30
         },
         {
             "flag": "-kit3:basic",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 1
         },
         {
             "flag": "-kit3:better",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 2
         },
         {
             "flag": "-kit3:loaded",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 3
         },
         {
             "flag": "-kit3:cata",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 4
         },
         {
             "flag": "-kit3:freedom",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 5
         },
         {
             "flag": "-kit3:cid",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 6
         },
         {
             "flag": "-kit3:yang",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 7
         },
         {
             "flag": "-kit3:money",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 8
         },
         {
             "flag": "-kit3:grabbag",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 9
         },
         {
             "flag": "-kit3:miab",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 10
         },
         {
             "flag": "-kit3:archer",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 11
         },
         {
             "flag": "-kit3:fabul",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 12
         },
         {
             "flag": "-kit3:castlevania",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 13
         },
         {
             "flag": "-kit3:summon",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 14
         },
         {
             "flag": "-kit3:notdeme",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 15
         },
         {
             "flag": "-kit3:meme",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 16
         },
         {
             "flag": "-kit3:defense",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 17
         },
         {
             "flag": "-kit3:mist",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 18
         },
         {
             "flag": "-kit3:mysidia",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 19
         },
         {
             "flag": "-kit3:baron",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 20
         },
         {
             "flag": "-kit3:dwarf",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 21
         },
         {
             "flag": "-kit3:eblan",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 22
         },
         {
             "flag": "-kit3:libra",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 23
         },
         {
             "flag": "-kit3:99",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 24
         },
         {
             "flag": "-kit3:green",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 25
         },
         {
             "flag": "-kit3:adamant",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 26
         },
         {
             "flag": "-kit3:cursed",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 27
         },
         {
             "flag": "-kit3:hero",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 28
         },
         {
             "flag": "-kit3:exit",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 29
         },
         {
             "flag": "-kit3:random",
-            "offset": 264,
+            "offset": 267,
             "size": 5,
             "value": 30
         },
         {
             "flag": "-noadamants",
-            "offset": 269,
+            "offset": 272,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-nocursed",
-            "offset": 270,
+            "offset": 273,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoon",
-            "offset": 271,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-smith:super",
-            "offset": 272,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "-smith:alt",
-            "offset": 272,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "-exp:split",
             "offset": 274,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-exp:noboost",
+            "flag": "-smith:super",
             "offset": 275,
-            "size": 1,
+            "size": 2,
             "value": 1
         },
         {
-            "flag": "-exp:nokeybonus",
-            "offset": 276,
-            "size": 1,
-            "value": 1
+            "flag": "-smith:alt",
+            "offset": 275,
+            "size": 2,
+            "value": 2
         },
         {
-            "flag": "-exp:crystalbonus",
+            "flag": "-exp:split",
             "offset": 277,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-exp:objectivebonus25",
+            "flag": "-exp:noboost",
             "offset": 278,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-exp:nokeybonus",
+            "offset": 279,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-exp:crystalbonus",
+            "offset": 280,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-exp:objectivebonus25",
+            "offset": 281,
             "size": 3,
             "value": 1
         },
         {
             "flag": "-exp:objectivebonus10",
-            "offset": 278,
+            "offset": 281,
             "size": 3,
             "value": 2
         },
         {
             "flag": "-exp:objectivebonus5",
-            "offset": 278,
+            "offset": 281,
             "size": 3,
             "value": 3
         },
         {
             "flag": "-exp:objectivebonus_num",
-            "offset": 278,
+            "offset": 281,
             "size": 3,
             "value": 4
         },
         {
             "flag": "-exp:kicheckbonus10",
-            "offset": 281,
+            "offset": 284,
             "size": 3,
             "value": 1
         },
         {
             "flag": "-exp:kicheckbonus5",
-            "offset": 281,
+            "offset": 284,
             "size": 3,
             "value": 2
         },
         {
             "flag": "-exp:kicheckbonus2",
-            "offset": 281,
+            "offset": 284,
             "size": 3,
             "value": 3
         },
         {
             "flag": "-exp:kicheckbonus_num",
-            "offset": 281,
+            "offset": 284,
             "size": 3,
             "value": 4
         },
         {
             "flag": "-exp:zonkbonus10",
-            "offset": 284,
+            "offset": 287,
             "size": 2,
             "value": 1
         },
         {
             "flag": "-exp:zonkbonus5",
-            "offset": 284,
+            "offset": 287,
             "size": 2,
             "value": 2
         },
         {
             "flag": "-exp:zonkbonus2",
-            "offset": 284,
+            "offset": 287,
             "size": 2,
             "value": 3
         },
         {
             "flag": "-exp:miabbonus100",
-            "offset": 286,
+            "offset": 289,
             "size": 2,
             "value": 1
         },
         {
             "flag": "-exp:miabbonus50",
-            "offset": 286,
+            "offset": 289,
             "size": 2,
             "value": 2
         },
         {
             "flag": "-exp:moonbonus200",
-            "offset": 288,
+            "offset": 291,
             "size": 2,
             "value": 1
         },
         {
             "flag": "-exp:moonbonus100",
-            "offset": 288,
+            "offset": 291,
             "size": 2,
             "value": 2
         },
         {
             "flag": "-exp:maxlevelbonus",
-            "offset": 290,
+            "offset": 293,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-exp:geometric90",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 1
         },
         {
             "flag": "-exp:geometric80",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 2
         },
         {
             "flag": "-exp:geometric70",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 3
         },
         {
             "flag": "-exp:geometric60",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 4
         },
         {
             "flag": "-exp:geometric50",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 5
         },
         {
             "flag": "-exp:geometric40",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 6
         },
         {
             "flag": "-exp:geometric30",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 7
         },
         {
             "flag": "-exp:geometric20",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 8
         },
         {
             "flag": "-exp:geometric10",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 9
         },
         {
             "flag": "-exp:geometric0",
-            "offset": 291,
+            "offset": 294,
             "size": 4,
             "value": 10
         },
         {
             "flag": "-exp:kicheckbonus",
-            "offset": 295,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-vanilla:fusoya",
-            "offset": 296,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-vanilla:agility",
-            "offset": 297,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-vanilla:hobs",
             "offset": 298,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:growup",
+            "flag": "-vanilla:fusoya",
             "offset": 299,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:fashion",
+            "flag": "-vanilla:agility",
             "offset": 300,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:miabs",
+            "flag": "-vanilla:hobs",
             "offset": 301,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:giant",
+            "flag": "-vanilla:growup",
             "offset": 302,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vanilla:z",
+            "flag": "-vanilla:fashion",
             "offset": 303,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-vintage",
+            "flag": "-vanilla:miabs",
             "offset": 304,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-pushbtojump",
+            "flag": "-vanilla:giant",
             "offset": 305,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:random",
+            "flag": "-vanilla:z",
             "offset": 306,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-vintage",
+            "offset": 307,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-pushbtojump",
+            "offset": 308,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:random",
+            "offset": 309,
             "size": 3,
             "value": 1
         },
         {
             "flag": "-wacky:random2",
-            "offset": 306,
+            "offset": 309,
             "size": 3,
             "value": 2
         },
         {
             "flag": "-wacky:random3",
-            "offset": 306,
+            "offset": 309,
             "size": 3,
             "value": 3
         },
         {
             "flag": "-wacky:random4",
-            "offset": 306,
+            "offset": 309,
             "size": 3,
             "value": 4
         },
         {
             "flag": "-wacky:random5",
-            "offset": 306,
+            "offset": 309,
             "size": 3,
             "value": 5
         },
         {
             "flag": "-wacky:random6",
-            "offset": 306,
+            "offset": 309,
             "size": 3,
             "value": 6
         },
         {
             "flag": "-wacky:musical",
-            "offset": 309,
+            "offset": 312,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-wacky:bodyguard",
-            "offset": 310,
+            "offset": 313,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-wacky:fistfight",
-            "offset": 311,
+            "offset": 314,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-wacky:doorsrando",
-            "offset": 312,
+            "offset": 315,
             "size": 3,
             "value": 1
         },
         {
             "flag": "-wacky:doorsrando_normal",
-            "offset": 312,
+            "offset": 315,
             "size": 3,
             "value": 2
         },
         {
             "flag": "-wacky:doorsrando_gated",
-            "offset": 312,
+            "offset": 315,
             "size": 3,
             "value": 3
         },
         {
             "flag": "-wacky:doorsrando_blueplanet",
-            "offset": 312,
+            "offset": 315,
             "size": 3,
             "value": 4
         },
         {
             "flag": "-wacky:doorsrando_why",
-            "offset": 312,
+            "offset": 315,
             "size": 3,
             "value": 5
         },
         {
             "flag": "-wacky:doorsrando_all",
-            "offset": 312,
+            "offset": 315,
             "size": 3,
             "value": 6
         },
         {
             "flag": "-wacky:omnidextrous",
-            "offset": 315,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:biggermagnet",
-            "offset": 316,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:sixleggedrace",
-            "offset": 317,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:floorislava",
             "offset": 318,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:neatfreak",
+            "flag": "-wacky:biggermagnet",
             "offset": 319,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:timeismoney",
+            "flag": "-wacky:sixleggedrace",
             "offset": 320,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:nightmode",
+            "flag": "-wacky:floorislava",
             "offset": 321,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:mysteryjuice",
+            "flag": "-wacky:neatfreak",
             "offset": 322,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:misspelled",
+            "flag": "-wacky:timeismoney",
             "offset": 323,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:enemyunknown",
+            "flag": "-wacky:nightmode",
             "offset": 324,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:kleptomania",
+            "flag": "-wacky:mysteryjuice",
             "offset": 325,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:darts",
+            "flag": "-wacky:misspelled",
             "offset": 326,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:unstackable",
+            "flag": "-wacky:enemyunknown",
             "offset": 327,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:menarepigs",
+            "flag": "-wacky:kleptomania",
             "offset": 328,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:skywarriors",
+            "flag": "-wacky:darts",
             "offset": 329,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:zombies",
+            "flag": "-wacky:unstackable",
             "offset": 330,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:afflicted",
+            "flag": "-wacky:menarepigs",
             "offset": 331,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:batman",
+            "flag": "-wacky:skywarriors",
             "offset": 332,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:battlescars",
+            "flag": "-wacky:zombies",
             "offset": 333,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:imaginarynumbers",
+            "flag": "-wacky:afflicted",
             "offset": 334,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:tellahmaneuver",
+            "flag": "-wacky:batman",
             "offset": 335,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:3point",
+            "flag": "-wacky:battlescars",
             "offset": 336,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:friendlyfire",
+            "flag": "-wacky:imaginarynumbers",
             "offset": 337,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:payablegolbez",
+            "flag": "-wacky:tellahmaneuver",
             "offset": 338,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:gottagofast",
+            "flag": "-wacky:3point",
             "offset": 339,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:worthfighting",
+            "flag": "-wacky:friendlyfire",
             "offset": 340,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:saveusbigchocobo",
+            "flag": "-wacky:payablegolbez",
             "offset": 341,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:isthisrandomized",
+            "flag": "-wacky:gottagofast",
             "offset": 342,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:forwardisback",
+            "flag": "-wacky:worthfighting",
             "offset": 343,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:mirrormirror",
+            "flag": "-wacky:saveusbigchocobo",
             "offset": 344,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:all",
+            "flag": "-wacky:isthisrandomized",
             "offset": 345,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:keyitems",
+            "flag": "-wacky:forwardisback",
             "offset": 346,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:rewards",
+            "flag": "-wacky:mirrormirror",
             "offset": 347,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:chars",
+            "flag": "-spoil:all",
             "offset": 348,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:treasure",
+            "flag": "-spoil:keyitems",
             "offset": 349,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:miabs",
-            "offset": 349,
-            "size": 2,
-            "value": 2
+            "flag": "-spoil:rewards",
+            "offset": 350,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "-spoil:shops",
+            "flag": "-spoil:chars",
             "offset": 351,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:bosses",
+            "flag": "-spoil:treasure",
             "offset": 352,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:miabs",
+            "offset": 352,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "-spoil:shops",
+            "offset": 354,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:bosses",
+            "offset": 355,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:misc",
-            "offset": 353,
+            "offset": 356,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:sparse10",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 1
         },
         {
             "flag": "-spoil:sparse20",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 2
         },
         {
             "flag": "-spoil:sparse30",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 3
         },
         {
             "flag": "-spoil:sparse40",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 4
         },
         {
             "flag": "-spoil:sparse50",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 5
         },
         {
             "flag": "-spoil:sparse60",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 6
         },
         {
             "flag": "-spoil:sparse70",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 7
         },
         {
             "flag": "-spoil:sparse80",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 8
         },
         {
             "flag": "-spoil:sparse90",
-            "offset": 354,
+            "offset": 357,
             "size": 4,
             "value": 9
         }
