@@ -276,7 +276,40 @@ def apply(env):
         for old,new in zip(remapped_original_chests, remapped_new_chests):
             treasure_assignment.remap(old, new)
 
-    put_characters_into_chests(env, plain_chests_dbview, treasure_dbview, treasure_assignment)
+    character_in_chest_slots = []
+    max_overworld_chests = 0
+    put_characters_in_chests = False
+
+    if env.options.flags.has('characters_in_treasure_free'):
+        character_in_chest_slots = character_rando.FREE_SLOTS
+        max_overworld_chests = len(character_rando.FREE_SLOTS) if not env.options.flags.has('characters_in_treasure_unsafe')  else max_overworld_chests
+        put_characters_in_chests = True
+
+    if env.options.flags.has('characters_in_treasure_earned'):
+        character_in_chest_slots += character_rando.EARNED_SLOTS         
+        put_characters_in_chests = True
+
+    if not put_characters_in_chests:
+        return
+        
+    assigned_ids= []
+    character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
+    for slot_name in character_in_chest_slots:
+        if slot_name in character_rando.RESTRICTED_SLOTS and not env.options.flags.has('characters_in_treasure_relaxed'):
+            continue
+
+        if max_overworld_chests <= 0:
+            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: lambda t: t.fight is None and t.ordr not in assigned_ids)
+        else:
+            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids and t.world == "Overworld")
+            max_overworld_chests -= 1            
+        t = env.rnd.choice(character_treasure_chests.find_all())        
+        print(f'Putting character {env.assignments[character_rando.SLOTS[slot_name]]} into chest {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
+        treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[slot_name]))
+        assigned_ids.append(t.ordr)
+    
+    # update the plain chests to remove the character assigned ones
+    plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
 
     if env.options.flags.has('treasure_vanilla'):
         # for various reasons we really do need to assign every treasure chest still
@@ -365,6 +398,8 @@ def apply(env):
         sparse_db_view = plain_chests_dbview.find_all(lambda t: t.world in target_worlds)
         empty_count = (len(sparse_db_view) * (100 - sparse_level)) // 100
         for t in env.rnd.sample(sparse_db_view, empty_count):
+            if type(t) is AxtorChestReward:
+                print(f'Fuck')
             treasure_assignment.assign(t, None)
 
     # apply passes if Pt flag
