@@ -252,7 +252,7 @@
 ...(Kstart:tower) You start with the Tower Key
 ...(Kstart:hook) You start with the Hook
 ...(Kstart:luca) You start with the Luca Key
-...(Kstart:darkcrystal) You start with the Dark Crystal
+...(Kstart:darkness) You start with the Dark Crystal
 ...(Kstart:rat) You start with the Rat Tail
 ...(Kstart:pan) You start with the Pan
 ...(Kstart:crystal) You start with the Crystal
@@ -260,6 +260,7 @@
 ...(Kstart:adamant) You start with the Adamant
 ...(Kstart:pink) You start with the Pink tail
 ...(Kstart:spoon) You start with the Spoon
+...(Kstart:crystal) You start with the Crystal
 ..[Kunweighted] Key items will be placed uniformly at random
 
 == PASS
@@ -798,8 +799,8 @@
 .(-wacky:afflicted)!        "Afflicted"
 .(-wacky:battlescars)!      "Battle Scars"
 .(-wacky:bodyguard)         "The Bodyguard"
+.(-wacky:dropitlikeitshot)  "Drop It Like It's Hot"
 .<> Doors Randomization Options
-..(-wacky:dropitlikeitshot)  "Drop It Like It's Hot"
 ..(-wacky:doorsrando_normal)!           No Cross World Shuffle
 ..(-wacky:doorsrando_gated)!          Underworld and Moon shuffled
 ..(-wacky:doorsrando_blueplanet)!          Overworld and Underworld Shuffled
