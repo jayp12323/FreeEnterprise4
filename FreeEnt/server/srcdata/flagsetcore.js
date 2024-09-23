@@ -437,17 +437,54 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_specific_objectives, all_spoiler_flags, ch, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, hard_required_objectives, has_unavailable_characters, log, num_random_objectives, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, specific_boss_objectives, start_exclude_flags, start_include_flags, total_objective_count, total_potential_bosses, win_flags;
+        var WACKY_SET_1, WACKY_SET_2, WACKY_SET_3, actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_specific_objectives, all_spoiler_flags, ch, challenges, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, hard_required_objectives, has_unavailable_characters, kmiab_flags, log, mode, num_random_objectives, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, specific_boss_objectives, start_exclude_flags, start_include_flags, total_objective_count, total_potential_bosses, win_flags;
         log = [];
-        if ((flagset.has_any("Ksummon", "Kmoon", "Kmiab") && (! flagset.has("Kmain")))) {
+        if ((flagset.has("Kunsafer") && (! flagset.has("Kmoon")))) {
+            flagset.set("Kmoon");
+            this._lib.push(log, ["correction", "Kunsafer requires placing key items on the moon; adding Kmoon"]);
+        }
+        if ((flagset.has("Kforge") && flagset.has("Omode:classicforge"))) {
+            this._simple_disable(flagset, log, "Classic forge is incompatible with Kforge", ["Kforge"]);
+        }
+        if (flagset.has("Kforge")) {
+            this._simple_disable_regex(flagset, log, "-smith is incompatible with Kforge", "^-smith:");
+        }
+        kmiab_flags = flagset.get_list("^Kmiab:");
+        if ((flagset.has_any("Ksummon", "Kmoon", "Kforge", "Kpink", "Kmiab:standard", "Kmiab:above", "Kmiab:below", "Kmiab:lst", "Kmiab:all") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }
+        if ((flagset.has("Owin:crystal") && flagset.has("Omode:ki17"))) {
+            flagset.unset("Omode:ki17");
+            flagset.set("Omode:ki16");
+            this._lib.push(log, ["correction", "Can only collect 16 KIs for an objective with Owin:crystal; changing Omode:ki17 to Omode:ki16"]);
+        }
+        if (((! flagset.has_any("Ksummon", "Kmoon", "Kforge", "Kpink", "Kmiab:standard", "Kmiab:above", "Kmiab:below", "Kmiab:lst", "Kmiab:all")) && flagset.has("Omode:ki17"))) {
+            this._simple_disable(flagset, log, "Cannot replace a key item if all of them are required", ["Pkey", "Kstart:pass"]);
+        }
         if (flagset.has("Kvanilla")) {
-            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunweighted"]);
+            this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunsafer", "Kunweighted"]);
+            this._simple_disable_regex(flagset, log, "Key items not randomized", "^Kstart:");
         }
         if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
             this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
+        }
+        if (flagset.has("Kstart:darkness")) {
+            this._simple_disable(flagset, log, "Klatedark is incompatible with starting with Darkness", ["Klatedark"]);
+        }
+        if (flagset.has("Klatedark")) {
+            this._simple_disable(flagset, log, "Klatedark implicitly guarantees safe underground access", ["Kunsafe", "Kunsafer"]);
+        }
+        if ((flagset.has("Kstart:pass") && (! flagset.has("Pkey")))) {
+            flagset.set("Pkey");
+            this._lib.push(log, ["correction", "Kstart:pass implies Pkey"]);
+        }
+        if ((_pj.in_es6("Kmiab:all", kmiab_flags) && (kmiab_flags.length > 1))) {
+            this._simple_disable_regex(flagset, log, "All miabs already included", "^Kmiab:(standard|above|below|lst)");
+        } else {
+            if ((_pj.in_es6("Kmiab:standard", kmiab_flags) && (kmiab_flags.length > 1))) {
+                this._simple_disable_regex(flagset, log, "Standard miab inclusion takes priority", "^Kmiab:(above|below|lst)");
+            }
         }
         if (flagset.has("Cvanilla")) {
             this._simple_disable_regex(flagset, log, "Characters not randomized", "^C(maybe|distinct:|only:|no:)");
@@ -474,7 +511,7 @@ class FlagLogicCore {
         if ((flagset.has("Cnekkie") && (flagset.get_list("^Cthrift:").length > 0))) {
             this._simple_disable_regex(flagset, log, "Starting gear specified by Cnekkie", "^Cthrift:");
         }
-        if ((((flagset.has("Ctreasure:wild") || flagset.has("Ctreasure:unsafe")) || flagset.has("Ctreasure:relaxed")) && (! (flagset.has("Ctreasure:free") || flagset.has("Ctreasure:earned"))))) {
+        if (((flagset.has("Ctreasure:unsafe") || flagset.has("Ctreasure:relaxed")) && (! (flagset.has("Ctreasure:free") || flagset.has("Ctreasure:earned"))))) {
             flagset.set("Ctreasure:free");
             flagset.set("Ctreasure:earned");
             this._lib.push(log, ["correction", "Ctreasure:unsafe/wild set, auto-assigning Ctreasure:free and Ctreasure:earned"]);
@@ -504,6 +541,7 @@ class FlagLogicCore {
         if (flagset.has_any("Tempty", "Tvanilla", "Tshuffle")) {
             this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmaxtier:");
             this._simple_disable(flagset, log, "Treasures are not random", ["Tplayable"]);
+            this._simple_disable_regex(flagset, log, "Treasures are not random", "^Tmintier:");
         }
         if (flagset.has_any("Svanilla", "Scabins", "Sempty")) {
             this._simple_disable_regex(flagset, log, "Shops are not random", "^Sno:([^j]|j.)");
@@ -514,6 +552,7 @@ class FlagLogicCore {
         }
         if (flagset.has("Bvanilla")) {
             this._simple_disable(flagset, log, "Bosses not randomized", ["Bunsafe"]);
+            this._simple_disable_regex(flagset, log, "Bosses not randomized", "^Brestrict:");
         }
         if (flagset.has("Evanilla")) {
             this._simple_disable(flagset, log, "Encounters are vanilla", ["Ekeep:behemoths", "Ekeep:doors", "Edanger"]);
@@ -541,7 +580,7 @@ class FlagLogicCore {
         }
         if (flagset.has("Onone")) {
             this._simple_disable_regex(flagset, log, "No objectives set", "^O(win|req):");
-            this._simple_disable(flagset, log, "No objectives set", ["-exp:objectivebonus"]);
+            this._simple_disable_regex(flagset, log, "No objectives set", "^-exp:objectivebonus");
         } else {
             if ((! flagset.get_list("^Oreq:"))) {
                 flagset.set("Oreq:all");
@@ -775,6 +814,54 @@ class FlagLogicCore {
                     break;
                 }
                 duplicate_check_count += required_objective_count;
+            }
+        }
+        challenges = flagset.get_list("^-wacky:");
+        if (challenges) {
+            WACKY_SET_1 = ["afflicted", "menarepigs", "mirrormirror", "skywarriors", "zombies"];
+            WACKY_SET_2 = ["battlescars", "payablegolbez", "tellahmaneuver", "worthfighting"];
+            WACKY_SET_3 = [["3point", "afflicted", "battlescars", "menarepigs", "mirrormirror", "skywarriors", "unstackable", "zombies"], ["afflicted", "friendlyfire"], ["battlescars", "afflicted", "zombies", "worthfighting"], ["darts", "musical"], ["3point", "tellahmaneuver"]];
+            for (var c, _pj_c = 0, _pj_a = challenges, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                c = _pj_a[_pj_c];
+                mode = this._lib.re_sub("-wacky:", "", c);
+                if (_pj.in_es6(mode, WACKY_SET_1)) {
+                    this._simple_disable(flagset, log, "Can only have one enforced status wacky mode", function () {
+    var _pj_d = [], _pj_e = WACKY_SET_1;
+    for (var _pj_f = 0, _pj_g = _pj_e.length; (_pj_f < _pj_g); _pj_f += 1) {
+        var m = _pj_e[_pj_f];
+        if ((m !== mode)) {
+            _pj_d.push(`-wacky:${m}`);
+        }
+    }
+    return _pj_d;
+}
+.call(this));
+                    this._simple_disable(flagset, log, "Modes are incompatible with enforced status wacky modes", function () {
+    var _pj_d = [], _pj_e = WACKY_SET_2;
+    for (var _pj_f = 0, _pj_g = _pj_e.length; (_pj_f < _pj_g); _pj_f += 1) {
+        var m = _pj_e[_pj_f];
+        _pj_d.push(`-wacky:${m}`);
+    }
+    return _pj_d;
+}
+.call(this));
+                }
+                for (var group, _pj_f = 0, _pj_d = WACKY_SET_3, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+                    group = _pj_d[_pj_f];
+                    if (_pj.in_es6(mode, group)) {
+                        this._simple_disable(flagset, log, `Wacky modes are incompatible with ${mode}`, function () {
+    var _pj_g = [], _pj_h = group;
+    for (var _pj_i = 0, _pj_j = _pj_h.length; (_pj_i < _pj_j); _pj_i += 1) {
+        var m = _pj_h[_pj_i];
+        if ((m !== mode)) {
+            _pj_g.push(`-wacky:${m}`);
+        }
+    }
+    return _pj_g;
+}
+.call(this));
+                    }
+                }
             }
         }
         return log;

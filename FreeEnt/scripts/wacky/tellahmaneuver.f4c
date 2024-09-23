@@ -3,10 +3,10 @@ msfpatch {
     Wacky__TellahManeuver_LoadCost:
         phx
         tax
-        lda $=Wacky__ROMData,x
-        sta $_Wacky__RAM
-        lda $=(Wacky__ROMData + 0x100),x
-        sta $_(Wacky__RAM+1)
+        lda $=Wacky__ROMData_tellahmaneuver,x
+        sta $_Wacky__RAM_tellahmaneuver
+        lda $=(Wacky__ROMData_tellahmaneuver + 0x100),x
+        sta $_(Wacky__RAM_tellahmaneuver+1)
         plx
         rtl
 }
@@ -83,7 +83,7 @@ msfpatch {
 
     .new 
     Wacky__TellahManeuver_MenuLoadMPCost_Prepare:
-        sta $_(Wacky__RAM+2)
+        sta $_(Wacky__RAM_tellahmaneuver+2)
         // displaced
         xba
         lda #$00
@@ -99,7 +99,7 @@ msfpatch {
         // also load the HP cost into Wacky RAM
         lda #$00
         xba
-        lda $_(Wacky__RAM+2)
+        lda $_(Wacky__RAM_tellahmaneuver+2)
         jml $=Wacky__TellahManeuver_LoadCost // this will RTL
 }
 
@@ -108,7 +108,7 @@ msfpatch {
     .addr $01B29C
         .mx 0x00
         lda $0007,x
-        cmp $_Wacky__RAM
+        cmp $_Wacky__RAM_tellahmaneuver
 }
 
 msfpatch {
@@ -118,7 +118,7 @@ msfpatch {
         .mx 0x00
         lda $0007,x
         sec
-        sbc $_Wacky__RAM
+        sbc $_Wacky__RAM_tellahmaneuver
         sep #$20
         .mx 0x20
         rts
@@ -140,7 +140,7 @@ msfpatch  {
         .mx 0x00
         lda $0007,x
         clc
-        adc $_Wacky__RAM
+        adc $_Wacky__RAM_tellahmaneuver
         sta $0007,x
         sep #$20
         .mx 0x20
@@ -180,7 +180,7 @@ msfpatch {
     Wacky__TellahManeuver_BattleLoadMPCost:
         lda $2c7b,x // get spell ID
         jsl $=Wacky__TellahManeuver_LoadCost
-        ldx $_Wacky__RAM
+        ldx $_Wacky__RAM_tellahmaneuver
         rtl
 }
 
@@ -192,9 +192,9 @@ msfpatch {
     // relocate temporary "current MP" value to 16-bit and use HP
     .addr $03A1D5
         lda $2007,x
-        sta $_(Wacky__RAM+4)
+        sta $_(Wacky__RAM_tellahmaneuver+4)
         lda $2008,x
-        sta $_(Wacky__RAM+5)
+        sta $_(Wacky__RAM_tellahmaneuver+5)
         nop nop
 
     .addr $03A259
@@ -204,12 +204,12 @@ msfpatch {
     Wacky__TellahManeuver_BattleMPCheck:
         lda $2c7b,x  // get spell id
         jsl $=Wacky__TellahManeuver_LoadCost
-        lda $_(Wacky__RAM+5)
-        cmp $_(Wacky__RAM+1)
+        lda $_(Wacky__RAM_tellahmaneuver+5)
+        cmp $_(Wacky__RAM_tellahmaneuver+1)
         bcc $+NotEnoughHP
         bne $+EnoughHP
-        lda $_(Wacky__RAM+4)
-        cmp $_Wacky__RAM
+        lda $_(Wacky__RAM_tellahmaneuver+4)
+        cmp $_Wacky__RAM_tellahmaneuver
         bcc $+NotEnoughHP
     %EnoughHP:
         jml $03a26a
@@ -228,10 +228,10 @@ msfpatch {
         // load HP cost using the n -> 10n tables
         phx
         tax
-        lda $=(Wacky__ROMData + 0x200),x
-        sta $_Wacky__RAM
-        lda $=(Wacky__ROMData + 0x300),x
-        sta $_(Wacky__RAM+1)
+        lda $=(Wacky__ROMData_tellahmaneuver + 0x200),x
+        sta $_Wacky__RAM_tellahmaneuver
+        lda $=(Wacky__ROMData_tellahmaneuver + 0x300),x
+        sta $_(Wacky__RAM_tellahmaneuver+1)
         plx
 
         // continue to apply modified HP
@@ -239,7 +239,7 @@ msfpatch {
         .mx 0x00
         lda $2687
         sec
-        sbc $_Wacky__RAM
+        sbc $_Wacky__RAM_tellahmaneuver
         sta $A9
         lda #$0000
         sep #$20

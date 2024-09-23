@@ -1,35 +1,99 @@
-(December 19, 2023)
-· Renamed Ktrap to Kmiab, with similar renames throughout other flags, website text, and ingame text.
-· Flash FX now default to disabled.
-· Item price changes:
-  · Cursed Ring: 35000 -> 66000
-  · Life potion: 150 -> 1000
-  · Cure2 potion: 400 -> 300
-  · Long Katana: 11000 -> 22000
-  · Ninja Sword: 66000 -> 44000
-  · Murasame: 93000 -> 66000
-  · Masamune: 106000 -> 88000
-  · Full Moon: 12000 -> 24000
-  · Cat Claw: 30000 -> 10000
-  · Mute Dagger: 10000 -> 15000
-  · Assassin Dagger: 16000 -> 20000
-  · Samurai Helm: 20000 -> 15000
-  · Dragoon Helm: 30000 -> 20000
-  · Headband: 6000 -> 10000
-  · Bandana: 9000 -> 12000
-  · Fire Armor: 30000 -> 15000
-  · Ice Armor: 35000 -> 18000
-  · Diamond Armor: 40000 -> 20000
-  · Samurai Armor: 40000 -> 20000
-  · Dragoon Armor: 50000 -> 30000
-  · Karate Gi: 4000 -> 7000
-  · Black Belt: 14000 -> 20000
-  · Bahamut orb: 85000 -> 60000
-· Item tier changes:
-  · Cat Claw: 5 -> 4
-  · Bahamut orb: 7 -> 6
-· Fixed an issue where DkMatter could replace the Pass in chests.
-· Fixed an issue where MIAB rewards would be duplicated in other chests with Tvanilla.
-· Updated Z sprites and harp songs.
+(May 5, 2024)
+· Bug fixes:
+  · Hiding flags no longer crashes.
 
+(March 27, 2024)
+· Bug fixes:
+  · Applied an upstream fix from Wylem to fix wacky:random (i.e. a single
+    random wacky flag) not doing anything.
 
+(March 3, 2024)
+· Bug fixes:
+  · Correction to the Tvanillish Lunar Subterrane MIAB curve.
+  · Fix Tmintier occasionally placing items below the specified minimum tier.
+
+(January 9, 2024)
+· Bug fixes:
+  · Upstream fix from Wylem preventing "3 Point System" and "Tellah Maneuver"
+    from rolling together, which causes crashes, and "Mirror Mirror" from
+    rolling with incompatible wackies.
+  · Fix Omode:ki crystal award hanging when getting the last KI from a
+    non-MIAB, non-overworld chest location.
+  · Fix Kpink/start:pink failing to generate.
+  · Fix an upstream issue that causes the combination of Owin:crystal,
+    Kmain/miab, not Pkey, and Tvanilla to fail to generate.
+
+(January 4, 2024)
+· Bug fixes:
+  · Fix "No reward assigned for slot 92" when Kpink does not assign the pink
+    tail trade a key item or reward in the pool.
+
+(January 2, 2024)
+· Bug fixes:
+  · Fix inverted logic causing -kit:hero to start with one arrow instead of
+    20 arrows *unless* unstackable wacky is active.
+  · Fix crash on Omode:ki and acquiring items from MIABs that do not win the
+    game.
+  · Fix freeze on Omode:ki and Owin:crystal when pulling the last item from
+    a normal chest (rat tail and ribbon locations).
+
+(January 1, 2024)
+· Bug fixes:
+  · Fix the correction from Omode:ki17 to Omode:ki16 when Owin:crystal is on. 
+
+(December 25, 2023)
+· Bug fixes:
+  · Kvanilla generation no longer errors out attempting to disable Kstart. 
+
+(December 22, 2023)
+· Bug fixes:
+  · Tmintier no longer allows HrGlass1 and HrGlass3 to spawn on Twild if
+    the specified minimum tier is greater than 5 (HrGlass2 tier).
+  · Ending flags display is no longer too wide for the screen.
+· Omode:dkmatter now takes a number of DkMatters in increments of 5.
+· New O flag:
+  · Omode:ki: Obtain the specified number of key items to complete the
+    objective.
+
+(December 21, 2023)
+· Merged Wylem's multi-wacky fork.
+· Additional K flags:
+  · Knofree:dwarf: Move the "free" key item to Cid in the Dwarf Castle
+    hospital.
+  · Knofree:package: Rydia's mom has the "free" key item, and appears upon
+    turning in the Package.
+  · Kunsafer: Force underground access via the moon. 
+· Additional S flag:
+  · Svanillaish: Shops have items based on their vanilla tier lists.
+· Additional B flags:
+  · Brestrict: Restrict required bosses from showing up in specified
+    locations. 
+· Additional E flags:
+  · Enogp: No GP from random encounters.
+  · Enodmachin: Replaces the D.Machin in the Searcher encounter with a
+    Horseman.
+
+(December 20, 2023)
+· Additional K flags:
+  · Kforge: The forge item is a key item spot.
+  · Kpink: The pink tail can be traded for a key item check.
+  · Klatedark: Darkness Crystal is gated by underground access.
+  · Kstart: Specify the starting key item.
+· Additional T flags:
+  · Tmintier: Treasures generated will always be at least this tier.
+  · Tvanillaish: Weight items based on vanilla item tiers.
+  · Tsemipro: Weight items halfway between Tpro and Twildish.
+· Additional S flags:
+  · Swildish: Weight items approximately between Sstandard and Swild.
+  · Sno:vampires: Vampires do not appear in shops.
+  · Sno:veils: StarVeils and MoonVeils do not appear in shops.
+· Additional B flags:
+  · Bwhybez: Disable Golbez's Shadow summon - he starts firing spells
+    immediately.
+  · Bwhichbez: Randomize Golbez's and Shadow's spell lists.
+· Additional kits:
+  · kit:adamant: An Adamant Armor.
+  · kit:cursed: A Cursed Ring.
+  · kit:hero: One tier 4-5 weapon, armor, headgear, and ring/gauntlet for the
+    starting character, including arrows for bows and a second weapon if the
+    starting character is Edge (or if -wacky:omnidextrous is enabled).

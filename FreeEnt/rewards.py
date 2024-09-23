@@ -87,6 +87,7 @@ class RewardSlot(enum.IntEnum):
     pink_trade_item             = 0x5C
     fixed_crystal               = 0x5D
     gated_objective             = 0x5E
+    dwarf_hospital_item         = 0x5F
 
     MAX_COUNT = 0x60
 
@@ -194,6 +195,7 @@ REWARD_SLOT_SPOILER_NAMES = {
     RewardSlot.pink_trade_item             : "Pink Tail trade item",
     RewardSlot.fixed_crystal               : "Objective completion", 
     RewardSlot.gated_objective             : "Gated requirements completion", 
+    RewardSlot.dwarf_hospital_item         : "Dwarf Castle hospital item",
 }
 
 class Reward:

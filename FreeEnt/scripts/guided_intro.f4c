@@ -40,6 +40,57 @@ event($40) // guidingway introduction
     }
     message #msg.fe_WackyChallengeTitle
     // %end%
+	// %if wacky_challenge_2%
+	message #msg.fe_WackyChallengeDelimiter
+	message #msg.fe_WackyChallengeTitle2
+	// %end%
+	// %if wacky_challenge_3%
+	message #msg.fe_WackyChallengeDelimiter
+	message #msg.fe_WackyChallengeTitle3
+	// %end%
+	// %if wacky_challenge_4%
+	message #msg.fe_WackyChallengeDelimiter
+	message #msg.fe_WackyChallengeTitle4
+	// %end%
+	// %if wacky_challenge_5%
+	message #msg.fe_WackyChallengeTitle5
+	// %end%
+	// %if wacky_challenge_6%
+	message #msg.fe_WackyChallengeTitle6
+	// %end%
+	// %if wacky_challenge_7%
+	message #msg.fe_WackyChallengeTitle7
+	// %end%
+	// %if wacky_challenge_8%
+	message #msg.fe_WackyChallengeTitle8
+	// %end%
+	// %if wacky_challenge_9%
+	message #msg.fe_WackyChallengeTitle9
+	// %end%
+	// %if wacky_challenge_10%
+	message #msg.fe_WackyChallengeTitle10
+	// %end%
+	// %if wacky_challenge_11%
+	message #msg.fe_WackyChallengeTitle11
+	// %end%
+	// %if wacky_challenge_12%
+	message #msg.fe_WackyChallengeTitle12
+	// %end%
+	// %if wacky_challenge_13%
+	message #msg.fe_WackyChallengeTitle13
+	// %end%
+	// %if wacky_challenge_14%
+	message #msg.fe_WackyChallengeTitle14
+	// %end%
+	// %if wacky_challenge_15%
+	message #msg.fe_WackyChallengeTitle15
+	// %end%
+	// %if wacky_challenge_16%
+	message #msg.fe_WackyChallengeTitle16
+	// %end%
+	// %if wacky_challenge_17%
+	message #msg.fe_WackyChallengeTitle17
+	// %end%
     // %if wacky_challenge_show_detail%
     message #msg.fe_WackyChallengeDetail
     // %end%
@@ -97,7 +148,76 @@ the wacky challenge:
 }
 
 text(bank 1 message $119) {
-
-{% wacky challenge title: This is a bug! %}
+{% wacky challenge title 1: This is a bug! %}
 }
+
+text(bank 1 message $11f) {
+
+           AND
+}
+
+text(bank 1 message $120) {
+{% wacky challenge title 2: This is a bug! %}
+}
+
+text(bank 1 message $121) {
+{% wacky challenge title 3: This is a bug! %}
+}
+
+text(bank 1 message $122) {
+{% wacky challenge title 4: This is a bug! %}
+}
+
+text(bank 1 message $123) {
+{% wacky challenge title 5: This is a bug! %}
+}
+
+text(bank 1 message $124) {
+{% wacky challenge title 6: This is a bug! %}
+}
+
+text(bank 1 message $125) {
+{% wacky challenge title 7: This is a bug! %}
+}
+
+text(bank 1 message $126) {
+{% wacky challenge title 8: This is a bug! %}
+}
+
+text(bank 1 message $127) {
+{% wacky challenge title 9: This is a bug! %}
+}
+
+text(bank 1 message $128) {
+{% wacky challenge title 10: This is a bug! %}
+}
+
+text(bank 1 message $129) {
+{% wacky challenge title 11: This is a bug! %}
+}
+
+text(bank 1 message $12A) {
+{% wacky challenge title 12: This is a bug! %}
+}
+
+text(bank 1 message $12B) {
+{% wacky challenge title 13: This is a bug! %}
+}
+
+text(bank 1 message $12C) {
+{% wacky challenge title 14: This is a bug! %}
+}
+
+text(bank 1 message $12D) {
+{% wacky challenge title 15: This is a bug! %}
+}
+
+text(bank 1 message $12E) {
+{% wacky challenge title 16: This is a bug! %}
+}
+
+text(bank 1 message $12F) {
+{% wacky challenge title 17: This is a bug! %}
+}
+
 

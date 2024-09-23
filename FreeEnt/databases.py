@@ -7,7 +7,24 @@ import os
 
 DB_PATH = os.path.join(os.path.dirname(__file__), 'assets', 'db')
 
+_doors_db = csvdb.CsvDb(os.path.join(DB_PATH, 'doors.csvdb'), {
+    'map': str, 'trigger_number': int, 'x': int, 'y': int, 'dest': str, 'dest_x': int, 'dest_y': int, 'facing': str,
+    'type': str, "world":str,
+})
+
 _curves_db = csvdb.CsvDb(os.path.join(DB_PATH, 'curves.csvdb'), {
+    'wikiindex' : int,
+    'tier1' : int,
+    'tier2' : int,
+    'tier3' : int,
+    'tier4' : int,
+    'tier5' : int,
+    'tier6' : int,
+    'tier7' : int,
+    'tier8' : int,
+    })
+
+_tvanillaish_db = csvdb.CsvDb(os.path.join(DB_PATH, 'tvanillaish.csvdb'), {
     'wikiindex' : int,
     'tier1' : int,
     'tier2' : int,
@@ -68,6 +85,12 @@ _custom_weapons_db = csvdb.CsvDb(os.path.join(DB_PATH, 'custom_weapons.csvdb'), 
 
 def get_curves_dbview():
     return _curves_db.create_view()
+
+def get_doors_dbview():
+    return _doors_db.create_view()
+
+def get_tvanillaish_dbview():
+    return _tvanillaish_db.create_view()
 
 def get_treasure_dbview():
     return _treasure_db.create_view()

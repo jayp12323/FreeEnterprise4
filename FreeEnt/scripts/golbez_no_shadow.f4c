@@ -1,0 +1,36 @@
+// have Golbez start throwing spells immediately 
+ai_script($DF)
+{
+    chain {
+        use #InvincibleOff
+        condition 2
+        pass
+    }
+}
+
+ai_script($E2)
+{
+        message $4A   // "Golbez:HA_"
+	use #spell.Virus
+        pass
+        
+        message $4B   // "_HA_"
+	use #spell.Lit3
+        pass
+        
+        message $4C   // "_HA!"
+	use #spell.Fire2
+        pass
+}
+
+text(battle message $4A) {
+Golbez:HA_
+}
+
+text(battle message $4B) {
+_HA_
+}
+
+text(battle message $4C) {
+_HA!
+}

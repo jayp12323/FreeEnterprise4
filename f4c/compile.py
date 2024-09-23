@@ -168,7 +168,7 @@ def compile(input_rom, output_rom, *scripts, options=CompileOptions()):
                 bytes_patches.append(script)
                 continue
 
-            if '\n' not in script and os.path.isfile(script):        
+            if '\n' not in script and os.path.isfile(script):
                 extension = os.path.splitext(script)[1].lower()
                 if extension == '.f4c':
                     autodetect_format = False

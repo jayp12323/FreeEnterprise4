@@ -1,0 +1,21 @@
+msfpatch {
+	.addr $039079
+		jml $=Wacky__MirrorMirror_AddWall
+
+    .new
+    Wacky__MirrorMirror_AddWall:
+		plx 			// displaced
+		sta $2015,x		// displaced (STA r_character_battle.1.agility.w,X)
+		lda $2006,x		// this is probably 0, but we may as well be extra careful
+		ora #$20
+		sta $2006,x
+		jml $03907D
+}
+
+msfpatch {
+    Wacky__StatusEnforcement_Calculate:
+        lda #$20
+        sta $_Wacky__StatusEnforcement_OutputByte3
+
+        rtl
+}

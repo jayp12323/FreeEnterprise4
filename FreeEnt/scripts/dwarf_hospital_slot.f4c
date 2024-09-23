@@ -1,0 +1,48 @@
+npc(#Cid5) {
+    default active
+    sprite #Cid
+    eventcall {
+      $DC
+    }
+}
+
+event($DC) {
+    consts(placement) {
+        5   Cid5
+    }
+    [#B #If #Flag #flag.fe_GotDwarfHospitalItem] {
+        [#B #If #XPosition 2] {
+            p #Cid5 face left
+        }
+        [#B #If #XPosition 4] {
+            p #Cid5 face right 
+        }
+        message $1b7
+        p #Cid5 face down
+    }
+
+    [#B #If #not_Flag #flag.fe_GotDwarfHospitalItem] {
+        [#B #If #XPosition 2] {
+            p #Cid5 face left
+        }
+        [#B #If #XPosition 4] {
+            p #Cid5 face right 
+        }
+        message $1b6
+        [#B #Text_LoadRewardNameFromSlot #reward_slot.dwarf_hospital_item 0]
+        sound #GetItem
+        message #msg.fe_Received
+        [#B #Objectives_TickRewardSlot #reward_slot.dwarf_hospital_item]
+        [#B #Rando_DeliverRewardFromSlot #reward_slot.dwarf_hospital_item]
+	set #fe_GotDwarfHospitalItem
+        p #Cid5 face down
+    }
+}
+
+text(bank 1 message $1B6) {
+[Cid]:[name $f0], take this!
+}
+
+text(bank 1 message $1B7) {
+[Cid]:Hope it was useful!
+}

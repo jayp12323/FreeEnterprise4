@@ -4,7 +4,6 @@
 ..[Omode:classicforge] Classic Forge-the-Crystal
 ..[Omode:classicgiant] Classic Giant%
 ..[Omode:fiends] Fiends%
-..[Omode:dkmatter] Dark Matter Hunt
 ..[Omode:bosscollector] Boss Collector
 ...<> Set number of required bosses
 ....(Obosscollector:1) Collect 1 boss
@@ -29,6 +28,34 @@
 ....(Ogoldhunter:500) Have 500,000 gold
 ....(Ogoldhunter:750) Have 750,000 gold
 ....(Ogoldhunter:1000) Have 1,000,000 gold
+..<> Dark Matter Hunt
+...(Omode:dkmatter5) Dark Matter Hunt - 5 Required
+...(Omode:dkmatter10) Dark Matter Hunt - 10 Required
+...(Omode:dkmatter15) Dark Matter Hunt - 15 Required
+...(Omode:dkmatter20) Dark Matter Hunt - 20 Required
+...(Omode:dkmatter25) Dark Matter Hunt - 25 Required
+...(Omode:dkmatter30) Dark Matter Hunt - 30 Required
+...(Omode:dkmatter35) Dark Matter Hunt - 35 Required
+...(Omode:dkmatter40) Dark Matter Hunt - 40 Required
+...(Omode:dkmatter45) Dark Matter Hunt - 45 Required
+..<> Key Item Hunt
+...(Omode:ki1) Obtain 1 key item
+...(Omode:ki2) Obtain 2 key items
+...(Omode:ki3) Obtain 3 key items
+...(Omode:ki4) Obtain 4 key items
+...(Omode:ki5) Obtain 5 key items
+...(Omode:ki6) Obtain 6 key items
+...(Omode:ki7) Obtain 7 key items
+...(Omode:ki8) Obtain 8 key items
+...(Omode:ki9) Obtain 9 key items
+...(Omode:ki10) Obtain 10 key items
+...(Omode:ki11) Obtain 11 key items
+...(Omode:ki12) Obtain 12 key items
+...(Omode:ki13) Obtain 13 key items
+...(Omode:ki14) Obtain 14 key items
+...(Omode:ki15) Obtain 15 key items
+...(Omode:ki16) Obtain 16 key items
+...(Omode:ki17) Obtain 17 key items
 .[@Ocustom] Custom objectives
 ..<> Custom objective #1
 ...(O1:*)
@@ -191,14 +218,26 @@
 == KEY ITEMS
 <>* Key Items
 .[Kvanilla]- No key item randomization
-..[Knofree]! No free key item in Toroia
+..<>! Replace free key item in Toroia
+...[Knofree]! Rydia's mom requires defeating D.Mist to appear
+...[Knofree:dwarf]! Move key item from Toroia to Dwarf Castle
+...[Knofree:package]! Rydia's mom requires burning Mist to appear
 .[Kmain] Randomize key items
 ..[Ksummon]! Mix with summon quest rewards
 ..[Kmoon]! Mix with moon boss rewards
-..[] Mix with monster-in-a-box chests
-...(Kmiab)! All non-LST miabs; also LST miabs under Kmoon or Kunsafe
-...(Klstmiab)! All LST miabs
-..[Knofree]! No free key item in Toroia
+..<> Mix with monster-in-a-box chests
+...(Kmiab:standard)! All non-LST miabs; also LST miabs under Kmoon or Kunsafe
+...(Kmiab:all)! All miabs (regardless of Kmoon or Kunsafe)
+...<> Specific miab subgroupings
+....[Kmiab:above]! All above-ground non-LST miabs (including Giant/Lunar Path)
+....[Kmiab:below]! All below-ground miabs
+....[Kmiab:lst]! All LST miabs
+..[Kforge]! Forge provides a key item
+..[Kpink]! Pink Tail trades for a key item
+..<>! Replace free key item in Toroia
+...[Knofree]! Rydia's mom requires defeating D.Mist to appear
+...[Knofree:dwarf]! Move key item from Toroia to Dwarf Castle
+...[Knofree:package]! Rydia's mom requires burning Mist to appear
 ..<> Underworld access
 ...(Kforce:magma) Guarantee underworld access via Magma Key
 ...(Kforce:hook)! Force underworld access via Hook route
@@ -423,7 +462,19 @@
 ...[Tunrestrict:moon] Chests on the moon will be unaffected by any Tmaxtier flags
 ...[Tunrestrict:underworld] Chests in the underworld will be unaffected by any Tmaxtier flags
 ...[Tunrestrict:overworld] Chests on the overworld will be unaffected by any Tmaxtier flags
+..<> Improve item quality
+...(Tmintier:2) Chests contain tier 2 items at minimum
+...(Tmintier:3) Chests contain tier 3 items at minimum
+...(Tmintier:4) Chests contain tier 4 items at minimum
+...(Tmintier:5) Chests contain tier 5 items at minimum
+...(Tmintier:6) Chests contain tier 6 items at minimum
+...(Tmintier:7) Chests contain tier 7 items at minimum
+...(Tmintier:8) Chests contain tier 8 items
+.(Tvanillaish) Vanilla-ish chest randomization
+..[ECHO:Tstandard]
 .(Tpro) Pro chest randomization
+..[ECHO:Tstandard]
+.(Tsemipro) Semi-pro chest randomization
 ..[ECHO:Tstandard]
 .(Twild) Wild chest randomization
 ..[ECHO:Tstandard]
@@ -444,7 +495,11 @@
 ..[Sunsafe]! No safety checks
 .(Spro) Pro shop randomization
 ..[ECHO:Sstandard]
+.(Swildish) Wild-ish shop randomization
+..[ECHO:Sstandard]
 .(Swild) Wild shop randomization
+..[ECHO:Sstandard]
+.(Svanillaish) Vanilla-ish shop randomization
 ..[ECHO:Sstandard]
 .(Scabins)! Shops sell only cabins
 .(Ssame)! Shops sell only one type of item
@@ -513,11 +568,22 @@
 ..[Bunsafe]! No safety checks
 [Bnofree]! No free bosses
 [Balt:gauntlet] Alt Gauntlet
+(@Brestrict) Restrict required boss locations
+.[Brestrict:summon] Required bosses cannot be at summon spots
+.[Brestrict:moon] Required bosses cannot be at moon spots
+.[Brestrict:zot] Required bosses cannot be in the Tower of Zot
+.[Brestrict:hook] Required bosses cannot be on the Hook route
+.[Brestrict:giant] Required bosses cannot be on the Giant of Babil
+.[Brestrict:sealedcave] Required bosses cannot be in Sealed Cave
+.[Brestrict:package] Required bosses cannot be behind the Package
 <> Change Wyvern's opening MegaNuke
 .(Bwhyburn) Disable Wyvern's opening MegaNuke
 .(Bwhichburn) Replace Wyvern's opening MegaNuke with random attack
 .(Bitburns) Replace Wyvern's opening MegaNuke with random, incredibly dangerous attack
 [Bwoahdin] Replace Odin's first two Zantetsukens 1 and 2 with random attack
+() Change Golbez's behaviour
+.[Bwhybez] Disable Golbez's Shadow summon
+.[Bwhichbez] Replace Golbez's and Shadow's spells with random spells
 
 == ENCOUNTERS
 <>* Random encounter rate
@@ -538,6 +604,8 @@
 .(Eno:jdrops) Use US version drop/sneak tables
 [Ecantrun]! Can't run from battles
 [Enoexp]! No EXP for random encounters
+[Enogp]! No GP for random encounters
+[Enodmachin]! Disable D.Machin encounters
 
 == GLITCHES
 [@G] Enable major glitches
@@ -578,6 +646,10 @@
 ..(-kit:99)           99 kit
 ..(-kit:green)        Green Names kit
 ..(-kit:atb)          ATB kit
+..(-kit:adamant)      Adamant kit
+..(-kit:cursed)       Cursed kit
+..(-kit:hero)         Hero kit
+..(-kit:exit)         Exit kit
 ..(-kit:random)       Select a random kit
 .<> Kit 2
 ..(-kit2:basic)        Basic kit
@@ -606,6 +678,10 @@
 ..(-kit2:99)           99 kit
 ..(-kit2:green)        Green Names kit
 ..(-kit2:atb)          ATB kit
+..(-kit2:adamant)      Adamant kit
+..(-kit2:cursed)       Cursed kit
+..(-kit2:hero)         Hero kit
+..(-kit2:exit)         Exit kit
 ..(-kit2:random)       Select a random kit
 .<> Kit 3
 ..(-kit3:basic)        Basic kit
@@ -634,6 +710,10 @@
 ..(-kit3:99)           99 kit
 ..(-kit3:green)        Green Names kit
 ..(-kit3:atb)          ATB kit
+..(-kit3:adamant)      Adamant kit
+..(-kit3:cursed)       Cursed kit
+..(-kit3:hero)         Hero kit
+..(-kit3:exit)         Exit kit
 ..(-kit3:random)       Select a random kit
 [-noadamants] No Adamant Armors
 [-nocursed] No Cursed Rings
@@ -657,10 +737,47 @@
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
-.[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
+..[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
 .[-exp:kicheckbonus] Each KI location checked gives 12.5% extra EXP (except the starting KI check)
 .[-exp:geometric] Repeated monster kills scale down in EXP
-[] Restore vanilla behaviors
+[-exp:crystalbonus] Double EXP after obtaining the Crystal
+.[@objectiveexp] Award extra EXP for completing objectives
+..<> Amount of bonus EXP
+...(-exp:objectivebonus25) Each completed objective gives 25% extra EXP
+...(-exp:objectivebonus10) Each completed objective gives 10% extra EXP
+...(-exp:objectivebonus_num) Each completed objective gives extra EXP
+.[@kicheckexp] Award extra EXP for completing key item checks
+..<> Amount of bonus EXP
+...(-exp:kicheckbonus10) Each completed KI check gives 10% extra EXP
+...(-exp:kicheckbonus5) Each completed KI check gives 5% extra EXP
+...(-exp:kicheckbonus2) Each completed KI check gives 2% extra EXP
+...(-exp:kicheckbonus_num) Each completed KI check gives extra EXP
+.[@zonkbonusexp] Award extra EXP after non-KI rewards from KI checks
+..<> Amount of bonus EXP
+...(-exp:zonkbonus10) Each non-KI reward gives 10% extra EXP
+...(-exp:zonkbonus5) Each non-KI reward gives 5% extra EXP
+...(-exp:zonkbonus2) Each non-KI reward gives 2% extra EXP
+.[@miabbonusexp] Award extra EXP during MIAB encounters
+..<> Amount of bonus EXP
+...(-exp:miabbonus100) MIAB encounters give double EXP
+...(-exp:miabbonus50) MIAB encounters give 50% extra EXP
+.[@moonbonusexp] Award extra EXP when on the moon
+..<> Amount of bonus EXP
+...(-exp:moonbonus200) Moon encounters give triple EXP
+...(-exp:moonbonus100) Moon encounters give double EXP
+.[-exp:maxlevelbonus] Award extra EXP when underlevelled
+.[@geometricexp] Decrease EXP earned from repeated same-type monster kills
+..<> Per-monster-kill percentage reduction
+...(-exp:geometric_90) Repeated monster kills scale down in EXP to 90%
+...(-exp:geometric_80) Repeated monster kills scale down in EXP to 80%
+...(-exp:geometric_70) Repeated monster kills scale down in EXP to 70%
+...(-exp:geometric_60) Repeated monster kills scale down in EXP to 60%
+...(-exp:geometric_50) Repeated monster kills scale down in EXP to 50%
+...(-exp:geometric_40) Repeated monster kills scale down in EXP to 40%
+...(-exp:geometric_30) Repeated monster kills scale down in EXP to 30%
+...(-exp:geometric_20) Repeated monster kills scale down in EXP to 20%
+...(-exp:geometric_10) Repeated monster kills scale down in EXP to 10%
+...(-exp:geometric_0) Repeated monster kills do not award EXP[] Restore vanilla behaviors
 .[-vanilla:agility] Vanilla agility anchoring
 .[-vanilla:hobs] Vanilla Hobs spell
 .[-vanilla:growup] Vanilla Dwarf Castle summons
@@ -671,42 +788,54 @@
 [-vintage] Vintage Battlefield
 [-pushbtojump] Push B to Jump
 [@wacky] Wacky challenge
-.<> Select challenge
-..(-wacky:random)!           Random wacky challenge
-..(-wacky:afflicted)!        "Afflicted"
-..(-wacky:battlescars)!      "Battle Scars"
-..(-wacky:bodyguard)         "The Bodyguard"
+.<> Random wacky challenge(s)
+..(-wacky:random)!           1 random wacky challenge
+..(-wacky:random2)!          2 random wacky challenges
+..(-wacky:random3)!          3 random wacky challenges
+..(-wacky:random4)!          4 random wacky challenges
+..(-wacky:random5)!          5 random wacky challenges
+..(-wacky:random6)!          6 random wacky challenges
+.(-wacky:afflicted)!        "Afflicted"
+.(-wacky:battlescars)!      "Battle Scars"
+.(-wacky:bodyguard)         "The Bodyguard"
+.<> Doors Randomization Options
 ..(-wacky:dropitlikeitshot)  "Drop It Like It's Hot"
-..(-wacky:enemyunknown)!     "Enemy Unknown"
-..(-wacky:musical)!          "Final Fantasy IV: The Musical"
-..(-wacky:fistfight)!        "Fist Fight"
-..(-wacky:floorislava)       "The Floor Is Made Of Lava"
-..(-wacky:forwardisback)!    "Forward is the New Back"
-..(-wacky:friendlyfire)      "Friendly Fire"
-..(-wacky:gottagofast)!      "Gotta Go Fast"
-..(-wacky:batman)!           "Holy Onomatopoeias, Batman!"
-..(-wacky:imaginarynumbers)! "Imaginary Numbers"
-..(-wacky:isthisrandomized)  "Is This Even Randomized?"
-..(-wacky:kleptomania)       "Kleptomania"
-..(-wacky:menarepigs)!       "Men Are Pigs"
-..(-wacky:misspelled)        "Misspelled"
-..(-wacky:biggermagnet)!     "A Much Bigger Magnet"
-..(-wacky:mysteryjuice)      "Mystery Juice"
-..(-wacky:neatfreak)!        "Neat Freak"
-..(-wacky:nightmode)!        "Night Mode"
-..(-wacky:omnidextrous)      "Omnidextrous"
-..(-wacky:payablegolbez)     "Payable Golbez"
-..(-wacky:saveusbigchocobo)! "Save Us, Big Chocobo!"
-..(-wacky:sixleggedrace)     "Six-Legged Race"
-..(-wacky:skywarriors)       "The Sky Warriors"
-..(-wacky:worthfighting)!    "Something Worth Fighting For"
-..(-wacky:tellahmaneuver)    "The Tellah Maneuver"
-..(-wacky:3point)            "The 3-Point System"
-..(-wacky:timeismoney)       "Time is Money"
-..(-wacky:darts)             "World Championship of Darts"
-..(-wacky:unstackable)!      "Unstackable"
-..(-wacky:whatsmygear)       "What's My Gear Again?"
-..(-wacky:zombies)           "Zombies!!!"
+..(-wacky:doorsrando_normal)!           No Cross World Shuffle
+..(-wacky:doorsrando_gated)!          Underworld and Moon shuffled
+..(-wacky:doorsrando_blueplanet)!          Overworld and Underworld Shuffled
+..(-wacky:doorsrando_why)!          Overworld and Moon shuffled
+..(-wacky:doorsrando_all)!          All locations shuffled
+.(-wacky:enemyunknown)!     "Enemy Unknown"
+.(-wacky:musical)!          "Final Fantasy IV: The Musical"
+.(-wacky:fistfight)!        "Fist Fight"
+.(-wacky:floorislava)       "The Floor Is Made Of Lava"
+.(-wacky:forwardisback)!    "Forward is the New Back"
+.(-wacky:friendlyfire)      "Friendly Fire"
+.(-wacky:gottagofast)!      "Gotta Go Fast"
+.(-wacky:batman)!           "Holy Onomatopoeias, Batman!"
+.(-wacky:imaginarynumbers)! "Imaginary Numbers"
+.(-wacky:isthisrandomized)  "Is This Even Randomized?"
+.(-wacky:kleptomania)       "Kleptomania"
+.(-wacky:menarepigs)!       "Men Are Pigs"
+.(-wacky:misspelled)        "Misspelled"
+.(-wacky:biggermagnet)!     "A Much Bigger Magnet"
+.(-wacky:mirrormirror)      "Mirror, Mirror, on the Wall"
+.(-wacky:mysteryjuice)      "Mystery Juice"
+.(-wacky:neatfreak)!        "Neat Freak"
+.(-wacky:nightmode)!        "Night Mode"
+.(-wacky:omnidextrous)      "Omnidextrous"
+.(-wacky:payablegolbez)     "Payable Golbez"
+.(-wacky:saveusbigchocobo)! "Save Us, Big Chocobo!"
+.(-wacky:sixleggedrace)     "Six-Legged Race"
+.(-wacky:skywarriors)       "The Sky Warriors"
+.(-wacky:worthfighting)!    "Something Worth Fighting For"
+.(-wacky:tellahmaneuver)    "The Tellah Maneuver"
+.(-wacky:3point)            "The 3-Point System"
+.(-wacky:timeismoney)       "Time is Money"
+.(-wacky:darts)             "World Championship of Darts"
+.(-wacky:unstackable)!      "Unstackable"
+.(-wacky:whatsmygear)       "What's My Gear Again?"
+.(-wacky:zombies)           "Zombies!!!"
 
 == TWEAKS
 [] Miscellaneous tweaks

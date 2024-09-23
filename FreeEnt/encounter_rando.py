@@ -8,6 +8,7 @@ def apply(env):
     behemoths_to_disable = []
 
     env.add_file('scripts/encounter_reduction.f4c')
+    env.add_file('scripts/encounter_average_level.f4c')
 
     if not env.options.flags.has('encounter_keep_doors'):
         if env.options.flags.has('encounter_reduction'):
@@ -55,3 +56,9 @@ def apply(env):
 
     if env.options.flags.has('encounter_cant_run'):
         env.add_file('scripts/cant_run.f4c')
+
+    if env.options.flags.has('no_gp_for_random_encounters'):
+        env.add_file('scripts/encounter_no_gp.f4c')
+
+    if env.options.flags.has('encounter_no_dmachin'):
+        env.add_file('scripts/encounter_no_dmachin.f4c')

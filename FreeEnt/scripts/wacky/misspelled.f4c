@@ -6,7 +6,7 @@ msfpatch {
         lda #$00
         xba
         tax
-        lda $=Wacky__ROMData,x
+        lda $=Wacky__ROMData_misspelled,x
         plx
         rtl
 }

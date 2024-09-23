@@ -322,7 +322,7 @@ msfpatch {
 
 msfpatch {
     // Copy $13ff5f's division subroutine with different addrs
-    // ($1678-167A) = ($1670-1672) / ($1673-1674), remainder in $167D-167F 
+    // ($1678-167A) = ($1670-1672) / ($1674-1675), remainder in $167C-167E 
 
     .def Util__Divide_Dividend0  $7e1670
     .def Util__Divide_Dividend1  $7e1671

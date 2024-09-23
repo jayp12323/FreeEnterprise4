@@ -420,6 +420,12 @@ event($1B)  //Kainazzo battle, losing twins
     activate #PoromStatue
 
     music #Overworld
+    [#B #PutEnterprise 102 158]
+    // %if doorsrando%
+    [#B #If #Flag #flag.BigWhaleSurfaced]{
+        [#B #PutWhale 156 201]
+    }
+    // %end%
     load map #Overworld at 102 158
 }
 

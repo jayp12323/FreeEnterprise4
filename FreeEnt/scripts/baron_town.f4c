@@ -17,7 +17,11 @@ npc(#LockedDoorWeaponArmorShop)
 event($1F)  //Unlock the Waterway door
 {
     consts(placement) {
+    // %if doorsrando%
+        7   LockedDoorWaterway
+    // %else%
         0   LockedDoorWaterway
+    // %end%
     }
     message $05   // "Locked."
     select item #Baron

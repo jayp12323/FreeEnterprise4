@@ -37,12 +37,12 @@ consts(eventext) {
     $1F    GiveStarterKit
 
     $20    Rando_KeyItemLocationHint
-    // REMOVED: $21    Rando_GiveCharacter
+    $21    PutWhale
     $22    Rando_PaladinizeCecil
     $23    Rando_CheckCharacterAltVersion
     $24    Rando_BossBattle
     $25    Rando_CheckFlag
-    // REMOVED: $26    Rando_GiveItemSideEffects
+    $26    PutHovercraft
     $27    Rando_InitAxtorName
     $28    Rando_DeliverRewardFromSlot
     // REMOVED: $29    Rando_CheckFlagEquals
@@ -73,7 +73,6 @@ consts(eventext) {
     $53    Objectives_TickBossSlot
     $54    Objectives_TickRewardSlot
     $55    Objectives_ListInDialog
-
     $56    MakeSuperhero
     $57    TakeGoldHunterGold
 }
@@ -126,12 +125,12 @@ msfpatch {
             $_EvEx__GiveStarterKit
 
             $_EvEx__Rando_KeyItemLocationHint
-            FF FF // REMOVED: $_EvEx__Rando_GiveCharacter
+            $_EvEx__PutWhale
             $_EvEx__Rando_PaladinizeCecil
             $_EvEx__Rando_CheckCharacterAltVersion
             $_EvEx__Rando_BossBattle
             $_EvEx__Rando_CheckFlag
-            FF FF // REMOVED: $_EvEx__Rando_GiveItemSideEffects
+            $_EvEx__PutHovercraft
             $_EvEx__Rando_InitAxtorName
             $_EvEx__Rewards_DeliverFromSlot
             FF FF // REMOVED: $_EvEx__Rando_CheckFlagEquals

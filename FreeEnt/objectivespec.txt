@@ -88,7 +88,7 @@
    #find_spoon                               #item.Spoon      Find the Spoon
     quest_tradepink                          #item.Pink      Trade away the Pink Tail
     quest_pass                               #item.Pass      Unlock the Pass door in Toroia    
-    internal_dkmatter                        none      Bring 30 DkMatters to Kory in Agart
+    internal_ki                              none       Obtain key items
     internal_bosscollector                   none      Defeat %d %t
     internal_goldhunter                      none      Bring %d GP to Tory in Agart
 

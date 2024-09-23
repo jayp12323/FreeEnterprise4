@@ -21,7 +21,9 @@ event($4C)
         [#B #EndEvent]        
     }
 
+//%dkmatter condition%
     [#B #If #not_HasDkMatter 30] {
+//%end%
         map message 1
         [#B #EndEvent]
     }
@@ -32,6 +34,7 @@ event($4C)
 }
 
 text(map #AstroTowerObservatory message 1) {
+//%kory dkmatter request%
 Hi, I'm Kory! Could you
 do me a favor and bring
 me 30 DkMatters?
@@ -42,6 +45,7 @@ all across the world
 and the moon!
 But I only need 30.
 Thanks!
+//%end%
 }
 
 text(map #AstroTowerObservatory message 2) {

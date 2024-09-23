@@ -38,13 +38,13 @@ from . import encounter_rando
 from . import dialogue_rando
 from . import wyvern_rando
 from . import odin_rando
+from . import golbez_rando
 from . import sprite_rando
 from . import summons_rando
 from . import objective_rando
 from . import kit_rando
 from . import custom_weapon_rando
 from . import wacky_rando
-
 from . import compile_item_prices
 
 from .script_preprocessor import ScriptPreprocessor
@@ -194,7 +194,7 @@ F4C_FILES = '''
 
 BINARY_PATCHES = {
     0x117000 : 'binary_patches/standing_characters.bin',
-    0x10da00 : 'assets/encounters/formation_average_levels.bin',
+    0x10da00 : 'assets/encounters/formation_average_levels_mod.bin', # differently generated average levels
 }
 
 class Generator:
@@ -215,6 +215,7 @@ class GeneratorOptions:
         self.cache_path = None
         self.clean_cache = True
         self.quickstart = False
+        #self.test_settings = {'quickstart': True, 'open': True, 'characters': True, 'items': True, 'gp': True}
         self.test_settings = dict()
         self.beta = False
         self.hide_flags = False
@@ -488,9 +489,7 @@ def _generate_ending_version_text(options):
     lines = [options.get_version_str()]
 
     if len(binary_flags) > 22:
-        cut_length = len(binary_flags) // 2
-        lines.append(binary_flags[:cut_length])
-        lines.append(binary_flags[cut_length:])
+        lines.extend(binary_flags[i:i+22] for i in range(0, len(binary_flags), 22))
     else:
         lines.append(binary_flags)
         lines.append('')
@@ -502,6 +501,9 @@ def _generate_ending_version_text(options):
         if line and not line.startswith('~'):
             padding_length = int((22 - len(line)) / 2)
             lines[i] = ('~' * padding_length) + line
+
+    extra_lines = 9 - len(lines)
+    lines.extend([''] * extra_lines)
 
     return '\n'.join(lines)
 
@@ -551,6 +553,7 @@ def select_from_catalog(catalog_path, env):
 #--------------------------------------------------------------------------
 
 def build(romfile, options, force_recompile=False):
+    print(options.test_settings)
     flags_version = options.flags.get_version()
     if flags_version is not None and list(flags_version) != list(version.NUMERIC_VERSION):
         raise BuildError(f"Binary flag string is from a different version (got {'.'.join([str(v) for v in flags_version])}, needed {version.NUMERIC_VERSION})")
@@ -592,6 +595,8 @@ def build(romfile, options, force_recompile=False):
 
     env.add_files(*(F4C_FILES.split()))
 
+
+
     env.add_substitution('version_encoded', ''.join([f'{b:02X}' for b in f4c.encode_text(options.get_version_str())]))
     env.add_substitution('title_screen_text', _generate_title_screen_text(options))
     env.add_substitution('ending_version', _generate_ending_version_text(options))
@@ -615,7 +620,11 @@ def build(romfile, options, force_recompile=False):
         ]
     flags_as_hex = []
     for slug in embedded_flags:
-        flags_as_hex.append(1 if options.flags.has(slug) else 0)
+        set_flag = options.flags.has(slug)
+        # disable talking to Edward if any no_free_key_item flag is set
+        if (slug == 'no_free_key_item') and options.flags.has_any('no_free_key_item_dwarf', 'no_free_key_item_package'):
+            set_flag = True
+        flags_as_hex.append(1 if set_flag else 0)
     env.add_binary(BusAddress(0x21f0d0), flags_as_hex, as_script=True)
 
     # must be first
@@ -646,6 +655,7 @@ def build(romfile, options, force_recompile=False):
         summons_rando,
         wyvern_rando,
         odin_rando,
+        golbez_rando,
         dialogue_rando,
         kit_rando,
         custom_weapon_rando
@@ -684,8 +694,10 @@ def build(romfile, options, force_recompile=False):
     # hack: add a block area to insert default names in rescript.py
     env.add_scripts('// [[[ NAMES START ]]]\n// [[[ NAMES END ]]]')
 
-    if options.flags.has('no_free_key_item'):
+    if options.flags.has_any('no_free_key_item', 'no_free_key_item_package'):
         env.add_file('scripts/rydias_mom_slot.f4c')
+    if options.flags.has('no_free_key_item_dwarf'):
+        env.add_file('scripts/dwarf_hospital_slot.f4c')
 
     if options.flags.has('no_free_bosses'):
         env.add_substitution('free boss', '')
@@ -707,7 +719,7 @@ def build(romfile, options, force_recompile=False):
         env.add_file('scripts/remove_dark_crystal_skip.f4c')
     if not options.flags.has('glitch_allow_life'):
         env.add_file('scripts/remove_life_glitch.f4c')
-    if (not options.flags.has('glitch_allow_backrow')) or env.meta.get('wacky_challenge', None) == 'sixleggedrace':
+    if (not options.flags.has('glitch_allow_backrow')) or 'sixleggedrace' in env.meta.get('wacky_challenge', []):
         env.add_file('scripts/remove_backrow_glitch.f4c')
 
     # some part of this fix is always needed; substitutions within
@@ -722,6 +734,59 @@ def build(romfile, options, force_recompile=False):
     
     if options.flags.has('let_monsters_flee'):
         env.add_file('scripts/monster_flee.f4c')
+
+    # experience flag substitutions and toggles
+    # split, noboost, nokeyboost, crystalbonus, and maxlevelbonus are all handled directly via f4c scripts
+    exp_objective_bonus = env.options.flags.get_suffix('-exp:objectivebonus')
+    if exp_objective_bonus:
+        if not (exp_objective_bonus == '_num'):
+            exp_objective_bonus = 100 // int(exp_objective_bonus)
+            env.add_substitution('experience objective bonus divisor', f'#${exp_objective_bonus:02X}')
+        else:
+            num_obj = env.substitutions['objective count']
+            env.add_substitution('experience objective bonus divisor', '#$' + num_obj)
+        env.add_toggle('experience_objective_bonus')
+
+    exp_kicheck_bonus = env.options.flags.get_suffix('-exp:kicheckbonus')
+    if exp_kicheck_bonus:
+        if not (exp_kicheck_bonus == '_num'):
+            exp_kicheck_bonus = 100 // int(exp_kicheck_bonus)
+            env.add_substitution('experience key item check bonus divisor', f'#${exp_kicheck_bonus:02X}')
+        else:
+            num_kichecks = env.meta['number_key_item_slots']
+            # subtract 1 in the following substitution to skip the starting KI check
+            env.add_substitution('experience key item check bonus divisor', f'#${(num_kichecks-1):02X}')
+        env.add_toggle('experience_kicheck_bonus')
+
+    exp_zonk_bonus = env.options.flags.get_suffix('-exp:zonkbonus')
+    if exp_zonk_bonus:
+        exp_zonk_bonus = 100 // int(exp_zonk_bonus)
+        # need to check for the starting key item here, using the rewards assignment;
+        # cannot count starting non-KI as a zonk, so also ignore starting KI if necessary
+        if (env.meta['rewards_assignment'])[rewards.RewardSlot.starting_item].is_key: 
+            env.add_substitution('starting key item zonk', '#$01')
+        else:
+            env.add_substitution('starting key item zonk', '#$00')
+        env.add_substitution('experience zonk bonus divisor', f'#${exp_zonk_bonus:02X}')
+        env.add_toggle('experience_zonk_bonus')
+
+    exp_miab_bonus = env.options.flags.get_suffix('-exp:miabbonus')
+    if exp_miab_bonus:
+        exp_miab_bonus = int(exp_miab_bonus) // 50
+        env.add_substitution('experience miab bonus multiplier', f'#${exp_miab_bonus:04X}')
+        env.add_toggle('experience_miab_bonus')
+
+    exp_moon_bonus = env.options.flags.get_suffix('-exp:moonbonus')
+    if exp_moon_bonus:
+        exp_moon_bonus = int(exp_miab_bonus) // 100
+        env.add_substitution('experience moon bonus multiplier', f'#${exp_miab_bonus:04X}')
+        env.add_toggle('experience_moon_bonus')
+
+    exp_geometric_mod = env.options.flags.get_suffix('-exp:geometric')
+    if exp_geometric_mod:
+        exp_geometric_mod = int(exp_geometric_mod) // 10
+        env.add_substitution('experience geometric numerator', f'        lda #${exp_geometric_mod:02X}')
+        env.add_toggle('experience_geometric')
 
     if options.flags.has('vintage'):
         env.add_files(
@@ -745,8 +810,6 @@ def build(romfile, options, force_recompile=False):
 
     # must be last
     wacky_rando.apply(env)
-
-
 
     # finalize rewards table
     rewards_data = env.meta['rewards_assignment'].generate_table()

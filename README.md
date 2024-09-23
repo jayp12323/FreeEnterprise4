@@ -42,6 +42,7 @@ This repository contains other code written by community members who are not (ne
 - Antidale
 - cassidy
 - Galeswift (that's me!)
+- jayp
 - harumph
 - S3
 - ScytheMarshall

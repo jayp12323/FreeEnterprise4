@@ -56,6 +56,10 @@ class Row:
     def __getattr__(self, name):
         return self._data[name]
 
+    def __getitem__(self, index):
+        keys = list(self._data.keys())
+        return self._data[keys[index]]
+
     def __str__(self):
         return str(self._data)
 

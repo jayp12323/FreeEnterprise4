@@ -87,7 +87,7 @@ consts(objective) {
   $67  quest_tradepan
   $68  quest_tradepink
   $69  quest_pass
-  $6A  internal_dkmatter
+  $6A  internal_ki
   $6B  internal_bosscollector
   $6C  internal_goldhunter
 }

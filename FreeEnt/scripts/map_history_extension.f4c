@@ -1,0 +1,188 @@
+msfpatch {
+    // Because the map index at $172c stores the offset into the history array,
+    // we also want to store just the index for easier lookups
+    .def MapHistory__Index $7e16ff   // 1 byte
+    .def MapHistory__Plane $7e1698   // 8-byte bit array storing map_plane
+
+    MapHistory__GetCurrentPlane:
+        phx
+        lda $_MapHistory__Index
+        ldx #$_MapHistory__Plane
+        phy
+        jsl $=Tracker__LocateBit  // sets X to byte and A to (1 << bit)
+        ply
+        and $0000,x
+        beq $+PlaneZero
+        lda #$01
+        bra $+Return
+    %PlaneZero:
+        lda #$00
+    %Return:
+        plx
+        rts
+
+    MapHistory__PopPlane:
+        lda $_MapHistory__Index
+        beq $+Error
+        dec a
+        sta $_MapHistory__Index
+        rts
+    %Error:
+        brk
+
+    MapHistory__PopAndSetPlane:
+        jsr $_MapHistory__PopPlane
+        jsr $_MapHistory__GetCurrentPlane
+        sta $1701
+        rts
+
+    MapHistory__PushPlane:
+        phx
+        lda $_MapHistory__Index
+        ldx #$_MapHistory__Plane
+        phy
+        jsl $=Tracker__LocateBit  // sets X to byte and A to (1 << bit)
+        ply
+        pha
+        lda $1701
+        beq $+SetBitToZero
+        pla
+    // set bit to 1
+        ora $0000,x
+        bra $+StoreByte
+    %SetBitToZero:
+        pla
+        eor #$ff
+        and $0000,x
+    %StoreByte:
+        sta $0000,x
+        lda $_MapHistory__Index
+        inc a
+    // mimic the vanilla code's handling of index overflow (64 wraps to 0)
+        cmp #$40
+        bcc $+NoOverflow
+        lda #$00
+    %NoOverflow:
+        sta $_MapHistory__Index
+        plx
+        rts
+
+    MapHistory__ClearPlaneIndex:
+        stz $_MapHistory__Index
+        rts
+}
+
+msfpatch {
+    // this same code works in a number of places
+    MapHistoryPopHook:
+    // displaced code
+        dex
+        stx $172c
+    // pop the plane as well, and resume
+        jsr $_MapHistory__PopAndSetPlane
+        rtl
+
+    MapHistory__ResetMapHistory:
+        ldx #$0000
+        stx $172c
+        jsr $_MapHistory__ClearPlaneIndex
+        rtl
+
+    .addr $008189
+        jsl $=MapHistoryPopHook
+
+    .addr $0081b8  // main_loop_dungeon
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+
+    .addr $0082bd  // _init_data_structures
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+
+    .addr $009ac6  // _handle_dungeon_triggers
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+
+/*
+    // this conflicts with map_transitions.f4c, so it's handled below
+    .addr $00a18e  // _big_whale_earth_to_moon
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+*/
+
+    .addr $00a1e2  // _big_whale_moon_to_earth
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+
+    .addr $00c634  // _decode_event_opcode_custom_effect_fly_big_whale
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+
+    .addr $00d0cf  // _decode_event_opcode_custom_effect_map_history_pop
+        jsl $=MapHistoryPopHook
+
+    .addr $00d0d9  // _decode_event_opcode_custom_effect_map_history_reset
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+
+    .addr $00ee35  // _decode_event_opcode_load_map (when mounted a yellow chocobo)
+        jsl $=MapHistory__ResetMapHistory
+        nop nop
+}
+
+msfpatch {
+    BigWhaleEarthToMoonHook:
+        jsr $_MapHistory__ClearPlaneIndex
+    // displaced code
+        lda #$30
+        sta $ad
+        rtl
+
+    .addr $00a187
+        jsl $=BigWhaleEarthToMoonHook
+}
+
+msfpatch {
+    PushPlaneAndPrepareHistory:
+        jsr $_MapHistory__PushPlane
+        ldx $172c
+        lda $1700
+        rtl
+
+    // push_map_history
+    .addr $009ace
+        jsl $=PushPlaneAndPrepareHistory
+        nop nop
+
+    // handle_outdoor_triggers
+    .addr $009bb7
+        jsl $=PushPlaneAndPrepareHistory
+        nop nop
+}
+
+msfpatch {
+    UndoMapHistoryHook:
+    // displaced code
+        ldx $172c
+        dex
+    // pop the plane, but don't set it
+        jsr $_MapHistory__PopPlane
+        rtl
+    
+    .addr $00cd3c
+        jsl $=UndoMapHistoryHook
+}
+
+msfpatch {
+    ChangeMapHook:
+        jsr $_MapHistory__GetCurrentPlane
+        sta $1701
+    // displaced code
+        ldx $172c
+        lda $172e,x
+        rtl
+
+    .addr $00d0e7
+        jsl $=ChangeMapHook
+        nop nop
+}

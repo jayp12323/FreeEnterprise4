@@ -2,6 +2,8 @@ import os
 import re
 
 from . import databases
+from . import doors_rando
+
 from .address import *
 from .core_rando import BOSS_SLOTS
 
@@ -40,25 +42,121 @@ WACKY_CHALLENGES = {
     'saveusbigchocobo'  : 'Save Us,\nBig Chocobo!',
     'isthisrandomized'  : 'Is This Even\nRandomized?',
     'forwardisback'     : 'Forward is\nthe New Back',
+    'mirrormirror'      : 'Mirror, Mirror,\non the Wall',
+    'doorsrando_normal': 'Door Randomizer',
+    'doorsrando_blueplanet': 'Door Randomizer',
+    'doorsrando_gated': 'Door Randomizer',
+    'doorsrando_all': 'Door Randomizer',
+    'doorsrando_why': 'Door Randomizer',
     'dropitlikeitshot'  : 'Drop It Like It\'s Hot',
     'whatsmygear'       : 'What\'s My\nGear Again?'
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
 WACKY_RAM_ADDRESS = BusAddress(0x7e1660)
+WACKY_LAST_AVAILABLE_ROM_ADDR = 0x26ffff # TODO: Find the actual limit
+WACKY_LAST_AVAILABLE_RAM_BYTE = 0x7e166c
+
+WACKY_RAM_USAGE = {
+    'musical'           : 0,
+    'bodyguard'         : 0,
+    'fistfight'         : 0,
+    'omnidextrous'      : 0,
+    'biggermagnet'      : 0,
+    'sixleggedrace'     : 0,
+    'floorislava'       : 0,
+    'neatfreak'         : 0,
+    'timeismoney'       : 0,
+    'nightmode'         : 0,
+    'mysteryjuice'      : 0,
+    'misspelled'        : 0,
+    'enemyunknown'      : 0,
+    'kleptomania'       : 0,
+    'darts'             : 0,
+    'unstackable'       : 0,
+    'menarepigs'        : 13, # StatusEnforcement
+    'skywarriors'       : 13, # StatusEnforcement
+    'zombies'           : 13, # StatusEnforcement
+    'afflicted'         : 13, # StatusEnforcement
+    'batman'            : 0,
+    'battlescars'       : 1,
+    'imaginarynumbers'  : 0,
+    'tellahmaneuver'    : 6,
+    '3point'            : 0,
+    'friendlyfire'      : 0,
+    'payablegolbez'     : 3,
+    'gottagofast'       : 0,
+    'worthfighting'     : 2,
+    'saveusbigchocobo'  : 0,
+    'isthisrandomized'  : 0,
+    'forwardisback'     : 0,
+    'doorsrando'     : 0,
+    'doorsrando_normal'     : 0,
+    'doorsrando_blueplanet'     : 0,
+    'doorsrando_gated'     : 0,
+    'doorsrando_all'     : 0,
+    'doorsrando_why'     : 0,
+    'mirrormirror'      : 13, # StatusEnforcement
+}
+
+WACKY_MUTUAL_INCOMPATIBILITIES = [
+    ['3point', 'battlescars', 'unstackable', 'afflicted', 'menarepigs', 'skywarriors', 'zombies', 'mirrormirror'], # These all use Wacky__InitializeAxtorHook
+    ['afflicted', 'friendlyfire'], # These both use Wacky_SpellFilterHook
+    ['battlescars', 'afflicted', 'zombies', 'worthfighting'], # These all use Wacky__PostBattleHook
+    ['darts', 'musical'], # These both replace the Fight command
+    ['3point','tellahmaneuver'], # These both mess with MP
+]
+
+def find_compatible_remaining_wacky_modes(current_modes):
+    ram_bytes_used = 0
+    total_ram_available = WACKY_LAST_AVAILABLE_RAM_BYTE - WACKY_RAM_ADDRESS.get_bus() + 1
+    for wacky in current_modes:
+        ram_bytes_used += WACKY_RAM_USAGE[wacky]
+    remaining_challenges = set(WACKY_CHALLENGES.keys()) - set(current_modes)
+    for group in WACKY_MUTUAL_INCOMPATIBILITIES:
+        for wacky in current_modes:
+            if wacky in group:
+                remaining_challenges -= set(group)
+                break
+    # sets have no ordering, so we have to sort these to remain deterministic
+    for wacky in sorted(remaining_challenges):
+        if ram_bytes_used + WACKY_RAM_USAGE[wacky] > total_ram_available:
+            remaining_challenges.remove(wacky)
+    return sorted(remaining_challenges)
+
 
 def setup(env):
-    wacky_challenge = None
+    wacky_challenge = []
     if env.options.test_settings.get('wacky', None):
-        wacky_challenge = env.options.test_settings['wacky']
-    elif env.options.flags.has('-wacky:random'):
-        wacky_challenge = env.rnd.choice(list(WACKY_CHALLENGES))
-    else:
-        wacky_challenge = env.options.flags.get_suffix('-wacky:')
+        wacky_challenge.append(env.options.test_settings['wacky'])
+    # This keeps a reliable order and prevent duplicates. (Note that neither of those is actually necessary)
+    for wacky in WACKY_CHALLENGES.keys():
+        if env.options.flags.has(f'-wacky:{wacky}'):
+            remaining_challenges = find_compatible_remaining_wacky_modes(wacky_challenge)
+            if wacky not in remaining_challenges:
+                raise Exception(f'Wacky mode {wacky} is incompatible with one or more of: {wacky_challenge}')
+            wacky_challenge.append(wacky)
 
-    if wacky_challenge:
+    random_count = 0
+    max_random_count = 6
+    for x in range(max_random_count, 0, -1):
+        n = x if x > 1 else ''
+        if env.options.flags.has(f'-wacky:random{n}'):
+            random_count = x
+            break
+
+    for x in range(0, random_count):
+        remaining_challenges = find_compatible_remaining_wacky_modes(wacky_challenge)
+        if len(remaining_challenges) < 1:
+            break
+        choice = env.rnd.choice(remaining_challenges)
+        wacky_challenge.append(choice)
+
+    if len(wacky_challenge) > 0:
         env.meta['wacky_challenge'] = wacky_challenge
-        setup_func = globals().get(f'setup_{wacky_challenge}')
+
+    for wacky in wacky_challenge:
+        setup_func = globals().get(f'setup_{wacky}')
         if setup_func:
             setup_func(env)
 
@@ -66,43 +164,65 @@ def apply(env):
     wacky_challenge = env.meta.get('wacky_challenge', None)
     if wacky_challenge:
         env.add_file('scripts/wacky/wacky_common.f4c')
-
-        # apply script of the same name, if it exists
-        script_filename = f'scripts/wacky/{wacky_challenge}.f4c'
-        if os.path.isfile(os.path.join(os.path.dirname(__file__), script_filename)):
-            env.add_file(script_filename)
-
-        apply_func = globals().get(f'apply_{wacky_challenge}', None)
-        if apply_func:
-            apply_func(env)
-
         env.add_substitution('intro disable', '')
-
-        text = WACKY_CHALLENGES[wacky_challenge]
-        centered_text = '\n'.join([line.center(26).upper().rstrip() for line in text.split('\n')])
-        env.add_substitution('wacky challenge title', centered_text)
-        env.add_substitution('wacky_rom_data_addr', f'{WACKY_ROM_ADDRESS.get_bus():06X}')
         env.add_toggle('wacky_challenge_enabled')
 
-        env.add_script(f'''
-            msfpatch {{ 
-                .def Wacky__ROMData ${WACKY_ROM_ADDRESS.get_bus():06x} 
-                .def Wacky__RAM     ${WACKY_RAM_ADDRESS.get_bus():06x}
-                }}
-        ''')
+        rom_base = WACKY_ROM_ADDRESS
+        ram_base = WACKY_RAM_ADDRESS
 
-        env.spoilers.add_table('WACKY CHALLENGE', [[text.replace('\n', ' ')]], public=env.options.flags.has_any('-spoil:all', '-spoil:misc'))
+        for idx, wacky in enumerate(wacky_challenge):
+            # apply script of the same name, if it exists
+            if "doorsrando" in wacky:
+                wacky_orig=wacky
+                wacky="doorsrando"
+            script_filename = f'scripts/wacky/{wacky}.f4c'
+            if os.path.isfile(os.path.join(os.path.dirname(__file__), script_filename)):
+                env.add_file(script_filename)
+
+            env.add_script(f'''
+                msfpatch {{ 
+                    .def Wacky__ROMData_{wacky} ${rom_base.get_bus():06x} 
+                    .def Wacky__RAM_{wacky}     ${ram_base.get_bus():06x}
+                    }}
+            ''')
+
+            apply_func = globals().get(f'apply_{wacky}', None)
+            if apply_func:
+                if wacky=="doorsrando":
+                    rom_bytes_used = apply_func(env, rom_base, wacky_orig) or 0
+                else:
+                    rom_bytes_used = apply_func(env, rom_base) or 0
+
+                ram_bytes_used = WACKY_RAM_USAGE[wacky]
+                if rom_bytes_used:
+                    if rom_base.get_bus() > WACKY_LAST_AVAILABLE_ROM_ADDR:
+                        raise Exception(f"Incompatible wacky modes (too much ROM space required): {', '.join(wacky_challenge)}")
+                    rom_base = rom_base.offset(rom_bytes_used)
+
+                if ram_base.get_bus() + ram_bytes_used - 1 > WACKY_LAST_AVAILABLE_RAM_BYTE:
+                    raise Exception(f"Incompatible wacky modes (RAM incompatibility): {', '.join(wacky_challenge)}")
+                ram_base = ram_base.offset(ram_bytes_used)
+            try:
+                text = WACKY_CHALLENGES[wacky]
+            except:
+                text = WACKY_CHALLENGES[wacky_orig]
+
+            centered_text = '\n'.join([line.center(26).upper().rstrip() for line in text.split('\n')])
+            env.add_substitution(f'wacky challenge title {idx+1}', f'\n{centered_text}')
+            env.add_toggle(f'wacky_challenge_{idx+1}')
+            env.spoilers.add_table(f'WACKY CHALLENGE {idx+1}', [[text.replace('\n', ' ')]], public=env.options.flags.has_any('-spoil:all', '-spoil:misc'))
 
 
-def apply_musical(env):
+
+def apply_musical(env, rom_address):
     env.add_substitution('wacky_fightcommandreplacement', '#$08')
 
-def apply_bodyguard(env):
+def apply_bodyguard(env, rom_address):
     # need substitution to mark all characters as cover-capable
     env.add_toggle('wacky_all_characters_cover')
     env.add_toggle('wacky_cover_check')
 
-def apply_fistfight(env):
+def apply_fistfight(env, rom_address):
     env.add_toggle('wacky_all_characters_ambidextrous')
     # change claws to be universally equippable, all other weapons not
     for item_id in range(0x01, 0x60):
@@ -117,11 +237,11 @@ def apply_fistfight(env):
         if eqp_byte is not None:
             env.add_binary(UnheaderedAddress(0x79106 + (0x08 * item_id)), [eqp_byte], as_script=True)
 
-def apply_omnidextrous(env):
+def apply_omnidextrous(env, rom_address):
     env.add_toggle('wacky_all_characters_ambidextrous')
     env.add_toggle('wacky_omnidextrous')
 
-def apply_whatsmygear(env):
+def apply_whatsmygear(env, rom_address):
     # this function can't be called from where it lives in assets.item_info.generate.py, so repeat it here
     def ff4strlen(text):
         shrunken_text = re.sub(r'\[.*?\]', '*', text)
@@ -190,13 +310,13 @@ def apply_whatsmygear(env):
     # pass the gear_descriptions to env in order to have generator.py make the replacements while it does the other descriptions
     env.meta['wacky_gear_descriptions'] = gear_description_bytes
 
-def apply_sixleggedrace(env):
+def apply_sixleggedrace(env, rom_address):
     env.add_toggle('wacky_challenge_show_detail')
 
-def apply_neatfreak(env):
+def apply_neatfreak(env, rom_address):
     env.add_toggle('wacky_neatfreak')
 
-def apply_timeismoney(env):
+def apply_timeismoney(env, rom_address):
     env.add_file('scripts/sell_zero.f4c')
 
 def setup_mysteryjuice(env):
@@ -215,7 +335,7 @@ def setup_mysteryjuice(env):
     env.meta.setdefault('altered_item_names', {}).update(juice_mapping)
     env.meta['wacky_juices'] = juice_mapping
 
-def apply_mysteryjuice(env):
+def apply_mysteryjuice(env, rom_address):
     ITEM_DESCRIPTION = (
         [0x00, 0xFA] + ([0xFF] * 27) + [0xFB, 0x00, 0x00] +
         [0x00, 0xFA] + ([0xFF] * 12) + ([0xC5] * 3) + ([0xFF] * 12) + [0xFB, 0x00, 0x00] +
@@ -228,7 +348,7 @@ def apply_mysteryjuice(env):
         ''')
         env.meta.setdefault('item_description_overrides', {})[item_id] = ITEM_DESCRIPTION
 
-def apply_misspelled(env):
+def apply_misspelled(env, rom_address):
     spells_dbview = databases.get_spells_dbview()
     remappable_spells = spells_dbview.find_all(lambda sp: (sp.code >= 0x01 and sp.code <= 0x47 and sp.code not in [0x40,0x41]))
     shuffled_spells = list(remappable_spells)
@@ -318,10 +438,11 @@ def apply_misspelled(env):
 
     
 
-    env.add_binary(WACKY_ROM_ADDRESS, remap_data, as_script=True)
+    env.add_binary(rom_address, remap_data, as_script=True)
     env.add_toggle('wacky_misspelled')
+    return len(remap_data)
 
-def apply_kleptomania(env):
+def apply_kleptomania(env, rom_address):
     VANILLA_MONSTER_LEVELS = [3,5,5,4,5,20,19,4,6,5,5,6,6,6,6,6,7,23,7,7,8,8,9,36,16,25,12,9,21,9,11,14,97,19,10,10,11,12,23,48,15,8,8,16,12,15,16,13,16,31,17,20,20,79,17,17,15,18,18,34,20,20,35,15,27,20,20,21,21,41,22,22,41,25,44,49,27,26,35,32,28,79,28,29,39,14,14,28,25,29,29,32,32,33,34,43,26,27,34,32,30,31,53,31,50,33,39,96,40,35,67,42,23,36,37,45,43,23,39,32,40,48,26,58,40,40,44,48,98,30,50,98,36,37,96,16,60,60,61,34,97,40,45,54,99,61,97,32,99,99,30,71,99,61,62,98,97,54,98,99,99,10,10,2,15,15,15,9,9,9,16,15,15,16,16,16,26,36,31,47,31,7,32,32,25,15,15,50,53,79,47,37,63,79,79,19,5,48,48,63,96,96,47,5,31,17,1,1,1,1,15,15,47,79,63,63,63,1,31,31,31,31,1,3]
     items_dbview = databases.get_items_dbview()
     available_weapons = items_dbview.find_all(lambda it: it.category == 'weapon' and it.tier >= 2 and it.tier <= 8)
@@ -348,25 +469,30 @@ def apply_kleptomania(env):
         item = available_items[index]
         equipment_bytes.append(item.code)
 
-    env.add_binary(WACKY_ROM_ADDRESS, equipment_bytes, as_script=True)        
+    env.add_binary(rom_address, equipment_bytes, as_script=True)
+    return len(equipment_bytes)
 
-def apply_darts(env):
+def apply_darts(env, rom_address):
     env.add_substitution('wacky_fightcommandreplacement', '#$16')
 
-def apply_unstackable(env):
+def apply_unstackable(env, rom_address):
     env.add_toggle('wacky_unstackable')
     env.add_toggle('wacky_initialize_axtor_hook')
 
-def apply_menarepigs(env):
+def apply_menarepigs(env, rom_address):
     env.add_toggle('wacky_initialize_axtor_hook')
     env.add_file('scripts/wacky/status_enforcement.f4c')
     env.add_toggle('wacky_status_enforcement_uses_job')
 
-def apply_skywarriors(env):
+def apply_skywarriors(env, rom_address):
     env.add_toggle('wacky_initialize_axtor_hook')
     env.add_file('scripts/wacky/status_enforcement.f4c')
 
-def apply_zombies(env):
+def apply_mirrormirror(env, rom_address):
+    env.add_toggle('wacky_initialize_axtor_hook')
+    env.add_file('scripts/wacky/status_enforcement.f4c')
+
+def apply_zombies(env, rom_address):
     env.add_file('scripts/wacky/status_enforcement.f4c')
     env.add_toggle('wacky_initialize_axtor_hook')
     env.add_toggle('wacky_status_enforcement_uses_slot')
@@ -374,7 +500,7 @@ def apply_zombies(env):
     env.add_toggle('wacky_status_enforcement_uses_battle_context')
     env.add_toggle('wacky_post_battle_hook')
 
-def apply_afflicted(env):
+def apply_afflicted(env, rom_address):
     env.add_file('scripts/wacky/status_enforcement.f4c')
     env.add_toggle('wacky_initialize_axtor_hook')
     env.add_toggle('wacky_status_enforcement_uses_axtor')
@@ -407,10 +533,11 @@ def apply_afflicted(env):
     status_bytes = []
     for status in STATUSES:
         status_bytes.extend(STATUSES[status])    
-    env.add_binary(WACKY_ROM_ADDRESS, status_bytes, as_script=True)
+    env.add_binary(rom_address, status_bytes, as_script=True)
 
     rng_table = [env.rnd.randint(0, len(STATUSES) - 1) for i in range(0x200)]
-    env.add_binary(WACKY_ROM_ADDRESS.offset(0x100), rng_table, as_script=True)
+    env.add_binary(rom_address.offset(0x100), rng_table, as_script=True)
+    return 0x100 + len(rng_table)
 
 
 '''
@@ -445,11 +572,11 @@ def apply_afflicted_legacyversion(env):
     env.add_binary(WACKY_ROM_ADDRESS, status_bytes, as_script=True)
 '''
 
-def apply_battlescars(env):
+def apply_battlescars(env, rom_address):
     env.add_toggle('wacky_initialize_axtor_hook')
     env.add_toggle('wacky_post_battle_hook')
 
-def apply_tellahmaneuver(env):
+def apply_tellahmaneuver(env, rom_address):
     env.add_toggle('wacky_omit_mp')
 
     # precalculate MP costs times 10
@@ -465,9 +592,10 @@ def apply_tellahmaneuver(env):
         data[v + 0x200] = ((v * 10) & 0xFF)
         data[v + 0x300] = ((v * 10) >> 8) & 0xFF
     
-    env.add_binary(WACKY_ROM_ADDRESS, data, as_script=True)
+    env.add_binary(rom_address, data, as_script=True)
+    return len(data)
 
-def apply_3point(env):
+def apply_3point(env, rom_address):
     env.add_toggle('wacky_initialize_axtor_hook')
 
     # change all MP costs to 1
@@ -488,11 +616,11 @@ def apply_3point(env):
             as_script=True
         )
 
-def apply_friendlyfire(env):
+def apply_friendlyfire(env, rom_address):
     env.add_toggle('wacky_spell_filter_hook')
     env.add_file('scripts/wacky/spell_filter_hook.f4c')
 
-def apply_payablegolbez(env):
+def apply_payablegolbez(env, rom_address):
     BOSS_SLOT_HPS = {
         'antlion_slot' : 1000,
         'asura_slot' : 23000,
@@ -536,19 +664,99 @@ def apply_payablegolbez(env):
             ((bribe >> (i * 8)) & 0xFF) for i in range(4)
         ])
 
-    env.add_binary(WACKY_ROM_ADDRESS, bribe_values, as_script=True)
+    env.add_binary(rom_address, bribe_values, as_script=True)
     env.add_toggle('allow_boss_bypass')
     env.add_toggle('wacky_boss_skip_hook')
+    return len(bribe_values)
 
-def apply_gottagofast(env):
+def apply_gottagofast(env, rom_address):
     env.add_toggle('wacky_sprint')
 
-def apply_worthfighting(env):
+def apply_worthfighting(env, rom_address):
     env.add_toggle('wacky_post_treasure_hook')
     env.add_toggle('wacky_post_battle_hook')
+
+def apply_batman(env, rom_address):
+    # Fun fact, we only get 10 digits to work with
+    #  0123456789
+    #  !ABFKMOPWZ
+    # These letters give us:
+    #  POP!  -> 7670
+    #  POK!  -> 7640
+    #  POW!  -> 7680
+    #  OOF!  -> 6630
+    #  WAM!  -> 8150
+    #  WAK!  -> 8140
+    #  WAP!  -> 8170
+    #  ZAK!  -> 9140
+    #  ZOK!  -> 9640
+    #  ZAP!  -> 9170
+    #  KOF!  -> 4630
+    #  BOF!  -> 2630
+    #  BOP!  -> 2670
+    #  BAP!  -> 2170
+    #  BAM!  -> 2150
+    #  MOP!  -> 5670
+    #  ZOO!  -> 9660
+    #  KAK!  -> 4140
+    #  KAF!  -> 4130
+    #  OOP!  -> 6670
+    #  ZAM!  -> 9150
+    #  ZOW!  -> 9680
+    #  ZZK!  -> 9940
+    #  PAF!  -> 7130
+    #  PAK!  -> 7140
+    #  KOW!  -> 4680
+    #  AWK!  -> 1840
+    #  BAF!  -> 2130
+    #  POF!  -> 7630
+    #  OMF!  -> 6530
+    #  OWW!  -> 6880
+    data = [
+        0x87, 0x86, 0x87, 0x80,
+        0x87, 0x86, 0x84, 0x80,
+        0x87, 0x86, 0x88, 0x80,
+        0x86, 0x86, 0x83, 0x80,
+        0x88, 0x81, 0x85, 0x80,
+        0x88, 0x81, 0x84, 0x80,
+        0x88, 0x81, 0x87, 0x80,
+        0x89, 0x81, 0x84, 0x80,
+        0x89, 0x86, 0x84, 0x80,
+        0x89, 0x81, 0x87, 0x80,
+        0x84, 0x86, 0x83, 0x80,
+        0x82, 0x86, 0x83, 0x80,
+        0x82, 0x86, 0x87, 0x80,
+        0x82, 0x81, 0x87, 0x80,
+        0x82, 0x81, 0x85, 0x80,
+        0x85, 0x86, 0x87, 0x80,
+        0x89, 0x86, 0x86, 0x80,
+        0x84, 0x81, 0x84, 0x80,
+        0x84, 0x81, 0x83, 0x80,
+        0x86, 0x86, 0x87, 0x80,
+        0x89, 0x81, 0x85, 0x80,
+        0x89, 0x86, 0x88, 0x80,
+        0x89, 0x89, 0x84, 0x80,
+        0x87, 0x81, 0x83, 0x80,
+        0x87, 0x81, 0x84, 0x80,
+        0x84, 0x86, 0x88, 0x80,
+        0x81, 0x88, 0x84, 0x80,
+        0x82, 0x81, 0x83, 0x80,
+        0x87, 0x86, 0x83, 0x80,
+        0x86, 0x85, 0x83, 0x80,
+        0x86, 0x88, 0x88, 0x80,
+    ]
+    env.add_binary(rom_address, data, as_script=True)
+    return len(data)
+
 
 def setup_saveusbigchocobo(env):
     env.meta['wacky_starter_kit'] = [( 'Carrot', [5] )]
 
-def apply_dropitlikeitshot(env):
+def apply_dropitlikeitshot(env, rom_address):
     env.add_file('scripts/wacky/dropitlikeitshot.f4c')
+
+def apply_doorsrando(env,rom_base,wacky_orig):
+    rando_type = wacky_orig.split("_")[1]
+    env.add_file('scripts/map_history_extension.f4c')
+    env.add_toggle('doorsrando')
+    doors_rando.apply(env,rando_type)

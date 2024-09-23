@@ -390,15 +390,54 @@ class FlagLogicCore:
 
         # NOTE: mutex flags ARE handled internally by FlagSet, don't worry about them here        
         # key item flags
-        if flagset.has_any('Ksummon', 'Kmoon', 'Kmiab') and not flagset.has('Kmain'):
+        if flagset.has('Kunsafer') and not flagset.has('Kmoon'):
+            flagset.set('Kmoon')
+            self._lib.push(log, ['correction', 'Kunsafer requires placing key items on the moon; adding Kmoon'])
+
+        if flagset.has('Kforge') and flagset.has('Omode:classicforge'):
+            self._simple_disable(flagset, log, 'Classic forge is incompatible with Kforge', ['Kforge'])
+
+        if flagset.has('Kforge'):
+            self._simple_disable_regex(flagset, log, '-smith is incompatible with Kforge', r'^-smith:')
+        kmiab_flags = flagset.get_list(r'^Kmiab:')
+
+        if flagset.has_any('Ksummon', 'Kmoon', 'Kforge', 'Kpink',
+                           'Kmiab:standard', 'Kmiab:above', 'Kmiab:below', 'Kmiab:lst',
+                           'Kmiab:all') and not flagset.has('Kmain'):
             flagset.set('Kmain')
             self._lib.push(log, ['correction', 'Advanced key item randomizations are enabled; forced to add Kmain'])
 
-        if flagset.has('Kvanilla'):
-            self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe','Kunweighted'])
+        if flagset.has('Owin:crystal') and flagset.has('Omode:ki17'):
+            flagset.unset('Omode:ki17')
+            flagset.set('Omode:ki16')
+            self._lib.push(log, ['correction', 'Can only collect 16 KIs for an objective with Owin:crystal; changing Omode:ki17 to Omode:ki16'])
 
+        if not flagset.has_any('Ksummon', 'Kmoon', 'Kforge', 'Kpink',
+                           'Kmiab:standard', 'Kmiab:above', 'Kmiab:below', 'Kmiab:lst',
+                           'Kmiab:all') and flagset.has('Omode:ki17'):
+            self._simple_disable(flagset, log, 'Cannot replace a key item if all of them are required', ['Pkey', 'Kstart:pass'])
+
+        if flagset.has('Kvanilla'):
+            self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe', 'Kunsafer','Kunweighted'])
+            self._simple_disable_regex(flagset, log, 'Key items not randomized', r'^Kstart:')
+        
         if flagset.has('Klstmiab') and flagset.has('Kmiab') and flagset.has_any('Kmoon','Kunsafe'):
             self._simple_disable(flagset, log, 'LST miabs already included', ['Klstmiab'])
+
+        if flagset.has('Kstart:darkness'):
+            self._simple_disable(flagset, log, 'Klatedark is incompatible with starting with Darkness', ['Klatedark'])
+
+        if flagset.has('Klatedark'):
+            self._simple_disable(flagset, log, 'Klatedark implicitly guarantees safe underground access', ['Kunsafe', 'Kunsafer'])
+
+        if flagset.has('Kstart:pass') and not flagset.has('Pkey'):
+            flagset.set('Pkey')
+            self._lib.push(log, ['correction', 'Kstart:pass implies Pkey'])
+
+        if 'Kmiab:all' in kmiab_flags and len(kmiab_flags) > 1:
+            self._simple_disable_regex(flagset, log, 'All miabs already included', r'^Kmiab:(standard|above|below|lst)')
+        elif 'Kmiab:standard' in kmiab_flags and len(kmiab_flags) > 1:
+            self._simple_disable_regex(flagset, log, 'Standard miab inclusion takes priority', r'^Kmiab:(above|below|lst)')
 
         if flagset.has('Cvanilla'):
             self._simple_disable_regex(flagset, log, 'Characters not randomized', r'^C(maybe|distinct:|only:|no:)')
@@ -452,6 +491,7 @@ class FlagLogicCore:
         if flagset.has_any('Tempty', 'Tvanilla', 'Tshuffle'):
             self._simple_disable_regex(flagset, log, 'Treasures are not random', r'^Tmaxtier:')
             self._simple_disable(flagset, log, 'Treasures are not random', ['Tplayable'])
+            self._simple_disable_regex(flagset, log, 'Treasures are not random', r'^Tmintier:')
 
         if flagset.has_any('Svanilla', 'Scabins', 'Sempty'):
             self._simple_disable_regex(flagset, log, 'Shops are not random', r'^Sno:([^j]|j.)')
@@ -462,6 +502,7 @@ class FlagLogicCore:
 
         if flagset.has('Bvanilla'):
             self._simple_disable(flagset, log, 'Bosses not randomized', ['Bunsafe'])
+            self._simple_disable_regex(flagset, log, 'Bosses not randomized', r'^Brestrict:')
 
         if flagset.has('Evanilla'):
             self._simple_disable(flagset, log, 'Encounters are vanilla', ['Ekeep:behemoths', 'Ekeep:doors', 'Edanger'])
@@ -491,7 +532,7 @@ class FlagLogicCore:
         # Objectives logic
         if flagset.has('Onone'):
             self._simple_disable_regex(flagset, log, 'No objectives set', r'^O(win|req):')
-            self._simple_disable(flagset, log, 'No objectives set', ['-exp:objectivebonus'])
+            self._simple_disable_regex(flagset, log, 'No objectives set', r'^-exp:objectivebonus')
         else:
             # Force Oreq:all if a req: flag is not specified
             if not flagset.get_list(r'^Oreq:'):
@@ -685,7 +726,34 @@ class FlagLogicCore:
                 if actual_available_characters < required_objective_count and skip_pools == False:
                     self._lib.push(log, ['error', f'Not enough unique characters for pool {random_prefix}.  Another pool could potentially consume some or all of these characters {random_only_char_flags}' + ','.join(flagset.get_list(rf'^{random_prefix}'))])
                     break
-                duplicate_check_count += required_objective_count            
+                duplicate_check_count += required_objective_count
+                
+        challenges = flagset.get_list(r'^-wacky:')
+        if challenges:
+            # Simplified wacky compatibility logic
+            # If one of these is set, none of the others in this group can be
+            WACKY_SET_1 = ['afflicted', 'menarepigs', 'mirrormirror', 'skywarriors', 'zombies']
+            # If one of the above is set, none of these can be
+            WACKY_SET_2 = ['battlescars', 'payablegolbez', 'tellahmaneuver', 'worthfighting']
+            # These are sets of mutually incompatible modes
+            WACKY_SET_3 = [
+                ['3point', 'afflicted', 'battlescars', 'menarepigs', 'mirrormirror', 'skywarriors', 'unstackable', 'zombies'],
+                ['afflicted', 'friendlyfire'],
+                ['battlescars', 'afflicted', 'zombies', 'worthfighting'],
+                ['darts', 'musical'],
+                ['3point', 'tellahmaneuver'],
+            ]
+
+            for c in challenges:
+                mode = self._lib.re_sub(r'-wacky:', '', c)
+                if mode in WACKY_SET_1:
+                    self._simple_disable(flagset, log, 'Can only have one enforced status wacky mode', [fr'-wacky:{m}' for m in WACKY_SET_1 if m != mode])
+                    self._simple_disable(flagset, log, 'Modes are incompatible with enforced status wacky modes', [fr'-wacky:{m}' for m in WACKY_SET_2])
+                for group in WACKY_SET_3:
+                    if mode in group:
+                        self._simple_disable(flagset, log, f'Wacky modes are incompatible with {mode}', [fr'-wacky:{m}' for m in group if m != mode])
+                    
+        
         return log
 
 

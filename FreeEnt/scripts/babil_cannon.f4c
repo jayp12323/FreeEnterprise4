@@ -373,5 +373,13 @@ event($96)  //Jump from Tower of Bab-il, airship escape
     music #LunarSubterrane
     set #ReinforcedEnterprise
     deactivate #AirshipEngineer
+    // %if doorsrando%
+    set #UnderworldOpen
+
+    [#B #If #Flag #flag.BigWhaleSurfaced]{
+        [#B #PutWhale 156 201]
+    }
+    // %end%
+
     load map #Underworld at 49 16 no transition on enterprise no launch
 }

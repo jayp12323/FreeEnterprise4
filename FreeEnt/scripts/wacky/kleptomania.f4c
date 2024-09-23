@@ -16,7 +16,7 @@ msfpatch {
         lda $29ad,x
         tax
         // get item to sneak from extended data
-        lda $=Wacky__ROMData,x
+        lda $=Wacky__ROMData_kleptomania,x
         // return to sneak flow
         jml $03e25a
 }
