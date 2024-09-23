@@ -422,7 +422,7 @@ def apply(env):
                 candidates = filter(lambda it: it.const not in assigned_picks, candidates)
 
             category_shop_assignments = list(filter(lambda sa: sa.matches_category(category) and sa.shop.level in ['free', 'gated'], shop_assignments))
-            for item in candidates:                
+            for item in candidates:
                 eligible_shop_assignments = list(filter(lambda sa: can_be_in_shop(item, sa.shop), category_shop_assignments))
                 place_item(item.const, eligible_shop_assignments)
 
@@ -443,7 +443,7 @@ def apply(env):
                 guaranteed_free_items.append('#item.Life')
 
             if not env.options.flags.has('shops_no_j_items'):
-                if not env.options.flags.has('shops_no_veils'):
+                if not env.options.flags.has('shops_no_starveil'):
                     guaranteed_free_items.append('#item.StarVeil')
                 if not env.options.flags.has('bosses_unsafe'):
                     guaranteed_free_items.append('#item.ThorRage')

@@ -91,4 +91,5 @@
     internal_ki                              none       Obtain key items
     internal_bosscollector                   none      Defeat %d %t
     internal_goldhunter                      none      Bring %d GP to Tory in Agart
+    internal_dkmatter                        none      Bring DkMatters to Kory in Agart
 
