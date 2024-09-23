@@ -1,0 +1,37 @@
+// code to support extra kinds of chest contents
+msfpatch {
+    //.addr $03aafd
+    //    jml $=CustomItemCustomItemEffects 
+}
+
+msfpatch {
+    CustomItemCustomItemEffects:          
+        // Dispaced instructions
+        lda $3560,x
+        beq $+DoEffects       
+        
+        // Back to no menu handling
+        jml $03ab02
+    
+    DoEffects:
+        phx
+        pha
+        jsr $_CustomItemShared
+        pla
+        plx
+        jml $03ab05
+}
+
+msfpatch{
+    CustomItemShared:      
+        ldx $00a6
+                             
+        lda $2006,x      
+        ora #$020       // STATUS_4_WALL
+        sta $2006,x    
+
+        lda $2003,x      
+        ora #$010       // STATUS_1_SMALL
+        sta $2003,x    
+        rts
+}

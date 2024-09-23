@@ -160,6 +160,7 @@ F4C_FILES = '''
     scripts/level_up_summary.f4c
     scripts/treasure_discard.f4c
     scripts/treasure_character.f4c
+    scripts/custom_item_effects.f4c
     scripts/config_init.f4c
     scripts/shadow_party.f4c
     scripts/fusoya_challenge.f4c

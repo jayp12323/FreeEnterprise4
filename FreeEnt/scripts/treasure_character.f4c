@@ -18,10 +18,6 @@ patch($21fa50 bus) {
 // %end%
 }
 
-patch($03A4DD)
-{
-    
-}
 // One byte per character slot
 patch($21fa90 bus)
 {
