@@ -80,14 +80,8 @@ def apply(env):
         banned_items.append('#item.Illusion')
     if env.options.flags.has('shops_no_coffin'):
         banned_items.append('#item.Coffin')
-
     if env.options.flags.has('shops_no_life'):
-        banned_items.append('#item.Life')
-    if env.options.flags.has('shops_no_veils'):
-        banned_items.append('#item.StarVeil')
-        banned_items.append('#item.MoonVeil')
-    if env.options.flags.has('shops_no_vampires'):
-        banned_items.append('#item.Vampire')
+        banned_items.append('#item.Life')        
     if env.options.flags.has('no_adamants'):
         banned_items.append('#item.AdamantArmor')
     if env.options.flags.has('no_cursed_rings'):

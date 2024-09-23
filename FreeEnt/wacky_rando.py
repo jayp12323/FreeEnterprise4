@@ -96,6 +96,8 @@ WACKY_RAM_USAGE = {
     'doorsrando_gated'     : 0,
     'doorsrando_all'     : 0,
     'doorsrando_why'     : 0,
+    'dropitlikeitshot'  : 0,
+    'whatsmygear'       : 0,
     'mirrormirror'      : 13, # StatusEnforcement
 }
 

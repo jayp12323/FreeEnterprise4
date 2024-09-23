@@ -40,7 +40,7 @@ STARTING_ITEM_MAP = {
     'Kstart:tower'                          : '#item.Tower',
     'Kstart:hook'                           : '#item.fe_Hook',
     'Kstart:luca'                           : '#item.Luca',
-    'Kstart:darkcrystal'                    : '#item.DarkCrystal',
+    'Kstart:darkness'                       : '#item.DarkCrystal',
     'Kstart:rat'                            : '#item.Rat',
     'Kstart:pan'                            : '#item.Pan',
     'Kstart:crystal'                        : '#item.Crystal',
@@ -48,6 +48,7 @@ STARTING_ITEM_MAP = {
     'Kstart:adamant'                        : '#item.Adamant',
     'Kstart:spoon'                          : '#item.Spoon',
     'Kstart:pink'                           : '#item.Pink',
+    'Kstart:pass'                           : '#item.Pass',
 }
 
 ESSENTIAL_KEY_ITEMS = {
@@ -869,8 +870,9 @@ def apply(env):
                     rewards_assignment[slot] = item
         else:
             pool.extend(MOON_BOSS_ITEMS)
-        if is_vanilla and not env.options.flags.has_any('key_items_in_miabs','key_items_in_lst_miabs'):
-            for slot in CHEST_NUMBERS:                                      
+        
+        if is_vanilla and not miab_flags:
+            for slot in CHEST_NUMBERS:
                 if slot not in rewards_assignment:
                     treasure = treasure_dbview.find_one(lambda t : [t.map, t.index] == CHEST_NUMBERS[slot])
                     rewards_assignment[slot] = ItemReward(treasure.jcontents if (treasure.jcontents and not env.options.flags.has('treasure_no_j_items')) else treasure.contents)
@@ -1172,9 +1174,9 @@ def apply(env):
         if env.options.flags.has('key_items_in_summon_quests'):
             potential_key_item_slots.extend(SUMMON_QUEST_SLOTS)
         if env.options.flags.has('key_items_in_moon_bosses'):
-            potential_key_item_slots.extend(MOON_BOSS_SLOTS)
-        if env.options.flags.has_any('key_item_from_forge'):
-            potential_key_item_slots.append(RewardSlot.forge_miabs','key_items_in_lst_item)
+            potential_key_item_slots.extend(MOON_BOSS_SLOTS)        
+        if env.options.flags.has('key_item_from_forge'):
+            potential_key_item_slots.append(RewardSlot.forge_item)
         if env.options.flags.has('key_item_from_pink_tail'):
             potential_key_item_slots.append(RewardSlot.pink_trade_item)
         if miab_flags:

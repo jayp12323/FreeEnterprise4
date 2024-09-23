@@ -335,6 +335,7 @@ def apply(env):
         for item in items_dbview_unrestricted:
             items_by_tier_unrestricted.setdefault(item.tier, []).append(item.const)
         distributions = {}
+        distributions_unrestricted = {}
         curves_dbview = databases.get_tvanillaish_dbview() if (env.options.flags.has('treasure_vanillaish')) else databases.get_curves_dbview()
         for row in curves_dbview:
             weights = {i : getattr(row, f"tier{i}") for i in range(1,9)}

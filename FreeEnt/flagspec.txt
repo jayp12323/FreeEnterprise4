@@ -31,7 +31,7 @@ Ohardreq:1 Ohardreq:2 Ohardreq:3 Ohardreq:4 Ohardreq:5 Ohardreq:6 Ohardreq:7 Oha
 Ogated:1/Ogated:2/Ogated:3/Ogated:4/Ogated:5/Ogated:6/Ogated:7/Ogated:8/Ogated:9/Ogated:10/Ogated:11/Ogated:12/Ogated:13/Ogated:14/Ogated:15/Ogated:16/Ogated:17/Ogated:18
 Owin:game/Owin:crystal
 Kvanilla Kmain Ksummon Kmoon Klstmiab Kmiab:standard Kmiab:above Kmiab:below Kmiab:lst Kmiab:all Kforge Kpink Knofree/Knofree:dwarf/Knofree:package Kunsafe/Kunsafer Kforce:magma/Kforce:hook Kunweighted Klatedark
-Kstart:package/Kstart:sandruby/Kstart:baron/Kstart:twinharp/Kstart:earthcrystal/Kstart:magma/Kstart:tower/Kstart:hook/Kstart:luca/Kstart:darkcrystal/Kstart:rat/Kstart:pan/Kstart:crystal/Kstart:legend/Kstart:adamant/Kstart:spoon/Kstart:pink
+Kstart:package/Kstart:sandruby/Kstart:baron/Kstart:twinharp/Kstart:earthcrystal/Kstart:magma/Kstart:tower/Kstart:hook/Kstart:luca/Kstart:darkness/Kstart:rat/Kstart:pan/Kstart:crystal/Kstart:legend/Kstart:adamant/Kstart:spoon/Kstart:pink/Kstart:pass
 Pnone Pshop Pkey Pchests
 Cvanilla Cstandard/Crelaxed Cnofree Cnoearned Cmaybe Cnopartner
 Cdistinct:1/Cdistinct:2/Cdistinct:3/Cdistinct:4/Cdistinct:5/Cdistinct:6/Cdistinct:7/Cdistinct:8/Cdistinct:9/Cdistinct:10/Cdistinct:11
@@ -92,6 +92,7 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -pushbtojump
 -wacky:random/-wacky:random2/-wacky:random3/-wacky:random4/-wacky:random5/-wacky:random6
 -wacky:musical
+-wacky:dropitlikeitshot
 -wacky:whatsmygear
 -wacky:bodyguard
 -wacky:fistfight
@@ -184,14 +185,15 @@ Kstart:magma            key_items_start_magma
 Kstart:tower            key_items_start_tower
 Kstart:hook             key_items_start_hook
 Kstart:luca             key_items_start_luca
-Kstart:darkcrystal      key_items_start_darkcrystal
+Kstart:darkness         key_items_start_darkness
+Kstart:crystal          key_items_start_crystal
 Kstart:rat              key_items_start_rat
 Kstart:pan              key_items_start_pan
-Kstart:crystal          key_items_start_crystal
 Kstart:legend           key_items_start_legend
 Kstart:adamant          key_items_start_adamant
 Kstart:spoon            key_items_start_spoon
 Kstart:pink             key_items_start_pink
+Kstart:pass             key_items_start_pass
 
 Pnone                pass_none
 Pshop                pass_in_shop

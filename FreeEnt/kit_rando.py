@@ -200,7 +200,6 @@ KIT_SPECS = {
         ( ['Hermes'],   [(4,5)] ),
         ( ['HrGlass1'], [1] ),
         ( ['Heal'],     [(3,4)] ),
-    ]
     ],
 
     'adamant' : [
