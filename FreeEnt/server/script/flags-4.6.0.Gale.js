@@ -12225,7 +12225,7 @@ class FlagLogicCore {
             if (flagset.has("Omode:classicgiant")) {
                 total_objective_count += 1;
             }
-            if (flagset.has("Omode:dkmatter")) {
+            if ((flagset.get_list("^Omode:dkmatter").length > 0)) {
                 total_objective_count += 1;
             }
             if ((total_potential_bosses > 34)) {

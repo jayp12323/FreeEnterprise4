@@ -3937,7 +3937,7 @@ var FLAG_UISPEC = [
                     "title": "You start with the Luca Key"
                   },
                   {
-                    "flag": "Kstart:darkcrystal",
+                    "flag": "Kstart:darkness",
                     "title": "You start with the Dark Crystal"
                   },
                   {
@@ -3967,6 +3967,10 @@ var FLAG_UISPEC = [
                   {
                     "flag": "Kstart:spoon",
                     "title": "You start with the Spoon"
+                  },
+                  {
+                    "flag": "Kstart:crystal",
+                    "title": "You start with the Crystal"
                   }
                 ]
               },
@@ -7589,14 +7593,14 @@ var FLAG_UISPEC = [
             "title": "\"The Bodyguard\""
           },
           {
+            "flag": "-wacky:dropitlikeitshot",
+            "title": "\"Drop It Like It's Hot\""
+          },
+          {
             "flag": "@anon80",
             "title": "Doors Randomization Options",
             "type": "select",
             "subcontrols": [
-              {
-                "flag": "-wacky:dropitlikeitshot",
-                "title": "\"Drop It Like It's Hot\""
-              },
               {
                 "flag": "-wacky:doorsrando_normal",
                 "title": "No Cross World Shuffle",

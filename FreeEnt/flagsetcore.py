@@ -660,7 +660,7 @@ class FlagLogicCore:
                 total_objective_count += 1
             if flagset.has('Omode:classicgiant'):
                 total_objective_count += 1
-            if flagset.has('Omode:dkmatter'):
+            if len(flagset.get_list(r'^Omode:dkmatter')) > 0:
                 total_objective_count += 1
 
             if total_potential_bosses > 34:
