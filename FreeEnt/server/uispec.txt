@@ -739,9 +739,6 @@
 .[-exp:split] Split EXP distribution
 .[-exp:noboost] No low-level EXP boost
 .[-exp:nokeybonus] No EXP bonus after 10 key items
-.[-exp:objectivebonus] Each completed objective gives 12.5% extra EXP
-.[-exp:kicheckbonus] Each KI location checked gives 12.5% extra EXP (except the starting KI check)
-.[-exp:geometric] Repeated monster kills scale down in EXP
 .[-exp:crystalbonus] Double EXP after obtaining the Crystal
 .[@objectiveexp] Award extra EXP for completing objectives
 ..<> Amount of bonus EXP
@@ -770,16 +767,16 @@
 .[-exp:maxlevelbonus] Award extra EXP when underlevelled
 .[@geometricexp] Decrease EXP earned from repeated same-type monster kills
 ..<> Per-monster-kill percentage reduction
-...(-exp:geometric_90) Repeated monster kills scale down in EXP to 90%
-...(-exp:geometric_80) Repeated monster kills scale down in EXP to 80%
-...(-exp:geometric_70) Repeated monster kills scale down in EXP to 70%
-...(-exp:geometric_60) Repeated monster kills scale down in EXP to 60%
-...(-exp:geometric_50) Repeated monster kills scale down in EXP to 50%
-...(-exp:geometric_40) Repeated monster kills scale down in EXP to 40%
-...(-exp:geometric_30) Repeated monster kills scale down in EXP to 30%
-...(-exp:geometric_20) Repeated monster kills scale down in EXP to 20%
-...(-exp:geometric_10) Repeated monster kills scale down in EXP to 10%
-...(-exp:geometric_0) Repeated monster kills do not award EXP
+...(-exp:geometric90) Repeated monster kills scale down in EXP to 90%
+...(-exp:geometric80) Repeated monster kills scale down in EXP to 80%
+...(-exp:geometric70) Repeated monster kills scale down in EXP to 70%
+...(-exp:geometric60) Repeated monster kills scale down in EXP to 60%
+...(-exp:geometric50) Repeated monster kills scale down in EXP to 50%
+...(-exp:geometric40) Repeated monster kills scale down in EXP to 40%
+...(-exp:geometric30) Repeated monster kills scale down in EXP to 30%
+...(-exp:geometric20) Repeated monster kills scale down in EXP to 20%
+...(-exp:geometric10) Repeated monster kills scale down in EXP to 10%
+...(-exp:geometric0) Repeated monster kills do not award EXP
 [] Restore vanilla behaviors
 .[-vanilla:agility] Vanilla agility anchoring
 .[-vanilla:hobs] Vanilla Hobs spell
