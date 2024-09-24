@@ -38,6 +38,7 @@ ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_bo
                "RewardSlot.cave_eblan_chest": "#CaveEblanEntrance",
                "RewardSlot.cave_of_summons_chest": "#CaveOfSummons1F", "RewardSlot.damcyan_character": "#Damcyan",
                "RewardSlot.dwarf_castle_character": "#DwarfCastle|#DwarfCastleBasement",
+               "RewardSlot.dwarf_hospital_item": "#DwarfCastle",
                "RewardSlot.eblan_chest_1": "#Eblan", "RewardSlot.eblan_chest_2": "#Eblan",
                "RewardSlot.eblan_chest_3": "#Eblan", "RewardSlot.fabul_item": "#Fabul",
                "RewardSlot.feymarch_item": "#Feymarch1F", "RewardSlot.feymarch_king_item": "#FeymarchLibrary1F",
