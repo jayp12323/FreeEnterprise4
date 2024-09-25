@@ -157,14 +157,14 @@ def refineItemsView(dbview, env):
         dbview.refine(lambda it: it.const != '#item.AdamantArmor')
     if env.options.flags.has('no_cursed_rings'):
         dbview.refine(lambda it: it.const != '#item.Cursed')
-    if env.meta.get('wacky_challenge') == 'kleptomania':
+    if env.meta.get('wacky_challenge',[]) == 'kleptomania':
         dbview.refine(lambda it: (it.category not in ['weapon', 'armor']))   
 
     # In Omnidextrous, everyone can equip anything, hence can use everything, so this flag does nothing.
-    if env.options.flags.has('treasure_playable') and not (env.meta.get('wacky_challenge') == 'omnidextrous'):
+    if env.options.flags.has('treasure_playable') and not (env.meta.get('wacky_challenge',[]) == 'omnidextrous'):
         user_set = expand_characters_to_users(env.meta['available_characters'])
         # In Fist Fight, the only weapons are claws, which are equippable by everyone, so need more complex logic
-        if env.meta.get('wacky_challenge') == 'fistfight':
+        if env.meta.get('wacky_challenge',[]) == 'fistfight':
             dbview.refine(lambda it: it.category == 'item' or (it.category != 'weapon' and not set(it.equip).isdisjoint(user_set)) or (it.subtype == 'claw'))
         else:
             dbview.refine(lambda it: it.category == 'item' or not set(it.equip).isdisjoint(user_set))       

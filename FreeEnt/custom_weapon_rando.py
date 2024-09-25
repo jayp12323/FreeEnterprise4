@@ -95,8 +95,8 @@ def apply(env):
         available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _is_user(cw, env.meta['starting_character']))
         custom_weapon = env.rnd.choice(available_weapons)
     elif env.options.flags.has('supersmith'):
-        if env.options.flags.has('playablesmith') and not env.meta.get('wacky_challenge') == 'omnidextrous':
-            if env.meta.get('wacky_challenge') == 'fistfight':
+        if env.options.flags.has('playablesmith') and 'omnidextrous' not in env.meta.get('wacky_challenge',[]):
+            if fistfight in env.meta.get('wacky_challenge',[]):
                 available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _is_user(cw, 'yang'))
             else:
                 available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _are_users(cw, env.meta['available_characters']))
@@ -156,7 +156,7 @@ def apply(env):
     if custom_weapon.bow:
         gear_bytes[6] |= 0x80
     
-    if env.meta.get('wacky_challenge') == 'whatsmygear':
+    if 'whatsmygear' in env.meta.get('wacky_challenge',[]):
         # can't double-patch the weapon, so patch only the first seven bytes and leave the eighth for the wacky to handle
         env.add_binary(UnheaderedAddress(0x79100 + CUSTOM_WEAPON_ITEM_ID * 0x08), gear_bytes[0:7], as_script=True)
     else:

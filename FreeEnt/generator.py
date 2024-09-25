@@ -838,7 +838,7 @@ def build(romfile, options, force_recompile=False):
             item_description_data[0x80 * item_id + i] = item_description_override[i]
 
     # overwrite lines 2-4 of the descriptions of gear with wacky-specific text
-    if env.meta.get('wacky_challenge') == 'whatsmygear':
+    if 'whatsmygear' in env.meta.get('wacky_challenge',[]):
         for item_id in range(0,176):
             # skip 0x00 (no weapon) and 0x60 (no armour) because their descriptions will be hidden anyway
             if item_id in [0,96]:

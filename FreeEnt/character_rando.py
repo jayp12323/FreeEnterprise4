@@ -587,7 +587,7 @@ def apply(env):
             if weapon.subtype == 'bow':
                 arrow = env.rnd.choice(arrows_dbview.find_all())
                 gear_list.append(databases.get_item_spoiler_name(weapon) + ' + ' + databases.get_item_spoiler_name(arrow))
-                main_hand_value = arrow.const + (' 1' if env.meta.get('wacky_challenge') == 'unstackable' else ' 20')
+                main_hand_value = arrow.const + (' 1' if 'unstackable' in env.meta.get('wacky_challenge',[]) else ' 20')
                 off_hand_value = weapon.const
             else:
                 main_hand_value = weapon.const
