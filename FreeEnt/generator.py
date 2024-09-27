@@ -194,7 +194,7 @@ F4C_FILES = '''
 
 BINARY_PATCHES = {
     0x117000 : 'binary_patches/standing_characters.bin',
-    0x10da00 : 'assets/encounters/formation_average_levels_mod.bin', # differently generated average levels
+    #0x10da00 : 'assets/encounters/formation_average_levels_mod.bin', # differently generated average levels
 }
 
 class Generator:

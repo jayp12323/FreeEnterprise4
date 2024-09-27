@@ -643,6 +643,10 @@ def apply(env):
         source_formation = _get_cumulative_formation(source_formation_id_list)
         target_formation = _get_cumulative_formation(target_formation_id_list)
 
+
+        if slot == 'mombomb_slot':
+            print(f'Found my guy')
+
         # get reference stats from original formation in slot
         ref_hp, ref_xp, ref_gp, ref_qty = _get_total_hp_xp_gp_qty(source_formation)
         ref_leader = _get_leader(source_formation)
@@ -700,7 +704,6 @@ def apply(env):
 
             scaled_level = int(math.ceil(monster['level'] * ref_leader['level'] / leader['level']))
             scaled_level = max(1, min(99, scaled_level))
-
             script_lines.append(f'    level {scaled_level}')
             script_lines.append(f'    hp {scaled_hp}')
             script_lines.append(f'    xp {scaled_xp}')
@@ -709,10 +712,11 @@ def apply(env):
             csv_row.extend([scaled_level, scaled_hp, scaled_xp_actual, scaled_gp])
 
             monster_scaled_stats = {}
+            stat_scaling_reports.append(f'XP is ' + str(monster['xp']))
             stat_scaling_reports.append(f'monster(${monster_id:02X})')
             for stats_name in ['attack', 'defense', 'magic defense', 'speed']:
                 stat_scaling_reports.append(stats_name)
-                stat_scaling_reports.append('monster : ' + str(monster[stats_name]))
+                stat_scaling_reports.append('monster : ' + str(monster[stats_name]))                
                 stat_scaling_reports.append('leader  : ' + str(leader[stats_name]))
                 if sum(leader[stats_name]) == 0:
                     stats_ratio = [monster['level'] / leader['level']] * len(monster[stats_name])
@@ -767,7 +771,7 @@ def apply(env):
                             stats_ratio = [stats_scripted[i] / max(monster[stat][i], 1) for i in range(len(stats_scripted))]
                             stats_ideal = [monster_scaled_stats[stat][i] * stats_ratio[i] for i in range(len(stats_ratio))]
                             closest_index, closest_value = _get_closest_stat(stats_ideal, SPEED_TABLE, (1.0, 1.0))
-                        else:
+                        else:                            
                             # New scripted-stats-scaling algorithm; speed still works the same, because no monster has 0 speed.
                             # For all other stats, the old algorithm treated the scripted changes as multiplicative scaling, but for example,
                             # if a boss spot has 0 base defense (like at Zot 2, the vanilla Val spot), then the scripted change would be to (0,0,0).
@@ -778,6 +782,7 @@ def apply(env):
                             scaled_diff = [diff_stats_scripted[i] * (ref_leader['level'] / leader['level']) for i in range(len(diff_stats_scripted))]
                             stats_ideal = [max(0,monster_scaled_stats[stat][i] + scaled_diff[i]) for i in range(len(scaled_diff))]
                             closest_index, closest_value = _get_closest_stat(stats_ideal, STATS_TABLE, (1.0, 0.1, 1.0))
+                            print(f'Adjusting stat {stat} to {closest_index}')
                         env.add_substitution(f'{monster_name} script {stat} change ${value:02X}', f'set {stat} index ${closest_index:02X}')
                         csv_row.append(f'script-{stat}: {"-".join([str(v) for v in closest_value])}')
 
@@ -927,7 +932,7 @@ def apply(env):
     if assignment['milonz_slot'] == 'wyvern' and not env.options.flags.has('wyvern_no_meganuke') and not env.options.flags.has('wyvern_random_meganuke'):
         env.add_file('scripts/wyvern_slowmeganuke.f4c')
 
-    #print('\n'.join(stat_scaling_reports))
+    print('\n'.join(stat_scaling_reports))
 
     env.add_script('\n'.join(script_lines))
 

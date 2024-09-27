@@ -9,7 +9,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "FreeEnt",
-            "args": [".\\ff4.smc", "make","-f", "Omode:classicgiant,dkmatter45/req:all/win:crystal Kmain/summon/moon/miab:all/pink/nofree:package/unsafe Pkey Crelaxed/nofree/noearned/maybe/start:rydia/thrift:2/j:abilities/bye/permadeader/superhero/treasure:free,earned,unsafe/hi/fifo Tpro/sparse:20/sparsey:underground,moon,overworld/playable/no:j Scabins/free/sell:0 Bstandard/nofree/unsafe/alt:gauntlet/itburns/whichbez/woahdin Etoggle/keep:behemoths/cantrun/nogp/no:jdrops Gnone -noadamants -nocursed -spoon -smith:super,playable -exp:nokeybonus -vanilla:z -wacky:whatsmygear,doorsrando_all -tweak:kainmagic -spoil:keyitems,rewards,chars,treasure,bosses,misc", "-t gp" ,"-o", "output/output.smc"]
+            "args": [".\\ff4.smc", "make","-f", "Omode:classicgiant,dkmatter45/req:all/win:crystal Kmain/summon/moon/miab:all/pink/nofree:package/unsafe Pkey Crelaxed/nofree/noearned/maybe/start:rydia/thrift:2/j:abilities/bye/permadeader/superhero/treasure:free,earned,unsafe/hi/fifo Tpro/sparse:20/sparsey:underground,moon,overworld/playable/no:j Scabins/free/sell:0 Bstandard/nofree/unsafe/alt:gauntlet/itburns/whichbez/woahdin Etoggle/keep:behemoths/cantrun/nogp/no:jdrops Gnone -noadamants -nocursed -spoon -smith:super,playable -exp:nokeybonus -vanilla:z -wacky:whatsmygear -tweak:kainmagic -spoil:keyitems,rewards,chars,treasure,bosses,misc", "-t gp" ,"-o", "output/output.smc"]
         }
     ]
 }
