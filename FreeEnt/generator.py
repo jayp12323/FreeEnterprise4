@@ -547,8 +547,9 @@ def select_from_catalog(catalog_path, env):
     items = []
     with open(catalog_path, 'r') as infile:
         items = [l.strip() for l in infile if l.strip()]
-
-    return env.rnd.choice(items)
+    result = env.rnd.choice(items)
+    print(f'Chose {result} from catalog{catalog_path}')
+    return result
 
 #--------------------------------------------------------------------------
 

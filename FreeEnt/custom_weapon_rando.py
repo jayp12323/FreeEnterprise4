@@ -96,7 +96,7 @@ def apply(env):
         custom_weapon = env.rnd.choice(available_weapons)
     elif env.options.flags.has('supersmith'):
         if env.options.flags.has('playablesmith') and 'omnidextrous' not in env.meta.get('wacky_challenge',[]):
-            if fistfight in env.meta.get('wacky_challenge',[]):
+            if 'fistfight' in env.meta.get('wacky_challenge',[]):
                 available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _is_user(cw, 'yang'))
             else:
                 available_weapons = databases.get_custom_weapons_dbview().find_all(lambda cw: not cw.disabled and _are_users(cw, env.meta['available_characters']))
