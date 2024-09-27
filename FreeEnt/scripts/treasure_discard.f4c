@@ -240,8 +240,6 @@ msfpatch {
         bne $+CheckDiscard
         jsl $=TreasureCharacter_IsCharReward
         beq $+CheckDiscard
-        //lda #$07
-        //sta $_Rewards__PendingCharacterDeliverySlot
         jsl $=TreasureCharacter_DeliverCharacterReward
         jml $009794 // rts
 

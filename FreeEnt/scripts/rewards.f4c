@@ -366,6 +366,9 @@ msfpatch {
         jsl $=Tracker__SetBit
         bra $+ItemNotYetUsed
     %RemoveSuperhero:       
+        lda $0609   // Check if it's a fight chest and skip the dialog message if so
+        and #$040
+        bne $+RemoveSuperheroLoop
         // Show depower message
         lda #$33 // refers to $120 since this is the behavior for a bank 1 message 
         sta $b2
