@@ -333,11 +333,11 @@ msfpatch {
         lda $=Objectives__Progress,x
         cmp #$01
         beq $+FirstBoss
-        lda #$1f
+        lda #$32
         bra $+ShowBossCounterDialog
 
     %FirstBoss:
-        lda #$1e
+        lda #$31
 
     %ShowBossCounterDialog:
         sta $b2
@@ -732,10 +732,10 @@ msfpatch {
         jmp $_EvEx__End
 }
 
-text(bank 1 message $11E) {
+text(bank 1 message $131) {
     [amount] boss collected!
 }
 
-text(bank 1 message $11F) {
+text(bank 1 message $132) {
     [amount] bosses collected!
 }

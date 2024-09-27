@@ -199,7 +199,7 @@ msfpatch {
         "Objective completion            "   // $5D     fixed_crystal
 }
 
-text(bank 1 message $120) {
+text(bank 1 message $133) {
 The earth crystal weakens
 your super powers!
 }
@@ -367,7 +367,7 @@ msfpatch {
         bra $+ItemNotYetUsed
     %RemoveSuperhero:       
         // Show depower message
-        lda #$20 // refers to $120 since this is the behavior for a bank 1 message 
+        lda #$33 // refers to $120 since this is the behavior for a bank 1 message 
         sta $b2
         ldx #$b1e1
         jsl $=Bank00LongCallX

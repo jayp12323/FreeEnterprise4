@@ -142,8 +142,6 @@ text(bank 1 message $12D) {X}
 text(bank 1 message $12E) {X}
 text(bank 1 message $12F) {X}
 text(bank 1 message $130) {X}
-text(bank 1 message $131) {X}
-text(bank 1 message $132) {X}
 text(bank 1 message $133) {X}
 text(bank 1 message $134) {X}
 
