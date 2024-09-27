@@ -561,7 +561,8 @@ def apply(env):
         shields_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype == 'shield' and it.tier in range(1,thrift_tier+1))
         head_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype in ['helmet','hat'] and it.tier in range(1,thrift_tier+1))
         body_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype in ['armor','robe'] and it.tier in range(1,thrift_tier+1))
-        arms_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype in ['gauntlet','ring'] and it.tier in range(1,thrift_tier+1))
+        arms_dbview = databases.get_items_dbview().get_refined_view(lambda it: it.category == 'armor' and it.subtype in ['gauntlet','ring'] and it.tier in range(1,thrift_tier+1)
+                                                                    and it.const != '#item.Cursed') # it makes more sense to just ban Cursed Rings entirely, given their value.
 
         for reference_actor_id in REFERENCE_ACTORS_TO_EQUIP_JOBS:
             job = REFERENCE_ACTORS_TO_EQUIP_JOBS[reference_actor_id]

@@ -4035,7 +4035,7 @@ var FLAG_UISPEC = [
           {
             "flag": "@Cthrifttier",
             "title": "Characters start with full random gear",
-            "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear.)",
+            "description": "Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear. Cursed Rings are excluded.)",
             "compact": true,
             "subcontrols": [
               {
