@@ -670,7 +670,7 @@ def apply(env, randomize_type,testing=False):
             spoil_entrances_for_spoiler += spoil_entrances_for_spoiler_temp
             graph.update(graph_temp)
             paths_to_world.update(paths_to_world_temp)
-        print(env.assignments)
+        #print(env.assignments)
         key_items = {}
         for x in env.assignments:
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):

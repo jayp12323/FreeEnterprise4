@@ -66,6 +66,7 @@ class TreasureAssignment:
         self._assignments = {}
         self._remaps = {}
         self._env = env
+        self.reward_index = -1
 
     def remap(self, old, new):
         self._remaps[_slug(old)] = _slug(new)    
@@ -77,7 +78,7 @@ class TreasureAssignment:
 
         if contents in self._autosells and fight is None:
             contents = '{} gp'.format(self._autosells[contents])        
-      
+            
         reward_index = -1        
         #translate either a reward slot or item into a reward index
         if contents != None and contents.startswith('#reward_slot.'):            
@@ -89,7 +90,10 @@ class TreasureAssignment:
         elif contents != None and '#item.fe_CharacterChestItem' in contents:
             reward_index = contents[-2:]
             contents = '#item.NoArmor'  
-         
+        
+        if slug in self._assignments and fight is not None:
+            print(f'Re-assigning to something already assigned')
+        #print(f'Assigning treasure with {contents}:{fight}:{t}:{reward_index}')
         self._assignments[slug] = (contents, fight, t, reward_index)
 
     def get(self, t, remap=True):
@@ -186,9 +190,7 @@ def apply(env):
     plain_chests_dbview = treasure_dbview.get_refined_view(lambda t: t.fight is None)
 
     items_dbview = databases.get_items_dbview()
-    items_dbview_unrestricted = databases.get_items_dbview()
     refineItemsView(items_dbview, env)        
-    refineItemsView(items_dbview_unrestricted, env)        
 
     maxtier = env.options.flags.get_suffix('Tmaxtier:')
     if maxtier:
@@ -260,22 +262,28 @@ def apply(env):
         character_in_chest_slots += character_rando.EARNED_SLOTS         
         put_characters_in_chests = True
 
-    if put_characters_in_chests:
-        assigned_ids= []
-        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
-        for slot_name in character_in_chest_slots:
-            if slot_name in character_rando.RESTRICTED_SLOTS and not env.options.flags.has('characters_in_treasure_relaxed'):
-                continue
+    if not env.options.flags.has('characters_in_treasure_relaxed'):
+        for slot in character_rando.RESTRICTED_SLOTS:
+            character_in_chest_slots.remove(slot)
 
+    assigned_ids= []
+    if put_characters_in_chests:
+        print(f'Length before {len(treasure_dbview.find_all())}')
+        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: _slug(t) not in fight_chest_locations)
+        print(f'Length after {len(character_treasure_chests.find_all())}')
+        for slot_name in character_in_chest_slots:
+
+            t = None
             if max_overworld_chests <= 0:
-                character_treasure_chests = treasure_dbview.get_refined_view(lambda t: lambda t: t.fight is None and t.ordr not in assigned_ids)
+                t = env.rnd.choice(character_treasure_chests.find_all(lambda t: t.ordr not in assigned_ids))        
             else:
-                character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids and t.world == "Overworld")
+                t = env.rnd.choice(character_treasure_chests.find_all(lambda t: t.ordr not in assigned_ids and t.world == "Overworld"))
                 max_overworld_chests -= 1            
-            t = env.rnd.choice(character_treasure_chests.find_all())        
+           
             print(f'Putting character {env.assignments[character_rando.SLOTS[slot_name]]} into chest {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
             treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[slot_name]))
-            assigned_ids.append(t.ordr)
+            contents,fight,character_treasure,reward_index = treasure_assignment.get(t)
+            assigned_ids.append(character_treasure.ordr)
     
         # update the plain chests to remove the character assigned ones
         plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
@@ -330,7 +338,6 @@ def apply(env):
         items_by_tier_unrestricted = {}
         for item in items_dbview:
             items_by_tier.setdefault(item.tier, []).append(item.const)
-        for item in items_dbview_unrestricted:
             items_by_tier_unrestricted.setdefault(item.tier, []).append(item.const)
         distributions = {}
         distributions_unrestricted = {}
@@ -347,6 +354,7 @@ def apply(env):
                     weights[tier] = 0
 
             distributions_unrestricted[row.area] = util.Distribution(weights)
+
             # null out distributions for empty item tiers
             for i in range(1,9):
                 if not items_by_tier.get(i, None):
@@ -358,10 +366,10 @@ def apply(env):
                 (t.world == 'Underworld' and env.options.flags.has('Tunrestrict:underworld')) or
                 (t.world == 'Moon' and env.options.flags.has('Tunrestrict:moon')) ):
                 tier = min(8, distributions_unrestricted[t.area].choose(env.rnd))
-                treasure_assignment.assign(t, env.rnd.choice(items_by_tier_unrestricted[tier]))
             else:
                 tier = min(8, distributions[t.area].choose(env.rnd))
-                treasure_assignment.assign(t, env.rnd.choice(items_by_tier[tier]))
+
+            treasure_assignment.assign(t, env.rnd.choice(items_by_tier[tier]))
 
     # apply sparsity
     sparse_level = env.options.flags.get_suffix('Tsparse:')
@@ -420,7 +428,7 @@ def apply(env):
                 remaining_count -= 1
                 area_use_count[chest.area] += 1
     
-    # map the fight treasures to the rewards table
+    #map the fight treasures to the rewards table
     for chest_slot in core_rando.CHEST_ITEM_SLOTS:
         chest_number = env.meta['miab_locations'][chest_slot]
         orig_chest_number = core_rando.CHEST_NUMBERS[chest_slot]
@@ -439,7 +447,7 @@ def apply(env):
     for slug in all_treasure_assignments:
         contents,fight,t,reward_index = all_treasure_assignments[slug]
         treasure_index +=1
-
+    
     # write the pre-opened chest values
     chest_init_flags = [0x00] * 0x40
     empty_count = 0
