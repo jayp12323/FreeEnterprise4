@@ -17,8 +17,6 @@ import pyaes
 
 import f4c
 
-from f4c import encode_text
-
 from .flags import FlagSet, FlagLogic
 from .address import *
 from .errors import *
@@ -37,14 +35,13 @@ from . import fusoya_rando
 from . import encounter_rando
 from . import dialogue_rando
 from . import wyvern_rando
-from . import odin_rando
-from . import golbez_rando
 from . import sprite_rando
 from . import summons_rando
 from . import objective_rando
 from . import kit_rando
 from . import custom_weapon_rando
 from . import wacky_rando
+
 from . import compile_item_prices
 
 from .script_preprocessor import ScriptPreprocessor
@@ -53,13 +50,13 @@ from . import version
 
 from .util import Distribution
 
+
 F4C_FILES = '''
     scripts/default.consts
     scripts/unused.f4c
     scripts/consts.f4c
     scripts/npcs.f4c
     scripts/characters.f4c
-    scripts/doors.f4c
     scripts/items.f4c
     scripts/menu_data.f4c
     scripts/randomizer.f4c
@@ -159,8 +156,6 @@ F4C_FILES = '''
     scripts/stats.f4c
     scripts/level_up_summary.f4c
     scripts/treasure_discard.f4c
-    scripts/treasure_character.f4c
-    scripts/custom_item_effects.f4c
     scripts/config_init.f4c
     scripts/shadow_party.f4c
     scripts/fusoya_challenge.f4c
@@ -185,16 +180,16 @@ F4C_FILES = '''
     scripts/mist_clip_fix.f4c
     scripts/status_text_fix.f4c
     scripts/fusoya_room.f4c
+    scripts/black_shirt_fix.f4c
     scripts/no_save_point_message.f4c
     scripts/blank_textbox_fix.f4c
     scripts/cycle_party_leader.f4c
     scripts/item_delivery_quantity.f4c
 '''
-# the missing scripts/black_shirt_fix.f4c is included below as a conditional, if -wacky:whatsmygear is not on
 
 BINARY_PATCHES = {
     0x117000 : 'binary_patches/standing_characters.bin',
-    #0x10da00 : 'assets/encounters/formation_average_levels_mod.bin', # differently generated average levels
+    0x10da00 : 'assets/encounters/formation_average_levels.bin',
 }
 
 class Generator:
@@ -215,7 +210,6 @@ class GeneratorOptions:
         self.cache_path = None
         self.clean_cache = True
         self.quickstart = False
-        #self.test_settings = {'quickstart': True, 'open': True, 'characters': True, 'items': True, 'gp': True}
         self.test_settings = dict()
         self.beta = False
         self.hide_flags = False
@@ -421,9 +415,6 @@ def _generate_title_screen_text(options):
 
     data = []
     for c in text:
-        if (len(data) >= 160):
-            raise BuildError(f"_generate_title_screen_text: data exceeds allocated size in ROM")
-
         if c == ' ':
             data.append('FF 04')
         elif c == '.':
@@ -444,18 +435,12 @@ def _generate_title_screen_text(options):
             data.append('{:02X} 04'.format((ord(c) - ord('a')) + 0xCA))
         else:
             data.append('00 00')
+
     return ' '.join(data)
 
 #--------------------------------------------------------------------------
 def _generate_pregame_screen_text(env):
-    lines = []
-
-    for l in env.pregame_text_lines:
-        line_length = len(l)
-        replacements = (re.findall('\[.*\]', l))
-        for r in replacements:
-            line_length -= len(r)-1
-        lines.append(l + " " * (32 - line_length))
+    lines = [(l + " " * (32 - len(l))) for l in env.pregame_text_lines]
 
     info_bytes = []
 
@@ -467,8 +452,6 @@ def _generate_pregame_screen_text(env):
 
     for line in lines:
         line = line.replace('(', '[$cc]').replace(')', '[$cd]')
-        line = line.replace('!', '[$7e]')
-        line = line.replace('?', '[$7d]')
         tiles = f4c.encode_text(line)
         text_bytes.extend(tiles)
 
@@ -489,7 +472,9 @@ def _generate_ending_version_text(options):
     lines = [options.get_version_str()]
 
     if len(binary_flags) > 22:
-        lines.extend(binary_flags[i:i+22] for i in range(0, len(binary_flags), 22))
+        cut_length = len(binary_flags) // 2
+        lines.append(binary_flags[:cut_length])
+        lines.append(binary_flags[cut_length:])
     else:
         lines.append(binary_flags)
         lines.append('')
@@ -501,9 +486,6 @@ def _generate_ending_version_text(options):
         if line and not line.startswith('~'):
             padding_length = int((22 - len(line)) / 2)
             lines[i] = ('~' * padding_length) + line
-
-    extra_lines = 9 - len(lines)
-    lines.extend([''] * extra_lines)
 
     return '\n'.join(lines)
 
@@ -547,14 +529,12 @@ def select_from_catalog(catalog_path, env):
     items = []
     with open(catalog_path, 'r') as infile:
         items = [l.strip() for l in infile if l.strip()]
-    result = env.rnd.choice(items)
-    print(f'Chose {result} from catalog{catalog_path}')
-    return result
+
+    return env.rnd.choice(items)
 
 #--------------------------------------------------------------------------
 
 def build(romfile, options, force_recompile=False):
-    print(options.test_settings)
     flags_version = options.flags.get_version()
     if flags_version is not None and list(flags_version) != list(version.NUMERIC_VERSION):
         raise BuildError(f"Binary flag string is from a different version (got {'.'.join([str(v) for v in flags_version])}, needed {version.NUMERIC_VERSION})")
@@ -596,8 +576,6 @@ def build(romfile, options, force_recompile=False):
 
     env.add_files(*(F4C_FILES.split()))
 
-
-
     env.add_substitution('version_encoded', ''.join([f'{b:02X}' for b in f4c.encode_text(options.get_version_str())]))
     env.add_substitution('title_screen_text', _generate_title_screen_text(options))
     env.add_substitution('ending_version', _generate_ending_version_text(options))
@@ -616,16 +594,11 @@ def build(romfile, options, force_recompile=False):
         'vanilla_agility',
         'characters_irretrievable',
         'objective_zeromus',
-        'no_earned_characters',
-        'no_starting_partner',
+        'no_earned_characters'
         ]
     flags_as_hex = []
     for slug in embedded_flags:
-        set_flag = options.flags.has(slug)
-        # disable talking to Edward if any no_free_key_item flag is set
-        if (slug == 'no_free_key_item') and options.flags.has_any('no_free_key_item_dwarf', 'no_free_key_item_package'):
-            set_flag = True
-        flags_as_hex.append(1 if set_flag else 0)
+        flags_as_hex.append(1 if options.flags.has(slug) else 0)
     env.add_binary(BusAddress(0x21f0d0), flags_as_hex, as_script=True)
 
     # must be first
@@ -643,8 +616,8 @@ def build(romfile, options, force_recompile=False):
         env.add_file('scripts/japanese_abilities.f4c')
 
     RANDO_MODULES = [
-        character_rando,
         core_rando,
+        character_rando,
         objective_rando,
         keyitem_rando,
         boss_rando,
@@ -655,8 +628,6 @@ def build(romfile, options, force_recompile=False):
         sprite_rando,
         summons_rando,
         wyvern_rando,
-        odin_rando,
-        golbez_rando,
         dialogue_rando,
         kit_rando,
         custom_weapon_rando
@@ -695,10 +666,8 @@ def build(romfile, options, force_recompile=False):
     # hack: add a block area to insert default names in rescript.py
     env.add_scripts('// [[[ NAMES START ]]]\n// [[[ NAMES END ]]]')
 
-    if options.flags.has_any('no_free_key_item', 'no_free_key_item_package'):
+    if options.flags.has('no_free_key_item'):
         env.add_file('scripts/rydias_mom_slot.f4c')
-    if options.flags.has('no_free_key_item_dwarf'):
-        env.add_file('scripts/dwarf_hospital_slot.f4c')
 
     if options.flags.has('no_free_bosses'):
         env.add_substitution('free boss', '')
@@ -720,7 +689,7 @@ def build(romfile, options, force_recompile=False):
         env.add_file('scripts/remove_dark_crystal_skip.f4c')
     if not options.flags.has('glitch_allow_life'):
         env.add_file('scripts/remove_life_glitch.f4c')
-    if (not options.flags.has('glitch_allow_backrow')) or 'sixleggedrace' in env.meta.get('wacky_challenge', []):
+    if (not options.flags.has('glitch_allow_backrow')) or env.meta.get('wacky_challenge', None) == 'sixleggedrace':
         env.add_file('scripts/remove_backrow_glitch.f4c')
 
     # some part of this fix is always needed; substitutions within
@@ -729,65 +698,6 @@ def build(romfile, options, force_recompile=False):
 
     if options.flags.has('edward_spoon'):
         env.add_file('scripts/edward_spoon.f4c')
-
-    if options.flags.has('give_monsters_evade'):
-        env.add_file('scripts/give_monsters_evade.f4c')
-    
-    if options.flags.has('let_monsters_flee'):
-        env.add_file('scripts/monster_flee.f4c')
-
-    # experience flag substitutions and toggles
-    # split, noboost, nokeyboost, crystalbonus, and maxlevelbonus are all handled directly via f4c scripts
-    exp_objective_bonus = env.options.flags.get_suffix('-exp:objectivebonus')
-    if exp_objective_bonus:
-        if not (exp_objective_bonus == '_num'):
-            exp_objective_bonus = 100 // int(exp_objective_bonus)
-            env.add_substitution('experience objective bonus divisor', f'#${exp_objective_bonus:02X}')
-        else:
-            num_obj = env.substitutions['objective count']
-            env.add_substitution('experience objective bonus divisor', '#$' + num_obj)
-        env.add_toggle('experience_objective_bonus')
-
-    exp_kicheck_bonus = env.options.flags.get_suffix('-exp:kicheckbonus')
-    if exp_kicheck_bonus:
-        if not (exp_kicheck_bonus == '_num'):
-            exp_kicheck_bonus = 100 // int(exp_kicheck_bonus)
-            env.add_substitution('experience key item check bonus divisor', f'#${exp_kicheck_bonus:02X}')
-        else:
-            num_kichecks = env.meta['number_key_item_slots']
-            # subtract 1 in the following substitution to skip the starting KI check
-            env.add_substitution('experience key item check bonus divisor', f'#${(num_kichecks-1):02X}')
-        env.add_toggle('experience_kicheck_bonus')
-
-    exp_zonk_bonus = env.options.flags.get_suffix('-exp:zonkbonus')
-    if exp_zonk_bonus:
-        exp_zonk_bonus = 100 // int(exp_zonk_bonus)
-        # need to check for the starting key item here, using the rewards assignment;
-        # cannot count starting non-KI as a zonk, so also ignore starting KI if necessary
-        if (env.meta['rewards_assignment'])[rewards.RewardSlot.starting_item].is_key: 
-            env.add_substitution('starting key item zonk', '#$01')
-        else:
-            env.add_substitution('starting key item zonk', '#$00')
-        env.add_substitution('experience zonk bonus divisor', f'#${exp_zonk_bonus:02X}')
-        env.add_toggle('experience_zonk_bonus')
-
-    exp_miab_bonus = env.options.flags.get_suffix('-exp:miabbonus')
-    if exp_miab_bonus:
-        exp_miab_bonus = int(exp_miab_bonus) // 50
-        env.add_substitution('experience miab bonus multiplier', f'#${exp_miab_bonus:04X}')
-        env.add_toggle('experience_miab_bonus')
-
-    exp_moon_bonus = env.options.flags.get_suffix('-exp:moonbonus')
-    if exp_moon_bonus:
-        exp_moon_bonus = int(exp_miab_bonus) // 100
-        env.add_substitution('experience moon bonus multiplier', f'#${exp_miab_bonus:04X}')
-        env.add_toggle('experience_moon_bonus')
-
-    exp_geometric_mod = env.options.flags.get_suffix('-exp:geometric')
-    if exp_geometric_mod:
-        exp_geometric_mod = int(exp_geometric_mod) // 10
-        env.add_substitution('experience geometric numerator', f'        lda #${exp_geometric_mod:02X}')
-        env.add_toggle('experience_geometric')
 
     if options.flags.has('vintage'):
         env.add_files(
@@ -800,23 +710,16 @@ def build(romfile, options, force_recompile=False):
     if options.flags.has('jump'):
         env.add_file('scripts/jump.f4c')
 
-    # misc/creative tweaks
-    if options.flags.has('kainmagic'):
-        env.add_file('scripts/give_kain_magic.f4c')
-    if options.flags.has('edwardheal'):
-        env.add_file('scripts/improve_edward_heal.f4c')
-
     if not options.hide_flags:
         env.add_substitution('flags hidden', '')
 
     # must be last
     wacky_rando.apply(env)
 
+
+
     # finalize rewards table
     rewards_data = env.meta['rewards_assignment'].generate_table()
-    # for reward in env.meta['rewards_assignment']:
-    #     print(f'Rewards data is '+str(reward) + ' with value ' + str(int(reward)))
-    #print(f' Final rewards data {rewards_data}')
     env.blob.add('Rewards__Table', rewards_data)
 
     # generate blob and defines
@@ -838,16 +741,6 @@ def build(romfile, options, force_recompile=False):
         for i in range(len(item_description_override)):
             item_description_data[0x80 * item_id + i] = item_description_override[i]
 
-    # overwrite lines 2-4 of the descriptions of gear with wacky-specific text
-    if 'whatsmygear' in env.meta.get('wacky_challenge',[]):
-        for item_id in range(0,176):
-            # skip 0x00 (no weapon) and 0x60 (no armour) because their descriptions will be hidden anyway
-            if item_id in [0,96]:
-                continue
-            item_description_data[0x80 * item_id + 0x20 : 0x80 * item_id + 0x80] = env.meta['wacky_gear_descriptions'][item_id]
-    else:
-        env.add_file('scripts/black_shirt_fix.f4c') # cannot double-patch the Black Shirt!
-    
     env.add_binary(UnheaderedAddress(0x120000), item_description_data)
 
     # pregame text
@@ -855,9 +748,7 @@ def build(romfile, options, force_recompile=False):
         env.add_pregame_text('FLAGS', 'hidden')
     else:
         env.add_pregame_text('FLAGS', env.options.flags.to_string(pretty=True, wrap_width=26), center=False)
-        
-    pregame_bytes = _generate_pregame_screen_text(env)
-    env.add_substitution('pregame_screen_text', pregame_bytes)
+    env.add_substitution('pregame_screen_text', _generate_pregame_screen_text(env))
 
     if options.debug:
         with open(os.path.join(os.path.dirname(__file__), 'scripts/debug_init.f4c'), 'r') as infile:
