@@ -264,7 +264,8 @@ def apply(env):
 
     if not env.options.flags.has('characters_in_treasure_relaxed'):
         for slot in character_rando.RESTRICTED_SLOTS:
-            character_in_chest_slots.remove(slot)
+            if slot in character_in_chest_slots:
+                character_in_chest_slots.remove(slot)
 
     assigned_ids= []
     if put_characters_in_chests:
