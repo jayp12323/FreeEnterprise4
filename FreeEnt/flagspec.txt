@@ -345,7 +345,6 @@ G64                  glitch_allow_64
 -exp:nokeybonus      experience_no_key_item_bonus
 -exp:crystalbonus    experience_crystal_bonus
 -exp:maxlevelbonus   experience_max_level_bonus
--vanilla:fusoya      vanilla_fusoya
 -vanilla:agility     vanilla_agility
 -vanilla:hobs        vanilla_hobs
 -vanilla:growup      vanilla_dwarf_summons
