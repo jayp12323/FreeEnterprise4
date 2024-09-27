@@ -237,7 +237,7 @@ If a duplicate character tries to join your party, instead nothing happens.
 Characters start with a random low-level weapon and no armor. (Duplicate characters will have the same starting gear.)
 
 [@Cthrifttier]
-Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear.)
+Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear. Cursed Rings are excluded.)
 
 [Cbye]
 Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)
