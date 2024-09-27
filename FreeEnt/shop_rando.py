@@ -137,7 +137,7 @@ def apply(env):
         # literally do nothing
         pass
     elif env.options.flags.has('shops_same'):
-        if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
+        if 'saveusbigchocobo' in env.meta.get('wacky_challenge',[]):
             items_dbview.refine(lambda it: it.const == '#item.Carrot')
         all_candidates = items_dbview.find_all()
         env.rnd.shuffle(all_candidates)
@@ -312,9 +312,7 @@ def apply(env):
 
         if not env.options.flags.has('shops_unsafe'):
             # Begin guaranteed 'safe' items
-            if env.meta.get('wacky_challenge') == 'friendlyfire':
-                pass
-            else:
+            if 'friendlyfire' not in env.meta.get('wacky_challenge',[]):
                 guaranteed_free_items.append('#item.Cure2')
 
             if not env.options.flags.has('shops_no_life'):
@@ -325,14 +323,14 @@ def apply(env):
                 if not env.options.flags.has('bosses_unsafe'):
                     guaranteed_free_items.append('#item.ThorRage')
 
-            if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
+            if 'saveusbigchocobo' in env.meta.get('wacky_challenge',[]):
                 guaranteed_free_items.append('#item.Carrot')
 
             white_mage_not_guaranteed = env.meta['available_characters'].isdisjoint(WHITE_MAGES)
             if white_mage_not_guaranteed:
                 guaranteed_gated_items.append('#item.Cure3')
 
-            if env.meta.get('wacky_challenge') == 'saveusbigchocobo':
+            if 'saveusbigchocobo' in env.meta.get('wacky_challenge',[]):
                 guaranteed_gated_items.append('#item.Whistle')
             # End guaranteed 'safe' items
 

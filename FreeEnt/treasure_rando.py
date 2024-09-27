@@ -157,14 +157,14 @@ def refineItemsView(dbview, env):
         dbview.refine(lambda it: it.const != '#item.AdamantArmor')
     if env.options.flags.has('no_cursed_rings'):
         dbview.refine(lambda it: it.const != '#item.Cursed')
-    if env.meta.get('wacky_challenge',[]) == 'kleptomania':
+    if 'kleptomania' in env.meta.get('wacky_challenge',[]):
         dbview.refine(lambda it: (it.category not in ['weapon', 'armor']))   
 
     # In Omnidextrous, everyone can equip anything, hence can use everything, so this flag does nothing.
-    if env.options.flags.has('treasure_playable') and not (env.meta.get('wacky_challenge',[]) == 'omnidextrous'):
+    if env.options.flags.has('treasure_playable') and not 'omnidextrous' in (env.meta.get('wacky_challenge',[])):
         user_set = expand_characters_to_users(env.meta['available_characters'])
         # In Fist Fight, the only weapons are claws, which are equippable by everyone, so need more complex logic
-        if env.meta.get('wacky_challenge',[]) == 'fistfight':
+        if 'fistfight' in env.meta.get('wacky_challenge',[]):
             dbview.refine(lambda it: it.category == 'item' or (it.category != 'weapon' and not set(it.equip).isdisjoint(user_set)) or (it.subtype == 'claw'))
         else:
             dbview.refine(lambda it: it.category == 'item' or not set(it.equip).isdisjoint(user_set))       
@@ -179,7 +179,7 @@ def expand_characters_to_users(char_set):
             user_set.add(char)
     return user_set
 
-def apply(env):   
+def apply(env):       
     treasure_dbview = databases.get_treasure_dbview()
 
     treasure_dbview.refine(lambda t: not t.exclude)
@@ -260,27 +260,25 @@ def apply(env):
         character_in_chest_slots += character_rando.EARNED_SLOTS         
         put_characters_in_chests = True
 
-    if not put_characters_in_chests:
-        return
-        
-    assigned_ids= []
-    character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
-    for slot_name in character_in_chest_slots:
-        if slot_name in character_rando.RESTRICTED_SLOTS and not env.options.flags.has('characters_in_treasure_relaxed'):
-            continue
+    if put_characters_in_chests:
+        assigned_ids= []
+        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight is None and t.world == "Overworld")
+        for slot_name in character_in_chest_slots:
+            if slot_name in character_rando.RESTRICTED_SLOTS and not env.options.flags.has('characters_in_treasure_relaxed'):
+                continue
 
-        if max_overworld_chests <= 0:
-            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: lambda t: t.fight is None and t.ordr not in assigned_ids)
-        else:
-            character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids and t.world == "Overworld")
-            max_overworld_chests -= 1            
-        t = env.rnd.choice(character_treasure_chests.find_all())        
-        print(f'Putting character {env.assignments[character_rando.SLOTS[slot_name]]} into chest {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
-        treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[slot_name]))
-        assigned_ids.append(t.ordr)
+            if max_overworld_chests <= 0:
+                character_treasure_chests = treasure_dbview.get_refined_view(lambda t: lambda t: t.fight is None and t.ordr not in assigned_ids)
+            else:
+                character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids and t.world == "Overworld")
+                max_overworld_chests -= 1            
+            t = env.rnd.choice(character_treasure_chests.find_all())        
+            print(f'Putting character {env.assignments[character_rando.SLOTS[slot_name]]} into chest {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
+            treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[slot_name]))
+            assigned_ids.append(t.ordr)
     
-    # update the plain chests to remove the character assigned ones
-    plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
+        # update the plain chests to remove the character assigned ones
+        plain_chests_dbview = plain_chests_dbview.get_refined_view(lambda t: t.ordr not in assigned_ids)
 
     if env.options.flags.has('treasure_vanilla'):
         # for various reasons we really do need to assign every treasure chest still
@@ -379,8 +377,6 @@ def apply(env):
         sparse_db_view = plain_chests_dbview.find_all(lambda t: t.world in target_worlds)
         empty_count = (len(sparse_db_view) * (100 - sparse_level)) // 100
         for t in env.rnd.sample(sparse_db_view, empty_count):
-            if type(t) is AxtorChestReward:
-                print(f'Fuck')
             treasure_assignment.assign(t, None)
 
     # apply passes if Pt flag
@@ -423,8 +419,7 @@ def apply(env):
                 treasure_assignment.assign(chest, item_const)
                 remaining_count -= 1
                 area_use_count[chest.area] += 1
-
-
+    
     # map the fight treasures to the rewards table
     for chest_slot in core_rando.CHEST_ITEM_SLOTS:
         chest_number = env.meta['miab_locations'][chest_slot]
