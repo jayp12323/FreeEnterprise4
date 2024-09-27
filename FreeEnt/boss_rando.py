@@ -643,10 +643,6 @@ def apply(env):
         source_formation = _get_cumulative_formation(source_formation_id_list)
         target_formation = _get_cumulative_formation(target_formation_id_list)
 
-
-        if slot == 'mombomb_slot':
-            print(f'Found my guy')
-
         # get reference stats from original formation in slot
         ref_hp, ref_xp, ref_gp, ref_qty = _get_total_hp_xp_gp_qty(source_formation)
         ref_leader = _get_leader(source_formation)
@@ -932,7 +928,7 @@ def apply(env):
     if assignment['milonz_slot'] == 'wyvern' and not env.options.flags.has('wyvern_no_meganuke') and not env.options.flags.has('wyvern_random_meganuke'):
         env.add_file('scripts/wyvern_slowmeganuke.f4c')
 
-    print('\n'.join(stat_scaling_reports))
+    #print('\n'.join(stat_scaling_reports))
 
     env.add_script('\n'.join(script_lines))
 
