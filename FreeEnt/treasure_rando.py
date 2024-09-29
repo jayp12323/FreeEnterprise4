@@ -115,10 +115,8 @@ class TreasureAssignment:
                 contents = '$00'
             if reward_index != -1 and type(t) is not str:                
                 worldId = 0
-                if 'Underworld' in t.world:
-                    worldId = 1
-                elif 'Moon' in t.world:
-                    worldId = 2
+                if t.flag & (0xff00) > 0:
+                    worldId = 1      
                 mapIdStr = f'{int(t.mapid,16):04X}'
                 treasure_list.append(f'{worldId:02x}')
                 treasure_list.append(mapIdStr[-2:])
