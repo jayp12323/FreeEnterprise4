@@ -321,15 +321,7 @@ def randomize_doors(env, entrances, exits):
             for world in ["#Overworld", "#Underworld", "#Moon"]:
                 paths_to_world[location] += find_all_paths(graph, world, location, "entrances", [])
             if paths_to_world[location]:
-                if location=="#BlackChocoboForest":
-                    is_overworld=False
-                    for bcf_path in paths_to_world[location]:
-                        if "#Overworld" in bcf_path:
-                            is_overworld=True
-                    if not is_overworld:
-                        print("Black Chocobo Forest is not an overworld entrance... retrying")
-                        is_loop = False
-                        break
+
 
                 location_doors = []
                 for path in paths_to_world[location]:
@@ -344,6 +336,22 @@ def randomize_doors(env, entrances, exits):
                             is_Damcyan_accessible.append(True)
                     if True not in  is_Damcyan_accessible:
                         print("Damcyan is hovercraft locked")
+                        is_loop = False
+                        break
+                if location=="#BlackChocoboForest":
+                    is_magnes=[]
+                    is_overworld=False
+                    for bcf_path in paths_to_world[location]:
+                        if "#Overworld" in bcf_path:
+                            is_overworld=True
+                        if bcf_path[1][0] == '#CaveMagnes1F':
+                            is_magnes.append(True)
+                        else:
+                            is_magnes.append(False)
+
+
+                    if (not is_overworld) or (False not in is_magnes):
+                        print("Black Chocobo Forest is not accessible... retrying")
                         is_loop = False
                         break
 
@@ -802,7 +810,7 @@ def apply(env, randomize_type,testing=False):
         else:
             other_entrances.append(i)
 
-    # print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
     env.spoilers.add_table("Entrance Randomization\nLocation X is in Entrance Y", sorted(spoil_entrances_for_spoiler),
                            public=env.options.flags.has_any('-spoil:all', '-spoil:misc'), ditto_depth=1)
 
