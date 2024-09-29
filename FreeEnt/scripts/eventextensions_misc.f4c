@@ -191,7 +191,9 @@ msfpatch {
         jsr $_EvEx__ReadParameters_2
         ldx $_EvEx__Param1
         stx $1725
-        stz $171f  // hardcode: put on overworld
+        stz $1727  // hardcode: put on overworld
+        lda #$01
+        sta $1724
         jmp $_EvEx__End
 
     EvEx__PutHovercraft:
