@@ -200,12 +200,12 @@ ordr,flag,world,area,map,mapid,index,x,y,contents,jcontents,fight,exclude,spoile
 198,0xC6,Overworld,Zot,#Zot5F,0x9D,1,11,10,#item.EarthHammer,,,,Tower of Zot,5F (through 4F center door),chest
 199,0xC7,Overworld,Zot,#Zot5F,0x9D,2,10,23,#item.FireShield,,,,Tower of Zot,5F (through 4F center-left door),bottom
 200,0xC8,Overworld,Zot,#Zot5F,0x9D,3,19,14,#item.WizardArmor,,,,Tower of Zot,5F (through 4F center-right door),chest
-201,0xC9,Underworld,UpperBabil,#BabilB1,0xA7,0,18,4,#item.Cure3,#item.Unihorn,,,Tower of Bab-il (upper),1F,top
-202,0xCA,Underworld,UpperBabil,#BabilB1,0xA7,1,26,12,#item.Cure3,#item.HrGlass2,,,Tower of Bab-il (upper),1F,right
-203,0xCB,Underworld,UpperBabil,#BabilB2,0xA8,0,14,20,#item.Ogre,,0x1C4,,Tower of Bab-il (upper),B2F,chest (long bridge)
-204,0xCC,Underworld,UpperBabil,#BabilB3,0xA9,0,20,21,2000 gp,#item.Succubus,,,Tower of Bab-il (upper),B3F,chest (ring bridge)
-205,0xCD,Underworld,UpperBabil,#BabilB4,0xAA,0,12,18,#item.Middle,,,,Tower of Bab-il (upper),B4F,chest (U bridge)
-206,0xCE,Underworld,UpperBabil,#BabilB5,0xAC,0,5,15,82000 gp,,,,Tower of Bab-il (upper),B5F,chest (left of crystal room entrance)
+201,0xC9,Overworld,UpperBabil,#BabilB1,0xA7,0,18,4,#item.Cure3,#item.Unihorn,,,Tower of Bab-il (upper),1F,top
+202,0xCA,Overworld,UpperBabil,#BabilB1,0xA7,1,26,12,#item.Cure3,#item.HrGlass2,,,Tower of Bab-il (upper),1F,right
+203,0xCB,Overworld,UpperBabil,#BabilB2,0xA8,0,14,20,#item.Ogre,,0x1C4,,Tower of Bab-il (upper),B2F,chest (long bridge)
+204,0xCC,Overworld,UpperBabil,#BabilB3,0xA9,0,20,21,2000 gp,#item.Succubus,,,Tower of Bab-il (upper),B3F,chest (ring bridge)
+205,0xCD,Overworld,UpperBabil,#BabilB4,0xAA,0,12,18,#item.Middle,,,,Tower of Bab-il (upper),B4F,chest (U bridge)
+206,0xCE,Overworld,UpperBabil,#BabilB5,0xAC,0,5,15,82000 gp,,,,Tower of Bab-il (upper),B5F,chest (left of crystal room entrance)
 207,0xCF,Moon,Giant,#GiantChest,0xB7,0,9,8,#item.Shuriken,,,,Giant of Bab-il,Chest,top left
 208,0xD0,Moon,Giant,#GiantChest,0xB7,1,11,19,#item.Cure2,,,,Giant of Bab-il,Chest,bottom left
 209,0xD1,Moon,Giant,#GiantChest,0xB7,2,21,20,#item.Ether1,,,,Giant of Bab-il,Chest,middle
