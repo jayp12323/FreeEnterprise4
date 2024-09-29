@@ -1,5 +1,7 @@
 import json
 
+from FreeEnt.sprite_rando import NON_PLAYER_SPRITES
+
 try:
     from . import databases
 except ImportError:
@@ -10,7 +12,8 @@ towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera',
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
 
-ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment","RewardSlot.baron_castle_item", "RewardSlot.baron_throne_item"],
+ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment", "RewardSlot.baron_castle_item",
+                              "RewardSlot.baron_throne_item"],
            "*[#item.DarkCrystal]": ["#Moon", "RewardSlot.giant_chest"],
            "*[#item.EarthCrystal]": ["RewardSlot.zot_chest"],
            "*[#item.fe_Hook]": ["#Underworld", "#CaveEblanEntrance", "#AdamantGrotto", "RewardSlot.pink_trade_item"],
@@ -19,8 +22,9 @@ ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment","RewardSlot.baro
            "*[#item.Pink]": ["RewardSlot.pink_trade_item"], "*[#item.Rat]": ["RewardSlot.rat_trade_item"],
            "*[#item.Tower]": ["RewardSlot.cannon_item"], "*[#item.TwinHarp]": ["RewardSlot.magnes_item"]}
 
-entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]","#BaronEquipment":"*[#item.Baron]",
-                    "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]","#CaveEblanEntrance": "*[#item.fe_Hook]",
+entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]",
+                    "#BaronEquipment": "*[#item.Baron]",
+                    "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]", "#CaveEblanEntrance": "*[#item.fe_Hook]",
                     "#AdamantGrotto": "*[#item.fe_Hook]"}
 
 slots_locked = {"RewardSlot.baron_castle_item": "*[#item.Baron]", "RewardSlot.baron_throne_item": "*[#item.Baron]",
@@ -286,7 +290,7 @@ def randomize_doors(env, entrances, exits):
                     else:
                         remapped_map[j[5]] = j[4].split('_')[1]
                     spoil_entrances.append(message)
-                    spoil_entrances_for_spoiler.append((j[5],j[4].split('_')[1]))
+                    spoil_entrances_for_spoiler.append((j[5], j[4].split('_')[1]))
             else:
                 type = "exits"
             if location not in graph:
@@ -322,7 +326,6 @@ def randomize_doors(env, entrances, exits):
                 paths_to_world[location] += find_all_paths(graph, world, location, "entrances", [])
             if paths_to_world[location]:
 
-
                 location_doors = []
                 for path in paths_to_world[location]:
                     location_doors.append(map_path_to_entrance_names(path, remapped_map))
@@ -334,21 +337,20 @@ def randomize_doors(env, entrances, exits):
                             is_Damcyan_accessible.append(False)
                         else:
                             is_Damcyan_accessible.append(True)
-                    if True not in  is_Damcyan_accessible:
+                    if True not in is_Damcyan_accessible:
                         print("Damcyan is hovercraft locked")
                         is_loop = False
                         break
-                if location=="#BlackChocoboForest":
-                    is_magnes=[]
-                    is_overworld=False
+                if location == "#BlackChocoboForest":
+                    is_magnes = []
+                    is_overworld = False
                     for bcf_path in paths_to_world[location]:
                         if "#Overworld" in bcf_path:
-                            is_overworld=True
+                            is_overworld = True
                         if bcf_path[1][0] == '#CaveMagnes1F':
                             is_magnes.append(True)
                         else:
                             is_magnes.append(False)
-
 
                     if (not is_overworld) or (False not in is_magnes):
                         print("Black Chocobo Forest is not accessible... retrying")
@@ -365,7 +367,7 @@ def randomize_doors(env, entrances, exits):
             break
         print("not able to validate exits, retrying")
     print("needed loops: ", loop_count, "to validate exits for ")
-    return shuffled_entrances, shuffled_exits, spoil_entrances,spoil_entrances_for_spoiler, graph, paths_to_world
+    return shuffled_entrances, shuffled_exits, spoil_entrances, spoil_entrances_for_spoiler, graph, paths_to_world
 
 
 def get_entrances_exits(world_object, doors_view):
@@ -604,10 +606,11 @@ def normalize_ands_ors(ki_full_locked):
 
     return ki_full_locked
 
-def check_underground(key_items,paths_to_world,gated_paths,gated_ki,gated_slots):
 
-
+def check_underground(key_items, paths_to_world, gated_paths, gated_ki, gated_slots):
     return True
+
+
 def check_logic(key_items, paths_to_world):
     gated_paths = return_gated_paths(paths_to_world)
     gated_ki = return_gated_kis(key_items, gated_paths)
@@ -632,19 +635,19 @@ def check_logic(key_items, paths_to_world):
     ki_full_locked = normalize_ands_ors(ki_full_locked)
     # for i in ki_full_locked:
     #     print(i,ki_full_locked[i])
-    check_underground(key_items,paths_to_world,gated_paths,gated_ki,gated_slots)
+    check_underground(key_items, paths_to_world, gated_paths, gated_ki, gated_slots)
     return calculate_spheres(ki_full_locked)
 
 
-def apply(env, randomize_type,testing=False):
+def apply(env, randomize_type, testing=False):
     doors_view = databases.get_doors_dbview()
-    non_random_locations = [list(i) for i in doors_view.find_all(lambda sp: (sp.type == "non_randomized" ))]
+    non_random_locations = [list(i) for i in doors_view.find_all(lambda sp: (sp.type == "non_randomized"))]
 
-    non_random_normalized_location=[]
+    non_random_normalized_location = []
     for i in non_random_locations:
-        non_random_normalized_location.append([i[0],i[1],i[2],i[3],i[8],i[4],i[5],i[6],i[7]])
+        non_random_normalized_location.append([i[0], i[1], i[2], i[3], i[8], i[4], i[5], i[6], i[7]])
 
-    non_random_locations=list(non_random_normalized_location)
+    non_random_locations = list(non_random_normalized_location)
     print(f"Rando type is {randomize_type}")
     # randomize_type = "gated"
     if randomize_type == "normal":
@@ -669,7 +672,7 @@ def apply(env, randomize_type,testing=False):
         paths_to_world = {}
         for i in worlds:
             entrances, exits = get_entrances_exits(i, doors_view)
-            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp,graph_temp, paths_to_world_temp = randomize_doors(
+            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp, graph_temp, paths_to_world_temp = randomize_doors(
                 env, entrances, exits)
             shuffled_entrances += shuffled_entrances_temp
             shuffled_exits += shuffled_exits_temp
@@ -687,10 +690,10 @@ def apply(env, randomize_type,testing=False):
         for item in key_items:
             ki_required_room = key_items[item]["location"]
             ki_slot = key_items[item]["slot"]
-            if ki_slot=="RewardSlot.rydias_mom_item":
+            if ki_slot == "RewardSlot.rydias_mom_item":
                 if no_free_flags[0] == "Knofree":
                     dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
-                    ki_required_room+=f"&{slot_locations[dmist_slot]}"
+                    ki_required_room += f"&{slot_locations[dmist_slot]}"
                 if no_free_flags[0] == 'Knofree:package':
                     ki_required_room += f"&{key_items['*[#item.Package]']['location']}"
             if ki_required_room == "starting":
@@ -795,6 +798,11 @@ def apply(env, randomize_type,testing=False):
     env.add_script(script)
     special_triggers_script = '\n'.join(special_triggers)
     env.add_script(f'patch($21e000 bus) {{\n{special_triggers_script}\n}}')
+
+    name="waterway_door"
+    sprite = env.rnd.choice(NON_PLAYER_SPRITES)
+    env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
+
     # print(script)
 
     towns_map = []

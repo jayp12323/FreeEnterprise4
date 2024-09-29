@@ -4,6 +4,16 @@ placement($00 0)  //#BaronTown, #TownWaterBG, #CastleFloorBG, #CastleWaterBG, $B
 npc #fe_None
 }
 
+npc(#LockedDoorWaterway)
+{
+    // %weird_sprite waterway_door%
+    // %end%
+
+    eventcall {
+        $1F   //Unlock the Waterway door
+    }
+}
+
 placement($24 7)  //#BaronCastle
 {
     npc #LockedDoorWaterway
