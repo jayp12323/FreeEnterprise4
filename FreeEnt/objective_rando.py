@@ -234,16 +234,16 @@ def apply(env):
                 allowed_characters.remove(ch)
         
         # if any Conly flags were specified, count them to make sure the # of random objectives doesn't exceed the total chars allowed
-        total_char_count = len(allowed_characters)
-        if only_characters:
-            total_char_count = min(len(only_characters),total_char_count)
-        
+        unique_hero_list = []
+        for slot in env.assignments:
+            assignment = env.assignments[slot]
+            if slot in character_rando.SLOTS and assignment is not None and assignment not in unique_hero_list:
+                unique_hero_list.append(assignment)
+
+        total_char_count = len(unique_hero_list)
         # Check if the number of random character objectives desired exceed the amount specified via Orandomonly, and there is only character quests allowed
-        if len(random_objective_allowed_types) == 1 and 'char' in random_objective_allowed_types:
-            if specific_random_chars_only and random_objective_count > len(random_objective_allowed_characters):
-                raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {random_objective_allowed_characters} were specified.")
-            elif random_objective_count > total_char_count:
-                raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {total_char_count} are allowed.")
+        if len(random_objective_allowed_types) == 1 and 'char' in random_objective_allowed_types and random_objective_count > total_char_count:
+            raise BuildError(f"Flags stipulate generating ({random_objective_count}) random objectives with specific characters, but only {total_char_count} unique characters were found {','.join(unique_hero_list)}")
 
         random_objective_pool = {}
         for objective_id in OBJECTIVES:
@@ -261,8 +261,11 @@ def apply(env):
             random_category_weights = { k : RANDOM_CATEGORY_WEIGHTS[k] for k in RANDOM_CATEGORY_WEIGHTS if k in random_objective_allowed_types }
         random_category_distribution = util.Distribution(**random_category_weights)
 
+        MAX_CHARACTER_RANDOMIZATION_ATTEMPTS = 10000
+        retry_count = 0
         for i in range(random_objective_count):
-            while True:                
+            while True and retry_count < MAX_CHARACTER_RANDOMIZATION_ATTEMPTS:     
+                retry_count += 1         
                 category = random_category_distribution.choose(env.rnd)
                 q = env.rnd.choice(random_objective_pool[category])
                 slug = OBJECTIVES[q]['slug']    
@@ -290,7 +293,10 @@ def apply(env):
                     # don't allow internal objectives to be selected as random ones
                     continue
                 break
-            objective_ids.append(q)
+            if retry_count >= MAX_CHARACTER_RANDOMIZATION_ATTEMPTS:
+                raise BuildError(f"Failed to generate {random_objective_count} randomized objectives after many attempts. ({total_char_count} total unique characters)")
+            else:
+                objective_ids.append(q)
 
     if env.options.test_settings.get('objectives'):
         objective_ids = [OBJECTIVE_SLUGS_TO_IDS[s.strip()] for s in env.options.test_settings.get('objectives').split(',')]

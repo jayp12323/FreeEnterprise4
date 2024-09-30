@@ -9,7 +9,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "FreeEnt",
-            "args": [".\\ff4.smc", "make","-f", "Omode:classicgiant,dkmatter45/req:all/win:crystal Kmain/summon/moon/miab:all/pink/nofree:package/unsafe/unweighted Pkey Crelaxed/nofree/noearned/maybe/nopartner/start:rydia/thrift:2/j:abilities/permadeader/superhero/treasure:free,unsafe,relaxed Tpro/sparse:10/sparsey:underground,moon,overworld/playable/no:j Scabins/free/sell:0 Bstandard/nofree/unsafe/alt:gauntlet/itburns/whichbez/woahdin Etoggle/keep:behemoths/cantrun/nogp/no:jdrops Gnone -noadamants -nocursed -spoon -smith:super,playable -exp:nokeybonus,kicheckbonus10 -vanilla:z -wacky:doorsrando_all -tweak:kainmagic -spoil:keyitems,rewards,chars,treasure,bosses,misc", "-t gp" ,"-s","XNJ55V49SY","-o", "output/output.smc"]
+            "args": [".\\ff4.smc", "make","-f", "O1:quest_forge/2:quest_magnes/random:8,char/req:5/hardreq:2/gated:1/win:crystal Kmain/summon/moon/nofree/unweighted/start:legend Pchests Cstandard/nofree/noearned/j:abilities/nekkie/nodupes/treasure:free,unsafe Twildish/playable/maxtier:7/mintier:3 Sstandard/always:hrglass,starveil,coffin/no:sirens,vampires Bstandard/itburns/woahdin Etoggle Gwarp/life/backrow -noadamants -spoon -monsterevade -monsterflee -smith:alt,playable -fusoya:sequential_r,maybe -exp:noboost,nokeybonus,kicheckbonus5,zonkbonus5", "-t gp" ,"-s","XNJ55V49SY","-o", "output/output.smc"]
         }
     ]
 }

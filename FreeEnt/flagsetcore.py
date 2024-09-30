@@ -539,10 +539,10 @@ class FlagLogicCore:
                 flagset.set('Oreq:all')
                 self._lib.push(log, ['correction', 'Required number of objectives not specified; setting Oreq:all'])
 
-            hard_required_objectives = flagset.get_list(r'^Ohardreq:')            
+            hard_required_objectives = flagset.get_list(r'^Ohardreq:')
             if flagset.has('Oreq:all'):                
                 if len(hard_required_objectives) != 0:
-                    self._simple_disable_regex(flagset, log, 'Removing hard required flags', r'^Ohardreq:')
+                    self._simple_disable_regex(flagset, log, 'Hard required objectives found, but all objectives are already required. Removing hard required flags', r'^Ohardreq:')
                     self._lib.push(log, ['correction', 'Hard required objectives found, but all objectives are already required.  Ignoring hard required flags.'])                    
             else:
                 required_count = flagset.get_list(r'^Oreq:')
@@ -552,6 +552,19 @@ class FlagLogicCore:
                         self._simple_disable_regex(flagset, log, 'Changing required count', r'^Oreq:')
                         flagset.set(f'Oreq:{len(hard_required_objectives)}')
                         self._lib.push(log, ['correction', 'More hard required objectives set than number of objectives required, increasing required objective count to {len(hard_required_objectives)}.'])
+
+            gated_objectives = flagset.get_list(r'^Ogated:')
+            for gated in gated_objectives:
+                gated_objective_index = int(self._lib.re_sub(r'^Ogated:', '', gated))
+                bad_gated_conditions = False
+                for hardreq in hard_required_objectives:
+                    hard_required_index = int(self._lib.re_sub(r'^Ohardreq:', '', hardreq))
+                    if hard_required_index == gated_objective_index:
+                        bad_gated_conditions = True
+                        self._lib.push(log, ['error', f'Cannot have objective #{hard_required_index} be both gated AND hard required.'])
+                        break
+                if bad_gated_conditions:
+                    break
 
             win_flags = flagset.get_list(r'^Owin:')
             # make sure at least some bosses are specified in boss hunt
