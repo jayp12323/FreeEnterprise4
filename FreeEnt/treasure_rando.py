@@ -91,8 +91,14 @@ class TreasureAssignment:
             reward_index = contents[-2:]
             contents = '#item.NoArmor'  
         
-        if slug in self._assignments and fight is not None:
-            print(f'Re-assigning to something already assigned')
+        # if slug in self._assignments and contents != None:
+        #     (ocontents, ofight, ot, oreward_index) = self._assignments[slug]
+        #     if ocontents == "#item.NoArmor":
+        #         print(f'Re-assigning {slug} to something already assigned, with contents {contents} with prev contents {self._assignments[slug]}')
+
+        # if reward_index != -1 and remap and slug in self._remaps:
+        #     print(f'Added character to remapped chest')
+
         #print(f'Assigning treasure with {contents}:{fight}:{t}:{reward_index}')
         self._assignments[slug] = (contents, fight, t, reward_index)
 
@@ -267,9 +273,7 @@ def apply(env):
 
     assigned_ids= []
     if put_characters_in_chests:
-        print(f'Length before {len(treasure_dbview.find_all())}')
-        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: _slug(t) not in fight_chest_locations)
-        print(f'Length after {len(character_treasure_chests.find_all())}')
+        character_treasure_chests = treasure_dbview.get_refined_view(lambda t: t.fight == None)
         for slot_name in character_in_chest_slots:
 
             t = None
@@ -279,9 +283,9 @@ def apply(env):
                 t = env.rnd.choice(character_treasure_chests.find_all(lambda t: t.ordr not in assigned_ids and t.world == "Overworld"))
                 max_overworld_chests -= 1            
            
-            print(f'Putting character {env.assignments[character_rando.SLOTS[slot_name]]} into chest {t.spoilerarea} - {t.spoilersubarea} - {t.spoilerdetail}')
             treasure_assignment.assign(t, '#item.fe_CharacterChestItem_'+"{:02d}".format(character_rando.SLOTS[slot_name]))
             contents,fight,character_treasure,reward_index = treasure_assignment.get(t)
+            print(f'Putting character {env.assignments[character_rando.SLOTS[slot_name]]} into chest {character_treasure.spoilerarea} - {character_treasure.spoilersubarea} - {character_treasure.spoilerdetail}')
             assigned_ids.append(character_treasure.ordr)
     
         # update the plain chests to remove the character assigned ones

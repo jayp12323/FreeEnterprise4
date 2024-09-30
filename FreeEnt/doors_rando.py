@@ -268,7 +268,7 @@ def randomize_doors(env, entrances, exits):
                 continue
             else:
                 return False
-        print("max locations took tries: ", tries)
+        #print("max locations took tries: ", tries)
         shuffled_entrances = remapped_entrances
         shuffled_exits = remapped_exits
 
@@ -352,20 +352,20 @@ def randomize_doors(env, entrances, exits):
 
 
                     if (not is_overworld) or (False not in is_magnes):
-                        print("Black Chocobo Forest is not accessible... retrying")
+                        #print("Black Chocobo Forest is not accessible... retrying")
                         is_loop = False
                         break
 
                 is_loop = True
                 continue
             else:
-                print("not able find overworld to exit for:", location, "due to loop... retrying")
+                #print("not able find overworld to exit for:", location, "due to loop... retrying")
                 is_loop = False
                 break
         if is_loop:
             break
-        print("not able to validate exits, retrying")
-    print("needed loops: ", loop_count, "to validate exits for ")
+        #print("not able to validate exits, retrying")
+    #print("needed loops: ", loop_count, "to validate exits for ")
     return shuffled_entrances, shuffled_exits, spoil_entrances,spoil_entrances_for_spoiler, graph, paths_to_world
 
 
@@ -646,7 +646,7 @@ def apply(env, randomize_type,testing=False):
         non_random_normalized_location.append([i[0],i[1],i[2],i[3],i[8],i[4],i[5],i[6],i[7]])
 
     non_random_locations=list(non_random_normalized_location)
-    print(f"Rando type is {randomize_type}")
+    #print(f"Rando type is {randomize_type}")
     # randomize_type = "gated"
     if randomize_type == "normal":
         worlds = ["#Overworld", "#Underworld", "#Moon"]
@@ -723,8 +723,8 @@ def apply(env, randomize_type,testing=False):
         if not is_valid:
             attempts += 1
         else:
-            print(f"Needed {attempts + 1} attempts for KI to be available")
-            print(is_valid)
+            #print(f"Needed {attempts + 1} attempts for KI to be available")
+            #print(is_valid)
             break
     #
     # for i in key_items:
@@ -811,7 +811,7 @@ def apply(env, randomize_type,testing=False):
         else:
             other_entrances.append(i)
 
-    print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    #print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
     env.spoilers.add_table("Entrance Randomization\nLocation X is in Entrance Y", sorted(spoil_entrances_for_spoiler),
                            public=env.options.flags.has_any('-spoil:all', '-spoil:misc'), ditto_depth=1)
 
