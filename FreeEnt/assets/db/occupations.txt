@@ -47,7 +47,7 @@ Founder of Ooober
 Maze Guard
 International Food Festival co-coordinator
 Red hot sportsman after wild game
-Authorized Mcdonald's Milkshake Machine Technician
+Authorized Mcdonald's Ice Cream Machine Technician
 2Nd Violinist
 3-D Modeler
 3D Animator
@@ -835,7 +835,7 @@ Bail Setter
 Bailiff
 Bailiff Scheduler
 Bailiff Trainer
-Bailiff'S Assistant
+Bailiff's Assistant
 Bait Packager
 Bake Sale Adviser
 Bake Sale Coordinator
@@ -942,7 +942,7 @@ Barber
 Barber Auditor
 Barber Pole Salesman
 Barber Shop Sweeper
-Barber'S Apprentice
+Barber's Apprentice
 Barbershop Quartet Manager
 Barbershop Sweeper
 Barcode Creator
@@ -2000,7 +2000,7 @@ Carp Tagger
 Carpenter
 Carpenter Apprentice
 Carpenter Trainee
-Carpenter'S Apprentice
+Carpenter's Apprentice
 Carpet Cleaner
 Carpet Consultant
 Carpet Cutter
@@ -4557,7 +4557,7 @@ Flooring Specialist
 Floral Arranger
 Floral Clerk
 Florist
-Florist'S Apprentice
+Florist's Apprentice
 Floss Spooler
 Flour Bagger
 Flour Miller
@@ -4605,7 +4605,7 @@ Foliage Artist
 Foliage Expert
 Folk Dancer
 Folklorist
-Folklorist'S Apprentice
+Folklorist's Apprentice
 Fondant Artist
 Fondant Cooker
 Fondue Chef
@@ -5031,7 +5031,7 @@ Garde-Manger
 Garden Center Cashier
 Garden Hose Fabricator
 Gardener
-Gardener'S Apprentice
+Gardener's Apprentice
 Gardener’S Apprentice
 Gardening Assistant
 Gargling Advocate
@@ -5499,7 +5499,7 @@ Gutter Unclogger
 Guyline Operator
 Gym Attendant
 Gym Valet
-Gymnast'S Apprentice
+Gymnast's Apprentice
 Gymnastics Coach
 Gynecologist
 Gyre Widener
@@ -6146,7 +6146,7 @@ Infant Tester
 Inflation Predictor
 Inflight Safety Video Director
 Infomercial Extra
-Informant'S Apprentice
+Informant's Apprentice
 Information Boot Attendant
 Information Booth Attendant
 Information Clerk
@@ -6382,7 +6382,7 @@ Job Tracer
 Jobs Counselor
 Jockey
 Jockey Scout
-Jockey'S Apprentice
+Jockey's Apprentice
 John Deere Salesman
 Joint Cutter
 Joint Filler
@@ -7145,7 +7145,7 @@ Lunchbox Packer
 Luster Applicator
 Lute Wholesaler
 Luthier
-Luthier'S Apprentice
+Luthier's Apprentice
 Luxury Goods Pricer
 Luxury Upholsterer
 Lye Treater
@@ -7175,7 +7175,7 @@ Machine Wedger
 Machinist
 Machinist Apprentice
 Macronutrient Counter
-Macy'S Cashier
+Macy's Cashier
 Magazine Circulator
 Magazine Editor
 Magazine Filler
@@ -7324,7 +7324,7 @@ Market Research Analyst
 Market Researcher
 Market Trader
 Marketer
-Marketer'S Apprentice
+Marketer's Apprentice
 Marketing Adviser
 Marketing Advisor
 Marketing Analyst
@@ -7736,7 +7736,7 @@ Mortgage Loan Processor
 Mortgage Rate Adjuster
 Mortgage Refinancer
 Mortician
-Mortician'S Assistant
+Mortician's Assistant
 Mortising Machine Operator
 Mortuary Intern
 Mortuary Journalist
@@ -8050,7 +8050,7 @@ Nurse Assistant
 Nurse Clinician
 Nurse Practitioner
 Nurse-Midwife
-Nurse'S Aide
+Nurse's Aide
 Nursery Manager
 Nursery Operator
 Nursery Poet
@@ -8212,7 +8212,7 @@ Optician
 Options Specialist
 Optometric Assistant
 Optometrist
-Optometrist'S Assistant
+Optometrist's Assistant
 Oral Historian
 Oral Hygienist
 Oral Surgeon
@@ -8821,7 +8821,7 @@ Pharmaceutical Ceo
 Pharmaceutical Mixologist
 Pharmaceutical Researcher
 Pharmacist
-Pharmacist'S Assistant
+Pharmacist's Assistant
 Pharmacy Intern
 Pharmacy Technician Instructor
 Pheresis Specialist
@@ -8858,7 +8858,7 @@ Photoengraver
 Photogrammetrist
 Photograph Blurrer
 Photographer
-Photographer'S Assistant
+Photographer's Assistant
 Photography Instructor
 Photoshop Instructor
 Phototherapy Expert
@@ -8866,7 +8866,7 @@ Phrenologist
 Physical Therapist
 Physical Therapy Aide
 Physician
-Physician'S Assistant
+Physician's Assistant
 Physicist
 Pi Calculator
 Pianist
@@ -9065,7 +9065,7 @@ Plot Spoiler
 Plug Tester
 Plugger
 Plumber
-Plumber'S Assistant
+Plumber's Assistant
 Plumbers Assistant
 Plumbing Apprentice
 Plumbing Assistant
@@ -9769,7 +9769,7 @@ Real-Estate Broker
 Real-Estate Developer
 Reality Show Judge
 Realtor
-Realtor'S Apprentice
+Realtor's Apprentice
 Reamer
 Rebar Bender
 Rebate Coordinator
@@ -10190,7 +10190,7 @@ Rubber Vulcanizer
 Rubber-Goods Tester
 Rubberizer
 Rubbernecker
-Rubik'S Cube Designer
+Rubik's Cube Designer
 Rubix Cube Champion
 Rug Cleaner
 Rug Consultant
@@ -10700,7 +10700,7 @@ Shellac Applier
 Shellacker
 Shellfish Processor
 Shelving Expert
-Sheriff'S Deputy
+Sheriff's Deputy
 Sherpa Intern
 Shift Enforcer
 Shift Manager
@@ -10715,7 +10715,7 @@ Ship Co-Captain
 Ship Painter
 Ship Plank Installer
 Ship-To-Shore Crane Engineer
-Ship'S Mate
+Ship's Mate
 Shipbuilder
 Shipfitter Apprentice
 Shipment Advisor
@@ -10764,7 +10764,7 @@ Shoe Widener
 Shoe-Factory Worker
 Shoehorn Whittler
 Shoelace Inspector
-Shoemaker'S Assistant
+Shoemaker's Assistant
 Shop Foreman
 Shop Instructor
 Shop Keep
@@ -11371,7 +11371,7 @@ Stencil Maker
 Stenciler
 Stenograher
 Stenographer
-Stenographer'S Apprentice
+Stenographer's Apprentice
 Stenographer’S Assistant
 Stenography Instructor
 Stent Manufacturer
@@ -11844,9 +11844,9 @@ Tea Pourer
 Tea Steeper
 Teacher
 Teacher Assistant
-Teacher'S Aid
-Teacher'S Aide
-Teacher'S Assistant
+Teacher's Aid
+Teacher's Aide
+Teacher's Assistant
 Teaching Aid
 Teaching Assistant
 Teaching Dietitian
@@ -13137,8 +13137,8 @@ Wishing Well Maintainer
 Wishing Well Technician
 Wolf Herder
 Wolf Shelterer
-Women'S Activities Advisor
-Women'S Studies Professor
+Women's Activities Advisor
+Women's Studies Professor
 Wood Beam Installer
 Wood Buffer
 Wood Carving Machine Operator
