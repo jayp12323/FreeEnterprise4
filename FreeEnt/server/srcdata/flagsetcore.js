@@ -437,7 +437,7 @@ class FlagLogicCore {
         this._simple_disable(flagset, log, prefix, flagset.get_list(flags_regex));
     }
     fix(flagset) {
-        var WACKY_SET_1, WACKY_SET_2, WACKY_SET_3, actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_specific_objectives, all_spoiler_flags, ch, challenges, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, hard_required_objectives, has_unavailable_characters, kmiab_flags, log, mode, num_random_objectives, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, specific_boss_objectives, start_exclude_flags, start_include_flags, total_objective_count, total_potential_bosses, win_flags;
+        var WACKY_SET_1, WACKY_SET_2, WACKY_SET_3, actual_available_characters, all_character_pool, all_customized_random_flags, all_random_flags, all_specific_objectives, all_spoiler_flags, bad_gated_conditions, ch, challenges, char_objective_flags, character_pool, chars_to_remove, current_char, desired_char_count, distinct_count, distinct_flags, duplicate_char_count, duplicate_check_count, flag_suffix, gated_objective_index, gated_objectives, hard_required_index, hard_required_objectives, has_unavailable_characters, kmiab_flags, log, mode, num_random_objectives, only_flags, pass_quest_flags, pool, random_only_char_flags, required_chars, required_count, required_objective_count, skip_pools, sparse_spoiler_flags, specific_boss_objectives, start_exclude_flags, start_include_flags, total_objective_count, total_potential_bosses, win_flags;
         log = [];
         if ((flagset.has("Kunsafer") && (! flagset.has("Kmoon")))) {
             flagset.set("Kmoon");
@@ -589,7 +589,7 @@ class FlagLogicCore {
             hard_required_objectives = flagset.get_list("^Ohardreq:");
             if (flagset.has("Oreq:all")) {
                 if ((hard_required_objectives.length !== 0)) {
-                    this._simple_disable_regex(flagset, log, "Removing hard required flags", "^Ohardreq:");
+                    this._simple_disable_regex(flagset, log, "Hard required objectives found, but all objectives are already required. Removing hard required flags", "^Ohardreq:");
                     this._lib.push(log, ["correction", "Hard required objectives found, but all objectives are already required.  Ignoring hard required flags."]);
                 }
             } else {
@@ -601,6 +601,24 @@ class FlagLogicCore {
                         flagset.set(`Oreq:${hard_required_objectives.length}`);
                         this._lib.push(log, ["correction", "More hard required objectives set than number of objectives required, increasing required objective count to {len(hard_required_objectives)}."]);
                     }
+                }
+            }
+            gated_objectives = flagset.get_list("^Ogated:");
+            for (var gated, _pj_c = 0, _pj_a = gated_objectives, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+                gated = _pj_a[_pj_c];
+                gated_objective_index = Number.parseInt(this._lib.re_sub("^Ogated:", "", gated));
+                bad_gated_conditions = false;
+                for (var hardreq, _pj_f = 0, _pj_d = hard_required_objectives, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+                    hardreq = _pj_d[_pj_f];
+                    hard_required_index = Number.parseInt(this._lib.re_sub("^Ohardreq:", "", hardreq));
+                    if ((hard_required_index === gated_objective_index)) {
+                        bad_gated_conditions = true;
+                        this._lib.push(log, ["error", `Cannot have objective #${hard_required_index} be both gated AND hard required.`]);
+                        break;
+                    }
+                }
+                if (bad_gated_conditions) {
+                    break;
                 }
             }
             win_flags = flagset.get_list("^Owin:");

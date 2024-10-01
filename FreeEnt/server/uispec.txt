@@ -496,6 +496,7 @@
 .(Sshuffle) Shuffle shops
 .(Sstandard) Standard shop randomization
 ..[Sunsafe]! No safety checks
+..[Ssingles]! Shops sell only a single item
 .(Spro) Pro shop randomization
 ..[ECHO:Sstandard]
 .(Swildish) Wild-ish shop randomization
@@ -507,7 +508,6 @@
 .(Scabins)! Shops sell only cabins
 .(Ssame)! Shops sell only one type of item
 .(Sempty)! Shops sell nothing
-.[Ssingles]! Shops sell only a single item
 <> Buy prices
 .[Sfree] Shop items are free
 .[Smixed] Shop item prices are randomized

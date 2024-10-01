@@ -5938,6 +5938,12 @@ var FLAG_UISPEC = [
                 "title": "No safety checks",
                 "description": "Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.",
                 "hard": true
+              },
+              {
+                "flag": "Ssingles",
+                "title": "Shops sell only a single item",
+                "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
+                "hard": true
               }
             ]
           },
@@ -5950,6 +5956,12 @@ var FLAG_UISPEC = [
                 "flag": "Sunsafe",
                 "title": "No safety checks",
                 "description": "Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.",
+                "hard": true
+              },
+              {
+                "flag": "Ssingles",
+                "title": "Shops sell only a single item",
+                "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
                 "hard": true
               }
             ]
@@ -5964,6 +5976,12 @@ var FLAG_UISPEC = [
                 "title": "No safety checks",
                 "description": "Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.",
                 "hard": true
+              },
+              {
+                "flag": "Ssingles",
+                "title": "Shops sell only a single item",
+                "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
+                "hard": true
               }
             ]
           },
@@ -5977,6 +5995,12 @@ var FLAG_UISPEC = [
                 "title": "No safety checks",
                 "description": "Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.",
                 "hard": true
+              },
+              {
+                "flag": "Ssingles",
+                "title": "Shops sell only a single item",
+                "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
+                "hard": true
               }
             ]
           },
@@ -5989,6 +6013,12 @@ var FLAG_UISPEC = [
                 "flag": "Sunsafe",
                 "title": "No safety checks",
                 "description": "Normally, the randomizer guarantees Cure2 potions, Life potions and StarVeils are readily available, and that Cure3 potions are available in seeds without white mages. This flag removes those checks.",
+                "hard": true
+              },
+              {
+                "flag": "Ssingles",
+                "title": "Shops sell only a single item",
+                "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
                 "hard": true
               }
             ]
@@ -6007,12 +6037,6 @@ var FLAG_UISPEC = [
           {
             "flag": "Sempty",
             "title": "Shops sell nothing",
-            "hard": true
-          },
-          {
-            "flag": "Ssingles",
-            "title": "Shops sell only a single item",
-            "description": "Shops only sell a single item, but follow the standard randomization rules and safety checks (unless disabled).",
             "hard": true
           }
         ]
