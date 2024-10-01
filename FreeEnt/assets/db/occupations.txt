@@ -1,95 +1,48 @@
-firefighter
-fire starter
-fire mediator
-bubble wrangler
-giggle guru
-noodle juggler
-sneeze architect
-data analyst
-project manager
-software engineer
-marketing specialist
-financial advisor
-product designer
-sales executive
-research scientist
-account manager
-human resources
-business consultant
-operations director
-quality inspector
-legal counsel
-systems administrator
-medical officer
-policy analyst
-network engineer
-customer advocate
-content strategist
-supply coordinator
-compliance officer
-risk manager
-support technician
-investment banker
-production planner
-marketing director
-security analyst
-creative director
-training coordinator
-corporate trainer
-field engineer
-database administrator
-it consultant
-public relations
-community manager
-business analyst
-cybersecurity specialist
-data wrangler
-project guru
-code whisperer
-marketing maverick
-finance ninja
-design wizard
-sales ninja
-research maverick
-account alchemist
-hr ninja
-business whisperer
-ops magician
-quality ninja
-legal ninja
-system sorcerer
-medical maven
-policy wizard
-network ninja
-customer ninja
-content ninja
-supply sorcerer
-compliance guru
-risk whisperer
-support wizard
-investment ninja
-production guru
-marketing maven
-security sorcerer
-creative ninja
-training wizard
-corporate ninja
-field sorcerer
-database guru
-it ninja
-pr wizard
-community ninja
-business guru
-cyber sorcerer
-tech ninja
-event ninja
-art ninja
-brand wizard
-healthcare guru
-procurement ninja
-customer whisperer
-editorial ninja
-market sorcerer
-finance wizard
-sales wizard
-digital guru
+DSL Installer
+Delivery man
+Assistant manager (Doose's)
+Engagement party coordinator
+Photographer
+Mechanic
+Server at the Bracebridge dinner
+Termite inspector
+Video rental clerk
+Filmmaker
+Hay There skincare line salesman
+Spy for Taylor
+Weston's Bakery server
+Beauty shop clerk
+Director of Miss Patty's dance show
+Hockey announcer
+Mailman
+T-shirt designer/salesman
+Mold inspector
+Skydiver
+Security alarm installer
+One of a kind mailbox salesman
+Firelight Festival planner
+Dog walker
+Pedicab driver
+Easter egg hunt planner
+Mailbox Etc. clerk
+Wedding DJ
+Firewood delivery man
+Poller for Town Selectman campaign
+Movie theater attendant
+Flier Hander Outer (Hot Dog costume)
+Bath and shower adhesive salesman
+Ribbon collector
+Souvenir Salesman
+Tow truck operator
+Engagement ring salesman
+Physical therapist
+Board of Tourism representative
+Winter Carnival coordinator
+Samples Provider at Taylor's Olde Fashion Soda Shoppe
+Founder of Yummy Bartenders
+Wrapping paper salesman
+Realtor
+Founder of Ooober
+Maze Guard
+International Food Festival co-coordinator
+Red hot sportsman after wild game
