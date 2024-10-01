@@ -31,7 +31,7 @@ msfpatch {
     .def  CharacterTreasureRewardSlot__IDs       $21fa90
     // 8 checks per world total (2 bytes per check)
     .def  CharacterTreasure__MaxCount              0x10
-    .def  CharacterTreasure__TreasureIndex      $7e158f
+    .def  CharacterTreasure__TreasureIndex      $7e1592
     .def  CharacterTreasure__RewardSlotIndex      $7e1590
 }
 

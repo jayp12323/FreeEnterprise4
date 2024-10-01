@@ -9,7 +9,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "FreeEnt",
-            "args": [".\\ff4.smc", "make","-f", "O1:quest_forge/2:quest_magnes/random:8,char/req:5/hardreq:2/gated:1/win:crystal Kmain/summon/moon/nofree/unweighted/start:legend Pchests Cstandard/nofree/noearned/j:abilities/nekkie/nodupes/treasure:free,unsafe Twildish/playable/maxtier:7/mintier:3 Sstandard/always:hrglass,starveil,coffin/no:sirens,vampires Bstandard/itburns/woahdin Etoggle Gwarp/life/backrow -noadamants -spoon -monsterevade -monsterflee -smith:alt,playable -fusoya:sequential_r,maybe -exp:noboost,nokeybonus,kicheckbonus5,zonkbonus5", "-t gp" ,"-s","XNJ55V49SY","-o", "output/output.smc"]
+            "args": [".\\ff4.smc", "make","-f", "O1:quest_forge/2:quest_magnes/random:4/req:5/win:crystal Kmain/summon/moon/nofree/start:magma Pchests Cstandard/nofree/noearned/start:fusoya/j:abilities/nekkie/nodupes/treasure:free,earned,unsafe Twildish/maxtier:7/mintier:3 Sstandard/no:sirens,vampires Bstandard Etoggle Gwarp/life/backrow -noadamants -spoon -smith:alt -fusoya:vanilla -exp:noboost,nokeybonus,kicheckbonus5,zonkbonus5", "-t gp" ,"-s","XNJ55V49SY","-o", "output/output.smc"]
         }
     ]
 }
