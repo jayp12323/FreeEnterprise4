@@ -13,6 +13,7 @@ def apply(env):
 
     # create a randomized order for displaying the vignette locations
     vignette_slot_order = list(range(1, RewardSlot.MAX_COUNT))
+    vignette_slot_order.remove(int(RewardSlot.gated_objective))
     vignette_slot_order.remove(int(RewardSlot.fixed_crystal))
     env.rnd.shuffle(vignette_slot_order)
     vignette_slot_order.append(0x00)

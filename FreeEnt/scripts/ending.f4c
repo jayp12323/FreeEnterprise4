@@ -96,7 +96,8 @@ patch($21d000 bus) {
     ##map.SmithyHouseMainFloor         07 0A // forge_item                  = 0x5B
     ##map.AdamantGrotto                07 0C // pink_trade_item             = 0x5C
     00 00 00 00                              // fixed_crystal               = 0x5D
-    ##map.DwarfCastleHospital          03 03 // dwarf_hospital_item         = 0x5E
+    00 00 00 00                        00 00 // gated_objective_item        = 0x5E
+    ##map.DwarfCastleHospital          03 03 // dwarf_hospital_item         = 0x5F
 }
 
 

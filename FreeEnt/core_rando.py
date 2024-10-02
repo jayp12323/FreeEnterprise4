@@ -426,7 +426,8 @@ def apply(env):
     keyitem_assigner.item_tier(1).extend(ESSENTIAL_KEY_ITEMS)
     keyitem_assigner.item_tier(2).extend(NONESSENTIAL_KEY_ITEMS)
 
-    gated_underground_route = False
+    forced_hook_route = env.options.flags.has('key_items_force_hook')
+    has_magma_key = True
     # assign gated objective item and metadata
     gated_objective_item = env.meta['gated_objective_reward']           
     if '#' not in gated_objective_item:
@@ -434,13 +435,11 @@ def apply(env):
     else:
         # Remove both methods of underground access when magma is specified
         if gated_objective_item == "#item.Magma":
-            keyitem_assigner.remove_item(gated_objective_item)
-            keyitem_assigner.remove_item("#item.fe_Hook")
-            gated_underground_route = True
-            if env.options.flags.has('key_items_force_hook'):
-                gated_objective_item = "#item.fe_Hook"
-        else:
-            keyitem_assigner.remove_item(gated_objective_item)
+            forced_hook_route = True
+            has_magma_key = False
+        elif gated_objective_item == "#item.fe_Hook":
+            forced_hook_route = False
+        keyitem_assigner.remove_item(gated_objective_item)
         env.meta['gated_objective_reward'] = gated_objective_item
         env.add_substitution('no gated objective', '')
 
@@ -578,7 +577,7 @@ def apply(env):
 
     if env.options.flags.has('key_items_force_magma'):
         prevent_hook_seed = True
-    elif not (env.options.flags.has_any('key_items_in_summon_quests', 'key_items_in_moon_bosses') or miab_flags) and not env.options.flags.has('key_items_force_hook'):
+    elif not (env.options.flags.has_any('key_items_in_summon_quests', 'key_items_in_moon_bosses') or miab_flags) and not forced_hook_route:
         prevent_hook_seed = (env.rnd.random() < 0.5)
     else:
         prevent_hook_seed = False
@@ -685,7 +684,7 @@ def apply(env):
         for branch in COMMON_BRANCHES:
             add_branch_with_substitutions(*branch)
 
-        if not prevent_hook_seed and not gated_underground_route:
+        if not prevent_hook_seed:
             add_branch_with_substitutions(*HOOK_UNDERGROUND_BRANCH)
 
         
@@ -756,14 +755,14 @@ def apply(env):
         magma_path_forced = None 
 
         if env.options.flags.has('key_items_unsafer'):
-            if not env.options.flags.has('key_items_force_hook'):
+            if forced_hook_route:
                 magma_path_forced = 'moon'
             tests.append(['#item.fe_Hook', [], 'moon'])
 
-        if env.options.flags.has('key_items_force_hook') and not gated_underground_route:
+        if forced_hook_route:
             magma_path_forced = 'underground'
 
-        if magma_path_forced:
+        if magma_path_forced and has_magma_key:
             tests.append(['#item.Magma', [], magma_path_forced])
 
         if env.options.flags.has('key_items_late_darkness'):
