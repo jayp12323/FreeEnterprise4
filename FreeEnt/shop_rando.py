@@ -424,11 +424,6 @@ def apply(env):
                 eligible_shop_assignments = list(filter(lambda sa: can_be_in_shop(item, sa.shop), category_shop_assignments))
                 place_item(item.const, eligible_shop_assignments)
 
-        # Kokkol shop
-        kokkol_shop_assignment = next(filter(lambda sa: sa.shop.level == 'kokkol', shop_assignments))
-        kokkol_candidates = items_dbview.find_all(lambda it: can_be_in_shop(it, 'kokkol'))
-        kokkol_shop_assignment.add(*[it.const for it in env.rnd.sample(kokkol_candidates, min(len(kokkol_candidates), 4))])
-
         # guaranteed items
         if not env.options.flags.has('shops_unsafe'):
             guaranteed_free_items = []
