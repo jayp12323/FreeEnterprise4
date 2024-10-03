@@ -619,8 +619,7 @@ event($16) // Using soft potion on stone twins
 
 // event($40) // was Open the door!, now used for Guidingway introduction
 
-event($42) // Bombing Damcyan
-{ } // Erase for space
+// event($42) // Bombing Damcyan
 
 event($4A) // Toroia clerics after Magnes
 { } // Erase for space

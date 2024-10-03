@@ -3,7 +3,7 @@ npc(#KaipoInn2FScholar)
     sprite #Scholar
     default active
     eventcall {
-        $4D
+        $42
     }
 }
 
@@ -89,7 +89,7 @@ msfpatch{
         
 }
 
-event($4D)
+event($42)
 {
     consts(placement)
     {
