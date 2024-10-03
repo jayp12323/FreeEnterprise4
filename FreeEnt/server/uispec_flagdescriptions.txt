@@ -262,7 +262,7 @@ Party members that are swoon or stone at the end of any battle are permanently r
 - The hero is exempt from permadeath.
 
 [Csuperhero]
-- This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).
+- This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).  Once returning the crystal to Zot, you gain your powers back.
 
 [Tshuffle]
 Treasure contents are the same as in original FF4, but their positions are shuffled. This randomization is weighted so that overworld treasures tend to remain in the overworld, and similarly for underworld/moon treasures.
