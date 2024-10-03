@@ -738,6 +738,11 @@ def check_logic(key_items, paths_to_world, world_paths):
     underworld_required_ki = check_underworld(key_items, paths_to_world, gated_paths, world_paths)
     if underworld_required_ki is False:
         return False
+    elif underworld_required_ki:
+        if underworld_required_ki == ['UNDERWORLD']:
+            return False
+
+        print("Underground is actually locked by something",underworld_required_ki)
     for i in gated_paths:
         if len(gated_paths[i])>1:
             for num,path in enumerate(gated_paths[i]):
