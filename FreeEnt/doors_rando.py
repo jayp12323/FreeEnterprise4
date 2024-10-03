@@ -828,6 +828,10 @@ def apply(env, randomize_type, testing=False):
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):
                 key_items[str(env.assignments[x])] = {"location": ki_location[str(x)], "slot": str(x)}
 
+        miab_locations_sylph = [str(i) for i in env.meta["miab_locations"] if env.meta["miab_locations"][i][0]=="#SylvanCaveYangRoom"]
+        for i in key_items:
+            if key_items[i]["slot"] in miab_locations_sylph:
+                key_items[i]["location"]="#SylvanCaveYangRoom"
         no_free_flags = [str(x) for x in env.options.flags._flags if "Knofree" in x]
         for item in key_items:
             ki_required_room = key_items[item]["location"]
