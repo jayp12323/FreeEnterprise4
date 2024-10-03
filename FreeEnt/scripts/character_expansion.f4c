@@ -57,8 +57,8 @@ msfpatch {
     .def CharEx__InitialStateSpellSets  $702CC0
 
     .def CharEx__AxtorBeingGiven        $7e1619
-    .def CharEx__OldestAxtorIndex       $7e1630
-    .def CharEx__OldestAxtorBuffer      $7e1632
+    .def CharEx__OldestAxtorIndex       $7e1634
+    .def CharEx__OldestAxtorBuffer      $7e1636
 
     .def MaxPartySize                   $21f0ff
 }
