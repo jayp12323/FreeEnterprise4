@@ -11,20 +11,11 @@ towns = {"#Overworld": ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera',
          "#Underworld": ['#Tomra', '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"], "#Moon": []}
 towns_flat = ['#BaronTown', '#Mist', '#Kaipo', '#Mysidia', '#Silvera', '#ToroiaTown', '#Agart', '#Tomra',
               '#Feymarch1F', "#Feymarch2F", "#CaveOfSummons1F", "#SylvanCave1F"]
-
-ki_lock = {"*[#item.Baron]": ["#RoomToSewer", "#BaronEquipment", "RewardSlot.baron_castle_item",
-                              "RewardSlot.baron_throne_item"],
-           "*[#item.DarkCrystal]": ["#Moon", "RewardSlot.giant_chest"],
-           "*[#item.EarthCrystal]": ["RewardSlot.zot_chest"],
-           "*[#item.fe_Hook]": ["#Underworld", "#CaveEblanEntrance", "#AdamantGrotto", "RewardSlot.pink_trade_item"],
-           "*[#item.Luca]": ["RewardSlot.sealed_cave_item"], "*[#item.Magma]": ["#Underground"],
-           "*[#item.Pan]": ["RewardSlot.pan_trade_item", "RewardSlot.sylph_item"],
-           "*[#item.Pink]": ["RewardSlot.pink_trade_item"], "*[#item.Rat]": ["RewardSlot.rat_trade_item"],
-           "*[#item.Tower]": ["RewardSlot.cannon_item"], "*[#item.TwinHarp]": ["RewardSlot.magnes_item"]}
+omnicraft_locked_locations = ["#CaveEblanEntrance", "#AdamantGrotto"]
 
 entrances_locked = {"#RoomToSewer": "*[#item.Baron]", "#Moon": "*[#item.DarkCrystal]",
                     "#BaronEquipment": "*[#item.Baron]",
-                    "#Underworld": "*[#item.Magma]|*[#item.fe_Hook]", "#CaveEblanEntrance": "*[#item.fe_Hook]",
+                    "#Underworld": "UNDERWORLD", "#CaveEblanEntrance": "*[#item.fe_Hook]",
                     "#AdamantGrotto": "*[#item.fe_Hook]"}
 
 slots_locked = {"RewardSlot.baron_castle_item": "*[#item.Baron]", "RewardSlot.baron_throne_item": "*[#item.Baron]",
@@ -247,6 +238,8 @@ def randomize_doors(env, entrances, exits):
     loop_count = 0
     tries = 1
     paths_to_world = {}
+    world_paths = {"#Overworld": [], "#Underworld": [], "#Moon": []}
+
     graph = {}
     remapped_map = {}
     shuffled_entrances = {}
@@ -257,6 +250,7 @@ def randomize_doors(env, entrances, exits):
         graph = {}
         remapped_map = {}
         paths_to_world = {}
+        world_paths = {"#Overworld": [], "#Underworld": [], "#Moon": []}
         spoil_entrances = []
         spoil_entrances_for_spoiler = []
         if loop_count > 200:
@@ -323,7 +317,10 @@ def randomize_doors(env, entrances, exits):
                 continue
             paths_to_world[location] = []
             for world in ["#Overworld", "#Underworld", "#Moon"]:
-                paths_to_world[location] += find_all_paths(graph, world, location, "entrances", [])
+                findallpaths = find_all_paths(graph, world, location, "entrances", [])
+                paths_to_world[location] += findallpaths
+                if findallpaths:
+                    world_paths[world].append(location)
             if paths_to_world[location]:
 
                 location_doors = []
@@ -367,7 +364,7 @@ def randomize_doors(env, entrances, exits):
             break
         print("not able to validate exits, retrying")
     print("needed loops: ", loop_count, "to validate exits for ")
-    return shuffled_entrances, shuffled_exits, spoil_entrances, spoil_entrances_for_spoiler, graph, paths_to_world
+    return shuffled_entrances, shuffled_exits, spoil_entrances, spoil_entrances_for_spoiler, graph, paths_to_world, world_paths
 
 
 def get_entrances_exits(world_object, doors_view):
@@ -439,7 +436,8 @@ def return_gated_kis(key_items, gated_paths):
         if ki_required_location:
             if ki_required_location:
                 for location in ki_required_location:
-                    gated_ki[i]["and"] += gated_paths[location]
+                    if location != "starting" and location != "None":
+                        gated_ki[i]["and"] += gated_paths[location]
                 if len(gated_ki[i]["and"]) == 2 and gated_ki[i]["and"][0] == gated_ki[i]["and"][1]:
                     gated_ki[i]["and"] = gated_ki[i]["and"][0]
                 if len(gated_ki[i]["and"]) == 1 and gated_ki[i]["and"][0] == "*[#item.Magma]|*[#item.fe_Hook]":
@@ -516,7 +514,7 @@ def recursive_spheres(available_ki, locked_stack, ki_full_locked, spheres, curre
         if ands:
             temp_array = []
             for j in ands:
-                if isinstance(j, list):
+                if j and isinstance(j, list):
                     j = j[0]
                 temp_array.append(j)
 
@@ -607,12 +605,149 @@ def normalize_ands_ors(ki_full_locked):
     return ki_full_locked
 
 
-def check_underground(key_items, paths_to_world, gated_paths, gated_ki, gated_slots):
+def is_omnicraft_blocked(location, paths_to_world):
+    if location == "starting":
+        return False
+    if location == '#DwarfCastle|#DwarfCastleBasement':
+        dc = is_omnicraft_blocked("#DwarfCastle", paths_to_world)
+        dcb = is_omnicraft_blocked("#DwarfCastleBasement", paths_to_world)
+        if dc and dcb:
+            return True
+        else:
+            return False
+    if location == '#SylvanCaveYangRoom&#FabulWestTower1F':
+        sc = is_omnicraft_blocked("#SylvanCaveYangRoom", paths_to_world)
+        fwt = is_omnicraft_blocked("#FabulWestTower1F", paths_to_world)
+        if sc and fwt:
+            return True
+        else:
+            return False
+    else:
+        world_entrance = paths_to_world[location][0][1][0]
+        if isinstance(world_entrance, list):
+            blocked_array = []
+            for entrance in world_entrance:
+                if entrance in omnicraft_locked_locations:
+                    blocked_array.append(True)
+                else:
+                    blocked_array.append(False)
+            if False in blocked_array:
+                return False
+        else:
+            if world_entrance not in omnicraft_locked_locations:
+                return False
+
     return True
 
 
-def check_logic(key_items, paths_to_world):
+def check_underworld(key_items, paths_to_world, gated_paths, world_paths):
+    magma = True
+    tower = True
+    hook = True
+
+    magma_location = key_items['*[#item.Magma]']["location"]
+    tower_key_location = key_items['*[#item.Tower]']["location"]
+    darkness_location = key_items['*[#item.DarkCrystal]']["location"]
+
+    darkness_underground = True if darkness_location not in world_paths["#Overworld"] \
+                                   and darkness_location not in world_paths["#Moon"] else False
+    tower_key_underground = True if tower_key_location not in world_paths["#Overworld"] \
+                                    and tower_key_location not in world_paths["#Moon"] else False
+    magma_underground = True if magma_location not in world_paths["#Overworld"] \
+                                and magma_location not in world_paths["#Moon"] else False
+    damcyan_underground = True if "UNDERWORLD" in gated_paths['#Damcyan'] else False
+
+    magma_moon = True if magma_location not in world_paths["#Overworld"] \
+                         and magma_location not in world_paths["#Underworld"] else False
+    tower_key_moon = True if magma_location not in world_paths["#Overworld"] \
+                             and magma_location not in world_paths["#Underworld"] else False
+
+    damcyan_moon = True if '*[#item.DarkCrystal]' in gated_paths['#Damcyan'] else False
+
+    if is_omnicraft_blocked(darkness_location,paths_to_world)  and damcyan_moon:
+        print("Damcyan is on the moon and Darkness is omnicraft locked")
+        return False
+
+
+    while magma:
+        if ('#AgartWell' in world_paths['#Underworld'] or magma_underground) \
+                or (('#AgartWell' in world_paths['#Moon'] or magma_moon) and darkness_underground):
+            magma = False
+            break
+        if (is_omnicraft_blocked('#AgartWell', paths_to_world)
+            or is_omnicraft_blocked(magma_location, paths_to_world)) and \
+                (damcyan_underground or (damcyan_moon and darkness_underground)):
+            magma = False
+            break
+        magma = True
+        break
+
+    while tower:
+        if ("#Babil1F" in world_paths['#Underworld'] or tower_key_underground) \
+                or (("#Babil1F" in world_paths['#Moon'] or tower_key_moon) and darkness_underground):
+            tower = False
+            break
+        if (is_omnicraft_blocked('#Babil1F', paths_to_world)
+            or is_omnicraft_blocked(tower_key_location, paths_to_world)) and \
+                (damcyan_underground or (damcyan_moon and darkness_underground)):
+            tower = False
+            break
+        tower = True
+        break
+    while hook:
+        if ("#BabilB1" in world_paths['#Underworld']) \
+                or ("#BabilB1" in world_paths['#Moon'] and darkness_underground):
+            hook = False
+            break
+
+        if is_omnicraft_blocked('#BabilB1', paths_to_world) and \
+                (damcyan_underground or (damcyan_moon and darkness_underground)):
+            hook = False
+            break
+        hook = True
+        break
+
+    if not magma and not tower and not hook:
+        return False
+
+    if hook:
+        return []
+    gated=[]
+    if magma:
+        gated_magma = []
+        gated_magma+=gated_paths[magma_location]
+        gated_magma+=gated_paths["#AgartWell"]
+        if not gated_magma:
+            return []
+        else:
+            gated.append("&".join(gated_magma))
+    if tower:
+        gated_tower = []
+        gated_tower+=gated_paths[tower_key_location]
+        gated_tower+=gated_paths["#Babil1F"]
+        if not gated_tower:
+            return []
+        else:
+            gated.append("&".join(gated_tower))
+
+    return "|".join(gated)
+
+
+def check_logic(key_items, paths_to_world, world_paths):
     gated_paths = return_gated_paths(paths_to_world)
+    underworld_required_ki = check_underworld(key_items, paths_to_world, gated_paths, world_paths)
+    if underworld_required_ki is False:
+        return False
+    for i in gated_paths:
+        if len(gated_paths[i])>1:
+            for num,path in enumerate(gated_paths[i]):
+                if path=='UNDERWORLD':
+                        gated_paths[i][num]=underworld_required_ki
+            if gated_paths[i]==[[],[]]:
+                gated_paths[i]=[]
+        elif gated_paths[i]==['UNDERWORLD']:
+            gated_paths[i]=underworld_required_ki
+    entrances_locked["#Underworld"]=underworld_required_ki
     gated_ki = return_gated_kis(key_items, gated_paths)
     gated_slots = return_gated_slots(key_items, gated_ki)
 
@@ -635,7 +770,6 @@ def check_logic(key_items, paths_to_world):
     ki_full_locked = normalize_ands_ors(ki_full_locked)
     # for i in ki_full_locked:
     #     print(i,ki_full_locked[i])
-    check_underground(key_items, paths_to_world, gated_paths, gated_ki, gated_slots)
     return calculate_spheres(ki_full_locked)
 
 
@@ -670,9 +804,10 @@ def apply(env, randomize_type, testing=False):
         spoil_entrances_for_spoiler = []
         graph = {}
         paths_to_world = {}
+        world_paths = {}
         for i in worlds:
             entrances, exits = get_entrances_exits(i, doors_view)
-            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp, graph_temp, paths_to_world_temp = randomize_doors(
+            shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp, graph_temp, paths_to_world_temp, world_paths_temp = randomize_doors(
                 env, entrances, exits)
             shuffled_entrances += shuffled_entrances_temp
             shuffled_exits += shuffled_exits_temp
@@ -680,7 +815,9 @@ def apply(env, randomize_type, testing=False):
             spoil_entrances_for_spoiler += spoil_entrances_for_spoiler_temp
             graph.update(graph_temp)
             paths_to_world.update(paths_to_world_temp)
-        print(env.assignments)
+            world_paths.update(world_paths_temp)
+
+        print([(i, str(env.assignments[i])) for i in env.assignments])
         key_items = {}
         for x in env.assignments:
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):
@@ -700,8 +837,10 @@ def apply(env, randomize_type, testing=False):
                 key_items[item]["and"] = None
                 key_items[item]["and_location"] = None
                 continue
-
-            if '|' in ki_required_room:
+            if ki_required_room == "#Mist&#DwarfCastle|#DwarfCastleBasement":
+                key_items[item]["or"] = ['#DwarfCastle', '#DwarfCastleBasement']
+                key_items[item]["and"] = ['#Mist']
+            elif '|' in ki_required_room:
                 key_items[item]["or"] = []
 
                 ki_required_room = ki_required_room.split("|")
@@ -715,13 +854,13 @@ def apply(env, randomize_type, testing=False):
                 ki_required_room = ki_required_room.split("&")
                 key_items[item]["and_location"] = ki_required_room
                 for room in ki_required_room:
-                    if room != "None":
+                    if room != "None" and room != "starting":
                         key_items[item]["and"] += (paths_to_world[room])
 
             else:
                 key_items[item]["and"] = paths_to_world[ki_required_room]
                 key_items[item]["and_location"] = [ki_required_room]
-        is_valid = check_logic(key_items, paths_to_world)
+        is_valid = check_logic(key_items, paths_to_world, world_paths)
         if not is_valid:
             attempts += 1
         else:
@@ -799,7 +938,7 @@ def apply(env, randomize_type, testing=False):
     special_triggers_script = '\n'.join(special_triggers)
     env.add_script(f'patch($21e000 bus) {{\n{special_triggers_script}\n}}')
 
-    name="waterway_door"
+    name = "waterway_door"
     sprite = env.rnd.choice(NON_PLAYER_SPRITES)
     env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
 
