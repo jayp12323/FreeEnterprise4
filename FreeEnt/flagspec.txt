@@ -66,11 +66,12 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -vanilla:z
 -vintage
 -pushbtojump
+-doorsrando/-doorsrando:normal/-doorsrando:gated/-doorsrando:blueplanet/-doorsrando:why/-doorsrando:all
+-entrancesrando/-entrancesrando:normal/-entrancesrando:gated/-entrancesrando:blueplanet/-entrancesrando:why/-entrancesrando:all
 -wacky:random/-wacky:random2/-wacky:random3/-wacky:random4/-wacky:random5/-wacky:random6
 -wacky:musical
 -wacky:bodyguard
 -wacky:fistfight
--wacky:doorsrando/-wacky:doorsrando_normal/-wacky:doorsrando_gated/-wacky:doorsrando_blueplanet/-wacky:doorsrando_why/-wacky:doorsrando_all
 -wacky:omnidextrous
 -wacky:biggermagnet
 -wacky:sixleggedrace
@@ -122,7 +123,6 @@ Svanilla : ~Sshuffle & ~Sstandard & ~Spro & ~Swild & ~Swildish & ~Scabins & ~Sva
 Bvanilla : ~Bstandard
 Evanilla : ~Etoggle & ~Ereduce & ~Enoencounters
 Gnone    : ~/^G(?!none)/
-
 ----- SLUGS
 
 Onone                objective_none

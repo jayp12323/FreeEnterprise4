@@ -25,72 +25,183 @@ slots_locked = {"RewardSlot.baron_castle_item": "*[#item.Baron]", "RewardSlot.ba
                 "RewardSlot.rat_trade_item": "*[#item.Rat]", "RewardSlot.cannon_item": "*[#item.Tower]",
                 "RewardSlot.magnes_item": "*[#item.TwinHarp]"}
 
-ki_location = {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_boss_item": "#Babil1F",
-               "RewardSlot.bahamut_item": "#Bahamut1F", "RewardSlot.baron_castle_character": "#RoomToSewer",
-               "RewardSlot.baron_castle_item": "#RoomToSewer", "RewardSlot.baron_inn_character": "#BaronInn",
-               "RewardSlot.baron_inn_item": "#BaronInn", "RewardSlot.baron_throne_item": "#RoomToSewer",
-               "RewardSlot.cannon_item": "#Babil1F", "RewardSlot.cave_eblan_character": "#CaveEblanEntrance",
-               "RewardSlot.cave_eblan_chest": "#CaveEblanEntrance",
-               "RewardSlot.cave_of_summons_chest": "#CaveOfSummons1F", "RewardSlot.damcyan_character": "#Damcyan",
-               "RewardSlot.dwarf_castle_character": "#DwarfCastle|#DwarfCastleBasement",
-               "RewardSlot.eblan_chest_1": "#Eblan", "RewardSlot.eblan_chest_2": "#Eblan",
-               "RewardSlot.eblan_chest_3": "#Eblan", "RewardSlot.fabul_item": "#Fabul",
-               "RewardSlot.feymarch_item": "#Feymarch1F", "RewardSlot.feymarch_king_item": "#FeymarchLibrary1F",
-               "RewardSlot.feymarch_queen_item": "#FeymarchLibrary1F", "RewardSlot.forge_item": "#SmithyHouse",
-               "RewardSlot.found_yang_item": "#SylvanCaveYangRoom&#FabulWestTower1F",
-               "RewardSlot.giant_character": "#Mysidia",
-               "RewardSlot.giant_chest": "#Mysidia", "RewardSlot.hobs_character": "#MountHobsEast",
-               "RewardSlot.kaipo_character": "#KaipoHospital", "RewardSlot.lower_babil_chest_1": "#Babil1F",
-               "RewardSlot.lower_babil_chest_2": "#Babil1F", "RewardSlot.lower_babil_chest_3": "#Babil1F",
-               "RewardSlot.lower_babil_chest_4": "#Babil1F",
-               "RewardSlot.luca_item": "#DwarfCastle|#DwarfCastleBasement",
-               "RewardSlot.lunar_boss_1_item": "#LunarPalaceLobby", "RewardSlot.lunar_boss_2_item": "#LunarPalaceLobby",
-               "RewardSlot.lunar_boss_3_item": "#LunarPalaceLobby",
-               "RewardSlot.lunar_boss_4_item_1": "#LunarPalaceLobby",
-               "RewardSlot.lunar_boss_4_item_2": "#LunarPalaceLobby",
-               "RewardSlot.lunar_boss_5_item": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_1": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_2": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_3": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_4": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_5": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_6": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_7": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_8": "#LunarPalaceLobby",
-               "RewardSlot.lunar_core_chest_9": "#LunarPalaceLobby",
-               "RewardSlot.lunar_palace_character": "#LunarPalaceLobby",
-               "RewardSlot.lunar_path_chest": "#LunarPassage1", "RewardSlot.magnes_item": "#CaveMagnes1F",
-               "RewardSlot.mist_character": "#Mist&#KaipoInn", "RewardSlot.mysidia_character_1": "#HouseOfWishes",
-               "RewardSlot.mysidia_character_2": "#HouseOfWishes", "RewardSlot.ordeals_character": "#MountOrdeals1F",
-               "RewardSlot.ordeals_item": "#MountOrdeals1F",
-               "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#FabulWestTower1F",
-               "RewardSlot.pink_trade_item": "#AdamantGrotto", "RewardSlot.rat_trade_item": "#AdamantGrotto",
-               "RewardSlot.rydias_mom_item": "#Mist", "RewardSlot.sealed_cave_item": "#SealedCaveEntrance",
-               "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "starting",
-               "RewardSlot.starting_partner_character": "None", "RewardSlot.sylph_cave_chest_1": "#SylvanCave1F",
-               "RewardSlot.sylph_cave_chest_2": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_3": "#SylvanCave1F",
-               "RewardSlot.sylph_cave_chest_4": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_5": "#SylvanCave1F",
-               "RewardSlot.sylph_cave_chest_6": "#SylvanCave1F", "RewardSlot.sylph_cave_chest_7": "#SylvanCave1F",
-               "RewardSlot.sylph_item": "#SylvanCaveYangRoom", "RewardSlot.upper_babil_chest": "#ToroiaCastle",
-               "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
-               "RewardSlot.zot_character_1": "#ToroiaCastle", "RewardSlot.zot_character_2": "#ToroiaCastle",
-               "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
-               "RewardSlot.fixed_crystal": "#LunarPalaceLobby", "RewardSlot.toroia_hospital_item": "#ToroiaCastle"}
-slot_locations = {"dmist_slot": "#MistCave", "officer_slot": "#Mist&#Kaipo", "octomamm_slot": "#Waterfall2F",
-                  "antlion_slot": "#AntlionCave1F", "mombomb_slot": "#MountHobsEast", "fabulgauntlet_slot": "#Fabul",
-                  "milon_slot": "#MountOrdeals1F", "milonz_slot": "#MountOrdeals1F",
-                  "mirrorcecil_slot": "#MountOrdeals1F", "karate_slot": "#BaronInn", "guard_slot": "#BaronInn",
-                  "baigan_slot": "#RoomToSewer", "kainazzo_slot": "#RoomToSewer", "darkelf_slot": "#CaveMagnes1F",
-                  "magus_slot": "#ToroiaCastle", "valvalis_slot": "#ToroiaCastle",
-                  "calbrena_slot": "#DwarfCastle|#DwarfCastleBasement",
-                  "golbez_slot": "#DwarfCastle|#DwarfCastleBasement", "lugae_slot": "#Babil1F",
-                  "darkimp_slot": "#Babil1F", "kingqueen_slot": "#BabilB1",
-                  "rubicant_slot": "#BabilB1", "evilwall_slot": "#SealedCaveEntrance",
-                  "asura_slot": "#FeymarchLibrary1F", "leviatan_slot": "#FeymarchLibrary1F",
-                  "odin_slot": "#RoomToSewer", "bahamut_slot": "#Bahamut1F", "elements_slot": "None",
-                  "cpu_slot": "None", "paledim_slot": "#LunarPalaceLobby", "wyvern_slot": "#LunarPalaceLobby",
-                  "plague_slot": "#LunarPalaceLobby", "dlunar_slot": "#LunarPalaceLobby",
-                  "ogopogo_slot": "#LunarPalaceLobby"}
+ki_location = {"-doorsrando": {"RewardSlot.antlion_item": "#AntlionCave1F", "RewardSlot.babil_boss_item": "#Babil1F",
+                               "RewardSlot.bahamut_item": "#Bahamut1F",
+                               "RewardSlot.baron_castle_character": "#RoomToSewer",
+                               "RewardSlot.baron_castle_item": "#RoomToSewer",
+                               "RewardSlot.baron_inn_character": "#BaronInn",
+                               "RewardSlot.baron_inn_item": "#BaronInn", "RewardSlot.baron_throne_item": "#RoomToSewer",
+                               "RewardSlot.cannon_item": "#Babil1F",
+                               "RewardSlot.cave_eblan_character": "#CaveEblanEntrance",
+                               "RewardSlot.cave_eblan_chest": "#CaveEblanEntrance",
+                               "RewardSlot.cave_of_summons_chest": "#CaveOfSummons1F",
+                               "RewardSlot.damcyan_character": "#Damcyan",
+                               "RewardSlot.dwarf_castle_character": "#DwarfCastle|#DwarfCastleBasement",
+                               "RewardSlot.eblan_chest_1": "#Eblan", "RewardSlot.eblan_chest_2": "#Eblan",
+                               "RewardSlot.eblan_chest_3": "#Eblan", "RewardSlot.fabul_item": "#Fabul",
+                               "RewardSlot.feymarch_item": "#Feymarch1F",
+                               "RewardSlot.feymarch_king_item": "#FeymarchLibrary1F",
+                               "RewardSlot.feymarch_queen_item": "#FeymarchLibrary1F",
+                               "RewardSlot.forge_item": "#SmithyHouse",
+                               "RewardSlot.found_yang_item": "#SylvanCaveYangRoom&#FabulWestTower1F",
+                               "RewardSlot.giant_character": "#Mysidia",
+                               "RewardSlot.giant_chest": "#Mysidia", "RewardSlot.hobs_character": "#MountHobsEast",
+                               "RewardSlot.kaipo_character": "#KaipoHospital",
+                               "RewardSlot.lower_babil_chest_1": "#Babil1F",
+                               "RewardSlot.lower_babil_chest_2": "#Babil1F",
+                               "RewardSlot.lower_babil_chest_3": "#Babil1F",
+                               "RewardSlot.lower_babil_chest_4": "#Babil1F",
+                               "RewardSlot.luca_item": "#DwarfCastle|#DwarfCastleBasement",
+                               "RewardSlot.lunar_boss_1_item": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_boss_2_item": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_boss_3_item": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_boss_4_item_1": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_boss_4_item_2": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_boss_5_item": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_1": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_2": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_3": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_4": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_5": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_6": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_7": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_8": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_core_chest_9": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_palace_character": "#LunarPalaceLobby",
+                               "RewardSlot.lunar_path_chest": "#LunarPassage1",
+                               "RewardSlot.magnes_item": "#CaveMagnes1F",
+                               "RewardSlot.mist_character": "#Mist&#KaipoInn",
+                               "RewardSlot.mysidia_character_1": "#HouseOfWishes",
+                               "RewardSlot.mysidia_character_2": "#HouseOfWishes",
+                               "RewardSlot.ordeals_character": "#MountOrdeals1F",
+                               "RewardSlot.ordeals_item": "#MountOrdeals1F",
+                               "RewardSlot.pan_trade_item": "#SylvanCaveYangRoom&#FabulWestTower1F",
+                               "RewardSlot.pink_trade_item": "#AdamantGrotto",
+                               "RewardSlot.rat_trade_item": "#AdamantGrotto",
+                               "RewardSlot.rydias_mom_item": "#Mist",
+                               "RewardSlot.sealed_cave_item": "#SealedCaveEntrance",
+                               "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "starting",
+                               "RewardSlot.starting_partner_character": "None",
+                               "RewardSlot.sylph_cave_chest_1": "#SylvanCave1F",
+                               "RewardSlot.sylph_cave_chest_2": "#SylvanCave1F",
+                               "RewardSlot.sylph_cave_chest_3": "#SylvanCave1F",
+                               "RewardSlot.sylph_cave_chest_4": "#SylvanCave1F",
+                               "RewardSlot.sylph_cave_chest_5": "#SylvanCave1F",
+                               "RewardSlot.sylph_cave_chest_6": "#SylvanCave1F",
+                               "RewardSlot.sylph_cave_chest_7": "#SylvanCave1F",
+                               "RewardSlot.sylph_item": "#SylvanCaveYangRoom",
+                               "RewardSlot.upper_babil_chest": "#BabilB1",
+                               "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
+                               "RewardSlot.zot_character_1": "#ToroiaCastle",
+                               "RewardSlot.zot_character_2": "#ToroiaCastle",
+                               "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
+                               "RewardSlot.fixed_crystal": "#LunarPalaceLobby",
+                               "RewardSlot.toroia_hospital_item": "#ToroiaCastle"},
+               "-entrancesrando": {"RewardSlot.antlion_item": "#AntlionCave1F",
+                                   "RewardSlot.babil_boss_item": "#Babil1F",
+                                   "RewardSlot.bahamut_item": "#Bahamut1F",
+                                   "RewardSlot.baron_castle_character": "#BaronTown",
+                                   "RewardSlot.baron_castle_item": "#BaronTown",
+                                   "RewardSlot.baron_inn_character": "#BaronTown",
+                                   "RewardSlot.baron_inn_item": "#BaronTown",
+                                   "RewardSlot.baron_throne_item": "#BaronTown",
+                                   "RewardSlot.cannon_item": "#Babil1F",
+                                   "RewardSlot.cave_eblan_character": "#CaveEblanEntrance",
+                                   "RewardSlot.cave_eblan_chest": "#CaveEblanEntrance",
+                                   "RewardSlot.cave_of_summons_chest": "#CaveOfSummons1F",
+                                   "RewardSlot.damcyan_character": "#Damcyan",
+                                   "RewardSlot.dwarf_castle_character": "#DwarfCastle|#DwarfCastleBasement",
+                                   "RewardSlot.eblan_chest_1": "#Eblan", "RewardSlot.eblan_chest_2": "#Eblan",
+                                   "RewardSlot.eblan_chest_3": "#Eblan", "RewardSlot.fabul_item": "#Fabul",
+                                   "RewardSlot.feymarch_item": "#CaveOfSummons1F",
+                                   "RewardSlot.feymarch_king_item": "#CaveOfSummons1F",
+                                   "RewardSlot.feymarch_queen_item": "#CaveOfSummons1F",
+                                   "RewardSlot.forge_item": "#SmithyHouse",
+                                   "RewardSlot.found_yang_item": "#SylvanCave1F&#Fabul",
+                                   "RewardSlot.giant_character": "#Mysidia",
+                                   "RewardSlot.giant_chest": "#Mysidia", "RewardSlot.hobs_character": "#MountHobsEast",
+                                   "RewardSlot.kaipo_character": "#Kaipo", "RewardSlot.lower_babil_chest_1": "#Babil1F",
+                                   "RewardSlot.lower_babil_chest_2": "#Babil1F",
+                                   "RewardSlot.lower_babil_chest_3": "#Babil1F",
+                                   "RewardSlot.lower_babil_chest_4": "#Babil1F",
+                                   "RewardSlot.luca_item": "#DwarfCastle|#DwarfCastleBasement",
+                                   "RewardSlot.lunar_boss_1_item": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_boss_2_item": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_boss_3_item": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_boss_4_item_1": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_boss_4_item_2": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_boss_5_item": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_1": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_2": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_3": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_4": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_5": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_6": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_7": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_8": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_core_chest_9": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_palace_character": "#LunarPalaceLobby",
+                                   "RewardSlot.lunar_path_chest": "#LunarPassage1",
+                                   "RewardSlot.magnes_item": "#CaveMagnes1F",
+                                   "RewardSlot.mist_character": "#Mist&#Kaipo",
+                                   "RewardSlot.mysidia_character_1": "#HouseOfWishes",
+                                   "RewardSlot.mysidia_character_2": "#HouseOfWishes",
+                                   "RewardSlot.ordeals_character": "#MountOrdeals1F",
+                                   "RewardSlot.ordeals_item": "#MountOrdeals1F",
+                                   "RewardSlot.pan_trade_item": "#SylvanCave1F&#Fabul",
+                                   "RewardSlot.pink_trade_item": "#AdamantGrotto",
+                                   "RewardSlot.rat_trade_item": "#AdamantGrotto",
+                                   "RewardSlot.rydias_mom_item": "#Mist",
+                                   "RewardSlot.sealed_cave_item": "#SealedCaveEntrance",
+                                   "RewardSlot.starting_character": "None", "RewardSlot.starting_item": "starting",
+                                   "RewardSlot.starting_partner_character": "None",
+                                   "RewardSlot.sylph_cave_chest_1": "#SylvanCave1F",
+                                   "RewardSlot.sylph_cave_chest_2": "#SylvanCave1F",
+                                   "RewardSlot.sylph_cave_chest_3": "#SylvanCave1F",
+                                   "RewardSlot.sylph_cave_chest_4": "#SylvanCave1F",
+                                   "RewardSlot.sylph_cave_chest_5": "#SylvanCave1F",
+                                   "RewardSlot.sylph_cave_chest_6": "#SylvanCave1F",
+                                   "RewardSlot.sylph_cave_chest_7": "#SylvanCave1F",
+                                   "RewardSlot.sylph_item": "#SylvanCave1F",
+                                   "RewardSlot.upper_babil_chest": "#CaveEblanEntrance",
+                                   "RewardSlot.watery_pass_character": "#WateryPass1F|#WateryPass5F",
+                                   "RewardSlot.zot_character_1": "#ToroiaCastle",
+                                   "RewardSlot.zot_character_2": "#ToroiaCastle",
+                                   "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
+                                   "RewardSlot.fixed_crystal": "#LunarPalaceLobby",
+                                   "RewardSlot.toroia_hospital_item": "#ToroiaCastle"}}
+slot_locations = {
+    "-doorsrando": {"dmist_slot": "#MistCave", "officer_slot": "#Mist&#Kaipo", "octomamm_slot": "#Waterfall2F",
+                    "antlion_slot": "#AntlionCave1F", "mombomb_slot": "#MountHobsEast", "fabulgauntlet_slot": "#Fabul",
+                    "milon_slot": "#MountOrdeals1F", "milonz_slot": "#MountOrdeals1F",
+                    "mirrorcecil_slot": "#MountOrdeals1F", "karate_slot": "#BaronInn", "guard_slot": "#BaronInn",
+                    "baigan_slot": "#RoomToSewer", "kainazzo_slot": "#RoomToSewer", "darkelf_slot": "#CaveMagnes1F",
+                    "magus_slot": "#ToroiaCastle", "valvalis_slot": "#ToroiaCastle",
+                    "calbrena_slot": "#DwarfCastle|#DwarfCastleBasement",
+                    "golbez_slot": "#DwarfCastle|#DwarfCastleBasement", "lugae_slot": "#Babil1F",
+                    "darkimp_slot": "#Babil1F", "kingqueen_slot": "#BabilB1",
+                    "rubicant_slot": "#BabilB1", "evilwall_slot": "#SealedCaveEntrance",
+                    "asura_slot": "#FeymarchLibrary1F", "leviatan_slot": "#FeymarchLibrary1F",
+                    "odin_slot": "#RoomToSewer", "bahamut_slot": "#Bahamut1F", "elements_slot": "None",
+                    "cpu_slot": "None", "paledim_slot": "#LunarPalaceLobby", "wyvern_slot": "#LunarPalaceLobby",
+                    "plague_slot": "#LunarPalaceLobby", "dlunar_slot": "#LunarPalaceLobby",
+                    "ogopogo_slot": "#LunarPalaceLobby"},
+    "-entrancesrando": {"dmist_slot": "#MistCave", "officer_slot": "#Mist&#Kaipo", "octomamm_slot": "#Waterfall2F",
+                        "antlion_slot": "#AntlionCave1F", "mombomb_slot": "#MountHobsEast",
+                        "fabulgauntlet_slot": "#Fabul",
+                        "milon_slot": "#MountOrdeals1F", "milonz_slot": "#MountOrdeals1F",
+                        "mirrorcecil_slot": "#MountOrdeals1F", "karate_slot": "#BaronTown", "guard_slot": "#BaronTown",
+                        "baigan_slot": "#BaronTown", "kainazzo_slot": "#BaronTown", "darkelf_slot": "#CaveMagnes1F",
+                        "magus_slot": "#ToroiaCastle", "valvalis_slot": "#ToroiaCastle",
+                        "calbrena_slot": "#DwarfCastle|#DwarfCastleBasement",
+                        "golbez_slot": "#DwarfCastle|#DwarfCastleBasement", "lugae_slot": "#Babil1F",
+                        "darkimp_slot": "#Babil1F", "kingqueen_slot": "#CaveEblanEntrance",
+                        "rubicant_slot": "#CaveEblanEntrance", "evilwall_slot": "#SealedCaveEntrance",
+                        "asura_slot": "#CaveOfSummons1F", "leviatan_slot": "#CaveOfSummons1F",
+                        "odin_slot": "#BaronTown", "bahamut_slot": "#Bahamut1F", "elements_slot": "None",
+                        "cpu_slot": "None", "paledim_slot": "#LunarPalaceLobby", "wyvern_slot": "#LunarPalaceLobby",
+                        "plague_slot": "#LunarPalaceLobby", "dlunar_slot": "#LunarPalaceLobby",
+                        "ogopogo_slot": "#LunarPalaceLobby"}}
 DIRECTION_MAP = {
     'up': 0,
     'right': 1,
@@ -367,21 +478,39 @@ def randomize_doors(env, entrances, exits):
     return shuffled_entrances, shuffled_exits, spoil_entrances, spoil_entrances_for_spoiler, graph, paths_to_world, world_paths
 
 
-def get_entrances_exits(world_object, doors_view):
+def get_entrances_exits(world_object, scope, doors_view):
     entrances = []
     exits = []
-    if isinstance(world_object, list):
-        for world in world_object:
+
+    if scope == "-doorsrando":
+        if isinstance(world_object, list):
+            for world in world_object:
+                entrances += [list(i) for i in doors_view.find_all(
+                    lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == world)]
+                exits += [list(i) for i in
+                          doors_view.find_all(
+                              lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == world)]
+        else:
             entrances += [list(i) for i in doors_view.find_all(
-                lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == world)]
+                lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == world_object)]
             exits += [list(i) for i in
-                      doors_view.find_all(lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == world)]
+                      doors_view.find_all(
+                          lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == world_object)]
+
     else:
-        entrances += [list(i) for i in doors_view.find_all(
-            lambda sp: (sp.type == "entrance" or sp.type == "town_building") and sp.world == world_object)]
-        exits += [list(i) for i in
-                  doors_view.find_all(
-                      lambda sp: (sp.type == "exit" or sp.type == "return") and sp.world == world_object)]
+        if isinstance(world_object, list):
+            for world in world_object:
+                entrances += [list(i) for i in doors_view.find_all(
+                    lambda sp: (sp.type == "entrance" and sp.map == world) and sp.world == world)]
+                exits += [list(i) for i in
+                          doors_view.find_all(
+                              lambda sp: (sp.type == "exit" and sp.dest == world) and sp.world == world)]
+        else:
+            entrances += [list(i) for i in doors_view.find_all(
+                lambda sp: (sp.type == "entrance" and sp.map == world_object) and sp.world == world_object)]
+            exits += [list(i) for i in
+                      doors_view.find_all(
+                          lambda sp: (sp.type == "exit" and sp.dest == world_object) and sp.world == world_object)]
 
     return entrances, exits
 
@@ -622,6 +751,13 @@ def is_omnicraft_blocked(location, paths_to_world):
             return True
         else:
             return False
+    if location == '#SylvanCave1F&#Fabul':
+        sc = is_omnicraft_blocked("#SylvanCave1F", paths_to_world)
+        fwt = is_omnicraft_blocked("#Fabul", paths_to_world)
+        if sc and fwt:
+            return True
+        else:
+            return False
     else:
         world_entrance = paths_to_world[location][0][1][0]
         if isinstance(world_entrance, list):
@@ -640,7 +776,7 @@ def is_omnicraft_blocked(location, paths_to_world):
     return True
 
 
-def check_underworld(key_items, paths_to_world, gated_paths, world_paths):
+def check_underworld(key_items, paths_to_world, gated_paths, world_paths,scope):
     magma = True
     tower = True
     hook = True
@@ -664,17 +800,19 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths):
 
     damcyan_moon = True if '*[#item.DarkCrystal]' in gated_paths['#Damcyan'] else False
 
-    if is_omnicraft_blocked(darkness_location,paths_to_world)  and damcyan_moon:
+    well_entrance = '#AgartWell' if scope=="-doorsrando" else "#Agart"
+    hook_route_entrance = '#BabilB1' if scope=="-doorsrando" else "#CaveEblanEntrance"
+
+    if is_omnicraft_blocked(darkness_location, paths_to_world) and damcyan_moon:
         print("Damcyan is on the moon and Darkness is omnicraft locked")
         return False
 
-
     while magma:
-        if ('#AgartWell' in world_paths['#Underworld'] or magma_underground) \
-                or (('#AgartWell' in world_paths['#Moon'] or magma_moon) and darkness_underground):
+        if (well_entrance in world_paths['#Underworld'] or magma_underground) \
+                or ((well_entrance in world_paths['#Moon'] or magma_moon) and darkness_underground):
             magma = False
             break
-        if (is_omnicraft_blocked('#AgartWell', paths_to_world)
+        if (is_omnicraft_blocked(well_entrance, paths_to_world)
             or is_omnicraft_blocked(magma_location, paths_to_world)) and \
                 (damcyan_underground or (damcyan_moon and darkness_underground)):
             magma = False
@@ -695,12 +833,12 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths):
         tower = True
         break
     while hook:
-        if ("#BabilB1" in world_paths['#Underworld']) \
-                or ("#BabilB1" in world_paths['#Moon'] and darkness_underground):
+        if (hook_route_entrance in world_paths['#Underworld']) \
+                or (hook_route_entrance in world_paths['#Moon'] and darkness_underground):
             hook = False
             break
 
-        if is_omnicraft_blocked('#BabilB1', paths_to_world) and \
+        if is_omnicraft_blocked(hook_route_entrance, paths_to_world) and \
                 (damcyan_underground or (damcyan_moon and darkness_underground)):
             hook = False
             break
@@ -712,19 +850,19 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths):
 
     if hook:
         return []
-    gated=[]
+    gated = []
     if magma:
         gated_magma = []
-        gated_magma+=gated_paths[magma_location]
-        gated_magma+=gated_paths["#AgartWell"]
+        gated_magma += gated_paths[magma_location]
+        gated_magma += gated_paths[well_entrance]
         if not gated_magma:
             return []
         else:
             gated.append("&".join(gated_magma))
     if tower:
         gated_tower = []
-        gated_tower+=gated_paths[tower_key_location]
-        gated_tower+=gated_paths["#Babil1F"]
+        gated_tower += gated_paths[tower_key_location]
+        gated_tower += gated_paths["#Babil1F"]
         if not gated_tower:
             return []
         else:
@@ -733,26 +871,26 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths):
     return "|".join(gated)
 
 
-def check_logic(key_items, paths_to_world, world_paths):
+def check_logic(key_items, paths_to_world, world_paths,scope):
     gated_paths = return_gated_paths(paths_to_world)
-    underworld_required_ki = check_underworld(key_items, paths_to_world, gated_paths, world_paths)
+    underworld_required_ki = check_underworld(key_items, paths_to_world, gated_paths, world_paths,scope)
     if underworld_required_ki is False:
         return False
     elif underworld_required_ki:
         if underworld_required_ki == ['UNDERWORLD']:
             return False
 
-        print("Underground is actually locked by something",underworld_required_ki)
+        print("Underground is actually locked by something", underworld_required_ki)
     for i in gated_paths:
-        if len(gated_paths[i])>1:
-            for num,path in enumerate(gated_paths[i]):
-                if path=='UNDERWORLD':
-                        gated_paths[i][num]=underworld_required_ki
-            if gated_paths[i]==[[],[]]:
-                gated_paths[i]=[]
-        elif gated_paths[i]==['UNDERWORLD']:
-            gated_paths[i]=underworld_required_ki
-    entrances_locked["#Underworld"]=underworld_required_ki
+        if len(gated_paths[i]) > 1:
+            for num, path in enumerate(gated_paths[i]):
+                if path == 'UNDERWORLD':
+                    gated_paths[i][num] = underworld_required_ki
+            if gated_paths[i] == [[], []]:
+                gated_paths[i] = []
+        elif gated_paths[i] == ['UNDERWORLD']:
+            gated_paths[i] = underworld_required_ki
+    entrances_locked["#Underworld"] = underworld_required_ki
     gated_ki = return_gated_kis(key_items, gated_paths)
     gated_slots = return_gated_slots(key_items, gated_ki)
 
@@ -778,7 +916,13 @@ def check_logic(key_items, paths_to_world, world_paths):
     return calculate_spheres(ki_full_locked)
 
 
-def apply(env, randomize_type, testing=False):
+def add_doors_paths_entrancerando(paths_to_world):
+    paths_to_world['#RoomToSewer'] = paths_to_world['#BaronTown']
+    paths_to_world['#SylvanCaveYangRoom'] = paths_to_world['#SylvanCave1F']
+    return paths_to_world
+
+
+def apply(env, randomize_scope, randomize_type, testing=False):
     doors_view = databases.get_doors_dbview()
     non_random_locations = [list(i) for i in doors_view.find_all(lambda sp: (sp.type == "non_randomized"))]
 
@@ -811,7 +955,7 @@ def apply(env, randomize_type, testing=False):
         paths_to_world = {}
         world_paths = {}
         for i in worlds:
-            entrances, exits = get_entrances_exits(i, doors_view)
+            entrances, exits = get_entrances_exits(i, randomize_scope, doors_view)
             shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp, graph_temp, paths_to_world_temp, world_paths_temp = randomize_doors(
                 env, entrances, exits)
             shuffled_entrances += shuffled_entrances_temp
@@ -822,16 +966,22 @@ def apply(env, randomize_type, testing=False):
             paths_to_world.update(paths_to_world_temp)
             world_paths.update(world_paths_temp)
 
+        # if randomize_scope == "-entrancesrando":
+        #     for i in
+        #     door_to_entrance =
+        #     paths_to_world = add_doors_paths_entrancerando(paths_to_world)
+
         print([(i, str(env.assignments[i])) for i in env.assignments])
         key_items = {}
         for x in env.assignments:
             if "*" in str(env.assignments[x]) and "[#item.Crystal]" not in str(env.assignments[x]):
-                key_items[str(env.assignments[x])] = {"location": ki_location[str(x)], "slot": str(x)}
+                key_items[str(env.assignments[x])] = {"location": ki_location[randomize_scope][str(x)], "slot": str(x)}
 
-        miab_locations_sylph = [str(i) for i in env.meta["miab_locations"] if env.meta["miab_locations"][i][0]=="#SylvanCaveYangRoom"]
+        miab_locations_sylph = [str(i) for i in env.meta["miab_locations"] if
+                                env.meta["miab_locations"][i][0] == "#SylvanCaveYangRoom"]
         for i in key_items:
-            if key_items[i]["slot"] in miab_locations_sylph:
-                key_items[i]["location"]="#SylvanCaveYangRoom"
+            if key_items[i]["slot"] in miab_locations_sylph and randomize_scope=="-doorsrando":
+                key_items[i]["location"] = "#SylvanCaveYangRoom"
         no_free_flags = [str(x) for x in env.options.flags._flags if "Knofree" in x]
         for item in key_items:
             ki_required_room = key_items[item]["location"]
@@ -839,7 +989,7 @@ def apply(env, randomize_type, testing=False):
             if ki_slot == "RewardSlot.rydias_mom_item":
                 if no_free_flags[0] == "Knofree":
                     dmist_slot = [str(x) for x in env.assignments if str(env.assignments[x]) == "dmist"][0]
-                    ki_required_room += f"&{slot_locations[dmist_slot]}"
+                    ki_required_room += f"&{slot_locations[randomize_scope][dmist_slot]}"
                 if no_free_flags[0] == 'Knofree:package':
                     ki_required_room += f"&{key_items['*[#item.Package]']['location']}"
             if ki_required_room == "starting":
@@ -869,7 +1019,7 @@ def apply(env, randomize_type, testing=False):
             else:
                 key_items[item]["and"] = paths_to_world[ki_required_room]
                 key_items[item]["and_location"] = [ki_required_room]
-        is_valid = check_logic(key_items, paths_to_world, world_paths)
+        is_valid = check_logic(key_items, paths_to_world, world_paths,randomize_scope)
         if not is_valid:
             attempts += 1
         else:

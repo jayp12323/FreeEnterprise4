@@ -525,6 +525,9 @@ class FlagLogicCore {
         if (flagset.has("Evanilla")) {
             this._simple_disable(flagset, log, "Encounters are vanilla", ["Ekeep:behemoths", "Ekeep:doors", "Edanger"]);
         }
+        if (flagset.has("-entrancesrando")) {
+            this._simple_disable(flagset, log, "Enntrances rando takes priority", ["-doorsrando"]);
+        }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");
         if (((all_spoiler_flags.length > 0) && (all_spoiler_flags.length === sparse_spoiler_flags.length))) {

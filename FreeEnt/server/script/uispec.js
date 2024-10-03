@@ -6123,7 +6123,73 @@ var FLAG_UISPEC = [
       {
         "flag": "-vintage",
         "title": "Vintage Battlefield",
-        "description": "Enables the April Fools Day 2019 mode."
+        "description": "Enables the April Fools Day 2019 mode.",
+        "subcontrols": [
+          {
+            "flag": "@anon58",
+            "title": "Doors Randomization Options",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-doorsrando:normal",
+                "title": "No Cross World Shuffle",
+                "hard": true
+              },
+              {
+                "flag": "-doorsrando:gated",
+                "title": "Underworld and Moon shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-doorsrando:blueplanet",
+                "title": "Overworld and Underworld Shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-doorsrando:why",
+                "title": "Overworld and Moon shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-doorsrando:all",
+                "title": "All locations shuffled",
+                "hard": true
+              }
+            ]
+          },
+          {
+            "flag": "@anon59",
+            "title": "Entrances Randomization Options",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-entrancesrando:normal",
+                "title": "No Cross World Shuffle",
+                "hard": true
+              },
+              {
+                "flag": "-entrancesrando:gated",
+                "title": "Underworld and Moon shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-entrancesrando:blueplanet",
+                "title": "Overworld and Underworld Shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-entrancesrando:why",
+                "title": "Overworld and Moon shuffled",
+                "hard": true
+              },
+              {
+                "flag": "-entrancesrando:all",
+                "title": "All locations shuffled",
+                "hard": true
+              }
+            ]
+          }
+        ]
       },
       {
         "flag": "-pushbtojump",
@@ -6136,7 +6202,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n\t<li>Only One Doors Randomization option can be used</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
-            "flag": "@anon58",
+            "flag": "@anon60",
             "title": "Random wacky challenge(s)",
             "type": "select",
             "subcontrols": [
@@ -6185,38 +6251,6 @@ var FLAG_UISPEC = [
           {
             "flag": "-wacky:bodyguard",
             "title": "\"The Bodyguard\""
-          },
-          {
-            "flag": "@anon59",
-            "title": "Doors Randomization Options",
-            "type": "select",
-            "subcontrols": [
-              {
-                "flag": "-wacky:doorsrando_normal",
-                "title": "No Cross World Shuffle",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_gated",
-                "title": "Underworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_blueplanet",
-                "title": "Overworld and Underworld Shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_why",
-                "title": "Overworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_all",
-                "title": "All locations shuffled",
-                "hard": true
-              }
-            ]
           },
           {
             "flag": "-wacky:enemyunknown",
@@ -6360,7 +6394,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon60",
+        "flag": "@anon61",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -6414,7 +6448,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon61",
+            "flag": "@anon62",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -6430,7 +6464,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon62",
+                "flag": "@anon63",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [
