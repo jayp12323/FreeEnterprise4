@@ -11,8 +11,10 @@
 - CNopartner: Disables your starting partner.
 - Cpaladin: Cecil starts as a paladin.  Ordeals is still available as an objective as usual.
 - Csuperhero: This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).
-- Ctreasure: Cnofree is forced on, and all normally free characters are hiding in chests/pots in the Overworld.  Unrestricted characters only.
-- CMiab `(wip)` : Cnoearned is forced on, and all normally earned characters are hiding in MIABs everywhere.  Includes restricted characters
+- [Ctreasure:free] Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs
+- [Ctreasure:earned] Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs
+- [Ctreasure:unsafe] Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.
+- [Ctreasure:relaxed] Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.
 - Tunrestrict: Allows ignoring the restrictions placed on tiers in the treasury/moon/underworld/overworld
 - Sprice/Spricey: Changes the price of items in shops.  Can target armor/weapons/items individually
 - Salways: Items are forced to be guaranteed in shops
@@ -23,7 +25,9 @@
 - Sno: More discrete options for these flags
 - Bitburns: The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo
 - Ctreasure flags: Characters now found in treasure chests
+- This branch includes the entrance/door randomization work from jayp [here](https://github.com/jayp12323/FreeEnterprise4)
 - Also includes all changes from scythe's fork/branch [here](https://github.com/ScytheMarshall/FreeEnterprise4All/tree/scythe-changes)
+
 
 # FreeEnterprise4
 
@@ -42,7 +46,6 @@ This repository contains other code written by community members who are not (ne
 - Antidale
 - cassidy
 - Galeswift (that's me!)
-- jayp
 - harumph
 - S3
 - ScytheMarshall
