@@ -480,7 +480,7 @@ class FlagLogicCore:
 
 
         if flagset.has_any('-entrancesrando:normal','-entrancesrando:gated','-entrancesrando:blueplanet','-entrancesrando:why','-entrancesrando:all'):
-            self._simple_disable_regex(flagset, log, 'Enntrances rando takes priority', ['^-doorsrando'])
+            self._simple_disable_regex(flagset, log, 'Entrances rando takes priority', r'^-doorsrando')
 
         all_spoiler_flags = flagset.get_list(r'^-spoil:')
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')
