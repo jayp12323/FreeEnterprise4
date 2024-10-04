@@ -43,6 +43,7 @@ from . import kit_rando
 from . import custom_weapon_rando
 from . import wacky_rando
 from . import compile_item_prices
+from . import doors_rando
 
 from .script_preprocessor import ScriptPreprocessor
 
@@ -777,10 +778,17 @@ def build(romfile, options, force_recompile=False):
 
     if not options.hide_flags:
         env.add_substitution('flags hidden', '')
+    is_doorsrando=options.flags.get_list(r'(doors|entrances)rando')
+
+    if is_doorsrando:
+        rando_scope,rando_type = is_doorsrando[0].split(":")
+        env.add_file('scripts/map_history_extension.f4c')
+        env.add_file('scripts/doorsrando.f4c')
+        env.add_toggle('doorsrando')
+        doors_rando.apply(env, rando_scope,rando_type)
 
     # must be last
     wacky_rando.apply(env)
-
     # finalize rewards table
     rewards_data = env.meta['rewards_assignment'].generate_table()
     env.blob.add('Rewards__Table', rewards_data)
