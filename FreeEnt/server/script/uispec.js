@@ -6123,71 +6123,69 @@ var FLAG_UISPEC = [
       {
         "flag": "-vintage",
         "title": "Vintage Battlefield",
-        "description": "Enables the April Fools Day 2019 mode.",
+        "description": "Enables the April Fools Day 2019 mode."
+      },
+      {
+        "flag": "@anon58",
+        "title": "Doors Randomization Options",
+        "type": "select",
         "subcontrols": [
           {
-            "flag": "@anon58",
-            "title": "Doors Randomization Options",
-            "type": "select",
-            "subcontrols": [
-              {
-                "flag": "-doorsrando:normal",
-                "title": "No Cross World Shuffle",
-                "hard": true
-              },
-              {
-                "flag": "-doorsrando:gated",
-                "title": "Underworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-doorsrando:blueplanet",
-                "title": "Overworld and Underworld Shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-doorsrando:why",
-                "title": "Overworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-doorsrando:all",
-                "title": "All locations shuffled",
-                "hard": true
-              }
-            ]
+            "flag": "-doorsrando:normal",
+            "title": "No Cross World Shuffle",
+            "hard": true
           },
           {
-            "flag": "@anon59",
-            "title": "Entrances Randomization Options",
-            "type": "select",
-            "subcontrols": [
-              {
-                "flag": "-entrancesrando:normal",
-                "title": "No Cross World Shuffle",
-                "hard": true
-              },
-              {
-                "flag": "-entrancesrando:gated",
-                "title": "Underworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-entrancesrando:blueplanet",
-                "title": "Overworld and Underworld Shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-entrancesrando:why",
-                "title": "Overworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-entrancesrando:all",
-                "title": "All locations shuffled",
-                "hard": true
-              }
-            ]
+            "flag": "-doorsrando:gated",
+            "title": "Underworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:blueplanet",
+            "title": "Overworld and Underworld Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:why",
+            "title": "Overworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:all",
+            "title": "All locations shuffled",
+            "hard": true
+          }
+        ]
+      },
+      {
+        "flag": "@anon59",
+        "title": "Entrances Randomization Options",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "-entrancesrando:normal",
+            "title": "No Cross World Shuffle",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:gated",
+            "title": "Underworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:blueplanet",
+            "title": "Overworld and Underworld Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:why",
+            "title": "Overworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:all",
+            "title": "All locations shuffled",
+            "hard": true
           }
         ]
       },

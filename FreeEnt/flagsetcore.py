@@ -477,8 +477,10 @@ class FlagLogicCore:
         if flagset.has('Evanilla'):
             self._simple_disable(flagset, log, 'Encounters are vanilla', ['Ekeep:behemoths', 'Ekeep:doors', 'Edanger'])
 
-        if flagset.has('-entrancesrando'):
-            self._simple_disable(flagset, log, 'Enntrances rando takes priority', ['-doorsrando'])
+
+
+        if flagset.has_any('-entrancesrando:normal','-entrancesrando:gated','-entrancesrando:blueplanet','-entrancesrando:why','-entrancesrando:all'):
+            self._simple_disable_regex(flagset, log, 'Enntrances rando takes priority', ['^-doorsrando'])
 
         all_spoiler_flags = flagset.get_list(r'^-spoil:')
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')

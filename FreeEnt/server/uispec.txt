@@ -567,18 +567,18 @@
 .[-vanilla:giant] Vanilla Giant
 .[-vanilla:z] Vanilla Z sprite
 [-vintage] Vintage Battlefield
-.<> Doors Randomization Options
-..(-doorsrando:normal)!           No Cross World Shuffle
-..(-doorsrando:gated)!          Underworld and Moon shuffled
-..(-doorsrando:blueplanet)!          Overworld and Underworld Shuffled
-..(-doorsrando:why)!          Overworld and Moon shuffled
-..(-doorsrando:all)!          All locations shuffled
-.<> Entrances Randomization Options
-..(-entrancesrando:normal)!           No Cross World Shuffle
-..(-entrancesrando:gated)!          Underworld and Moon shuffled
-..(-entrancesrando:blueplanet)!          Overworld and Underworld Shuffled
-..(-entrancesrando:why)!          Overworld and Moon shuffled
-..(-entrancesrando:all)!          All locations shuffled
+<> Doors Randomization Options
+.(-doorsrando:normal)!           No Cross World Shuffle
+.(-doorsrando:gated)!          Underworld and Moon shuffled
+.(-doorsrando:blueplanet)!          Overworld and Underworld Shuffled
+.(-doorsrando:why)!          Overworld and Moon shuffled
+.(-doorsrando:all)!          All locations shuffled
+<> Entrances Randomization Options
+.(-entrancesrando:normal)!           No Cross World Shuffle
+.(-entrancesrando:gated)!          Underworld and Moon shuffled
+.(-entrancesrando:blueplanet)!          Overworld and Underworld Shuffled
+.(-entrancesrando:why)!          Overworld and Moon shuffled
+.(-entrancesrando:all)!          All locations shuffled
 [-pushbtojump] Push B to Jump
 [@wacky] Wacky challenge
 .<> Random wacky challenge(s)
