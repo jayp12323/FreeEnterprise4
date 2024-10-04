@@ -436,24 +436,21 @@ def apply(env):
             text = text.replace('%t', 'bosses' if boss_hunt_count > 1 else 'boss' )
         elif OBJECTIVES[objective_id]['slug'] == 'internal_goldhunter':
             text = text.replace('%d', f'{gold_hunt_text}' )
+        # special case for dkmatter
+        elif OBJECTIVES[objective_id]['slug'] == 'internal_dkmatter':
+            dkmatter_count = int(env.options.flags.get_suffix('Omode:dkmatter'))
+            text = f'Bring {dkmatter_count} DkMatters to Kory in Agart'
+        # special case for KI hunt
+        elif OBJECTIVES[objective_id]['slug'] == 'internal_ki':
+            ki_count = int(env.options.flags.get_suffix('Omode:ki'))
+            text = text.replace('%d', f'{ki_count}' )
+            text = text.replace('%t', 'items' if ki_count > 1 else 'item' )
 
         lines = _split_lines(text)
         if env.meta['has_gated_objective'] and objective_id == env.meta['gated_objective_id']:
             lines[-1] = lines[-1] + ' [key]'
         elif objective_id in hard_required_objective_ids:
             lines[-1] = lines[-1] + ' [crystal]'
-
-        # special case for dkmatter
-        if OBJECTIVES[objective_id]['slug'] == 'internal_dkmatter':
-            dkmatter_count = int(env.options.flags.get_suffix('Omode:dkmatter'))
-            text = f'Bring {dkmatter_count} DkMatters to Kory in Agart'
-        # special case for KI hunt
-        if OBJECTIVES[objective_id]['slug'] == 'internal_ki':
-            ki_count = int(env.options.flags.get_suffix('Omode:ki'))
-            if (ki_count == 1):
-                text = f'Obtain 1 key item'
-            else:
-                text = f'Obtain {ki_count} key items'
         env.meta.setdefault('objective_descriptions', []).append(text)
         spoilers.append( SpoilerRow(f"{i+1}. {text}") )
         

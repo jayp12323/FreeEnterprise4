@@ -397,7 +397,7 @@ msfpatch {
     // %if ki_objective%
         bne $+ObjectiveNotYetMet
 
-        lda #$6B
+        lda #$6A
         jsl $=Objectives__StageProgress
 
     %ObjectiveNotYetMet:
