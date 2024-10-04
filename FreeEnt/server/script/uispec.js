@@ -7562,6 +7562,70 @@ var FLAG_UISPEC = [
         "description": "Enables the April Fools Day 2019 mode."
       },
       {
+        "flag": "@anon58",
+        "title": "Doors Randomization Options",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "-doorsrando:normal",
+            "title": "No Cross World Shuffle",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:gated",
+            "title": "Underworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:blueplanet",
+            "title": "Overworld and Underworld Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:why",
+            "title": "Overworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:all",
+            "title": "All locations shuffled",
+            "hard": true
+          }
+        ]
+      },
+      {
+        "flag": "@anon59",
+        "title": "Entrances Randomization Options",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "-entrancesrando:normal",
+            "title": "No Cross World Shuffle",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:gated",
+            "title": "Underworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:blueplanet",
+            "title": "Overworld and Underworld Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:why",
+            "title": "Overworld and Moon shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:all",
+            "title": "All locations shuffled",
+            "hard": true
+          }
+        ]
+      },
+      {
         "flag": "-pushbtojump",
         "title": "Push B to Jump",
         "description": "<ul>\n    <li>Enables the April Fools Day 2020 mode.</li>\n    <li>This flag does not affect the randomized placement of progression items.</li>\n    <li>Stability is absolutely not guaranteed.</li>\n    <li>Instability is absolutely guaranteed.</li>\n    <li>(If a door goes somewhere you don't expect it to go, it was probably a \"return\" door, which takes you back to your previous location.)</li>\n</ul>"
@@ -7572,7 +7636,11 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n\t<li>Only One Doors Randomization option can be used</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
+<<<<<<< HEAD
             "flag": "@anon82",
+=======
+            "flag": "@anon60",
+>>>>>>> jayp/dev
             "title": "Random wacky challenge(s)",
             "type": "select",
             "subcontrols": [
@@ -7623,6 +7691,7 @@ var FLAG_UISPEC = [
             "title": "\"The Bodyguard\""
           },
           {
+<<<<<<< HEAD
             "flag": "-wacky:dropitlikeitshot",
             "title": "\"Drop It Like It's Hot\""
           },
@@ -7659,6 +7728,8 @@ var FLAG_UISPEC = [
             ]
           },
           {
+=======
+>>>>>>> jayp/dev
             "flag": "-wacky:enemyunknown",
             "title": "\"Enemy Unknown\"",
             "hard": true
@@ -7825,7 +7896,11 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
+<<<<<<< HEAD
         "flag": "@anon85",
+=======
+        "flag": "@anon61",
+>>>>>>> jayp/dev
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -7879,7 +7954,11 @@ var FLAG_UISPEC = [
             ]
           },
           {
+<<<<<<< HEAD
             "flag": "@anon86",
+=======
+            "flag": "@anon62",
+>>>>>>> jayp/dev
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -7895,7 +7974,11 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
+<<<<<<< HEAD
                 "flag": "@anon87",
+=======
+                "flag": "@anon63",
+>>>>>>> jayp/dev
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

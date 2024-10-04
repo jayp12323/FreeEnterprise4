@@ -2,7 +2,6 @@ import os
 import re
 
 from . import databases
-from . import doors_rando
 
 from .address import *
 from .core_rando import BOSS_SLOTS
@@ -43,11 +42,6 @@ WACKY_CHALLENGES = {
     'isthisrandomized'  : 'Is This Even\nRandomized?',
     'forwardisback'     : 'Forward is\nthe New Back',
     'mirrormirror'      : 'Mirror, Mirror,\non the Wall',
-    'doorsrando_normal': 'Door Randomizer',
-    'doorsrando_blueplanet': 'Door Randomizer',
-    'doorsrando_gated': 'Door Randomizer',
-    'doorsrando_all': 'Door Randomizer',
-    'doorsrando_why': 'Door Randomizer',
     'dropitlikeitshot'  : 'Drop It Like It\'s Hot',
     'whatsmygear'       : 'What\'s My\nGear Again?'
 }
@@ -90,12 +84,6 @@ WACKY_RAM_USAGE = {
     'saveusbigchocobo'  : 0,
     'isthisrandomized'  : 0,
     'forwardisback'     : 0,
-    'doorsrando'     : 0,
-    'doorsrando_normal'     : 0,
-    'doorsrando_blueplanet'     : 0,
-    'doorsrando_gated'     : 0,
-    'doorsrando_all'     : 0,
-    'doorsrando_why'     : 0,
     'dropitlikeitshot'  : 0,
     'whatsmygear'       : 0,
     'mirrormirror'      : 13, # StatusEnforcement
@@ -174,9 +162,6 @@ def apply(env):
 
         for idx, wacky in enumerate(wacky_challenge):
             # apply script of the same name, if it exists
-            if "doorsrando" in wacky:
-                wacky_orig=wacky
-                wacky="doorsrando"
             script_filename = f'scripts/wacky/{wacky}.f4c'
             if os.path.isfile(os.path.join(os.path.dirname(__file__), script_filename)):
                 env.add_file(script_filename)
@@ -190,10 +175,7 @@ def apply(env):
 
             apply_func = globals().get(f'apply_{wacky}', None)
             if apply_func:
-                if wacky=="doorsrando":
-                    rom_bytes_used = apply_func(env, rom_base, wacky_orig) or 0
-                else:
-                    rom_bytes_used = apply_func(env, rom_base) or 0
+                rom_bytes_used = apply_func(env, rom_base) or 0
 
                 ram_bytes_used = WACKY_RAM_USAGE[wacky]
                 if rom_bytes_used:
@@ -756,9 +738,3 @@ def setup_saveusbigchocobo(env):
 
 def apply_dropitlikeitshot(env, rom_address):
     env.add_file('scripts/wacky/dropitlikeitshot.f4c')
-
-def apply_doorsrando(env,rom_base,wacky_orig):
-    rando_type = wacky_orig.split("_")[1]
-    env.add_file('scripts/map_history_extension.f4c')
-    env.add_toggle('doorsrando')
-    doors_rando.apply(env,rando_type)
