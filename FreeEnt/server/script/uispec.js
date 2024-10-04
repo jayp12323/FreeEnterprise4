@@ -4780,7 +4780,7 @@ var FLAG_UISPEC = [
           {
             "flag": "Csuperhero",
             "title": "Superhero challenge",
-            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).</li></ul>",
+            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).  Once returning the crystal to Zot, you gain your powers back.</li></ul>",
             "hard": true
           }
         ]
@@ -7562,7 +7562,7 @@ var FLAG_UISPEC = [
         "description": "Enables the April Fools Day 2019 mode."
       },
       {
-        "flag": "@anon58",
+        "flag": "@anon82",
         "title": "Doors Randomization Options",
         "type": "select",
         "subcontrols": [
@@ -7594,7 +7594,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon59",
+        "flag": "@anon83",
         "title": "Entrances Randomization Options",
         "type": "select",
         "subcontrols": [
@@ -7636,11 +7636,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n\t<li>Only One Doors Randomization option can be used</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
-<<<<<<< HEAD
-            "flag": "@anon82",
-=======
-            "flag": "@anon60",
->>>>>>> jayp/dev
+            "flag": "@anon84",
             "title": "Random wacky challenge(s)",
             "type": "select",
             "subcontrols": [
@@ -7691,45 +7687,10 @@ var FLAG_UISPEC = [
             "title": "\"The Bodyguard\""
           },
           {
-<<<<<<< HEAD
             "flag": "-wacky:dropitlikeitshot",
             "title": "\"Drop It Like It's Hot\""
           },
           {
-            "flag": "@anon83",
-            "title": "Doors Randomization Options",
-            "type": "select",
-            "subcontrols": [
-              {
-                "flag": "-wacky:doorsrando_normal",
-                "title": "No Cross World Shuffle",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_gated",
-                "title": "Underworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_blueplanet",
-                "title": "Overworld and Underworld Shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_why",
-                "title": "Overworld and Moon shuffled",
-                "hard": true
-              },
-              {
-                "flag": "-wacky:doorsrando_all",
-                "title": "All locations shuffled",
-                "hard": true
-              }
-            ]
-          },
-          {
-=======
->>>>>>> jayp/dev
             "flag": "-wacky:enemyunknown",
             "title": "\"Enemy Unknown\"",
             "hard": true
@@ -7875,7 +7836,7 @@ var FLAG_UISPEC = [
     "title": "TWEAKS",
     "controls": [
       {
-        "flag": "@anon84",
+        "flag": "@anon85",
         "title": "Miscellaneous tweaks",
         "subcontrols": [
           {
@@ -7896,11 +7857,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-<<<<<<< HEAD
-        "flag": "@anon85",
-=======
-        "flag": "@anon61",
->>>>>>> jayp/dev
+        "flag": "@anon86",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -7954,11 +7911,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-<<<<<<< HEAD
-            "flag": "@anon86",
-=======
-            "flag": "@anon62",
->>>>>>> jayp/dev
+            "flag": "@anon87",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -7974,11 +7927,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-<<<<<<< HEAD
-                "flag": "@anon87",
-=======
-                "flag": "@anon63",
->>>>>>> jayp/dev
+                "flag": "@anon88",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [

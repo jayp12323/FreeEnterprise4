@@ -8789,11 +8789,7 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Tunrestrict:overworld",
-=======
-            "flag": "-doorsrando",
->>>>>>> jayp/dev
             "offset": 309,
             "size": 1,
             "value": 1
@@ -8811,123 +8807,30 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Tmaxtier:4",
             "offset": 311,
-=======
-            "flag": "-doorsrando:normal",
-            "offset": 309,
             "size": 3,
             "value": 2
         },
         {
-            "flag": "-doorsrando:gated",
-            "offset": 309,
-            "size": 3,
-            "value": 3
-        },
-        {
-            "flag": "-doorsrando:blueplanet",
-            "offset": 309,
-            "size": 3,
-            "value": 4
-        },
-        {
-            "flag": "-doorsrando:why",
-            "offset": 309,
-            "size": 3,
-            "value": 5
-        },
-        {
-            "flag": "-doorsrando:all",
-            "offset": 309,
-            "size": 3,
-            "value": 6
-        },
-        {
-            "flag": "-entrancesrando",
-            "offset": 312,
-            "size": 3,
-            "value": 1
-        },
-        {
-            "flag": "-entrancesrando:normal",
-            "offset": 312,
-            "size": 3,
-            "value": 2
-        },
-        {
-            "flag": "-entrancesrando:gated",
-            "offset": 312,
-            "size": 3,
-            "value": 3
-        },
-        {
-            "flag": "-entrancesrando:blueplanet",
-            "offset": 312,
-            "size": 3,
-            "value": 4
-        },
-        {
-            "flag": "-entrancesrando:why",
-            "offset": 312,
-            "size": 3,
-            "value": 5
-        },
-        {
-            "flag": "-entrancesrando:all",
-            "offset": 312,
-            "size": 3,
-            "value": 6
-        },
-        {
-            "flag": "-wacky:random",
-            "offset": 315,
-            "size": 3,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:random2",
-            "offset": 315,
->>>>>>> jayp/dev
-            "size": 3,
-            "value": 2
-        },
-        {
-<<<<<<< HEAD
             "flag": "Tmaxtier:5",
             "offset": 311,
-=======
-            "flag": "-wacky:random3",
-            "offset": 315,
->>>>>>> jayp/dev
             "size": 3,
             "value": 3
         },
         {
-<<<<<<< HEAD
             "flag": "Tmaxtier:6",
             "offset": 311,
-=======
-            "flag": "-wacky:random4",
-            "offset": 315,
->>>>>>> jayp/dev
             "size": 3,
             "value": 4
         },
         {
-<<<<<<< HEAD
             "flag": "Tmaxtier:7",
             "offset": 311,
-=======
-            "flag": "-wacky:random5",
-            "offset": 315,
->>>>>>> jayp/dev
             "size": 3,
             "value": 5
         },
         {
-<<<<<<< HEAD
             "flag": "Tmintier:2",
             "offset": 314,
             "size": 3,
@@ -8960,15 +8863,10 @@ const _FE_FLAGSPEC = {
         {
             "flag": "Tmintier:7",
             "offset": 314,
-=======
-            "flag": "-wacky:random6",
-            "offset": 315,
->>>>>>> jayp/dev
             "size": 3,
             "value": 6
         },
         {
-<<<<<<< HEAD
             "flag": "Tmintier:8",
             "offset": 314,
             "size": 3,
@@ -8988,21 +8886,11 @@ const _FE_FLAGSPEC = {
         },
         {
             "flag": "Sshuffle",
-=======
-            "flag": "-wacky:musical",
-            "offset": 318,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:bodyguard",
->>>>>>> jayp/dev
             "offset": 319,
             "size": 4,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sstandard",
             "offset": 319,
             "size": 4,
@@ -9052,43 +8940,17 @@ const _FE_FLAGSPEC = {
         },
         {
             "flag": "Ssingles",
-=======
-            "flag": "-wacky:fistfight",
-            "offset": 320,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:omnidextrous",
-            "offset": 321,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:biggermagnet",
-            "offset": 322,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:sixleggedrace",
->>>>>>> jayp/dev
             "offset": 323,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sfree",
-=======
-            "flag": "-wacky:floorislava",
->>>>>>> jayp/dev
             "offset": 324,
             "size": 2,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Smixed",
             "offset": 324,
             "size": 2,
@@ -9096,31 +8958,17 @@ const _FE_FLAGSPEC = {
         },
         {
             "flag": "Sunsafe",
-=======
-            "flag": "-wacky:neatfreak",
-            "offset": 325,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:timeismoney",
->>>>>>> jayp/dev
             "offset": 326,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Ssell:quarter",
-=======
-            "flag": "-wacky:nightmode",
->>>>>>> jayp/dev
             "offset": 327,
             "size": 2,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Ssell:0",
             "offset": 327,
             "size": 2,
@@ -9128,310 +8976,173 @@ const _FE_FLAGSPEC = {
         },
         {
             "flag": "Salways:apples",
-=======
-            "flag": "-wacky:mysteryjuice",
-            "offset": 328,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:misspelled",
->>>>>>> jayp/dev
             "offset": 329,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:sirens",
-=======
-            "flag": "-wacky:enemyunknown",
->>>>>>> jayp/dev
             "offset": 330,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:vampires",
-=======
-            "flag": "-wacky:kleptomania",
->>>>>>> jayp/dev
             "offset": 331,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:hrglass",
-=======
-            "flag": "-wacky:darts",
->>>>>>> jayp/dev
             "offset": 332,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:bacchus",
-=======
-            "flag": "-wacky:unstackable",
->>>>>>> jayp/dev
             "offset": 333,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:starveil",
-=======
-            "flag": "-wacky:menarepigs",
->>>>>>> jayp/dev
             "offset": 334,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:cure3",
-=======
-            "flag": "-wacky:skywarriors",
->>>>>>> jayp/dev
             "offset": 335,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:illusion",
-=======
-            "flag": "-wacky:zombies",
->>>>>>> jayp/dev
             "offset": 336,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:damage_items",
-=======
-            "flag": "-wacky:afflicted",
->>>>>>> jayp/dev
             "offset": 337,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Salways:coffin",
-=======
-            "flag": "-wacky:batman",
->>>>>>> jayp/dev
             "offset": 338,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:j",
-=======
-            "flag": "-wacky:battlescars",
->>>>>>> jayp/dev
             "offset": 339,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:apples",
-=======
-            "flag": "-wacky:imaginarynumbers",
->>>>>>> jayp/dev
             "offset": 340,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:sirens",
-=======
-            "flag": "-wacky:tellahmaneuver",
->>>>>>> jayp/dev
             "offset": 341,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:vampires",
-=======
-            "flag": "-wacky:3point",
->>>>>>> jayp/dev
             "offset": 342,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:hrglass",
-=======
-            "flag": "-wacky:friendlyfire",
->>>>>>> jayp/dev
             "offset": 343,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:bacchus",
-=======
-            "flag": "-wacky:payablegolbez",
->>>>>>> jayp/dev
             "offset": 344,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:starveil",
-=======
-            "flag": "-wacky:gottagofast",
->>>>>>> jayp/dev
             "offset": 345,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:cure3",
-=======
-            "flag": "-wacky:worthfighting",
->>>>>>> jayp/dev
             "offset": 346,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:illusion",
-=======
-            "flag": "-wacky:saveusbigchocobo",
->>>>>>> jayp/dev
             "offset": 347,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:life",
-=======
-            "flag": "-wacky:isthisrandomized",
->>>>>>> jayp/dev
             "offset": 348,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:damage_items",
-=======
-            "flag": "-wacky:forwardisback",
->>>>>>> jayp/dev
             "offset": 349,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Sno:coffin",
-=======
-            "flag": "-wacky:mirrormirror",
->>>>>>> jayp/dev
             "offset": 350,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Bstandard",
-=======
-            "flag": "-spoil:all",
->>>>>>> jayp/dev
             "offset": 351,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Bnofree",
-=======
-            "flag": "-spoil:keyitems",
->>>>>>> jayp/dev
             "offset": 352,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Bunsafe",
-=======
-            "flag": "-spoil:rewards",
->>>>>>> jayp/dev
             "offset": 353,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Balt:gauntlet",
-=======
-            "flag": "-spoil:chars",
->>>>>>> jayp/dev
             "offset": 354,
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Brestrict:summon",
-=======
-            "flag": "-spoil:treasure",
->>>>>>> jayp/dev
             "offset": 355,
-            "size": 2,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:miabs",
-            "offset": 355,
-            "size": 2,
-            "value": 2
-        },
-        {
-            "flag": "-spoil:shops",
-            "offset": 357,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:bosses",
-            "offset": 358,
-            "size": 1,
-            "value": 1
-        },
-        {
-<<<<<<< HEAD
             "flag": "Brestrict:moon",
             "offset": 356,
-=======
-            "flag": "-spoil:misc",
-            "offset": 359,
->>>>>>> jayp/dev
             "size": 1,
             "value": 1
         },
         {
-<<<<<<< HEAD
             "flag": "Brestrict:zot",
             "offset": 357,
             "size": 1,
@@ -10488,440 +10199,440 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
-            "flag": "-wacky:random",
+            "flag": "-doorsrando",
             "offset": 442,
+            "size": 3,
+            "value": 1
+        },
+        {
+            "flag": "-doorsrando:normal",
+            "offset": 442,
+            "size": 3,
+            "value": 2
+        },
+        {
+            "flag": "-doorsrando:gated",
+            "offset": 442,
+            "size": 3,
+            "value": 3
+        },
+        {
+            "flag": "-doorsrando:blueplanet",
+            "offset": 442,
+            "size": 3,
+            "value": 4
+        },
+        {
+            "flag": "-doorsrando:why",
+            "offset": 442,
+            "size": 3,
+            "value": 5
+        },
+        {
+            "flag": "-doorsrando:all",
+            "offset": 442,
+            "size": 3,
+            "value": 6
+        },
+        {
+            "flag": "-entrancesrando",
+            "offset": 445,
+            "size": 3,
+            "value": 1
+        },
+        {
+            "flag": "-entrancesrando:normal",
+            "offset": 445,
+            "size": 3,
+            "value": 2
+        },
+        {
+            "flag": "-entrancesrando:gated",
+            "offset": 445,
+            "size": 3,
+            "value": 3
+        },
+        {
+            "flag": "-entrancesrando:blueplanet",
+            "offset": 445,
+            "size": 3,
+            "value": 4
+        },
+        {
+            "flag": "-entrancesrando:why",
+            "offset": 445,
+            "size": 3,
+            "value": 5
+        },
+        {
+            "flag": "-entrancesrando:all",
+            "offset": 445,
+            "size": 3,
+            "value": 6
+        },
+        {
+            "flag": "-wacky:random",
+            "offset": 448,
             "size": 3,
             "value": 1
         },
         {
             "flag": "-wacky:random2",
-            "offset": 442,
+            "offset": 448,
             "size": 3,
             "value": 2
         },
         {
             "flag": "-wacky:random3",
-            "offset": 442,
+            "offset": 448,
             "size": 3,
             "value": 3
         },
         {
             "flag": "-wacky:random4",
-            "offset": 442,
+            "offset": 448,
             "size": 3,
             "value": 4
         },
         {
             "flag": "-wacky:random5",
-            "offset": 442,
+            "offset": 448,
             "size": 3,
             "value": 5
         },
         {
             "flag": "-wacky:random6",
-            "offset": 442,
+            "offset": 448,
             "size": 3,
             "value": 6
         },
         {
             "flag": "-wacky:musical",
-            "offset": 445,
+            "offset": 451,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-wacky:dropitlikeitshot",
-            "offset": 446,
+            "offset": 452,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-wacky:whatsmygear",
-            "offset": 447,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:bodyguard",
-            "offset": 448,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:fistfight",
-            "offset": 449,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:doorsrando",
-            "offset": 450,
-            "size": 3,
-            "value": 1
-        },
-        {
-            "flag": "-wacky:doorsrando_normal",
-            "offset": 450,
-            "size": 3,
-            "value": 2
-        },
-        {
-            "flag": "-wacky:doorsrando_gated",
-            "offset": 450,
-            "size": 3,
-            "value": 3
-        },
-        {
-            "flag": "-wacky:doorsrando_blueplanet",
-            "offset": 450,
-            "size": 3,
-            "value": 4
-        },
-        {
-            "flag": "-wacky:doorsrando_why",
-            "offset": 450,
-            "size": 3,
-            "value": 5
-        },
-        {
-            "flag": "-wacky:doorsrando_all",
-            "offset": 450,
-            "size": 3,
-            "value": 6
-        },
-        {
-            "flag": "-wacky:omnidextrous",
             "offset": 453,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:biggermagnet",
+            "flag": "-wacky:bodyguard",
             "offset": 454,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:sixleggedrace",
+            "flag": "-wacky:fistfight",
             "offset": 455,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:floorislava",
+            "flag": "-wacky:omnidextrous",
             "offset": 456,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:neatfreak",
+            "flag": "-wacky:biggermagnet",
             "offset": 457,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:timeismoney",
+            "flag": "-wacky:sixleggedrace",
             "offset": 458,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:nightmode",
+            "flag": "-wacky:floorislava",
             "offset": 459,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:mysteryjuice",
+            "flag": "-wacky:neatfreak",
             "offset": 460,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:misspelled",
+            "flag": "-wacky:timeismoney",
             "offset": 461,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:enemyunknown",
+            "flag": "-wacky:nightmode",
             "offset": 462,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:kleptomania",
+            "flag": "-wacky:mysteryjuice",
             "offset": 463,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:darts",
+            "flag": "-wacky:misspelled",
             "offset": 464,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:unstackable",
+            "flag": "-wacky:enemyunknown",
             "offset": 465,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:menarepigs",
+            "flag": "-wacky:kleptomania",
             "offset": 466,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:skywarriors",
+            "flag": "-wacky:darts",
             "offset": 467,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:zombies",
+            "flag": "-wacky:unstackable",
             "offset": 468,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:afflicted",
+            "flag": "-wacky:menarepigs",
             "offset": 469,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:batman",
+            "flag": "-wacky:skywarriors",
             "offset": 470,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:battlescars",
+            "flag": "-wacky:zombies",
             "offset": 471,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:imaginarynumbers",
+            "flag": "-wacky:afflicted",
             "offset": 472,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:tellahmaneuver",
+            "flag": "-wacky:batman",
             "offset": 473,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:3point",
+            "flag": "-wacky:battlescars",
             "offset": 474,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:friendlyfire",
+            "flag": "-wacky:imaginarynumbers",
             "offset": 475,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:payablegolbez",
+            "flag": "-wacky:tellahmaneuver",
             "offset": 476,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:gottagofast",
+            "flag": "-wacky:3point",
             "offset": 477,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:worthfighting",
+            "flag": "-wacky:friendlyfire",
             "offset": 478,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:saveusbigchocobo",
+            "flag": "-wacky:payablegolbez",
             "offset": 479,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:isthisrandomized",
+            "flag": "-wacky:gottagofast",
             "offset": 480,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:forwardisback",
+            "flag": "-wacky:worthfighting",
             "offset": 481,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:mirrormirror",
+            "flag": "-wacky:saveusbigchocobo",
             "offset": 482,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-tweak:kainmagic",
+            "flag": "-wacky:isthisrandomized",
             "offset": 483,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-tweak:edwardheal",
+            "flag": "-wacky:forwardisback",
             "offset": 484,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:all",
+            "flag": "-wacky:mirrormirror",
             "offset": 485,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:keyitems",
+            "flag": "-tweak:kainmagic",
             "offset": 486,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:rewards",
+            "flag": "-tweak:edwardheal",
             "offset": 487,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:chars",
+            "flag": "-spoil:all",
             "offset": 488,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:treasure",
+            "flag": "-spoil:keyitems",
             "offset": 489,
-            "size": 2,
+            "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:miabs",
-            "offset": 489,
-            "size": 2,
-            "value": 2
+            "flag": "-spoil:rewards",
+            "offset": 490,
+            "size": 1,
+            "value": 1
         },
         {
-            "flag": "-spoil:shops",
+            "flag": "-spoil:chars",
             "offset": 491,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:bosses",
+            "flag": "-spoil:treasure",
             "offset": 492,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:miabs",
+            "offset": 492,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "-spoil:shops",
+            "offset": 494,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:bosses",
+            "offset": 495,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:misc",
-            "offset": 493,
+            "offset": 496,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:sparse10",
-            "offset": 494,
-=======
-            "flag": "-spoil:sparse10",
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 1
         },
         {
             "flag": "-spoil:sparse20",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 2
         },
         {
             "flag": "-spoil:sparse30",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 3
         },
         {
             "flag": "-spoil:sparse40",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 4
         },
         {
             "flag": "-spoil:sparse50",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 5
         },
         {
             "flag": "-spoil:sparse60",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 6
         },
         {
             "flag": "-spoil:sparse70",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 7
         },
         {
             "flag": "-spoil:sparse80",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 8
         },
         {
             "flag": "-spoil:sparse90",
-<<<<<<< HEAD
-            "offset": 494,
-=======
-            "offset": 360,
->>>>>>> jayp/dev
+            "offset": 497,
             "size": 4,
             "value": 9
         }
