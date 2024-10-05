@@ -228,7 +228,10 @@ class Site:
             return self._env.get_template('markdown_template.html').render(title="my title",content=mdText)
         
         else:
-            return self._env.get_template('fork_info.html').render(fork_link=FreeEnt.FORK_SOURCE_URL)
+            with open(os.path.join(os.path.dirname(__file__), 'markdown', f"main_info.md"), 'r') as infile:
+                  file_text = infile.read()
+            mdText = markdown.markdown(file_text, extensions=['attr_list', 'tables', 'def_list', 'admonition'])
+            return self._env.get_template('fork_info.html').render(fork_link=FreeEnt.FORK_SOURCE_URL, content=mdText)
             
         
     @cherrypy.expose
