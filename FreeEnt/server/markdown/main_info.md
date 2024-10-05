@@ -37,8 +37,6 @@ Please see the original repo for its README information.
 ## v4.6.0 Contributors
 Free Enterprise was made possible using the extensive technical research and knowledge of PinkPuff, Grimoire LD, Chillyfeez, and Aexoden. This repo contains code written and designed by b0ardface/HungryTenor, Crow, Myself086, Myria, mxzv, and Wylem. It also contains the graphic design work of SchalaKitty and Steph Sybydlo. It is based on the game design work of riversmccown and mxzv. And while their specific assets are not included in this repo, the musical work of Xenocat and Calmlamity contributes extensively to Free Enterprise, and was formative in the development of tools contained here.
 
-To help forks provide their own in-depth documentation, there is a new `/fork_info` page added to `website.py`. There is also support for adding arbitrary html or markdown files and linking to them from anywhere on the site using either the `page_name` or `md_file` query parameters added to `/fork_info`. `version.py` has also been extended with a `FORK_SOURCE_URL` property, which will be used to provide a link to your fork's repository on the base `/fork_info` page. Documentation for the markdown option is provided in `FreeEnt/server/markdown/_example.md`. When running the site with the `--local` parameter, you can view the markdown example at `/markdown_test`, and any of your markdown files at `/markdown_test?md_file=your_file_name`. 
-
 ## Community Contributors:
 
 This repository contains other code written by community members who are not (necessarily) part of the formal "Green Names" FE development team, including:

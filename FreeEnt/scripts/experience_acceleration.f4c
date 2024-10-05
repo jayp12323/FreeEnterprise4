@@ -216,7 +216,7 @@ msfpatch {
     %DoSubtract:
         // setting the carry means we compute (KI checks-1) - (KIs - 1)
         // clearing the carry means we compute (KI checks-1) - KIs
-        clc
+        sec
         sbc $=Stats_KeyItems
     %DoDivision:
 
