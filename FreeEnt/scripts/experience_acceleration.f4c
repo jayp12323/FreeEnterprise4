@@ -209,9 +209,16 @@ msfpatch {
         clc
     %ComputeDifference:
         lda $_Rewards__KeyItemChecksCount
-        sbc $=Stats_KeyItems
+        cmp $=Stats_KeyItems
+        bcs $+DoSubtract
+        lda #$0000
+        bra $+DoDivision
+    %DoSubtract:
         // setting the carry means we compute (KI checks-1) - (KIs - 1)
         // clearing the carry means we compute (KI checks-1) - KIs
+        clc
+        sbc $=Stats_KeyItems
+    %DoDivision:
 
         xba
         lda #$00
