@@ -1,4 +1,4 @@
-g# [Try it out here!](https://ff4fe.galeswift.com/make)
+Curious about the changes?  [Try it out here!](https://ff4fe.galeswift.com/make)
 
 # Implemented flags:
 - Omode:bosscollector: Kill X number of bosses as an objective
