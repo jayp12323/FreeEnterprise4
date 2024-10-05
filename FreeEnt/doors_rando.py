@@ -778,7 +778,7 @@ def is_omnicraft_blocked(location, paths_to_world):
     return True
 
 
-def check_underworld(key_items, paths_to_world, gated_paths, world_paths,scope):
+def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope):
     magma = True
     tower = True
     hook = True
@@ -802,8 +802,8 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths,scope):
 
     damcyan_moon = True if '*[#item.DarkCrystal]' in gated_paths['#Damcyan'] else False
 
-    well_entrance = '#AgartWell' if scope=="-doorsrando" else "#Agart"
-    hook_route_entrance = '#BabilB1' if scope=="-doorsrando" else "#CaveEblanEntrance"
+    well_entrance = '#AgartWell' if scope == "-doorsrando" else "#Agart"
+    hook_route_entrance = '#BabilB1' if scope == "-doorsrando" else "#CaveEblanEntrance"
 
     if is_omnicraft_blocked(darkness_location, paths_to_world) and damcyan_moon:
         print("Damcyan is on the moon and Darkness is omnicraft locked")
@@ -873,9 +873,9 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths,scope):
     return "|".join(gated)
 
 
-def check_logic(key_items, paths_to_world, world_paths,scope):
+def check_logic(key_items, paths_to_world, world_paths, scope):
     gated_paths = return_gated_paths(paths_to_world)
-    underworld_required_ki = check_underworld(key_items, paths_to_world, gated_paths, world_paths,scope)
+    underworld_required_ki = check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
     if underworld_required_ki is False:
         return False
     elif underworld_required_ki:
@@ -926,13 +926,15 @@ def add_doors_paths_entrancerando(paths_to_world):
 
 def apply(env, randomize_scope, randomize_type, testing=False):
     doors_view = databases.get_doors_dbview()
-    non_random_locations = [list(i) for i in doors_view.find_all(lambda sp: (sp.type == "non_randomized"))]
+    non_random_locations=[]
+    if randomize_scope == "-doorsrando":
+        non_random_locations = [list(i) for i in doors_view.find_all(lambda sp: (sp.type == "non_randomized"))]
 
-    non_random_normalized_location = []
-    for i in non_random_locations:
-        non_random_normalized_location.append([i[0], i[1], i[2], i[3], i[8], i[4], i[5], i[6], i[7]])
+        non_random_normalized_location = []
+        for i in non_random_locations:
+            non_random_normalized_location.append([i[0], i[1], i[2], i[3], i[8], i[4], i[5], i[6], i[7]])
 
-    non_random_locations = list(non_random_normalized_location)
+        non_random_locations = list(non_random_normalized_location)
     print(f"Rando type is {randomize_type}")
     # randomize_type = "gated"
     if randomize_type == "normal":
@@ -982,7 +984,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
         miab_locations_sylph = [str(i) for i in env.meta["miab_locations"] if
                                 env.meta["miab_locations"][i][0] == "#SylvanCaveYangRoom"]
         for i in key_items:
-            if key_items[i]["slot"] in miab_locations_sylph and randomize_scope=="-doorsrando":
+            if key_items[i]["slot"] in miab_locations_sylph and randomize_scope == "-doorsrando":
                 key_items[i]["location"] = "#SylvanCaveYangRoom"
         no_free_flags = [str(x) for x in env.options.flags._flags if "Knofree" in x]
         for item in key_items:
@@ -1021,7 +1023,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
             else:
                 key_items[item]["and"] = paths_to_world[ki_required_room]
                 key_items[item]["and_location"] = [ki_required_room]
-        is_valid = check_logic(key_items, paths_to_world, world_paths,randomize_scope)
+        is_valid = check_logic(key_items, paths_to_world, world_paths, randomize_scope)
         if not is_valid:
             attempts += 1
         else:
@@ -1076,24 +1078,28 @@ def apply(env, randomize_scope, randomize_type, testing=False):
                        "mapgrid ($06 16 31) { 7C }",  # Agart return tile to trigger tile
                        "mapgrid ($06 17 31) { 7C }",  # Agart return tile to trigger tile
                        "mapgrid ($136 17 9) { 72 }",  # CaveOfSummons1F return tile to trigger tile
-                       "mapgrid ($137 4 18) { 72 }",  # CaveOfSummons2F return tile to trigger tile
-                       "mapgrid ($138 11 1) { 72 }",  # CaveOfSummons3F return tile to trigger tile
-                       "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
-                       "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
-                       "mapgrid ($13B 16 24) { 51 }",  # Feymarch treasury removing exit tile
-                       "mapgrid ($13C 28 11) { 25 }",  # Feymarch 2F return tile to trigger tile
                        "mapgrid ($145 16 1) { 72 }",  # Sylph Cave return tile to trigger tile
-                       "mapgrid ($145 16 27) { 72 }",  # Sylph Cave 1F return tile to trigger tile
-                       "mapgrid ($146 6 26) { 72 }",  # Sylph Cave 2F return tile to trigger tile
-                       "mapgrid ($146 17 17) { 72 }",  # Sylph Cave 2F return tile to trigger tile
-                       "mapgrid ($147 5 6) { 72 }",  # Sylph Cave 3F return tile to trigger tile
-                       "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
-                       "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
                        "mapgrid ($160 16 29) { 6E }",  # Lunar Palace Lobby return tile to trigger tile
                        ]
+    return2teleport_doorsonly = ["mapgrid ($137 4 18) { 72 }",  # CaveOfSummons2F return tile to trigger tile
+                                 "mapgrid ($138 11 1) { 72 }",  # CaveOfSummons3F return tile to trigger tile
+                                 "mapgrid ($13A 12 14) { 25 }",  # Feymarch 1F return tile to trigger tile
+                                 "mapgrid ($13B 16 21) { 25 }",  # Feymarch treasury return tile to trigger tile
+                                 "mapgrid ($13B 16 24) { 51 }",  # Feymarch treasury removing exit tile
+                                 "mapgrid ($13C 28 11) { 25 }",  # Feymarch 2F return tile to trigger tile
+                                 "mapgrid ($145 16 27) { 72 }",  # Sylph Cave 1F return tile to trigger tile
+                                 "mapgrid ($146 6 26) { 72 }",  # Sylph Cave 2F return tile to trigger tile
+                                 "mapgrid ($146 17 17) { 72 }",  # Sylph Cave 2F return tile to trigger tile
+                                 "mapgrid ($147 5 6) { 72 }",  # Sylph Cave 3F return tile to trigger tile
+                                 "mapgrid ($149 11 10) { 70 }",  # Sylph Yang Room removing exit tile
+                                 "mapgrid ($149 9 4) { 23 }",  # Sylph Yang room return tile to trigger tile
+                                 ]
 
     for i in return2teleport:
         env.add_script(i)
+    if randomize_scope == "-doorsrando":
+        for i in return2teleport_doorsonly:
+            env.add_script(i)
 
     env.add_script(script)
     special_triggers_script = '\n'.join(special_triggers)
@@ -1103,7 +1109,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
     sprite = env.rnd.choice(NON_PLAYER_SPRITES)
     env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
 
-    # print(script)
+    print(script)
 
     towns_map = []
     other_entrances = []
