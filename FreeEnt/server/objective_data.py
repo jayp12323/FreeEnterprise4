@@ -86,7 +86,7 @@ OBJECTIVES = {
     0x67: {'slug' : 'quest_tradepan', 'reward': '#item.Pan', 'desc': 'Return the Pan to Yang\'s wife'},
     0x68: {'slug' : 'quest_tradepink', 'reward': '#item.Pink', 'desc': 'Trade away the Pink Tail'},
     0x69: {'slug' : 'quest_pass', 'reward': '#item.Pass', 'desc': 'Unlock the Pass door in Toroia'},
-    0x6A: {'slug' : 'internal_ki', 'reward': 'none', 'desc': 'Obtain %d key items'},
+    0x6A: {'slug' : 'internal_ki', 'reward': 'none', 'desc': 'Obtain %d key %t'},
     0x6B: {'slug' : 'internal_bosscollector', 'reward': 'none', 'desc': 'Defeat %d %t'},
     0x6C: {'slug' : 'internal_goldhunter', 'reward': 'none', 'desc': 'Bring %d GP to Tory in Agart'},
     0x6D: {'slug' : 'internal_dkmatter', 'reward': 'none', 'desc': 'Bring DkMatters to Kory in Agart'},
