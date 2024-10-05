@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Lato');
 @import url('https://fonts.googleapis.com/css?family=Anonymous+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
 
 * {
     box-sizing: border-box;
@@ -32,6 +33,19 @@ body {
     color: silver;
     margin-bottom: 1em;
     text-align: center;
+
+    a {
+        color: silver;
+        text-decoration: none;
+    }
+
+    a:visted {
+        color: silver
+    }
+
+    a:hover {
+        color: rgb(150, 150, 150)
+    }
 }
 
 #betaChangelog {
@@ -139,7 +153,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     cursor: pointer;
-    user-select: none;        
+    user-select: none;
 }
 
 .applyFlagsButton:active {
@@ -160,7 +174,7 @@ body {
 }
 
 .presetCategory {
-    border-bottom: 1px dotted #614183;    
+    border-bottom: 1px dotted #614183;
     color: #e1d8e4;
     text-transform: uppercase;
     padding-left: 0.4em;
@@ -169,7 +183,7 @@ body {
 }
 
 .presetHeader {
-    border-bottom: 1px dotted #614183;    
+    border-bottom: 1px dotted #614183;
     padding-top: 0.5em;
     color: rgb(72 46 78);
     font-size: 0.9em;
@@ -217,7 +231,7 @@ body {
 }
 
 .presetDescription p {
-    margin: 0.7em 0;    
+    margin: 0.7em 0;
 }
 
 .presetDescription a {
@@ -233,8 +247,7 @@ body {
     overflow-wrap: anywhere;
 }
 
-.flagEditor {
-}
+.flagEditor {}
 
 .flagSection {
     margin-bottom: 0.3em;
