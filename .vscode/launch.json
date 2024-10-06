@@ -9,7 +9,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "FreeEnt",
-            "args": [".\\ff4.smc", "make","-f", "O1:quest_forge/2:quest_magnes/random:5,char/req:5/hardreq:2/gated:1/win:crystal Kmain/summon/moon/nofree/unweighted/start:legend Pchests Cstandard/nofree/noearned/j:abilities/nekkie/treasure:free,unsafe/start:fusoya Twildish/playable/maxtier:7/mintier:3 Sstandard/always:hrglass,starveil,coffin/no:sirens,vampires Bstandard/alt:gauntlet/itburns/whichbez/woahdin Etoggle Gwarp/life/sylph/backrow -kit:basic -noadamants -spoon -smith:super,playable -fusoya:vanilla -exp:nokeybonus,kicheckbonus5,zonkbonus5,geometric90 -vanilla:miabs", "-t open" ,"-s","XNJ55V49SY","-o", "output/output.smc"]
+            "args": [".\\ff4.smc", "make","-f", "O1:quest_forge/2:quest_magnes/random:5,char/req:5/hardreq:2/gated:1/win:crystal Kmain/summon/moon/nofree/unweighted/start:legend Pchests Cstandard/nofree/noearned/start:any/j:abilities/nekkie/treasure:free,unsafe Twildish/playable/maxtier:7/mintier:3 Sstandard/always:hrglass,starveil,coffin/no:sirens,vampires Bstandard/alt:gauntlet/itburns/whichbez/woahdin Etoggle Gwarp/life/sylph/backrow -kit:basic -noadamants -spoon -smith:super,playable -fusoya:sequential_r,maybe -exp:nokeybonus,kicheckbonus5,zonkbonus5,geometric90 -vanilla:miabs", "-t open" ,"-s","XNJ55V49SY","-o", "output/output.smc"]
             //"args": [".\\ff4.smc", "make","-f", "Omode:goldcollector/1:quest_magma/2:boss_antlion/random:2/req:1/hardreq:2/gated:1/win:game Kmain Pnone Cstandard/start:fusoya Tvanilla Svanilla Bvanilla Etoggle Gnone -fusoya:vanilla", "-t open" ,"-s","XNJ55V49SY","-o", "output/output.smc"]            
         }
     ]
