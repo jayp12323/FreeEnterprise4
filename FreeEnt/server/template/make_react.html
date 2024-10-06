@@ -19,7 +19,12 @@
     <div id="spine">
         {% if beta_changelog %}
         <div id="betaChangelog" class="shadow" onclick="toggleBetaChangelog();">
-            <div>{{ version }} BETA CHANGELOG (click to show/hide)</div>
+            <div>{{ version }} BETA CHANGELOG (click to show/hide)
+                {% if fork_link %}
+                <a href="{{ fork_link }}" class="nf nf-fa-code_fork" onclick="event.stopPropagation();"></a>
+                {% endif %}
+                <a href="/fork_info" class="nf nf-md-information" onclick="event.stopPropagation();"></a>
+            </div>
             <div id="betaChangelogContent" style="display: none;">{{ beta_changelog }}</div>
         </div>
         <script>
@@ -33,8 +38,9 @@
         {% else %}
         <div id="version" class="shadow">Current version : {{ version }}
             {% if fork_link %}
-            <a href="{{ fork_link }}" class="nf nf-fa-code_fork" target="_blank"></a>
+            <a href="{{ fork_link }}" class="nf nf-fa-code_fork" onclick="event.stopPropagation();"></a>
             {% endif %}
+            <a href="/fork_info" class="nf nf-md-information" onclick="event.stopPropagation();"></a>
         </div>
         {% endif %}
 

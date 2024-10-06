@@ -56,6 +56,21 @@ body {
     color: silver;
     margin-bottom: 1em;
     overflow-x: scroll;
+
+    a {
+        color: silver;
+        text-decoration: none;
+    }
+
+    a:visted {
+        color: silver;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: rgb(150, 150, 150);
+        text-decoration: none;
+    }
 }
 
 #betaChangelogContent {
