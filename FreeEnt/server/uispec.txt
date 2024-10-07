@@ -857,6 +857,7 @@
 .(-wacky:omnidextrous)      "Omnidextrous"
 .(-wacky:payablegolbez)     "Payable Golbez"
 .(-wacky:saveusbigchocobo)! "Save Us, Big Chocobo!"
+.(-wacky:scrambledstats)!   "Scrambled Stats"
 .(-wacky:sixleggedrace)     "Six-Legged Race"
 .(-wacky:skywarriors)       "The Sky Warriors"
 .(-wacky:worthfighting)!    "Something Worth Fighting For"

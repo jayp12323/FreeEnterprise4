@@ -7870,6 +7870,133 @@ var FLAG_UISPEC = [
                 "flag": "-wacky:random6",
                 "title": "6 random wacky challenges",
                 "hard": true
+<<<<<<< HEAD
+=======
+              },
+              {
+                "flag": "-wacky:floorislava",
+                "title": "\"The Floor Is Made Of Lava\""
+              },
+              {
+                "flag": "-wacky:forwardisback",
+                "title": "\"Forward is the New Back\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:friendlyfire",
+                "title": "\"Friendly Fire\""
+              },
+              {
+                "flag": "-wacky:gottagofast",
+                "title": "\"Gotta Go Fast\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:batman",
+                "title": "\"Holy Onomatopoeias, Batman!\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:imaginarynumbers",
+                "title": "\"Imaginary Numbers\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:isthisrandomized",
+                "title": "\"Is This Even Randomized?\""
+              },
+              {
+                "flag": "-wacky:kleptomania",
+                "title": "\"Kleptomania\""
+              },
+              {
+                "flag": "-wacky:menarepigs",
+                "title": "\"Men Are Pigs\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:misspelled",
+                "title": "\"Misspelled\""
+              },
+              {
+                "flag": "-wacky:biggermagnet",
+                "title": "\"A Much Bigger Magnet\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:mysteryjuice",
+                "title": "\"Mystery Juice\""
+              },
+              {
+                "flag": "-wacky:neatfreak",
+                "title": "\"Neat Freak\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:nightmode",
+                "title": "\"Night Mode\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:omnidextrous",
+                "title": "\"Omnidextrous\""
+              },
+              {
+                "flag": "-wacky:payablegolbez",
+                "title": "\"Payable Golbez\""
+              },
+              {
+                "flag": "-wacky:saveusbigchocobo",
+                "title": "\"Save Us, Big Chocobo!\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:scrambledstats",
+                "title": "\"Scrambled Stats\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:sixleggedrace",
+                "title": "\"Six-Legged Race\""
+              },
+              {
+                "flag": "-wacky:skywarriors",
+                "title": "\"The Sky Warriors\""
+              },
+              {
+                "flag": "-wacky:worthfighting",
+                "title": "\"Something Worth Fighting For\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:tellahmaneuver",
+                "title": "\"The Tellah Maneuver\""
+              },
+              {
+                "flag": "-wacky:3point",
+                "title": "\"The 3-Point System\""
+              },
+              {
+                "flag": "-wacky:timeismoney",
+                "title": "\"Time is Money\""
+              },
+              {
+                "flag": "-wacky:darts",
+                "title": "\"World Championship of Darts\""
+              },
+              {
+                "flag": "-wacky:unstackable",
+                "title": "\"Unstackable\"",
+                "hard": true
+              },
+              {
+                "flag": "-wacky:whatsmygear",
+                "title": "\"What's My Gear Again?\""
+              },
+              {
+                "flag": "-wacky:zombies",
+                "title": "\"Zombies!!!\""
+>>>>>>> 3ed97b3 (Adding -wacky:scrambledstats)
               }
             ]
           },
