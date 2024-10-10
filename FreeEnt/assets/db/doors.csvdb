@@ -57,6 +57,8 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #BaronCastle,3,17,31,#Overworld,102,158,,exit,#BaronCastle_#Overworld_,#Overworld
 #Fabul,1,13,7,#FabulWestTower1F,8,7,up,town_building,#Fabul_#FabulWestTower1F_up,#Overworld
 #Fabul,3,15,31,#Overworld,215,59,,exit,#Fabul_#Overworld_,#Overworld
+#ToroiaCastle,1,9,11,#ToroiaCastleHospital,2,5,up,town_building,#ToroiaCastle_#ToroiaCastleHospital_up,#Overworld
+#ToroiaCastle,2,23,11,#ToroiaCastleStairs,4,6,up,town_building,#ToroiaCastle_#ToroiaCastleStairs_up,#Overworld
 #ToroiaCastle,5,15,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
 #ToroiaCastle,6,16,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld
 #ToroiaCastle,7,17,30,#Overworld,35,82,,exit,#ToroiaCastle_#Overworld_,#Overworld

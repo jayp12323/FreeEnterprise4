@@ -96,7 +96,7 @@ ki_location = {"-doorsrando": {"RewardSlot.antlion_item": "#AntlionCave1F", "Rew
                                "RewardSlot.zot_character_2": "#ToroiaCastle",
                                "RewardSlot.zot_chest": "#ToroiaCastle", "RewardSlot.zot_item": "#ToroiaCastle",
                                "RewardSlot.fixed_crystal": "#LunarPalaceLobby",
-                               "RewardSlot.toroia_hospital_item": "#ToroiaCastle"},
+                               "RewardSlot.toroia_hospital_item": "#ToroiaCastleHospital"},
                "-entrancesrando": {"RewardSlot.antlion_item": "#AntlionCave1F",
                                    "RewardSlot.babil_boss_item": "#Babil1F",
                                    "RewardSlot.bahamut_item": "#Bahamut1F",
