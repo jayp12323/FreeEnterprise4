@@ -1107,7 +1107,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
     sprite = env.rnd.choice(NON_PLAYER_SPRITES)
     env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
 
-    print(script)
+    # print(script)
 
     towns_map = []
     other_entrances = []
