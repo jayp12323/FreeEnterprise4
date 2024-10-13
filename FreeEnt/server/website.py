@@ -458,7 +458,7 @@ def run(config, task_queue):
     if not config.local:
         cherrypy.config.update({
             'environment' : 'production',
-            'show_tracebacks' : False
+            'show_tracebacks' : False,
             'tools.proxy.on':True,
             'tools.proxy.base': 'https://ff4fe.galeswift.com'
             })
