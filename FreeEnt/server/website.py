@@ -459,6 +459,8 @@ def run(config, task_queue):
         cherrypy.config.update({
             'environment' : 'production',
             'show_tracebacks' : False
+            'tools.proxy.on':True,
+            'tools.proxy.base': 'https://ff4fe.galeswift.com'
             })
 
     db_client = pymongo.MongoClient(config.db_url)
