@@ -210,7 +210,13 @@ DIRECTION_MAP = {
 }
 
 
-def map_exit_to_entrance(remapped_entrances, exit):
+def map_exit_to_entrance(remapped_entrances, exit, scope ):
+
+    if scope == "-entrancesrando":
+        if "SylvanCaveYangRoom" in exit[0]:
+            exit = ["#SylvanCave1F", "", "", "", "#Underworld"]
+        elif "#FeymarchTreasury" in exit[0]:
+            exit = ["#CaveOfSummons1F", "", "", "", "#Underworld"]
     if "SylvanCaveTreasury" in exit[0] or "#SylvanCave3F" in exit[0]:
         exit = ["#SylvanCave1F", "", "", "", "#Underworld"]
     elif "CaveOfSummons3F" in exit[0]:
@@ -238,7 +244,7 @@ def map_exit_to_entrance(remapped_entrances, exit):
     return ""
 
 
-def shuffle_locations(rnd, entrances, exits):
+def shuffle_locations(rnd, entrances, exits, scope):
     towns_ = towns_flat
     entrance_destinations = [entrance[4:] for entrance in entrances]
     exit_dict = {}
@@ -287,12 +293,15 @@ def shuffle_locations(rnd, entrances, exits):
 
     remapped_exits = []
     for i in exits:
-        entrance = map_exit_to_entrance(remapped_entrances, i)
+        entrance = map_exit_to_entrance(remapped_entrances, i, scope)
         if entrance:
             remapped_exits.append(i[0:4] + [i[-2]] + entrance)
         else:
-            print("not found")
-            print(i)
+            if i[0] in ['#FeymarchTreasury', '#SylvanCaveYangRoom']:
+                pass # doors rando, not entrances rando
+            else:
+                print("not found")
+                print(i)
     return [remapped_entrances, remapped_exits]
 
 
@@ -344,7 +353,7 @@ def map_path_to_entrance_names(path, remapped_map):
     return new_path
 
 
-def randomize_doors(env, entrances, exits):
+def randomize_doors(env, entrances, exits, scope):
     is_loop = False
     loop_count = 0
     tries = 1
@@ -369,7 +378,7 @@ def randomize_doors(env, entrances, exits):
         loop_count += 1
         max_tries = 1000
         try:
-            remapped_entrances, remapped_exits = shuffle_locations(env.rnd, entrances, exits)
+            remapped_entrances, remapped_exits = shuffle_locations(env.rnd, entrances, exits, scope)
         except TypeError:
             tries += 1
             if tries < max_tries:
@@ -964,7 +973,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
         for i in worlds:
             entrances, exits = get_entrances_exits(i, randomize_scope, doors_view)
             shuffled_entrances_temp, shuffled_exits_temp, spoil_entrances_temp, spoil_entrances_for_spoiler_temp, graph_temp, paths_to_world_temp, world_paths_temp = randomize_doors(
-                env, entrances, exits)
+                env, entrances, exits,randomize_scope)
             shuffled_entrances += shuffled_entrances_temp
             shuffled_exits += shuffled_exits_temp
             spoil_entrances += spoil_entrances_temp
@@ -1112,7 +1121,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
     sprite = env.rnd.choice(NON_PLAYER_SPRITES)
     env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
 
-    # print(script)
+    print(script)
 
     towns_map = []
     other_entrances = []
