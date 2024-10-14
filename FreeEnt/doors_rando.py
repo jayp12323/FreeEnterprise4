@@ -799,12 +799,17 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
                              and magma_location not in world_paths["#Underworld"] else False
 
     damcyan_moon = True if '*[#item.DarkCrystal]' in gated_paths['#Damcyan'] else False
+    mysidia_moon = True if '*[#item.DarkCrystal]' in gated_paths['#Mysidia'] else False
 
     well_entrance = '#AgartWell' if scope == "-doorsrando" else "#Agart"
     hook_route_entrance = '#BabilB1' if scope == "-doorsrando" else "#CaveEblanEntrance"
 
     if is_omnicraft_blocked(darkness_location, paths_to_world) and damcyan_moon:
         print("Damcyan is on the moon and Darkness is omnicraft locked")
+        return False
+
+    if mysidia_moon:
+        print("Mysidia is on the moon, so locking itself")
         return False
 
     while magma:
