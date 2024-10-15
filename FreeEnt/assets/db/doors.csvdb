@@ -78,6 +78,8 @@ map,trigger_number,x,y,dest,dest_x,dest_y,facing,type,name,world
 #MountOrdeals1F,4,21,31,#Overworld,218,200,,exit,#MountOrdeals1F_#Overworld_,#Overworld
 #BabilB1,3,28,18,#CaveEblanExit,22,3,down,exit,#BabilB1_#CaveEblanExit_down,#Overworld
 #CaveEblanEntrance,3,10,3,#Overworld,24,232,,exit,#CaveEblanEntrance_#Overworld_,#Overworld
+#CaveEblanSettlement,2,22,9,#CaveEblanInn,17,10,up,town_building,#CaveEblanSettlement_#CaveEblanInn_up,#Overworld
+#CaveEblanSettlement,3,17,7,#CaveEblanEquipment,9,11,up,town_building,#CaveEblanSettlement_#CaveEblanEquipment_up,#Overworld
 #CaveEblanExit,4,22,2,#BabilB1,28,17,up,town_building,#CaveEblanExit_#BabilB1_up,#Overworld
 #Overworld,0,101,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
 #Overworld,1,102,156,#BaronCastle,16,30,up,entrance,#Overworld_#BaronCastle_up,#Overworld
