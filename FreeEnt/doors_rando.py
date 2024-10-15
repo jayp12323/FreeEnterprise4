@@ -420,8 +420,11 @@ def randomize_doors(env, entrances, exits, scope):
         try:
             graph["#Fabul"]["entrances"].append("#FabulLobby")
             graph["#FabulLobby"]["exits"].append("#Fabul")
-            graph["#CaveEblanExit"]["exits"].append("#CaveEblanEntrance")
-            graph["#CaveEblanEntrance"]["entrances"].append("#CaveEblanExit")
+            graph["#CaveEblanExit"]["exits"].append("#CaveEblanSettlement")
+            graph["#CaveEblanEntrance"]["entrances"].append("#CaveEblanSettlement")
+            graph["#CaveEblanSettlement"]["entrances"].append("#CaveEblanExit")
+            graph["#CaveEblanSettlement"]["exits"].append("#CaveEblanEntrance")
+
         except:
             pass  # Not overworld
         try:
@@ -1123,7 +1126,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
     sprite = env.rnd.choice(NON_PLAYER_SPRITES)
     env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
 
-    print(script)
+    # print(script)
 
     towns_map = []
     other_entrances = []
