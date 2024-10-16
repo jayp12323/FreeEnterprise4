@@ -68,6 +68,8 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -pushbtojump
 -doorsrando/-doorsrando:normal/-doorsrando:gated/-doorsrando:blueplanet/-doorsrando:why/-doorsrando:all
 -entrancesrando/-entrancesrando:normal/-entrancesrando:gated/-entrancesrando:blueplanet/-entrancesrando:why/-entrancesrando:all
+-calmness
+-forcesealed
 -wacky:random/-wacky:random2/-wacky:random3/-wacky:random4/-wacky:random5/-wacky:random6
 -wacky:musical
 -wacky:bodyguard

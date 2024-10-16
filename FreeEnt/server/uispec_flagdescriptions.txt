@@ -632,6 +632,12 @@ Randomizes most Entrances in the game. Doors inside towns remain intact.
     <li>All=Doors of each world (Overworld, Underworld, Moon) are shuffled together.</li>
 </ul>
 
+[-calmness]
+Disables the use of the Panic button (Select + R)
+
+[-forcesealed]
+Fighting the Sealed Cave boss is required before seeing the KI
+
 [-pushbtojump]
 <ul>
     <li>Enables the April Fools Day 2020 mode.</li>

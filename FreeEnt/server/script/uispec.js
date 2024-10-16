@@ -5353,6 +5353,85 @@ var FLAG_UISPEC = [
     ]
   },
   {
+    "title": "DOORS",
+    "controls": [
+      {
+        "flag": "@anon48",
+        "title": "Doors Randomization Options",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "-doorsrando:normal",
+            "title": "Doors Shuffle without Cross World",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:gated",
+            "title": "Underworld and Moon Doors shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:blueplanet",
+            "title": "Overworld and Underworld Doors Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:why",
+            "title": "Overworld and Moon Doors shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-doorsrando:all",
+            "title": "All Doors shuffled",
+            "hard": true
+          }
+        ]
+      },
+      {
+        "flag": "@anon49",
+        "title": "Entrances Randomization Options",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "-entrancesrando:normal",
+            "title": "Entrances Shuffle without Cross World",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:gated",
+            "title": "Underworld and Moon Entrances Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:blueplanet",
+            "title": "Overworld and Underworld Entrances Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:why",
+            "title": "Overworld and Moon Entrances Shuffled",
+            "hard": true
+          },
+          {
+            "flag": "-entrancesrando:all",
+            "title": "All Entrances Shuffled",
+            "hard": true
+          }
+        ]
+      },
+      {
+        "flag": "-calmness",
+        "title": "Disable the Panic Button (Select + R)",
+        "description": "Disables the use of the Panic button (Select + R)"
+      },
+      {
+        "flag": "-forcesealed",
+        "title": "Disable skipping the Sealed Cave Boss",
+        "description": "Fighting the Sealed Cave boss is required before seeing the KI"
+      }
+    ]
+  },
+  {
     "title": "OTHER",
     "controls": [
       {
@@ -5361,7 +5440,7 @@ var FLAG_UISPEC = [
         "description": "Starter kits allow you to begin the game with additional items in your inventory.",
         "subcontrols": [
           {
-            "flag": "@anon48",
+            "flag": "@anon50",
             "title": "Kit 1",
             "type": "select",
             "subcontrols": [
@@ -5518,7 +5597,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon49",
+            "flag": "@anon51",
             "title": "Kit 2",
             "type": "select",
             "subcontrols": [
@@ -5675,7 +5754,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon50",
+            "flag": "@anon52",
             "title": "Kit 3",
             "type": "select",
             "subcontrols": [
@@ -5846,7 +5925,7 @@ var FLAG_UISPEC = [
         "title": "Edward can equip the Spoon"
       },
       {
-        "flag": "@anon51",
+        "flag": "@anon53",
         "title": "Smithy reward",
         "type": "select",
         "subcontrols": [
@@ -5897,7 +5976,7 @@ var FLAG_UISPEC = [
             "description": "Normally, objectives do not increase the amount of EXP received from battles. Under this flag, each completed objective earns you more EXP from each battle.",
             "subcontrols": [
               {
-                "flag": "@anon52",
+                "flag": "@anon54",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5924,7 +6003,7 @@ var FLAG_UISPEC = [
             "description": "Normally, completing key item checks does not increase the amount of EXP received from battles. Under this flag, each completed key item check beyond the starting item earns you more EXP from each battle.",
             "subcontrols": [
               {
-                "flag": "@anon53",
+                "flag": "@anon55",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5955,7 +6034,7 @@ var FLAG_UISPEC = [
             "description": "Normally, the rewards from key item checks do not impact the amount of EXP received from battles. Under this flag, every time you get a non-key-item reward from a potential key item check (a \"zonk\") you earn more EXP from future battles.",
             "subcontrols": [
               {
-                "flag": "@anon54",
+                "flag": "@anon56",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -5981,7 +6060,7 @@ var FLAG_UISPEC = [
             "description": "Normally, MIAB encounters have the same EXP calculation as other encounters. Under this flag, MIAB encounters award double or 1.5 times the usual EXP.",
             "subcontrols": [
               {
-                "flag": "@anon55",
+                "flag": "@anon57",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -6003,7 +6082,7 @@ var FLAG_UISPEC = [
             "description": "Normally, location of encounter does not increase EXP. Under this flag, encounters on the moon award double or triple the usual EXP.",
             "subcontrols": [
               {
-                "flag": "@anon56",
+                "flag": "@anon58",
                 "title": "Amount of bonus EXP",
                 "type": "select",
                 "subcontrols": [
@@ -6030,7 +6109,7 @@ var FLAG_UISPEC = [
             "description": "Normally in FF4, each instance of a monster type killed in battle gives the same amount of EXP. Under this flag, each monster of the same type defeated in the same battle will yield a scaled amount of the EXP of the previous monster of that type, giving diminishing returns for repeated monster kills. Note that the reduction is per monster type and not \"per slot\" in battle.",
             "subcontrols": [
               {
-                "flag": "@anon57",
+                "flag": "@anon59",
                 "title": "Per-monster-kill percentage reduction",
                 "type": "select",
                 "subcontrols": [
@@ -6124,70 +6203,6 @@ var FLAG_UISPEC = [
         "flag": "-vintage",
         "title": "Vintage Battlefield",
         "description": "Enables the April Fools Day 2019 mode."
-      },
-      {
-        "flag": "@anon58",
-        "title": "Doors Randomization Options",
-        "type": "select",
-        "subcontrols": [
-          {
-            "flag": "-doorsrando:normal",
-            "title": "No Cross World Shuffle",
-            "hard": true
-          },
-          {
-            "flag": "-doorsrando:gated",
-            "title": "Underworld and Moon shuffled",
-            "hard": true
-          },
-          {
-            "flag": "-doorsrando:blueplanet",
-            "title": "Overworld and Underworld Shuffled",
-            "hard": true
-          },
-          {
-            "flag": "-doorsrando:why",
-            "title": "Overworld and Moon shuffled",
-            "hard": true
-          },
-          {
-            "flag": "-doorsrando:all",
-            "title": "All locations shuffled",
-            "hard": true
-          }
-        ]
-      },
-      {
-        "flag": "@anon59",
-        "title": "Entrances Randomization Options",
-        "type": "select",
-        "subcontrols": [
-          {
-            "flag": "-entrancesrando:normal",
-            "title": "No Cross World Shuffle",
-            "hard": true
-          },
-          {
-            "flag": "-entrancesrando:gated",
-            "title": "Underworld and Moon shuffled",
-            "hard": true
-          },
-          {
-            "flag": "-entrancesrando:blueplanet",
-            "title": "Overworld and Underworld Shuffled",
-            "hard": true
-          },
-          {
-            "flag": "-entrancesrando:why",
-            "title": "Overworld and Moon shuffled",
-            "hard": true
-          },
-          {
-            "flag": "-entrancesrando:all",
-            "title": "All locations shuffled",
-            "hard": true
-          }
-        ]
       },
       {
         "flag": "-pushbtojump",

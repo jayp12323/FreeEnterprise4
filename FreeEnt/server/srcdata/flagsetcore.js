@@ -528,6 +528,9 @@ class FlagLogicCore {
         if (flagset.has_any("-entrancesrando:normal", "-entrancesrando:gated", "-entrancesrando:blueplanet", "-entrancesrando:why", "-entrancesrando:all")) {
             this._simple_disable_regex(flagset, log, "Entrances rando takes priority", "^-doorsrando");
         }
+        if ((! flagset.has_any("-entrancesrando:normal", "-entrancesrando:gated", "-entrancesrando:blueplanet", "-entrancesrando:why", "-entrancesrando:all", "-doorsrando:normal", "-doorsrando:gated", "-doorsrando:blueplanet", "-doorsrando:why", "-doorsrando:all"))) {
+            this._simple_disable(flagset, log, "Removing doors rando related flags when no doors/entrances option is enabled ", ["-calmness", "-forcesealed"]);
+        }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");
         if (((all_spoiler_flags.length > 0) && (all_spoiler_flags.length === sparse_spoiler_flags.length))) {
