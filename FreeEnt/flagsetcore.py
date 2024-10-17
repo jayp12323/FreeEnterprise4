@@ -421,8 +421,8 @@ class FlagLogicCore:
             self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe', 'Kunsafer','Kunweighted'])
             self._simple_disable_regex(flagset, log, 'Key items not randomized', r'^Kstart:')
         
-        if flagset.has('Klstmiab') and flagset.has('Kmiab') and flagset.has_any('Kmoon','Kunsafe'):
-            self._simple_disable(flagset, log, 'LST miabs already included', ['Klstmiab'])
+        if flagset.has('Kmiab:lst') and flagset.has_any('Kmoon','Kunsafe'):
+            self._simple_disable(flagset, log, 'LST miabs already included', ['Kmiab:lst'])
 
         if flagset.has('Kstart:darkness'):
             self._simple_disable(flagset, log, 'Klatedark is incompatible with starting with Darkness', ['Klatedark'])
