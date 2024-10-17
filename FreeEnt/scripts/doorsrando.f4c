@@ -81,7 +81,7 @@ msfpatch{
         rtl
 }
 
-
+// %if ~calmness%
 event($17){
     [#B #If #Flag #flag.TellahFightsEdward]{
         [#B #PutHovercraft 156 201]
@@ -90,9 +90,7 @@ event($17){
         [#B #PutWhale 158 201]
     }
 
-        load map #Overworld at 157 201 on enterprise no launch
-
-
+    load map #Overworld at 157 201 on enterprise no launch
 }
 
 msfpatch{
@@ -123,7 +121,18 @@ msfpatch{
         jml $15C85D
 
 }
+// %end%
 
+
+// %if forcesealed%
+eventcall($47)
+{
+    if not #DemonWallBattle:
+        $AA   //Demon Wall battle
+    else:
+        $00   //(no event)
+}
+// %end%
 
 
 

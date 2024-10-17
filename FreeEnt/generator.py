@@ -808,13 +808,18 @@ def build(romfile, options, force_recompile=False):
 
     if not options.hide_flags:
         env.add_substitution('flags hidden', '')
-    is_doorsrando=options.flags.get_list(r'(doors|entrances)rando')
 
+    is_doorsrando=options.flags.get_list(r'(doors|entrances)rando')
     if is_doorsrando:
         rando_scope,rando_type = is_doorsrando[0].split(":")
         env.add_file('scripts/map_history_extension.f4c')
         env.add_file('scripts/doorsrando.f4c')
         env.add_toggle('doorsrando')
+        if options.flags.has('-calmness'):
+            env.add_toggle('calmness')
+        if options.flags.has('-forcesealed'):
+            env.add_toggle('forcesealed')
+
         doors_rando.apply(env, rando_scope,rando_type)
 
     # must be last

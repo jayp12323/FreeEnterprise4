@@ -516,6 +516,13 @@ class FlagLogicCore:
         if flagset.has_any('-entrancesrando:normal','-entrancesrando:gated','-entrancesrando:blueplanet','-entrancesrando:why','-entrancesrando:all'):
             self._simple_disable_regex(flagset, log, 'Entrances rando takes priority', r'^-doorsrando')
 
+        if not flagset.has_any('-entrancesrando:normal','-entrancesrando:gated','-entrancesrando:blueplanet',
+                               '-entrancesrando:why','-entrancesrando:all','-doorsrando:normal','-doorsrando:gated',
+                               '-doorsrando:blueplanet','-doorsrando:why','-doorsrando:all'):
+            self._simple_disable(flagset, log, 'Removing doors rando related flags when no doors/entrances option is enabled ', ['-calmness','-forcesealed'])
+
+
+
         all_spoiler_flags = flagset.get_list(r'^-spoil:')
         sparse_spoiler_flags = flagset.get_list(r'^-spoil:sparse')
         if (len(all_spoiler_flags) > 0 and len(all_spoiler_flags) == len(sparse_spoiler_flags)):
