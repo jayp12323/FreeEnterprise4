@@ -647,8 +647,7 @@ event($83) // sailing from Fabul
 
 // event($88) // was praying elder, now used for wacky challenges
 
-event($89) // praying elder
-{ } // Erase for space
+//event($89) // was praying elder, now used for objective complete
 
 event($8A) // praying elder
 { } // Erase for space

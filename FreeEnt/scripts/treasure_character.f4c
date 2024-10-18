@@ -109,12 +109,14 @@ msfpatch {
         lda $_CharacterTreasure__RewardSlotIndex
         jsr $_Lookup_AxtorToActor
         jsl $=Objectives__StageProgress        
-        //jsl $=EvEx__ObjectivesImpl_DoEvent  // Handles prepping the event queue        
-        lda #$08  // Load the $08 event handler (which tackles objectives)
+
+        ldx #$6dff  // end event on return
+        stx $1615   // [hardcoded]
+        lda #$.Objectives__ProcessEventID  // Load the $08 event handler (which tackles objectives)
         ldx #$df63 // _decode_event
-        jsl $=Bank00LongCallX         
-        ldx $1615   // [hardcoded]
-        stx $09d3   // Restore the other events        
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCallX                 
+
         lda $_CharacterTreasure__RewardSlotIndex
         jsl $=Rewards__DeliverFromSlot
         sec
