@@ -1203,7 +1203,7 @@ const _FE_FLAGSPEC = {
         "-kit2:cursed",
         "-kit2:hero",
         "-kit2:exit",
-        "-kit:atb",
+        "-kit2:atb",
         "-kit2:random",
         "-kit3:basic",
         "-kit3:better",
@@ -1234,7 +1234,7 @@ const _FE_FLAGSPEC = {
         "-kit3:cursed",
         "-kit3:hero",
         "-kit3:exit",
-        "-kit:atb",
+        "-kit3:atb",
         "-kit3:random",
         "-noadamants",
         "-nocursed",
@@ -2418,7 +2418,7 @@ const _FE_FLAGSPEC = {
             "-kit2:cursed",
             "-kit2:hero",
             "-kit2:exit",
-            "-kit:atb",
+            "-kit2:atb",
             "-kit2:random"
         ],
         [
@@ -2451,7 +2451,7 @@ const _FE_FLAGSPEC = {
             "-kit3:cursed",
             "-kit3:hero",
             "-kit3:exit",
-            "-kit:atb",
+            "-kit3:atb",
             "-kit3:random"
         ],
         [
@@ -9678,7 +9678,7 @@ const _FE_FLAGSPEC = {
             "value": 29
         },
         {
-            "flag": "-kit:atb",
+            "flag": "-kit2:atb",
             "offset": 389,
             "size": 5,
             "value": 30
@@ -9864,7 +9864,7 @@ const _FE_FLAGSPEC = {
             "value": 29
         },
         {
-            "flag": "-kit:atb",
+            "flag": "-kit3:atb",
             "offset": 394,
             "size": 5,
             "value": 30

@@ -1203,7 +1203,7 @@ const _FE_FLAGSPEC = {
         "-kit2:cursed",
         "-kit2:hero",
         "-kit2:exit",
-        "-kit:atb",
+        "-kit2:atb",
         "-kit2:random",
         "-kit3:basic",
         "-kit3:better",
@@ -1234,7 +1234,7 @@ const _FE_FLAGSPEC = {
         "-kit3:cursed",
         "-kit3:hero",
         "-kit3:exit",
-        "-kit:atb",
+        "-kit3:atb",
         "-kit3:random",
         "-noadamants",
         "-nocursed",
@@ -2418,7 +2418,7 @@ const _FE_FLAGSPEC = {
             "-kit2:cursed",
             "-kit2:hero",
             "-kit2:exit",
-            "-kit:atb",
+            "-kit2:atb",
             "-kit2:random"
         ],
         [
@@ -2451,7 +2451,7 @@ const _FE_FLAGSPEC = {
             "-kit3:cursed",
             "-kit3:hero",
             "-kit3:exit",
-            "-kit:atb",
+            "-kit3:atb",
             "-kit3:random"
         ],
         [
@@ -9678,7 +9678,7 @@ const _FE_FLAGSPEC = {
             "value": 29
         },
         {
-            "flag": "-kit:atb",
+            "flag": "-kit2:atb",
             "offset": 389,
             "size": 5,
             "value": 30
@@ -9864,7 +9864,7 @@ const _FE_FLAGSPEC = {
             "value": 29
         },
         {
-            "flag": "-kit:atb",
+            "flag": "-kit3:atb",
             "offset": 394,
             "size": 5,
             "value": 30
@@ -11999,8 +11999,8 @@ class FlagLogicCore {
             this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunsafer", "Kunweighted"]);
             this._simple_disable_regex(flagset, log, "Key items not randomized", "^Kstart:");
         }
-        if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
-            this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
+        if ((flagset.has("Kmiab:lst") && flagset.has_any("Kmoon", "Kunsafe"))) {
+            this._simple_disable(flagset, log, "LST miabs already included", ["Kmiab:lst"]);
         }
         if (flagset.has("Kstart:darkness")) {
             this._simple_disable(flagset, log, "Klatedark is incompatible with starting with Darkness", ["Klatedark"]);
@@ -12092,7 +12092,7 @@ class FlagLogicCore {
         if ((flagset.get_list("^-smith:playable").length === flagset.get_list("^-smith:").length)) {
             this._simple_disable(flagset, log, "No smith item requested", ["-smith:playable"]);
         }
-        if (flagset.has("-monsterflee")) {
+        if ((flagset.has("-monsterflee") && (! flagset.has("-monsterevade")))) {
             flagset.set("-monsterevade");
             this._lib.push(log, ["correction", "Monsters require evade to flee; forced to add -monsterevade"]);
         }

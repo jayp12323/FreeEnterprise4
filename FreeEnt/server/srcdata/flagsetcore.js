@@ -466,8 +466,8 @@ class FlagLogicCore {
             this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunsafer", "Kunweighted"]);
             this._simple_disable_regex(flagset, log, "Key items not randomized", "^Kstart:");
         }
-        if (((flagset.has("Klstmiab") && flagset.has("Kmiab")) && flagset.has_any("Kmoon", "Kunsafe"))) {
-            this._simple_disable(flagset, log, "LST miabs already included", ["Klstmiab"]);
+        if ((flagset.has("Kmiab:lst") && flagset.has_any("Kmoon", "Kunsafe"))) {
+            this._simple_disable(flagset, log, "LST miabs already included", ["Kmiab:lst"]);
         }
         if (flagset.has("Kstart:darkness")) {
             this._simple_disable(flagset, log, "Klatedark is incompatible with starting with Darkness", ["Klatedark"]);
@@ -559,7 +559,7 @@ class FlagLogicCore {
         if ((flagset.get_list("^-smith:playable").length === flagset.get_list("^-smith:").length)) {
             this._simple_disable(flagset, log, "No smith item requested", ["-smith:playable"]);
         }
-        if (flagset.has("-monsterflee")) {
+        if ((flagset.has("-monsterflee") && (! flagset.has("-monsterevade")))) {
             flagset.set("-monsterevade");
             this._lib.push(log, ["correction", "Monsters require evade to flee; forced to add -monsterevade"]);
         }

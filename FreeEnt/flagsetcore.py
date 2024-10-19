@@ -509,7 +509,7 @@ class FlagLogicCore:
         if len(flagset.get_list(r'^-smith:playable')) == len(flagset.get_list(r'^-smith:')):
             self._simple_disable(flagset, log, 'No smith item requested', ['-smith:playable'])
 
-        if flagset.has('-monsterflee'):
+        if flagset.has('-monsterflee') and not flagset.has('-monsterevade'):
             flagset.set('-monsterevade')
             self._lib.push(log, ['correction', 'Monsters require evade to flee; forced to add -monsterevade'])
 
