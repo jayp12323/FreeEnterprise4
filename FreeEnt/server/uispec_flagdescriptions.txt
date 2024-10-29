@@ -612,6 +612,32 @@ Instead of the Excalibur, Kokkol the Smith will forge a weapon from Final Fantas
 [-vintage]
 Enables the April Fools Day 2019 mode.
 
+[-doorsrando]
+Randomizes most doors in the game (including houses, etc).
+<ul>
+    <li>Normal=Doors of each world (Overworld, Underworld, Moon) are shuffled independently</li>
+    <li>Blue Planet=Doors of the Overworld and Underworld are shuffled together and the Moon is shuffled independently.</li>
+    <li>Gated=Doors of the Moon and Underworld are shuffled together and the Overworld is shuffled independently.</li>
+    <li>Why=Doors of the Moon and Overworld are shuffled together and the Underworld is shuffled independently.</li>
+    <li>All=Doors of each world (Overworld, Underworld, Moon) are shuffled together.</li>
+</ul>
+
+[-entrancesrando]
+Randomizes most Entrances in the game. Doors inside towns remain intact.
+<ul>
+    <li>Normal=Doors of each world (Overworld, Underworld, Moon) are shuffled independently</li>
+    <li>Blue Planet=Doors of the Overworld and Underworld are shuffled together and the Moon is shuffled independently.</li>
+    <li>Gated=Doors of the Moon and Underworld are shuffled together and the Overworld is shuffled independently.</li>
+    <li>Why=Doors of the Moon and Overworld are shuffled together and the Underworld is shuffled independently.</li>
+    <li>All=Doors of each world (Overworld, Underworld, Moon) are shuffled together.</li>
+</ul>
+
+[-calmness]
+Disables the use of the Panic button (Select + R)
+
+[-forcesealed]
+Fighting the Sealed Cave boss is required before seeing the KI
+
 [-pushbtojump]
 <ul>
     <li>Enables the April Fools Day 2020 mode.</li>

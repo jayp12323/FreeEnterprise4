@@ -15,7 +15,7 @@ overworld = ['#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeap
              '#ToroiaCafe', '#ToroiaCastle', '#ToroiaInn', '#ToroiaItem', '#ToroiaStable', '#ToroiaTown',
              '#ToroiaWeapon', '#TrainingRoomMain', '#TroiaChocoboForest', '#Waterfall2F', '#WaterfallEntrance',
              '#WateryPass1F', '#WateryPass5F', "#Overworld", '#SoldierAirship',"#FabulInn",'#FabulEquipment',
-             '#FabulWestTower1F','#BabilB1', '#CaveEblanExit']
+             '#FabulWestTower1F','#BabilB1', '#CaveEblanExit',"#ToroiaCastleHospital","#ToroiaCastleStairs","#CaveEblanEquipment","#CaveEblanInn"]
 underworld = ['#Babil1F', '#CaveOfSummons1F', '#CaveOfSummons3F', '#DwarfCastle', '#DwarfCastleBasement',
               '#SealedCaveEntrance',
               '#SmithyHouse', '#SylvanCave1F', '#SylvanCaveYangRoom', '#Tomra', '#TomraEquipment', '#TomraInn',
@@ -73,7 +73,8 @@ for line in lines:
                     door_type = "exit"
                 elif loc == "#SylvanCaveYangRoom":
                     door_type = "return"
-                elif target_loc in ["#SylvanCaveYangRoom","#FabulInn",'#FabulEquipment','#FabulWestTower1F']:
+                elif target_loc in ["#SylvanCaveYangRoom","#FabulInn",'#FabulEquipment','#FabulWestTower1F',
+                                    "#ToroiaCastleHospital","#ToroiaCastleStairs","#CaveEblanEquipment","#CaveEblanInn"]:
                     door_type = "town_building"
                 else:
                     print([loc, number, x, y, target_loc, target_x, target_y,])
@@ -103,18 +104,18 @@ DB_PATH = os.path.join(os.path.dirname(__file__), 'assets', 'db')
 COLUMNS = ['map', 'trigger_number', 'x', 'y', 'dest', 'dest_x', 'dest_y', 'facing', 'type', "name", "world"]
 
 to_remove = ["#SoldierAirship", "#GiantMouth", "#MysidiaSerpentRoad", "#BaronSerpentRoad",
-             "#TrainingRoomMain", "#FeymarchTreasury"]
+             "#TrainingRoomMain"]
 
 for map_to_remove in to_remove:
     for trigger in list(triggers):
-        if map_to_remove == trigger[4] and map_to_remove != "#FeymarchTreasury":
+        if map_to_remove == trigger[4] :
             triggers.remove(trigger)
         elif map_to_remove == trigger[0]:
             triggers.remove(trigger)
         elif "#SylvanCaveYangRoom" == trigger[4] and "#SylvanCaveYangRoom" == trigger[0]:
             triggers.remove(trigger)
-        elif "#Underworld" == trigger[4] and "#SylvanCaveYangRoom" == trigger[0]:
-            triggers.remove(trigger)
+        # elif "#Underworld" == trigger[4] and "#SylvanCaveYangRoom" == trigger[0]:
+        #     triggers.remove(trigger)
 
 hardcoded = [["#Underworld", "5", "48", "15", "#Babil1F", "15", "24", "up", "entrance", "#Underworld_#Babil1F_up",
               "#Underworld"],
