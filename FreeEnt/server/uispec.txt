@@ -242,7 +242,7 @@
 ...(Kforce:magma) Guarantee underworld access via Magma Key
 ...(Kforce:hook)! Force underworld access via Hook route
 ..[Kunsafe]! No safety checks
-..[Kunsafer]! Force undeground access via the moon
+..[Kunsafer]! Force underground access via the moon
 ..[Klatedark] Force Darkness Crystal to be gated by underground access
 ..<> Starting items
 ...(Kstart:package) You start with the Package
