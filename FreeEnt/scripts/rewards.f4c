@@ -366,9 +366,8 @@ msfpatch {
         jsl $=Tracker__SetBit
         bra $+ItemNotYetUsed
     %RemoveSuperhero:       
-        lda $0609   // Check if it's a fight chest and skip the dialog message if so
-        and #$040
-        bne $+RemoveSuperheroLoop
+        lda $06C6   // Check if it's a fight chest and skip the dialog message if so
+        bne $+StartSuperheroLoop
         // Show depower message
         lda #$33 // refers to $120 since this is the behavior for a bank 1 message 
         sta $b2
@@ -377,10 +376,10 @@ msfpatch {
         ldx #$b0d1
         jsl $=Bank00LongCallX
         ldx #$b164
-        jsl $=Bank00LongCallX
+        jsl $=Bank00LongCallX        
+    %StartSuperheroLoop:        
         ldx #$0000
-
-    %RemoveSuperheroLoop:        
+    %RemoveSuperheroLoop:  
         lda $100f,x
         sec
         sbc #$32

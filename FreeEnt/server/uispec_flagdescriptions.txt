@@ -292,7 +292,7 @@ An unrestricted randomization, allowing equal chance for items to appear in any 
 Allows items of any strength to appear, including the most powerful items, but uses location-based weighting like the pro randomization.
 
 [Tplayable]
-Equipment in chests will be usable by at least one character that you can acquire in the seed.
+Equipment in chests (including MIABs) will be usable by at least one character that you can acquire in the seed.
 
 [Tsemipro]
 Uses location-based weighting, with item quality between that provided by pro and wildish.
@@ -305,6 +305,15 @@ Normally, poor-quality items in chests are replaced with an equivalent amount of
 
 [Tmoney]
 Instead of their assigned contents, all chests contain an equivalent amount of GP, based on sell price (monster-in-a-box chests excluded).
+
+[Tsparsey:underground]
+The Tsparse flags will only affect chests in the underground
+
+[Tsparsey:moon]
+The Tsparse flags will only affect chests in the moon
+
+[Tsparsey:overworld]
+The Tsparse flags will only affect chests in the overworld
 
 [Sshuffle]
 The same items are available for sale in shops as in original FF4, but their locations are shuffled. This randomization is weighted so that overworld shop items tend to remain on the overworld, and similarly for underworld/moon shops.
