@@ -4457,61 +4457,6 @@ var FLAG_UISPEC = [
       },
       {
         "flag": "@anon41",
-        "title": "Difficulty modifiers",
-        "null": true,
-        "subcontrols": [
-          {
-            "flag": "Cnofree",
-            "title": "No free characters",
-            "description": "Characters will not join your party in the Watery Pass, Damcyan, Mysidia, or Mt. Ordeals.",
-            "hard": true
-          },
-          {
-            "flag": "Cnoearned",
-            "title": "No earned characters",
-            "description": "Characters will not join your party in Kaipo, Mt. Hobs, Baron, Zot, the Dwarf Castle, Cave Eblan, the Lunar Palace, or the Giant of Bab-il.",
-            "hard": true
-          },
-          {
-            "flag": "Cnopartner",
-            "title": "No starting partner",
-            "hard": true
-          }
-        ]
-      },
-      {
-        "flag": "@anon42",
-        "title": "Characters in chests",
-        "null": true,
-        "subcontrols": [
-          {
-            "flag": "Ctreasure:free",
-            "title": "Free characters are found in treasure chests instead",
-            "description": "Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
-            "hard": true
-          },
-          {
-            "flag": "Ctreasure:earned",
-            "title": "Earned characters are found in treasure chests instead",
-            "description": "Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
-            "hard": true
-          },
-          {
-            "flag": "Ctreasure:relaxed",
-            "title": "Restricted characters in all chests",
-            "description": "Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.",
-            "hard": true
-          },
-          {
-            "flag": "Ctreasure:unsafe",
-            "title": "Unsafe characters in chests",
-            "description": "Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.",
-            "hard": true
-          }
-        ]
-      },
-      {
-        "flag": "@anon43",
         "title": "Specify possible starting characters",
         "null": true,
         "type": "select",
@@ -4635,24 +4580,7 @@ var FLAG_UISPEC = [
         ]
       },
       {
-        "flag": "@anon44",
-        "title": "J-commands and spells",
-        "null": true,
-        "subcontrols": [
-          {
-            "flag": "Cj:spells",
-            "title": "Characters learn J-spells",
-            "description": "White mages will learn Armor, Shell, and Dispel. All mages learn spells at the levels they would in FF4j."
-          },
-          {
-            "flag": "Cj:abilities",
-            "title": "Characters have J-commands",
-            "description": "Characters retain the battle commands from FF4j that were removed in FF4us."
-          }
-        ]
-      },
-      {
-        "flag": "@anon45",
+        "flag": "@anon42",
         "title": "Specify possible starting gear",
         "type": "select",
         "subcontrols": [
@@ -4668,7 +4596,7 @@ var FLAG_UISPEC = [
             "type": "select",
             "subcontrols": [
               {
-                "flag": "@anon46",
+                "flag": "@anon43",
                 "title": "Max equipment tier",
                 "type": "select",
                 "subcontrols": [
@@ -4695,7 +4623,140 @@ var FLAG_UISPEC = [
         ]
       },
       {
+        "flag": "@anon44",
+        "title": "Limit maximum party size",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "Cparty:1",
+            "title": "Maximum party size 1"
+          },
+          {
+            "flag": "Cparty:2",
+            "title": "Maximum party size 2"
+          },
+          {
+            "flag": "Cparty:3",
+            "title": "Maximum party size 3"
+          },
+          {
+            "flag": "Cparty:4",
+            "title": "Maximum party size 4"
+          }
+        ]
+      },
+      {
+        "flag": "@anon45",
+        "title": "Permadeath options",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "Cpermadeath",
+            "title": "Permadeath",
+            "description": "Party members that are \"swoon\" at the end of any battle are permanently removed from the game. (Does not apply to cutscene/story battles you are allowed to lose, ie. Dark Elf first round or Titan fight at Mist.)",
+            "hard": true
+          },
+          {
+            "flag": "Cpermadeader",
+            "title": "Permadeader",
+            "description": "Party members that are swoon or stone at the end of any battle are permanently removed from the game. (This includes the cutscene/story battles that you are normally allowed to lose; now you will game over if your party wipes during these battles.)",
+            "hard": true
+          }
+        ]
+      },
+      {
+        "flag": "@anon46",
+        "title": "Hero Options",
+        "type": "select",
+        "subcontrols": [
+          {
+            "flag": "Chero",
+            "title": "Hero challenge",
+            "description": "<ul><li>The starting character is your hero.</li><li>The hero is the only instance of that character available (unless other flags force it).</li><li>The hero cannot be dismissed.</li><li>The hero fights the Mt. Ordeals mirror room boss alone.</li><li>Kokkol will craft an FF4 Advance weapon usable by the hero (unless forge is set to give a key item via <em>Kforge</em>).</li><li>The hero gains EXP even if incapacitated.</li><li>The hero is your agility anchor.</li><li>The hero is exempt from permadeath.</li></ul>",
+            "hard": true
+          },
+          {
+            "flag": "Csuperhero",
+            "title": "Superhero challenge",
+            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).  Once returning the crystal to Zot, you gain your powers back.</li></ul>",
+            "hard": true
+          }
+        ]
+      },
+      {
         "flag": "@anon47",
+        "title": "Difficulty modifiers",
+        "null": true,
+        "subcontrols": [
+          {
+            "flag": "Cnofree",
+            "title": "No free characters",
+            "description": "Characters will not join your party in the Watery Pass, Damcyan, Mysidia, or Mt. Ordeals.",
+            "hard": true
+          },
+          {
+            "flag": "Cnoearned",
+            "title": "No earned characters",
+            "description": "Characters will not join your party in Kaipo, Mt. Hobs, Baron, Zot, the Dwarf Castle, Cave Eblan, the Lunar Palace, or the Giant of Bab-il.",
+            "hard": true
+          },
+          {
+            "flag": "Cnopartner",
+            "title": "No starting partner",
+            "hard": true
+          }
+        ]
+      },
+      {
+        "flag": "@anon48",
+        "title": "Characters in chests",
+        "null": true,
+        "subcontrols": [
+          {
+            "flag": "Ctreasure:free",
+            "title": "Free characters are found in treasure chests instead",
+            "description": "Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
+            "hard": true
+          },
+          {
+            "flag": "Ctreasure:earned",
+            "title": "Earned characters are found in treasure chests instead",
+            "description": "Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
+            "hard": true
+          },
+          {
+            "flag": "Ctreasure:relaxed",
+            "title": "Restricted characters in all chests",
+            "description": "Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.",
+            "hard": true
+          },
+          {
+            "flag": "Ctreasure:unsafe",
+            "title": "Unsafe characters in chests",
+            "description": "Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.",
+            "hard": true
+          }
+        ]
+      },
+      {
+        "flag": "@anon49",
+        "title": "J-commands and spells",
+        "null": true,
+        "subcontrols": [
+          {
+            "flag": "Cj:spells",
+            "title": "Characters learn J-spells",
+            "description": "White mages will learn Armor, Shell, and Dispel. All mages learn spells at the levels they would in FF4j."
+          },
+          {
+            "flag": "Cj:abilities",
+            "title": "Characters have J-commands",
+            "description": "Characters retain the battle commands from FF4j that were removed in FF4us."
+          }
+        ]
+      },
+      {
+        "flag": "@anon50",
         "title": "Character Join Options",
         "null": true,
         "subcontrols": [
@@ -4721,67 +4782,6 @@ var FLAG_UISPEC = [
             "flag": "Cpermajoin",
             "title": "Characters can't be dismissed",
             "description": "You have the choice of whether to accept each new party member, but once your party is full, you cannot recruit anyone else."
-          }
-        ]
-      },
-      {
-        "flag": "@anon48",
-        "title": "Limit maximum party size",
-        "type": "select",
-        "subcontrols": [
-          {
-            "flag": "Cparty:1",
-            "title": "Maximum party size 1"
-          },
-          {
-            "flag": "Cparty:2",
-            "title": "Maximum party size 2"
-          },
-          {
-            "flag": "Cparty:3",
-            "title": "Maximum party size 3"
-          },
-          {
-            "flag": "Cparty:4",
-            "title": "Maximum party size 4"
-          }
-        ]
-      },
-      {
-        "flag": "@anon49",
-        "title": "Permadeath options",
-        "type": "select",
-        "subcontrols": [
-          {
-            "flag": "Cpermadeath",
-            "title": "Permadeath",
-            "description": "Party members that are \"swoon\" at the end of any battle are permanently removed from the game. (Does not apply to cutscene/story battles you are allowed to lose, ie. Dark Elf first round or Titan fight at Mist.)",
-            "hard": true
-          },
-          {
-            "flag": "Cpermadeader",
-            "title": "Permadeader",
-            "description": "Party members that are swoon or stone at the end of any battle are permanently removed from the game. (This includes the cutscene/story battles that you are normally allowed to lose; now you will game over if your party wipes during these battles.)",
-            "hard": true
-          }
-        ]
-      },
-      {
-        "flag": "@anon50",
-        "title": "Hero Options",
-        "type": "select",
-        "subcontrols": [
-          {
-            "flag": "Chero",
-            "title": "Hero challenge",
-            "description": "<ul><li>The starting character is your hero.</li><li>The hero is the only instance of that character available (unless other flags force it).</li><li>The hero cannot be dismissed.</li><li>The hero fights the Mt. Ordeals mirror room boss alone.</li><li>Kokkol will craft an FF4 Advance weapon usable by the hero (unless forge is set to give a key item via <em>Kforge</em>).</li><li>The hero gains EXP even if incapacitated.</li><li>The hero is your agility anchor.</li><li>The hero is exempt from permadeath.</li></ul>",
-            "hard": true
-          },
-          {
-            "flag": "Csuperhero",
-            "title": "Superhero challenge",
-            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).  Once returning the crystal to Zot, you gain your powers back.</li></ul>",
-            "hard": true
           }
         ]
       },

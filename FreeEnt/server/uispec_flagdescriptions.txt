@@ -200,6 +200,12 @@ Characters will not join your party in the Watery Pass, Damcyan, Mysidia, or Mt.
 [Cnoearned]
 Characters will not join your party in Kaipo, Mt. Hobs, Baron, Zot, the Dwarf Castle, Cave Eblan, the Lunar Palace, or the Giant of Bab-il.
 
+[Cnopartner]
+Your starting partner will not join your party
+
+[Cpaladin]
+Cecil will start as a paladin, but Mt. Ordeals will still grant spells to Tellah, and hold a key item check
+
 [Cmaybe]
 Normally, the randomizer will try to include every eligible character in the game at least once. This flag removes that logic, meaning some eligible characters may not appear.
 
@@ -239,8 +245,14 @@ Characters start with a random low-level weapon and no armor. (Duplicate charact
 [@Cthrifttier]
 Characters start with a full set of gear: weapon(s), possibly a shield, and head/body/arms, all from at most the tier specified. (Duplicate characters will have the same starting gear. Cursed Rings are excluded.)
 
+[Chi]
+New characters are required to join the party, even if your party is full.
+
 [Cbye]
 Dismissed characters cannot be retrieved. (Normally, dismissed characters go to the Mysidia crystal room and the Tower of Wishes where they may be reclaimed.)
+
+[Cfifo]
+When dismissing a character, you must dismiss the character that has been in your party the longest.
 
 [Cpermajoin]
 You have the choice of whether to accept each new party member, but once your party is full, you cannot recruit anyone else.
