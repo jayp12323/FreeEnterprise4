@@ -818,7 +818,25 @@ By default, monster-in-a-box chests are relocated randomly within the same dunge
 [-vanilla:giant]
 Removes the added exit at the start of the Giant of Bab-il, forcing you to complete it in order to return to the Big Whale. (Be careful not to get stuck with your only save file being inside the Giant.) This exit is restored once the Giant is completed.
 
-[-vanilla:z]
+[-z:physical]
+Enable this flag to replace Zeromus' magic-based damaging attacks with physical attacks (Fight, Dark Wave, Needle/Counter). Zeromus now counters some physical commands instead of magic.
+
+[-z:physmag]
+In half the seeds rolled with this flag, Zeromus will have the physical script from <em>-z:physical</em>, and in the other half Zeromus will have the usual magic script.
+
+[-z:whichbang]
+Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.
+
+[-z:phaseshift]
+Zeromus has three main phases after the first Big Bang: Virus, Nuke, and Meteo. Enable this flag to shuffle the three attack phases among themselves (the HP thresholds and reactions will not change).
+
+[-z:nonerfs]
+Normally in FF4, Zeromus' Big Bang can be nerfed by using magic to trigger a counter-Nuke between the tick that Z sets spell power for Big Bang and the tick when Big Bang goes off. Enable this flag to prevent that happening by implementing chains.
+
+[-z:mustnerf]
+Zeromus will now do 9999 damage with Big Bang unless you nerf it (or avoid it in other ways).
+
+[-z:vanillasprite]
 Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battle behavior and stats are unchanged.) Enable this flag to preserve Zeromus' original battle sprite.
 
 [-tweak:kainmagic] 

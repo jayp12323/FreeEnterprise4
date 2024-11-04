@@ -85,7 +85,11 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -vanilla:fashion
 -vanilla:miabs
 -vanilla:giant
--vanilla:z
+-z:physical/-z:physmag
+-z:whichbang
+-z:phaseshift
+-z:nonerfs/-z:mustnerf
+-z:vanillasprite
 -vintage
 -pushbtojump
 -doorsrando/-doorsrando:normal/-doorsrando:gated/-doorsrando:blueplanet/-doorsrando:why/-doorsrando:all
@@ -351,7 +355,14 @@ G64                  glitch_allow_64
 -vanilla:fashion     vanilla_fashion
 -vanilla:miabs       vanilla_miabs
 -vanilla:giant       vanilla_giant
--vanilla:z           vanilla_z
+
+-z:vanillasprite     vanilla_z
+-z:physical          z_physical_script
+-z:physmag           z_physical_or_magical_script
+-z:whichbang         z_random_bigbangs
+-z:phaseshift        z_random_phases
+-z:nonerfs           z_no_nerfs
+-z:mustnerf          z_must_nerf
 
 -pushbtojump         jump
 

@@ -1006,7 +1006,13 @@ const _FE_FLAGSPEC = {
         "-vanilla:fashion",
         "-vanilla:miabs",
         "-vanilla:giant",
-        "-vanilla:z",
+        "-z:physical",
+        "-z:physmag",
+        "-z:whichbang",
+        "-z:phaseshift",
+        "-z:nonerfs",
+        "-z:mustnerf",
+        "-z:vanillasprite",
         "-vintage",
         "-pushbtojump",
         "-wacky:random",
@@ -1992,6 +1998,74 @@ const _FE_FLAGSPEC = {
             "-fusoya:nerfed"
         ],
         [
+<<<<<<< HEAD
+=======
+            "-agility:vanilla",
+            "-agility:slowest",
+            "-agility:fastest",
+            "-agility:average",
+            "-agility:median",
+            "-agility:monster",
+            "-agility:flat",
+            "-agility:750formula",
+            "-agility:anchor7",
+            "-agility:anchor27",
+            "-agility:anchor28",
+            "-agility:anchor41",
+            "-agility:anchor42",
+            ""
+        ],
+        [
+            "-agility:scale1",
+            "-agility:scale10"
+        ],
+        [
+            "-exp:objectivebonus25",
+            "-exp:objectivebonus10",
+            "-exp:objectivebonus5",
+            "-exp:objectivebonus_num"
+        ],
+        [
+            "-exp:kicheckbonus10",
+            "-exp:kicheckbonus5",
+            "-exp:kicheckbonus2",
+            "-exp:kicheckbonus_num"
+        ],
+        [
+            "-exp:zonkbonus10",
+            "-exp:zonkbonus5",
+            "-exp:zonkbonus2"
+        ],
+        [
+            "-exp:miabbonus100",
+            "-exp:miabbonus50"
+        ],
+        [
+            "-exp:moonbonus200",
+            "-exp:moonbonus100"
+        ],
+        [
+            "-exp:geometric90",
+            "-exp:geometric80",
+            "-exp:geometric70",
+            "-exp:geometric60",
+            "-exp:geometric50",
+            "-exp:geometric40",
+            "-exp:geometric30",
+            "-exp:geometric20",
+            "-exp:geometric10",
+            "-exp:geometric0"
+        ],
+        [
+            "-z:physical",
+            "-z:physmag"
+        ],
+        [
+            "-z:nonerfs",
+            "-z:mustnerf"
+        ],
+        [
+>>>>>>> 9ad4756 (Adding -z: flags)
             "-wacky:random",
             "-wacky:musical",
             "-wacky:bodyguard",
@@ -7998,6 +8072,7 @@ const _FE_FLAGSPEC = {
             "value": 1
         },
         {
+<<<<<<< HEAD
             "flag": "-vanilla:z",
             "offset": 258,
             "size": 1,
@@ -8012,220 +8087,443 @@ const _FE_FLAGSPEC = {
         {
             "flag": "-pushbtojump",
             "offset": 260,
+=======
+            "flag": "-z:physical",
+            "offset": 288,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "-z:physmag",
+            "offset": 288,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "-z:whichbang",
+            "offset": 290,
+>>>>>>> 9ad4756 (Adding -z: flags)
+            "size": 1,
+            "value": 1
+        },
+        {
+<<<<<<< HEAD
+            "flag": "-wacky:random",
+            "offset": 261,
+=======
+            "flag": "-z:phaseshift",
+            "offset": 291,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-z:nonerfs",
+            "offset": 292,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "-z:mustnerf",
+            "offset": 292,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "-z:vanillasprite",
+            "offset": 294,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-vintage",
+            "offset": 295,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-pushbtojump",
+            "offset": 296,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-wacky:random",
-            "offset": 261,
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 1
         },
         {
             "flag": "-wacky:musical",
+<<<<<<< HEAD
             "offset": 261,
+=======
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 2
         },
         {
             "flag": "-wacky:bodyguard",
+<<<<<<< HEAD
             "offset": 261,
+=======
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 3
         },
         {
             "flag": "-wacky:fistfight",
+<<<<<<< HEAD
             "offset": 261,
+=======
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 4
         },
         {
             "flag": "-wacky:omnidextrous",
+<<<<<<< HEAD
             "offset": 261,
+=======
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 5
         },
         {
             "flag": "-wacky:whatsmygear",
+<<<<<<< HEAD
             "offset": 261,
+=======
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 6
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:biggermagnet",
             "offset": 261,
+=======
+            "flag": "-wacky:scrambledstats",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 7
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:sixleggedrace",
             "offset": 261,
+=======
+            "flag": "-wacky:biggermagnet",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 8
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:floorislava",
             "offset": 261,
+=======
+            "flag": "-wacky:sixleggedrace",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 9
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:neatfreak",
             "offset": 261,
+=======
+            "flag": "-wacky:floorislava",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 10
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:timeismoney",
             "offset": 261,
+=======
+            "flag": "-wacky:neatfreak",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 11
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:nightmode",
             "offset": 261,
+=======
+            "flag": "-wacky:timeismoney",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 12
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:mysteryjuice",
             "offset": 261,
+=======
+            "flag": "-wacky:nightmode",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 13
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:misspelled",
             "offset": 261,
+=======
+            "flag": "-wacky:mysteryjuice",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 14
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:enemyunknown",
             "offset": 261,
+=======
+            "flag": "-wacky:misspelled",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 15
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:kleptomania",
             "offset": 261,
+=======
+            "flag": "-wacky:enemyunknown",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 16
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:darts",
             "offset": 261,
+=======
+            "flag": "-wacky:kleptomania",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 17
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:unstackable",
             "offset": 261,
+=======
+            "flag": "-wacky:darts",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 18
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:menarepigs",
             "offset": 261,
+=======
+            "flag": "-wacky:unstackable",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 19
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:skywarriors",
             "offset": 261,
+=======
+            "flag": "-wacky:menarepigs",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 20
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:zombies",
             "offset": 261,
+=======
+            "flag": "-wacky:skywarriors",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 21
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:afflicted",
             "offset": 261,
+=======
+            "flag": "-wacky:zombies",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 22
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:batman",
             "offset": 261,
+=======
+            "flag": "-wacky:afflicted",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 23
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:battlescars",
             "offset": 261,
+=======
+            "flag": "-wacky:batman",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 24
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:imaginarynumbers",
             "offset": 261,
+=======
+            "flag": "-wacky:battlescars",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 25
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:tellahmaneuver",
             "offset": 261,
+=======
+            "flag": "-wacky:imaginarynumbers",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 26
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:3point",
             "offset": 261,
+=======
+            "flag": "-wacky:tellahmaneuver",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 27
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:friendlyfire",
             "offset": 261,
+=======
+            "flag": "-wacky:3point",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 28
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:payablegolbez",
             "offset": 261,
+=======
+            "flag": "-wacky:friendlyfire",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 29
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:gottagofast",
             "offset": 261,
+=======
+            "flag": "-wacky:payablegolbez",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 30
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:worthfighting",
             "offset": 261,
+=======
+            "flag": "-wacky:gottagofast",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 31
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:saveusbigchocobo",
             "offset": 261,
+=======
+            "flag": "-wacky:worthfighting",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 32
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:isthisrandomized",
             "offset": 261,
+=======
+            "flag": "-wacky:saveusbigchocobo",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 33
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:forwardisback",
             "offset": 261,
+=======
+            "flag": "-wacky:isthisrandomized",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 34
         },
         {
+<<<<<<< HEAD
             "flag": "-wacky:dropitlikeitshot",
             "offset": 261,
+=======
+            "flag": "-wacky:forwardisback",
+            "offset": 297,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 6,
             "value": 35
         },
         {
+<<<<<<< HEAD
             "flag": "-tweak:kainmagic",
             "offset": 267,
             "size": 1,
@@ -8258,10 +8556,21 @@ const _FE_FLAGSPEC = {
         {
             "flag": "-spoil:chars",
             "offset": 272,
+=======
+            "flag": "-wacky:dropitlikeitshot",
+            "offset": 297,
+            "size": 6,
+            "value": 36
+        },
+        {
+            "flag": "-tweak:kainmagic",
+            "offset": 303,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 1,
             "value": 1
         },
         {
+<<<<<<< HEAD
             "flag": "-spoil:treasure",
             "offset": 273,
             "size": 2,
@@ -8276,72 +8585,171 @@ const _FE_FLAGSPEC = {
         {
             "flag": "-spoil:shops",
             "offset": 275,
+=======
+            "flag": "-tweak:edwardheal",
+            "offset": 304,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-tweak:darkpaladin",
+            "offset": 305,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:all",
+            "offset": 306,
+>>>>>>> 9ad4756 (Adding -z: flags)
+            "size": 1,
+            "value": 1
+        },
+        {
+<<<<<<< HEAD
+            "flag": "-spoil:bosses",
+            "offset": 276,
+=======
+            "flag": "-spoil:keyitems",
+            "offset": 307,
+>>>>>>> 9ad4756 (Adding -z: flags)
+            "size": 1,
+            "value": 1
+        },
+        {
+<<<<<<< HEAD
+            "flag": "-spoil:misc",
+            "offset": 277,
+=======
+            "flag": "-spoil:rewards",
+            "offset": 308,
+>>>>>>> 9ad4756 (Adding -z: flags)
+            "size": 1,
+            "value": 1
+        },
+        {
+<<<<<<< HEAD
+            "flag": "-spoil:sparse10",
+            "offset": 278,
+=======
+            "flag": "-spoil:chars",
+            "offset": 309,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:treasure",
+            "offset": 310,
+            "size": 2,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:miabs",
+            "offset": 310,
+            "size": 2,
+            "value": 2
+        },
+        {
+            "flag": "-spoil:shops",
+            "offset": 312,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:bosses",
-            "offset": 276,
+            "offset": 313,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:misc",
-            "offset": 277,
+            "offset": 314,
             "size": 1,
             "value": 1
         },
         {
             "flag": "-spoil:sparse10",
-            "offset": 278,
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 1
         },
         {
             "flag": "-spoil:sparse20",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 2
         },
         {
             "flag": "-spoil:sparse30",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 3
         },
         {
             "flag": "-spoil:sparse40",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 4
         },
         {
             "flag": "-spoil:sparse50",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 5
         },
         {
             "flag": "-spoil:sparse60",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 6
         },
         {
             "flag": "-spoil:sparse70",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 7
         },
         {
             "flag": "-spoil:sparse80",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 8
         },
         {
             "flag": "-spoil:sparse90",
+<<<<<<< HEAD
             "offset": 278,
+=======
+            "offset": 315,
+>>>>>>> 9ad4756 (Adding -z: flags)
             "size": 4,
             "value": 9
         }
@@ -9672,6 +10080,9 @@ class FlagLogicCore {
         if ((flagset.has("-monsterflee") && (! flagset.has("-monsterevade")))) {
             flagset.set("-monsterevade");
             this._lib.push(log, ["correction", "Monsters require evade to flee; forced to add -monsterevade"]);
+        }
+        if ((flagset.has("-z:physical") && flagset.has("-z:whichbang"))) {
+            this._simple_disable(flagset, log, "No spells in script", ["-z:whichbang"]);
         }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");

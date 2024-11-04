@@ -1,0 +1,206 @@
+// for when Z needs maxed out attack/spell power,
+// we need to adjust the attack index/spell power using
+// scripting because otherwise the boss data doesn't line up
+// %Z base stat changes%
+// %end%
+
+// Z pre-first-BB phase
+ai_script(moon $4B) 
+{
+    use #InvincibleOff
+    
+    use #ZeromusShake2
+    
+    // %big bang 1 replacement%
+    use #Enemy_BigBang
+    condition 3
+    // %end%
+}
+
+// Z Virus phase
+ai_script(moon $4C) 
+{
+    pass
+    
+    use #ZeromusShake2
+
+    // %big bang 2 replacement%
+    set spell power 31
+    use #Enemy_BigBang
+    // %end%
+    
+    use #Enemy_BlkHole
+    message $75   // "Magics became invalid."
+    wait
+    pass
+    
+    use #ZeromusShake2
+    
+    // %big bang 3 replacement%
+    set spell power 32
+    use #Enemy_BigBang
+    // %end%
+    
+    // %script virus replacement%
+    set spell power 36
+    target all characters
+    use #Virus
+    // %end%
+    
+    use #Enemy_BlkHole
+    message $75   // "Magics became invalid."
+    wait
+    pass
+    
+    use #ZeromusShake2
+    
+    // %big bang 4 replacement%
+    set spell power 32
+    use #Enemy_BigBang
+    // %end%
+    
+    use #Enemy_BlkHole
+    message $75   // "Magics became invalid."
+}
+
+// Z nuke phase
+ai_script(moon $55) 
+{
+    pass
+    
+    use #ZeromusShake2
+    
+    // %big bang 5 replacement%
+    set spell power 31
+    use #Enemy_BigBang
+    // %end%
+    
+    use #Enemy_BlkHole
+    message $75   // "Magics became invalid."
+    wait
+    // %script nuke replacement%
+    set spell power 14
+    use #Nuke
+    // %end%
+    
+    pass
+    
+    pass
+    
+    use #ZeromusShake2
+    
+    // %big bang 6 replacement%
+    set spell power 32
+    use #Enemy_BigBang
+    // %end%
+}
+
+// Z Meteo phase
+ai_script(moon $57) 
+{
+    chain {
+        // %meteo replacement%
+        set spell power 3
+        pass
+        
+        target all characters
+        use #Meteo
+        // %end%
+    }
+    
+    pass
+}
+
+// Z counter-Nukes for non-White/Call magic
+ai_script(moon $4D) 
+{
+    // %counter nuke replacement%
+    set spell power 14
+    use #Nuke
+    // %end%
+}
+
+// Z counter-Nukes for Call in Virus phase
+ai_script(moon $4E) 
+{
+    // %counter nuke call replacement%
+    set spell power 14
+    use #Nuke
+    // %end%
+}
+
+// Z counter-Weak for White magic
+ai_script(moon $4F) 
+{
+    // %counter weak replacement%
+    use #Enemy_WeakEnemy
+    // %end%
+}
+
+// Z counter-Virus for Call in non-Virus phase
+ai_script(moon $58) 
+{
+    // %counter virus replacement%
+    set spell power 36
+    target all characters
+    use #Virus
+    // %end%
+}
+
+// %if physical_z_fight_fixes%
+// Need to patch "replace target" code to prevent softlocks with Z-Jump
+msfpatch {
+    .addr $03af29
+        jml $=ReplaceTarget__CheckBackRow
+
+    .new
+    ReplaceTarget__CheckBackRow:
+        // use Y as the loop variable, use X as the back row offset
+        ldy #$0005
+        ldx #$0280
+    
+    %ReplaceLoopStart:
+        // check empty slot
+        lda $289c,y
+        bne $+NextReplace
+        // check for back row via sprite class
+        lda $2001,x
+        bpl $+FoundNewTarget
+
+    %NextReplace:
+        iny
+        jsr $_Util__XPlus80
+        cpy #$000D
+        bne $-ReplaceLoopStart
+
+    %NoReplace:
+        jml $03af43
+
+    %FoundNewTarget:
+        jml $03af6f
+}
+
+// Dark Wave doesn't cap its damage, so there's a graphical mistake if it does >9999 damage
+// ("Miss!" or lower 4 out of 5 decimal digits of damage instead of 9999).
+// Hook into the storing-damage part to avoid this issue.
+msfpatch {
+    .addr $03e7d7
+        jml $=CapDamage__DarkWave
+        nop 
+
+    .new
+    CapDamage__DarkWave:
+        ldy $c9
+        cpy #$270f
+        bcc $+StoreDamage
+        // cap damage at #$270f (i.e. 9999) 
+        ldy #$270f
+        sty $c9
+    %StoreDamage:
+        // displaced first byte of the damage storing;
+        // jump back to do the second byte
+        lda $c9
+        sta $34d4,x
+        jml $03e7dc
+}
+// %end%

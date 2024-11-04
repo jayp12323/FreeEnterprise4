@@ -804,7 +804,16 @@
 .[-vanilla:fashion] Vanilla fashion
 .[-vanilla:miabs] Vanilla monster-in-a-box locations
 .[-vanilla:giant] Vanilla Giant
-.[-vanilla:z] Vanilla Z sprite
+[] Zeromus fight changes
+.<> Physical or magical scripting
+..(-z:physical)! Physical Z script
+..(-z:physmag)! Random physical or magical Z script
+.[-z:whichbang]! Replace every Big Bang with another spell
+.[-z:phaseshift]! Shuffle the three main Z fight phases
+.<> Nerfing of Big Bangs
+..(-z:nonerfs)! Prevent nerfing of Big Bangs
+..(-z:mustnerf)! 9999 damage Big Bangs
+.[-z:vanillasprite] Vanilla Z sprite
 [-vintage] Vintage Battlefield
 [-pushbtojump] Push B to Jump
 [@wacky] Wacky challenge

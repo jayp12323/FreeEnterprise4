@@ -3896,6 +3896,17 @@ var FLAG_UISPEC = [
                 "hard": true
               },
               {
+                "flag": "Kunsafer",
+                "title": "Force underground access via the moon",
+                "description": "As Kunsafe, but you will be <em>required</em> to obtain moon access prior to obtaining underground access.",
+                "hard": true
+              },
+              {
+                "flag": "Klatedark",
+                "title": "Force Darkness Crystal to be gated by underground access",
+                "description": "The Darkness Crystal will be gated by underground access."
+              },
+              {
                 "flag": "@anon31",
                 "title": "Starting items",
                 "type": "select",
@@ -4703,6 +4714,7 @@ var FLAG_UISPEC = [
           {
             "flag": "Cnopartner",
             "title": "No starting partner",
+            "description": "Your starting partner will not join your party",
             "hard": true
           }
         ]
@@ -4767,11 +4779,13 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Chi",
-            "title": "New characters are forced to join the party"
+            "title": "New characters are forced to join the party",
+            "description": "New characters are required to join the party, even if your party is full."
           },
           {
             "flag": "Cfifo",
-            "title": "Characters in the party the longest must be dismissed first"
+            "title": "Characters in the party the longest must be dismissed first",
+            "description": "When dismissing a character, you must dismiss the character that has been in your party the longest."
           },
           {
             "flag": "Cbye",
@@ -4787,7 +4801,8 @@ var FLAG_UISPEC = [
       },
       {
         "flag": "Cpaladin",
-        "title": "Cecil starts the game as a paladin"
+        "title": "Cecil starts the game as a paladin",
+        "description": "Cecil will start as a paladin, but Mt. Ordeals will still grant spells to Tellah, and hold a key item check"
       }
     ]
   },
@@ -4812,15 +4827,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -4881,15 +4899,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -4950,15 +4971,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -5106,15 +5130,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -5262,15 +5289,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -5418,15 +5448,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -5574,15 +5607,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -5730,15 +5766,18 @@ var FLAG_UISPEC = [
                 "subcontrols": [
                   {
                     "flag": "Tsparsey:underground",
-                    "title": "Chests in the underground are sparse"
+                    "title": "Chests in the underground are sparse",
+                    "description": "The Tsparse flags will only affect chests in the underground"
                   },
                   {
                     "flag": "Tsparsey:moon",
-                    "title": "Chests on the moon are sparse"
+                    "title": "Chests on the moon are sparse",
+                    "description": "The Tsparse flags will only affect chests in the moon"
                   },
                   {
                     "flag": "Tsparsey:overworld",
-                    "title": "Chests in the overworld are sparse"
+                    "title": "Chests in the overworld are sparse",
+                    "description": "The Tsparse flags will only affect chests in the overworld"
                   }
                 ]
               },
@@ -5888,7 +5927,7 @@ var FLAG_UISPEC = [
       {
         "flag": "Tplayable",
         "title": "Chests contain usable items",
-        "description": "Equipment in chests will be usable by at least one character that you can acquire in the seed."
+        "description": "Equipment in chests (including MIABs) will be usable by at least one character that you can acquire in the seed."
       },
       {
         "flag": "@anon57",
@@ -6519,7 +6558,7 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Bwhichburn",
-            "title": "Replace Wyvern's opening MegaNuke with random attack",
+            "title": "Replace Wyvern's opening MegaNuke with a random attack",
             "description": "The replacement attack will be weaker than MegaNuke (unless <em>Bunsafe</em> is enabled, in which case it may not be)."
           },
           {
@@ -6531,7 +6570,7 @@ var FLAG_UISPEC = [
       },
       {
         "flag": "Bwoahdin",
-        "title": "Replace Odin's first two Zantetsukens 1 and 2 with random attack",
+        "title": "Replace Odin's first two Zantetsukens 1 and 2 with a random attack",
         "description": "The replacement attack will be single-target (and generally weaker than e.g. Nuke, unless <em>Bunsafe</em> is enabled). Odin will not raise the sword before the random attack."
       },
       {
@@ -7627,9 +7666,65 @@ var FLAG_UISPEC = [
             "flag": "-vanilla:giant",
             "title": "Vanilla Giant",
             "description": "Removes the added exit at the start of the Giant of Bab-il, forcing you to complete it in order to return to the Big Whale. (Be careful not to get stuck with your only save file being inside the Giant.) This exit is restored once the Giant is completed."
+          }
+        ]
+      },
+      {
+        "flag": "@anon84",
+        "title": "Zeromus fight changes",
+        "subcontrols": [
+          {
+            "flag": "@anon85",
+            "title": "Physical or magical scripting",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-z:physical",
+                "title": "Physical Z script",
+                "description": "Enable this flag to replace Zeromus' magic-based damaging attacks with physical attacks (Fight, Dark Wave, Needle/Counter). Zeromus now counters some physical commands instead of magic.",
+                "hard": true
+              },
+              {
+                "flag": "-z:physmag",
+                "title": "Random physical or magical Z script",
+                "description": "In half the seeds rolled with this flag, Zeromus will have the physical script from <em>-z:physical</em>, and in the other half Zeromus will have the usual magic script.",
+                "hard": true
+              }
+            ]
           },
           {
-            "flag": "-vanilla:z",
+            "flag": "-z:whichbang",
+            "title": "Replace every Big Bang with another spell",
+            "description": "Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.",
+            "hard": true
+          },
+          {
+            "flag": "-z:phaseshift",
+            "title": "Shuffle the three main Z fight phases",
+            "description": "Zeromus has three main phases after the first Big Bang: Virus, Nuke, and Meteo. Enable this flag to shuffle the three attack phases among themselves (the HP thresholds and reactions will not change).",
+            "hard": true
+          },
+          {
+            "flag": "@anon86",
+            "title": "Nerfing of Big Bangs",
+            "type": "select",
+            "subcontrols": [
+              {
+                "flag": "-z:nonerfs",
+                "title": "Prevent nerfing of Big Bangs",
+                "description": "Normally in FF4, Zeromus' Big Bang can be nerfed by using magic to trigger a counter-Nuke between the tick that Z sets spell power for Big Bang and the tick when Big Bang goes off. Enable this flag to prevent that happening by implementing chains.",
+                "hard": true
+              },
+              {
+                "flag": "-z:mustnerf",
+                "title": "9999 damage Big Bangs",
+                "description": "Zeromus will now do 9999 damage with Big Bang unless you nerf it (or avoid it in other ways).",
+                "hard": true
+              }
+            ]
+          },
+          {
+            "flag": "-z:vanillasprite",
             "title": "Vanilla Z sprite",
             "description": "Free Enterprise replaces Zeromus' battle sprite with a random sprite. (Its battle behavior and stats are unchanged.) Enable this flag to preserve Zeromus' original battle sprite."
           }
@@ -7651,7 +7746,7 @@ var FLAG_UISPEC = [
         "description": "<ul>\n    <li>Guidingway will introduce the challenge.</li>\n    <li>Guidingway will not explain the challenge.</li>\n    <li>Wacky challenges are not intended to be balanced, robust, coherent, fair, or bug-free.</li>\n    <li>(They are intended to be wacky.)</li>\n</ul>\n<p><b>NOTE:</b> While wacky challenges can now be combined, some modes are incompatible:</p>\n<ul>\n\t<li>Only one of the following can be used: \"afflicted\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"zombies\"</li>\n\t<li>If any of the above are set, none of these can be used: \"battlescars\", \"payablegolbez\", \"tellahmaneuver\", \"worthfighting\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"afflicted\", \"battlescars\", \"menarepigs\", \"mirrormirror\", \"skywarriors\", \"unstackable\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"friendlyfire\"</li>\n\t<li>None of these modes can be used together: \"afflicted\", \"battlescars\", \"worthfighting\", \"zombies\"</li>\n\t<li>None of these modes can be used together: \"darts\", \"musical\"</li>\n\t<li>None of these modes can be used together: \"3point\", \"tellahmaneuver\"</li>\n\t<li>Only One Doors Randomization option can be used</li>\n</ul>\n<p>If the random option is used and there are not enough compatible modes remaining, less random modes will be chosen.</p>",
         "subcontrols": [
           {
-            "flag": "@anon84",
+            "flag": "@anon87",
             "title": "Random wacky challenge(s)",
             "type": "select",
             "subcontrols": [
@@ -7851,7 +7946,7 @@ var FLAG_UISPEC = [
     "title": "TWEAKS",
     "controls": [
       {
-        "flag": "@anon85",
+        "flag": "@anon88",
         "title": "Miscellaneous tweaks",
         "subcontrols": [
           {
@@ -7872,7 +7967,7 @@ var FLAG_UISPEC = [
     "title": "SPOILERS",
     "controls": [
       {
-        "flag": "@anon86",
+        "flag": "@anon89",
         "title": "No spoiler log",
         "type": "select",
         "subcontrols": [
@@ -7926,7 +8021,7 @@ var FLAG_UISPEC = [
             ]
           },
           {
-            "flag": "@anon87",
+            "flag": "@anon90",
             "title": "Partial spoiler log",
             "subcontrols": [
               {
@@ -7942,7 +8037,7 @@ var FLAG_UISPEC = [
                 "title": "Spoil characters"
               },
               {
-                "flag": "@anon88",
+                "flag": "@anon91",
                 "title": "Spoil treasure chests",
                 "type": "select",
                 "subcontrols": [
