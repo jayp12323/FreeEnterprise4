@@ -373,7 +373,7 @@ msfpatch {
         // Fusoya not in party
         jmp $_Return
 
-        // %if location_fusoya%
+        // %flag location_fusoya on%
         lda $_EvEx__Param2  
         inc a
         cmp #$.FusoyaChallenge__MaxCredits // check if final HP stage has just been completed
@@ -383,8 +383,9 @@ msfpatch {
         sta $b2
         jsr $_LoadLearnedSpellNames // always learn three spells
         jmp $_FusoyaDisplayMessage // display the textbox, back out of the event
+        // %end%
 
-        // %else%
+        // %flag location_fusoya off%
         lda $_EvEx__Param2
         cmp #$.FusoyaChallenge__MaxCredits // check if challenge already complete
         bcs $+Return
