@@ -41,8 +41,7 @@ patch($21d000 bus) {
     ##map.ToroiaCastleHospital         09 07 // toroia_hospital_item        = 0x26
     ##map.CaveMagnesCrystalRoom        0B 0B // magnes_item                 = 0x27
     ##map.Zot6F                        07 05 // zot_item                    = 0x28
-    ##map.BabilFloorLugae              10 10 // babil_boss_item             = 0x29
-    ##map.BabilCannon                  05 06 // cannon_item                 = 0x2A
+    ##map.BabilFloorLugae              10 10 // babil_boss_item             = 0x29          ##map.BabilCannon                  05 06 // cannon_item                 = 0x2A
     ##map.DwarfCastleThroneRoom        0B 05 // luca_item                   = 0x2B
     ##map.SealedCaveDemonWallRoom      0F 03 // sealed_cave_item            = 0x2C
     ##map.Feymarch1F                   14 08 // feymarch_item               = 0x2D
@@ -96,7 +95,7 @@ patch($21d000 bus) {
     ##map.SmithyHouseMainFloor         07 0A // forge_item                  = 0x5B
     ##map.AdamantGrotto                07 0C // pink_trade_item             = 0x5C
     00 00 00 00                              // fixed_crystal               = 0x5D
-    00 00 00 00                        00 00 // gated_objective_item        = 0x5E
+    00 00 00 00                              // gated_objective_item        = 0x5E
     ##map.DwarfCastleHospital          03 03 // dwarf_hospital_item         = 0x5F
 }
 
