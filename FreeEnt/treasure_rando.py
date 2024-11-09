@@ -366,15 +366,21 @@ def apply(env):
                     weights[i] = 0
             distributions[row.area] = util.Distribution(weights)                      
         for t in plain_chests_dbview.find_all():
+            tier = -1
+            tries = 100
+            target_distribution = distributions
             if ((t.area == 'ToroiaTreasury' and env.options.flags.has('Tunrestrict:treasury')) or
                 (t.world == 'Overworld' and env.options.flags.has('Tunrestrict:overworld')) or
                 (t.world == 'Underworld' and env.options.flags.has('Tunrestrict:underworld')) or
                 (t.world == 'Moon' and env.options.flags.has('Tunrestrict:moon')) ):
-                tier = min(8, distributions_unrestricted[t.area].choose(env.rnd))
-            else:
-                tier = min(8, distributions[t.area].choose(env.rnd))
-
-            treasure_assignment.assign(t, env.rnd.choice(items_by_tier[tier]))
+                target_distribution = distributions_unrestricted
+            
+            while tier not in items_by_tier and tries > 0:
+                tier = min(8, target_distribution[t.area].choose(env.rnd))
+                tries = tries +1
+                
+            if tier in items_by_tier:
+                treasure_assignment.assign(t, env.rnd.choice(items_by_tier[tier]))
 
     # apply sparsity
     sparse_level = env.options.flags.get_suffix('Tsparse:')
