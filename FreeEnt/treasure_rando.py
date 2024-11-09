@@ -377,7 +377,7 @@ def apply(env):
             
             while tier not in items_by_tier and tries > 0:
                 tier = min(8, target_distribution[t.area].choose(env.rnd))
-                tries = tries-1
+                tries -= 1
 
             if tier in items_by_tier:
                 treasure_assignment.assign(t, env.rnd.choice(items_by_tier[tier]))
