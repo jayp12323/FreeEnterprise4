@@ -21,7 +21,7 @@
         <div id="betaChangelog" class="shadow" onclick="toggleBetaChangelog();">
             <div>{{ version }} BETA CHANGELOG (click to show/hide)
                 {% if fork_link %}
-                <a href="{{ fork_link }}" class="nf nf-fa-code_fork" onclick="event.stopPropagation();"></a>
+                <a href="{{ fork_link }}" class="nf nf-dev-git" onclick="event.stopPropagation();"></a>
                 {% endif %}
                 <a href="/fork_info" class="nf nf-md-information" onclick="event.stopPropagation();"></a>
             </div>
@@ -38,7 +38,7 @@
         {% else %}
         <div id="version" class="shadow">Current version : {{ version }}
             {% if fork_link %}
-            <a href="{{ fork_link }}" class="nf nf-fa-code_fork" onclick="event.stopPropagation();"></a>
+            <a href="{{ fork_link }}" class="nf nf-dev-git" onclick="event.stopPropagation();"></a>
             {% endif %}
             <a href="/fork_info" class="nf nf-md-information" onclick="event.stopPropagation();"></a>
         </div>
@@ -87,7 +87,8 @@
                     <div id="flagStringRow">
                         <div id="flagStringDisplay"></div>
                         <div id="flagStringCopyButton" class="centerer" onclick="handleCopyButtonClick();">
-                            <span>&#x2398;</span></div>
+                            <span>&#x2398;</span>
+                        </div>
                     </div>
                     <div id="binaryFlagStringDisplay"></div>
                 </div>
