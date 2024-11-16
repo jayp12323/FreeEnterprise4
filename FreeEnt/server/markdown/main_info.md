@@ -36,6 +36,13 @@
     - [Ctreasure:relaxed] Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.
 {: #treasure-relaxed }
 
+!!! info "Linked Flags"
+    In order to enable any of the Ctreasure flags, you must select treasure settings that randomize chest contents. The flag validation will remove your Ctreasure flags when any of Tvanilla, Tshuffle, and Tempty are set.
+
+    * Enabling Ctreasure:free enables C:nofree.
+    * Enabling Ctreasure:earned enables C:noearned. Unlike the main site, character sprites at overworld locations are not replaced by piggy sprites.
+    * Enabling either Ctreasure:unsafe or Ctreasure:relaxed will enable both Ctreasure:free and Ctreasure:earned
+
 #### Treasures
 - [Tunrestrict]: Allows ignoring the restrictions placed on tiers in the treasury/moon/underworld/overworld
 {: #tunrestrict }
