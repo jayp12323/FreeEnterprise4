@@ -222,10 +222,10 @@ class Site:
             return self._env.get_template(f"{page_name}.html").render(page_name=page_name)
             
         elif md_file:
-            with open(os.path.join(os.path.dirname(__file__), 'markdown', f"{page_name}.md"), 'r') as infile:
+            with open(os.path.join(os.path.dirname(__file__), 'markdown', f"{md_file}.md"), 'r') as infile:
                   file_text = infile.read()
-            mdText = markdown.markdown(file_text, extensions=['attr_list', 'tables', 'def_list'])
-            return self._env.get_template('markdown_template.html').render(title="my title",content=mdText)
+            mdText = markdown.markdown(file_text, extensions=['attr_list', 'tables', 'def_list', 'admonition'])
+            return self._env.get_template('markdown_template.html').render(title=md_file,content=mdText, fork_link=FreeEnt.FORK_SOURCE_URL)
         
         else:
             with open(os.path.join(os.path.dirname(__file__), 'markdown', f"main_info.md"), 'r') as infile:
