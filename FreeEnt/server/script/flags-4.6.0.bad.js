@@ -1008,6 +1008,8 @@ const _FE_FLAGSPEC = {
         "-vanilla:giant",
         "-z:physical",
         "-z:physmag",
+        "-z:chaos",
+        "-z:lavosshell",
         "-z:whichbang",
         "-z:phaseshift",
         "-z:nonerfs",
@@ -2058,7 +2060,9 @@ const _FE_FLAGSPEC = {
         ],
         [
             "-z:physical",
-            "-z:physmag"
+            "-z:physmag",
+            "-z:chaos",
+            "-z:lavosshell"
         ],
         [
             "-z:nonerfs",
@@ -8090,16 +8094,17 @@ const _FE_FLAGSPEC = {
 =======
             "flag": "-z:physical",
             "offset": 288,
-            "size": 2,
+            "size": 3,
             "value": 1
         },
         {
             "flag": "-z:physmag",
             "offset": 288,
-            "size": 2,
+            "size": 3,
             "value": 2
         },
         {
+<<<<<<< HEAD
             "flag": "-z:whichbang",
             "offset": 290,
 >>>>>>> 9ad4756 (Adding -z: flags)
@@ -8112,94 +8117,138 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-z:phaseshift",
+=======
+            "flag": "-z:chaos",
+            "offset": 288,
+            "size": 3,
+            "value": 3
+        },
+        {
+            "flag": "-z:lavosshell",
+            "offset": 288,
+            "size": 3,
+            "value": 4
+        },
+        {
+            "flag": "-z:whichbang",
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "offset": 291,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-z:nonerfs",
+            "flag": "-z:phaseshift",
             "offset": 292,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-z:nonerfs",
+            "offset": 293,
             "size": 2,
             "value": 1
         },
         {
             "flag": "-z:mustnerf",
-            "offset": 292,
+            "offset": 293,
             "size": 2,
             "value": 2
         },
         {
             "flag": "-z:vanillasprite",
-            "offset": 294,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-vintage",
             "offset": 295,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-pushbtojump",
+            "flag": "-vintage",
             "offset": 296,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-wacky:random",
+            "flag": "-pushbtojump",
             "offset": 297,
+<<<<<<< HEAD
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-wacky:random",
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 1
         },
         {
             "flag": "-wacky:musical",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 261,
 =======
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 2
         },
         {
             "flag": "-wacky:bodyguard",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 261,
 =======
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 3
         },
         {
             "flag": "-wacky:fistfight",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 261,
 =======
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 4
         },
         {
             "flag": "-wacky:omnidextrous",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 261,
 =======
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 5
         },
         {
             "flag": "-wacky:whatsmygear",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 261,
 =======
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 6
         },
@@ -8209,8 +8258,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:scrambledstats",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 7
         },
@@ -8220,8 +8273,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:biggermagnet",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 8
         },
@@ -8231,8 +8288,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:sixleggedrace",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 9
         },
@@ -8242,8 +8303,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:floorislava",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 10
         },
@@ -8253,8 +8318,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:neatfreak",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 11
         },
@@ -8264,8 +8333,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:timeismoney",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 12
         },
@@ -8275,8 +8348,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:nightmode",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 13
         },
@@ -8286,8 +8363,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:mysteryjuice",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 14
         },
@@ -8297,8 +8378,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:misspelled",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 15
         },
@@ -8308,8 +8393,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:enemyunknown",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 16
         },
@@ -8319,8 +8408,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:kleptomania",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 17
         },
@@ -8330,8 +8423,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:darts",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 18
         },
@@ -8341,8 +8438,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:unstackable",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 19
         },
@@ -8352,8 +8453,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:menarepigs",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 20
         },
@@ -8363,8 +8468,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:skywarriors",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 21
         },
@@ -8374,8 +8483,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:zombies",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 22
         },
@@ -8385,8 +8498,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:afflicted",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 23
         },
@@ -8396,8 +8513,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:batman",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 24
         },
@@ -8407,8 +8528,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:battlescars",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 25
         },
@@ -8418,8 +8543,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:imaginarynumbers",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 26
         },
@@ -8429,8 +8558,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:tellahmaneuver",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 27
         },
@@ -8440,8 +8573,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:3point",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 28
         },
@@ -8451,8 +8588,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:friendlyfire",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 29
         },
@@ -8462,8 +8603,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:payablegolbez",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 30
         },
@@ -8473,8 +8618,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:gottagofast",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 31
         },
@@ -8484,8 +8633,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:worthfighting",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 32
         },
@@ -8495,8 +8648,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:saveusbigchocobo",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 33
         },
@@ -8506,8 +8663,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:isthisrandomized",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 34
         },
@@ -8517,8 +8678,12 @@ const _FE_FLAGSPEC = {
             "offset": 261,
 =======
             "flag": "-wacky:forwardisback",
+<<<<<<< HEAD
             "offset": 297,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 298,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 6,
             "value": 35
         },
@@ -8558,12 +8723,13 @@ const _FE_FLAGSPEC = {
             "offset": 272,
 =======
             "flag": "-wacky:dropitlikeitshot",
-            "offset": 297,
+            "offset": 298,
             "size": 6,
             "value": 36
         },
         {
             "flag": "-tweak:kainmagic",
+<<<<<<< HEAD
             "offset": 303,
 >>>>>>> 9ad4756 (Adding -z: flags)
             "size": 1,
@@ -8587,18 +8753,20 @@ const _FE_FLAGSPEC = {
             "offset": 275,
 =======
             "flag": "-tweak:edwardheal",
+=======
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "offset": 304,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-tweak:darkpaladin",
+            "flag": "-tweak:edwardheal",
             "offset": 305,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:all",
+            "flag": "-tweak:darkpaladin",
             "offset": 306,
 >>>>>>> 9ad4756 (Adding -z: flags)
             "size": 1,
@@ -8606,10 +8774,14 @@ const _FE_FLAGSPEC = {
         },
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "flag": "-spoil:bosses",
             "offset": 276,
 =======
             "flag": "-spoil:keyitems",
+=======
+            "flag": "-spoil:all",
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "offset": 307,
 >>>>>>> 9ad4756 (Adding -z: flags)
             "size": 1,
@@ -8617,10 +8789,14 @@ const _FE_FLAGSPEC = {
         },
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "flag": "-spoil:misc",
             "offset": 277,
 =======
             "flag": "-spoil:rewards",
+=======
+            "flag": "-spoil:keyitems",
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "offset": 308,
 >>>>>>> 9ad4756 (Adding -z: flags)
             "size": 1,
@@ -8628,128 +8804,173 @@ const _FE_FLAGSPEC = {
         },
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "flag": "-spoil:sparse10",
             "offset": 278,
 =======
             "flag": "-spoil:chars",
+=======
+            "flag": "-spoil:rewards",
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "offset": 309,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:treasure",
+            "flag": "-spoil:chars",
             "offset": 310,
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:treasure",
+            "offset": 311,
             "size": 2,
             "value": 1
         },
         {
             "flag": "-spoil:miabs",
-            "offset": 310,
+            "offset": 311,
             "size": 2,
             "value": 2
         },
         {
             "flag": "-spoil:shops",
-            "offset": 312,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:bosses",
             "offset": 313,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:misc",
+            "flag": "-spoil:bosses",
             "offset": 314,
             "size": 1,
             "value": 1
         },
         {
-            "flag": "-spoil:sparse10",
+            "flag": "-spoil:misc",
             "offset": 315,
+<<<<<<< HEAD
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "size": 1,
+            "value": 1
+        },
+        {
+            "flag": "-spoil:sparse10",
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 1
         },
         {
             "flag": "-spoil:sparse20",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 2
         },
         {
             "flag": "-spoil:sparse30",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 3
         },
         {
             "flag": "-spoil:sparse40",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 4
         },
         {
             "flag": "-spoil:sparse50",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 5
         },
         {
             "flag": "-spoil:sparse60",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 6
         },
         {
             "flag": "-spoil:sparse70",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 7
         },
         {
             "flag": "-spoil:sparse80",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 8
         },
         {
             "flag": "-spoil:sparse90",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "offset": 278,
 =======
             "offset": 315,
 >>>>>>> 9ad4756 (Adding -z: flags)
+=======
+            "offset": 316,
+>>>>>>> b553c90 (Adding -z:chaos and -z:lavosshell)
             "size": 4,
             "value": 9
         }
@@ -10082,7 +10303,10 @@ class FlagLogicCore {
             this._lib.push(log, ["correction", "Monsters require evade to flee; forced to add -monsterevade"]);
         }
         if ((flagset.has("-z:physical") && flagset.has("-z:whichbang"))) {
-            this._simple_disable(flagset, log, "No spells in script", ["-z:whichbang"]);
+            this._simple_disable(flagset, log, "No guaranteed Big Bangs in script", ["-z:whichbang"]);
+        }
+        if ((flagset.has_any("-z:chaos", "-z:lavosshell") && flagset.has("-z:phaseshift"))) {
+            this._simple_disable(flagset, log, "Random phases take precedence over shuffled phases", ["-z:phaseshift"]);
         }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");

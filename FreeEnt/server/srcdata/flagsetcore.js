@@ -576,7 +576,10 @@ class FlagLogicCore {
             this._simple_disable(flagset, log, "Removing doors rando related flags when no doors/entrances option is enabled ", ["-calmness", "-forcesealed"]);
         }
         if ((flagset.has("-z:physical") && flagset.has("-z:whichbang"))) {
-            this._simple_disable(flagset, log, "No spells in script", ["-z:whichbang"]);
+            this._simple_disable(flagset, log, "No guaranteed Big Bangs in script", ["-z:whichbang"]);
+        }
+        if ((flagset.has_any("-z:chaos", "-z:lavosshell") && flagset.has("-z:phaseshift"))) {
+            this._simple_disable(flagset, log, "Random phases take precedence over shuffled phases", ["-z:phaseshift"]);
         }
         all_spoiler_flags = flagset.get_list("^-spoil:");
         sparse_spoiler_flags = flagset.get_list("^-spoil:sparse");

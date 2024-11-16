@@ -824,6 +824,12 @@ Enable this flag to replace Zeromus' magic-based damaging attacks with physical 
 [-z:physmag]
 In half the seeds rolled with this flag, Zeromus will have the physical script from <em>-z:physical</em>, and in the other half Zeromus will have the usual magic script.
 
+[-z:chaos]
+In each attack phase, Zeromus will have a handful of random attacks (one or two possibly stronger, with a shake). Four attacks are chosen as reactions. The attacks are mostly curated.
+
+[-z:lavosshell]
+The three main attack phases are replaced by three random monster scripts that do not automatically progress to another script.
+
 [-z:whichbang]
 Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.
 

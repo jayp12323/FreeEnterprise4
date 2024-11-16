@@ -1,0 +1,23 @@
+// Dark Wave doesn't cap its damage, so there's a graphical mistake if it does >9999 damage
+// ("Miss!" or lower 4 out of 5 decimal digits of damage instead of 9999).
+// Hook into the storing-damage part to avoid this issue.
+msfpatch {
+    .addr $03e7d7
+        jsl $=CapDamage__DarkWave
+        nop 
+
+    .new
+    CapDamage__DarkWave:
+        ldy $c9
+        cpy #$270f
+        bcc $+StoreDamage
+        // cap damage at #$270f (i.e. 9999) 
+        ldy #$270f
+        sty $c9
+    %StoreDamage:
+        // displaced first byte of the damage storing;
+        // jump back to do the second byte
+        lda $c9
+        sta $34d4,x
+        rtl
+}

@@ -805,11 +805,19 @@
 .[-vanilla:miabs] Vanilla monster-in-a-box locations
 .[-vanilla:giant] Vanilla Giant
 [] Zeromus fight changes
-.<> Physical or magical scripting
+.<> Script category
+..(@vanilla) Vanilla Z script
+...[-z:whichbang]! Replace every Big Bang with another spell
+...[-z:phaseshift]! Shuffle the three main Z fight phases
 ..(-z:physical)! Physical Z script
+...[-z:phaseshift]! Shuffle the three main Z fight phases
 ..(-z:physmag)! Random physical or magical Z script
-.[-z:whichbang]! Replace every Big Bang with another spell
-.[-z:phaseshift]! Shuffle the three main Z fight phases
+...[-z:whichbang]! Replace every Big Bang with another spell
+...[-z:phaseshift]! Shuffle the three main Z fight phases
+..(-z:chaos)! Fully random attack and reaction scripts
+...[-z:whichbang]! Replace every Big Bang with another spell
+..(-z:lavosshell)! Three random attack phases
+...[-z:whichbang]! Replace every Big Bang with another spell
 .<> Nerfing of Big Bangs
 ..(-z:nonerfs)! Prevent nerfing of Big Bangs
 ..(-z:mustnerf)! 9999 damage Big Bangs

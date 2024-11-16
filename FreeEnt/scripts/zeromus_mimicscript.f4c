@@ -1,0 +1,63 @@
+// Hook into _battle_monster_load to be able to pull both
+// normal and alternate scripts for Zeromus; this code
+// only works because the real Z is in monster slot 1 and
+// there are no other monsters! i.e. "hacky" for sure.
+msfpatch {
+    .addr $0393fa
+        jsl $=Zeromus__LoadSpecificScripts
+        nop nop
+
+    .new
+    Zeromus__LoadSpecificScripts:
+        // first, perform displaced instruction
+        ldy #$e900
+        // next, check if it's the Z fight formation
+        lda $1800
+        cmp #$b7
+        bne $+NotZeromus
+
+        // load monster slot (indexed from 0, not from 5); 
+        // fake Z is 0, real Z is slot 1
+        lda $35a0 
+        bne $+IsZeromus
+        
+    %NotZeromus:
+        // perform the other displaced instruction
+        lda $38ef
+        rtl
+
+    %IsZeromus:
+        // $35a0, the monster slot local variable, is currently 1 and normally does 
+        // not change until after this loop ends, nor is it accessed, so we'll use
+        // it as a pseudo-loop variable and then set it back at the end.
+        // increment $35a0 here to avoid losing the zero flag later
+
+        inc $35a0
+        cmp #$01
+        beq $+MeteoScript
+        cmp #$02
+        beq $+NukeScript
+        cmp #$03
+        beq $+VirusScript
+
+        // the no-condition phase is always the usual alternate script
+        lda #$01
+        sta $38ef
+        sta $35a0
+        rtl
+
+    %VirusScript:
+        lda {% Virus phase script type %} 
+        bra $+DoneScripts
+
+    %NukeScript:
+        lda {% Nuke phase script type %} 
+        bra $+DoneScripts
+
+    %MeteoScript:
+        lda {% Meteo phase script type %} 
+
+    %DoneScripts:
+        sta $38ef
+        rtl
+}

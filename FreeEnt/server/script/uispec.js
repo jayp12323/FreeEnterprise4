@@ -7675,34 +7675,90 @@ var FLAG_UISPEC = [
         "subcontrols": [
           {
             "flag": "@anon85",
-            "title": "Physical or magical scripting",
+            "title": "Script category",
             "type": "select",
             "subcontrols": [
+              {
+                "flag": "@vanilla",
+                "title": "Vanilla Z script",
+                "subcontrols": [
+                  {
+                    "flag": "-z:whichbang",
+                    "title": "Replace every Big Bang with another spell",
+                    "description": "Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.",
+                    "hard": true
+                  },
+                  {
+                    "flag": "-z:phaseshift",
+                    "title": "Shuffle the three main Z fight phases",
+                    "description": "Zeromus has three main phases after the first Big Bang: Virus, Nuke, and Meteo. Enable this flag to shuffle the three attack phases among themselves (the HP thresholds and reactions will not change).",
+                    "hard": true
+                  }
+                ]
+              },
               {
                 "flag": "-z:physical",
                 "title": "Physical Z script",
                 "description": "Enable this flag to replace Zeromus' magic-based damaging attacks with physical attacks (Fight, Dark Wave, Needle/Counter). Zeromus now counters some physical commands instead of magic.",
-                "hard": true
+                "hard": true,
+                "subcontrols": [
+                  {
+                    "flag": "-z:phaseshift",
+                    "title": "Shuffle the three main Z fight phases",
+                    "description": "Zeromus has three main phases after the first Big Bang: Virus, Nuke, and Meteo. Enable this flag to shuffle the three attack phases among themselves (the HP thresholds and reactions will not change).",
+                    "hard": true
+                  }
+                ]
               },
               {
                 "flag": "-z:physmag",
                 "title": "Random physical or magical Z script",
                 "description": "In half the seeds rolled with this flag, Zeromus will have the physical script from <em>-z:physical</em>, and in the other half Zeromus will have the usual magic script.",
-                "hard": true
+                "hard": true,
+                "subcontrols": [
+                  {
+                    "flag": "-z:whichbang",
+                    "title": "Replace every Big Bang with another spell",
+                    "description": "Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.",
+                    "hard": true
+                  },
+                  {
+                    "flag": "-z:phaseshift",
+                    "title": "Shuffle the three main Z fight phases",
+                    "description": "Zeromus has three main phases after the first Big Bang: Virus, Nuke, and Meteo. Enable this flag to shuffle the three attack phases among themselves (the HP thresholds and reactions will not change).",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "-z:chaos",
+                "title": "Fully random attack and reaction scripts",
+                "description": "In each attack phase, Zeromus will have a handful of random attacks (one or two possibly stronger, with a shake). Four attacks are chosen as reactions. The attacks are mostly curated.",
+                "hard": true,
+                "subcontrols": [
+                  {
+                    "flag": "-z:whichbang",
+                    "title": "Replace every Big Bang with another spell",
+                    "description": "Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.",
+                    "hard": true
+                  }
+                ]
+              },
+              {
+                "flag": "-z:lavosshell",
+                "title": "Three random attack phases",
+                "description": "The three main attack phases are replaced by three random monster scripts that do not automatically progress to another script.",
+                "hard": true,
+                "subcontrols": [
+                  {
+                    "flag": "-z:whichbang",
+                    "title": "Replace every Big Bang with another spell",
+                    "description": "Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.",
+                    "hard": true
+                  }
+                ]
               }
             ]
-          },
-          {
-            "flag": "-z:whichbang",
-            "title": "Replace every Big Bang with another spell",
-            "description": "Each instance of Big Bang is replaced with a (potentially different) spell chosen from a small list, including Big Bang itself.",
-            "hard": true
-          },
-          {
-            "flag": "-z:phaseshift",
-            "title": "Shuffle the three main Z fight phases",
-            "description": "Zeromus has three main phases after the first Big Bang: Virus, Nuke, and Meteo. Enable this flag to shuffle the three attack phases among themselves (the HP thresholds and reactions will not change).",
-            "hard": true
           },
           {
             "flag": "@anon86",

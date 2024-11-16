@@ -1,0 +1,33 @@
+// Need to patch "replace target" code to prevent softlocks with
+// with monsters using Jump. This change has no actual impact on
+// gameplay; just avoids the softlock.
+msfpatch {
+    .addr $03af29
+        jml $=ReplaceTarget__CheckBackRow
+
+    .new
+    ReplaceTarget__CheckBackRow:
+        // use Y as the loop variable, use X as the back row offset
+        ldy #$0005
+        ldx #$0280
+    
+    %ReplaceLoopStart:
+        // check empty slot
+        lda $289c,y
+        bne $+NextReplace
+        // check for back row via sprite class
+        lda $2001,x
+        bpl $+FoundNewTarget
+
+    %NextReplace:
+        iny
+        jsr $_Util__XPlus80
+        cpy #$000D
+        bne $-ReplaceLoopStart
+
+    %NoReplace:
+        jml $03af43
+
+    %FoundNewTarget:
+        jml $03af6f
+}

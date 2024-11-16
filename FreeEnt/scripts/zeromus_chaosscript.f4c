@@ -1,0 +1,78 @@
+// for when Z needs maxed out attack/spell power,
+// we need to adjust the attack index/spell power using
+// scripting because otherwise the boss data doesn't line up
+// %Z base stat changes%
+// %end%
+
+// Z pre-first-BB phase
+ai_script(moon $4B) 
+{
+    use #InvincibleOff
+    
+    use #ZeromusShake2
+    
+    // %big bang 1 replacement%
+    use #Enemy_BigBang
+    condition 3
+    // %end%
+}
+
+// Z Virus phase
+ai_script(moon $4C) 
+{
+    // %chaos phase 1%
+    fight
+    // %end%
+}
+
+// Z nuke phase
+ai_script(moon $55) 
+{
+    // %chaos phase 2%
+    fight
+    // %end%
+}
+
+// Z Meteo phase
+ai_script(moon $57) 
+{
+    // %chaos phase 3%
+    fight
+    // %end%
+}
+
+// Z counter-Nukes for non-White/Call magic
+ai_script(moon $4D) 
+{
+    // %counter nuke replacement%
+    set spell power 14
+    use #Nuke
+    // %end%
+}
+
+// Z counter-Nukes for Call in Virus phase
+ai_script(moon $4E) 
+{
+    // %counter nuke call replacement%
+    set spell power 14
+    use #Nuke
+    // %end%
+}
+
+// Z counter-Weak for White magic
+ai_script(moon $4F) 
+{
+    // %counter weak replacement%
+    use #Enemy_WeakEnemy
+    // %end%
+}
+
+// Z counter-Virus for Call in non-Virus phase
+ai_script(moon $58) 
+{
+    // %counter virus replacement%
+    set spell power 36
+    target all characters
+    use #Virus
+    // %end%
+}
