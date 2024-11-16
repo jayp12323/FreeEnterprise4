@@ -24,17 +24,21 @@
 {: #nopartner }
 - [Cpaladin]: Cecil starts as a paladin.  Ordeals is still available as an objective as usual.
 {: #cpaladin }
-- [Csuperhero]: This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).
+- [Chi]: New characters are required to join the party, even if your party is full.
+{: #chi }
+- [Cfifo]: When dismissing a character, you must dismiss the character that has been in your party the longest.
+{: #cfifo}
+- [Csuperhero]: This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness). Trading in the Earth Crystal to the boss in the Tower of Zot removes the Earth Crystal from your inventory and restores the stat boosts.
 {: #superhero }
 - Ctreasure
-    - [Ctreasure:free] Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs
-{: #treasure-free  }
-    - [Ctreasure:earned] Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs
-{: #treasure-earned  }
-    - [Ctreasure:unsafe] Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.
-{: #treasure-unsafe  }
-    - [Ctreasure:relaxed] Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.
-{: #treasure-relaxed }
+    - [Ctreasure-free] Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs
+{: #ctreasure-free  }
+    - [Ctreasure-earned] Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs
+{: #ctreasure-earned  }
+    - [Ctreasure-unsafe] Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.
+{: #ctreasure-unsafe  }
+    - [Ctreasure-relaxed] Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.
+{: #ctreasure-relaxed }
 
 !!! info "Linked Flags"
     In order to enable any of the Ctreasure flags, you must select treasure settings that randomize chest contents. The flag validation will remove your Ctreasure flags when any of Tvanilla, Tshuffle, and Tempty are set.
