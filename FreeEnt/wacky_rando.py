@@ -266,9 +266,9 @@ def apply_whatsmygear(env, rom_address):
                 stats_text = '[$c7]'.join(STAT_NAMES) + f'[$c2]{bonus}.'
                 filler = ' ' * (27-ff4strlen(stats_text))
             else: 
-                # no stat changes, write nothing
-                stats_text = ''
-                filler = ' ' * 27
+                # no stat changes, so write 'no stat changes.'
+                stats_text = 'no stat changes.'
+                filler = ' ' * (27-ff4strlen(stats_text))
         elif (stats == 0xF8) or not (pair & 0x04): 
             # all or some stats increase, no stats decrease
             bonus = BYTE_DICT[pair][0]
