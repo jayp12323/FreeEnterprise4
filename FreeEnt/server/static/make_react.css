@@ -380,8 +380,34 @@ body {
     background-color: #ebb;
 }
 
+/* fork tooltip, mostly from https://blog.logrocket.com/creating-beautiful-tooltips-with-only-css/ */
 span.nf {
     margin-left: .2em;
+    position: relative;
+}
+
+span.nf::after {
+    content: "This flag is from a fork.";
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    left: 100%;
+    margin-left: 15px;
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+}
+
+span.nf:hover::after {
+    display: block;
 }
 
 .flagButton.selected {
