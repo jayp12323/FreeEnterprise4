@@ -781,8 +781,8 @@ def build(romfile, options, force_recompile=False):
 
     exp_moon_bonus = env.options.flags.get_suffix('-exp:moonbonus')
     if exp_moon_bonus:
-        exp_moon_bonus = int(exp_miab_bonus) // 100
-        env.add_substitution('experience moon bonus multiplier', f'#${exp_miab_bonus:04X}')
+        exp_moon_bonus = int(exp_moon_bonus) // 100
+        env.add_substitution('experience moon bonus multiplier', f'#${exp_moon_bonus:04X}')
         env.add_toggle('experience_moon_bonus')
 
     exp_geometric_mod = env.options.flags.get_suffix('-exp:geometric')
