@@ -30,7 +30,8 @@ var FLAG_UISPEC = [
               {
                 "flag": "Omode:bosscollector",
                 "title": "Boss Collector",
-                "description": "Find and defeat the specified number of bosses to complete this objective",
+                "description": "Find and defeat the specified number of bosses to complete this objective. <a href=\"/fork_info#bosscollector\" class=\"nf nf-md-information\"></a>",
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "@anon1",
@@ -104,7 +105,8 @@ var FLAG_UISPEC = [
               {
                 "flag": "Omode:goldhunter",
                 "title": "Gold Hunter",
-                "description": "Collect the specified amount of GP and bring them to Tory (he's below Kory) in Agart to complete this objective.",
+                "description": "Collect the specified amount of GP and bring them to Tory (he's below Kory) in Agart to complete this objective. <a href=\"/fork_info#goldhunter\" class=\"nf nf-md-information\"></a>",
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "@anon2",
@@ -3172,6 +3174,7 @@ var FLAG_UISPEC = [
                         "flag": "@anon15",
                         "title": "Only include specific characters",
                         "compact": true,
+                        "fork": true,
                         "subcontrols": [
                           {
                             "flag": "Orandom:onlycecil",
@@ -3232,6 +3235,8 @@ var FLAG_UISPEC = [
           {
             "flag": "@Orandompool2",
             "title": "Random objectives pool #2",
+            "description": "An additinal pool of random objectives, enabling both more random objectives and different allowed types. <a href=\"/fork_info#objective-pools\" class=\"nf nf-md-information\"></a>",
+            "fork": true,
             "subcontrols": [
               {
                 "flag": "@anon16",
@@ -3303,6 +3308,7 @@ var FLAG_UISPEC = [
                         "flag": "@anon18",
                         "title": "Only include specific characters",
                         "compact": true,
+                        "fork": true,
                         "subcontrols": [
                           {
                             "flag": "Orandom2:onlycecil",
@@ -3363,6 +3369,8 @@ var FLAG_UISPEC = [
           {
             "flag": "@Orandompool3",
             "title": "Random objectives pool #3",
+            "description": "An additinal pool of random objectives, enabling both more random objectives and different allowed types. <a href=\"/fork_info#objective-pools\" class=\"nf nf-md-information\"></a>",
+            "fork": true,
             "subcontrols": [
               {
                 "flag": "@anon19",
@@ -3434,6 +3442,7 @@ var FLAG_UISPEC = [
                         "flag": "@anon21",
                         "title": "Only include specific characters",
                         "compact": true,
+                        "fork": true,
                         "subcontrols": [
                           {
                             "flag": "Orandom3:onlycecil",
@@ -3545,7 +3554,8 @@ var FLAG_UISPEC = [
           {
             "flag": "@Ogated",
             "title": "Gated Objective",
-            "description": "A gated objective means that you will only get the reward for that objective upon completion of all required other objectives.  So if you set \"Complete the Tower of Zot\" as a gated objective, you will be granted the earth crystal automatically upon completion of the other objectives.",
+            "description": "A gated objective means that you will only get the reward for that objective upon completion of all required other objectives.  So if you set \"Complete the Tower of Zot\" as a gated objective, you will be granted the earth crystal automatically upon completion of the other objectives. <a href=\"/fork_info#objectives-gated\" class=\"nf nf-md-information\"></a>",
+            "fork": true,
             "subcontrols": [
               {
                 "flag": "@anon23",
@@ -3631,8 +3641,9 @@ var FLAG_UISPEC = [
           {
             "flag": "@Ohardreq",
             "title": "Hard Required Objectives",
-            "description": "Hard required objectives are a # of objectives that must be completed in order to consider all objectives completed.  So if you require 4 out of 5 objectives, and 1 hard required, the hard objective must be included as part of the 4.",
+            "description": "Hard required objectives are a # of objectives that must be completed in order to consider all objectives completed.  So if you require 4 out of 5 objectives, and 1 hard required, the hard objective must be included as part of the 4. <a href=\"/fork_info#objectives-required\" class=\"nf nf-md-information\"></a>",
             "compact": true,
+            "fork": true,
             "subcontrols": [
               {
                 "flag": "Ohardreq:1",
@@ -3909,6 +3920,7 @@ var FLAG_UISPEC = [
               {
                 "flag": "@anon31",
                 "title": "Starting items",
+                "fork": true,
                 "type": "select",
                 "subcontrols": [
                   {
@@ -4689,8 +4701,9 @@ var FLAG_UISPEC = [
           {
             "flag": "Csuperhero",
             "title": "Superhero challenge",
-            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).  Once returning the crystal to Zot, you gain your powers back.</li></ul>",
-            "hard": true
+            "description": "<ul><li>This flag acts the same as Chero, except your starting character will obtain incredible stat boosts, until finding the earth crystal (their one weakness).  Once returning the crystal to Zot, you gain your powers back. <a href=\"/fork_info#superhero\" class=\"nf nf-md-information\"></a></li></ul>",
+            "hard": true,
+            "fork": true
           }
         ]
       },
@@ -4714,8 +4727,9 @@ var FLAG_UISPEC = [
           {
             "flag": "Cnopartner",
             "title": "No starting partner",
-            "description": "Your starting partner will not join your party",
-            "hard": true
+            "description": "Your starting partner will not join your party. <a href=\"/fork_info#nopartner\" class=\"nf nf-md-information\"></a>",
+            "hard": true,
+            "fork": true
           }
         ]
       },
@@ -4723,29 +4737,30 @@ var FLAG_UISPEC = [
         "flag": "@anon48",
         "title": "Characters in chests",
         "null": true,
+        "fork": true,
         "subcontrols": [
           {
             "flag": "Ctreasure:free",
             "title": "Free characters are found in treasure chests instead",
-            "description": "Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
+            "description": "Free characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs. <a href=\"/fork_info#ctreasure-free\" class=\"nf nf-md-information\"></a>",
             "hard": true
           },
           {
             "flag": "Ctreasure:earned",
             "title": "Earned characters are found in treasure chests instead",
-            "description": "Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs",
+            "description": "Earned characters will instead be found in treasure chests in the overworld. Restricted characters will be found in MIABs. <a href=\"/fork_info#ctreasure-earned\" class=\"nf nf-md-information\"></a>",
             "hard": true
           },
           {
             "flag": "Ctreasure:relaxed",
             "title": "Restricted characters in all chests",
-            "description": "Restricted characters will be found in all chests.  No characters will be placed in MIAB chests.",
+            "description": "Restricted characters will be found in all chests.  No characters will be placed in MIAB chests. <a href=\"/fork_info#ctreasure-relaxed\" class=\"nf nf-md-information\"></a>",
             "hard": true
           },
           {
             "flag": "Ctreasure:unsafe",
             "title": "Unsafe characters in chests",
-            "description": "Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld.",
+            "description": "Free characters will normally all be placed in treasures in the overworld only.  With this flag however, characters will be distributed throughout the underworld,overworld and moon.  This means you may end up with no characters in chests in the overworld. <a href=\"/fork_info#ctreasure-unsafe\" class=\"nf nf-md-information\"></a>",
             "hard": true
           }
         ]
@@ -4780,12 +4795,14 @@ var FLAG_UISPEC = [
           {
             "flag": "Chi",
             "title": "New characters are forced to join the party",
-            "description": "New characters are required to join the party, even if your party is full."
+            "description": "New characters are required to join the party, even if your party is full.",
+            "fork": true
           },
           {
             "flag": "Cfifo",
             "title": "Characters in the party the longest must be dismissed first",
-            "description": "When dismissing a character, you must dismiss the character that has been in your party the longest."
+            "description": "When dismissing a character, you must dismiss the character that has been in your party the longest.",
+            "fork": true
           },
           {
             "flag": "Cbye",
@@ -4802,7 +4819,8 @@ var FLAG_UISPEC = [
       {
         "flag": "Cpaladin",
         "title": "Cecil starts the game as a paladin",
-        "description": "Cecil will start as a paladin, but Mt. Ordeals will still grant spells to Tellah, and hold a key item check"
+        "description": "Cecil will start as a paladin, but Mt. Ordeals will still grant spells to Tellah, and hold a key item check. <a href=\"/fork_info#cpaladin\" class=\"nf nf-md-information\"></a>",
+        "fork": true
       }
     ]
   },
@@ -5062,6 +5080,7 @@ var FLAG_UISPEC = [
                 "flag": "@anon55",
                 "title": "Unrestrict item quality",
                 "compact": true,
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "Tunrestrict:treasury",
@@ -5221,6 +5240,7 @@ var FLAG_UISPEC = [
                 "flag": "@anon55",
                 "title": "Unrestrict item quality",
                 "compact": true,
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "Tunrestrict:treasury",
@@ -5380,6 +5400,7 @@ var FLAG_UISPEC = [
                 "flag": "@anon55",
                 "title": "Unrestrict item quality",
                 "compact": true,
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "Tunrestrict:treasury",
@@ -5539,6 +5560,7 @@ var FLAG_UISPEC = [
                 "flag": "@anon55",
                 "title": "Unrestrict item quality",
                 "compact": true,
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "Tunrestrict:treasury",
@@ -5698,6 +5720,7 @@ var FLAG_UISPEC = [
                 "flag": "@anon55",
                 "title": "Unrestrict item quality",
                 "compact": true,
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "Tunrestrict:treasury",
@@ -5857,6 +5880,7 @@ var FLAG_UISPEC = [
                 "flag": "@anon55",
                 "title": "Unrestrict item quality",
                 "compact": true,
+                "fork": true,
                 "subcontrols": [
                   {
                     "flag": "Tunrestrict:treasury",
@@ -6114,6 +6138,7 @@ var FLAG_UISPEC = [
         "flag": "@anon61",
         "title": "Guarantee Items",
         "compact": true,
+        "fork": true,
         "subcontrols": [
           {
             "flag": "Salways:apples",
@@ -6180,41 +6205,50 @@ var FLAG_UISPEC = [
           },
           {
             "flag": "Sno:vampires",
-            "title": "No Vampires in shops"
+            "title": "No Vampires in shops",
+            "fork": true
           },
           {
             "flag": "Sno:hrglass",
-            "title": "No HrGlass2 in shops"
+            "title": "No HrGlass2 in shops",
+            "fork": true
           },
           {
             "flag": "Sno:bacchus",
-            "title": "No Bacchus in shops"
+            "title": "No Bacchus in shops",
+            "fork": true
           },
           {
             "flag": "Sno:starveil",
-            "title": "No Starveils in shops"
+            "title": "No Starveils in shops",
+            "fork": true
           },
           {
             "flag": "Sno:cure3",
-            "title": "No Cure3 in shops"
+            "title": "No Cure3 in shops",
+            "fork": true
           },
           {
             "flag": "Sno:illusion",
-            "title": "No Illusions in shops"
+            "title": "No Illusions in shops",
+            "fork": true
           },
           {
             "flag": "Sno:coffin",
-            "title": "No Coffins in shops"
+            "title": "No Coffins in shops",
+            "fork": true
           },
           {
             "flag": "Sno:damage_items",
-            "title": "No Damage items (BigBomb,ThorRage,etc) in shops"
+            "title": "No Damage items (BigBomb,ThorRage,etc) in shops",
+            "fork": true
           }
         ]
       },
       {
         "flag": "@anon63",
         "title": "Shop price adjustments",
+        "fork": true,
         "type": "select",
         "subcontrols": [
           {
@@ -6564,7 +6598,8 @@ var FLAG_UISPEC = [
           {
             "flag": "Bitburns",
             "title": "Replace Wyvern's opening MegaNuke with random, incredibly dangerous attack",
-            "description": "The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo"
+            "description": "The replacement attack will include Meganuke, Big Bang, Zanteksuken, Full party charm, and Meteo",
+            "fork": true
           }
         ]
       },

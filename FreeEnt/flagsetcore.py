@@ -475,7 +475,7 @@ class FlagLogicCore:
         
         if flagset.has('Ctreasure:free'):                            
             flagset.set('Cnofree')
-            self._lib.push(log, ['correction', 'Ctreasure:earned set, auto-assigning Cnofree'])        
+            self._lib.push(log, ['correction', 'Ctreasure:free set, auto-assigning Cnofree'])        
 
         if flagset.has('Tempty'):
             self._simple_disable_regex(flagset, log, 'Treasures are empty', r'^Tsparse:')

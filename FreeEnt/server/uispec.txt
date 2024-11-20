@@ -4,7 +4,7 @@
 ..[Omode:classicforge] Classic Forge-the-Crystal
 ..[Omode:classicgiant] Classic Giant%
 ..[Omode:fiends] Fiends%
-..[Omode:bosscollector] Boss Collector
+..[Omode:bosscollector]^ Boss Collector
 ...<> Set number of required bosses
 ....(Obosscollector:1) Collect 1 boss
 ....(Obosscollector:2) Collect 2 bosses
@@ -21,7 +21,7 @@
 ....(Obosscollector:25) Collect 25 bosses
 ....(Obosscollector:30) Collect 30 bosses
 ....(Obosscollector:34) Collect 34 bosses
-..[Omode:goldhunter] Gold Hunter
+..[Omode:goldhunter]^ Gold Hunter
 ...<>* Set type of gold hunt
 ....(Ogoldhunter:100) Have 100,000 gold
 ....(Ogoldhunter:250) Have 250,000 gold
@@ -89,7 +89,7 @@
 ....(Orandom:tough_quest) Tough quests allowed
 ...[Orandom:boss] Boss hunts allowed
 ...[Orandom:char] Character hunts allowed
-....()# Only include specific characters
+....()#^ Only include specific characters
 .....[Orandom:onlycecil]  Only include Cecil
 .....[Orandom:onlykain]   Only include Kain
 .....[Orandom:onlyrydia]  Only include Rydia
@@ -102,7 +102,7 @@
 .....[Orandom:onlycid]    Only include Cid
 .....[Orandom:onlyedge]   Only include Edge
 .....[Orandom:onlyfusoya] Only include Fusoya
-.[@Orandompool2] Random objectives pool #2
+.[@Orandompool2]^ Random objectives pool #2
 ..<> Set number of random objectives
 ...(Orandom2:1) Add 1 random objective
 ...(Orandom2:2) Add 2 random objectives
@@ -118,7 +118,7 @@
 ....(Orandom2:tough_quest) Tough quests allowed
 ...[Orandom2:boss] Boss hunts allowed
 ...[Orandom2:char] Character hunts allowed
-....()# Only include specific characters
+....()#^ Only include specific characters
 .....[Orandom2:onlycecil]  Only include Cecil
 .....[Orandom2:onlykain]   Only include Kain
 .....[Orandom2:onlyrydia]  Only include Rydia
@@ -131,7 +131,7 @@
 .....[Orandom2:onlycid]    Only include Cid
 .....[Orandom2:onlyedge]   Only include Edge
 .....[Orandom2:onlyfusoya] Only include Fusoya
-.[@Orandompool3] Random objectives pool #3
+.[@Orandompool3]^ Random objectives pool #3
 ..<> Set number of random objectives
 ...(Orandom3:1) Add 1 random objective
 ...(Orandom3:2) Add 2 random objectives
@@ -147,7 +147,7 @@
 ....(Orandom3:tough_quest) Tough quests allowed
 ...[Orandom3:boss] Boss hunts allowed
 ...[Orandom3:char] Character hunts allowed
-....()# Only include specific characters
+....()#^ Only include specific characters
 .....[Orandom3:onlycecil]  Only include Cecil
 .....[Orandom3:onlykain]   Only include Kain
 .....[Orandom3:onlyrydia]  Only include Rydia
@@ -172,7 +172,7 @@
 ..(Oreq:8) Complete 8 objectives for reward
 ..(Oreq:9) Complete 9 objectives for reward
 ..(Oreq:10) Complete 10 objectives for reward
-.[@Ogated] Gated Objective
+.[@Ogated]^ Gated Objective
 ..<> Pick an objective
 ...(Ogated:1) Objective #1 is gated behind other objectives
 ...(Ogated:2) Objective #2 is gated behind other objectives
@@ -192,7 +192,7 @@
 ...(Ogated:16) Objective #16 is gated behind other objectives
 ...(Ogated:17) Objective #17 is gated behind other objectives
 ...(Ogated:18) Objective #18 is gated behind other objectives
-.(@Ohardreq)# Hard Required Objectives
+.(@Ohardreq)#^ Hard Required Objectives
 ..[Ohardreq:1] Objective #1 is hard required
 ..[Ohardreq:2] Objective #2 is hard required
 ..[Ohardreq:3] Objective #3 is hard required
@@ -244,7 +244,7 @@
 ..[Kunsafe]! No safety checks
 ..[Kunsafer]! Force underground access via the moon
 ..[Klatedark] Force Darkness Crystal to be gated by underground access
-..<> Starting items
+..<>^ Starting items
 ...(Kstart:package) You start with the Package
 ...(Kstart:sandruby) You start with the Sandruby
 ...(Kstart:baron) You start with the Baron Key
@@ -414,12 +414,12 @@
 .[Cpermadeader]! Permadeader
 <> Hero Options
 .[Chero]! Hero challenge
-.[Csuperhero]! Superhero challenge
+.[Csuperhero]!^ Superhero challenge
 []- Difficulty modifiers
 .[Cnofree]! No free characters
 .[Cnoearned]! No earned characters
-.[Cnopartner]! No starting partner
-[]- Characters in chests
+.[Cnopartner]!^ No starting partner
+[]-^ Characters in chests
 .[Ctreasure:free]! Free characters are found in treasure chests instead
 .[Ctreasure:earned]! Earned characters are found in treasure chests instead
 .[Ctreasure:relaxed]! Restricted characters in all chests
@@ -429,11 +429,11 @@
 .[Cj:abilities] Characters have J-commands
 []- Character Join Options
 .[Cnodupes] Duplicate characters not allowed
-.[Chi] New characters are forced to join the party
-.[Cfifo] Characters in the party the longest must be dismissed first
+.[Chi]^ New characters are forced to join the party
+.[Cfifo]^ Characters in the party the longest must be dismissed first
 .[Cbye] Dismissed characters are irretrievable
 .[Cpermajoin] Characters can't be dismissed
-[Cpaladin] Cecil starts the game as a paladin
+[Cpaladin]^ Cecil starts the game as a paladin
 
 == TREASURES
 <>* Treasure chests (other than MIABs)
@@ -462,7 +462,7 @@
 ...(Tmaxtier:5) Chests contain tier 5 items at best
 ...(Tmaxtier:4)! Chests contain tier 4 items at best
 ...(Tmaxtier:3)! Chests contain tier 3 items at best
-..()# Unrestrict item quality
+..()#^ Unrestrict item quality
 ...[Tunrestrict:treasury] Chests in the toroia treasury will be unaffected by any Tmaxtier flags
 ...[Tunrestrict:moon] Chests on the moon will be unaffected by any Tmaxtier flags
 ...[Tunrestrict:underworld] Chests in the underworld will be unaffected by any Tmaxtier flags
@@ -516,7 +516,7 @@
 <> Sell prices
 .(Ssell:quarter) Items sell for 1/4 price
 .(Ssell:0) Items sell for 0 GP
-()# Guarantee Items
+()#^ Guarantee Items
 .[Salways:apples] Apples/Soma Drops always sold in shops
 .[Salways:sirens] Sirens always sold in shops
 .[Salways:vampires] Vampires always sold in shops
@@ -533,16 +533,16 @@
 .[Sno:apples] No Apples/Soma Drops in shops
 .[Sno:sirens] No Sirens in shops
 .[Sno:life] No Life potions in shops
-.[Sno:vampires] No Vampires in shops
-.[Sno:hrglass] No HrGlass2 in shops
-.[Sno:bacchus] No Bacchus in shops
-.[Sno:starveil] No Starveils in shops
-.[Sno:cure3] No Cure3 in shops
-.[Sno:illusion] No Illusions in shops
-.[Sno:coffin] No Coffins in shops
-.[Sno:damage_items] No Damage items (BigBomb,ThorRage,etc) in shops
+.[Sno:vampires]^ No Vampires in shops
+.[Sno:hrglass]^ No HrGlass2 in shops
+.[Sno:bacchus]^ No Bacchus in shops
+.[Sno:starveil]^ No Starveils in shops
+.[Sno:cure3]^ No Cure3 in shops
+.[Sno:illusion]^ No Illusions in shops
+.[Sno:coffin]^ No Coffins in shops
+.[Sno:damage_items]^ No Damage items (BigBomb,ThorRage,etc) in shops
 
-<> Shop price adjustments
+<>^ Shop price adjustments
 .(Sprice:20) Shop prices are adjusted to 20% of their normal value
 ..()# Only affect specific item types
 ...[Spricey:items] Only affect consumable items
@@ -584,7 +584,7 @@
 <> Change Wyvern's opening MegaNuke
 .(Bwhyburn) Disable Wyvern's opening MegaNuke
 .(Bwhichburn) Replace Wyvern's opening MegaNuke with a random attack
-.(Bitburns) Replace Wyvern's opening MegaNuke with random, incredibly dangerous attack
+.(Bitburns)^ Replace Wyvern's opening MegaNuke with random, incredibly dangerous attack
 [Bwoahdin] Replace Odin's first two Zantetsukens 1 and 2 with a random attack
 () Change Golbez's behaviour
 .[Bwhybez] Disable Golbez's Shadow summon

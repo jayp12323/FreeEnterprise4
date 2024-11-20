@@ -12124,7 +12124,7 @@ class FlagLogicCore {
         }
         if (flagset.has("Ctreasure:free")) {
             flagset.set("Cnofree");
-            this._lib.push(log, ["correction", "Ctreasure:earned set, auto-assigning Cnofree"]);
+            this._lib.push(log, ["correction", "Ctreasure:free set, auto-assigning Cnofree"]);
         }
         if (flagset.has("Tempty")) {
             this._simple_disable_regex(flagset, log, "Treasures are empty", "^Tsparse:");
