@@ -330,6 +330,8 @@ msfpatch {
         lda #$00
         sta $08fa
 
+        lda #$24
+        jsr $_Util__PlaySFX
         lda $=Objectives__Progress,x
         cmp #$01
         beq $+FirstBoss
@@ -341,13 +343,16 @@ msfpatch {
 
     %ShowBossCounterDialog:
         sta $b2
-        lda #$24
-        jsr $_Util__PlaySFX
-        // pull rtl address and defer to bank 1 high message handler
-        pla
-        pla
-        pla
-        jml $00ef64
+        // display messages
+        ldx #$b1e1  // _load_message_bank_1_hi_offset
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCall
+        ldx #$b0d1  // _show_upper_dialog
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCall
+        ldx #$b164  // _close_upper_dialog
+        stx $_Bank00LongCallAddr
+        jsl $=Bank00LongCall
     %SkipBossCollectorDialog:
         // check for Fusoya challenge
         lda $=RandoFlag_vanilla_fusoya

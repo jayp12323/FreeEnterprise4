@@ -592,15 +592,7 @@ class FlagLogicCore:
                     break
 
             win_flags = flagset.get_list(r'^Owin:')
-            # make sure at least some bosses are specified in boss hunt
-            if flagset.has('Omode:bosscollector') and len(flagset.get_list(r'^Obosscollector:'))==0:
-                flagset.set('Obosscollector:5')
-                self._lib.push(log, ['correction', 'bosscollector enabled without specifying number of bosses, adding Obosscollector:5'])
-
-            if flagset.has('Omode:goldhunter') and len(flagset.get_list(r'^Ogoldhunter:'))==0:
-                flagset.set('Ogoldhunter:100')
-                self._lib.push(log, ['correction', 'goldhunter enabled without specifying amount of gold, adding Ogoldhunter:100'])
-
+          
             # Force Owin:crystal if classicforge, otherwise force Owin:game if no win result specified
             if flagset.has('Omode:classicforge') and not flagset.has('Owin:crystal'):
                 flagset.set('Owin:crystal')

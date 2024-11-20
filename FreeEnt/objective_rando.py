@@ -9,8 +9,6 @@ MODES = {
     'Omode:classicforge'  : ['quest_forge'],
     'Omode:classicgiant'  : ['quest_giant'],
     'Omode:fiends'        : ['boss_milon', 'boss_milonz', 'boss_kainazzo', 'boss_valvalis', 'boss_rubicant', 'boss_elements'],
-    'Omode:bosscollector' : ['internal_bosscollector'],
-    'Omode:goldhunter'    : ['internal_goldhunter'],
 }
 
 OBJECTIVE_SLUGS_TO_IDS = {}
@@ -178,6 +176,10 @@ def get_objective_ids(env):
         objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS['internal_dkmatter']])
     if env.options.flags.get_suffix('Omode:ki'):
         objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS['internal_ki']])
+    if env.options.flags.get_suffix('Omode:bosscollector'):
+        objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS['internal_bosscollector']])
+    if env.options.flags.get_suffix('Omode:goldhunter'):
+        objective_ids.extend([OBJECTIVE_SLUGS_TO_IDS['internal_goldhunter']])
 
     # custom objectives from flags
     for slug in env.meta['objectives_from_flags']:
@@ -322,11 +324,11 @@ def apply(env):
     gold_hunt_count = 0
     boss_hunt_count = 0
     
-    if env.options.flags.get_suffix(f"Obosscollector:") != None:
-        boss_hunt_count = int(env.options.flags.get_suffix(f"Obosscollector:"))
+    if env.options.flags.get_suffix(f"Omode:bosscollector") != None:
+        boss_hunt_count = int(env.options.flags.get_suffix(f"Omode:bosscollector"))
 
-    if env.options.flags.get_suffix(f"Ogoldhunter:") != None:
-        gold_hunt_count = int(env.options.flags.get_suffix(f"Ogoldhunter:"))
+    if env.options.flags.get_suffix(f"Omode:goldhunter") != None:
+        gold_hunt_count = int(env.options.flags.get_suffix(f"Omode:goldhunter"))
     
     for b in objective_ids:
         if b == 0xFF:
