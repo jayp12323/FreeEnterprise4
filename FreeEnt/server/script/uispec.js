@@ -28,7 +28,7 @@ var FLAG_UISPEC = [
                 "description": "Defeat Milon, Milon Z., Kainazzo, Valvalis, Rubicant, and Elements to complete this mode."
               },
               {
-                "flag": "Omode:bosscollector",
+                "flag": "@bosscollector",
                 "title": "Boss Collector",
                 "description": "Find and defeat the specified number of bosses to complete this objective. <a href=\"/fork_info#bosscollector\" class=\"nf nf-md-information\"></a>",
                 "fork": true,
@@ -39,63 +39,63 @@ var FLAG_UISPEC = [
                     "type": "select",
                     "subcontrols": [
                       {
-                        "flag": "Obosscollector:1",
+                        "flag": "Omode:bosscollector1",
                         "title": "Collect 1 boss"
                       },
                       {
-                        "flag": "Obosscollector:2",
+                        "flag": "Omode:bosscollector2",
                         "title": "Collect 2 bosses"
                       },
                       {
-                        "flag": "Obosscollector:3",
+                        "flag": "Omode:bosscollector3",
                         "title": "Collect 3 bosses"
                       },
                       {
-                        "flag": "Obosscollector:4",
+                        "flag": "Omode:bosscollector4",
                         "title": "Collect 4 bosses"
                       },
                       {
-                        "flag": "Obosscollector:5",
+                        "flag": "Omode:bosscollector5",
                         "title": "Collect 5 bosses"
                       },
                       {
-                        "flag": "Obosscollector:6",
+                        "flag": "Omode:bosscollector6",
                         "title": "Collect 6 bosses"
                       },
                       {
-                        "flag": "Obosscollector:7",
+                        "flag": "Omode:bosscollector7",
                         "title": "Collect 7 bosses"
                       },
                       {
-                        "flag": "Obosscollector:8",
+                        "flag": "Omode:bosscollector8",
                         "title": "Collect 8 bosses"
                       },
                       {
-                        "flag": "Obosscollector:9",
+                        "flag": "Omode:bosscollector9",
                         "title": "Collect 9 bosses"
                       },
                       {
-                        "flag": "Obosscollector:10",
+                        "flag": "Omode:bosscollector10",
                         "title": "Collect 10 bosses"
                       },
                       {
-                        "flag": "Obosscollector:15",
+                        "flag": "Omode:bosscollector15",
                         "title": "Collect 15 bosses"
                       },
                       {
-                        "flag": "Obosscollector:20",
+                        "flag": "Omode:bosscollector20",
                         "title": "Collect 20 bosses"
                       },
                       {
-                        "flag": "Obosscollector:25",
+                        "flag": "Omode:bosscollector25",
                         "title": "Collect 25 bosses"
                       },
                       {
-                        "flag": "Obosscollector:30",
+                        "flag": "Omode:bosscollector30",
                         "title": "Collect 30 bosses"
                       },
                       {
-                        "flag": "Obosscollector:34",
+                        "flag": "Omode:bosscollector34",
                         "title": "Collect 34 bosses"
                       }
                     ]
@@ -103,7 +103,7 @@ var FLAG_UISPEC = [
                 ]
               },
               {
-                "flag": "Omode:goldhunter",
+                "flag": "@goldhunter",
                 "title": "Gold Hunter",
                 "description": "Collect the specified amount of GP and bring them to Tory (he's below Kory) in Agart to complete this objective. <a href=\"/fork_info#goldhunter\" class=\"nf nf-md-information\"></a>",
                 "fork": true,
@@ -115,23 +115,23 @@ var FLAG_UISPEC = [
                     "type": "select",
                     "subcontrols": [
                       {
-                        "flag": "Ogoldhunter:100",
+                        "flag": "Omode:goldhunter100",
                         "title": "Have 100,000 gold"
                       },
                       {
-                        "flag": "Ogoldhunter:250",
+                        "flag": "Omode:goldhunter250",
                         "title": "Have 250,000 gold"
                       },
                       {
-                        "flag": "Ogoldhunter:500",
+                        "flag": "Omode:goldhunter500",
                         "title": "Have 500,000 gold"
                       },
                       {
-                        "flag": "Ogoldhunter:750",
+                        "flag": "Omode:goldhunter750",
                         "title": "Have 750,000 gold"
                       },
                       {
-                        "flag": "Ogoldhunter:1000",
+                        "flag": "Omode:goldhunter1000",
                         "title": "Have 1,000,000 gold"
                       }
                     ]

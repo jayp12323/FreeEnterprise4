@@ -108,6 +108,10 @@ def setup(env):
             specified_objectives['internal_dkmatter'] = True
         if env.options.flags.get_suffix('Omode:ki'):
             specified_objectives['internal_ki'] = True
+        if env.options.flags.get_suffix('Omode:bosscollector'):
+            specified_objectives['internal_bosscollector'] = True
+        if env.options.flags.get_suffix('Omode:goldhunter'):
+            specified_objectives['internal_goldhunter'] = True
 
         for objective_id in OBJECTIVES:
             objective = OBJECTIVES[objective_id]

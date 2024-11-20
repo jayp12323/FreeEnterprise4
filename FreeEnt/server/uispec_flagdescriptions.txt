@@ -28,10 +28,10 @@ Defeat Milon, Milon Z., Kainazzo, Valvalis, Rubicant, and Elements to complete t
 [Omode:dkmatter30]
 45 Dark Matters are randomly placed in chests (MIABs excluded); bring 30 of them to Kory in Agart to complete this objective.
 
-[Omode:bosscollector]
+[@bosscollector]
 Find and defeat the specified number of bosses to complete this objective. <a href="/fork_info#bosscollector" class="nf nf-md-information"></a>
 
-[Omode:goldhunter]
+[@goldhunter]
 Collect the specified amount of GP and bring them to Tory (he's below Kory) in Agart to complete this objective. <a href="/fork_info#goldhunter" class="nf nf-md-information"></a>
 
 [Omode:dkmatter35]

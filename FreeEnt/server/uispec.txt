@@ -4,30 +4,30 @@
 ..[Omode:classicforge] Classic Forge-the-Crystal
 ..[Omode:classicgiant] Classic Giant%
 ..[Omode:fiends] Fiends%
-..[Omode:bosscollector]^ Boss Collector
+..[@bosscollector]^ Boss Collector
 ...<> Set number of required bosses
-....(Obosscollector:1) Collect 1 boss
-....(Obosscollector:2) Collect 2 bosses
-....(Obosscollector:3) Collect 3 bosses
-....(Obosscollector:4) Collect 4 bosses
-....(Obosscollector:5) Collect 5 bosses
-....(Obosscollector:6) Collect 6 bosses
-....(Obosscollector:7) Collect 7 bosses
-....(Obosscollector:8) Collect 8 bosses
-....(Obosscollector:9) Collect 9 bosses
-....(Obosscollector:10) Collect 10 bosses
-....(Obosscollector:15) Collect 15 bosses
-....(Obosscollector:20) Collect 20 bosses
-....(Obosscollector:25) Collect 25 bosses
-....(Obosscollector:30) Collect 30 bosses
-....(Obosscollector:34) Collect 34 bosses
-..[Omode:goldhunter]^ Gold Hunter
+....(Omode:bosscollector1) Collect 1 boss
+....(Omode:bosscollector2) Collect 2 bosses
+....(Omode:bosscollector3) Collect 3 bosses
+....(Omode:bosscollector4) Collect 4 bosses
+....(Omode:bosscollector5) Collect 5 bosses
+....(Omode:bosscollector6) Collect 6 bosses
+....(Omode:bosscollector7) Collect 7 bosses
+....(Omode:bosscollector8) Collect 8 bosses
+....(Omode:bosscollector9) Collect 9 bosses
+....(Omode:bosscollector10) Collect 10 bosses
+....(Omode:bosscollector15) Collect 15 bosses
+....(Omode:bosscollector20) Collect 20 bosses
+....(Omode:bosscollector25) Collect 25 bosses
+....(Omode:bosscollector30) Collect 30 bosses
+....(Omode:bosscollector34) Collect 34 bosses
+..[@goldhunter]^ Gold Hunter
 ...<>* Set type of gold hunt
-....(Ogoldhunter:100) Have 100,000 gold
-....(Ogoldhunter:250) Have 250,000 gold
-....(Ogoldhunter:500) Have 500,000 gold
-....(Ogoldhunter:750) Have 750,000 gold
-....(Ogoldhunter:1000) Have 1,000,000 gold
+....(Omode:goldhunter100) Have 100,000 gold
+....(Omode:goldhunter250) Have 250,000 gold
+....(Omode:goldhunter500) Have 500,000 gold
+....(Omode:goldhunter750) Have 750,000 gold
+....(Omode:goldhunter1000) Have 1,000,000 gold
 ..<> Dark Matter Hunt
 ...(Omode:dkmatter5) Dark Matter Hunt - 5 Required
 ...(Omode:dkmatter10) Dark Matter Hunt - 10 Required
