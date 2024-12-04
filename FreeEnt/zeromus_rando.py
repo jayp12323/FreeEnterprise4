@@ -307,10 +307,10 @@ def apply(env):
 
         # custom react-to-dart condition: 0x16 is Dart, so... add 0xC0 to it? yep, works perfectly. 
         # overwriting index 0x05, which is unused; condition set 0x05 points at condition 0x05, so we just use that
-        env.add_binary(address.UnheaderedAddress(0x076700 + (0x05 * 0x4)), [0x08, 0x00, 0xD6, 0x00])
+        env.add_binary(address.UnheaderedAddress(0x076700 + (0x05 * 0x4)), [0x07, 0x19, 0xD6, 0x00])
         # custom react-to-aim condition: 0x0C is Aim, so... add 0xC0 to it? yep, works perfectly. overwriting index 0x29, which is unused
         # condition 0x29 is only used in condition set 0x30, so we just use that
-        env.add_binary(address.UnheaderedAddress(0x076700 + (0x29 * 0x04)), [0x08, 0x00, 0xCC, 0x00])
+        env.add_binary(address.UnheaderedAddress(0x076700 + (0x29 * 0x04)), [0x07, 0x19, 0xCC, 0x00])
         # for reactions: first two are vanilla, third is custom react-to-Dart, fourth is custom react-to-Aim, fifth is react-to-Jump (Land), sixth is react-to-Fight
         # will need to change in the event of writing a compiler for new ai sets/etc.
         env.add_binary(address.UnheaderedAddress(0x0764A1), [0x61, 0x56, 0x18, 0x54, 0x05, 0x4E, 0x30, 0x58, 0x5C, 0x4F, 0x06, 0x4D]) 
