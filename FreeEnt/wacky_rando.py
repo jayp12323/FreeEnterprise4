@@ -43,8 +43,7 @@ WACKY_CHALLENGES = {
     'forwardisback'     : 'Forward is\nthe New Back',
     'mirrormirror'      : 'Mirror, Mirror,\non the Wall',
     'dropitlikeitshot'  : 'Drop It Like It\'s Hot',
-    'whatsmygear'       : 'What\'s My\nGear Again?',
-    'scrambledstats'    : 'Scrambled Stats'
+    'whatsmygear'       : 'What\'s My\nGear Again?'
 }
 
 WACKY_ROM_ADDRESS = BusAddress(0x268000)
@@ -294,28 +293,6 @@ def apply_whatsmygear(env, rom_address):
 
     # pass the gear_descriptions to env in order to have generator.py make the replacements while it does the other descriptions
     env.meta['wacky_gear_descriptions'] = gear_description_bytes
-
-def apply_scrambledstats(env, rom_address):
-    statslist = [0, 1, 2, 3, 4] # Str, Agi, Vit, Wis, Wil
-    env.rnd.shuffle(statslist)
-    statsdict = {stat : statslist[i] for stat, i in zip(['STR', 'AGI', 'VIT', 'WIS', 'WIL'], [0, 1, 2, 3, 4])}
-
-    env.add_substitution('3966 STR substitute', f'{102+statsdict["STR"]:02X}')
-    env.add_substitution('3967 AGI substitute', f'{102+statsdict["AGI"]:02X}')
-    env.add_substitution('2015 AGI substitute', f'{20+statsdict["AGI"]:02X}')
-    env.add_substitution('wacky scrambled stats agi address', f'    .def  CharAgilityAddress  $20{20+statsdict["AGI"]:02X}')
-    env.add_substitution('3968 VIT substitute', f'{102+statsdict["VIT"]:02X}')
-    env.add_substitution('2716 VIT substitute', f'{20+statsdict["VIT"]:02X}')
-    env.add_substitution('2016 VIT substitute', f'{20+statsdict["VIT"]:02X}')
-    env.add_substitution('3969 WIS substitute', f'{102+statsdict["WIS"]:02X}')
-    env.add_substitution('2017 WIS substitute', f'{20+statsdict["WIS"]:02X}')
-    env.add_substitution('ldx WIS offset', f'ldx #$00{statsdict["WIS"]:02X}')
-    env.add_substitution('3970 WIL substitute', f'{102+statsdict["WIL"]:02X}')
-    env.add_substitution('2018 WIL substitute', f'{20+statsdict["WIL"]:02X}')
-    env.add_substitution('ldx WIL offset', f'ldx #$00{statsdict["WIL"]:02X}')
-
-    env.add_toggle('wacky_scrambledstats')
-    env.add_file('scripts/wacky/scrambledstats.f4c')
 
 def apply_sixleggedrace(env, rom_address):
     env.add_toggle('wacky_challenge_show_detail')

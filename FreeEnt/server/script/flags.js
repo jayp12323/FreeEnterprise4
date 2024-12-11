@@ -1321,11 +1321,6 @@ const _FE_FLAGSPEC = {
         "-wacky:bodyguard",
         "-wacky:fistfight",
         "-wacky:omnidextrous",
-<<<<<<< HEAD
-=======
-        "-wacky:whatsmygear",
-        "-wacky:scrambledstats",
->>>>>>> 3ed97b3 (Adding -wacky:scrambledstats)
         "-wacky:biggermagnet",
         "-wacky:sixleggedrace",
         "-wacky:floorislava",
@@ -2541,49 +2536,11 @@ const _FE_FLAGSPEC = {
         ],
         [
             "-wacky:random",
-<<<<<<< HEAD
             "-wacky:random2",
             "-wacky:random3",
             "-wacky:random4",
             "-wacky:random5",
             "-wacky:random6"
-=======
-            "-wacky:musical",
-            "-wacky:bodyguard",
-            "-wacky:fistfight",
-            "-wacky:omnidextrous",
-            "-wacky:whatsmygear",
-            "-wacky:scrambledstats",
-            "-wacky:biggermagnet",
-            "-wacky:sixleggedrace",
-            "-wacky:floorislava",
-            "-wacky:neatfreak",
-            "-wacky:timeismoney",
-            "-wacky:nightmode",
-            "-wacky:mysteryjuice",
-            "-wacky:misspelled",
-            "-wacky:enemyunknown",
-            "-wacky:kleptomania",
-            "-wacky:darts",
-            "-wacky:unstackable",
-            "-wacky:menarepigs",
-            "-wacky:skywarriors",
-            "-wacky:zombies",
-            "-wacky:afflicted",
-            "-wacky:batman",
-            "-wacky:battlescars",
-            "-wacky:imaginarynumbers",
-            "-wacky:tellahmaneuver",
-            "-wacky:3point",
-            "-wacky:friendlyfire",
-            "-wacky:payablegolbez",
-            "-wacky:gottagofast",
-            "-wacky:worthfighting",
-            "-wacky:saveusbigchocobo",
-            "-wacky:isthisrandomized",
-            "-wacky:forwardisback",
-            "-wacky:dropitlikeitshot"
->>>>>>> 3ed97b3 (Adding -wacky:scrambledstats)
         ],
         [
             "-spoil:treasure",
@@ -8645,7 +8602,6 @@ const _FE_FLAGSPEC = {
             "value": 6
         },
         {
-<<<<<<< HEAD
             "flag": "Tvanillaish",
             "offset": 284,
             "size": 4,
@@ -8797,213 +8753,6 @@ const _FE_FLAGSPEC = {
         },
         {
             "flag": "Spricey:items",
-=======
-            "flag": "-wacky:scrambledstats",
-            "offset": 290,
-            "size": 6,
-            "value": 7
-        },
-        {
-            "flag": "-wacky:biggermagnet",
-            "offset": 290,
-            "size": 6,
-            "value": 8
-        },
-        {
-            "flag": "-wacky:sixleggedrace",
-            "offset": 290,
-            "size": 6,
-            "value": 9
-        },
-        {
-            "flag": "-wacky:floorislava",
-            "offset": 290,
-            "size": 6,
-            "value": 10
-        },
-        {
-            "flag": "-wacky:neatfreak",
-            "offset": 290,
-            "size": 6,
-            "value": 11
-        },
-        {
-            "flag": "-wacky:timeismoney",
-            "offset": 290,
-            "size": 6,
-            "value": 12
-        },
-        {
-            "flag": "-wacky:nightmode",
-            "offset": 290,
-            "size": 6,
-            "value": 13
-        },
-        {
-            "flag": "-wacky:mysteryjuice",
-            "offset": 290,
-            "size": 6,
-            "value": 14
-        },
-        {
-            "flag": "-wacky:misspelled",
-            "offset": 290,
-            "size": 6,
-            "value": 15
-        },
-        {
-            "flag": "-wacky:enemyunknown",
-            "offset": 290,
-            "size": 6,
-            "value": 16
-        },
-        {
-            "flag": "-wacky:kleptomania",
-            "offset": 290,
-            "size": 6,
-            "value": 17
-        },
-        {
-            "flag": "-wacky:darts",
-            "offset": 290,
-            "size": 6,
-            "value": 18
-        },
-        {
-            "flag": "-wacky:unstackable",
-            "offset": 290,
-            "size": 6,
-            "value": 19
-        },
-        {
-            "flag": "-wacky:menarepigs",
-            "offset": 290,
-            "size": 6,
-            "value": 20
-        },
-        {
-            "flag": "-wacky:skywarriors",
-            "offset": 290,
-            "size": 6,
-            "value": 21
-        },
-        {
-            "flag": "-wacky:zombies",
-            "offset": 290,
-            "size": 6,
-            "value": 22
-        },
-        {
-            "flag": "-wacky:afflicted",
-            "offset": 290,
-            "size": 6,
-            "value": 23
-        },
-        {
-            "flag": "-wacky:batman",
-            "offset": 290,
-            "size": 6,
-            "value": 24
-        },
-        {
-            "flag": "-wacky:battlescars",
-            "offset": 290,
-            "size": 6,
-            "value": 25
-        },
-        {
-            "flag": "-wacky:imaginarynumbers",
-            "offset": 290,
-            "size": 6,
-            "value": 26
-        },
-        {
-            "flag": "-wacky:tellahmaneuver",
-            "offset": 290,
-            "size": 6,
-            "value": 27
-        },
-        {
-            "flag": "-wacky:3point",
-            "offset": 290,
-            "size": 6,
-            "value": 28
-        },
-        {
-            "flag": "-wacky:friendlyfire",
-            "offset": 290,
-            "size": 6,
-            "value": 29
-        },
-        {
-            "flag": "-wacky:payablegolbez",
-            "offset": 290,
-            "size": 6,
-            "value": 30
-        },
-        {
-            "flag": "-wacky:gottagofast",
-            "offset": 290,
-            "size": 6,
-            "value": 31
-        },
-        {
-            "flag": "-wacky:worthfighting",
-            "offset": 290,
-            "size": 6,
-            "value": 32
-        },
-        {
-            "flag": "-wacky:saveusbigchocobo",
-            "offset": 290,
-            "size": 6,
-            "value": 33
-        },
-        {
-            "flag": "-wacky:isthisrandomized",
-            "offset": 290,
-            "size": 6,
-            "value": 34
-        },
-        {
-            "flag": "-wacky:forwardisback",
-            "offset": 290,
-            "size": 6,
-            "value": 35
-        },
-        {
-            "flag": "-wacky:dropitlikeitshot",
-            "offset": 290,
-            "size": 6,
-            "value": 36
-        },
-        {
-            "flag": "-tweak:kainmagic",
-            "offset": 296,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-tweak:edwardheal",
-            "offset": 297,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-tweak:darkpaladin",
-            "offset": 298,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:all",
-            "offset": 299,
-            "size": 1,
-            "value": 1
-        },
-        {
-            "flag": "-spoil:keyitems",
->>>>>>> 3ed97b3 (Adding -wacky:scrambledstats)
             "offset": 300,
             "size": 1,
             "value": 1
@@ -12303,11 +12052,11 @@ class FlagLogicCore {
         if (flagset.has("Kforge")) {
             this._simple_disable_regex(flagset, log, "-smith is incompatible with Kforge", "^-smith:");
         }
+        kmiab_flags = flagset.get_list("^Kmiab:");
         if ((flagset.has_any("Ksummon", "Kmoon", "Kforge", "Kpink", "Kmiab:standard", "Kmiab:above", "Kmiab:below", "Kmiab:lst", "Kmiab:all") && (! flagset.has("Kmain")))) {
             flagset.set("Kmain");
             this._lib.push(log, ["correction", "Advanced key item randomizations are enabled; forced to add Kmain"]);
         }
-        kmiab_flags = flagset.get_list("^Kmiab:");
         if ((flagset.has("Owin:crystal") && flagset.has("Omode:ki17"))) {
             flagset.unset("Omode:ki17");
             flagset.set("Omode:ki16");
@@ -12319,6 +12068,9 @@ class FlagLogicCore {
         if (flagset.has("Kvanilla")) {
             this._simple_disable(flagset, log, "Key items not randomized", ["Kunsafe", "Kunsafer", "Kunweighted"]);
             this._simple_disable_regex(flagset, log, "Key items not randomized", "^Kstart:");
+        }
+        if ((flagset.has("Kmiab:lst") && flagset.has_any("Kmoon", "Kunsafe"))) {
+            this._simple_disable(flagset, log, "LST miabs already included", ["Kmiab:lst"]);
         }
         if (flagset.has("Kstart:darkness")) {
             this._simple_disable(flagset, log, "Klatedark is incompatible with starting with Darkness", ["Klatedark"]);

@@ -97,7 +97,6 @@ Gnone Gdupe Gmp Gwarp Glife Gsylph Gbackrow G64
 -wacky:random/-wacky:random2/-wacky:random3/-wacky:random4/-wacky:random5/-wacky:random6
 -wacky:musical
 -wacky:dropitlikeitshot
--wacky:scrambledstats
 -wacky:whatsmygear
 -wacky:bodyguard
 -wacky:fistfight
