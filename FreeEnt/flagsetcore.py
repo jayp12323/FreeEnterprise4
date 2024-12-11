@@ -399,13 +399,13 @@ class FlagLogicCore:
 
         if flagset.has('Kforge'):
             self._simple_disable_regex(flagset, log, '-smith is incompatible with Kforge', r'^-smith:')
-        kmiab_flags = flagset.get_list(r'^Kmiab:')
 
         if flagset.has_any('Ksummon', 'Kmoon', 'Kforge', 'Kpink',
                            'Kmiab:standard', 'Kmiab:above', 'Kmiab:below', 'Kmiab:lst',
                            'Kmiab:all') and not flagset.has('Kmain'):
             flagset.set('Kmain')
             self._lib.push(log, ['correction', 'Advanced key item randomizations are enabled; forced to add Kmain'])
+        kmiab_flags = flagset.get_list(r'^Kmiab:')
 
         if flagset.has('Owin:crystal') and flagset.has('Omode:ki17'):
             flagset.unset('Omode:ki17')
@@ -419,10 +419,7 @@ class FlagLogicCore:
 
         if flagset.has('Kvanilla'):
             self._simple_disable(flagset, log, 'Key items not randomized', ['Kunsafe', 'Kunsafer','Kunweighted'])
-            self._simple_disable_regex(flagset, log, 'Key items not randomized', r'^Kstart:')
-        
-        if flagset.has('Kmiab:lst') and flagset.has_any('Kmoon','Kunsafe'):
-            self._simple_disable(flagset, log, 'LST miabs already included', ['Kmiab:lst'])
+            self._simple_disable_regex(flagset, log, 'Key items not randomized', r'^Kstart:')        
 
         if flagset.has('Kstart:darkness'):
             self._simple_disable(flagset, log, 'Klatedark is incompatible with starting with Darkness', ['Klatedark'])

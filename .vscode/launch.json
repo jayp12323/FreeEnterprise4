@@ -5,15 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "FE Tools site",
+            "name": "Python Debugger: Module",
             "type": "debugpy",
             "request": "launch",
-            "program": ".\\fetools\\tool_site.py",
-            "console": "integratedTerminal",
-            "args": [".\\ff4.smc"]
+            "module": "FreeEnt"
         },
         {
-            "name": "Python Debugger: Module",
+            "name": "Run FF4FE Make",
             "type": "debugpy",
             "request": "launch",
             "module": "FreeEnt",
@@ -25,7 +23,7 @@
                 ".\\ff4.smc",
                 "make",
                 "-f",
-                "Omode:dkmatter20,ki10,bosscollector34/1:quest_music/2:char_rydia/random:5/req:all/win:crystal Kmain/summon/moon/miab:standard/forge/pink/nofree:dwarf/unsafe/force:hook Pnone Cstandard/nofree/thrift:3/j:abilities/bye/permadeath/treasure:free Twildish Swildish/always:starveil/no:apples Bstandard/nofree/unsafe/alt:gauntlet/restrict:sealedcave/whichburn/whichbez/woahdin Etoggle Gwarp/life/sylph -kit:exit -kit2:mysidia -kit3:hero -spoon -pushbtojump -doorsrando:normal",
+                "Onone Kmain/summon/moon/miab:lst Pnone Cvanilla Tvanilla Svanilla Bvanilla Evanilla Gnone",
                 "-t open",
                 "-o",
                 "output/output.smc"
