@@ -1,17 +1,7 @@
-
-placement($00 0)  //#BaronTown, #TownWaterBG, #CastleFloorBG, #CastleWaterBG, $B3, $B4, $F8, $F9, $FA, #Overworld, #Underworld, #Moon, #CurrentMap, $FF
+// %if ~entrancesrando%
+placement($00 0)
 {
 npc #fe_None
-}
-
-npc(#LockedDoorWaterway)
-{
-    // %weird_sprite waterway_door%
-    // %end%
-
-    eventcall {
-        $1F   //Unlock the Waterway door
-    }
 }
 
 placement($24 7)  //#BaronCastle
@@ -33,6 +23,9 @@ npc(#LockedDoorWeaponArmorShop)
     default inactive
 
 }
+
+// %end%
+
 
 // Change Mysidia lady who turns you into pig's dialog
 text(bank 1 message $1A5) {

@@ -817,6 +817,9 @@ def build(romfile, options, force_recompile=False):
         env.add_file('scripts/map_history_extension.f4c')
         env.add_file('scripts/doorsrando.f4c')
         env.add_toggle('doorsrando')
+        if rando_scope == "-entrancesrando":
+            env.add_toggle('entrancesrando')
+
         if options.flags.has('-calmness'):
             env.add_toggle('calmness')
         if options.flags.has('-forcesealed'):

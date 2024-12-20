@@ -1122,10 +1122,21 @@ def apply(env, randomize_scope, randomize_type, testing=False):
     special_triggers_script = '\n'.join(special_triggers)
     env.add_script(f'patch($21e000 bus) {{\n{special_triggers_script}\n}}')
 
-    name = "waterway_door"
-    sprite = env.rnd.choice(NON_PLAYER_SPRITES)
-    env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
-
+    if randomize_scope == "-doorsrando":
+        randomized_sprite='''npc(#LockedDoorWaterway)
+        {
+            // %weird_sprite waterway_door%
+            // %end%
+        
+            eventcall {
+                $1F   //Unlock the Waterway door
+            }
+        }
+        '''
+        env.add_script(randomized_sprite)
+        name = "waterway_door"
+        sprite = env.rnd.choice(NON_PLAYER_SPRITES)
+        env.add_substitution(f'weird_sprite {name}', 'sprite ${:02X}'.format(sprite['npc_sprite']))
     # print(script)
 
     towns_map = []
