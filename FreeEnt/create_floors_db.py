@@ -118,14 +118,37 @@ def return_triggers(master_map):
 
 
 def map_trigger_to_warp(master_map):
-    warps_to_map = collections.defaultdict(list)
+    warps_to_map = collections.defaultdict(dict)
+    warps_to_map["warps"]=[]
     for map in master_map["maps"]:
         if 'warp_tiles' in master_map["maps"][map]:
+            warps_to_map[map]["warps"] = []
             if 'triggers' in master_map["maps"][map] and master_map["maps"][map]['warp_tiles']:
                 for warp in master_map["maps"][map]['warp_tiles']:
-                    warps_to_map[map].append(warp)
-
-
+                    warps_to_map[map]["warps"].append(warp)
+    for map in master_map["maps"]:
+        if "triggers" not in master_map["maps"][map]:
+            continue
+        if "Eblan" in map:
+            x=111
+        for trigger_map in master_map["maps"][map]["triggers"]:
+            for trigger in trigger_map:
+                trigger_dest,x,y = trigger_map[trigger]
+                if "warps" not in warps_to_map[trigger_dest] or not warps_to_map[trigger_dest]["warps"] :
+                    continue
+                for x_dest,y_dest in warps_to_map[trigger_dest]["warps"]:
+                    abs_value=abs(x_dest-int(x))+abs(y_dest-int(y))
+                    min_val=1
+                    if "Eblan" in map:
+                        min_val=3
+                    if abs_value <= min_val:
+                        if "warp_to_trigger" not in warps_to_map[trigger_dest]:
+                            warps_to_map[trigger_dest]["warp_to_trigger"]={}
+                        warps_to_map[trigger_dest]["warp_to_trigger"][(x_dest,y_dest)]=[map,trigger[0],trigger[1]]
+    for map in warps_to_map:
+        if "warp_to_trigger" in warps_to_map[map]:
+            for warp_trigger in warps_to_map[map]["warp_to_trigger"]:
+                print(map,warp_trigger,warps_to_map[map]["warp_to_trigger"][warp_trigger])
 
 master_map = return_tilesets(master_map)
 master_map = return_mapinfo(master_map)
