@@ -89,18 +89,52 @@ def return_mapgrids(master_map):
     return master_map
 
 
+def return_triggers(master_map):
+    trigger_map = collections.defaultdict(list)
+    trigger = ""
+    start = 0
+    for line in triggers:
+        line = line.strip()
+        if "trigger" in line:
+            if start == 1:
+                if "teleport" in trigger[3]:
+                    loc, number = trigger[0].split("#")[1].strip(")").split(" ")
+                    loc = "#" + loc
+                    x, y = trigger[2].split(" ")[1:]
+                    target = trigger[3].split(" ")
+                    target_loc = target[1]
+                    target_x = target[3]
+                    target_y = target[4]
+
+                    trigger_map[loc].append({(x, y): [target_loc, target_x, target_y]})
+
+            trigger = [line]
+            start = 1
+        else:
+            trigger.append(line)
+    for map in trigger_map:
+        master_map["maps"][map]["triggers"] = trigger_map[map]
+    return master_map
+
+
+def map_trigger_to_warp(master_map):
+    warps_to_map = collections.defaultdict(list)
+    for map in master_map["maps"]:
+        if 'warp_tiles' in master_map["maps"][map]:
+            if 'triggers' in master_map["maps"][map] and master_map["maps"][map]['warp_tiles']:
+                for warp in master_map["maps"][map]['warp_tiles']:
+                    warps_to_map[map].append(warp)
+
+
+
 master_map = return_tilesets(master_map)
 master_map = return_mapinfo(master_map)
 master_map = return_mapgrids(master_map)
+master_map = return_triggers(master_map)
 
-for map in master_map["maps"]:
-    try:
-        if master_map["maps"][map]['warp_tiles']:
-            print(map,master_map["maps"][map]['warp_tiles'])
-    except:
-        pass
+map_trigger_to_warp(master_map)
 
-    #         if start == 1:
+#         if start == 1:
 #             if "teleport" in trigger[3]:
 #                 loc, number = trigger[0].split("#")[1].strip(")").split(" ")
 #                 loc = "#" + loc
