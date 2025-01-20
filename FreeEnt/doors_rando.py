@@ -835,6 +835,19 @@ def is_omnicraft_blocked(location, paths_to_world):
 
     return True
 
+def return_all_required_ki(key_item,key_items,slots_locked):
+    ki_locking=[]
+
+    while True:
+        ki_slot = key_items[key_item]["slot"]
+
+        if ki_slot in slots_locked:
+            key_item = slots_locked[ki_slot]
+            ki_locking.append(key_item)
+        else:
+            break
+
+    return ki_locking
 
 def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope):
     magma = True
@@ -845,12 +858,38 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
     tower_key_location = key_items['*[#item.Tower]']["location"]
     darkness_location = key_items['*[#item.DarkCrystal]']["location"]
 
+    magma_slot = key_items['*[#item.Magma]']["slot"]
+    tower_key_slot = key_items['*[#item.Tower]']["slot"]
+
+    magma_slot_locked_ki = return_all_required_ki('*[#item.Magma]',key_items,slots_locked)
+    magma_slot_locked_locations = []
+    for ki in magma_slot_locked_ki:
+        magma_slot_locked_locations.append(key_items[ki]["location"])
+
+    tower_key_slot_locked_ki = return_all_required_ki('*[#item.Tower]',key_items,slots_locked)
+    tower_key_slot_locked_locations = []
+    for ki in tower_key_slot_locked_ki:
+        tower_key_slot_locked_locations.append(key_items[ki]["location"])
+
     darkness_underground = True if darkness_location not in world_paths["#Overworld"] \
                                    and darkness_location not in world_paths["#Moon"] else False
     tower_key_underground = True if tower_key_location not in world_paths["#Overworld"] \
                                     and tower_key_location not in world_paths["#Moon"] else False
     magma_underground = True if magma_location not in world_paths["#Overworld"] \
                                 and magma_location not in world_paths["#Moon"] else False
+
+    tower_key_locked_underground = False
+    for ki_location in tower_key_slot_locked_locations:
+        if ki_location not in world_paths["#Overworld"] and tower_key_slot_locked not in world_paths["#Moon"]:
+            tower_key_locked_underground=True
+            break
+
+    magma_locked_underground = False
+    for ki_location in magma_slot_locked_locations:
+        if ki_location not in world_paths["#Overworld"] and ki_location not in world_paths["#Moon"]:
+            magma_locked_underground = True
+            break
+
     damcyan_underground = True if "UNDERWORLD" in gated_paths['#Damcyan'] else False
 
     magma_moon = True if magma_location not in world_paths["#Overworld"] \
@@ -858,8 +897,23 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
     tower_key_moon = True if tower_key_location not in world_paths["#Overworld"] \
                              and tower_key_location not in world_paths["#Underworld"] else False
 
+
+    tower_key_locked_moon = False
+    for ki_location in tower_key_slot_locked_locations:
+        if ki_location not in world_paths["#Overworld"] and tower_key_slot_locked not in world_paths["#Underworld"]:
+            tower_key_locked_moon=True
+            break
+
+    magma_locked_moon  = False
+    for ki_location in magma_slot_locked_locations:
+        if ki_location not in world_paths["#Overworld"] and ki_location not in world_paths["#Underworld"]:
+            magma_locked_moon = True
+            break
+
+
     damcyan_moon = True if '*[#item.DarkCrystal]' in gated_paths['#Damcyan'] else False
     mysidia_moon = True if '*[#item.DarkCrystal]' in gated_paths['#Mysidia'] else False
+    mysidia_underground = True if 'UNDERWORLD' in gated_paths['#Mysidia'] else False
 
     well_entrance = '#AgartWell' if scope == "-doorsrando" else "#Agart"
     hook_route_entrance = '#BabilB1' if scope == "-doorsrando" else "#CaveEblanEntrance"
@@ -873,8 +927,9 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
         return False
 
     while magma:
-        if (well_entrance in world_paths['#Underworld'] or magma_underground) \
-                or ((well_entrance in world_paths['#Moon'] or magma_moon) and darkness_underground):
+        if (well_entrance in world_paths['#Underworld'] or magma_underground or magma_locked_underground) \
+                or ((well_entrance in world_paths['#Moon'] or magma_moon or magma_locked_moon) and (
+                darkness_underground or mysidia_underground)):
             magma = False
             break
         if (is_omnicraft_blocked(well_entrance, paths_to_world)
@@ -886,25 +941,26 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
         break
 
     while tower:
-        if ("#Babil1F" in world_paths['#Underworld'] or tower_key_underground) \
-                or (("#Babil1F" in world_paths['#Moon'] or tower_key_moon) and darkness_underground):
+        if ("#Babil1F" in world_paths['#Underworld'] or tower_key_underground or tower_key_locked_underground) \
+                or (("#Babil1F" in world_paths['#Moon'] or tower_key_moon or tower_key_locked_moon) and (
+                darkness_underground or mysidia_underground)):
             tower = False
             break
         if (is_omnicraft_blocked('#Babil1F', paths_to_world)
             or is_omnicraft_blocked(tower_key_location, paths_to_world)) and \
-                (damcyan_underground or (damcyan_moon and darkness_underground)):
+                (damcyan_underground or (damcyan_moon and (darkness_underground or mysidia_underground))):
             tower = False
             break
         tower = True
         break
     while hook:
         if (hook_route_entrance in world_paths['#Underworld']) \
-                or (hook_route_entrance in world_paths['#Moon'] and darkness_underground):
+                or (hook_route_entrance in world_paths['#Moon'] and (darkness_underground or mysidia_underground)):
             hook = False
             break
 
         if is_omnicraft_blocked(hook_route_entrance, paths_to_world) and \
-                (damcyan_underground or (damcyan_moon and darkness_underground)):
+                (damcyan_underground or (damcyan_moon and (darkness_underground or mysidia_underground))):
             hook = False
             break
         hook = True
@@ -1200,7 +1256,7 @@ def apply(env, randomize_scope, randomize_type, testing=False):
         else:
             other_entrances.append(i)
 
-    #print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
+    # print("\n".join(["", "", "", ] + towns_map + ["", "", "", ] + other_entrances))
     env.spoilers.add_table("Entrance Randomization\nLocation X is in Entrance Y", sorted(spoil_entrances_for_spoiler),
                            public=env.options.flags.has_any('-spoil:all', '-spoil:misc'), ditto_depth=1)
 
