@@ -880,7 +880,7 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
 
     tower_key_locked_underground = False
     for ki_location in tower_key_slot_locked_locations:
-        if ki_location not in world_paths["#Overworld"] and tower_key_slot_locked not in world_paths["#Moon"]:
+        if ki_location not in world_paths["#Overworld"] and ki_location not in world_paths["#Moon"]:
             tower_key_locked_underground=True
             break
 
@@ -900,7 +900,7 @@ def check_underworld(key_items, paths_to_world, gated_paths, world_paths, scope)
 
     tower_key_locked_moon = False
     for ki_location in tower_key_slot_locked_locations:
-        if ki_location not in world_paths["#Overworld"] and tower_key_slot_locked not in world_paths["#Underworld"]:
+        if ki_location not in world_paths["#Overworld"] and ki_location not in world_paths["#Underworld"]:
             tower_key_locked_moon=True
             break
 
