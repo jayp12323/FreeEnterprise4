@@ -23,7 +23,7 @@
                 ".\\ff4.smc",
                 "make",
                 "-f",
-                "Onone Kmain/summon/moon/miab:lst Pnone Cvanilla Tvanilla Svanilla Bvanilla Evanilla Gnone",
+                "Omode:ki11/req:all/win:crystal Kmain/summon/moon/miab:above,below Pshop Cstandard/nofree/start:not_tellah/thrift:4/j:abilities/hero Tstandard Swildish/no:sirens Bstandard/alt:gauntlet/whichburn/whichbez Etoggle Glife/sylph/backrow -kit:basic -kit2:freedom -kit3:exit -noadamants -spoon -exp:nokeybonus,kicheckbonus5,maxlevelbonus -doorsrando:all",
                 "-t open",
                 "-o",
                 "output/output.smc"

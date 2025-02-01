@@ -96,7 +96,7 @@ consts(reward_slot)
 }
 
 msfpatch {
-    .def  Rewards__MaxSlotCount  $70    
+    .def  Rewards__MaxSlotCount  $60    
 }
 
 msfpatch {

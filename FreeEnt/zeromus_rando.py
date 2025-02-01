@@ -150,7 +150,6 @@ POSSIBLE_CHAOS_COMMANDS = {
     '#spell.Enemy_Poison' : (False, 'spell power', [20], 'all characters'),
     '#spell.Enemy_Maser' : (True, 'spell power', [20], 'all characters'),
     '#spell.Enemy_Demolish' : (True, 'spell power', [20], 'random character'),
-    '#spell.Enemy_Disrupt2' : (True, 'spell power', [20], 'random character'),
     '#spell.Enemy_Remedy' : (False, 'spell power', [20], 'self'),
     '#spell.Enemy_Absorb' : (False, 'spell power', [20], 'self'),
     '#spell.Enemy_Vampire' : (True, 'spell power', [128, 172], 'random character / all characters'),
@@ -458,6 +457,9 @@ def apply(env):
                             spoilers_to_add[i].append(databases.get_spell_spoiler_name(attack_to_add))
                         if black_hole_added:
                             spoilers_to_add[i].append('Blk.Hole')
+            # if we end with the Black Hole commands, then remove the last "wait" to avoid softlocks
+            if chaos_phases[i][-1] == '    wait\n\n':
+                chaos_phases[i].pop()
             # build spoiler entry for this phase
             chaos_spoilers.append((f'Zeromus script {i+1}', ', '.join(spoilers_to_add[i])))
 

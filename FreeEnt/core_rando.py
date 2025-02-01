@@ -755,7 +755,7 @@ def apply(env):
         magma_path_forced = None 
 
         if env.options.flags.has('key_items_unsafer'):
-            if forced_hook_route:
+            if not forced_hook_route:
                 magma_path_forced = 'moon'
             tests.append(['#item.fe_Hook', [], 'moon'])
 
@@ -1155,10 +1155,10 @@ def apply(env):
     # purposes, might as well do that here
     if env.options.hide_flags:
         potential_key_item_slots = list(ITEM_SLOTS) + list(SUMMON_QUEST_SLOTS) + list(MOON_BOSS_SLOTS) + list(CHEST_ITEM_SLOTS)
-        potential_key_item_slots.append(RewardSlot.forge_item)
-        potential_key_item_slots.append(RewardSlot.pink_trade_item)
     elif env.options.flags.has('key_items_vanilla'):
         potential_key_item_slots = [s for s in range(RewardSlot.MAX_COUNT) if s in rewards_assignment and isinstance(rewards_assignment[s], ItemReward) and rewards_assignment[s].is_key]
+        if env.options.flags.has('objective_zeromus'):
+            potential_key_item_slots.remove(RewardSlot.fixed_crystal)
     else:
         potential_key_item_slots = list(ITEM_SLOTS)
         if env.options.flags.has('no_free_key_item_dwarf'):
@@ -1174,10 +1174,10 @@ def apply(env):
             potential_key_item_slots.extend(SUMMON_QUEST_SLOTS)
         if env.options.flags.has('key_items_in_moon_bosses'):
             potential_key_item_slots.extend(MOON_BOSS_SLOTS)        
-        if env.options.flags.has('key_item_from_forge'):
-            potential_key_item_slots.append(RewardSlot.forge_item)
-        if env.options.flags.has('key_item_from_pink_tail'):
-            potential_key_item_slots.append(RewardSlot.pink_trade_item)
+        if not env.options.flags.has('key_item_from_forge'):
+            potential_key_item_slots.remove(RewardSlot.forge_item)
+        if not env.options.flags.has('key_item_from_pink_tail'):
+            potential_key_item_slots.remove(RewardSlot.pink_trade_item)
         if miab_flags:
             potential_key_item_slots.extend(potential_miabs)
     # put this information in env to facilitate -exp:kicheckbonus_num

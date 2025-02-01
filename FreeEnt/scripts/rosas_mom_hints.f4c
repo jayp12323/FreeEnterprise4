@@ -539,14 +539,20 @@ the heart of the moon.
 text(bank 1 message $7B)   // $5B  forge_item
 {
 Kokkol the Smith can forge
-the [crystal]Crystal when given
-the [lightsword]Legend and Adamant.
+a reward when given the
+[lightsword]Legend and Adamant.
 }
 text(bank 1 message $7C)   // $5C  pink_trade_item
-{X}
+{
+A man in the Adamant
+Grotto dreams of the
+legendary [tail]Pink.
+}
 text(bank 1 message $7D)   // $5D  fixed_crystal
 {X}
-text(bank 1 message $7E)   // $5E  dwarf_hospital_item
+text(bank 1 message $7E)   // $5E  gated_objective
+{X}
+text(bank 1 message $7F)   // $5F  dwarf_hospital_item
 {
 [Cid] has a gift for you.
 He's injured in the Dwarf
