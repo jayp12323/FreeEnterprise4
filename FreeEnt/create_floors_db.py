@@ -14,6 +14,50 @@ with open("../f4c/dump.tilesets.f4c", 'r') as file:
 master_map = collections.defaultdict(dict)
 master_map["maps"] = collections.defaultdict(dict)
 
+overworld = ["#CaveEblanEquipment", "#CaveEblanInn", "#FabulInn", "#Overworld", "#ToroiaCastleHospital",
+             "#ToroiaCastleStairs", '#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeapon',
+             '#AgartWell', '#AntlionCave1F', '#AstroTower', '#BabilB1', '#BaronCastle', '#BaronCastleEastTower1F',
+             '#BaronCastleEastTower2F', '#BaronCastleEastTowerB1', '#BaronCastlePrisonEntrance',
+             '#BaronCastleSoldiersQuarters', '#BaronChocoboForest', '#BaronEquipment', '#BaronInn', '#BaronSerpentRoad',
+             '#BaronTown', '#BaronTownItems', '#BlackChocoboForest', '#CaveEblanEntrance', '#CaveEblanExit',
+             '#CaveMagnes1F', '#CaveMagnes2F', '#CaveMagnes3F', '#CaveMagnes4F', '#CaveMagnes5F', '#CidHouse',
+             '#Damcyan', '#Damcyan1F', '#Damcyan2F', '#DamcyanTreasuryEntrance', '#Eblan', '#Eblan1F', '#Eblan2F',
+             '#EblanEastTower1F', '#EblanEastTower2F', '#EblanThroneRoom', '#EblanWestTower1F', '#EblanWestTower2F',
+             '#Fabul', '#FabulChocoboForest', '#FabulEquipment', '#FabulHospital', '#FabulWestTower1F', '#GiantMouth',
+             '#HouseOfWishes', '#IslandChocoboForest', '#Kaipo', '#KaipoArmor', '#KaipoHospital', '#KaipoInn',
+             '#KaipoWeapon', '#Mist', '#MistArmor', '#MistCave', '#MistInn', '#MistWeapon', '#MountHobsEast',
+             '#MountHobsWest', '#MountOrdeals1F', '#MountOrdealsChocoboForest', '#Mysidia', '#MysidiaArmor',
+             '#MysidiaCafe', '#MysidiaItem', '#MysidiaSerpentRoad', '#MysidiaWeapon', '#RoomToSewer', '#RosaHouse',
+             '#RydiaHouse', '#Silvera', '#SilveraArmor', '#SilveraInn', '#SilveraItems', '#SilveraWeapons',
+             '#SoldierAirship', '#ToroiaArmor', '#ToroiaCafe', '#ToroiaCastle', '#ToroiaCastleHall',
+             '#ToroiaCastleStairs', '#ToroiaInn', '#ToroiaItem', '#ToroiaStable', '#ToroiaTown', '#ToroiaWeapon',
+             '#TrainingRoomMain', '#TrainingRoomMain', '#TroiaChocoboForest', '#Waterfall2F', '#WaterfallEntrance',
+             '#WateryPass1F', '#WateryPass5F', '#Zot2F', '#Zot3F', '#Zot4F', '#Zot5F', '#Zot6F']
+underworld = ["#Feymarch1F", "#Feymarch2F", "#FeymarchLibrary1F", "#FeymarchSaveRoom", "#FeymarchTreasury",
+              "#FeymarchWeapon", "#Underworld", '#Babil1F', '#Babil4F', '#BabilFloorAirship2', '#BabilFloorIceMail',
+              '#BabilFloorIceMail2', '#CaveOfSummons1F', '#CaveOfSummons2F', '#CaveOfSummons3F', '#DwarfCastle',
+              '#DwarfCastleBasement', '#DwarfCastleCrystalRoom', '#DwarfCastleTower2F', '#Feymarch1F', '#Feymarch2F',
+              '#FeymarchArmor', '#FeymarchInn', '#FeymarchLibrary1F', '#FeymarchLibrary2F', '#FeymarchTreasury',
+              '#SealedCave1F', '#SealedCave2F', '#SealedCave3F', '#SealedCave4F', '#SealedCave5F', '#SealedCave6F',
+              '#SealedCave7F', '#SealedCaveCrystalRoom', '#SealedCaveDemonWallRoom', '#SealedCaveEntrance',
+              '#SealedCaveSaveRoom', '#SmithyHouse', '#SmithyHouseMainFloor', '#SylvanCave1F', '#SylvanCave2F',
+              '#SylvanCave3F', '#SylvanCaveYangRoom', '#Tomra', '#TomraEquipment', '#TomraInn', '#TomraItem',
+              '#TomraTreasury']
+
+moon = ['#Bahamut1F', '#Hummingway', '#LunarPalaceLobby', '#LunarPassage1', '#LunarPassage2', "#Moon", '#Bahamut2F',
+        '#LunarSubterran1F', '#LunarSubterran2F', '#LunarSubterran3F', '#LunarSubterran4F', '#LunarSubterran5F',
+        '#LunarSubterran6F', '#LunarSubterran7F', '#LunarCore1F', '#LunarCore2F', '#LunarCore3F', '#LunarCore4F',
+        '#LunarSubterranTunnelCure3', '#LunarSubterranTunnelProtectRing', '#LunarSubterranTunnelWhiteRobe',
+        '#LunarSubterranSaveRoom1', '#LunarSubterranTunnelMinerva']
+
+map_key = {}
+for i in overworld:
+    map_key[i] = "#Overworld"
+for i in underworld:
+    map_key[i] = "#Underworld"
+for i in moon:
+    map_key[i] = "#Moon"
+
 
 def return_tilesets(master_map):
     tileset = []
@@ -174,15 +218,19 @@ master_map = return_triggers(master_map)
 warps_to_map = map_trigger_to_warp(master_map)
 
 mapgrid_to_replace=[]
+db=[]
 for map in warps_to_map:
 
     "mapgrid ($04 17 31) { 7C }"
 
 
     if "warp_to_trigger" in warps_to_map[map]:
+        master_map_object = master_map["maps"][map]
+        last_trigger = master_map_object["last_trigger_num"]
         for warp_trigger in warps_to_map[map]["warp_to_trigger"]:
+            last_trigger+=1
             dest,x,y,tile_id=warps_to_map[map]["warp_to_trigger"][warp_trigger]
-            mapgrid_id=master_map["maps"][map]["mapgrid_id"]
+            mapgrid_id=master_map_object["mapgrid_id"]
 
             if not tile_id:
                 if mapgrid_id  in ['$8C','$100','$136','$144','$145','$15A']:
@@ -191,34 +239,52 @@ for map in warps_to_map:
                     tile_id='6E'
                 else:
                     tile_id="7C"
+            # map, trigger_number, x, y, dest, dest_x, dest_y, facing, type, name, world
 
             mapgrid_to_replace.append("mapgrid ({} {} {}) {{ {} }}".format(master_map["maps"][map]["mapgrid_id"], warp_trigger[0],warp_trigger[1],tile_id ))
+            db.append([map,last_trigger,warp_trigger[0],warp_trigger[1],dest,x,y,"up","exit","{}_{}_{}".format(map,dest,"up"),map_key[map]])
+
             # print(map, warp_trigger, warps_to_map[map]["warp_to_trigger"][warp_trigger])
 for m in mapgrid_to_replace:
     print(m)
-overworld = ['#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeapon', '#AgartWell', '#AntlionCave1F',
-             '#AstroTower', '#BaronCastle', '#BaronChocoboForest', '#BaronEquipment', '#BaronInn', '#BaronSerpentRoad',
-             '#BaronTown', '#BaronTownItems', '#BlackChocoboForest', '#CaveEblanEntrance', '#CaveMagnes1F', '#CidHouse',
-             '#Damcyan', '#Eblan', '#Fabul', '#FabulChocoboForest', '#GiantMouth', '#HouseOfWishes',
-             '#IslandChocoboForest', '#Kaipo', '#KaipoArmor', '#KaipoHospital', '#KaipoInn', '#KaipoWeapon', '#Mist',
-             '#MistArmor', '#MistCave', '#MistInn', '#MistWeapon', '#MountHobsEast', '#MountHobsWest',
-             '#MountOrdeals1F', '#MountOrdealsChocoboForest', '#Mysidia', '#MysidiaArmor', '#MysidiaCafe',
-             '#MysidiaItem', '#MysidiaSerpentRoad', '#MysidiaWeapon', '#RoomToSewer', '#RosaHouse', '#RydiaHouse',
-             '#Silvera', '#SilveraArmor', '#SilveraInn', '#SilveraItems', '#SilveraWeapons', '#ToroiaArmor',
-             '#ToroiaCafe', '#ToroiaCastle', '#ToroiaInn', '#ToroiaItem', '#ToroiaStable', '#ToroiaTown',
-             '#ToroiaWeapon', '#TrainingRoomMain', '#TroiaChocoboForest', '#Waterfall2F', '#WaterfallEntrance',
-             '#WateryPass1F', '#WateryPass5F', "#Overworld", '#SoldierAirship', "#FabulInn", '#FabulEquipment',
-             '#FabulWestTower1F', '#BabilB1', '#CaveEblanExit', "#ToroiaCastleHospital", "#ToroiaCastleStairs",
-             "#CaveEblanEquipment", "#CaveEblanInn"]
-underworld = ['#Babil1F', '#CaveOfSummons1F', '#CaveOfSummons3F', '#DwarfCastle', '#DwarfCastleBasement',
-              '#SealedCaveEntrance',
-              '#SmithyHouse', '#SylvanCave1F', '#SylvanCaveYangRoom', '#Tomra', '#TomraEquipment', '#TomraInn',
-              '#TomraInn', '#TomraItem',
-              '#TomraTreasury', "#Underworld", "#FeymarchTreasury", "#Feymarch1F", "#Feymarch2F", "#FeymarchSaveRoom",
-              "#FeymarchLibrary1F", "#FeymarchWeapon",
-              '#FeymarchArmor', '#FeymarchInn']
 
-moon = ['#Bahamut1F', '#Hummingway', '#LunarPalaceLobby', '#LunarPassage1', '#LunarPassage2', "#Moon"]
+for d in db:
+    print(d)
+overworld = ["#CaveEblanEquipment", "#CaveEblanInn", "#FabulInn", "#Overworld", "#ToroiaCastleHospital",
+             "#ToroiaCastleStairs", '#AdamantGrotto', '#Agart', '#AgartArmor', '#AgartInn', '#AgartWeapon',
+             '#AgartWell', '#AntlionCave1F', '#AstroTower', '#BabilB1', '#BaronCastle', '#BaronCastleEastTower1F',
+             '#BaronCastleEastTower2F', '#BaronCastleEastTowerB1', '#BaronCastlePrisonEntrance',
+             '#BaronCastleSoldiersQuarters', '#BaronChocoboForest', '#BaronEquipment', '#BaronInn', '#BaronSerpentRoad',
+             '#BaronTown', '#BaronTownItems', '#BlackChocoboForest', '#CaveEblanEntrance', '#CaveEblanExit',
+             '#CaveMagnes1F', '#CaveMagnes2F', '#CaveMagnes3F', '#CaveMagnes4F', '#CaveMagnes5F', '#CidHouse',
+             '#Damcyan', '#Damcyan1F', '#Damcyan2F', '#DamcyanTreasuryEntrance', '#Eblan', '#Eblan1F', '#Eblan2F',
+             '#EblanEastTower1F', '#EblanEastTower2F', '#EblanThroneRoom', '#EblanWestTower1F', '#EblanWestTower2F',
+             '#Fabul', '#FabulChocoboForest', '#FabulEquipment', '#FabulHospital', '#FabulWestTower1F', '#GiantMouth',
+             '#HouseOfWishes', '#IslandChocoboForest', '#Kaipo', '#KaipoArmor', '#KaipoHospital', '#KaipoInn',
+             '#KaipoWeapon', '#Mist', '#MistArmor', '#MistCave', '#MistInn', '#MistWeapon', '#MountHobsEast',
+             '#MountHobsWest', '#MountOrdeals1F', '#MountOrdealsChocoboForest', '#Mysidia', '#MysidiaArmor',
+             '#MysidiaCafe', '#MysidiaItem', '#MysidiaSerpentRoad', '#MysidiaWeapon', '#RoomToSewer', '#RosaHouse',
+             '#RydiaHouse', '#Silvera', '#SilveraArmor', '#SilveraInn', '#SilveraItems', '#SilveraWeapons',
+             '#SoldierAirship', '#ToroiaArmor', '#ToroiaCafe', '#ToroiaCastle', '#ToroiaCastleHall',
+             '#ToroiaCastleStairs', '#ToroiaInn', '#ToroiaItem', '#ToroiaStable', '#ToroiaTown', '#ToroiaWeapon',
+             '#TrainingRoomMain', '#TrainingRoomMain', '#TroiaChocoboForest', '#Waterfall2F', '#WaterfallEntrance',
+             '#WateryPass1F', '#WateryPass5F', '#Zot2F', '#Zot3F', '#Zot4F', '#Zot5F', '#Zot6F']
+underworld = ["#Feymarch1F", "#Feymarch2F", "#FeymarchLibrary1F", "#FeymarchSaveRoom", "#FeymarchTreasury",
+              "#FeymarchWeapon", "#Underworld", '#Babil1F', '#Babil4F', '#BabilFloorAirship2', '#BabilFloorIceMail',
+              '#BabilFloorIceMail2', '#CaveOfSummons1F', '#CaveOfSummons2F', '#CaveOfSummons3F', '#DwarfCastle',
+              '#DwarfCastleBasement', '#DwarfCastleCrystalRoom', '#DwarfCastleTower2F', '#Feymarch1F', '#Feymarch2F',
+              '#FeymarchArmor', '#FeymarchInn', '#FeymarchLibrary1F', '#FeymarchLibrary2F', '#FeymarchTreasury',
+              '#SealedCave1F', '#SealedCave2F', '#SealedCave3F', '#SealedCave4F', '#SealedCave5F', '#SealedCave6F',
+              '#SealedCave7F', '#SealedCaveCrystalRoom', '#SealedCaveDemonWallRoom', '#SealedCaveEntrance',
+              '#SealedCaveSaveRoom', '#SmithyHouse', '#SmithyHouseMainFloor', '#SylvanCave1F', '#SylvanCave2F',
+              '#SylvanCave3F', '#SylvanCaveYangRoom', '#Tomra', '#TomraEquipment', '#TomraInn', '#TomraItem',
+              '#TomraTreasury']
+
+moon = ['#Bahamut1F', '#Hummingway', '#LunarPalaceLobby', '#LunarPassage1', '#LunarPassage2', "#Moon", '#Bahamut2F',
+        '#LunarSubterran1F', '#LunarSubterran2F', '#LunarSubterran3F', '#LunarSubterran4F', '#LunarSubterran5F',
+        '#LunarSubterran6F', '#LunarSubterran7F', '#LunarCore1F', '#LunarCore2F', '#LunarCore3F', '#LunarCore4F',
+        '#LunarSubterranTunnelCure3', '#LunarSubterranTunnelProtectRing', '#LunarSubterranTunnelWhiteRobe',
+        '#LunarSubterranSaveRoom1', '#LunarSubterranTunnelMinerva']
 
 map_key = {}
 for i in overworld:
